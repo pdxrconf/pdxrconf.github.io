@@ -4,10 +4,10 @@
 # baseurl:
 
 # Site live URL
-# url: https://pdxrconf.github.io
+url: https://pdxrconf.github.io
 
 # Localhost
-url: http://127.0.0.1:4000
+# url: http://127.0.0.1:4000
 
 # Harmony theme configuration. Please change accordingly.
 harmony:
