@@ -1,0 +1,16 @@
+<ul>
+	<li>
+		<a href="{{ '/about' | prepend: site.baseurl | prepend: site.url }}">About</a><span>/</span>
+	</li>
+	<li>
+		<a href="{{ '/speakers' | prepend: site.baseurl | prepend: site.url }}">Speakers</a><span>/</span>
+	</li>
+	{% if site.harmony.social.github %}
+	<li>
+		<a title="{{ site.harmony.social.github }} on Github"
+			href="#" target="_blank">
+			Tickets
+		</a><span>/</span>
+	</li>
+	{% endif %}
+</ul>
