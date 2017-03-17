@@ -1,13 +1,13 @@
 # Harmony Jekyll theme general configurations
 
 # Base URL
-baseurl: /harmony
+# baseurl:
 
 # Site live URL
-url: http://127.0.0.1:4000
+# url: https://pdxrconf.github.io
 
 # Localhost
-# url: http://127.0.0.1:4000
+url: http://127.0.0.1:4000
 
 # Harmony theme configuration. Please change accordingly.
 harmony:
