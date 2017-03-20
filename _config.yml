@@ -1,64 +1,117 @@
-# Harmony Jekyll theme general configurations
+# Site settings
+title:       CascadiaJamboree
+email:       myrmecocystus@gmail.com
+author:      pdxrlang
+description: "CascadiaJamboree - An R Conference"
+baseurl:     ""
+url:         "http://cascadiajamboree.com/"
+date_format: "%b %-d, %Y"
 
-# Base URL
-baseurl: ""
+# Google services
+google_verification:
+# Use either direct GA implementation or set up GTM account
+# - using both will skew your data (leave blank to not use at all)
+google_analytics:
+google_tag_manager:
+# Bing services
+bing_verification:
 
-# Site live URL
-# url: https://pdxrconf.github.io
+# Optional features
+animated:             false
+show_related_posts:   false
+show_post_footers:    false
+show_social_icons:    false
+ajaxify_contact_form: false
+enable_mathjax: false
+extended_fonts: false
+enable_anchorjs: false
 
-# Localhost
-# url: http://127.0.0.1:4000
+# Facebook Page integration
+# (for instant articles and other stuff)
+fb_page: false
+fb_page_id:
 
-# Harmony theme configuration. Please change accordingly.
-harmony:
-  name: PDX R Conf
-  # Little description about your site
-  description: A Conference About R
-  # 'meta_description:' Write an awesome description for your new site here.
-  # It will appear in your document head meta (for Google search results) and
-  # in your feed.xml site description.
-  # meta_description: > #
-  #  Harmony is a free responsive jekyll theme by Gayan Virajith
-  #  and Maheshika Lakmali. Sourced on Github -
-  #  https://github.com/gayanvirajith/harmony
-  basetheme: theme-base-01 # pre defined thmes are darken, blue-water, redish.
-  author: # Author details
-    name: Scott Chamberlain
-    email: myrmecocystus@gmail.com
-    url: https://pdxrlang.com/
+# Disqus post comments
+# (leave blank to disable Disqus)
+disqus_shortname:
 
-  # Google Analytics key, leave blank to ignore
-  google_analytics_key:
+# Facebook Comments plugin
+# (leave blank to disable Facebook Comments, otherwise set it to true)
+facebook_comments:
+facebook_appid:
+facebook_comments_number: 10
 
-  # Profile links, leave blank to ignore
-  social:
-    github: pdxrlang
-    twitter: pdxrlang
-    facebook:
-    gplus:
-    dribble:
-    pinterest:
-  # Toggle disclaimer in footer
-  show_disclaimer: true
+# Social icons
+github_username:
+bitbucket_username:
+stackoverflow_id:
+twitter_username:
+skype_username:
+steam_nickname:
+google_plus_id:
+linkedin_username:
+angellist_username:
+medium_id:
+bitcoin_url:
+paypal_url:
+flattr_button:
 
-# Conversion / Build settings
-markdown:    kramdown
-# This is how you put pygments config in jekyll 2.0 instead of pygments: true
-highlighter: rouge
+# Post sharing icons
+show_sharing_icons: false
+# Change to 'true' to enable individual icons
+share_facebook: false
+share_twitter: false
+share_googleplus: false
+share_linkedin: false
+share_digg: false
+share_tumblr: false
+share_reddit: false
+share_stumbleupon: false
+share_hackernews: false
 
-# Permalinks
-permalink:        pretty
+text:
+  pagination:
+    newer: 'Newer'
+    older: 'Older'
+  share_buttons:
+    text:         'Share this post!'
+    facebook:     'Share on Facebook'
+    twitter:      'Share on Twitter'
+    googleplus:   'Share on Google+'
+    linkedin:     'Share on LinkedIn'
+    digg:         'Share on Digg'
+    tumblr:       'Share on Tumblr'
+    reddit:       'Share on Reddit'
+    stumbleupon:  'Share on StumbleUpon'
+    hackernews:   'Share on Hacker News'
+  post:
+    updated:        'Updated'
+    minute_read:    'minute read'
+    related_posts:  'Related Posts'
+  index:
+    coming_soon: 'Coming soon...'
+  contact:
+    email:    'Email Address'
+    content:  'What would you like to say?'
+    subject:  'New submission!'
+    submit:   'Say Hello'
+    ajax:
+      sending:  'sending..'
+      sent:     'Message sent!'
+      error:    'Error!'
+  thanks: 'Thanks for contacting us. We will reply as soon as possible.'
+  og_locale: 'en_US'
 
-exclude:
-  - CNAME
-  - Gemfile
-  - Rakefile
-  - README.md
-  - .gitignore
-  - .sass-cache
-  - Gemfile.lock
-
-# Sass conversion configs
+# Build settings
+markdown:     kramdown
+redcarpet:
+  extensions: ['smart', 'tables', 'with_toc_data']
+permalink:    pretty
+paginate:     4
 sass:
-    sass_dir: assets/css/_sass
-    style: :compressed
+  style: compressed
+gems:
+  - jekyll-paginate
+  - jekyll-sitemap
+# https://github.com/jekyll/jekyll/issues/2938
+exclude: [vendor]
