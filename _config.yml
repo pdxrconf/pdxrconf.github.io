@@ -4,7 +4,7 @@ email:       myrmecocystus@gmail.com
 author:      pdxrlang
 description: "CascadiaJamboree - An R Conference"
 baseurl:     ""
-url:         "http://cascadiajamboree.com/"
+url:         "http://cascadiajamboree.com"
 date_format: "%b %-d, %Y"
 
 # Google services
