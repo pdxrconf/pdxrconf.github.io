@@ -17,7 +17,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for CascadiaJamboree" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?201703201514" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?201703201610" type="text/css">
 
     <!-- Fonts -->
     
@@ -66,6 +66,9 @@
     <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
 
     
+
+    <script src="https://api.tiles.mapbox.com/mapbox.js/v3.0.1/mapbox.js"></script>
+    <link href="https://api.tiles.mapbox.com/mapbox.js/v3.0.1/mapbox.css" rel="stylesheet" />
 </head>
 
 <body class="site">
@@ -83,7 +86,11 @@
     
 
     
+        <a href="/agenda/">Agenda</a>
+    
 
+    
+        <a href="/faq/">FAQ</a>
     
 
     
@@ -95,28 +102,13 @@
     
 
     
-
-    
-
-    
-
-
+        <a href="/team/">Team</a>
     
 
     
 
     
-        <a href="/contact/">FAQ</a>
-    
-
-    
-
-    
-
-    
-
-    
-
+        <a href="/tickets/">Tickets</a>
     
 
     
@@ -139,11 +131,55 @@
         <div class="home">
 
   <div>
-    <h2>Hello world!</h2>
+    <h2>Cascadia R Jamboree</h2>
+    <h4>June 3, 2017, OHSU Collaborative Life Science Building - Portland, OR</h4>
   </div>
-  <!-- 
-    <h1 class='center'>Coming soon...</h3>
-   -->
+  <br>
+
+  <div>
+    <h2>What is it?</h2>
+    <p>A single track series of talks, ranging from beginner to advanced applications.  Lots of opportunities for questions and a workshop style atmosphere in combination with traditional talks.</p>
+  </div>
+  <br>
+
+  <div>
+    <h2>Agenda</h2>
+    <p>Coming soon ... probably 9:30 to 4:30 </p>
+  </div>
+  <br>
+
+  <div>
+    <h2>Where?</h2>
+
+    <div id='map' style='width: 400px; height: 300px;'></div>
+
+    <script>
+      L.mapbox.accessToken = 'pk.eyJ1IjoicmVjb2xvZ3kiLCJhIjoiZWlta1B0WSJ9.u4w33vy6kkbvmPyGnObw7A';
+        var map = L.mapbox.map("map", "mapbox.streets")
+        .setView([45.503, -122.67], 13);
+
+      var geojson = [
+        {
+          type: "Feature",
+            "geometry": { "type": "Point", "coordinates": [ -122.671894, 45.503176 ]},
+            "properties": {
+                "place": "OHSU Collaborative Life Science Building",
+                "marker-symbol": "triangle",
+                "marker-color": "#5B72AF",
+                "nosoy": false,
+                "url": "null",
+                "menu": "null",
+                "notes": "null"
+            }
+        }
+      ];
+
+      var markers = L.mapbox.featureLayer()
+        .setGeoJSON(geojson)
+        .addTo(map);
+    </script>
+  </div>
+
 </div>
 
       </div>

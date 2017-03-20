@@ -1,10 +1,5 @@
 {% for page in site.pages %}
-    {% if page.tags contains "about" %}
-        <a href="{{ page.url }}">{{ page.title }}</a>
-    {% endif %}
-{% endfor %}
-{% for page in site.pages %}
-    {% if page.tags contains "contact" %}
+    {% if page.tags contains "about" or page.tags contains "faq" or page.tags contains "tickets" or page.tags contains "agenda" or page.tags contains "team" %}
         <a href="{{ page.url }}">{{ page.title }}</a>
     {% endif %}
 {% endfor %}
