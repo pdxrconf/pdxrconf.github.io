@@ -5,4 +5,5 @@ permalink: /about/
 tags: about
 ---
 
-An R conference ... more to come.
+Cascadia Jamboree is a R conference serving the Cascadia-ish region (Oregon/Washington/BC). 
+
