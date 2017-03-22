@@ -1,10 +1,10 @@
 # Site settings
-title:       CascadiaJamboree
+title:       CascadiaRConf
 email:       myrmecocystus@gmail.com
 author:      pdxrlang
-description: "CascadiaJamboree - An R Conference"
+description: "CascadiaRConf - An R Conference"
 baseurl:     ""
-url:         "http://cascadiajamboree.com"
+url:         "https://cascadiarconf.com"
 date_format: "%b %-d, %Y"
 
 # Google services
