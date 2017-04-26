@@ -25,5 +25,6 @@ Organization team includes:
 	<li>Chester Ismay</li>
 	<li>John Smith</li>
 	<li>Ted Laderas</li>
+	<li>Oliver Keyes</li>
 	<li>Scott Chamberlain</li>
 </ul>
