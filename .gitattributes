@@ -1,2 +1,3 @@
 talks/came_scott.pdf filter=lfs diff=lfs merge=lfs -crlf
 talks/sevcikova_hana.pdf filter=lfs diff=lfs merge=lfs -crlf
+talks/brodsky_jae.pdf filter=lfs diff=lfs merge=lfs -crlf
