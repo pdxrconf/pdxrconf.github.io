@@ -22,6 +22,8 @@ If a participant engages in harassing behavior, the conference organizers may ta
 At the conference all attendees and speakers will be wearing a sticker in one of three colors.
 Green for "it is okay to photograph me without asking" yellow for "ask for permission to photograph me" and red for "do not photograph me".
 
+<br>
+
 Conference staff will be happy to help participants contact venue security or local law enforcement, provide escorts, or otherwise assist those experiencing harassment to feel safe for the duration of the conference. We value your attendance.
 
 We expect attendees, sponsors, volunteers, and speakers to adhere to the code of conduct during the conference, conference events at off-site locations, in related online communities and social media. We will be monitoring all social media related to the conference throughout the year.
