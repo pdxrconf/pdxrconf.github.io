@@ -6,3 +6,4 @@ talks/williams_amy.pdf filter=lfs diff=lfs merge=lfs -crlf
 talks/jones_chaya.Rmd filter=lfs diff=lfs merge=lfs -crlf
 talks/jones_chaya.html filter=lfs diff=lfs merge=lfs -crlf
 talks/hopkins_myfanwy.pdf filter=lfs diff=lfs merge=lfs -crlf
+talks/nolis_jonathan.pdf filter=lfs diff=lfs merge=lfs -crlf
