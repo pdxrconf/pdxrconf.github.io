@@ -1,3 +1,7 @@
 talks/came_scott.pdf filter=lfs diff=lfs merge=lfs -crlf
 talks/sevcikova_hana.pdf filter=lfs diff=lfs merge=lfs -crlf
 talks/brodsky_jae.pdf filter=lfs diff=lfs merge=lfs -crlf
+talks/karstens_lisa.pdf filter=lfs diff=lfs merge=lfs -crlf
+_site/talks/karstens_lisa.pdf filter=lfs diff=lfs merge=lfs -crlf
+talks/williams_amy.pdf filter=lfs diff=lfs merge=lfs -crlf
+_site/talks/williams_amy.pdf filter=lfs diff=lfs merge=lfs -crlf
