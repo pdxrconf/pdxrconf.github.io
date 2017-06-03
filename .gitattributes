@@ -11,3 +11,4 @@ talks/niederhausen_meike.pdf filter=lfs diff=lfs merge=lfs -crlf
 talks/dequeiroz_gabriela.pdf filter=lfs diff=lfs merge=lfs -crlf
 talks/gopal_nikhil.pdf filter=lfs diff=lfs merge=lfs -crlf
 talks/zongo_kalbi.pdf filter=lfs diff=lfs merge=lfs -crlf
+talks/valenzuela_steele.pdf filter=lfs diff=lfs merge=lfs -crlf
