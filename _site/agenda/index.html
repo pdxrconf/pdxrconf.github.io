@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Agenda &#8211; CascadiaRConf</title>
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdn.mathjax.org">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CascadiaRConf - An R Conference">
+    <meta name="robots" content="all">
+    <meta name="author" content="pdxrlang">
+    
+    
+    <link rel="canonical" href="http://localhost:4000/agenda/">
+    <!-- <link rel="alternate" type="application/rss+xml" title="RSS Feed for CascadiaRConf" href="/feed.xml" /> -->
+
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css?201706022215" type="text/css">
+
+    <!-- Fonts -->
+    
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+    
+      <link href="//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
+    
+
+    <!-- MathJax -->
+    
+
+    <!-- Verifications -->
+    
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Agenda">
+    <meta property="og:description" content="CascadiaRConf - An R Conference">
+    <meta property="og:url" content="http://localhost:4000/agenda/">
+    <meta property="og:site_name" content="CascadiaRConf">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+        <meta name="twitter:site" content="@cascadiarconf" />
+    
+    <meta name="twitter:title" content="Agenda" />
+    <meta name="twitter:description" content="CascadiaRConf - An R Conference" />
+    <meta name="twitter:url" content="http://localhost:4000/agenda/" />
+
+    <!-- Icons -->
+    <!-- <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png"> -->
+    <link rel="icon" type="image/png" href="/favicon.ico" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicon.ico" sizes="160x160">
+    <link rel="icon" type="image/png" href="/favicon.ico" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicon.ico" sizes="16x16">
+    <link rel="icon" type="image/png" href="/favicon.ico" sizes="32x32">
+
+    
+
+    <script src="https://api.tiles.mapbox.com/mapbox.js/v3.0.1/mapbox.js"></script>
+    <link href="https://api.tiles.mapbox.com/mapbox.js/v3.0.1/mapbox.css" rel="stylesheet" />
+
+    <link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        #signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
+
+        /* The alert message box */
+        .alert {
+            text-align: center;
+            padding: 20px;
+            background-color: #B6B4B6;
+            color: white;
+            margin-bottom: 15px;
+            a {
+                text-shadow: none;
+            }
+        }
+
+        /* shorter alert message box */
+        .alertshort {
+            text-align: center;
+            padding: 2px;
+            background-color: #B6B4B6;
+            color: white;
+            margin-bottom: 15px;
+            a {
+                text-shadow: none;
+            }
+        }
+
+        /* The close button */
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* When moving the mouse over the close button */
+        .closebtn:hover {
+            color: black;
+        }
+    </style>
+</head>
+
+<body class="site">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="/" class="site-title">CascadiaRConf</a>
+      <nav class="site-nav">
+        
+    
+
+    
+        <a href="/about/">About</a>
+    
+
+    
+        <a href="/agenda/">Agenda</a>
+    
+
+    
+        <a href="/coc/">Code of Conduct</a>
+    
+
+    
+        <a href="/faq/">FAQ</a>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <a href="/tickets/">Tickets</a>
+    
+
+    
+
+    
+
+
+      </nav>
+      <div class="clearfix"></div>
+      
+        <div class="social-icons">
+  <div class="social-icons-right">
+    
+      <a class="fa fa-github" href="https://github.com/pdxrconf"></a>
+    
+    
+      <a class="fa fa-twitter" href="https://twitter.com/cascadiarconf"></a>
+    
+    
+      <a class="fa fa-envelope" href="mailto:pdxrlang@gmail.com"></a>
+    
+  </div>
+</div>
+<div class="clearfix"></div>
+
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        <div class="post">
+  <header class="post-header">
+    <h1 class="h2">Agenda</h1>
+  </header>
+  <article class="post-content">
+  <!-- <div class="alertshort">
+  <h2>Tentative agenda (may change)</h2>
+</div> -->
+
+<br>
+
+All activities will take place in one of two rooms:
+
+<ul>
+  <li>(<strong>Rm. 1/2</strong>) 3A001 &amp; 3A002 learning studios (two rooms joined)</li>
+  <li>(<strong>Rm. 3B</strong>) 3A003B</li>
+</ul>
+
+Schedule
+
+<div>
+  <ul>
+  	<li>9:00 - 9:30: (<strong>Rm. 1/2</strong>) Registration + coffee/tea/pastries</li>
+    <li>9:30 - 9:40: (<strong>Rm. 1/2</strong>) Introduction</li>
+    <li>9:40 - 10:10: (<strong>Rm. 1/2</strong>) Keynote: Vinay Prasad</li>
+    <li>10:10 - 12:10: Workshops (<a href="#workshops">link</a>)</li>
+    <ul>
+      <li>(<strong>Rm. 1/2</strong>) Happy R Users Purrr</li>
+      <li>(<strong>Rm. 3B</strong>) A gRadual intRoduction to the tidyverse</li>
+    </ul>
+    <li>12:10 - 1:10: Lunch (<a href="#lunch">link</a>)</li>
+    <li>1:10 - 3:10: Full talks (<a href="#full_talks">link</a>)</li>
+    <ul>
+      <li>(<strong>Rm. 1/2</strong>) Session 1</li>
+      <li>(<strong>Rm. 3B</strong>) Session 2</li>
+    </ul>
+    <li>3:10 - 3:25: Break (snacks)</li>
+    <li>3:25 - 3:40: (<strong>Rm. 1/2</strong>) Keynote: Gabriela de Queiroz</li>
+    <li>3:40 - 5:04: (<strong>Rm. 1/2</strong>) Lightning talks (<a href="#lightning_talks">link</a>)</li>
+    <li>5:04 - 6:00: (<strong>Rm. 1/2</strong>) Social</li>
+  </ul>
+</div>
+
+<br>
+
+<h2>Keynote</h2>
+<h4>Vinay Prasad (<small><a href="http://www.vinayakkprasad.com/">www.vinayakkprasad.com</a></small>)</h4>
+<img src="../images/vinay.png" width="400">
+<p>Vinay K. Prasad MD MPH is a hematologist-oncologist and Assistant Professor of Medicine at the Oregon Health and Sciences University. He also holds appointments in the Division of Public Health and Preventive Medicine, and as a Senior Scholar in the Center for Health Care Ethics.  He is nationally known for his research on oncology drugs, health policy, evidence-based medicine, bias, public health, preventive medicine, and medical reversal.</p>
+<p>Vinay will speak on <em>What big data research will be helpful in the age of medical reversal?</em></p>
+
+<br>
+
+<h2>Talks</h2>
+<section id="full_talks">
+<h3>Full talks (15 min)</h3>
+<h4>These talks will run concurrently in two sessions (8 each)</h4>
+
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <col width="20">
+    <col width="100">
+    <col width="100">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Session 1 (<strong>Rm. 1/2</strong>)</th>
+        <th>Session 2 (<strong>Rm. 3B</strong>)</th>
+      </tr>
+    </thead>
+    <tr>
+      <td>1:25-1:40</td>
+      <td><strong>Meike Niederhausen</strong> <br>Visualizing wearable activity tracker data and cardiometabolic risk factors with ggplot</td>
+      <td><strong>Mikhail Popov</strong> <a href="https://github.com/bearloga/wmf/blob/master/presentations/talks/Cascadia%20R%20Conference%202017/presentation.pdf"><i class="fa fa-file-pdf-o"></i></a>&nbsp;<a href="https://github.com/bearloga/wmf/blob/master/presentations/talks/Cascadia%20R%20Conference%202017/presentation.md"><i class="fa fa-link"></i></a><br> Open knowledge in R with Wikimedia APIs</td>
+    </tr>
+    <tr>
+      <td>1:40-1:55</td>
+      <td><strong>Jonathan Callahan</strong> <br> Best Practices for Error Handling and Logging</td>
+      <td><strong>Myfanwy Hopkins</strong><br>Building ensemble machine learning algorithms in R</td>
+    </tr>
+    <tr>
+      <td>1:55-2:10</td>
+      <td><strong>Jonathan Adler Nolis </strong> <br> Using R in consulting: how to get results while the clock is ticking</td>
+      <td><strong>Oliver Keyes</strong> <br> Playing with a Full Deque</td>
+    </tr>
+    <tr>
+      <td>2:10-2:25</td>
+      <td><strong>Hana Sevcikova</strong> <a href="/talks/sevcikova_hana.pdf"><i class="fa fa-file-pdf-o"></i></a> <br> World Population Projections in R</td>
+      <td><strong>Daniel Anderson</strong> <br> esvis: An R package for effect size visualizations</td>
+    </tr>
+    <tr>
+      <td>2:25-2:40</td>
+      <td><strong>Mark Dane</strong> <br> Datasets that elucidate the role of the microenvironment in modulating cellular phenotypes</td>
+      <td><strong>Lisa Karstens</strong> <a href="/talks/karstens_lisa.pdf"><i class="fa fa-file-pdf-o"></i></a> <br> Microbial community analysis in R</td>
+    </tr>
+    <tr>
+      <td>2:40-2:55</td>
+      <td><strong>Dror Berel</strong> <br> Prototype meta-analysis demonstration for ImmuneSpaceR, using designated S4 objects</td>
+      <td><strong>Nikhil Gopal</strong> <br>Prioritizing Visual Encoding in Networks</td>
+    </tr>
+    <tr>
+      <td>2:55-3:10</td>
+      <td><strong>Amelia Abreu</strong> <br> Improving the Developer Experience </td>
+      <td><strong>Kalbi Zongo</strong> <br> Introduction to sparklyr – a new package that provides an interface between R and Apache spark</td>
+    </tr>
+    <tr>
+      <td>3:10-3:25</td>
+      <td><strong>Shawn O'Neil</strong><br> Teaching and Using R - A CS Perspective</td>
+      <td><strong>John Smith</strong><br> Uncovering the data science landscape in Portland</td>
+    </tr>
+  </table>
+</div>
+<br>
+
+<section id="keynote-rladies">
+<h2>Keynote (<strong>Time: 3:25-3:40</strong>)</h2>
+<h4>Gabriela de Queiroz (<small><a href="http://gdequeiroz.github.io/">gdequeiroz.github.io</a></small>)</h4>
+<img src="../images/gabriela.png" width="300">
+<p>Gabriela de Queiroz is a data scientist, a statistician, and the founder of <a href="https://rladies.org/">R-Ladies</a></p>
+<p>Gabriela will speak on <em>R-Ladies Global Community and Vision</em></p>
+</section>
+
+<br><br>
+
+<section id="lightning_talks">
+<h3>Lightning talks (5 min) - Starting at <strong>3:40</strong> (<strong>Rm. 1/2</strong>)</h3>
+<h4>These talks will run in one session (single track)</h4>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <col width="15">
+    <col width="30">
+    <col width="80">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Speaker</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tr>
+      <td>3:40-3:46</td>
+      <td>Jae Brodsky <a href="/talks/brodsky_jae.pdf"><i class="fa fa-file-pdf-o"></i></a></td>
+      <td>Creating R Packages at For-Profit Companies</td>
+    </tr>
+    <tr>
+      <td>3:46-3:52</td>
+      <td>Chaya Jones</td>
+      <td>Engaging the Next Generation of Women UseRs Through Mentorship</td>
+    </tr>
+    <tr>
+      <td>3:52-3:58</td>
+      <td>Scott Came <a href="/talks/came_scott.pdf"><i class="fa fa-file-pdf-o"></i></a>&nbsp;<a href="https://docs.google.com/presentation/d/1L1FFmpr1O_kAVeMAhXUWRkq7RtvdIH8q2sMY8Dmre4k/edit#slide=id.p"><i class="fa fa-link"></i></a></td>
+      <td>Mapping Election Precincts to Counties with R's Geospatial Packages</td>
+    </tr>
+    <tr>
+      <td>3:58-4:04</td>
+      <td>Danielle  Robinson</td>
+      <td>A Lightning Primer on Open Source Community Building</td>
+    </tr>
+    <tr>
+      <td>4:04-4:10</td>
+      <td>Joseph Carl</td>
+      <td>Building a Personal Website with Blogdown and Github Pages</td>
+    </tr>
+    <tr>
+      <td>4:10-4:16</td>
+      <td>Nick Solomon <a href="http://www.nicksolomon.me/thesis-with-bookdown/#1"><i class="fa fa-link"></i></a></td>
+      <td>Writing a thesis with bookdown</td>
+    </tr>
+    <tr>
+      <td>4:16-4:22</td>
+      <td>Emile Latour</td>
+      <td>Real world reproducible research</td>
+    </tr>
+    <tr>
+      <td>4:22-4:28</td>
+      <td>Amy Williams <a href="/talks/williams_amy.pdf"><i class="fa fa-file-pdf-o"></i></a></td>
+      <td>Using R for Behavioral Data: The Fun and Frustration of Factorial and Repeated-Measures ANOVAs</td>
+    </tr>
+    <tr>
+      <td>4:28-4:34</td>
+      <td>Steele Valenzuela</td>
+      <td>Amending Descriptive Statistics Tables with Dynamic Visualizations</td>
+    </tr>
+    <tr>
+      <td>4:34-4:40</td>
+      <td>Ju Yeong Kim <a href="https://docs.google.com/presentation/d/1-pOUogX_jjjogR22elXm7i5dBsOJXzklPIyaRjt7PSU/edit#slide=id.g2103842f27_0_76"><i class="fa fa-link"></i></a></td>
+      <td>Automated User Interface Testing with R</td>
+    </tr>
+    <tr>
+      <td>4:40-4:46</td>
+      <td>Drew Lanenga</td>
+      <td>bashr: A package for reading bash files in R</td>
+    </tr>
+    <tr>
+      <td>4:46-4:52</td>
+      <td>Patrick Kennedy</td>
+      <td>Academic Writing using R and RStudio</td>
+    </tr>
+    <tr>
+      <td>4:52-4:58</td>
+      <td>Jim Tyhurst</td>
+      <td>Internationalizing an R application for model parameters that vary per country</td>
+    </tr>
+    <tr>
+      <td><strong>CANCELLED</strong></td>
+      <!-- <td>4:52-4:58</td> -->
+      <td>Prerna Das</td>
+      <td>Aggregating variants in a gene locus and testing association with Alzheimer's using Bioconductor</td>
+    </tr>
+  </table>
+</div>
+
+<br>
+
+<section id="workshops">
+<h2>Workshops</h2>
+<h4>Workshops are concurrent&nbsp;<small>(sign up for one only)</small></h4>
+<br>
+<ul>
+  <li>Charlotte Wickham - Happy R Users Purrr -- <a href="https://github.com/Cascadia-R/purrr-tutorial">workshop materials</a></li>
+  <li>Chester Ismay &amp; Ted Laderas - A gRadual intRoduction to the tidyverse -- <a href="https://github.com/Cascadia-R/gRadual-intRoduction-tidyverse">workshop materials</a></li>
+</ul>
+
+<br>
+
+<section id="lunch">
+<h2>Lunch</h2>
+<p>We will not be serving lunch.  The cost to attend, at least in terms of the ticket, is very affordable, so we are not doing lunch this year.  There are many lunch options within walking distance. We've created a custom Google Map (click to link out to it): <a href="https://goo.gl/maps/zpCSXg8psFT2" target="_blank"><img src="../images/food.png" width="300"></a>
+</p>
+</section>
+
+  </article>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    <small>
+      Code for this site open source on <a href="https://github.com/pdxrconf/pdxrconf.github.io">GitHub</a>.
+    </small>
+  </div>
+</footer>
+
+
+</body>
+</html>
