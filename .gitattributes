@@ -9,3 +9,5 @@ talks/hopkins_myfanwy.pdf filter=lfs diff=lfs merge=lfs -crlf
 talks/nolis_jonathan.pdf filter=lfs diff=lfs merge=lfs -crlf
 talks/niederhausen_meike.pdf filter=lfs diff=lfs merge=lfs -crlf
 talks/dequeiroz_gabriela.pdf filter=lfs diff=lfs merge=lfs -crlf
+talks/gopal_nikhil.pdf filter=lfs diff=lfs merge=lfs -crlf
+talks/zongo_kalbi.pdf filter=lfs diff=lfs merge=lfs -crlf
