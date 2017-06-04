@@ -19,6 +19,9 @@
 <loc>http://localhost:4000/</loc>
 </url>
 <url>
+<loc>http://localhost:4000/recordings/</loc>
+</url>
+<url>
 <loc>http://localhost:4000/tickets/</loc>
 </url>
 <url>
