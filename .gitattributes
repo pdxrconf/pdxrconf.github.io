@@ -13,3 +13,9 @@ talks/gopal_nikhil.pdf filter=lfs diff=lfs merge=lfs -crlf
 talks/zongo_kalbi.pdf filter=lfs diff=lfs merge=lfs -crlf
 talks/valenzuela_steele.pdf filter=lfs diff=lfs merge=lfs -crlf
 talks/dane_mark.pdf filter=lfs diff=lfs merge=lfs -crlf
+talks/carl_joseph.rpres filter=lfs diff=lfs merge=lfs -crlf
+talks/latour_emile.pdf filter=lfs diff=lfs merge=lfs -crlf
+talks/latour_emile_after.html filter=lfs diff=lfs merge=lfs -crlf
+talks/latour_emile_analysis-for-PI.Rmd filter=lfs diff=lfs merge=lfs -crlf
+talks/latour_emile_before.html filter=lfs diff=lfs merge=lfs -crlf
+talks/latour_emile_mice_data.rds filter=lfs diff=lfs merge=lfs -crlf
