@@ -1,0 +1,82 @@
+# Getting Setup
+```{r}
+# 1. Install and load sparklyr:
+install.packages("sparklyr")
+library(sparklyr)
+
+# 2. Install local copy of spark: 
+spark_install(version = '2.0.0')
+
+# 3. Connect to spark:
+sc <- spark_connect(master = "local", 
+                    version = "2.0.0")
+```
+
+# Importing Data
+```{r}
+library(nycflights13)
+library(dplyr)
+
+# Copy data in Spark
+copy_to(sc, flights, "flights_tbl")
+
+# See available data
+src_tbls(sc)
+```
+
+# Data Manipulation with dplyr
+Task: For each carrier, find the flights with the longest departure delay
+```{r}
+Q <- tbl(sc, 'flights_tbl')  %>%
+     	group_by(carrier) %>%
+     	mutate(rank = rank(desc(dep_delay))) %>%
+     	filter(rank <= 2) %>%
+  	  dplyr::select(carrier, year, month, day, dep_delay,
+            rank) 
+# Download  Q as R dataframe
+collect(Q)
+
+# Translate dplyr syntax into SQL query
+sql_render(Q)
+```
+
+# Data Manipulation with Spark SQL
+```{r}
+library(DBI)
+Q <- dbGetQuery(sc,
+"SELECT `carrier` AS `carrier`, `year` AS `year`, `month` AS `month`, `day` AS `day`, `dep_delay` AS `dep_delay`, `rank` AS `rank`
+FROM (SELECT *
+FROM (SELECT `year`, `month`, `day`, `dep_time`, `dep_delay`, `arr_time`, `arr_delay`, `carrier`, `tailnum`, `flight`, `origin`, `dest`, `air_time`, `distance`, `hour`, `minute`, rank() OVER (PARTITION BY `carrier` ORDER BY `dep_delay` DESC) AS `rank`
+FROM `flights_tbl`) `zylrnrilkq`
+WHERE (`rank` <= 2.0)) `bfsfcfmxpt`")
+
+Q
+```
+
+# Machine Learning Application
+```{r}
+# Prepare model data
+model_data <- tbl(sc, 'flights_tbl')  %>%
+	filter(origin == 'JFK', dep_delay > 0, arr_delay > 0)
+
+# Partition
+partitions <- model_data %>%
+   	sdf_partition(train = .7, test = .3)
+
+# Fit a linear regression
+fit <- partitions$train %>%
+      ml_linear_regression(response = 'dep_delay',
+			features = c('arr_delay', 'distance', 'month',
+				            'day', 'hour', 'carrier') )
+summary(fit) 
+
+# Predict on test set
+predicts <- sdf_predict(fit, partitions$test) %>%
+		collect()
+```
+
+# Disconnect!
+```{r,eval=FALSE}
+spark_disconnect(sc)
+
+```

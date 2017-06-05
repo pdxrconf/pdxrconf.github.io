@@ -19,3 +19,4 @@ talks/latour_emile_after.html filter=lfs diff=lfs merge=lfs -crlf
 talks/latour_emile_analysis-for-PI.Rmd filter=lfs diff=lfs merge=lfs -crlf
 talks/latour_emile_before.html filter=lfs diff=lfs merge=lfs -crlf
 talks/latour_emile_mice_data.rds filter=lfs diff=lfs merge=lfs -crlf
+talks/zongo_kalbi.Rmd filter=lfs diff=lfs merge=lfs -crlf
