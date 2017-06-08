@@ -33,5 +33,5 @@ This Code of Conduct is adapted from the policy of the [PyDX Conference](https:/
 
 Contact numbers:
 
-* **432-230-0488** (Lilly Winfree)
-* **713-364-5048** (Scott Chamberlain)
+* (Lilly Winfree)
+* (Scott Chamberlain)
