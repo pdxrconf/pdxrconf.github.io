@@ -1,5 +1,5 @@
 {% for page in site.pages %}
-    {% if page.tags contains "about" or page.tags contains "faq" or page.tags contains "agenda" or page.tags contains "coc" or page.tags contains "recordings" %}
+    {% if page.tags contains "years" or page.tags contains "about" or page.tags contains "faq" or page.tags contains "agenda" or page.tags contains "coc" or page.tags contains "video" or page.tags contains "blog" %}
         <a href="{{ page.url }}">{{ page.title }}</a>
     {% endif %}
 {% endfor %}

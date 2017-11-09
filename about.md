@@ -7,7 +7,7 @@ tags: about
 
 Cascadia R Conference is an R conference serving the Cascadia-ish region (Oregon/Washington/BC).
 
-This is the first time this event has happened. We aim to run the event in the future.
+2017 was our first year. We're coming back in 2018. See you there!
 
 We wanted to run this event as there are relatively few R conferences. In addition, the [Portland R
 User Group](https://www.meetup.com/portland-r-user-group/) is quite active, but it is hard to
@@ -16,15 +16,20 @@ a place to come together around R, but also an excuse to get together with like 
 a larger part of the Cascades region.
 
 Organization team includes:
-<br>
 
 <ul>
-<br>
 	<li>Jessica Minnier</li>
 	<li>Lilly Winfree</li>
 	<li>Chester Ismay</li>
 	<li>John Smith</li>
 	<li>Ted Laderas</li>
+	<li>Scott Chamberlain</li>
+</ul>
+
+Scholarships:
+
+<ul>
+	<li>Lilly Winfree</li>
 	<li>Oliver Keyes</li>
 	<li>Scott Chamberlain</li>
 </ul>
