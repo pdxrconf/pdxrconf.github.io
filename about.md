@@ -15,21 +15,14 @@ get together with folks from nearby cities like Corvallis/Eugene/Seattle/etc. Th
 a place to come together around R, but also an excuse to get together with like minded people across
 a larger part of the Cascades region.
 
-Organization team includes:
+Organization team:
 
 <ul>
+	<li>Aaron Makubuya</li>
 	<li>Jessica Minnier</li>
 	<li>Lilly Winfree</li>
 	<li>Chester Ismay</li>
 	<li>John Smith</li>
 	<li>Ted Laderas</li>
-	<li>Scott Chamberlain</li>
-</ul>
-
-Scholarships:
-
-<ul>
-	<li>Lilly Winfree</li>
-	<li>Oliver Keyes</li>
 	<li>Scott Chamberlain</li>
 </ul>

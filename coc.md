@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Code of Conduct
+title: COC
 permalink: /coc/
 tags: coc
 ---
