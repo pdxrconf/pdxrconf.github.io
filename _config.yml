@@ -1,7 +1,7 @@
 # Site settings
 title:       CascadiaRConf
-email:       pdxrlang@gmail.com
-author:      pdxrlang
+email:       cascadiarconf@gmail.com
+author:      cascadiarconf
 description: "CascadiaRConf - An R Conference"
 baseurl:     ""
 url:         "https://cascadiarconf.com"
@@ -91,7 +91,7 @@ text:
   index:
     coming_soon: 'Coming soon...'
   contact:
-    email:    'pdxrlang@gmail.com'
+    email:    'cascadiarconf@gmail.com'
     content:  'What would you like to say?'
     subject:  'New submission!'
     submit:   'Say Hello'
