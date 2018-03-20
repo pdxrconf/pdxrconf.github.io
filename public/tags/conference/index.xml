@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Conference on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/conference/</link>
+    <description>Recent content in Conference on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 23 Sep 2014 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/conference/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>NCEAS Codefest Follow-up</title>
+      <link>https://ropensci.org/blog/2014/09/23/nceas-codefest-follow-up/</link>
+      <pubDate>Tue, 23 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2014/09/23/nceas-codefest-follow-up/</guid>
+      <description>
+        
+        &lt;p&gt;The week after labor day, we had the pleasure of attending the &lt;a href=&#34;http://nceas.github.io/open-science-codefest/&#34;&gt;NCEAS open science codefest&lt;/a&gt; event in Santa Barbara. It was great to meet folks like the new arrivals at the expanding &lt;a href=&#34;http://mozillascience.org&#34;&gt;Mozilla Science Lab&lt;/a&gt;, &lt;a href=&#34;https://twitter.com/billdoesphysics&#34;&gt;Bill Mills&lt;/a&gt; and &lt;a href=&#34;https://twitter.com/abbycabs&#34;&gt;Abby Cabunoc&lt;/a&gt; (Bill even already has a great &lt;a href=&#34;http://mozillascience.org/worries-critical-mass/&#34;&gt;post up about the codefest&lt;/a&gt;), and see old friends from NCEAS and DataONE, among many more. This 2.5 day event ran smoothly thanks to the leadership of &lt;a href=&#34;https://www.nceas.ucsb.edu/~jones/&#34;&gt;Matt Jones&lt;/a&gt;. The event was run in &lt;a href=&#34;http://en.wikipedia.org/wiki/Unconference&#34;&gt;unconference style&lt;/a&gt;. Each idea was then posted up on a giant post it on the wall and people had  30 minutes to wander the room choosing projects. The approach allowed for a consensus based filtering of ideas. We had the opportunity to suggest some ideas, and a chance to help out with others. Here&amp;rsquo;s an overview of the projects the rOpenSci team worked on and what we accomplished at the open science codefest.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/dataoneorg/rdataone&#34;&gt;rdataone&lt;/a&gt; - R client for the &lt;a href=&#34;https://www.dataone.org/&#34;&gt;DataONE&lt;/a&gt; &lt;a href=&#34;http://mule1.dataone.org/ArchitectureDocs-current/apis/&#34;&gt;API&lt;/a&gt; that is native to R and doesn&amp;rsquo;t rely on Java libraries. We were able to implement some of the many API methods in the package which is still in active development.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://etherpad.mozilla.org/osmanuscript&#34;&gt;open science in ecology manuscript&lt;/a&gt; - A publication on the state of open science in ecology, and a guide for ecologists wanting to practice open science.  We contributed to the text of the manuscipt and used some of the rOpenSci package suite to generate figures.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/ropensci/mdextract&#34;&gt;coverage extraction&lt;/a&gt; - A package to extract coverage (temporal, spatial, taxonomic) metadata from datasets.  This package will be integrated with a variety of other packages such as &lt;a href=&#34;https://github.com/ropensci/EML&#34;&gt;EML&lt;/a&gt; and &lt;a href=&#34;https://github.com/ropensci/spocc&#34;&gt;spocc&lt;/a&gt;, facilitating the creation of metadata. We were able to implement many of the components, and just need to tie it all together in a consistent data model.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/ropensci/pangaear&#34;&gt;pangear&lt;/a&gt; - An R client to interact with the &lt;a href=&#34;http://www.pangaea.de/&#34;&gt;Pangaea database&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/ropensci/datapackage&#34;&gt;datapackage&lt;/a&gt; - An R package to create and read data packages (similar to &lt;a href=&#34;http://data.okfn.org/doc/data-package&#34;&gt;OKFN&amp;rsquo;s data packages&lt;/a&gt;)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;One great thing about this event was mixing more experienced programmers with less experienced ones. In addition to making software, there was a fair amount of training going on. For example, a few people were interested in how to make an R package, so we went through the whole process with &lt;a href=&#34;https://github.com/ropensci/pangaear&#34;&gt;pangear&lt;/a&gt;, and now we have &lt;a href=&#34;https://github.com/ropensci/pangaear/graphs/contributors&#34;&gt;5 awesome contributors on the package&lt;/a&gt;. Overall we had a great time, were able to begin some new projects, and contribute to some important existing ones. We hope to continue to build out what we started at codefest and integrate it into our existing tool set and workflows.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>rOpenSci at NESCent Open Tree of Life Hackathon</title>
+      <link>https://ropensci.org/blog/2014/08/15/open-tree-of-life-hackathon/</link>
+      <pubDate>Fri, 15 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2014/08/15/open-tree-of-life-hackathon/</guid>
+      <description>
+        
+        &lt;p&gt;The &lt;a href=&#34;http://opentreeoflife.org&#34;&gt;Open Tree of Life project&lt;/a&gt; aims to synthesize our combined knowledge of how organisms relate to each other, and make the results available to anyone who wants to use them. At present, the project  contains data from more than 4,000 published phylogenies, which combine with other data sources to make &lt;a href=&#34;http://tree.opentreeoflife.org/&#34;&gt;a tree that covers 2.5 million species&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In September, the Open Tree of Life team are holding a hackathon to develop tools that use the project&amp;rsquo;s web services to extract, annotate and add data. We are excited to say that &lt;a href=&#34;http://francoismichonneau.net/&#34;&gt;Francois Michonneau&lt;/a&gt; and &lt;a href=&#34;http://cartwrig.ht/people/#david-j-winter&#34;&gt;I&lt;/a&gt; will be attending the hackathon, where they plan to work with &lt;a href=&#34;http://www-personal.umich.edu/~josephwb/&#34;&gt;Joseph W. Brown&lt;/a&gt;  on an R package that allows users to interact with the Open Tree data.&lt;/p&gt;
+
+&lt;p&gt;Joseph has already written a good deal of the code for this package, so a key goal for the hackathon will be producing documentation, including tutorial-style examples, that illustrate how the Open Tree data can be used in R workflows. For that reason, we want to hear from would-be users of the Open Tree package.&lt;/p&gt;
+
+&lt;p&gt;How would you use Open Tree data in your workflows? What data would you want to extract from web service and why? How would you want to store the data you retrieve? If we get an idea of how users would take advantage of the data we can include those use-cases in the design of the package, and create documentation that covers them. So, let us know, either through comments to this blog, a message on the &lt;a href=&#34;http://discuss.ropensci.org/&#34;&gt;discussion forum&lt;/a&gt; or the the &lt;a href=&#34;https://github.com/OpenTreeOfLife/hackathon&#34;&gt;issue tracker that NESCent has set up for the hackathon&lt;/a&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>NCEAS Codefest</title>
+      <link>https://ropensci.org/blog/2014/08/06/nceas-codefest/</link>
+      <pubDate>Wed, 06 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2014/08/06/nceas-codefest/</guid>
+      <description>
+        
+        &lt;p&gt;We&amp;rsquo;re delighted to be sponsoring the upcoming Open Science Codefest in Santa Barbara, California, alongside &lt;a href=&#34;http://renci.org/&#34;&gt;RENCI&lt;/a&gt;, &lt;a href=&#34;http://www.nceas.ucsb.edu/&#34;&gt;NCEAS&lt;/a&gt;, &lt;a href=&#34;http://www.nsf.gov/&#34;&gt;NSF&lt;/a&gt;, &lt;a href=&#34;https://www.dataone.org/&#34;&gt;DataONE&lt;/a&gt;, and &lt;a href=&#34;http://mozillascience.org/&#34;&gt;Mozilla Science Lab&lt;/a&gt;.  The Open Science Codefest&amp;rsquo;s goal is to gather researchers from across ecology, biodiversity science, and other earth and environmental sciences with programmer types to collaborate on coding projects. The ideas for the event so far include not just coding projects with the end result being software, but conversations on particular topics that may or my not lead to code being written.&lt;/p&gt;
+
+&lt;p&gt;Our &lt;a href=&#34;http://ropensci.github.io/hackathon/&#34;&gt;hackathon&lt;/a&gt; last March was a great success. We gathered a diverse group of people in San Francisco to work on rOpenSci software, improving both existing projects, and also starting new and interesting ones. Check out a &lt;a href=&#34;http://www.youtube.com/watch?v=iUcm5COsKJo&#34;&gt;video of the event on youtube&lt;/a&gt;. This event was invaluable in strengthening our community, and we hope that the Open Science Codefest will be equally successful.&lt;/p&gt;
+
+&lt;p&gt;There are some great projects already proposed, including:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/NCEAS/open-science-codefest/issues/21&#34;&gt;Automated Metadata Extraction from R objects&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/NCEAS/open-science-codefest/issues/19&#34;&gt;Distributing Data via Web Services&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/NCEAS/open-science-codefest/issues/16&#34;&gt;Make an R client for the Pangaea database&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/NCEAS/open-science-codefest/issues/2&#34;&gt;Techniques and Technologies for Visualizing Scientific Data on the Web&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you have other ideas that you want to toss into the bag for the Open Science Codefest, post as a new issue in &lt;a href=&#34;https://github.com/NCEAS/open-science-codefest/issues/new&#34;&gt;the Github repo for the event&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Ted Hart and I will be at this event representing the rOpenSci core so please come chat with us about ideas for packages or other new collaborations. We&amp;rsquo;re looking forward to contributing to discussions, writing code, and making new connections.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>rOpenSci at ESA 2013</title>
+      <link>https://ropensci.org/blog/2013/07/29/esa-2013/</link>
+      <pubDate>Mon, 29 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/07/29/esa-2013/</guid>
+      <description>
+        
+        &lt;p&gt;It&amp;rsquo;s the last week in July and this means that ecologists across North America (and elsewhere) are busy returning from the field and  preparing their presentations and posters in anticipation of the &lt;a href=&#34;http://www.esa.org/esa/?page_id=127&#34;&gt;annual Ecological Society of America meeting&lt;/a&gt;. The entire &lt;a href=&#34;http://ropensci.org/about/#devteam&#34;&gt;rOpenSci dev team&lt;/a&gt; will be in attendance &lt;a href=&#34;http://www.esa.org/minneapolis/&#34;&gt;this year&lt;/a&gt; and we have several workshops, talks, and events planned out. The topics range from half-day workshops on open data, data visualization, reproducible research, to an entire symposium on open science.&lt;/p&gt;
+
+&lt;p&gt;Here&amp;rsquo;s a current schedule:
+&lt;table class=&#34;table&#34;&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+          &lt;th&gt;Event&lt;/th&gt;
+            &lt;th&gt;Location and date&lt;/th&gt;
+            &lt;th&gt;Registration&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          &lt;tr&gt;
+            &lt;td&gt;&lt;a href=&#34;http://eco.confex.com/eco/2013/webprogram/Session9052.html&#34;&gt;WK 5: Data Visualization Using R&lt;/a&gt; &lt;/td&gt;
+            &lt;td&gt;101B, Minneapolis Convention Center, Sunday 8 - 11:30 am&lt;/td&gt;
+            &lt;td&gt;Closed&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td&gt;&lt;a href=&#34;http://eco.confex.com/eco/2013/webprogram/Session9030.html&#34;&gt;WK 15 Conducting Open Science Using R and DataONE: A Hands-on Primer (Open Format)&lt;/a&gt;&lt;/td&gt;
+            &lt;td&gt;L100D, Minneapolis Convention Center, Sunday 12 - 5 pm&lt;/td&gt;
+            &lt;td&gt;Closed&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td&gt;rOpenSci drinkup&lt;/td&gt;
+            &lt;td&gt;&lt;a href=&#34;http://www.britspub.com/&#34;&gt;Brit&amp;rsquo;s Pub&lt;/a&gt;. Monday 6:30 pm&lt;/td&gt;
+            &lt;td&gt;No registration necessary&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td&gt;&lt;a href=&#34;http://eco.confex.com/eco/2013/webprogram/Session9069.html&#34;&gt;WK 25 Reproducible Research and Collaboration (Open Format)&lt;/a&gt;&lt;/td&gt;
+            &lt;td&gt;101D, Minneapolis Convention Center, Monday 11:30 - 1:15 pm&lt;/td&gt;
+            &lt;td&gt;No registration necessary&lt;/td&gt;
+          &lt;/tr&gt;
+            &lt;tr&gt;
+            &lt;td&gt;&lt;a href=&#34;http://eco.confex.com/eco/2013/webprogram/Paper40654.html&#34;&gt;IGN 2-6 R-based tools for open and collaborative science&lt;/a&gt;&lt;/td&gt;
+            &lt;td&gt;M100IB, Minneapolis Convention Center&lt;/td&gt;
+            &lt;td&gt;No registration necessary&lt;/td&gt;
+          &lt;/tr&gt;
+          &lt;tr&gt;
+            &lt;td&gt;&lt;a href=&#34;http://eco.confex.com/eco/2013/webprogram/Session8911.html&#34;&gt;SS 19 Open Science and Ecology (Open Format)&lt;/a&gt;&lt;/td&gt;
+            &lt;td&gt;L100D, Minneapolis Convention Center, Tuesday 8-10 pm&lt;/td&gt;
+            &lt;td&gt;No registration necessary&lt;/td&gt;
+          &lt;/tr&gt;
+        &lt;/tbody&gt;
+      &lt;/table&gt;&lt;/p&gt;
+
+&lt;p&gt;We are also excited to annouce the first ever rOpenSci happy hour thanks to generous support from &lt;a href=&#34;https://github.com/&#34;&gt;GitHub&lt;/a&gt;. Come have a few drinks on us Monday night and meet the rOpenSci team. We&amp;rsquo;d be super excited to talk to you about our current projects, research workflow, and possible collaborations on any data/code related projects you might have in mind.&lt;/p&gt;
+
+&lt;p&gt;Location: &lt;a href=&#34;http://www.britspub.com/&#34;&gt;&lt;/a&gt;Brit&amp;rsquo;s Pub&lt;/a&gt;, 3rd floor Verandah bar. 6:30 pm. Generously sponsored by &lt;a href=&#34;https://github.com/&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+
+&lt;iframe width=&#39;800&#39; height=&#39;300&#39; frameBorder=&#39;0&#39; src=&#39;http://a.tiles.mapbox.com/v3/karthikram.map-058ycvw2.html#18/44.97281925628907/-93.27609166502953&#39;&gt;&lt;/iframe&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

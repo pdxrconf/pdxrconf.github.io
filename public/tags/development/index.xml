@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Development on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/development/</link>
+    <description>Recent content in Development on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 05 Jan 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/development/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Package evolution - changing stuff in your package</title>
+      <link>https://ropensci.org/technotes/2017/01/05/package-evolution/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/technotes/2017/01/05/package-evolution/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Making packages is a great way to organize R code, whether it’s a set of scripts for personal use, a set of functions for internal company use or a lab group, or to distribute your new cool framework &lt;code&gt;foobar&lt;/code&gt; to the masses. There&amp;rsquo;s a number of guides to writing packages, including &lt;a href=&#34;http://r-pkgs.had.co.nz/&#34;&gt;http://r-pkgs.had.co.nz/&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;As you develop packages there&amp;rsquo;s a number of issues that don&amp;rsquo;t often get much air time. I&amp;rsquo;ll cover some of them here.&lt;/p&gt;
+
+&lt;h2 id=&#34;philosophy-of-changes&#34;&gt;Philosophy of changes&lt;/h2&gt;
+
+&lt;p&gt;Everyone&amp;rsquo;s free to have their own opinion about how freely parameters/functions/etc. are changed in a library - rules about package changes are not enforced by CRAN or otherwise. Generally, as a library gets more mature, changes to user facing methods (i.e., exported functions in an R package) should become very rare. Libraries that are depended on by many other libraries are likely to be more careful, and should be, about changes.&lt;/p&gt;
+
+&lt;h2 id=&#34;parameters-changing-parameter-names&#34;&gt;Parameters: changing parameter names&lt;/h2&gt;
+
+&lt;p&gt;Sometimes parameter names must be changed for clarity, or some other reason.&lt;/p&gt;
+
+&lt;p&gt;An approach I often use is to catch all parameters passed in to the function and check against some list of parameters, and stop or warn with a meaningful message.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;foo_bar &amp;lt;- function(x, y) {
+    calls &amp;lt;- names(sapply(match.call(), deparse))[-1]
+    if(any(&amp;quot;x&amp;quot; %in% calls)) {
+        stop(&amp;quot;use &#39;y&#39; instead of &#39;x&#39;&amp;quot;)
+    }
+    y^2
+}
+
+foo_bar(x = 5)
+#&amp;gt; Error in foo_bar(x = 5) : use &#39;y&#39; instead of &#39;x&#39; 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or instead of stopping with error, you could check for use of &lt;code&gt;x&lt;/code&gt; parameter and set it to &lt;code&gt;y&lt;/code&gt; internally.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;foo_bar &amp;lt;- function(x, y) {
+    calls &amp;lt;- names(sapply(match.call(), deparse))[-1]
+    if(any(&amp;quot;x&amp;quot; %in% calls)) {
+        y &amp;lt;- x
+    }
+    y^2
+}
+
+foo_bar(x = 5)
+#&amp;gt; 25
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Be aware of the parameter &lt;code&gt;...&lt;/code&gt;. If your function has &lt;code&gt;...&lt;/code&gt;, and you have already removed a parameter (lets call it &lt;code&gt;z&lt;/code&gt;), a user may have older code that uses &lt;code&gt;z&lt;/code&gt;. When they pass in &lt;code&gt;z&lt;/code&gt;, it&amp;rsquo;s not a parameter in the function definition, and will likely be silently ignored - not what you want. So do make sure to always check for removed parameters moving forward since you can&amp;rsquo;t force users to upgrade.&lt;/p&gt;
+
+&lt;h2 id=&#34;functions-changing-function-names&#34;&gt;Functions: changing function names&lt;/h2&gt;
+
+&lt;p&gt;If you must change a function name, do it gradually, as with any package changes.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s say you have a function &lt;code&gt;foo&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;foo &amp;lt;- function(x) x + 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;However, you want to change the function name to &lt;code&gt;bar&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Instead of simply changing the function name and &lt;code&gt;foo&lt;/code&gt; no longer existing straight away, in the first version of the package that &lt;code&gt;bar&lt;/code&gt; appears, make an alias like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;#&#39; foo - add 1 to an input
+#&#39; @export
+foo &amp;lt;- function(x) x + 1
+
+#&#39; @export
+#&#39; @rdname foo
+bar &amp;lt;- foo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With the above, the user can use either &lt;code&gt;foo()&lt;/code&gt; or &lt;code&gt;bar()&lt;/code&gt; - either will do the same thing, as they are the same function.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s also useful to have a message but then you&amp;rsquo;ll only want to throw that message when they use the old function name, e.g.,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;#&#39; foo - add 1 to an input
+#&#39; @export
+foo &amp;lt;- function(x) {
+    if (as.character(match.call()[[1]]) == &amp;quot;foo&amp;quot;) {
+        warning(&amp;quot;please use bar() instead of foo()&amp;quot;, call. = FALSE)
+    }
+    x + 1
+}
+
+#&#39; @export
+#&#39; @rdname foo
+bar &amp;lt;- foo
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After users have used the package version for a while (with both &lt;code&gt;foo&lt;/code&gt; and &lt;code&gt;bar&lt;/code&gt;), in the next version you can remove the old function name (&lt;code&gt;foo&lt;/code&gt;), and only have &lt;code&gt;bar&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;#&#39; bar - add 1 to an input
+#&#39; @export
+bar &amp;lt;- function(x) x + 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;functions-deprecate-defunct&#34;&gt;Functions: deprecate &amp;amp; defunct&lt;/h2&gt;
+
+&lt;p&gt;To remove a function from a package (let&amp;rsquo;s say your package name is &lt;code&gt;helloworld&lt;/code&gt;), I use the following protocol:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Mark the function as deprecated in package version &lt;code&gt;x&lt;/code&gt; (e.g., &lt;code&gt;v0.2.0&lt;/code&gt;)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In the function itself, use &lt;code&gt;.Deprecated()&lt;/code&gt; like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;foo &amp;lt;- function() {
+    .Deprecated(msg = &amp;quot;&#39;foo&#39; will be removed in the next version&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There&amp;rsquo;s options in &lt;code&gt;.Deprecated&lt;/code&gt; for specifying a new function name, as well as a new package name, which I do use when moving functions into different packages.&lt;/p&gt;
+
+&lt;p&gt;The message that&amp;rsquo;s given by &lt;code&gt;.Deprecated&lt;/code&gt; is a warning, so can be suppressed by users with &lt;code&gt;suppressWarnings()&lt;/code&gt; if desired.&lt;/p&gt;
+
+&lt;p&gt;Make a man page for deprecated functions like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;#&#39; Deprecated functions in helloworld
+#&#39; 
+#&#39; These functions still work but will be removed (defunct) in the next version.
+#&#39; 
+#&#39; \itemize{
+#&#39;  \item \code{\link{foo}}: This function is deprecated, and will
+#&#39;  be removed in the next version of this package.
+#&#39; }
+#&#39; 
+#&#39; @name helloworld-deprecated
+NULL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This creates a man page that users can access like &lt;code&gt;?helloworld-deprecated&lt;/code&gt; and they&amp;rsquo;ll see in the documentation index. Add any functions to this page as needed, and take away as a function moves to defunct (see below).&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;In the next version (&lt;code&gt;v0.3.0&lt;/code&gt;) you can make the function defunct (that is, completely gone from the package, except for a man page with a note about it).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In the function itself, use &lt;code&gt;.Defunct()&lt;/code&gt; like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;foo &amp;lt;- function() {
+    .Defunct(msg = &amp;quot;&#39;foo&#39; has been removed from this package&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that the message in &lt;code&gt;.Defunct&lt;/code&gt; is an error, so the function stops - whereas &lt;code&gt;.Deprecated&lt;/code&gt; returned a warning, letting the function proceed.&lt;/p&gt;
+
+&lt;p&gt;In addition, I like to add &lt;code&gt;...&lt;/code&gt; to all defunct functions so that if users pass in any parameters they&amp;rsquo;ll get the same defunct message instead of a &lt;code&gt;unused argument&lt;/code&gt; message, so like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;foo &amp;lt;- function(...) {
+    .Defunct(msg = &amp;quot;&#39;foo&#39; has been removed from this package&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Without &lt;code&gt;...&lt;/code&gt; gives:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;foo(x = 5)
+#&amp;gt; Error in foo(x = 5) : unused argument (x = 5)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And with &lt;code&gt;...&lt;/code&gt; gives:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;foo(x = 5)
+#&amp;gt; Error: &#39;foo&#39; has been removed from this package
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Make a man page for defunct functions like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;#&#39; Defunct functions in helloworld
+#&#39; 
+#&#39; These functions are gone, no longer available.
+#&#39; 
+#&#39; \itemize{
+#&#39;  \item \code{\link{foo}}: This function is defunct.
+#&#39; }
+#&#39; 
+#&#39; @name helloworld-defunct
+NULL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This creates a man page that users can access like &lt;code&gt;?helloworld-defunct&lt;/code&gt; and they&amp;rsquo;ll see in the documentation index. Add any functions to this page as needed. You&amp;rsquo;ll likely want to keep this man page indefinitely.&lt;/p&gt;
+
+&lt;h2 id=&#34;others&#34;&gt;Others?&lt;/h2&gt;
+
+&lt;p&gt;What are some other less discussed aspects of how to make changes in your packages?&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | rinat tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>rinat tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.1.4</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p><code>rinat</code> is an R wrapper for iNaturalist APIs for accessing the observations. Detailed documentation of the API is available on <a href="http://www.inaturalist.org/pages/api+reference">iNaturlaist website</a> and is part of our larger species occurence searching package <a href="http://github.com/ropensci/spocc">SPOCC</a></p>
+
+<p><section id="installation"></p>
+
+<h2 id="installation">Installation</h2>
+
+<p>Stable version from CRAN</p>
+
+<pre><code class="language-r">install.packages(&quot;rinat&quot;)
+</code></pre>
+
+<p>Or development version from CRAN</p>
+
+<pre><code class="language-r">install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;rinat&quot;, &quot;ropensci&quot;)
+</code></pre>
+
+<p>Load the package</p>
+
+<pre><code class="language-r">library(&quot;rinat&quot;)
+</code></pre>
+
+<p><section id="usage"></p>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="get-observations">Get observations</h3>
+
+<p><strong>Searching</strong></p>
+
+<p><em>Fuzzy search</em></p>
+
+<p>You can search for observations either by common or latin name.  It will search the entire iNaturalist entry, so the search below will return all entries that mention Monarch butterflies, not just entries for Monarchs.</p>
+
+<pre><code class="language-r">butterflies &lt;- get_inat_obs(query = &quot;Monarch Butterfly&quot;)
+head(butterflies[,c(4:6)])
+</code></pre>
+
+<pre><code class="language-r">library(&quot;ggplot2&quot;)
+</code></pre>
+
+<p>Another use for a fuzzy search is searching for a common name or habitat, e.g. searching for all observations that might occur in a vernal pool.  We can then see all the species names found.</p>
+
+<pre><code class="language-r">vp_obs &lt;- get_inat_obs(query = &quot;vernal pool&quot;)
+head(vp_obs$species_guess)
+</code></pre>
+
+<pre><code>#&gt; [1] &quot;Lasthenia glaberrima&quot; &quot;Mitrula elegans&quot;      &quot;green frog&quot;
+#&gt; [4] &quot;Pickerel Frog&quot;        &quot;Pickerel Frog&quot;        &quot;green frog&quot;
+</code></pre>
+
+<p><em>Taxon query</em>
+To return only records for a specific species or taxonomic group, use the taxon option.</p>
+
+<pre><code class="language-r">## Return just observations in the family Plecoptera
+stone_flies &lt;- get_inat_obs(taxon = &quot;Plecoptera&quot;)
+
+## Return just Monarch Butterfly records
+just_butterflies &lt;- get_inat_obs(taxon = &quot;Danaus plexippus&quot;)
+</code></pre>
+
+<p><em>Bounding box search</em></p>
+
+<p>You can also search within a bounding box by giving a simple set of coordinates.</p>
+
+<p>Search by area</p>
+
+<pre><code class="language-r">bounds &lt;- c(38.44047,-125,40.86652, -121.837)
+deer &lt;- get_inat_obs(query = &quot;Mule Deer&quot;, bounds = bounds)
+</code></pre>
+
+<p><strong>Other functions</strong></p>
+
+<p><em>Get information and observations by project</em></p>
+
+<p>You can get all the observations for a project if you know its ID or name as an intaturalist slug</p>
+
+<p>Just get info about a project</p>
+
+<pre><code class="language-r">vt_crows &lt;- get_inat_obs_project(&quot;crows-in-vermont&quot;, type = &quot;info&quot;, raw = FALSE)
+</code></pre>
+
+<pre><code>#&gt; 25  Records
+#&gt; 0
+</code></pre>
+
+<p>Now get all the observations for that project</p>
+
+<pre><code class="language-r">vt_crows_obs &lt;- get_inat_obs_project(vt_crows$id, type=&quot;observations&quot;)
+</code></pre>
+
+<pre><code>#&gt; 25  Records
+#&gt; 0-100
+</code></pre>
+
+<pre><code class="language-r">head(vt_crows_obs[,c(1:4)])
+</code></pre>
+
+<pre><code>#&gt;       Id Species.guess       Scientific.name   Common.name
+#&gt; 1 192132 American Crow Corvus brachyrhynchos American Crow
+#&gt; 2 192169 American Crow Corvus brachyrhynchos American Crow
+#&gt; 3 192191 American Crow Corvus brachyrhynchos American Crow
+#&gt; 4 183154 American Crow Corvus brachyrhynchos American Crow
+#&gt; 5 183364 American Crow Corvus brachyrhynchos American Crow
+#&gt; 6 183130 American Crow Corvus brachyrhynchos American Crow
+</code></pre>
+
+<p><em>Get observation details</em></p>
+
+<p>Detailed information about a specific observation can be retrieved by observation ID.  The easiest way to get the ID is from a more general search.</p>
+
+<pre><code class="language-r">m_obs &lt;- get_inat_obs(query = &quot;Monarch Butterfly&quot;)
+head(get_inat_obs_id(m_obs$id[1]))
+</code></pre>
+
+<pre><code>#&gt; $id
+#&gt; [1] 1265521
+#&gt;
+#&gt; $taxon_id
+#&gt; [1] 48662
+#&gt;
+#&gt; $user_id
+#&gt; [1] 5327
+#&gt;
+#&gt; $observed_on
+#&gt; [1] &quot;2007-09-03&quot;
+#&gt;
+#&gt; $description
+#&gt; [1] &quot;&quot;
+#&gt;
+#&gt; $latitude
+#&gt; [1] &quot;38.332463&quot;
+</code></pre>
+
+<p><em>Get all observations by user</em></p>
+
+<p>If you just want all the observations by a user you can download them with a user ID.  A word of warning though, this can be quite large (easily into the 1000s)</p>
+
+<pre><code class="language-r">m_obs &lt;- get_inat_obs(query=&quot;Monarch Butterfly&quot;)
+head(get_inat_obs_user(as.character(m_obs$user_login[1]),maxresults=20))[,1:5]
+</code></pre>
+
+<pre><code>#&gt;        scientific_name                  datetime          description
+#&gt; 1   Hericium erinaceus 2015-02-03 00:00:00 -0800
+#&gt; 2            Pleurotus 2015-01-22 00:00:00 -0800
+#&gt; 3 Sarcoscypha coccinea 2015-01-10 00:00:00 -0800
+#&gt; 4              Ramaria 2015-01-10 00:00:00 -0800
+#&gt; 5   Hygrocybe coccinea 2015-01-10 00:00:00 -0800
+#&gt; 6              Amanita 2015-01-10 00:00:00 -0800 Maybe yellow-veiled.
+#&gt;                     place_guess latitude
+#&gt; 1        Jack London State Park 38.34700
+#&gt; 2   Hood Mountain Regional Park 38.48759
+#&gt; 3 Point Reyes National Seashore 38.05419
+#&gt; 4         Salt Point State Park 38.58397
+#&gt; 5         Salt Point State Park 38.58397
+#&gt; 6         Salt Point State Park 38.58397
+</code></pre>
+
+<p><em>Stats by taxa</em></p>
+
+<p>Basic statistics are available for taxa counts by date, date range, place ID (numeric ID), or user ID (string)</p>
+
+<p>By date</p>
+
+<pre><code class="language-r">(counts &lt;- get_inat_taxon_stats(date = &quot;2010-06-14&quot;))
+</code></pre>
+
+<pre><code>#&gt; $total
+#&gt; [1] 65
+#&gt;
+#&gt; $species_counts
+#&gt;   count taxon.id           taxon.name taxon.rank taxon.rank_level
+#&gt; 1     2    17008      Sayornis phoebe    species               10
+#&gt; 2     1    11935  Tachycineta bicolor    species               10
+#&gt; 3     1    51752     Brodiaea elegans    species               10
+#&gt; 4     1    52851     Arnica discoidea    species               10
+#&gt; 5     1    81746 Necrophila americana    species               10
+#&gt;   taxon.default_name.taxon_id taxon.default_name.lexicon
+#&gt; 1                       17008                    English
+#&gt; 2                       11935                    English
+#&gt; 3                       51752                    English
+#&gt; 4                       52851                    English
+#&gt; 5                       81746                    English
+#&gt;   taxon.default_name.is_valid taxon.default_name.id
+#&gt; 1                        TRUE                 20369
+#&gt; 2                        TRUE                 14831
+#&gt; 3                        TRUE                 82256
+#&gt; 4                        TRUE                148530
+#&gt; 5                        TRUE                211685
+#&gt;   taxon.default_name.position taxon.default_name.name
+#&gt; 1                           0          Eastern Phoebe
+#&gt; 2                           0            Tree Swallow
+#&gt; 3                           0        harvest brodiaea
+#&gt; 4                           0          rayless arnica
+#&gt; 5                           0 American Carrion Beetle
+#&gt;   taxon.default_name.created_at taxon.default_name.updated_at
+#&gt; 1 2008-03-12T20:33:20.000-07:00 2008-03-12T20:33:20.000-07:00
+#&gt; 2 2008-03-12T20:10:45.000-07:00 2008-03-12T20:10:45.000-07:00
+#&gt; 3 2009-06-08T00:00:11.000-07:00 2009-06-08T00:00:11.000-07:00
+#&gt; 4 2011-05-17T20:21:12.000-07:00 2011-05-17T20:21:12.000-07:00
+#&gt; 5 2011-10-22T04:37:44.842-07:00 2011-10-22T04:37:44.842-07:00
+#&gt;                                                  taxon.image_url
+#&gt; 1 http://farm6.staticflickr.com/5009/5346970195_d0eac9966b_s.jpg
+#&gt; 2   http://farm1.staticflickr.com/177/435466650_1ea6cb197e_s.jpg
+#&gt; 3 http://farm4.staticflickr.com/3269/2709963753_b800de8900_s.jpg
+#&gt; 4         http://static.inaturalist.org/photos/122558/square.jpg
+#&gt; 5 http://farm5.staticflickr.com/4013/4658689710_1a534b47ef_s.jpg
+#&gt;   taxon.iconic_taxon_name taxon.conservation_status_name
+#&gt; 1                    Aves                  least_concern
+#&gt; 2                    Aves                  least_concern
+#&gt; 3                 Plantae                           &lt;NA&gt;
+#&gt; 4                 Plantae                           &lt;NA&gt;
+#&gt; 5                 Insecta                           &lt;NA&gt;
+#&gt;
+#&gt; $rank_counts
+#&gt; $rank_counts$subspecies
+#&gt; [1] 2
+#&gt;
+#&gt; $rank_counts$variety
+#&gt; [1] 1
+#&gt;
+#&gt; $rank_counts$genus
+#&gt; [1] 4
+#&gt;
+#&gt; $rank_counts$species
+#&gt; [1] 58
+</code></pre>
+
+<p>By place_ID</p>
+
+<pre><code class="language-r">vt_crows &lt;- get_inat_obs_project(&quot;crows-in-vermont&quot;, type=&quot;info&quot;, raw = FALSE)
+</code></pre>
+
+<pre><code>#&gt; 25  Records
+#&gt; 0
+</code></pre>
+
+<pre><code class="language-r">place_counts &lt;- get_inat_taxon_stats(place = vt_crows$place_id)
+place_counts$total
+</code></pre>
+
+<pre><code>#&gt; [1] 4730
+</code></pre>
+
+<p><em>Stats by user</em></p>
+
+<p>Similar statistics can be retrived for users.  The same input parameters can be used, but results returned are the top five users by species count and observation count.</p>
+
+<p>By date</p>
+
+<pre><code class="language-r">counts &lt;- get_inat_user_stats(date = &quot;2010-06-14&quot;)
+counts$most_observations$user[,c(1:3)]
+</code></pre>
+
+<pre><code>#&gt;       id                    login
+#&gt; 1   9706               greglasley
+#&gt; 2    357                annetanne
+#&gt; 3  10285                  finatic
+#&gt; 4  10946                cgcbosque
+#&gt; 5  64596 juancarlosgarciamorales1
+#&gt; 6  18056                 plantman
+#&gt; 7  38530              kevinhintsa
+#&gt; 8    382                  tsoleau
+#&gt; 9    873                 tapbirds
+#&gt; 10  3403                   davidr
+#&gt; 11 70352                wonder_al
+#&gt; 12  2619                 asnyder5
+#&gt; 13  1000                     muir
+#&gt; 14 12158            erikamitchell
+#&gt; 15 57533      banks_peninsula_tui
+#&gt; 16 31399               sacagewea2
+#&gt; 17  9560       dianaterryhibbitts
+#&gt; 18 11831                  halbyte
+#&gt; 19  5239                 marcellc
+#&gt; 20 10612                    zieak
+#&gt; 21 20727                ciovarnat
+#&gt; 22 16823                 jnstuart
+#&gt; 23   129               field_daze
+#&gt; 24 38442             robertgeorge
+#&gt; 25  2048                   josiah
+#&gt; 26    10                      jam
+#&gt; 27 48178                 asemerdj
+#&gt; 28  3926                pmikejack
+#&gt; 29  4857          c_michael_hogan
+#&gt; 30 65504                scottking
+#&gt; 31   206                lfelliott
+#&gt; 32 13467           paulalongshore
+#&gt; 33 10299               summermule
+#&gt; 34 13167                  arleigh
+#&gt; 35  2839                    hari2
+#&gt;                                                                     user_icon_url
+#&gt; 1    http://www.inaturalist.org/attachments/users/icons/9706-thumb.jpg?1412292583
+#&gt; 2     http://www.inaturalist.org/attachments/users/icons/357-thumb.jpg?1362061338
+#&gt; 3   http://www.inaturalist.org/attachments/users/icons/10285-thumb.jpg?1350000458
+#&gt; 4                                                                            &lt;NA&gt;
+#&gt; 5   http://www.inaturalist.org/attachments/users/icons/64596-thumb.jpg?1416786295
+#&gt; 6                                                                            &lt;NA&gt;
+#&gt; 7   http://www.inaturalist.org/attachments/users/icons/38530-thumb.jpg?1400990725
+#&gt; 8                http://www.inaturalist.org/attachments/users/icons/382-thumb.jpg
+#&gt; 9                http://www.inaturalist.org/attachments/users/icons/873-thumb.jpg
+#&gt; 10   http://www.inaturalist.org/attachments/users/icons/3403-thumb.jpg?1394954695
+#&gt; 11  http://www.inaturalist.org/attachments/users/icons/70352-thumb.jpg?1421399985
+#&gt; 12                                                                           &lt;NA&gt;
+#&gt; 13              http://www.inaturalist.org/attachments/users/icons/1000-thumb.jpg
+#&gt; 14 http://www.inaturalist.org/attachments/users/icons/12158-thumb.jpeg?1357418870
+#&gt; 15 http://www.inaturalist.org/attachments/users/icons/57533-thumb.jpeg?1413332307
+#&gt; 16  http://www.inaturalist.org/attachments/users/icons/31399-thumb.jpg?1398521627
+#&gt; 17  http://www.inaturalist.org/attachments/users/icons/9560-thumb.jpeg?1351261191
+#&gt; 18                                                                           &lt;NA&gt;
+#&gt; 19              http://www.inaturalist.org/attachments/users/icons/5239-thumb.jpg
+#&gt; 20  http://www.inaturalist.org/attachments/users/icons/10612-thumb.jpg?1375105310
+#&gt; 21  http://www.inaturalist.org/attachments/users/icons/20727-thumb.jpg?1398894069
+#&gt; 22  http://www.inaturalist.org/attachments/users/icons/16823-thumb.jpg?1383090510
+#&gt; 23               http://www.inaturalist.org/attachments/users/icons/129-thumb.jpg
+#&gt; 24  http://www.inaturalist.org/attachments/users/icons/38442-thumb.jpg?1400160213
+#&gt; 25              http://www.inaturalist.org/attachments/users/icons/2048-thumb.jpg
+#&gt; 26                                                                           &lt;NA&gt;
+#&gt; 27  http://www.inaturalist.org/attachments/users/icons/48178-thumb.jpg?1416364944
+#&gt; 28              http://www.inaturalist.org/attachments/users/icons/3926-thumb.jpg
+#&gt; 29              http://www.inaturalist.org/attachments/users/icons/4857-thumb.jpg
+#&gt; 30  http://www.inaturalist.org/attachments/users/icons/65504-thumb.jpg?1417720839
+#&gt; 31               http://www.inaturalist.org/attachments/users/icons/206-thumb.jpg
+#&gt; 32 http://www.inaturalist.org/attachments/users/icons/13467-thumb.jpeg?1361747141
+#&gt; 33  http://www.inaturalist.org/attachments/users/icons/10299-thumb.jpg?1350591832
+#&gt; 34  http://www.inaturalist.org/attachments/users/icons/13167-thumb.jpg?1361106538
+#&gt; 35   http://www.inaturalist.org/attachments/users/icons/2839-thumb.jpg?1398943785
+</code></pre>
+
+<p>By place_ID</p>
+
+<pre><code class="language-r">vt_crows &lt;- get_inat_obs_project(&quot;crows-in-vermont&quot;, type = &quot;info&quot;,raw = FALSE)
+</code></pre>
+
+<pre><code>#&gt; 25  Records
+#&gt; 0
+</code></pre>
+
+<pre><code class="language-r">place_counts &lt;- get_inat_user_stats(place = vt_crows$place_id)
+head(place_counts$most_species$user[,c(1:3)])
+</code></pre>
+
+<pre><code>#&gt;      id         login
+#&gt; 1 12610  susanelliott
+#&gt; 2 11792     kylejones
+#&gt; 3 12158 erikamitchell
+#&gt; 4 12045      larry522
+#&gt; 5   317   kpmcfarland
+#&gt; 6  2179       charlie
+#&gt;                                                                    user_icon_url
+#&gt; 1  http://www.inaturalist.org/attachments/users/icons/12610-thumb.jpg?1390441055
+#&gt; 2  http://www.inaturalist.org/attachments/users/icons/11792-thumb.jpg?1394793142
+#&gt; 3 http://www.inaturalist.org/attachments/users/icons/12158-thumb.jpeg?1357418870
+#&gt; 4  http://www.inaturalist.org/attachments/users/icons/12045-thumb.jpg?1357252118
+#&gt; 5    http://www.inaturalist.org/attachments/users/icons/317-thumb.jpg?1373935791
+#&gt; 6   http://www.inaturalist.org/attachments/users/icons/2179-thumb.jpg?1416962625
+</code></pre>
+
+<p><section id="citing"></p>
+
+<h2 id="citing">Citing</h2>
+
+<p>To cite <code>rinat</code> in publications use:</p>
+
+<p><br></p>
+
+<blockquote>
+<p>Vijay Barve and Edmund Hart (2014). rinat: Access iNaturalist data through APIs. R package version 0.1.4.</p>
+</blockquote>
+
+<p><section id="license_bugs"></p>
+
+<h2 id="license-and-bugs">License and bugs</h2>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/rinat/issues?state=open">our Github repo for rinat</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

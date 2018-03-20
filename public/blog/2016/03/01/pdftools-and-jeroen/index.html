@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Introducing pdftools - A fast and portable PDF extractor</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">Introducing pdftools - A fast and portable PDF extractor</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="/about/#team"> Jeroen Ooms </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">March 1, 2016</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>Scientific articles are typically locked away in PDF format, a format designed primarily for printing but not so great for searching or indexing. The new <a href="https://cran.r-project.org/package=pdftools">pdftools</a> package allows for extracting text and metadata from pdf files in R. From the extracted plain-text one could find articles discussing a particular drug or species name, without having to rely on publishers providing metadata, or pay-walled search engines.</p>
+
+<p>The pdftools slightly overlaps with the <a href="https://cran.r-project.org/web/packages/Rpoppler/index.html">Rpoppler</a> package by Kurt Hornik. The main motivation behind developing pdftools was that Rpoppler depends on glib, which does not work well on Mac and Windows. The pdftools package uses the poppler c++ interface together with Rcpp, which results in a lighter and more portable implementation.</p>
+
+<h2 id="installing-pdftools">Installing pdftools</h2>
+
+<p><a href="https://cran.rstudio.com/web/packages/pdftools/"><span class="label label-warning">cran</span></a> <a href="https://github.com/ropensci/pdftools"><span class="label label-info">github</span></a></p>
+
+<p>On Windows and Mac the binary packages can be installed directly from CRAN:</p>
+
+<pre><code class="language-r">install.packages(&quot;pdftools&quot;)
+</code></pre>
+
+<p>Installation on Linux requires the poppler development library. On Debian/Ubuntu:</p>
+
+<pre><code>sudo apt-get install libpoppler-cpp-dev
+</code></pre>
+
+<p>On Fedora or CentOS:</p>
+
+<pre><code>sudo yum install poppler-cpp-devel
+</code></pre>
+
+<p>If you want to install the package from source on Mac OS-X you need brew:</p>
+
+<pre><code>brew install poppler
+</code></pre>
+
+<p>That&rsquo;s it.</p>
+
+<h2 id="getting-started">Getting started</h2>
+
+<p>The <code>?pdftools</code> manual page shows a brief overview of the main utilities. The most important function is <code>pdf_text</code> which returns a character vector of length equal to the number of pages in the pdf. Each string in the vector contains a plain text version of the text on that page.</p>
+
+<pre><code class="language-r">library(pdftools)
+download.file(&quot;http://arxiv.org/pdf/1403.2805.pdf&quot;, &quot;1403.2805.pdf&quot;, mode = &quot;wb&quot;)
+txt &lt;- pdf_text(&quot;1403.2805.pdf&quot;)
+
+# first page text
+cat(txt[1])
+
+# second page text
+cat(txt[2])
+</code></pre>
+
+<p>In addition, the package has some utilities to extract other data from the PDF file. The <code>pdf_toc</code> function shows the table of contents, i.e. the section headers which pdf readers usually display in a menu on the left. It looks pretty in JSON:</p>
+
+<pre><code class="language-r"># Table of contents
+toc &lt;- pdf_toc(&quot;1403.2805.pdf&quot;)
+
+# Show as JSON
+jsonlite::toJSON(toc, auto_unbox = TRUE, pretty = TRUE)
+</code></pre>
+
+<p>Other functions provide information about fonts, attachments and metadata such as the author, creation date or tags.</p>
+
+<pre><code class="language-r"># Author, version, etc
+info &lt;- pdf_info(&quot;1403.2805.pdf&quot;)
+
+# Table with fonts
+fonts &lt;- pdf_fonts(&quot;1403.2805.pdf&quot;)
+</code></pre>
+
+<h2 id="bonus-feature-rendering-pdf">Bonus feature: rendering pdf</h2>
+
+<p>A bonus feature on most platforms is rendering of PDF files to bitmap arrays. The poppler library provides all functionality to implement a complete PDF reader, including graphical display of the content. In R we can use pdf_render_page to render a page of the PDF into a bitmap, which can be stored as e.g. png or jpeg.</p>
+
+<pre><code class="language-r"># renders pdf to bitmap array
+bitmap &lt;- pdf_render_page(&quot;1403.2805.pdf&quot;, page = 1)
+
+# save bitmap image
+png::writePNG(bitmap, &quot;page.png&quot;)
+jpeg::writeJPEG(bitmap, &quot;page.jpeg&quot;)
+webp::write_webp(bitmap, &quot;page.webp&quot;)
+</code></pre>
+
+<p>This feature now works on all platforms.</p>
+
+<h2 id="limitations">Limitations</h2>
+
+<p>Data scientists are often interested in data from tables. Unfortunately the pdf format is pretty dumb and does not have notion of a table (unlike for example HTML). Tabular data in a pdf file is nothing more than strategically positioned lines and text, which makes it difficult to extract the raw data.</p>
+
+<pre><code class="language-r">txt &lt;- pdf_text(&quot;http://arxiv.org/pdf/1406.4806.pdf&quot;)
+
+# some tables
+cat(txt[18])
+cat(txt[19])
+</code></pre>
+
+<p>Pdftools usually does a decent job in retaining the positioning of table elements when converting from pdf to text. But the output is still very dependent on the formatting of the original pdf table, which makes it very difficult to write a generic table extractor. But with a little creativity you might be able to parse the table data from the text output of a given paper.</p>
+
+<h2 id="jeroen-ooms-joins-team-ropensci">Jeroen Ooms joins team rOpenSci!</h2>
+
+<p>A message from the team: We are happy to announce that <a href="https://jeroen.github.io/">Jeroen Ooms</a> has joined the rOpenSci crew! Jeroen is a prolific programmer and author of numerous <a href="https://cran.r-project.org/web/checks/check_results_jeroen.ooms_at_stat.ucla.edu.html">widely used packages</a>. At rOpenSci, he will continue to work on developing awesome packages and infrastructural software for improving the scientific tool chain.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/pdf"><span class="label">PDF</span></a>
+                
+                    <a href="/tags/cran"><span class="label">CRAN</span></a>
+                
+                    <a href="/tags/pdftools"><span class="label">pdftools</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

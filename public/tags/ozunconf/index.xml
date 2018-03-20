@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ozunconf on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/ozunconf/</link>
+    <description>Recent content in Ozunconf on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 21 Nov 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/ozunconf/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>ochRe - Australia themed colour palettes</title>
+      <link>https://ropensci.org/blog/2017/11/21/ochre/</link>
+      <pubDate>Tue, 21 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/11/21/ochre/</guid>
+      <description>
+        
+        
+
+&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;The second rOpenSci &lt;a href=&#34;http://ozunconf17.ropensci.org/&#34;&gt;OzUnConf&lt;/a&gt; was held in Melbourne Australia a few weeks ago. A diverse range of &lt;a href=&#34;https://ropensci.org/blog/2017/10/31/ozunconf2017/&#34;&gt;scientists, developers and general good-eggs&lt;/a&gt; came together to make some R-magic happen and also learn a lot along the way. Before the conference began, a huge stack of projects were suggested on the unconf  &lt;a href=&#34;https://github.com/ropensci/ozunconf17/issues&#34;&gt;GitHub repo&lt;/a&gt;. For six data-visualisation enthusiasts, one issue in particular caught their eye, and the &lt;code&gt;ochRe&lt;/code&gt; package was born.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-11-21-ochRe/AusElevationExamplePalettes.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&#34;https://github.com/ropenscilabs/ochRe&#34;&gt;&lt;code&gt;ochRe&lt;/code&gt;&lt;/a&gt; package contains colour palettes influenced by the Australian landscape, iconic Australian artists and images. OchRe is originally the brain-child of &lt;a href=&#34;https://twitter.com/visnut&#34;&gt;Di Cook&lt;/a&gt;, who was inspired by Karthik Ram&amp;rsquo;s &lt;a href=&#34;https://github.com/karthik/wesanderson&#34;&gt;&lt;code&gt;wesanderson&lt;/code&gt;&lt;/a&gt; package.&lt;/p&gt;
+
+&lt;h3 id=&#34;why-ochre&#34;&gt;Why &amp;ldquo;ochre&amp;rdquo;?&lt;/h3&gt;
+
+&lt;p&gt;Naming our package was the &amp;ldquo;most important&amp;rdquo; task facing us after all jumping on board the project. Fuelled by a selection of pastries we opened the discussions, fully expecting this to take some time. Fortunately, we all agreed on the name in less than 5 minutes, which meant plenty of pastries were left for the serious business of package building.&lt;/p&gt;
+
+&lt;p&gt;Ochre is naturally occuring, brownish-yellow &lt;a href=&#34;https://en.wikipedia.org/wiki/Ochre&#34;&gt;pigment&lt;/a&gt; found in many parts of Australia, so frequently in fact, that Australia is sometimes referred to as the &amp;ldquo;land of ochre soil&amp;rdquo;. Additionally, ochre pigment has been used for thousands of years by Aboriginal people in Australia, with many culturally important uses from artwork to the preservation of animal skins.&lt;/p&gt;
+
+&lt;h3 id=&#34;building-ochre&#34;&gt;Building ochRe&lt;/h3&gt;
+
+&lt;p&gt;We started our package building journey by each picking an iconic Australian artwork (this took longer than you might think). Once we had selected our images, we used the online &lt;a href=&#34;http://www.coolphptools.com/color_extract&#34;&gt;Image Color Extract PHP&lt;/a&gt; demo tool to extract the hex code for the main colours within each image. Some images required a more selective approach, so where needed the colour code extraction was done using the eyedropper tool (in macOS) or the Google Chrome colourPick extension.&lt;/p&gt;
+
+&lt;p&gt;Once we were happy with the colours, codes and order for each palette we loaded this information into &lt;code&gt;ochRe&lt;/code&gt; as lists of hex codes associated with the palette name. We adopted &lt;code&gt;scales&lt;/code&gt; to improve the fucntionality of the packages when using &lt;code&gt;ggplot&lt;/code&gt;, in particular to allow manipulation of colour ramping and transparency. The package also contains a few simple functions for displaying the different palettes.&lt;/p&gt;
+
+&lt;p&gt;Below are some examples of original art work and their associated palettes:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;namatjira_qual&lt;/code&gt; and &lt;code&gt;namatjira_div&lt;/code&gt; are both inspired by the watercolour painting &lt;a href=&#34;http://www.menziesartbrands.com/items/twin-ghosts&#34;&gt;&amp;ldquo;Twin Ghosts&amp;rdquo;&lt;/a&gt;, by Aboriginal artist Albert Namatjira. &lt;code&gt;namatjira_div&lt;/code&gt; is ordered for plotting divergent datasets.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-11-21-ochRe/TwinGhosts_AlbertNamatjira.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-11-21-ochRe/namatjira_qual.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;nolan_ned&lt;/code&gt; palette is inspired by the famous paintings of the outlaw &lt;a href=&#34;https://cs.nga.gov.au/detail.cfm?irn=28926&#34;&gt;Ned Kelly&lt;/a&gt; by Sidney Nolan.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-11-21-ochRe/nedKelly_sidneyNolan.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-11-21-ochRe/nolan_ned.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;olsen_seq&lt;/code&gt; has been designed for plotting sequential data, such as a heat map or landscape layers. The colours come from the abstract piece &lt;a href=&#34;https://artsearch.nga.gov.au/Detail-LRG.cfm?IRN=26102&#34;&gt;&amp;ldquo;Sydney Sun&amp;rdquo;&lt;/a&gt;, 1965, by John Olsen.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-11-21-ochRe/sydneySun_johnOlsen.jpg&#34; alt=&#34;&#34; /&gt;
+&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-11-21-ochRe/olsen_seq.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There was a high proportion of ecologists at the #ozunconf, which inspired the somewhat pessimistic &lt;code&gt;healthy_reef&lt;/code&gt; and &lt;code&gt;dead_reef&lt;/code&gt; palettes, with the colours taken from recent underwater photgraphs of the Great Barrier Reef.&lt;/p&gt;
+
+&lt;h3 id=&#34;introducing-ochre&#34;&gt;Introducing: &lt;code&gt;ochRe&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Our package currently contains 16 colour palettes, each one inspired by either an Australian landscape, an artwork or image by an Australian artist, or an Australian animal. Some of the palettes are more suited to displaying continuous data (such as in the Australian elevation maps above). Other palettes will perform best plotting discrete data (as in the &lt;code&gt;parliament&lt;/code&gt; example below).&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ochRe&lt;/code&gt; can be currently be installed from GitHub:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# You need to install the &#39;devtools&#39; package first
+devtools::install_github(&amp;quot;ropenscilabs/ochRe&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can visualise all 16 palettes using the following code snippet:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;pal_names &amp;lt;- names(ochre_palettes)
+
+par(mfrow=c(length(ochre_palettes)/2, 2), lheight = 2, mar=rep(1, 4), adj = 0)
+for (i in 1:length(ochre_palettes)){
+    viz_palette(ochre_palettes[[i]], pal_names[i])
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-11-21-ochRe/ochrePalettes.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Here are some worked examples, showing how to use the palettes for different types of data visualisation, including both &lt;code&gt;ggplot&lt;/code&gt; and base plotting in R.&lt;/p&gt;
+
+&lt;p&gt;An example using base R and the &lt;code&gt;winmar&lt;/code&gt; palette, this is based on an iconic photograph by Wayne Ludbey, &amp;ldquo;Nicky Winmar St Kilda Footballer&amp;rdquo;, 1993. In the photo, Aboriginal AFL player Nicky Winmar is baring his skin in response to racial abuse during an AFL game.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;## basic example code
+pal &amp;lt;- colorRampPalette(ochre_palettes[[&amp;quot;winmar&amp;quot;]])
+image(volcano, col = pal(20))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-11-21-ochRe/VolcanoWithWinmar.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Paired scatter plot using the &lt;code&gt;emu_Woman_paired&lt;/code&gt; palette, inspired by &amp;ldquo;Emu Woman&amp;rdquo;, 1988-89, by Emily Kame Kngwarreye.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(tidyverse)
+library(ochRe)
+library(naniar)
+
+# Exploring missing values benefits from a paired palette, like the emu women
+# Here missing status on air temperature is shown in a plot of the two wind variables
+data(oceanbuoys)
+oceanbuoys &amp;lt;- oceanbuoys %&amp;gt;% add_shadow(humidity, air_temp_c) 
+ggplot(oceanbuoys, aes(x=wind_ew, y=wind_ns, colour=air_temp_c_NA)) + 
+    geom_point(alpha=0.8) + 
+    scale_colour_ochre(palette=&amp;quot;emu_woman_paired&amp;quot;) +
+    theme_bw() + theme(aspect.ratio=1)
+
+# Slightly more complicated, forcing the pairs
+clrs &amp;lt;- ochre_palettes$emu_woman_paired[11:12]
+ggplot(oceanbuoys, aes(x=wind_ew, y=wind_ns, colour=air_temp_c_NA)) + 
+    geom_point(alpha=0.8) + 
+    scale_colour_manual(values=clrs) +
+    theme_bw() + theme(aspect.ratio=1)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-11-21-ochRe/Ochre_Example1.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A map of the Australian electoral boundaries, using the &lt;code&gt;galah&lt;/code&gt; palette. &lt;a href=&#34;https://en.wikipedia.org/wiki/Galah&#34;&gt;Galahs&lt;/a&gt; are a common species of cockatoo found throughout mainland Australia.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Map of the 2016 Australian electoral boundaries
+# with the galah palette
+library(eechidna)
+library(ggthemes)
+data(nat_map_2016)
+data(nat_data_2016)
+ggplot(aes(map_id=id), data=nat_data_2016) +
+    geom_map(aes(fill=Area_SqKm), map=nat_map_2016) +
+    expand_limits(x=nat_map$long, y=nat_map$lat) + 
+    scale_fill_ochre(palette=&amp;quot;galah&amp;quot;, discrete=FALSE) +
+    theme_map()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-11-21-ochRe/Ochre_Example2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Results of the 2016 Australian election to the senate, coloured by political party using the &lt;code&gt;parliament&lt;/code&gt; palette. The colours for this palette were taken from the &lt;a href=&#34;https://www.aph.gov.au/~/media/06%20Visit%20Parliament/66%20Parl%20House%20Art%20Collection/661%20five%20treasures/five%20treasures%20detail%20pics/M19840057UntitledBOYDunframed.png?la=en&#34;&gt;tapestry&lt;/a&gt; by Arthur Boyd found in the Great Hall of Parliament House.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Election results
+senate &amp;lt;- read_csv(&amp;quot;http://results.aec.gov.au/20499/Website/Downloads/SenateSenatorsElectedDownload-20499.csv&amp;quot;, 
+                   skip = 1)
+coalition &amp;lt;- c(&amp;quot;Country Liberals (NT)&amp;quot;, &amp;quot;Liberal&amp;quot;, &amp;quot;Liberal National Party of Queensland&amp;quot;, 
+               &amp;quot;The Nationals&amp;quot;)
+labor &amp;lt;- c(&amp;quot;Australian Labor Party&amp;quot;, &amp;quot;Australian Labor Party (Northern Territory) Branch&amp;quot;, 
+           &amp;quot;Labor&amp;quot;)
+greens &amp;lt;- c(&amp;quot;The Greens&amp;quot;, &amp;quot;Australian Greens&amp;quot;, &amp;quot;The Greens (WA)&amp;quot;)
+
+senate &amp;lt;- senate %&amp;gt;% mutate(PartyNm = ifelse(as.character(PartyNm) %in% coalition, 
+                                             &amp;quot;Liberal National Coalition&amp;quot;, PartyNm))
+
+senate &amp;lt;- senate %&amp;gt;% mutate(PartyNm = ifelse(as.character(PartyNm) %in% labor, 
+                                             &amp;quot;Australian Labor Party&amp;quot;, PartyNm))
+
+senate &amp;lt;- senate %&amp;gt;% mutate(PartyNm = ifelse(as.character(PartyNm) %in% greens, 
+                                             &amp;quot;Australian Greens&amp;quot;, PartyNm))
+
+senate$PartyNm &amp;lt;- factor(senate$PartyNm, 
+                         levels = names(sort(table(senate$PartyNm), 
+                            decreasing = T)))
+
+ggplot(data = senate, aes(x = PartyNm, fill = PartyNm)) + 
+    geom_bar() + xlab(&amp;quot;&amp;quot;) + 
+    ylab(&amp;quot;&amp;quot;) + scale_fill_ochre(palette=&amp;quot;parliament&amp;quot;) + coord_flip() + 
+    theme_bw() + theme(legend.position = &amp;quot;None&amp;quot;) 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-11-21-ochRe/Ochre_Example3.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;For more information about the individual palettes available in &lt;code&gt;ochRe&lt;/code&gt; visit our &lt;a href=&#34;https://github.com/ropenscilabs/ochRe/tree/master/vignettes&#34;&gt;vignette&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;All of the &lt;code&gt;ochRe&lt;/code&gt; team had a great time at #ozunconf, Thank you to the organisers for a brilliant event. Special Thanks to &lt;a href=&#34;https://github.com/mdsumner&#34;&gt;Michael Sumner&lt;/a&gt; for providing code to access the Australian elevation map you see at the start of this post.&lt;/p&gt;
+
+&lt;blockquote class=&#34;twitter-tweet&#34; data-lang=&#34;en&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;The Oz colour palette gang soakin it up outside &lt;a href=&#34;https://twitter.com/hashtag/ozunconf?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#ozunconf&lt;/a&gt; &lt;a href=&#34;https://t.co/XiLkhwZwTv&#34;&gt;pic.twitter.com/XiLkhwZwTv&lt;/a&gt;&lt;/p&gt;&amp;mdash; Miles McBain (@MilesMcBain) &lt;a href=&#34;https://twitter.com/MilesMcBain/status/923682409400250368?ref_src=twsrc%5Etfw&#34;&gt;October 26, 2017&lt;/a&gt;&lt;/blockquote&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

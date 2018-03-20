@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Events on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/events/</link>
+    <description>Recent content in Events on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 31 Aug 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/events/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Community Call - rOpenSci Software Review and Onboarding</title>
+      <link>https://ropensci.org/blog/2017/08/31/comm-call-v14/</link>
+      <pubDate>Thu, 31 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/08/31/comm-call-v14/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Are you thinking about submitting a package to rOpenSci&amp;rsquo;s open peer software review? Considering volunteering to review for the first time? Maybe you&amp;rsquo;re an experienced package author or reviewer and have ideas about how we can improve.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Join our &lt;a href=&#34;https://github.com/ropensci/commcalls/issues/15&#34;&gt;Community Call on Wednesday, September 13th&lt;/a&gt;&lt;/strong&gt;. We want to get your feedback and we&amp;rsquo;d love to answer your questions!&lt;/p&gt;
+
+&lt;h3 id=&#34;agenda&#34;&gt;Agenda&lt;/h3&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Welcome (Stefanie Butland, rOpenSci Community Manager, 5 min)&lt;/li&gt;
+&lt;li&gt;guest: Noam Ross, editor (15 min)
+Noam will give an overview of the rOpenSci software review and onboarding, highlighting the role editors play and how decisions are made about policies and changes to the process.&lt;/li&gt;
+&lt;li&gt;guest: Andee Kaplan, reviewer (15 min)
+Andee will give her perspective as a package reviewer, sharing specifics about her workflow and her motivation for doing this.&lt;/li&gt;
+&lt;li&gt;Q &amp;amp; A (25 min, moderated by Noam Ross)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&#34;speaker-bios&#34;&gt;Speaker bios&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Andee Kaplan&lt;/strong&gt; is a Postdoctoral Fellow at Duke University. She is a recent PhD graduate from the Iowa State University Department of Statistics, where she learned a lot about R and reproducibility by developing a class on data stewardship for Agronomists. Andee has reviewed multiple (two!) packages for rOpenSci, &lt;a href=&#34;https://github.com/ropensci/onboarding/issues/107&#34;&gt;&lt;code&gt;iheatmapr&lt;/code&gt;&lt;/a&gt; and &lt;a href=&#34;https://github.com/ropensci/onboarding/issues/58&#34;&gt;&lt;code&gt;getlandsat&lt;/code&gt;&lt;/a&gt;, and hopes to one day be on the receiving end of the review process.&lt;/p&gt;
+
+&lt;p&gt;Andee on &lt;a href=&#34;https://github.com/andeek&#34;&gt;GitHub&lt;/a&gt;, &lt;a href=&#34;https://twitter.com/andeekaplan&#34;&gt;Twitter&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Noam Ross&lt;/strong&gt; is one of rOpenSci&amp;rsquo;s four editors for software peer review. Noam is a Senior Research Scientist at EcoHealth Alliance in New York, specializing in mathematical modeling of disease outbreaks, as well as training and standards for data science and reproducibility. Noam earned his Ph.D. in Ecology from the University of California-Davis, where he founded the Davis R Users&amp;rsquo; Group.&lt;/p&gt;
+
+&lt;p&gt;Noam on &lt;a href=&#34;https://github.com/noamross&#34;&gt;GitHub&lt;/a&gt;, &lt;a href=&#34;https://twitter.com/noamross&#34;&gt;Twitter&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;resources&#34;&gt;Resources&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.numfocus.org/blog/how-ropensci-uses-code-review-to-promote-reproducible-science/&#34;&gt;How rOpenSci uses Code Review to Promote Reproducible Science&lt;/a&gt;; blog post Aug 11, 2017&lt;/li&gt;
+&lt;li&gt;The what, why and how of &lt;a href=&#34;http://onboarding.ropensci.org/&#34;&gt;rOpenSci open peer review and onboarding&lt;/a&gt;; guidelines&lt;/li&gt;
+&lt;li&gt;rOpenSci &lt;a href=&#34;https://github.com/ropensci/onboarding/issues&#34;&gt;software reviews in progress and completed&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ropensci.org/packages/&#34;&gt;rOpenSci onboarded packages&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Read on &lt;a href=&#34;https://ropensci.org/blog/&#34;&gt;our blog&lt;/a&gt; one of ten guest posts (to date) by authors of onboarded packages&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ropensci.org/blog/blog/2017/08/22/first-package-review&#34;&gt;So you (don&amp;rsquo;t) think you can review a package&lt;/a&gt;; guest blog post by first-time reviewer Mara Averick, Aug 22, 2017&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://ropensci.org/blog/blog/2016/03/28/software-review&#34;&gt;Onboarding at rOpenSci: A Year in Reviews&lt;/a&gt;; blog post Mar 28, 2016&lt;/li&gt;
+&lt;li&gt;Soon after the Community Call, we&amp;rsquo;ll post the &lt;a href=&#34;https://vimeo.com/ropensci/videos&#34;&gt;video&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Community Call v13 - How to ask questions so they get answered! Possibly by yourself!</title>
+      <link>https://ropensci.org/blog/2017/02/17/comm-call-v13/</link>
+      <pubDate>Fri, 17 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/02/17/comm-call-v13/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Our &lt;a href=&#34;https://github.com/ropensci/commcalls/issues/14&#34;&gt;Community Call on Tuesday, March 7th, 8-9 AM PST&lt;/a&gt;, will cover &amp;ldquo;How to ask questions so they get answered! Possibly by yourself!&amp;rdquo;. Asking questions about programming is a skill you can develop - we&amp;rsquo;re not just born with it. The speakers will cover some of the background and skills you&amp;rsquo;ll need to increase your chances of having your questions answered by your peers or by a busy expert.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://github.com/ropensci/commcalls/issues/14&#34;&gt;Join the Call&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;agenda&#34;&gt;Agenda&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Welcome (5 min, Stefanie Butland)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;James (JD) Long&lt;/strong&gt; will review the historical challenges of getting R help and give some history about how the &lt;a href=&#34;http://stackoverflow.com/questions/tagged/r&#34;&gt;&lt;code&gt;[r]&lt;/code&gt; tag on Stack Overflow&lt;/a&gt; was bootstrapped. (15 min)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Jenny Bryan&lt;/strong&gt; will talk about the mechanics of making reproducible examples using the &lt;a href=&#34;https://github.com/jennybc/reprex&#34;&gt;reprex&lt;/a&gt; package. Just as important, she&amp;rsquo;ll discuss the philosophy i.e. that forcing yourself to make little, rigorous, self-contained examples makes you think more clearly about programming. (20min)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Scott Chamberlain&lt;/strong&gt; will show you how best to raise issues and ask questions on &lt;a href=&#34;https://ropensci.org/packages/&#34;&gt;rOpenSci packages&lt;/a&gt; (10 min)&lt;/li&gt;
+&lt;li&gt;Q &amp;amp; A (10 min, moderated by Scott Chamberlain)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Nick Tierney&amp;rsquo;s &lt;a href=&#34;http://www.njtierney.com/r/rbloggers/2017/01/11/reprex-magic/&#34;&gt;blog post about the reprex package&lt;/a&gt; that Jenny Bryan will talk about&lt;/li&gt;
+&lt;li&gt;Noam Ross&amp;rsquo;s analysis of the most common types of error messages R users post about on Stack Overflow, motivated by his interest in teaching problem-solving skills in R: &lt;a href=&#34;https://github.com/noamross/zero-dependency-problems/blob/master/misc/stack-overflow-common-r-errors.md&#34;&gt;Common errors in R: An Empirical Investigation&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;rOpenSci &lt;a href=&#34;https://discuss.ropensci.org/&#34;&gt;discussion forum&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Soon after the call, we&amp;rsquo;ll post the &lt;a href=&#34;https://vimeo.com/ropensci/videos&#34;&gt;video&lt;/a&gt; and we plan to capture the highlights and links to resources in a follow-up blog post.&lt;/p&gt;
+
+&lt;h2 id=&#34;speaker-bios&#34;&gt;Speaker bios&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;James (JD) Long&lt;/strong&gt; works in reinsurance in New York City. He builds risk models which, according to &lt;a href=&#34;http://www.tandfonline.com/doi/abs/10.1080/01621459.1976.10480949&#34;&gt;George Box&lt;/a&gt;, are wrong. In spite of this inconvenient truth, James has proved successful at convincing his employer that his models are useful. James writes poorly commented, inefficient code using Python, R, SQL, and expletives.&lt;/p&gt;
+
+&lt;p&gt;James grew up in Kentucky and has multiple degrees from the University of Kentucky. After being marooned on the archipelago of Bermuda for four years, James now lives in Jersey City, NJ with his Minecraft addicted 9 year old daughter and his wife, a recovering trial lawyer.&lt;/p&gt;
+
+&lt;p&gt;James on &lt;a href=&#34;https://github.com/CerebralMastication&#34;&gt;GitHub&lt;/a&gt;, &lt;a href=&#34;https://twitter.com/CMastication&#34;&gt;Twitter&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Jenny Bryan&lt;/strong&gt; is a member of rOpenSci&amp;rsquo;s Leadership team, a software engineer at &lt;a href=&#34;https://www.rstudio.com/&#34;&gt;RStudio&lt;/a&gt; and Associate Professor (on leave) in the Statistics Department at the University of British Columbia. She&amp;rsquo;s a biostatistician specialized in genomics and takes a special interest and delight in data analysis and statistical computing. Jenny is known for her outstanding teaching and her use of lego and mullets (the hair, not the fish) to illustrate #rstats.&lt;/p&gt;
+
+&lt;p&gt;Jenny on &lt;a href=&#34;https://github.com/jennybc&#34;&gt;GitHub&lt;/a&gt;, &lt;a href=&#34;https://twitter.com/jennybryan&#34;&gt;Twitter&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Scott Chamberlain&lt;/strong&gt; is co-founder and technical lead at rOpenSci and tries to answer lots of user questions via email/twitter/github/discussion forum. He has specific expertise in developing packages for handling &lt;a href=&#34;https://ropensci.org/tutorials/taxize_tutorial.html&#34;&gt;taxonomy&lt;/a&gt;, &lt;a href=&#34;https://ropensci.org/blog/blog/2016/11/22/geospatial-suite&#34;&gt;geospatial analyses&lt;/a&gt; and &lt;a href=&#34;https://ropensci.org/packages/#literature&#34;&gt;accessing journal full-text or metadata&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Scott on &lt;a href=&#34;https://github.com/sckott&#34;&gt;GitHub&lt;/a&gt;, &lt;a href=&#34;https://twitter.com/sckottie&#34;&gt;Twitter&lt;/a&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Highlights and Resources from Community Call v12: How do I create a code of conduct for my event/lab/codebase?</title>
+      <link>https://ropensci.org/blog/2016/12/21/commcallv12-review-coc/</link>
+      <pubDate>Wed, 21 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2016/12/21/commcallv12-review-coc/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Our &lt;a href=&#34;https://ropensci.org/blog/blog/2016/10/31/comm-call-v12&#34;&gt;Community Call&lt;/a&gt; on December 15th covered a big topic in tech communities: &amp;ldquo;How do I create a code of conduct for my event/lab/codebase?&amp;rdquo;. Here, we cover some of the key themes and considerations that arose from the discussion and point to curated resources and examples to follow when developing a code of conduct (CoC) for your community.&lt;/p&gt;
+
+&lt;p&gt;Three guest speakers shared different perspectives. Dr Pauline Barmby talked about the process and lessons learned as &lt;a href=&#34;http://www.datacarpentry.org/&#34;&gt;Data Carpentry&lt;/a&gt; and &lt;a href=&#34;https://software-carpentry.org/&#34;&gt;Software Carpentry&lt;/a&gt; recently updated their CoC; Ms Safia Abdalla talked about &amp;ldquo;Codes of conduct for open source: the stuff no one tells you&amp;rdquo;; and Dr Titus Brown talked about his lab CoC. You can &lt;a href=&#34;#speaker-bios&#34;&gt;read their bios&lt;/a&gt; below and watch the &lt;a href=&#34;https://vimeo.com/196503807&#34;&gt;video&lt;/a&gt; of the call. Speakers did not use other presentation materials.&lt;/p&gt;
+
+&lt;p&gt;From the talks and discussion it became clear that there are three key components to codes of conduct:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;drafting&lt;/li&gt;
+&lt;li&gt;adopting and sharing&lt;/li&gt;
+&lt;li&gt;reporting and enforcing&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;drafting-a-code-of-conduct&#34;&gt;Drafting a Code of Conduct&lt;/h3&gt;
+
+&lt;p&gt;Once a group of interested people digs into the work of drafting a CoC, the process can seem like it&amp;rsquo;s going on forever, especially if you try to incorporate &amp;ldquo;everyone&amp;rsquo;s&amp;rdquo; feedback. The CoC cannot be a living document. It&amp;rsquo;s most important to produce something good and perhaps revisit it each year. There seemed to be a consensus that a small committee of key stakeholders should draft the CoC. For his own lab, Titus drafted and posted it without fanfare, but has already seen &lt;a href=&#34;http://ivory.idyll.org/blog/2016-notes-on-lab-coc.html&#34;&gt;unanticipated benefits&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Some notes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Develop and post a CoC whether or not you know of any problems; setting clear expectations is 90% of the work.&lt;/li&gt;
+&lt;li&gt;The CoC has to set expectations for everyone, including the boss (if there is one).&lt;/li&gt;
+&lt;li&gt;One big issue for the Carpentries was whether or not there should be specific lists of prohibited behaviors or protected groups.&lt;/li&gt;
+&lt;li&gt;Because many of our communities cross international boundaries, our CoCs should be accessible in multiple languages. The &lt;a href=&#34;http://contributor-covenant.org/&#34;&gt;Contributor Covenant&lt;/a&gt; does provide a template CoC in &lt;a href=&#34;http://contributor-covenant.org/i18n/&#34;&gt;multiple languages&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;For international communities, what is enforceable or criminal depends on where you are. For example, Canadian laws against hate-speech are not necessarily enforceable in other countries.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;adopting-and-sharing-a-code-of-conduct&#34;&gt;Adopting and Sharing a Code of Conduct&lt;/h3&gt;
+
+&lt;p&gt;With big online communities, you rely on buy-in of lots from people to publicize and enforce your CoC and set the tone for your community. When a small group has developed the CoC, it&amp;rsquo;s important to have your leaders and key contributors be open and vocal about their top-down endorsement. In this way, community members without power in the organization can see they will be supported. Overtly showing kindness and pointing to the CoC tends to filter out people who don’t want to be subject to its enforcement.&lt;/p&gt;
+
+&lt;h3 id=&#34;reporting-violations-consequences-and-enforcing-a-code-of-conduct&#34;&gt;Reporting Violations, Consequences and Enforcing a Code of Conduct&lt;/h3&gt;
+
+&lt;p&gt;In addition to listing specific common behaviors that are not okay, a code of conduct must include directions for reporting violations and have a clear process for handling complaints. In the &lt;a href=&#34;https://adainitiative.org/2014/02/18/howto-design-a-code-of-conduct-for-your-community/&#34;&gt;words of the Ada Initiative&lt;/a&gt;,&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;em&gt;Without these elements, a code of conduct isn’t worth the electrons used to display it on your computer screen.&lt;/em&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Some notes:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Reporting of a violation through a standardized form can enable someone to convey the issue and help them think through it during what might be an emotional experience. A standardized form also enables the enforcers to get the information they need to make a good judgement on the report.&lt;/li&gt;
+&lt;li&gt;Anonymous reporting of a violation should be an option.&lt;/li&gt;
+&lt;li&gt;Progression of consequences can move from a verbal warning, to a time-based ban, to a permanent ban, all the way to legal action with real-world authorities.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In the realm of CoCs, enforcement is the hard part, and the part that is most often overlooked until a crisis forces the issue. Enforcement should be handled by a board of three to five people and have representation of different perspectives. For an event, that board could include the event organizer, a community member, and someone who was involved in developing the CoC. The people involved in enforcement must have empathy for the issue being reported so it&amp;rsquo;s important to involve people who don&amp;rsquo;t necessarily have power within the community or organization. Someone suggested that an enforcement board might be wise to include someone from outside their own community.&lt;/p&gt;
+
+&lt;p&gt;In an academic research environment, there is a huge grey area between dealing with a violation within a lab and getting the university involved. This grey area can be filled by identifying a person outside the lab AND outside the university to participate when needed. This third party can be the first point of contact for complaints about the principal investigator, for example. A lot can be resolved before escalating to involvement of the university, its lawyers, or unions. (Of course there are cases where this is warranted.)&lt;/p&gt;
+
+&lt;p&gt;One tricky area of enforcement is around online conversations in discussion forums or in GitHub issues where people sometimes say things they shouldn’t. Safia made the excellent point that it helps to leave a comment on the issue because it will remain visible online. Saying something like “we&amp;rsquo;re willing to help, but we don’t tolerate this kind of communication” means newcomers can see that bad behavior is addressed and not tolerated. This is also critical to maintain or rebuild trust from community members. If you&amp;rsquo;re a GitHub admin you could choose to implement a time-based ban as a consequence. In this situation, recognition of a violation is easy, but there is a big enforcement challenge when that person is a significant contributor. This is where it is critical to have a strong enforcement board and a good structure for raising a violation through the ranks depending on its severity.&lt;/p&gt;
+
+&lt;h3 id=&#34;we-have-work-to-do&#34;&gt;We Have Work To Do&lt;/h3&gt;
+
+&lt;p&gt;rOpenSci currently has CoCs for &lt;a href=&#34;http://unconf16.ropensci.org/coc.html&#34;&gt;our events&lt;/a&gt;, for &lt;a href=&#34;https://github.com/ropensci/onboarding/blob/master/policies.md/#code-of-conduct&#34;&gt;software onboarding&lt;/a&gt;, and for many of our &lt;a href=&#34;https://github.com/ropensci/taxize/blob/master/CONDUCT.md&#34;&gt;individual packages&lt;/a&gt; (working on having this for all our packages!). We&amp;rsquo;ll take what we learned in this Community Call to develop a more comprehensive CoC, make sure it&amp;rsquo;s easily findable and that consequences of violations are enforceable. &lt;a href=&#34;https://ropensci.org/contact.html&#34;&gt;Let us know&lt;/a&gt; if you&amp;rsquo;d like to get involved.&lt;/p&gt;
+
+&lt;h3 id=&#34;resources&#34;&gt;Resources&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://vimeo.com/196503807&#34;&gt;Video&lt;/a&gt; of our Dec 15, 2016 Community Call&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;C. Titus Brown&amp;rsquo;s &lt;a href=&#34;http://ivory.idyll.org/lab/coc.html&#34;&gt;Laboratory Code of Conduct&lt;/a&gt; and &lt;a href=&#34;http://ivory.idyll.org/blog/2016-notes-on-lab-coc.html&#34;&gt;notes on developing it&lt;/a&gt;, including why he did it and what use it&amp;rsquo;s been.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Data/Software Carpentry’s new &lt;a href=&#34;http://www.datacarpentry.org/code-of-conduct/&#34;&gt;code of conduct&lt;/a&gt;, &lt;a href=&#34;http://www.datacarpentry.org/CoC-reporting/&#34;&gt;reporting guidelines&lt;/a&gt; and &lt;a href=&#34;http://www.datacarpentry.org/CoC-enforcement/&#34;&gt;enforcement policy&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The Ada Initiative&amp;rsquo;s &lt;a href=&#34;https://adainitiative.org/2014/02/18/howto-design-a-code-of-conduct-for-your-community/&#34;&gt;How to design a code of conduct for your community&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://contributor-covenant.org/&#34;&gt;Contributor Covenant&lt;/a&gt;. A Code of Conduct for Open Source Projects (in multiple languages)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;A template &lt;a href=&#34;https://github.com/confcodeofconduct/confcodeofconduct.com&#34;&gt;code of conduct&lt;/a&gt;, in multiple languages&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;speaker-bios&#34;&gt;Speaker bios&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://nearby-galaxies.github.io/people/&#34;&gt;&lt;strong&gt;Pauline Barmby&lt;/strong&gt;&lt;/a&gt; is an Associate Professor in Physics and Astronomy and Associate Dean of Graduate and Post Doctoral Studies at Western University. Her research focuses on nearby galaxies and &lt;a href=&#34;http://pbarmby.github.io/&#34;&gt;her blog&lt;/a&gt; contains musings about astrophysics, science teaching, computing, and perhaps knitting, curling, and science fiction. Pauline is the head of Data/Software Carpentry&amp;rsquo;s code of conduct committee and will talk about their experiences in refining their code to ensure it has enforceable consequences.
+Pauline on &lt;a href=&#34;https://github.com/PBarmby&#34;&gt;GitHub&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://safia.rocks/&#34;&gt;&lt;strong&gt;Safia Abdalla&lt;/strong&gt;&lt;/a&gt; is a data scientist and software engineer with an interest in open source software and data science for social good. She helps build nteract, a &lt;a href=&#34;http://www.numfocus.org/open-source-projects.html&#34;&gt;NumFOCUS&lt;/a&gt; fiscally sponsored open source project, and organizes PyData Chicago. Safia has written about codes of conduct in &lt;a href=&#34;http://blog.safia.rocks/post/141972488250/how-to-create-a-welcoming-and-inclusive-open&#34;&gt;How To Create A Welcoming and Inclusive Open Source Space&lt;/a&gt;.
+Safia on &lt;a href=&#34;https://github.com/captainsafia&#34;&gt;GitHub&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://ivory.idyll.org&#34;&gt;&lt;strong&gt;C. Titus Brown&lt;/strong&gt;&lt;/a&gt; is an Associate Professor at UC Davis, where his &lt;a href=&#34;http://ivory.idyll.org/lab/&#34;&gt;Lab for Data Intensive Biology&lt;/a&gt; tackles questions surrounding biological data analysis, data integration, and data sharing. The lab&amp;rsquo;s primary interest is in genomic, transcriptomic, and metagenomic sequence analysis. Titus has developed a &lt;a href=&#34;http://ivory.idyll.org/lab/coc.html&#34;&gt;Lab Code of Conduct&lt;/a&gt;.
+He recently wrote about &lt;a href=&#34;http://ivory.idyll.org/blog/2016-what-is-open-science.html&#34;&gt;What is open science?&lt;/a&gt;
+Titus on &lt;a href=&#34;https://github.com/dib-lab&#34;&gt;GitHub&lt;/a&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Community Call v12 - How do I create a code of conduct for my event/lab/codebase?</title>
+      <link>https://ropensci.org/blog/2016/10/31/comm-call-v12/</link>
+      <pubDate>Mon, 31 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2016/10/31/comm-call-v12/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;In order to facilitate a transformation towards open and reproducible research, rOpenSci is building and improving not only the technical infrastructure, but the social infrastructure as well. To support this, occasionally a Community Call will focus on a topic that reflects the values of rOpenSci. The first of these, on Thursday, December 15th, 8-9 AM PST, will be on &amp;ldquo;How do I create a code of conduct for my event/lab/codebase?&amp;rdquo;.&lt;/p&gt;
+
+&lt;h2 id=&#34;agenda&#34;&gt;Agenda&lt;/h2&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Welcome (5 min, Stefanie Butland)&lt;/li&gt;
+&lt;li&gt;Pauline Barmby - Data/Software Carpentry’s &lt;a href=&#34;http://www.datacarpentry.org/code-of-conduct/&#34;&gt;new code of conduct&lt;/a&gt; (5-10 min)&lt;/li&gt;
+&lt;li&gt;Safia Abdalla - Codes of conduct for open source: the stuff no one tells you (5-10 min)&lt;/li&gt;
+&lt;li&gt;C. Titus Brown - How we developed our &lt;a href=&#34;http://ivory.idyll.org/lab/coc.html&#34;&gt;Lab Code of Conduct&lt;/a&gt; (5-10 min)&lt;/li&gt;
+&lt;li&gt;Discussion (15 min, moderated by Karthik Ram)&lt;/li&gt;
+&lt;li&gt;Solicit ideas for Community Calls (5 min, Stefanie)&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/ropensci/commcalls/issues/12&#34;&gt;Details&lt;/a&gt; for joining the Community Call&lt;/p&gt;
+
+&lt;p&gt;After the call, we&amp;rsquo;ll post the &lt;a href=&#34;https://vimeo.com/ropensci/videos&#34;&gt;video&lt;/a&gt; and archive the &lt;a href=&#34;https://github.com/ropensci/commcalls/issues&#34;&gt;notes&lt;/a&gt; along with any links to resources.&lt;/p&gt;
+
+&lt;h2 id=&#34;speaker-bios&#34;&gt;Speaker bios&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://safia.rocks/&#34;&gt;&lt;strong&gt;Safia Abdalla&lt;/strong&gt;&lt;/a&gt; is a data scientist and software engineer with an interest in open source software and data science for social good. She helps build nteract, a &lt;a href=&#34;http://www.numfocus.org/open-source-projects.html&#34;&gt;NumFOCUS&lt;/a&gt; fiscally sponsored open source project, and organizes PyData Chicago. Safia has written about codes of conduct in &lt;a href=&#34;http://blog.safia.rocks/post/141972488250/how-to-create-a-welcoming-and-inclusive-open&#34;&gt;How To Create A Welcoming and Inclusive Open Source Space&lt;/a&gt;.
+Safia on &lt;a href=&#34;https://github.com/captainsafia&#34;&gt;GitHub&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://nearby-galaxies.github.io/people/&#34;&gt;&lt;strong&gt;Pauline Barmby&lt;/strong&gt;&lt;/a&gt; is an Associate Professor in Physics and Astronomy and Associate Dean of Graduate and Post Doctoral Studies at Western University. Her research focuses on nearby galaxies and &lt;a href=&#34;http://pbarmby.github.io/&#34;&gt;her blog&lt;/a&gt; contains musings about astrophysics, science teaching, computing, and perhaps knitting, curling, and science fiction. Pauline is the head of Data/Software Carpentry&amp;rsquo;s code of conduct committee and will talk about their experiences in refining their code to ensure it has enforceable consequences.
+Pauline on &lt;a href=&#34;https://github.com/PBarmby&#34;&gt;GitHub&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://ivory.idyll.org&#34;&gt;&lt;strong&gt;C. Titus Brown&lt;/strong&gt;&lt;/a&gt; is an Associate Professor at UC Davis, where his &lt;a href=&#34;http://ivory.idyll.org/lab/&#34;&gt;Lab for Data Intensive Biology&lt;/a&gt; tackles questions surrounding biological data analysis, data integration, and data sharing. The lab&amp;rsquo;s primary interest is in genomic, transcriptomic, and metagenomic sequence analysis. Titus has developed a &lt;a href=&#34;http://ivory.idyll.org/lab/coc.html&#34;&gt;Lab Code of Conduct&lt;/a&gt;
+He recently wrote about &lt;a href=&#34;http://ivory.idyll.org/blog/2016-what-is-open-science.html&#34;&gt;What is open science?&lt;/a&gt;
+Titus on &lt;a href=&#34;https://github.com/dib-lab&#34;&gt;GitHub&lt;/a&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Australia Unconference</title>
+      <link>https://ropensci.org/blog/2016/06/16/au-unconf/</link>
+      <pubDate>Thu, 16 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2016/06/16/au-unconf/</guid>
+      <description>
+        
+        &lt;p&gt;On April 21st and 22nd of 2016, we had 40 members of the R community gather in Brisbane, Australia, with the goal of reproducing the rOpensci Unconference events that have been running with great success in San Francisco since 2014. Like every event organisers ever, we went through the usual crisis: Where will it be? Will anyone actually show up? Is the problem space over venue, date, attendees, catering, sponsors convex? It it even possible to organise an event by only uttering TRUE statements?&lt;/p&gt;
+
+&lt;p&gt;It ain&amp;rsquo;t easy being green. The fact that back in December 2015 Karthik Ram agreed to a proposal to essentially franchise the rOpensci unconference to a few junior researchers he’d never heard of, from a place a long way away, with enthusiasm for rOpensci’s ideals as their only redeeming qualities, still astounds us. More than that, it speaks volumes about the accessibility of this community to anyone that believes in what it stands for.&lt;/p&gt;
+
+&lt;p&gt;So sustained by coaching from Karthik, encouragement from local R luminaries, and generous support from sponsors who jumped right on the idea, we pulled together together an event that captured the spirit of those that have come before and got the community interested. The final event attracted a stellar cohort of participants from post grad students, post-docs and tenured professors, to industry statisticians and government data scientists. Attendees travelled from across Australia, New Zealand and even Singapore. Together we represented a diversity of organisations including Queensland University of Technology, University of Melbourne, Monash University, University of Iowa, University of Auckland, Microsoft, University of Adelaide, CSIRO, ACEMS, AACo, QLD Museum, QLD government and others.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s hard not to gush about. It&amp;rsquo;s the most validating feeling to see the community rally around this idea of getting together in the name of open source, open science, and solving each other&amp;rsquo;s problems. It was such a privilege to be amongst this group of incredibly intelligent and giving people.&lt;/p&gt;
+
+&lt;p&gt;The plot below shows the breakdown of the attendees in terms of gender and profession, both areas that we hope to improve in regards to diversity in 2017. We particularly hope to attract more women from the grad student cohort, as well as a wider representation from across industry and government.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/auunconf16/au_unconf_demog.png&#34; alt=&#34;Attendee Demographics&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Much to our delight, it turns out that collecting a bunch of smart, passionate people and freeing them from distractions for 2 days works at least as spectacularly down-under as it has in the United States. And while the outcomes of this event are far greater than a set of packages, we are proud to introduce you to the following:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/ropenscilabs/eechidna&#34;&gt;Eechidna&lt;/a&gt; (Now on CRAN!) is a package for easily creating visual mashups of Australian electoral and demographic data. Arriving just in time for the lead up to the Australian election (July 2). In the next few days we will launch a visualisation competition around the package.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/saundersk1/auunconf16&#34;&gt;A collection of vignettes&lt;/a&gt; for pulling Australian weather data into R.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/swish-climate-impact-assessment/awaptools&#34;&gt;Awaptools&lt;/a&gt;, a helpful colleciton of methods for downloading, and unzipping Australian weather grids.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/ropenscilabs/leafier&#34;&gt;Leafier&lt;/a&gt;, is an impressive proof of concept for enhancing the performance of large spatial datasets in leaflet. The presentation for this one induced one of those magical ‘collective intake of breath moments’.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/ropenscilabs/snowball&#34;&gt;Snowball&lt;/a&gt;, a framework for adminstering AWS clusters and scheduling cluster jobs from within R.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.meetup.com/Brisbane-Users-of-R-Group-BURGr/&#34;&gt;BURGr&lt;/a&gt;, the Brisbane Users of R Group was born out of the conference and will be having its first meetup this week.&lt;/p&gt;
+
+&lt;p&gt;Feedback from participants has been positive. The unconference format was a real hit and there has been a lot of encouragement to keep 2017 similarly small, with a similar format. We agree! We also see the merits of a ‘primer’ session on open source/open science tools before the main event, so that everyone can start off on similar footing. The voting process for selecting issues was also identified as needing tweaking and we’re going to address that too. This is a great thing about the unconference format: since everyone helps create the experience, everyone is invested and wants to see it thrive.&lt;/p&gt;
+
+&lt;p&gt;If you like what you’ve been reading about and want to be involved in 2017, &lt;a href=&#34;http://auunconf.ropensci.org/&#34;&gt;you can register your interest on our site&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To conclude this post we would like to give a heartfelt thanks to our sponsors. These guys get it! Thank you to the &lt;a href=&#34;https://www.microsoft.com/en-au&#34;&gt;Microsoft Innovation Centre, Brisbane&lt;/a&gt;, &lt;a href=&#34;http://acems.org.au/&#34;&gt;ACEMS&lt;/a&gt;, &lt;a href=&#34;https://ropensci.org/&#34;&gt;rOpenSci&lt;/a&gt;, and &lt;a href=&#34;https://www.aaco.com.au/&#34;&gt;AACo&lt;/a&gt; for the support to make the first rOpenSci Unconference happen in Australia.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/auunconf16/au_hackthon1.jpg&#34; alt=&#34;Lounge hacking&#34; /&gt;
+&lt;img src=&#34;https://ropensci.org/assets/blog-images/auunconf16/au_hackthon2.jpg&#34; alt=&#34;Window hacking&#34; /&gt;
+&lt;img src=&#34;https://ropensci.org/assets/blog-images/auunconf16/au_hackthon3.jpg&#34; alt=&#34;Main Room hacking&#34; /&gt;
+&lt;img src=&#34;https://ropensci.org/assets/blog-images/auunconf16/au_organizers.jpg&#34; alt=&#34;Miles, Jonathan, Jessie, Nick&#34; /&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>rOpenHack report</title>
+      <link>https://ropensci.org/blog/2014/05/14/ropenhack/</link>
+      <pubDate>Wed, 14 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2014/05/14/ropenhack/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;The rOpenSci project is a poster child for the fluid collaboration that has become increasingly common these days thanks to platforms like Twitter and GitHub. It has been really inspring to see open discussions take shape as rough ideas, which rapidly turn into prototype research software, all of which are now happening in the order of few days to weeks rather than months to years. The origins of this project itself lead back to a series of serendipitous conversations that occurred over Twitter three years ago. Today we are a rapidly growing community of scientists, students, software developers, and information researchers.&lt;/p&gt;
+
+&lt;p&gt;When we wrote our proposal to the Sloan foundation last year, we budgeted a small meeting (hackathon) for the four core developers and a few members of the advisory board members. But pretty early on into our funding cycle, we realized that such a meeting could be far more impactful, both in terms of building community and prototyping software, if we were a lot more inclusive. Thanks to a series of fortuitous circumstances we were able to hold exactly such an event last month.&lt;/p&gt;
+
+&lt;p&gt;We held &lt;a href=&#34;http://ropensci.github.io/hackathon/&#34;&gt;rOpenHack&lt;/a&gt;, a coding un-conference at &lt;a href=&#34;https://foursquare.com/v/github-hq-30/50f75cc0e4b07201af25590d&#34;&gt;GitHub&amp;rsquo;s HQ&lt;/a&gt; in San Francisco from March 30th to April 1st. In addition to the core members, we invited several valuable contributors from the R community and put out an &lt;a href=&#34;http://ropensci.org/blog/2014/02/10/ropensci-hackathon/&#34;&gt;open call for other to join&lt;/a&gt;. All in all, we had ~ 30 people attend in person with a handful of folks contributing remotely. The attendees were a mix of academics, developers (both industry and non-profit) and several independent scientists, with ~ 40% of the participants being women.&lt;/p&gt;
+
+&lt;p&gt;Since this was our first time planning an event like this, we loosely followed an unconference model (similar to &lt;a href=&#34;http://scienceonline.com/&#34;&gt;Science Online&lt;/a&gt;) and asked participants to propose projects on the &lt;a href=&#34;https://github.com/ropensci/hackathon/issues&#34;&gt;hackathon repo&lt;/a&gt; in advance of the event. This approach was a really great opportunity for folks to identify projects and fellow participants, and allowed us to quickly gauge where there was the most interest. While we didn&amp;rsquo;t work on every single idea over those two days, we did manage to get quite a bit done. Here are some projects where we made a lot of headway:&lt;/p&gt;
+
+&lt;h1 id=&#34;what-we-hacked-on&#34;&gt;What we hacked on&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Gavin Simpson wrote a package called &lt;a href=&#34;https://github.com/ropensci/dependencies&#34;&gt;&lt;code&gt;Dependencies&lt;/code&gt;&lt;/a&gt; to track package dependencies (which is still a challenge in R).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Ciera Martinez, Ben Marwick, Ed Szocs, Juan Batiz-Benet and Jeff Hollister worked on a  comprehensive &lt;a href=&#34;https://github.com/ropensci/reproducibility-guide&#34;&gt;reproducibility guide&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Thomas Kluyver from the IPython project (with help from Jeroen Ooms and Ramnath Vaidyanathan) made great headway in finishing up a full iteration of the R kernel (which works great at this writing)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Martin Fenner, Gavin Simpson and Carl Boettiger built an rOpenSci cookbook of software recipes but this project has much wider applications. Once a few remaining bugs are ironed out, it will be an amazingly cool new knitr plugin for &lt;a href=&#34;https://github.com/ropensci/docs&#34;&gt;Jekyll along with a Ruby gem wrapping the knitr R package&lt;/a&gt;.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/ropensci/testdat&#34;&gt;&lt;code&gt;testdat&lt;/code&gt;&lt;/a&gt; - An R package to run unit tests (check for missing data, missing dates, bad formatting, outliers, non-ascii characters etc) on tabular data (Karthik Ram, Hilary Parker, Aylssa Frazee, Anya Bida, Dave Harris and Winston Chang)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;A &lt;a href=&#34;https://github.com/hadley/httr/blob/master/vignettes/api-packages.Rmd&#34;&gt;best practices guide&lt;/a&gt; for working with APIs in R (&lt;a href=&#34;http://had.co.nz/&#34;&gt;Hadley Wickham&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;http://www.juretriglav.si/&#34;&gt;Jure Triglav&lt;/a&gt; was an awesome remote contributor and built a Ruby gem to &lt;a href=&#34;https://github.com/ScienceToolbox/code_citations&#34;&gt;search for citations to R packages&lt;/a&gt;.&lt;/div&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;div class=&#34;full_fig&#34;&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=iUcm5COsKJo&amp;nofeather=True&#34;&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2014-05-13-ropenhack/hackathon.jpg&#34;&gt;&lt;/a&gt;&lt;/div&gt;&lt;div class=&#34;col-sm-8 col-sm-offset-2&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;There were several other really cool projects like a new Git binding for R (by our Swedish collaborator &lt;a href=&#34;https://github.com/stewid&#34;&gt;Stefan Widgren&lt;/a&gt;), spatial tools (Ramnath Vaidyanathan, Scott Chamberlain, Amelia McNamara, Ian A. Muñoz, and Ted Hart), a text-mining applications from &lt;a href=&#34;http://cpsievert.github.io/&#34;&gt;Carson Sievert&lt;/a&gt; (see &lt;a href=&#34;http://ropensci.org/blog/2014/04/16/topic-modeling-in-R/&#34;&gt;blog post&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;Hosting an event like this in the Bay Area did have other advantages. Given that many of our fantastic colleagues in the larger data science realm were local, we couldn&amp;rsquo;t pass up the opportunity to bring the community together during the event. Thanks to sponsorship from &lt;a href=&#34;http://f1000research.com/&#34;&gt;F100 Research&lt;/a&gt; and &lt;a href=&#34;https://github.com/&#34;&gt;GitHub&lt;/a&gt;, we invited developers from related projects like IPython and Julia, our friends at various tech companies, data non-profits, and also several PIs from the newly created &lt;a href=&#34;http://vcresearch.berkeley.edu/datascience/bids-launch-dec-12&#34;&gt;Berkeley Institute of Data Science&lt;/a&gt;. The social and dinner was a great opportunity for many of the newer folks to connect but also just another occasion for the community to grow stronger.&lt;/p&gt;
+
+&lt;p&gt;It would have been impossible to put together an event like this without the cooperation of several people and organizations. Our funding from the &lt;a href=&#34;http://www.sloan.org/&#34;&gt;Sloan Foundation&lt;/a&gt; made it possible to fly in several participants and cover most of the event expenses, GitHub (&lt;a href=&#34;https://github.com/arfon&#34;&gt;Arfon&lt;/a&gt; and &lt;a href=&#34;https://github.com/Kelseyschimm&#34;&gt;Kelsey&lt;/a&gt;) were fantastic hosts providing us with great space to hack in (and drinks!), and F1000 Research helped us throw together the hugely successful data science social.&lt;/p&gt;
+
+&lt;p&gt;Alyssa Frazee wrote a great summary of the event on the &lt;a href=&#34;http://simplystatistics.org/2014/04/10/the-ropensci-hackathon-ropenhack/&#34;&gt;Simply Statistics blog&lt;/a&gt;, and the fine folks at GitHub (&lt;a href=&#34;https://github.com/furyus&#34;&gt;Peter&lt;/a&gt; and Kevin) with awesome direction from &lt;a href=&#34;http://www.dtrapezoid.com/&#34;&gt;Dani Traphagen&lt;/a&gt; made a fantastic video of the event. &lt;a href=&#34;https://github.com/blog/1840-improving-github-for-science&#34;&gt;Check out the video along with a blog post&lt;/a&gt; by GitHub&amp;rsquo;s chief scientist, &lt;a href=&#34;https://github.com/blog/1665-arfon-smith-is-a-githubber&#34;&gt;Arfon Smith&lt;/a&gt;.&lt;/p&gt;
+
+&lt;!-- Video embed code --&gt;
+
+&lt;h2 id=&#34;what-s-next-on-our-event-calendar&#34;&gt;What&amp;rsquo;s next on our event calendar?&lt;/h2&gt;
+
+&lt;p&gt;We&amp;rsquo;re already looking forward to hosting the event again next year (late March 2015) at GitHub, in the very early stages of organizing something similar in London this fall (right around &lt;a href=&#34;http://2014.mozillafestival.org/&#34;&gt;Mozfest&lt;/a&gt;) and possibly one in Australia in February 2015. So if you live near one of these places and can help organize or sponsor any part of the event, please drop us a note. We would love to hear from you soon. Once we get the logistics and funding sorted out, we&amp;rsquo;ll post a general call for participation with more lead time this year. If you&amp;rsquo;re not already subscribed to our mailing list, this would be the perfect time to do it since we are gearing up for several more events this summer and fall.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

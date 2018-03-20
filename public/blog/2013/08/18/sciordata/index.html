@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Working with climate data from the web in R</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">Working with climate data from the web in R</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="/about/#team"> Scott Chamberlain </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">August 18, 2013</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>I recently attended <a href="http://scioclimate.wikispaces.com">ScienceOnline Climate</a>, a conference in Washington, D.C. at AAAS. You may have heard of the <a href="https://twitter.com/#sciox">ScienceOnline annual meeting in North Carolina</a> - this was one of their topical meetings focused on Climate Change. I moderated a session on <a href="http://scioclimate.wikispaces.com/3W.+Working+With+Science+Data+From+Around+The+Web">working with data from the web in R</a>, focusing on climate data. Search Twitter for #scioClimate for tweets from the conference, and #sciordata for tweets from the session I ran. The following is an abbreviated demo of what I did in the workshop showing some of what you can do with climate data in R using our packages.</p>
+
+<p>Before digging in, why would you want to get climate data programatically vs. via pushing buttons in a browser? Learning a programming language can take some time - we all already know how to use browsers. So why?!  First, getting data programatically, especially in R (or Python), allows you to then easily do other stuff, like manipulate data, visualize, and analyze data. Second, if you do your work programatically, <strong>you</strong> and <em>others</em> can reproduce, and extend, the work you did with little extra effort. Third, programatically getting data makes tasks that are repetitive and slow, fast and easy - you can&rsquo;t easily automate button clicks in a browser. Fourth, you can combine code with writing to make your entire workflow reproducible, whether it&rsquo;s notes, a blog post, or even a research article.</p>
+
+<h2 id="interactive-visualizations-in-r">Interactive visualizations in R</h2>
+
+<p>Let&rsquo;s start off with something shiny. The majority of time I make static visualizations, which are great for me to look at during analyses, and for publications of research findings in PDFs. However, static visualizations don&rsquo;t take advantage of the interactive nature of the web. Ramnath Vaidyanathan has developed an R package, <a href="https://github.com/ramnathv/rCharts">rCharts</a>, to generate dynamic Javascript visualizations directly from R that can be used interactively in a browser. Here is an example visualizing a dataset that comes with R.</p>
+
+<pre><code class="language-r">library(devtools)
+install_github(&quot;rCharts&quot;, &quot;ramnathv&quot;)
+library(rCharts)
+
+# Load a data set
+hair_eye_male &lt;- subset(as.data.frame(HairEyeColor), Sex == &quot;Male&quot;)
+
+# Make a javascript plot object
+n1 &lt;- nPlot(Freq ~ Hair, group = &quot;Eye&quot;, data = hair_eye_male, type = &quot;multiBarChart&quot;)
+
+# Visualize
+n1$show(cdn = TRUE)
+</code></pre>
+
+<p>Check out the output <a href="http://sckott.github.io/vis/nvd3_eg.html">here</a>. If you like you can take the source code from the visualization (right click on select <em>View Page Source</em>) and put it in your html files, and you&rsquo;re good to go (as long as you have dependencies, etc.) - quicker than learning <a href="http://d3js.org/">d3</a> and company from scratch, eh. This is a super simple example, but you can imagine the possibilities.</p>
+
+<h2 id="the-data-itself">The data itself</h2>
+
+<h3 id="first-install-some-packages-these-are-all-just-on-github-so-you-need-to-have-devtools-installed">First, install some packages - these are all just on Github, so you need to have devtools installed</h3>
+
+<pre><code class="language-r">library(devtools)
+install_github(&quot;govdat&quot;, &quot;sckott&quot;)
+install_github(&quot;rnoaa&quot;, &quot;ropensci&quot;)
+install_github(&quot;rWBclimate&quot;, &quot;ropensci&quot;)
+install_github(&quot;rnpn&quot;, &quot;ropensci&quot;)
+</code></pre>
+
+<h3 id="politicians-talk-sunlight-foundation-listens">Politicians talk - Sunlight Foundation listens</h3>
+
+<h4 id="look-at-mentions-of-the-phrase-climate-change-in-congress-using-the-govdat-package">Look at mentions of the phrase &ldquo;climate change&rdquo; in congress, using the govdat package</h4>
+
+<pre><code class="language-r">library(govdat)
+library(ggplot2)
+
+# Get mentions of climate change from Democrats
+dat_d &lt;- sll_cw_timeseries(phrase = &quot;climate change&quot;, party = &quot;D&quot;)
+
+# Add a column that says this is data from deomcrats
+dat_d$party &lt;- rep(&quot;D&quot;, nrow(dat_d))
+
+# Get mentions of climate change from Democrats
+dat_r &lt;- sll_cw_timeseries(phrase = &quot;climate change&quot;, party = &quot;R&quot;)
+
+# Add a column that says this is data from republicans
+dat_r$party &lt;- rep(&quot;R&quot;, nrow(dat_r))
+
+# Put two tables together
+dat_both &lt;- rbind(dat_d, dat_r)
+
+# Plot data
+ggplot(dat_both, aes(day, count, colour = party)) + theme_grey(base_size = 20) +
+    geom_line() + scale_colour_manual(values = c(&quot;blue&quot;, &quot;red&quot;))
+</code></pre>
+
+<p><img src="/assets/blog-images/2013-08-17-sciordata/govdat.png" alt="center" /></p>
+
+<h3 id="noaa-climate-data-using-the-rnoaa-package">NOAA climate data, using the rnoaa package</h3>
+
+<h4 id="map-sea-ice-for-12-years-for-april-only-for-the-north-pole">Map sea ice for 12 years, for April only, for the North pole</h4>
+
+<pre><code class="language-r">library(rnoaa)
+library(scales)
+library(ggplot2)
+library(doMC)
+library(plyr)
+
+# Get URLs for data
+urls &lt;- seaiceeurls(mo = &quot;Apr&quot;, pole = &quot;N&quot;)[1:12]
+
+# Download sea ice data
+registerDoMC(cores = 4)
+out &lt;- llply(urls, noaa_seaice, storepath = &quot;~/seaicedata&quot;, .parallel = TRUE)
+
+# Name elements of list
+names(out) &lt;- seq(1979, 1990, 1)
+
+# Make a data.frame
+df &lt;- ldply(out)
+
+# Plot data
+ggplot(df, aes(long, lat, group = group)) + geom_polygon(fill = &quot;steelblue&quot;) +
+    theme_ice() + facet_wrap(~.id)
+</code></pre>
+
+<p><img src="/assets/blog-images/2013-08-17-sciordata/seaice2.png" alt="center" /></p>
+
+<h3 id="world-bank-climate-data-using-the-rwbclimate-package">World Bank climate data, using the rWBclimate package</h3>
+
+<h4 id="plotting-annual-data-for-different-countries">Plotting annual data for different countries</h4>
+
+<p>Data can be extracted from countries or basins submitted as vectors. Here we will plot the expected temperature anomaly for each 20 year period over a baseline control period of 1961-2000. These countries chosen span the north to south pole. It&rsquo;s clear from the plot that the northern most countries (US and Canada) have the biggest anomaly, and Belize, the most equatorial country, has the smallest anomaly.</p>
+
+<pre><code class="language-r">library(rWBclimate)
+
+# Search for data
+country.list &lt;- c(&quot;CAN&quot;, &quot;USA&quot;, &quot;MEX&quot;, &quot;BLZ&quot;, &quot;ARG&quot;)
+country.dat &lt;- get_model_temp(country.list, &quot;annualanom&quot;, 2010, 2100)
+
+# Subset data to one specific model
+country.dat.bcc &lt;- country.dat[country.dat$gcm == &quot;bccr_bcm2_0&quot;, ]
+
+# Exclude A2 scenario
+country.dat.bcc &lt;- subset(country.dat.bcc, country.dat.bcc$scenario != &quot;a2&quot;)
+
+# Plot data
+ggplot(country.dat.bcc, aes(x = fromYear, y = data, group = locator, colour = locator)) +
+    geom_point() + geom_path() + ylab(&quot;Temperature anomaly over baseline&quot;) +
+    theme_bw(base_size = 20)
+</code></pre>
+
+<p><img src="/assets/blog-images/2013-08-17-sciordata/unnamed-chunk-1.png" alt="center" /></p>
+
+<h3 id="phenology-data-from-the-usa-national-phenology-network-using-rnpn">Phenology data from the USA National Phenology Network, using rnpn</h3>
+
+<pre><code class="language-r">library(rnpn)
+
+# Lookup names
+temp &lt;- lookup_names(name = &quot;bird&quot;, type = &quot;common&quot;)
+comnames &lt;- temp[temp$species_id %in% c(357, 359, 1108), &quot;common_name&quot;]
+
+# Get some data
+out &lt;- getobsspbyday(speciesid = c(357, 359, 1108), startdate = &quot;2010-04-01&quot;,
+    enddate = &quot;2013-09-31&quot;)
+names(out) &lt;- comnames
+df &lt;- ldply(out)
+df$date &lt;- as.Date(df$date)
+
+# Visualize data
+library(ggplot2)
+ggplot(df, aes(date, count)) + geom_line() + theme_grey(base_size = 20) + facet_grid(.id ~
+    .)
+</code></pre>
+
+<p><img src="/assets/blog-images/2013-08-17-sciordata/rnpn.png" alt="center" /></p>
+
+<h3 id="feedback-and-new-climate-data-sources">Feedback and new climate data sources</h3>
+
+<p>Do use the above pacakges (<a href="https://github.com/sckott/govdat">govdat</a>, <a href="https://github.com/ropensci/rnoaa">rnoaa</a>, <a href="https://github.com/ropensci/rWBclimate">rWBclimate</a>, and <a href="https://github.com/ropensci/rnpn">rnpn</a>) to get climate data, and get in touch with bug reports, and feature requests.</p>
+
+<p>Surely there are other sources of climate data out there that you want to use in R, right? Let us know what else you want to use. Better yet, if you can sling some R code, start writing your own package to interact with a source of climate data on the web - we can lend a hand.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/climate-change"><span class="label">climate change</span></a>
+                
+                    <a href="/tags/phenology"><span class="label">phenology</span></a>
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/api"><span class="label">API</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Topic modeling in R</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">Topic modeling in R</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="http://cpsievert.github.io/" target="_blank"> Carson Sievert </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">April 16, 2014</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p><em>Editor&rsquo;s note: This is the first in a series of posts from rOpenSci&rsquo;s <a href="http://ropensci.github.io/hackathon/">recent hackathon</a>.</em></p>
+
+<p>I recently had the pleasure of participating in <a href="https://github.com/ropensci/hackathon/">rOpenSci&rsquo;s hackathon</a>. To be honest, I was quite nervous to work among such notables, but I immediately felt welcome thanks to a warm and personable group. <a href="http://alyssafrazee.com/">Alyssa Frazee</a> has a <a href="http://simplystatistics.org/2014/04/10/the-ropensci-hackathon-ropenhack/">great post summarizing the event</a>, so check that out if you haven&rsquo;t already. Once again, many thanks to rOpenSci for making it possible!</p>
+
+<p>In addition to learning and socializing at the hackathon, I wanted to ensure my time was productive, so I worked on a mini-project related to my research in text mining. rOpenSci has plethora of <a href="http://ropensci.org/packages/index.html">R packages</a> for extracting literary content off the web, including <a href="https://github.com/ropensci/elife">elife</a>, which is a lightweight interface to the <a href="http://dev.elifesciences.org/">elife API</a>. This package is not yet available on CRAN, but we can easily install from GitHub thanks to devtools.</p>
+
+<h4 id="installing-the-package">Installing the package</h4>
+
+<pre><code>library(devtools)
+install_github(&quot;ropensci/elife&quot;)
+library(elife)
+</code></pre>
+
+<h4 id="brief-overview-of-topic-models">Brief Overview of Topic Models</h4>
+
+<p>My research in text mining is focused on a particular type of <a href="http://en.wikipedia.org/wiki/Topic_model">topic model</a> known as <a href="http://en.wikipedia.org/wiki/Latent_Dirichlet_allocation">Latent Dirichlet Allocation</a> (LDA). In general, a topic model discovers topics (e.g., hidden themes) within a collection of documents. For example, if a given document is generated from a hypothetical &ldquo;statistics topic&rdquo;, there might be a 10% chance a given word in that document is &ldquo;model&rdquo;, a 5% chance that word is &ldquo;probability&rdquo;, a 1% that word is &ldquo;algorithm&rdquo;, etc. Whereas, if a document is generated from a hypothetical &ldquo;computer science topic&rdquo;, there might be a 4% chance a given word in that document is &ldquo;model&rdquo;, a 2% chance that word is &ldquo;probability&rdquo;, a 16% that word is &ldquo;algorithm&rdquo;, etc. In other words, each topic is defined by a probability mass function over each possible word.</p>
+
+<p>LDA takes this example one step further and allows for each document to be generated from a mixture of topics. For example, a particular document could be 60% statistics, 10% computer science, 20% mathematics, etc. Whereas, a different document could be 30% statistics, 30% computer science, 15% mathematics, etc. Within the LDA literature, fitting models to abstracts of academic articles is quite common, so I thought it would be neat to do the same with abstracts from elife articles.</p>
+
+<h4 id="get-all-the-elife-abstracts">Get all the elife abstracts!</h4>
+
+<p>In order to grab all the abstracts, first we&rsquo;ll grab all the <a href="http://en.wikipedia.org/wiki/Digital_object_identifier">DOIs</a> that point to currently available articles. Note that we can do more complicated queries of specific articles with <code>searchelife</code> (the <code>help(searchelife)</code> page has some nice examples).</p>
+
+<pre><code>dois &lt;- searchelife(terms = &quot;*&quot;, searchin = &quot;article_title&quot;, boolean = &quot;matches&quot;)
+</code></pre>
+
+<p>The <code>dois</code> can now be used to obtain all sorts of meta data associated with these articles using <code>elife_doi</code>. In this case, I just want the abstracts.</p>
+
+<pre><code>abs &lt;- sapply(dois, function(x) elife_doi(x, ret = &quot;abstract&quot;))
+</code></pre>
+
+<p>From here, we have what we need to fit the topic model. I don&rsquo;t want to focus on technical details here, but if you are interested in the statistics involved, I recommend reading <a href="http://cpsievert.github.io/xkcd/">my post on xkcd comics</a>. This post also covers the method I use to determine an optimal number of topics. I&rsquo;ve provided all the code used to fit the model <a href="https://github.com/cpsievert/cpsievert.github.com/blob/master/elife/elife.R">here</a>, but let&rsquo;s skip to the fun part and jump right into exploring the model output.</p>
+
+<p>The window below is an interactive visualization of the LDA output derived from elife abstracts. The aim of this visualization is to aid interpretation of topics. Topic interpretation tends to be difficult since each topic is defined by a probability distribution with support over many of words. With this interactive visualization, one can focus on the most &ldquo;relevant&rdquo; words for any topic by hovering/clicking over the appropriate circle. We will define &ldquo;relevance&rdquo; shortly, but for now, go ahead and click on the circle towards the bottom labeled &ldquo;11&rdquo;.</p>
+
+<p><a href="https://gallery.shinyapps.io/LDAelife/" target="_blank">Go To Application</a></p>
+
+<p></div><div class="col-sm-10 col-lg-10">
+<iframe src="https://gallery.shinyapps.io/LDAelife/" width="1200" height = "800"></iframe></div><div class="col-sm-8 col-sm-offset-2"></p>
+
+<p>Now that topic 11 is selected, in the bar chart to the right, we see &ldquo;relat&rdquo;, &ldquo;evolut&rdquo;, and &ldquo;similar&rdquo; are the top 3 most relevant words. Towards the bottom of the bar chart, we see &ldquo;resid&rdquo; which is the 30th most relevant. Note that before the model was fit <a href="http://en.wikipedia.org/wiki/Stemming">stemming</a> was performed. Thus, a word like &ldquo;relat&rdquo; could stand for &ldquo;relation&rdquo;, &ldquo;relations&rdquo;, &ldquo;relationship&rdquo;, etc. You might now be thinking: &ldquo;That&rsquo;s great, I can see this topic is related to evolutionary biology, but why are these words ranked in this order?&rdquo;</p>
+
+<p>The topic specific word rankings are determined by a measure known as <em>relevance</em>. Relevance is a compromise between the probability of a word given the topic (the width of the red bars) and the probability within topic divided by the overall frequency of the word (the ratio of red to gray). Note the &ldquo;Value of lambda&rdquo; slider which controls this compromise. A value of 1 for lambda will rank words solely on the width of the red bars (which tends to over-rank common words). A value of 0 for lambda will rank words solely on the ratio of red to gray (which tends to over-rank rare words). A recent study has shown evidence for an optimal value of lambda around 0.6 which is the default value.</p>
+
+<p>The &ldquo;topic landscape&rdquo; on the left-hand side provides a sense of topic similarity by approximating distances between topics. To produce the point locations, pairwise distances between topic specific word distributions are computed according to the currently selected measure in the &ldquo;Topical Distance Calculation&rdquo; menu. Those distances are next scaled down to two dimensions using the currently select algorithm in the &ldquo;Multidimensional Scaling Method&rdquo; menu. By default, the circle sizes are proportional to the prevalence of each topic in the collection of text.</p>
+
+<p>Hovering over labels on the bar chart allows us to explore different contexts for the same word. Upon hovering over a word, circles in the topic landscape will change according to the distribution over topics for that given word. For example, if we hover over &ldquo;evolut&rdquo; (the 2nd most relevant word for topic 11 when lambda is 0.6), we see that it has large mass under topic 11 and 20. If we now click on topic 20, the most relevant words suggest this is a &ldquo;population genetics&rdquo; topic. Interestingly, if we hover over &ldquo;adapt&rdquo; (the 29th most relevant word for topic 20 when lambda is 0.6), we see that it has large mass under topic 1 and 20. Now, if we hover over topic 1, we see a &ldquo;general life science&rdquo; topic.</p>
+
+<p>There are certainly many other things to discover using this interactive visualization. I hope you take the time to explore and leave a comment with findings or questions below. If you are interested in text mining, or open science in general, definitely check out <a href="http://ropensci.org/packages/index.html">rOpenSci&rsquo;s R packages</a>. If you&rsquo;d like to make a similar interactive visualization, check out the <a href="https://github.com/cpsievert/LDAvis/">LDAvis</a> package.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/topic-modeling"><span class="label">topic-modeling</span></a>
+                
+                    <a href="/tags/textmining"><span class="label">textmining</span></a>
+                
+                    <a href="/tags/elife"><span class="label">elife</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

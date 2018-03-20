@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rbison on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/rbison/</link>
+    <description>Recent content in Rbison on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 04 Jul 2013 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/rbison/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>From occurrence data to interactive maps on the web</title>
+      <link>https://ropensci.org/blog/2013/07/04/rbison-geoson/</link>
+      <pubDate>Thu, 04 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/07/04/rbison-geoson/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;We have a number of packages for getting species occurrence data: &lt;a href=&#34;https://github.com/ropensci/rgbif&#34;&gt;rgbif&lt;/a&gt; and &lt;a href=&#34;https://github.com/ropensci/rbison&#34;&gt;rbison&lt;/a&gt;. The power of R is that you can pull down this occurrence data, manipulate the data, do some analyses, and visualize the data - all in one open source framework.&lt;/p&gt;
+
+&lt;p&gt;However, when dealing with occurrence data on maps, it is often useful to be able to interact with the visualization. &lt;a href=&#34;https://github.com/&#34;&gt;Github&lt;/a&gt;, a code hosting and collaboration site, now renders a particular type of map file format as an interactive map. This file format is called &lt;code&gt;.geojson&lt;/code&gt;. Here is an example of an interactive map hosted on Github, embedded here:&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;script src=&#34;https://embed.github.com/view/geojson/geobabbler/geodata/master/geojson/leonardtown_bldgs.geojson&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;Note that you can go full screen on these maps too. Check it out &lt;a href=&#34;https://render.github.com/view/geojson?url=https://raw.github.com/geobabbler/geodata/master/geojson/leonardtown_bldgs.geojson&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To demonstrate how easy it can be to do this on your own, the following is a small demo of searching for occurrence data, converting to geojson, and pushing up to Github.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;install-rbison-from-github&#34;&gt;Install rbison from Github&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# install_github(&#39;rbison&#39;, &#39;ropensci&#39;) # uncomment if you haven&#39;t
+# installed it
+library(rbison)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;step-1-seach-for-some-occurrence-data&#34;&gt;Step 1: Seach for some occurrence data&lt;/h3&gt;
+
+&lt;p&gt;Search for data on the bison.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dat &amp;lt;- bison(species = &amp;quot;Bison bison&amp;quot;, count = 500)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Take a peak at the data just to make sure we have some occurrence data&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(bison_data(dat, &amp;quot;data_df&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;         id        name longitude latitude
+1 686467428 Bison bison    -118.8    43.31
+2 656975776 Bison bison    -118.8    43.31
+3 785794942 Bison bison    -111.1    44.66
+4 687029742 Bison bison    -110.7    44.46
+5 687027385 Bison bison    -110.7    44.61
+6 773434631 Bison bison    -110.6    44.83
+                                      provider
+1  University of Kansas Biodiversity Institute
+2 Natural History Museum of Los Angeles County
+3               Museum of Southwestern Biology
+4                              iNaturalist.org
+5                              iNaturalist.org
+6                              iNaturalist.org
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;step-2-convert-the-data-to-geojson-format&#34;&gt;Step 2: Convert the data to geojson format&lt;/h3&gt;
+
+&lt;p&gt;Before this step I made a folder called &lt;em&gt;mygeojson&lt;/em&gt; to write data in to, which will also be a Github repository.&lt;/p&gt;
+
+&lt;p&gt;In this example, we are using the option method=&amp;lsquo;web&amp;rsquo; in the &lt;code&gt;togeojson&lt;/code&gt; function, but we could also use method=&amp;lsquo;local&amp;rsquo; which wouldl use the &lt;code&gt;rgdal&lt;/code&gt; package to convert to a geojson file format locally. Specifying method=&amp;lsquo;web&amp;rsquo; uses the &lt;a href=&#34;http://ogre.adc4gis.com/&#34;&gt;Ogre web client&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dat_df &amp;lt;- bison_data(dat, &amp;quot;data_df&amp;quot;)
+write.csv(dat_df, &amp;quot;~/github/sac/mygeojson/bison_bison.csv&amp;quot;)
+file &amp;lt;- &amp;quot;~/github/sac/mygeojson/bison_bison.csv&amp;quot;
+togeojson(file, method = &amp;quot;web&amp;quot;, destpath = &amp;quot;~/github/sac/mygeojson/&amp;quot;, outfilename = &amp;quot;bison_bison&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;step-3-go-to-your-terminal-or-git-gui-and-push-up-the-new-geojson-file&#34;&gt;Step 3: Go to your terminal or git GUI and push up the new geojson file&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-bash&#34;&gt;cd ~/github/sac/mygeojson/
+git init
+git add .
+git commit -a -m &#39;my first geojson file&#39;
+git remote add origin https://github.com/sckott/mygeojson.git
+git push origin master
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;Then go to your new repo on Github and click on the &lt;code&gt;.geojson&lt;/code&gt; file you created, and you&amp;rsquo;ll get a map. You can share this with others, and even embed the interactive map in other web sites, as you can see below. Try clicking on the points - they give metadata associated with each point.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;script src=&#34;https://embed.github.com/view/geojson/sckott/mygeojson/master/bison_bison.geojson&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;Check out the full screen version &lt;a href=&#34;https://render.github.com/view/geojson?url=https://raw.github.com/sckott/mygeojson/master/bison_bison.geojson&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;It is as easy as that! We&amp;rsquo;ll add this functionality into our &lt;code&gt;rgbif&lt;/code&gt; package as well.&lt;/p&gt;
+
+&lt;p&gt;Further reading:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.geomusings.com/2013/06/18/geojson-on-github-now-what/&#34;&gt;http://blog.geomusings.com/2013/06/18/geojson-on-github-now-what/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;I wrote earlier about this topic on my own blog &lt;a href=&#34;http://sckott.github.io/2013/06/geojson/&#34;&gt;here&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Github help for geojson file &lt;a href=&#34;https://help.github.com/articles/mapping-geojson-files-on-github#embedding-your-map-elsewhere&#34;&gt;https://help.github.com/articles/mapping-geojson-files-on-github#embedding-your-map-elsewhere&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Revisiting our USGS app</title>
+      <link>https://ropensci.org/blog/2013/06/19/usgs-app/</link>
+      <pubDate>Wed, 19 Jun 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/06/19/usgs-app/</guid>
+      <description>
+        
+        &lt;p&gt;R has a reputation of not playing nice on the web. At rOpenSci, we write R pacakages to bring data from around the web into R on your local machine - so we mostly don&amp;rsquo;t do any dev for the web. However, the United States Geological Survey (USGS) recenty held &lt;a href=&#34;http://applifyingusgsdata.challenge.gov/submissions/14242-taxaviewer&#34;&gt;an app competition&lt;/a&gt; - it was a good opportunity to play with R on the web. We won best overall app as described in &lt;a href=&#34;http://ropensci.org/blog/2013/04/22/usgs_app/&#34;&gt;an earlier post on this blog&lt;/a&gt;. Check out our app &lt;strong&gt;TaxaViewer&lt;/strong&gt; &lt;a href=&#34;http://glimmer.rstudio.com/ropensci/usgs_app/&#34;&gt;here&lt;/a&gt;. Last week we presented the app to the USGS - a video of the presentation will be coming soon. A screenshot:&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;
+{{ &amp;ldquo;assets/blog-images/usgsapp.png&amp;rdquo; | image_url }}
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;When we submitted the app we had static ggplot2 maps, but now the app has interactive maps that are a much better fit for a browser that isn&amp;rsquo;t restrained to static images. Ramnath Vaidyanathan helped us use &lt;a href=&#34;http://rcharts.github.io/&#34;&gt;rCharts&lt;/a&gt; to pass data from queries to the GBIF and BISON APIs to functions in rCharts to prepare the map page you see in the app. rCharts isn&amp;rsquo;t restricted to just maps - think interactive bar charts, scatter plots, etc.&lt;/p&gt;
+
+&lt;p&gt;We didn&amp;rsquo;t originally have a tab for searching for mentions of taxonomic names in the literature - we added it in later (see the &lt;em&gt;Papers&lt;/em&gt; tab on the &lt;a href=&#34;http://glimmer.rstudio.com/ropensci/usgs_app/&#34;&gt;app&lt;/a&gt;), and people really liked it, suggesting that&amp;rsquo;s something we should explore more. How does it work? We take the list of taxonomic names input in the text box in the upper left, and query the &lt;a href=&#34;http://api.plos.org/&#34;&gt;PLOS search API&lt;/a&gt;, and return a table of papers listing the journal name and paper title. We provide a link to open an article from the search results in Macrodocs (thx &lt;a href=&#34;https://twitter.com/invisiblecomma&#34;&gt;@invisiblecomma&lt;/a&gt;!), like &lt;a href=&#34;http://macrodocs.org/?doi=10.1371/journal.pone.0017580&#34;&gt;this example&lt;/a&gt;. We chose PLOS as they have a relatively large set of articles, and they are all open access = immediate access to the text. Any interest in an app just for literature? Maybe litereature + metadata? And perhaps some text mining using the &lt;a href=&#34;http://cran.r-project.org/web/packages/tm/index.html&#34;&gt;tm package&lt;/a&gt;?&lt;/p&gt;
+
+&lt;p&gt;We think of the USGS app as a visual interface to show what can be do in R on the command line, and give the code to do it. See the code (&amp;lt;/&amp;gt;) buttons that drop down in this screenshot below. This is a compelling use case for Shiny apps - show people what they can do visually - then give them the code to do it on their own machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;
+{{ &amp;ldquo;assets/blog-images/codemodal.png&amp;rdquo; | image_url }}
+&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

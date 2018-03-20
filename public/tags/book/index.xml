@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Book on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/book/</link>
+    <description>Recent content in Book on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 02 Dec 2013 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/book/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Open Science with R</title>
+      <link>https://ropensci.org/blog/2013/12/02/open-science-with-r/</link>
+      <pubDate>Mon, 02 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/12/02/open-science-with-r/</guid>
+      <description>
+        
+        &lt;p&gt;&lt;strong&gt;Upcoming Book on Open Science with R&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We&amp;rsquo;re pleased to announce that the rOpenSci core team has just signed a contract with &lt;a href=&#34;http://www.taylorandfrancis.com/books/series/CRCTHERSER/&#34;&gt;CRC Press/Taylor and Francis R series&lt;/a&gt; to publish a new book on practical ways to implement open science into your own research using R. Given all the talk about the importance of open science, the discussion often lacks practical suggestions on how one might actually incorporate these practices into their day to day research workflow.&lt;/p&gt;
+
+&lt;p&gt;In many ways writing this book will be an exercise for us to share our research workflow with the rest of the community. If R plays an important role in your research this book will help you learn how to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Share your computational methods using sound scientific software guidelines.&lt;/li&gt;
+&lt;li&gt;Document your datasets with valid metadata and deposit them into persistent repositories.&lt;/li&gt;
+&lt;li&gt;Write reports, manuscripts, and presentations.&lt;/li&gt;
+&lt;li&gt;Maintain an open lab notebook.&lt;/li&gt;
+&lt;li&gt;Build packages that interface with data sources on the web.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The publisher has been kind enough to allow us to maintain a public version the book as a GitHub repository. Anyone will be able to read our chapters, review, comment, and send pull requests. The final edited and nicely formatted version with a complete index will of course only be available via the publisher copy. But that is a small trade off in this case. As an added advantage, we will be able to keep the material current and up-to-date long after publication.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/ropensci/open-science-with-R&#34;&gt;GitHub repository for the book&lt;/a&gt;
+&lt;a href=&#34;https://github.com/ropensci/open-science-with-R/issues?labels=chapter-01&amp;amp;state=open&#34;&gt;Issues, comments and suggestions&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We expect the book to be out shortly after July 2014.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

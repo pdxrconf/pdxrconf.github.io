@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | The challenge of combining 176 x &amp;#35;otherpeoplesdata to create the Biomass And Allometry Database</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">The challenge of combining 176 x &amp;#35;otherpeoplesdata to create the Biomass And Allometry Database</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="http://danielfalster.com/" target="_blank"> Daniel Falster </a>&nbsp;
+                        
+                    
+                        
+                          <a href="/about/#team"> Rich FitzJohn </a>&nbsp;
+                        
+                    
+                        
+                          <a href="http://www.remkoduursma.com/work" target="_blank"> Remko Duursma </a>&nbsp;
+                        
+                    
+                        
+                          <a href="https://twitter.com/dbarneche" target="_blank"> Diego Barneche </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">June 3, 2015</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>Despite the hype around &ldquo;big data&rdquo;, a more immediate problem facing many scientific analyses is that large-scale databases must be assembled from a collection of small independent and heterogeneous fragments &ndash; the outputs of many and isolated scientific studies conducted around the globe.</p>
+
+<p>Collecting and compiling these fragments is challenging at both political and technical levels. The political challenge is to manage the carrots and sticks needed to promote sharing of data within the scientific community. The politics of data sharing have been the primary focus for debate over the last 5 years, but now that many journals and funding agencies are requiring data to be archived at the time of publication, the availability of these data fragments is increasing. But little progress has been made on the technical challenge: <strong>how can you combine a collection of independent fragments, each with its own peculiarities, into a single quality database?</strong></p>
+
+<p>Together with 92 other co-authors, we recently published the <a href="https://github.com/dfalster/baad">Biomass And Allometry Database (BAAD)</a> as a <a href="http://www.esapubs.org/archive/ecol/E096/128/">data paper</a> in the journal Ecology, combining data from 176 different scientific studies into a single unified database. We built BAAD for several reasons: i) we needed it for our own work ii) we perceived a strong need within the vegetation modelling community for such a database and iii) because it allowed us to road-test some new methods for building and maintaining a database <sup><sup class="footnote-ref" id="fnref:database"><a rel="footnote" href="#fn:database">0</a></sup></sup>.</p>
+
+<p>Until now, every other data compilation we are aware of has been assembled in the dark. By this we mean, end-users are provided with a finished product, but remain unaware of the diverse modifications that have been made to components in assembling the unified database. Thus users have limited insight into the quality of methods used, nor are they able to build on the compilation themselves.</p>
+
+<p>The approach we took with BAAD is quite different: our database is built from raw inputs using scripts; plus the entire work-flow and history of modifications is available for users to inspect, run themselves and ultimately build upon. We believe this is a better way for managing lots of #otherpeoplesdata and so below share some of the key insights from our experience.</p>
+
+<h2 id="1-script-everything-and-rebuild-from-source">1. Script everything and rebuild from source</h2>
+
+<p>From the beginning of the project, we decided to script everything. We wanted the entire work-flow of transforming raw data files into a unified database to be completely scripted and able to be rerun at any point. When your work-flow is scripted, you can make a small change and then rebuild the database in an instant. Another reason for scripting is that it ensures all the modifications to the data are well documented. This simply isn&rsquo;t possible in Excel. Looking at our code, you can see exactly how we modified the data to arrive at the end product.</p>
+
+<p>The only potential cost of continually rebuilding the database is that the process of rebuilding can take time. In the end, the time taken to make all the transformations and combine all 176 studies was pretty minimal &ndash; ~9 seconds all-up. But the job of continually rebuilding the database became a lot quicker once we started using <a href="https://github.com/richfitz/remake">remake</a> <sup><sup class="footnote-ref" id="fnref:remake"><a rel="footnote" href="#fn:remake">0</a></sup></sup>. Remake caches built objects (e.g. the transformed data from each study) and only rebuilds each of them if either the data or code generating that particular object has changed. So after the first longer run, rebuilding the entire database takes in the range of 1&ndash;2 seconds.</p>
+
+<p>Another advantage of constantly rebuilding is that we were forced to make our code more robust and portable, so that it would run safely on all the collaborators machines. Recently we took this one step further by setting up some automated builds, using a continuous integration system (<a href="https://travis-ci.or">Travis</a>) that automatically rebuilds the database on a fresh remote virtual machine <sup><sup class="footnote-ref" id="fnref:TravisCI"><a rel="footnote" href="#fn:TravisCI">0</a></sup></sup>. This approach allows us to detect undocumented dependencies or changes to dependencies that would prevent others rebuilding the database.</p>
+
+<p>The current status of the BAAD is: <a href="https://travis-ci.org/dfalster/baad"><img src="https://travis-ci.org/dfalster/baad.svg?branch=master" alt="Build Status" /></a></p>
+
+<h2 id="2-establish-a-data-processing-pipeline">2. Establish a data-processing pipeline</h2>
+
+<p>The hashtag <a href="https://twitter.com/search?q=%23otherpeoplesdata">#otherpeoplesdata</a> documents the challenge and frustrations of working with data that were curated by others. (We each have our own ways of preparing a dataset, but often the logic we bring to the problem cannot be inferred by others from the spreadsheet alone.) For us, the trick to working with large amounts of #otherpeoplesdata was to establish a solid processing pipeline, and then focus on getting every new study into that pipeline. Once in the pipeline, a common set of operations is applied (Figure 1). So the challenge for each new study was reduced from &ldquo;transform into final output&rdquo;, to &ldquo;get it into the pipeline&rdquo;.</p>
+
+<p><strong>Figure 1:</strong> Work flow for building the BAAD. Data from each study is processed in the same way, using a standardised set of input files, resulting in a single database with a common format.</p>
+
+<p><img src="/assets/blog-images/2015-06-03-baad/stuff.png" alt="baad figure 1" /></p>
+
+<p>The following principles were applied in establishing our processing pipeline.</p>
+
+<h3 id="don-t-modify-raw-data-files">Don&rsquo;t modify raw data files</h3>
+
+<p>Raw data is holy. A back-of-the-envelope calculation suggests the data we are managing would cost millions to collect afresh. We decided early on that we would aim to keep the original files sent to us unchanged, as much as possible. In many cases it was necessary to export an Excel spreadsheet as a csv file, but beyond that, the file should be basically as it was provided. A limited number of actions were performed on raw data files such as (click on links for examples) <a href="https://github.com/dfalster/baad/commit/7d10aede58080d83d59fe3be5043829b15f0236b">incorporating an updated dataset from a contributor</a>, or minor modifications allowing data
+to be loaded into R, including <a href="https://github.com/dfalster/baad/commit/5bb9044e7e4b63ad2febca986ebf1e45f24cdd0e">modifying line endings</a> <sup><sup class="footnote-ref" id="fnref:line-endings"><a rel="footnote" href="#fn:line-endings">0</a></sup></sup>, <a href="https://github.com/dfalster/baad/commit/ec82e83d1b50f4e6bc2df2a780d2bb1684530652">removing a string of trailing empty columns</a>, <a href="https://github.com/dfalster/baad/commit/d22bc1ee1db3870a7e281de22862eaa1ced4ddd1">removing special characters causing R to crash</a>, and <a href="https://github.com/dfalster/baad/commit/4c83c70eb965bfd9c3b7c30f88312e646476836b">making column names unique</a>.</p>
+
+<p>The types of operations that were not allowed include data-transformations and creation of new columns &ndash; these were all handled in our pipeline.</p>
+
+<h3 id="encode-meta-data-as-data-not-as-code">Encode meta-data as data, not as code</h3>
+
+<p>In the early stages of our project, we encoded a lot of the changes we wanted to make to the data into our R scripts. For example, the code below is taken from <a href="https://github.com/dfalster/baad/blob/912163bb371e280340dee2bb4cf872a1d7ede81b/R/makeCleanDataFiles.R">early in the project&rsquo;s history</a>:</p>
+
+<pre><code class="language-r">	if(names[i]==&quot;Kohyama1987&quot;){
+		raw        &lt;-  read.csv(paste(dir.rawData,&quot;/&quot;,names[i],&quot;/data.csv&quot;, sep=''), h=T, stringsAsFactors=FALSE)
+		raw$SpecCode[raw$SpecCode=='Cs']  &lt;-  &quot;Camellia sasanqua&quot;
+		raw$SpecCode[raw$SpecCode=='Cj']  &lt;-  &quot;Camellia japonia&quot;
+		...
+		...
+		raw$leaf.mass  &lt;-  raw$Wtl.g + raw$Wbl.g
+		raw$m.st       &lt;-  raw$Wts.g + raw$Wbs.g
+		new[[i]]   &lt;-  cbind(dataset=names[i], species=raw$SpecCode, raw[,c(5:8, 14:ncol(raw))], latitude=30.31667, longitude=130.4333, location=&quot;Ohkou River, Yakushima Island, Kyushu, Japan&quot;, reference=&quot;Kohyama T (1987) Significance of architecture and allometry in saplings. Functional Ecology 1:399-404.&quot;, growingCondition=&quot;FW&quot;, vegetation=&quot;TempRf&quot;, stringsAsFactors=FALSE)
+	}
+</code></pre>
+
+<p>The code above shows operations for a single study: loading raw data, making new columns, save the compiled object. The <strong>problem</strong> with this code is that it mixes in a bunch of useful data with our R code. We had not yet identified a common pipeline for processing data. Eventually we moved all this extra data into their own <em>.csv</em> files and treated them as we should, as data. We then use functions
+to modify the raw data, using the <a href="http://nicercode.github.io/blog/2013-07-09-modifying-data-with-lookup-tables/">new files as input</a>.</p>
+
+<p>Each study in the database was therefore required to have a standard set of files to enter the data-processing pipeline:</p>
+
+<ul>
+<li><code>data.csv</code>: raw data table provided by authors.</li>
+<li><code>dataMatchColumns.csv</code>: for each column in <code>data.csv</code>, provides units of the incoming variable, and the name of the variable onto which we want to map this data.</li>
+<li><code>dataNew.csv</code>: allows for addition of any new data not present in <code>data.csv</code>, or modification of existing values based on a find-and-replace logic.</li>
+<li><code>studyMetadata.csv</code>: information about the methods used to collect the data.</li>
+<li><code>studyContact.csv</code>: contacts and affiliations information for contributors.</li>
+<li><code>studyRef.bib</code>: bibliographic record of primary source, in <a href="https://en.wikipedia.org/wiki/Bibtex">bibtex format</a>.</li>
+</ul>
+
+<p>Changes are then made using <a href="http://nicercode.github.io/blog/2013-07-09-modifying-data-with-lookup-tables/">lookup tables</a>.</p>
+
+<p>There are several important benefits to this approach of separating code from data:</p>
+
+<ul>
+<li>it is highly scalable.</li>
+<li>it separates data from code, so that potentially someone could replace the R code using the exact same data.</li>
+<li>it drastically reduced the amount of R code needed.</li>
+</ul>
+
+<h3 id="establish-a-formal-process-for-processing-and-reviewing-each-data-set">Establish a formal process for processing and reviewing each data set</h3>
+
+<p>We established a system for tracking the progress of each dataset entering BAAD</p>
+
+<ol>
+<li>Initial screening (basic meta-data extracted from paper).</li>
+<li>Primary authors contacted (asking if they wish to contribute).</li>
+<li>Initial response from authors (indicating interest or not).</li>
+<li>Email sent requesting raw data from authors.</li>
+<li>Raw data received from authors.</li>
+<li>Data processed and entered into BAAD (we filled out as much of information as we could ourselves).</li>
+<li>A review of data, including any queries, sent to authors for error checking.</li>
+<li>Data approved.</li>
+<li>Data excluded because of issues that arose (no response, not interested, could not locate data, data not suitable etc.).</li>
+</ol>
+
+<p>At each stage we automated as much as possible. We used a script to generate emails in R based on information in our database, and made it as easy as possible for the contributors to fulfil their tasks and get back to us.</p>
+
+<p>Step 7, where we inspected data for errors, was still time consuming. To make this easier for both us and original contributors, we used the package <a href="http://cran.r-project.org/package=knitr">knitr</a> (using <a href="https://github.com/dfalster/baad/blob/841c346d5c90181b47b0757994901fc520f5e4c6/reports/report.Rmd">this Rmd template</a>) to create a standardised report for each study. Each report includes a processed version of the data and metadata, including maps of study site locations and bivariate plots of all variables provided in this study, overlayed against the rest of the data from BAAD. The current set of reports can be viewed <a href="https://github.com/dfalster/baad/wiki">on our wiki</a>, with one page for each study (<a href="for example">https://github.com/dfalster/baad/wiki/BondLamberty2002</a>)</p>
+
+<p>The generated reports are useful in two key ways: i) they provide a nice overview of the data contributed from any single study, and ii) they were invaluable in identifying errors (Figure 2).</p>
+
+<p><strong>Figure 2:</strong> Example plot from report on <a href="https://github.com/dfalster/baad/wiki/Kitazawa1959">Kitazawa1959 dataset</a>, showing how data from this study (red) is displaced from the rest of the dataset (grey). The problem was fixed in this <a href="https://github.com/dfalster/baad/commit/220272b79ceb3aa792523b0c66629be0f23d4468">commit by changing <code>cm</code>  to <code>m</code> as the unit description in the meatadata</a> (i.e. we did not change the data itself but the transformation used in the processing pipeline).</p>
+
+<p><img src="/assets/blog-images/2015-06-03-baad/plot.png" alt="Figure: Example figure showing problematic data" /></p>
+
+<h2 id="3-use-version-control-git-to-track-changes-and-code-sharing-website-github-for-effective-collaboration">3. Use version control (git) to track changes and code sharing website (github) for effective collaboration</h2>
+
+<p>The BAAD project began in July 2012, in Feb 2013 Rich FitzJohn got involved and introduced us to version control. You can see the structure of our database at that time <a href="https://github.com/dfalster/baad/tree/912163bb371e280340dee2bb4cf872a1d7ede81b">here</a>. We can&rsquo;t recall that much about what happened prior 13 Feb 2013, but since that day, every single change to the BAAD has been recorded. We know who changed what lines of code or data and when. Many people have been extolling the virtues of git for managing computer code (e.g. <a href="http://git-scm.com/book">Chacon 2009</a>), but others have noted that git is equally good for managing data (<a href="http://doi.org/10.1186/1751-0473-8-7">Ram et al 2013</a>) <sup><sup class="footnote-ref" id="fnref:git-for-data"><a rel="footnote" href="#fn:git-for-data">0</a></sup></sup>.</p>
+
+<p>Alongside git, we used the code-sharing website <a href="www.github.com">Github</a> to host our git repository. Github facilitates seamless collaboration by:</p>
+
+<ul>
+<li>syncing changes to scripts and data among collaborators.</li>
+<li>allowing us track the <a href="https://github.com/dfalster/baad/issues?q=is%3Aissue+is%3Aclosed">many issues</a> identified while reviewing data sets.</li>
+<li>providing a nice interface for seeing who changed what and when.</li>
+<li>allowing others to make changes to their data.</li>
+<li>releasing compiled versions of the data.</li>
+</ul>
+
+<h2 id="4-embrace-openness">4. Embrace openness</h2>
+
+<p>BAAD is far from the first compilation in our field, but as far we know, it possibly the first to be entirely open. By entirely open, we mean</p>
+
+<ul>
+<li>the entire work flow, including its history, is open and transparent;</li>
+<li>the raw data and meta-data are made available for others to reuse in new and different contexts;</li>
+<li>the data is immediately available on the web, without need to register or login into a site, or submit a project approval.</li>
+</ul>
+
+<p>Anyone can use the compiled data in whatever way they see fit. Our goal was to create a database that many scientists would immediately want to use, and that would therefore get cited.</p>
+
+<p>Another concern was that the database would be sustainable. By making the entire process open and scripted, we are effectively allowing ourselves to step away from the project at some point in the future, if that&rsquo;s what we want to do. Moreover, it allows future researchers who are out in the field collecting more raw data to contribute to the this existing unified database.</p>
+
+<h2 id="5-a-living-database">5. A living database</h2>
+
+<p>We hope that BAAD will continue to grow.  To that end, we have written a very small package <a href="https://github.com/traitecoevo/baad.data">baad.data</a> for accessing data by version in <code>R</code>.  After installing the package (instructions <a href="https://github.com/traitecoevo/baad.data">here</a>), users can run</p>
+
+<pre><code class="language-r">library(baad.data)
+x &lt;- baad_data(&quot;1.0.0&quot;)
+</code></pre>
+
+<p>to download the version stored in Ecological Archives, or</p>
+
+<pre><code class="language-r">x &lt;- baad_data(&quot;x.y.z&quot;)
+</code></pre>
+
+<p>to download an earlier or more recent version (where version numbers will follow the <a href="http://semver.org">semantic versioning</a> guidelines, eg. &ldquo;0.9.0&rdquo;). The <code>baad.data</code> package caches everything so subsequent calls, even across sessions, are very fast.  This should facilitate greater reproducibility by making it easy to depend on the version used for a particular analysis, and allowing different analyses to use different versions of the database.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>We really hope that the techniques used in building BAAD will help others develop open and transparent compilations of #otherpeoplesdata. On that point, we conclude by thanking all our wonderful <a href="http://www.esajournals.org/doi/abs/10.1890/14-1889.1">co-authors</a> who were willing to put their data out there for others to use.</p>
+
+<h3 id="footnotes">Footnotes</h3>
+
+<p><a id="database"><sup>^1</sup></a> BAAD is a database in the sense that it is an <a href="http://en.wikipedia.org/wiki/Database">organized collection of data</a>, but we do not use common database tools like SQL or Microsoft Access etc. These are simply not needed and prevent other features like version control.</p>
+
+<p><a id="remake"><sup>^2</sup></a> The package <code>remake</code> was originally called maker and was introduced on <a href="https://github.com/dfalster/baad/tree/82b0b1c832e9fcfd7c1d1e6cf42f7c8b97e5d323">Nov 19 2014</a>, relatively late in development of BAAD. Earlier we experimented we building a package <a href="https://github.com/dfalster/dataMashR">dataMashR</a> to implement the conversions, but eventually settled on the remake work-flow. DataMashR lives on as a working prototype.</p>
+
+<p><a id="TravisCI"><sup>^3</sup></a>  You can see the record of the automated <a href="https://travis-ci.org/dfalster/baad/builds/">builds here</a></p>
+
+<p><a id="line_endings"><sup>^4</sup></a> Excel makes a mess of line endings on Mac and has done for a long time - see <a href="http://nicercode.github.io/blog/2013-04-30-excel-and-line-endings/">here</a> for our thoughts and an early solution.</p>
+
+<p><a id="git_for_data"><sup>^5</sup></a> Provided the data is not too large. <a href="https://help.github.com/articles/what-is-my-disk-quota/">Github works</a> with files &lt; 100MB and for git repositories &lt; 1GB. Although there are <a href="https://help.github.com/articles/what-is-my-disk-quota/">strategies for larger sizes</a>.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/reproducibleresearch"><span class="label">reproducibleresearch</span></a>
+                
+                    <a href="/tags/archiving"><span class="label">archiving</span></a>
+                
+                    <a href="/tags/openscience"><span class="label">openscience</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

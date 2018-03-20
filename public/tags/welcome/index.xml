@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Welcome on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/welcome/</link>
+    <description>Recent content in Welcome on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 01 Dec 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/welcome/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The Value of Welcome, part 2: How to prepare 40 new community members for an unconference</title>
+      <link>https://ropensci.org/blog/2017/12/01/unconf-welcome/</link>
+      <pubDate>Fri, 01 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/12/01/unconf-welcome/</guid>
+      <description>
+        
+        &lt;p&gt;I’ve raved about the value of &lt;a href=&#34;https://ropensci.org/blog/2017/07/18/value-of-welcome/&#34;&gt;extending a personalized welcome&lt;/a&gt; to new community members and I recently shared &lt;a href=&#34;https://ropensci.org/blog/2017/11/17/unconf-sixtips&#34;&gt;six tips for running a successful hackathon-flavoured unconference&lt;/a&gt;. Building on these, I’d like to share the specific approach and (free!) tools I used to help prepare new rOpenSci community members to be productive at our &lt;a href=&#34;http://unconf17.ropensci.org/&#34;&gt;unconference&lt;/a&gt;. My approach was inspired directly by my &lt;a href=&#34;https://blog.trelliscience.com/introducing-the-2017-community-engagement-fellows/&#34;&gt;AAAS Community Engagement Fellowship Program&lt;/a&gt; (AAAS-CEFP) training. Specifically, 1) one mentor said that the most successful conference they ever ran involved having one-to-one meetings with all participants prior to the event, and 2) prior to our in-person AAAS-CEFP training, we completed an intake questionnaire that forced us to consider things like “what do you hope to get out of this” and “what do you hope to contribute”.&lt;/p&gt;
+
+&lt;p&gt;A challenge of this year’s unconference was the fact that we were inviting 70 people to participate. As a rule, one third of the crowd will have participated in one of our previous unconferences and two-thirds would be first-time participants. With only two days together, these people need to quickly self-sort into project groups and get working.&lt;/p&gt;
+
+&lt;p&gt;So I sent this email to 45 first-time participants:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-12-01-unconf-welcome/pre-unconf-email.png&#34; alt=&#34;pre-unconf-email&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;Arranging meetings is one of my least favorite activities, but the free &lt;a href=&#34;https://calendly.com/&#34;&gt;Calendly tool&lt;/a&gt; made this process relatively painless. When a person clicks on the calendar link in the email above, it reveals only times that I am available in my Google Calendar, the time slot they choose shows up in my calendar, and I receive a confirmation email indicating who booked a meeting with me. In my busiest week, I had 19 meetings, but that meant the bulk of them were done!&lt;/p&gt;
+
+&lt;p&gt;To make the meeting time most effective I followed AAAS-CEFP program director &lt;a href=&#34;https://twitter.com/LouWoodley&#34;&gt;Lou Woodley’s&lt;/a&gt; model for onboarding our AAAS CEFP cohort by sending a set of questions to be answered in advance. I took the model to the next level by creating a free &lt;a href=&#34;https://www.google.ca/forms/about/&#34;&gt;Google Form&lt;/a&gt; questionnaire so that all answers were automatically collected and could be viewed per individual or collectively, and automatically exported to a spreadsheet.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-12-01-unconf-welcome/pre-unconf-google-form.png&#34; alt=&#34;pre-unconf-google-form&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Questions included:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;List three things you hope to get from the unconference&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Examples: &lt;em&gt;connect with people working in a similar domain&lt;/em&gt;, &lt;em&gt;learn about best practices in data science with R&lt;/em&gt;, or &lt;em&gt;develop a new package that does X&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;List three things you hope to contribute to the unconference&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Examples: &lt;em&gt;expertise or experience in X&lt;/em&gt;, &lt;em&gt;mentoring skills&lt;/em&gt;, &lt;em&gt;write all the docs!&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Have you had any previous interactions with the rOpenSci community?&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Examples: &lt;em&gt;I read the rOpenSci blog&lt;/em&gt;, or &lt;em&gt;I submitted software for rOpenSci open peer review&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Do you have any concerns about your readiness to participate?&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Examples: &lt;em&gt;I’ve never developed an R package&lt;/em&gt; or &lt;em&gt;How do I decide what project to work on?&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Would you be interested in writing a blog post about your unconference project or your unconference experience?&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Do you  have a preferred working style or anything you would like to let us know about how you work best?&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Examples: &lt;em&gt;I’m an introvert who likes to take my lunch alone sometimes to recover from group activities – it doesn’t mean I’m not having fun.&lt;/em&gt; or &lt;em&gt;I know I have a tendency to dominate in group discussions – it’s totally fine to ask me to step back and let others contribute. I won’t be offended.&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;These questions encouraged participants to reflect in advance. The example answer snippets we provided gave them ideas from which to seed their answers and in some cases gave them permission to show some vulnerability. Individual’s answers gave me cues for things to address in our chat and freed both of us to spend our time talking about the most important issues.&lt;/p&gt;
+
+&lt;p&gt;The answers to the question “List three things you hope to get from the unconf” were so heartening:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-12-01-unconf-welcome/unconf-three-things.png&#34; alt=&#34;unconf-three-things&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;Beautiful, but in a different way, were answers to the question, “Do you have any concerns about your readiness to participate?”. People expressed real concerns about impostor syndrome, their perceived ability to contribute &amp;ldquo;as much or as well&amp;rdquo; as others, and feeling &amp;ldquo;outclassed by all the geniuses present&amp;rdquo;. These responses prompted me to reassure people that they were 100% qualified to participate, and opened an opportunity to listen to and address specific concerns.&lt;/p&gt;
+
+&lt;p&gt;To conduct the pre-unconference chats, I used video conferencing via &lt;a href=&#34;https://appear.in/&#34;&gt;appear.in&lt;/a&gt;, a free, browser-based application that does not require plugins or user accounts. Rather than being exhausted from these calls, I felt energized and optimistic and I experienced many direct positive outcomes. These conversations enabled me to prime people to connect on day-one of the unconference with others with similar interests or from related work sectors. Frequently, I noticed that immediately after our conversation, first-time participants would join the online discussion of existing project ideas, or they themselves proposed new ideas. My conversations with two first-time participants led directly to their proposing community-focussed projects - a &lt;a href=&#34;https://github.com/ropensci/unconf17/issues/63&#34;&gt;group discussion&lt;/a&gt; and a new &lt;a href=&#34;https://github.com/ropensci/unconf17/issues/64&#34;&gt;blog series of interviews&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt;An unexpected benefit was that questions people asked me during the video chats led to actions I could take to improve the unconference. For example, when someone wanted to know what previous participants wished they knew beforehand, I asked for and &lt;a href=&#34;https://twitter.com/rOpenSci/status/855531572081991680&#34;&gt;shared example resources&lt;/a&gt;. One wise person asked me what my plan was for having project teams report out at the end of the unconference and this led directly to a streamlined plan (See &lt;a href=&#34;https://ropensci.org/blog/2017-11-17-unconf-sixtips&#34;&gt;Six tips for running a successful unconference&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;Big thanks to AAAS CEFP training for giving me the confidence to try this community experiment! Arranging and carrying out these pre-unconference questionnaires and video chats took a big investment of my time and energy and yet, I consider this effort to be one of the biggest contributors to participants’ satisfaction with the unconference. Will 100% do this again!&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Six tips for running a successful unconference</title>
+      <link>https://ropensci.org/blog/2017/11/17/unconf-sixtips/</link>
+      <pubDate>Fri, 17 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/11/17/unconf-sixtips/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-11-17-unconf-sixtips/ropensci-unconf17-community-nistara-randawa.jpg&#34; alt=&#34;Attendees at the May 2017 rOpenSci unconference. Photo credit: Nistara Randhawa&#34;&gt;
+&lt;em&gt;Attendees at the May 2017 rOpenSci unconference. Photo credit: Nistara Randhawa&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;In May 2017, I helped run a wildly successful “unconference” that had a huge positive impact on the community I serve. rOpenSci is a non-profit initiative enabling open and reproducible research by creating technical infrastructure in the form of staff- and community-contributed software tools in the R programming language that lower barriers to working with scientific data sources on the web, and creating social infrastructure through a welcoming and diverse community of software users and developers. Our 4th annual unconference brought together 70 people to hack on projects they dreamed up and to give them opportunities to meet and work together in person. One third of the participants had attended before, and two thirds were first-timers, selected from an open call for applications. We paid all costs up front for anyone who requested this in order to lower barriers to participation.&lt;/p&gt;
+
+&lt;p&gt;It’s called an “unconference” because there is no schedule set before the event – participants discuss project ideas online in advance and projects are selected by participant-voting at the start. I’m sharing some tips here on how to do this well for this particular flavour of unconference.&lt;/p&gt;
+
+&lt;h4 id=&#34;1-have-a-code-of-conduct&#34;&gt;1. Have a code of conduct&lt;/h4&gt;
+
+&lt;p&gt;Having a &lt;a href=&#34;https://ropensci.org/blog/blog/2016/12/21/commcallv12-review-coc&#34;&gt;code of conduct&lt;/a&gt; that the organizers promote in the welcome goes a long way to creating a welcoming and safe environment and preventing violations in the first place.&lt;/p&gt;
+
+&lt;h4 id=&#34;2-host-online-discussion-of-project-ideas-before-the-unconference&#34;&gt;2. Host online discussion of project ideas before the unconference&lt;/h4&gt;
+
+&lt;p&gt;Our unconference centered on teams working on programming projects, rather than discussions, so prior to the unconference, we asked all participants to &lt;a href=&#34;https://github.com/ropensci/unconf17/issues/&#34;&gt;suggest project ideas&lt;/a&gt; using an open online system, called GitHub, that allows everyone to see and comment on ideas or just share enthusiastic emoji to show support.&lt;/p&gt;
+
+&lt;h4 id=&#34;3-have-a-pre-unconference-video-chat-with-first-time-participants&#34;&gt;3. Have a pre-unconference video-chat with first-time participants&lt;/h4&gt;
+
+&lt;p&gt;Our AAAS CEFP training emphasizes the importance of extending a personalized welcome to community members, so I was inspired to make the bold move of talking with more than 40 first-time participants prior to the unconference. I asked each person to complete a short questionnaire to get them to consider the roles they anticipated playing prior to our chat. Frequently, within an hour of a video-chat, without prompting, I would see the person post a new project idea or share their thoughts about someone else’s. Other times, our conversation gave the person an opportunity to say “this idea maybe isn’t relevant but…” and I would help them talk through it, inevitably leading to “oh my gosh this is such a cool idea”. I got a huge return on my investment. People’s questions like “how do you plan to have 20 different projects present their work?” led to better planning on my part. Specific ideas for improvements came from me responding with “well…how would YOU do it?”&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Between the emails, slack channel, issues on GitHub, and personal video chats, I felt completely at ease going into the unconf (where I knew next to no one!).&lt;/p&gt;
+
+&lt;p&gt;-rOpenSci unconf17 participant&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&#34;4-run-an-effective-ice-breaker&#34;&gt;4. Run an effective ice breaker&lt;/h4&gt;
+
+&lt;p&gt;I adapted the “&lt;a href=&#34;https://www.facinghistory.org/resource-library/teaching-strategies/barometer-taking-stand-controversial-issues&#34;&gt;Human Barometer&lt;/a&gt;” ice breaker to enable 70 people to share opinions across all perceived levels of who a participant is and introduce themselves to the entire group within a 1 hour period. Success depended on creating questions that were relevant to the unconference crowd, and on visually keeping track of who had spoken up in order to call on those who had not. Ice breakers and the rOpenSci version of the Human Barometer will be the subject of a future CEFP blog post.&lt;/p&gt;
+
+&lt;h4 id=&#34;5-have-a-plan-to-capture-content&#34;&gt;5. Have a plan to capture content&lt;/h4&gt;
+
+&lt;p&gt;So much work and money go into running a great unconference, you can’t afford to do it without a plan to capture and disseminate stories about the people and the products. Harness the brain work that went into the ideas! I used the concept of &lt;a href=&#34;http://www.socialfish.org/2016/11/you-have-more-content-than-you-realize/&#34;&gt;content pillars&lt;/a&gt; to come up with a plan. Every project group was given a public repository on GitHub to house their code and documentation. In a 2-day unconference with 70 people in 20 projects, how do people present their results?! We told everyone that they had just three minutes to present, and that the only presentation material they could use was their project README (the page of documentation in their code repository). No slides allowed! This kept their focus on great documentation for the project rather than an ephemeral set of pretty slides. Practically speaking, this meant that all presentations were accessible from a single laptop connected to the projector and that to access their presentation, a speaker had only to &lt;a href=&#34;https://ropenscilabs.github.io/runconf17-projects/&#34;&gt;click on the link to their repo&lt;/a&gt;. Where did the essence of this great idea come from? From a pre-unconference chat of course!&lt;/p&gt;
+
+&lt;p&gt;In the week following the unconference, we used the projects’ README documentation to create a series of five posts released Monday through Friday, noting every one of the 20 projects with links to their code repositories. To get more in-depth stories about people and projects, I let participants know we were keen to host community-contributed blog posts and that accepted posts would be tweeted to rOpenSci’s &amp;gt;13,000 followers. Immediately after the unconference, we invited selected projects to contribute longer form narrative blog posts and posted these once a week. The series ended with &lt;a href=&#34;https://ropensci.org/blog/blog/2017/08/08/unconfroadsnottaken&#34;&gt;Unconf 2017: The Roads Not Taken&lt;/a&gt;, about all the great ideas that were not yet pursued and inviting people to contribute to these.&lt;/p&gt;
+
+&lt;p&gt;All of this content is tied together in &lt;a href=&#34;https://ropensci.org/blog/blog/2017/06/02/unconf2017&#34;&gt;one blog post to summarize&lt;/a&gt; the unconference and link to all staff- and community-contributed posts in the unconference projects series as well as to posts of warm personal and career-focussed reflections by some participants.&lt;/p&gt;
+
+&lt;h4 id=&#34;6-care-about-other-people-s-success&#34;&gt;6. Care about other people’s success&lt;/h4&gt;
+
+&lt;p&gt;Community managers do a lot of “emotional work”. In all of this, my #1 key to running a successful unconference is to genuinely and deeply care that participants arrive feeling ready to hit the ground running and leave feeling like they got what they wanted out of the experience. Ultimately, the success of our unconference is more about the human legacy – building people’s capacity as software users and developers, and the in-person relationships they develop within our online community – than it is about the projects.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;“I’ve steered clear of ‘hackathons’ because they feel intimidating and the ‘bad’ kind of competitive. But, this….this was something totally different.”&lt;/p&gt;
+
+&lt;p&gt;– rOpenSci unconf17 participant&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;Additional Resources&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://blog.trelliscience.com/introducing-the-2017-community-engagement-fellows/&#34;&gt;AAAS Community Engagement Fellows Program&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://socialinsilico.wordpress.com/2014/11/07/all-together-now-event-formats-for-more-practical-sessions/&#34;&gt;All together now: Event formats for more practical sessions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Budd A, Dinkel H, Corpas M, Fuller JC, Rubinat L, Devos DP, et al. (2015) Ten Simple Rules for Organizing an Unconference. PLoS Comput Biol11(1): e1003905. &lt;a href=&#34;https://doi.org/10.1371/journal.pcbi.1003905&#34;&gt;https://doi.org/10.1371/journal.pcbi.1003905&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>The Value of #Welcome</title>
+      <link>https://ropensci.org/blog/2017/07/18/value-of-welcome/</link>
+      <pubDate>Tue, 18 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/07/18/value-of-welcome/</guid>
+      <description>
+        
+        &lt;div class=&#34;alert alert-info&#34; role=&#34;alert&#34;&gt;
+I’m participating in the &lt;a href=&#34;https://www.aaas.org/cefp/about&#34; target=&#34;_blank&#34;&gt;AAAS Community Engagement Fellows Program (CEFP)&lt;/a&gt;, funded by the Alfred P. Sloan Foundation. The inaugural &lt;a href=&#34;https://blog.trelliscience.com/introducing-the-2017-community-engagement-fellows/&#34; target=&#34;_blank&#34;&gt;cohort of Fellows&lt;/a&gt; is made up of 17 community managers working in a wide range of scientific communities. This is cross-posted from the &lt;a href=&#34;https://blog.trelliscience.com/the-value-of-welcome/&#34;target=&#34;_blank&#34;&gt;Trellis blog&lt;/a&gt; as part of a &lt;a href=&#34;https://blog.trelliscience.com/tag/fellows-blog-series&#34; target=&#34;_blank&#34;&gt; series of reflections&lt;/a&gt; that the CEFP Fellows are sharing.
+&lt;/div&gt;
+
+&lt;p&gt;In my training as a &lt;a href=&#34;https://blog.trelliscience.com/introducing-the-2017-community-engagement-fellows/&#34;&gt;AAAS Community Engagement Fellow&lt;/a&gt;, I hear repeatedly about the value of extending a personal welcome to your community members. This seems intuitive, but recently I put this to the test. Let me tell you about my experience creating and maintaining a #welcome channel in a community Slack group.&lt;/p&gt;
+
+&lt;div id=&#34;blimages&#34;&gt;
+&lt;img src=&#34;https://blog.trelliscience.com/wp-content/uploads/2017/07/4344878104_e537b0248b_z.jpg&#34;&gt;
+
+&lt;a href=&#34;https://www.flickr.com/photos/90371939@N00/4344878104&#34;&gt;&#34;Welcome&#34;&lt;/a&gt; by &lt;a href=&#34;https://www.flickr.com/photos/90371939@N00/&#34;&gt;Nathan&lt;/a&gt; under &lt;a href=&#34;https://creativecommons.org/licenses/by-sa/2.0/&#34;&gt;CC BY-SA 2.0&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;I listen in on and occasionally participate in a Slack group for &lt;a href=&#34;http://rladies.org/&#34;&gt;R-Ladies&lt;/a&gt; community organizers (R-Ladies is a global organization with local meetup chapters around the world, for women who do/want to do programming in R). Their Slack is incredibly well-organized and has a #welcome channel where new joiners are invited to introduce themselves in a couple of sentences. The leaders regularly jump in to add a wave emoji and ask people to introduce themselves if they have not already.&lt;/p&gt;
+
+&lt;p&gt;At rOpenSci, where I am the Community Manager, when people joined our 150+ person Slack group, they used to land in the #general channel where people ask and answer questions. Often, new people joining went unnoticed among the conversations. So recently I copied R-Ladies and created a #welcome channel in our Slack and made sure any new people got dropped in there, as well as in the #general channel. The channel purpose is set as &amp;ldquo;&lt;em&gt;A place to welcome new people and for new people to introduce themselves. We welcome participation and civil conversations that adhere to our &lt;a href=&#34;http://unconf17.ropensci.org/coc&#34;&gt;code of conduct&lt;/a&gt;.&lt;/em&gt;&amp;ldquo;&lt;/p&gt;
+
+&lt;p&gt;I pinged three new rOpenSci community members to join and introduce themselves, and in the #general channel said “Hey, come say hi to people over here at #welcome!”. One day later, we already had 33 people in #welcome. I spent that morning nurturing it, noting some people’s activities and contributions that they might not otherwise highlight themselves &lt;em&gt;e.g.&lt;/em&gt; &lt;a href=&#34;https://twitter.com/Chucheria&#34;&gt;Bea&lt;/a&gt; just did her first open peer software review for rOpenSci, or &lt;a href=&#34;https://twitter.com/metamattj&#34;&gt;Matt&lt;/a&gt; has been answering people’s questions about meta data, or &lt;a href=&#34;https://twitter.com/juliesquid&#34;&gt;Julie&lt;/a&gt;, &lt;a href=&#34;https://twitter.com/ben_d_best&#34;&gt;Ben&lt;/a&gt; and &lt;a href=&#34;https://twitter.com/jafflerbach&#34;&gt;Jamie&lt;/a&gt; are co-authors on this &lt;a href=&#34;https://doi.org/10.1038/s41559-017-0160&#34;&gt;cool new paper&lt;/a&gt; about open data science tools. And I gave a shoutout to R-Ladies stating clearly that I copied their fantastic #welcome channel.&lt;/p&gt;
+
+&lt;p&gt;People are introducing themselves, tagging with emoji and thanking “the community” saying things like:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;“…I feel super lucky to be a part of the rOpenSci community, which has … had a great positive impact on my life!”&lt;/p&gt;
+
+&lt;p&gt;“I love rOpenSci for building this community and helping people like me become confident data scientists!”&lt;/p&gt;
+
+&lt;p&gt;“[I’m] hoping to contribute more to the group moving forward”&lt;/p&gt;
+
+&lt;p&gt;“…thank you for having me part of this community!”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Such is the value of #welcome.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

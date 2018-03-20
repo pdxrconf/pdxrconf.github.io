@@ -1,0 +1,589 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gbif on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/gbif/</link>
+    <description>Recent content in Gbif on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 23 Dec 2016 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/gbif/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>finch - parse Darwin Core files</title>
+      <link>https://ropensci.org/technotes/2016/12/23/finch-release/</link>
+      <pubDate>Fri, 23 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/technotes/2016/12/23/finch-release/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;&lt;code&gt;finch&lt;/code&gt; has just been released to CRAN (binaries should be up soon).&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;finch&lt;/code&gt; is a package to parse Darwin Core files. &lt;a href=&#34;http://rs.tdwg.org/dwc/&#34;&gt;Darwin Core&lt;/a&gt; (&lt;code&gt;DwC&lt;/code&gt;) is:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;a body of standards. It includes a glossary of terms (in other contexts these might be called properties, elements, fields, columns, attributes, or concepts) intended to facilitate the sharing of information about biological diversity by providing reference definitions, examples, and commentaries. The Darwin Core is primarily based on taxa, their occurrence in nature as documented by observations, specimens, samples, and related information. &amp;hellip; The Simple Darwin Core [SIMPLEDWC] is a specification for one particular way to use the terms - to share data about taxa and their occurrences in a simply structured way - and is probably what is meant if someone suggests to &amp;ldquo;format your data according to the Darwin Core&amp;rdquo;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;GBIF (Global Biodiversity Information Facility) is the biggest holder of biodiversity data. When you request
+data in bulk format from GBIF they call give it to you in what&amp;rsquo;s called a Darwin Core Archive, or
+&lt;code&gt;DwC-A&lt;/code&gt;. GBIF has a validator for DwC-A files as well: &lt;a href=&#34;http://tools.gbif.org/dwca-validator/&#34;&gt;http://tools.gbif.org/dwca-validator/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;One of our most used packages is probably &lt;code&gt;rgbif&lt;/code&gt;, a client to interact with GBIF&amp;rsquo;s web services.
+There&amp;rsquo;s a series of functions in &lt;code&gt;rgbif&lt;/code&gt; to request data in bulk format (see functions starting
+with &lt;code&gt;occ_download&lt;/code&gt;), and from this you get a DwC-A file. This is where &lt;code&gt;finch&lt;/code&gt; comes in:
+it can parse these DwC-A files into something useable inside R.&lt;/p&gt;
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;finch&amp;quot;)
+# or from source if binary not available yet
+install.packages(&amp;quot;finch&amp;quot;, type = &amp;quot;source&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;finch&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To parse a simple darwin core file like&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;SimpleDarwinRecordSet
+ xmlns=&amp;quot;http://rs.tdwg.org/dwc/xsd/simpledarwincore/&amp;quot;
+ xmlns:dc=&amp;quot;http://purl.org/dc/terms/&amp;quot;
+ xmlns:dwc=&amp;quot;http://rs.tdwg.org/dwc/terms/&amp;quot;
+ xmlns:xsi=&amp;quot;http://www.w3.org/2001/XMLSchema-instance&amp;quot;
+ xsi:schemaLocation=&amp;quot;http://rs.tdwg.org/dwc/xsd/simpledarwincore/ ../../xsd/tdwg_dwc_simple.xsd&amp;quot;&amp;gt;
+ &amp;lt;SimpleDarwinRecord&amp;gt;
+  &amp;lt;dwc:occurrenceID&amp;gt;urn:catalog:YPM:VP.057488&amp;lt;/dwc:occurrenceID&amp;gt;
+  &amp;lt;dc:type&amp;gt;PhysicalObject&amp;lt;/dc:type&amp;gt;
+  &amp;lt;dc:modified&amp;gt;2009-02-12T12:43:31&amp;lt;/dc:modified&amp;gt;
+  &amp;lt;dc:language&amp;gt;en&amp;lt;/dc:language&amp;gt;
+  &amp;lt;dwc:basisOfRecord&amp;gt;FossilSpecimen&amp;lt;/dwc:basisOfRecord&amp;gt;
+  &amp;lt;dwc:institutionCode&amp;gt;YPM&amp;lt;/dwc:institutionCode&amp;gt;
+  &amp;lt;dwc:collectionCode&amp;gt;VP&amp;lt;/dwc:collectionCode&amp;gt;
+  &amp;lt;dwc:catalogNumber&amp;gt;VP.057488&amp;lt;/dwc:catalogNumber&amp;gt;
+  &amp;lt;dwc:individualCount&amp;gt;1&amp;lt;/dwc:individualCount&amp;gt;
+  &amp;lt;dwc:locationID xsi:nil=&amp;quot;true&amp;quot;/&amp;gt;
+  &amp;lt;dwc:continent&amp;gt;North America&amp;lt;/dwc:continent&amp;gt;
+  &amp;lt;dwc:country&amp;gt;United States&amp;lt;/dwc:country&amp;gt;
+  &amp;lt;dwc:countryCode&amp;gt;US&amp;lt;/dwc:countryCode&amp;gt;
+  &amp;lt;dwc:stateProvince&amp;gt;Montana&amp;lt;/dwc:stateProvince&amp;gt;
+  &amp;lt;dwc:county&amp;gt;Garfield&amp;lt;/dwc:county&amp;gt;
+  &amp;lt;dwc:scientificName&amp;gt;Tyrannosourus rex&amp;lt;/dwc:scientificName&amp;gt;
+  &amp;lt;dwc:genus&amp;gt;Tyrannosourus&amp;lt;/dwc:genus&amp;gt;
+  &amp;lt;dwc:specificEpithet&amp;gt;rex&amp;lt;/dwc:specificEpithet&amp;gt;
+  &amp;lt;dwc:earliestPeriodOrHighestSystem&amp;gt;Creataceous&amp;lt;/dwc:earliestPeriodOrHighestSystem&amp;gt;
+  &amp;lt;dwc:latestPeriodOrHighestSystem&amp;gt;Creataceous&amp;lt;/dwc:latestPeriodOrHighestSystem&amp;gt;
+  &amp;lt;dwc:earliestEonOrHighestEonothem&amp;gt;Late Cretaceous&amp;lt;/dwc:earliestEonOrHighestEonothem&amp;gt;
+  &amp;lt;dwc:latestEonOrHighestEonothem&amp;gt;Late Cretaceous&amp;lt;/dwc:latestEonOrHighestEonothem&amp;gt;
+ &amp;lt;/SimpleDarwinRecord&amp;gt;
+&amp;lt;/SimpleDarwinRecordSet&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This file is in this package as an example file, get the file, then &lt;code&gt;simple()&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;file &amp;lt;- system.file(&amp;quot;examples&amp;quot;, &amp;quot;example_simple_fossil.xml&amp;quot;, package = &amp;quot;finch&amp;quot;)
+out &amp;lt;- simple_read(file)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Index to &lt;code&gt;meta&lt;/code&gt;, &lt;code&gt;dc&lt;/code&gt; or &lt;code&gt;dwc&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;out$dc
+#&amp;gt; [[1]]
+#&amp;gt; [[1]]$type
+#&amp;gt; [1] &amp;quot;PhysicalObject&amp;quot;
+#&amp;gt; 
+#&amp;gt; 
+#&amp;gt; [[2]]
+#&amp;gt; [[2]]$modified
+#&amp;gt; [1] &amp;quot;2009-02-12T12:43:31&amp;quot;
+#&amp;gt; 
+#&amp;gt; 
+#&amp;gt; [[3]]
+#&amp;gt; [[3]]$language
+#&amp;gt; [1] &amp;quot;en&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;parse-darwin-core-archive&#34;&gt;Parse Darwin Core Archive&lt;/h2&gt;
+
+&lt;p&gt;To parse a Darwin Core Archive like can be gotten from GBIF use &lt;code&gt;dwca_read()&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;dwca_read()&lt;/code&gt; can parse a DwC-A file as a directory, zipped file, or from a URL.&lt;/p&gt;
+
+&lt;p&gt;There&amp;rsquo;s an example Darwin Core Archive:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;file &amp;lt;- system.file(&amp;quot;examples&amp;quot;, &amp;quot;0000154-150116162929234.zip&amp;quot;, package = &amp;quot;finch&amp;quot;)
+(out &amp;lt;- dwca_read(file, read = TRUE))
+#&amp;gt; &amp;lt;gbif dwca&amp;gt;
+#&amp;gt;   Package ID: 6cfaaf9c-d518-4ca3-8dc5-f5aadddc0390
+#&amp;gt;   No. data sources: 10
+#&amp;gt;   No. datasets: 3
+#&amp;gt;   Dataset occurrence.txt: [225 X 443]
+#&amp;gt;   Dataset multimedia.txt: [15 X 1]
+#&amp;gt;   Dataset verbatim.txt: [209 X 443]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;List files in the archive&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;out$files
+#&amp;gt; $xml_files
+#&amp;gt; [1] &amp;quot;/Library/Frameworks/R.framework/Versions/3.3/Resources/library/finch/examples/0000154-150116162929234/meta.xml&amp;quot;    
+#&amp;gt; [2] &amp;quot;/Library/Frameworks/R.framework/Versions/3.3/Resources/library/finch/examples/0000154-150116162929234/metadata.xml&amp;quot;
+#&amp;gt; 
+#&amp;gt; $txt_files
+#&amp;gt; [1] &amp;quot;/Library/Frameworks/R.framework/Versions/3.3/Resources/library/finch/examples/0000154-150116162929234/citations.txt&amp;quot; 
+#&amp;gt; [2] &amp;quot;/Library/Frameworks/R.framework/Versions/3.3/Resources/library/finch/examples/0000154-150116162929234/multimedia.txt&amp;quot;
+#&amp;gt; [3] &amp;quot;/Library/Frameworks/R.framework/Versions/3.3/Resources/library/finch/examples/0000154-150116162929234/occurrence.txt&amp;quot;
+#&amp;gt; [4] &amp;quot;/Library/Frameworks/R.framework/Versions/3.3/Resources/library/finch/examples/0000154-150116162929234/rights.txt&amp;quot;    
+#&amp;gt; [5] &amp;quot;/Library/Frameworks/R.framework/Versions/3.3/Resources/library/finch/examples/0000154-150116162929234/verbatim.txt&amp;quot;  
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;High level metadata for the whole archive (printing a subset for brevity)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;out$emlmeta
+#&amp;gt; &amp;lt;eml packageId=&amp;quot;6cfaaf9c-d518-4ca3-8dc5-f5aadddc0390&amp;quot; system=&amp;quot;http://gbif.org&amp;quot; scope=&amp;quot;system&amp;quot; xml:lang=&amp;quot;en&amp;quot; xsi:schemaLocation=&amp;quot;eml://ecoinformatics.org/eml-2.1.1 http://rs.gbif.org/schema/eml-gbif-profile/1.0.2/eml.xsd&amp;quot;&amp;gt;
+#&amp;gt;   &amp;lt;dataset&amp;gt;
+#&amp;gt;     &amp;lt;title&amp;gt;GBIF Occurrence Download 0000154-150116162929234&amp;lt;/title&amp;gt;
+#&amp;gt;     &amp;lt;creator&amp;gt;
+#&amp;gt;       &amp;lt;individualName&amp;gt;
+#&amp;gt;         &amp;lt;surName&amp;gt;GBIF Download Service&amp;lt;/surName&amp;gt;
+#&amp;gt;       &amp;lt;/individualName&amp;gt;
+#&amp;gt;     &amp;lt;/creator&amp;gt;
+#&amp;gt;     &amp;lt;metadataProvider&amp;gt;
+#&amp;gt;       &amp;lt;individualName&amp;gt;
+#&amp;gt;         &amp;lt;surName&amp;gt;GBIF Download Service&amp;lt;/surName&amp;gt;
+#&amp;gt;       &amp;lt;/individualName&amp;gt;
+#&amp;gt;     &amp;lt;/metadataProvider&amp;gt;
+#&amp;gt;     &amp;lt;associatedParty&amp;gt;
+#&amp;gt;       &amp;lt;organizationName&amp;gt;OZCAM (Online Zoological Collections of Australian Museums) Provider&amp;lt;/organizationName&amp;gt;
+#&amp;gt;       &amp;lt;onlineUrl&amp;gt;http://www.ozcam.org.au/&amp;lt;/onlineUrl&amp;gt;
+#&amp;gt;       &amp;lt;role&amp;gt;CONTENT_PROVIDER&amp;lt;/role&amp;gt;
+#&amp;gt;     &amp;lt;/associatedParty&amp;gt;
+#&amp;gt;     &amp;lt;associatedParty&amp;gt;
+#&amp;gt;       &amp;lt;individualName&amp;gt;
+...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;High level metadata for each data file, there&amp;rsquo;s many files, but we&amp;rsquo;ll just look at one&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;hm &amp;lt;- out$highmeta
+head( hm$occurrence.txt )
+#&amp;gt;   index                                        term delimitedBy
+#&amp;gt; 1     0         http://rs.gbif.org/terms/1.0/gbifID        &amp;lt;NA&amp;gt;
+#&amp;gt; 2     1           http://purl.org/dc/terms/abstract        &amp;lt;NA&amp;gt;
+#&amp;gt; 3     2       http://purl.org/dc/terms/accessRights        &amp;lt;NA&amp;gt;
+#&amp;gt; 4     3      http://purl.org/dc/terms/accrualMethod        &amp;lt;NA&amp;gt;
+#&amp;gt; 5     4 http://purl.org/dc/terms/accrualPeriodicity        &amp;lt;NA&amp;gt;
+#&amp;gt; 6     5      http://purl.org/dc/terms/accrualPolicy        &amp;lt;NA&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can get the same metadata as above for each dataset that went into the tabular dataset downloaded&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;out$dataset_meta[[1]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;View one of the datasets, brief overview.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(out$data[[1]][,c(1:5)])
+#&amp;gt;      gbifID abstract accessRights accrualMethod accrualPeriodicity
+#&amp;gt; 1  50280003       NA                         NA                 NA
+#&amp;gt; 2 477550574       NA                         NA                 NA
+#&amp;gt; 3 239703844       NA                         NA                 NA
+#&amp;gt; 4 239703843       NA                         NA                 NA
+#&amp;gt; 5 239703833       NA                         NA                 NA
+#&amp;gt; 6 477550692       NA                         NA                 NA
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;names(out$data[[1]])[1:20]
+#&amp;gt;  [1] &amp;quot;gbifID&amp;quot;                &amp;quot;abstract&amp;quot;             
+#&amp;gt;  [3] &amp;quot;accessRights&amp;quot;          &amp;quot;accrualMethod&amp;quot;        
+#&amp;gt;  [5] &amp;quot;accrualPeriodicity&amp;quot;    &amp;quot;accrualPolicy&amp;quot;        
+#&amp;gt;  [7] &amp;quot;alternative&amp;quot;           &amp;quot;audience&amp;quot;             
+#&amp;gt;  [9] &amp;quot;available&amp;quot;             &amp;quot;bibliographicCitation&amp;quot;
+#&amp;gt; [11] &amp;quot;conformsTo&amp;quot;            &amp;quot;contributor&amp;quot;          
+#&amp;gt; [13] &amp;quot;coverage&amp;quot;              &amp;quot;created&amp;quot;              
+#&amp;gt; [15] &amp;quot;creator&amp;quot;               &amp;quot;date&amp;quot;                 
+#&amp;gt; [17] &amp;quot;dateAccepted&amp;quot;          &amp;quot;dateCopyrighted&amp;quot;      
+#&amp;gt; [19] &amp;quot;dateSubmitted&amp;quot;         &amp;quot;description&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;using-with-rgbif&#34;&gt;Using with rgbif&lt;/h2&gt;
+
+&lt;p&gt;Now that we have &lt;code&gt;finch&lt;/code&gt; we can make working with GBIF bulk downloads from R a
+richer experience.&lt;/p&gt;
+
+&lt;p&gt;Right now, we make it easy to import just the occurrence data from DwC-A files
+via &lt;code&gt;occ_download_import()&lt;/code&gt;, e.g.,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(rgbif)
+res &amp;lt;- occ_download(&#39;taxonKey = 7264332&#39;, &#39;hasCoordinate = TRUE&#39;)
+dat &amp;lt;- occ_download_get(res)
+occ_download_import(dat)
+#&amp;gt; Download file size: 0.26 MB
+#&amp;gt;
+#&amp;gt;        gbifID abstract accessRights accrualMethod accrualPeriodicity accrualPolicy
+#&amp;gt; 1  1269880600       NA                         NA                 NA            NA
+#&amp;gt; 2  1269861719       NA                         NA                 NA            NA
+#&amp;gt; 3  1269850111       NA                         NA                 NA            NA
+#&amp;gt; 4  1265524086       NA                         NA                 NA            NA
+#&amp;gt; 5  1257400209       NA                         NA                 NA            NA
+#&amp;gt; 6  1257396860       NA                         NA                 NA            NA
+#&amp;gt; 7  1257391874       NA                         NA                 NA            NA
+#&amp;gt; 8  1257390731       NA                         NA                 NA            NA
+#&amp;gt; 9  1257383844       NA                         NA                 NA            NA
+#&amp;gt; 10 1257375500       NA                         NA                 NA            NA
+#&amp;gt; ..        ...      ...          ...           ...                ...           ...
+#&amp;gt; Variables not shown: accrualPolicy (lgl), alternative (lgl), audience (lgl),
+#&amp;gt;      available (lgl), bibliographicCitation (lgl), conformsTo (lgl),
+#&amp;gt;      contributor (lgl), coverage (lgl), created (lgl), creator (lgl), date
+#&amp;gt;      (lgl), dateAccepted (lgl), dateCopyrighted (lgl), dateSubmitted (lgl),
+#&amp;gt;      description (lgl), educationLevel (lgl), extent (lgl), format (lgl),
+#&amp;gt;      hasFormat (lgl), hasPart (lgl), hasVersion (lgl), identifier (chr),
+#&amp;gt;      instructionalMethod (lgl), isFormatOf (lgl), isPartOf (lgl),
+#&amp;gt;      isReferencedBy (lgl), isReplacedBy (lgl), isRequiredBy (lgl), ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With &lt;code&gt;finch&lt;/code&gt;, you can access all the data in the DwC-A file. &lt;code&gt;finch&lt;/code&gt; is not integrated
+into &lt;code&gt;rgbif&lt;/code&gt;, though we may in the future.&lt;/p&gt;
+
+&lt;p&gt;The object returned from &lt;code&gt;occ_download_get&lt;/code&gt; is just a path, so we can use that
+with &lt;code&gt;finch&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(finch)
+(out &amp;lt;- dwca_read(dat[1], read = TRUE))
+#&amp;gt; &amp;lt;gbif dwca&amp;gt;
+#&amp;gt;   Package ID: 10.15468/dl.mmecqc
+#&amp;gt;   No. data sources: 8
+#&amp;gt;   No. datasets: 3
+#&amp;gt;   Dataset occurrence.txt: [235 X 1371]
+#&amp;gt;   Dataset multimedia.txt: [15 X 0]
+#&amp;gt;   Dataset verbatim.txt: [217 X 1371]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we have access to not just the occurrence data&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(out$data$occurrence.txt)[,1:5]
+#&amp;gt;       gbifID abstract accessRights accrualMethod accrualPeriodicity
+#&amp;gt; 1 1269880600       NA                         NA                 NA
+#&amp;gt; 2 1269861719       NA                         NA                 NA
+#&amp;gt; 3 1269850111       NA                         NA                 NA
+#&amp;gt; 4 1265524086       NA                         NA                 NA
+#&amp;gt; 5 1257400209       NA                         NA                 NA
+#&amp;gt; 6 1257396860       NA                         NA                 NA
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But all the rich metadata in the other files. Yay!&lt;/p&gt;
+
+&lt;h2 id=&#34;future-work&#34;&gt;Future work&lt;/h2&gt;
+
+&lt;p&gt;DwC-A files can be very large - This is for sure going to be a pain point for some.
+We&amp;rsquo;ll continue to test and refine on big data files.&lt;/p&gt;
+
+&lt;h2 id=&#34;feedback&#34;&gt;Feedback?&lt;/h2&gt;
+
+&lt;p&gt;We&amp;rsquo;d love to know what people think about this package.&lt;/p&gt;
+
+&lt;p&gt;Documentation can be better, e.g., there&amp;rsquo;s no vignette yet (but adding
+that soon).&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Changed and new things in the new version of rgbif, v0.5</title>
+      <link>https://ropensci.org/blog/2014/02/17/rgbif-update/</link>
+      <pubDate>Mon, 17 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2014/02/17/rgbif-update/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;&lt;code&gt;rgbif&lt;/code&gt; is an R package to search and retrieve data from the Global Biodiverity Information Facilty (GBIF). &lt;code&gt;rgbif&lt;/code&gt; wraps R code around the [GBIF API][gbifapi] to allow you to talk to GBIF from R.&lt;/p&gt;
+
+&lt;p&gt;We just pushed a new verion of &lt;code&gt;rgbif&lt;/code&gt; to cran - v0.5.0.  Source and binary files are now available on CRAN.&lt;/p&gt;
+
+&lt;p&gt;There are a few new functions: &lt;code&gt;count_facet&lt;/code&gt;, &lt;code&gt;elevation&lt;/code&gt;, and &lt;code&gt;installations&lt;/code&gt;.  These are described, with examples, below.&lt;/p&gt;
+
+&lt;p&gt;Functions to work with the old GBIF API remain in the package, but will be removed as soon as the old API is no longer supported by GBIF. See &lt;code&gt;rgbif-deprecated&lt;/code&gt; in the help for the package.&lt;/p&gt;
+
+&lt;p&gt;Note: you can see a detailed list of all changes in new versions on the releases page for &lt;code&gt;rgbif&lt;/code&gt; on Githb here: &lt;a href=&#34;https://github.com/ropensci/rgbif/releases&#34;&gt;https://github.com/ropensci/rgbif/releases&lt;/a&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;install-rgbif-and-dependencies&#34;&gt;Install rgbif and dependencies&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;rgbif&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;load-rgbif-and-dependencies&#34;&gt;Load rgbif and dependencies&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(rgbif)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;new-functions&#34;&gt;New functions&lt;/h2&gt;
+
+&lt;h3 id=&#34;new-function-count-facet&#34;&gt;New function: count_facet&lt;/h3&gt;
+
+&lt;p&gt;Does facetted count searches, as GBIF doesn&amp;rsquo;t allow faceted searches against the count API. In this example, we have a set of species names, and we want counts by each of a set of 20 countries for each species. This function wraps up some code to essentially give you faceted search capability for the count service - of course this is much slower than if it was done server side.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;spplist &amp;lt;- c(&amp;quot;Geothlypis trichas&amp;quot;, &amp;quot;Tiaris olivacea&amp;quot;, &amp;quot;Pterodroma axillaris&amp;quot;,
+    &amp;quot;Calidris ferruginea&amp;quot;, &amp;quot;Pterodroma macroptera&amp;quot;, &amp;quot;Gallirallus australis&amp;quot;,
+    &amp;quot;Falco cenchroides&amp;quot;, &amp;quot;Telespiza cantans&amp;quot;, &amp;quot;Oreomystis bairdi&amp;quot;, &amp;quot;Cistothorus palustris&amp;quot;)
+keys &amp;lt;- sapply(spplist, function(x) name_backbone(x, rank = &amp;quot;species&amp;quot;)$usageKey)
+library(plyr)
+keys &amp;lt;- compact(keys)
+count_facet(by = &amp;quot;country&amp;quot;, countries = 20, removezeros = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##                 country       V1
+## 1               ANDORRA    96379
+## 2  UNITED_ARAB_EMIRATES   273098
+## 3           AFGHANISTAN    64020
+## 4       ANTIGUA_BARBUDA    12090
+## 5              ANGUILLA    13188
+## 6               ALBANIA     8202
+## 7               ARMENIA    26253
+## 8                ANGOLA   168412
+## 9            ANTARCTICA  1068590
+## 10            ARGENTINA  1155372
+## 11       AMERICAN_SAMOA    12248
+## 12              AUSTRIA  2702533
+## 13            AUSTRALIA 38729449
+## 14                ARUBA     8178
+## 15        ALAND_ISLANDS      566
+## 16           AZERBAIJAN    17622
+## 17   BOSNIA_HERZEGOVINA    10050
+## 18             BARBADOS    21683
+## 19           BANGLADESH    24255
+## 20              BELGIUM  5167393
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;new-function-elevation&#34;&gt;New function: elevation&lt;/h3&gt;
+
+&lt;p&gt;Gets elevation data for a &lt;code&gt;data.frame&lt;/code&gt; of lat/long points, or a list of lat/long points. This function uses the Google Elevation API.&lt;/p&gt;
+
+&lt;p&gt;You can get elevation/altitude data back from the GBIF API, but that data is often missing. See the &lt;code&gt;altitude&lt;/code&gt; column in data output from &lt;code&gt;occ_search&lt;/code&gt; - you need to set the fields parameter to &lt;em&gt;all&lt;/em&gt; or ask for &lt;em&gt;altitude&lt;/em&gt; explicitly.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;key &amp;lt;- name_backbone(name = &amp;quot;Puma concolor&amp;quot;, kingdom = &amp;quot;plants&amp;quot;)$speciesKey
+dat &amp;lt;- occ_search(taxonKey = key, return = &amp;quot;data&amp;quot;, limit = 10, georeferenced = TRUE)
+head(dat)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##            name       key longitude latitude
+## 1 Puma concolor 866527350   -110.58    31.85
+## 2 Puma concolor 866545169   -103.60    29.16
+## 3 Puma concolor 866495627   -106.39    35.13
+## 4 Puma concolor 866498665    -89.43    20.31
+## 5 Puma concolor 866508658   -105.04    19.47
+## 6 Puma concolor 866523280   -118.24    34.06
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Attach elevation data to the &lt;code&gt;data.frame&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(elevation(dat))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##            name       key longitude latitude elevation
+## 1 Puma concolor 866527350   -110.58    31.85   1294.62
+## 2 Puma concolor 866545169   -103.60    29.16    665.03
+## 3 Puma concolor 866495627   -106.39    35.13   2250.25
+## 4 Puma concolor 866498665    -89.43    20.31     29.05
+## 5 Puma concolor 866508658   -105.04    19.47     69.82
+## 6 Puma concolor 866523280   -118.24    34.06     93.25
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;new-function-installations&#34;&gt;New function: installations&lt;/h3&gt;
+
+&lt;p&gt;Gets metdata on installations via the &lt;a href=&#34;http://www.gbif.org/developer/registry#installations&#34;&gt;installations API&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This example requests data for installations with the query terms &amp;lsquo;france&amp;rsquo; in the metadata. We&amp;rsquo;ll just look at the first result, and just the description and its first contact.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;df &amp;lt;- installations(query = &amp;quot;france&amp;quot;)
+df$results[[1]]$description
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Natural Science Collections from the University of Alberta&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;df$results[[1]]$contacts[[1]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## $key
+## [1] 18037
+##
+## $type
+## [1] &amp;quot;TECHNICAL_POINT_OF_CONTACT&amp;quot;
+##
+## $primary
+## [1] TRUE
+##
+## $firstName
+## [1] &amp;quot;Jim Whittome&amp;quot;
+##
+## $email
+## [1] &amp;quot;jim.whittome@ualberta.ca&amp;quot;
+##
+## $createdBy
+## [1] &amp;quot;registry-migration.gbif.org&amp;quot;
+##
+## $modifiedBy
+## [1] &amp;quot;registry-migration.gbif.org&amp;quot;
+##
+## $created
+## [1] &amp;quot;2013-02-26T22:15:50.000+0000&amp;quot;
+##
+## $modified
+## [1] &amp;quot;2013-03-18T16:17:46.000+0000&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Another example, just requesting contact data for an installation identifier (i.e. uuid).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;installations(data = &amp;quot;contact&amp;quot;, uuid = &amp;quot;2e029a0c-87af-42e6-87d7-f38a50b78201&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [[1]]
+## [[1]]$key
+## [1] 19952
+##
+## [[1]]$type
+## [1] &amp;quot;TECHNICAL_POINT_OF_CONTACT&amp;quot;
+##
+## [[1]]$primary
+## [1] TRUE
+##
+## [[1]]$firstName
+## [1] &amp;quot;Biodiversity Informatics Manager&amp;quot;
+##
+## [[1]]$email
+## [1] &amp;quot;bdim@ansp.org&amp;quot;
+##
+## [[1]]$createdBy
+## [1] &amp;quot;registry-migration.gbif.org&amp;quot;
+##
+## [[1]]$modifiedBy
+## [1] &amp;quot;2e029a0c-87af-42e6-87d7-f38a50b78201&amp;quot;
+##
+## [[1]]$created
+## [1] &amp;quot;2013-07-22T18:17:06.000+0000&amp;quot;
+##
+## [[1]]$modified
+## [1] &amp;quot;2014-01-10T20:03:03.867+0000&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;minor-changes&#34;&gt;Minor changes&lt;/h2&gt;
+
+&lt;h3 id=&#34;sapply-vapply&#34;&gt;sapply -&amp;gt; vapply&lt;/h3&gt;
+
+&lt;p&gt;We replaced &lt;code&gt;sapply&lt;/code&gt; with &lt;code&gt;vapply&lt;/code&gt; as &lt;code&gt;vapply&lt;/code&gt; can be faster than &lt;code&gt;sapply&lt;/code&gt;, and with &lt;code&gt;vapply&lt;/code&gt; you can include a check in the function call to make sure that the returned data elements are of the correct type.&lt;/p&gt;
+
+&lt;h3 id=&#34;other-minor-changes&#34;&gt;Other minor changes&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Changed name of &lt;code&gt;country_codes&lt;/code&gt; function to &lt;code&gt;gbif_country_codes&lt;/code&gt; to avoid conflicts with other packages.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gbifmap&lt;/code&gt; now plots a map with &lt;code&gt;ggplot2::coord_fixed(ratio=1)&lt;/code&gt; so that you don&amp;rsquo;t get wonky maps.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;occ_count&lt;/code&gt; now accepts a call to query publishingCountry with a single parameter (country), to list occurrence counts by publishing country.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;occ_get&lt;/code&gt; and &lt;code&gt;occ_search&lt;/code&gt; lose parameter minimal, and in its place gains parameter fields, in which you can request fields=&amp;lsquo;minimal&amp;rsquo; to get just name, taxon key, lat and long. Or set to &amp;lsquo;all&amp;rsquo; to get all fields, or selection the fields you want by passing in a vector of field names.&lt;/li&gt;
+&lt;li&gt;Updated base url for the GIBF parser function &lt;code&gt;parsenames&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;isocodes dataset now with documentation.&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Overlaying climate data with species occurrence data</title>
+      <link>https://ropensci.org/blog/2013/07/29/rwbclimate-rgbif/</link>
+      <pubDate>Mon, 29 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/07/29/rwbclimate-rgbif/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;One of our primary goals at ROpenSci is to wrap as many science API&amp;rsquo;s as possible.  While each package can be used as a standalone interface, there&amp;rsquo;s lots of ways our packages can overlap and complement each other.  Sure &lt;a href=&#34;http://www.youtube.com/watch?v=7yeA7a0uS3A&#34;&gt;He-Man&lt;/a&gt; usually rode &lt;a href=&#34;http://en.wikipedia.org/wiki/Battle_Cat&#34;&gt;Battle Cat&lt;/a&gt;, but there&amp;rsquo;s no reason he couldn&amp;rsquo;t ride a &lt;a href=&#34;http://drawception.com/pub/panels/2012/5-14/swgpnXLCRm-8.png&#34;&gt;my little pony&lt;/a&gt; sometimes too.  That&amp;rsquo;s the case with our packages for &lt;a href=&#34;http://www.gbif.org/&#34;&gt;GBIF&lt;/a&gt; and the &lt;a href=&#34;http://data.worldbank.org/developers/climate-data-api&#34;&gt;worldbank climate data api&lt;/a&gt;.  Both packages will give you lots and lots of data, but a shared feature of both is the ability to plot spatial information.  The &lt;a href=&#34;https://github.com/ropensci/rWBclimate&#34;&gt;rWBclimate&lt;/a&gt; package provides a robust mapping ability on top of access to climate data.  At it&amp;rsquo;s most bare bones, it can be used as alternative to the built in mapping facilities included in &lt;a href=&#34;https://github.com/ropensci/rgbif/&#34;&gt;rgbif&lt;/a&gt;.  Building on the example in the &lt;a href=&#34;http://www.ropensci.org/tutorials/rgbif_tutorial.html#occurrencelist&#34;&gt;rgbif tutorial&lt;/a&gt; we&amp;rsquo;ll plot data for two species in the US and Mexico, the dark eyed junco (&lt;em&gt;Junco hyemalis&lt;/em&gt;) and the wood duck (&lt;em&gt;Aix sponsa&lt;/em&gt;).  Here&amp;rsquo;s how you can use the kml interface from rWBclimate to download a map of the US and Mexico and overlay it with data from rgbif.
+&lt;br&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;
+library(ggplot2)
+library(rWBclimate)
+library(rgbif)
+## Grab some occurrence data
+
+splist &amp;lt;- c(&amp;quot;Junco hyemalis&amp;quot;, &amp;quot;Aix sponsa&amp;quot;)
+out &amp;lt;- occurrencelist_many(splist, coordinatestatus = TRUE, maxresults = 1000)
+
+## Set the map data path
+options(kmlpath = &amp;quot;/Users/edmundhart/kmltemp&amp;quot;)
+sp.map.df &amp;lt;- create_map_df(c(&amp;quot;USA&amp;quot;,&amp;quot;MEX&amp;quot;))
+
+## create map plot
+sp.map &amp;lt;- ggplot(sp.map.df,aes(x=long,y=lat,group=group))+geom_polygon(fill=&amp;quot;white&amp;quot;,colour=&amp;quot;black&amp;quot;)+xlim(-130,-65)+ylim(12,50)
+
+## Overlay occurrence data
+sp.map + geom_point(data=gbifdata(out),aes(y=decimalLatitude,x=decimalLongitude,group=taxonName,colour=taxonName))
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;
+&lt;img src=&#34;https://ropensci.org/assets/blog-images/2013-07-29-rWBclimate-rgbif/gbifmap1.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;overlaying-climate-data-with-occurrence-data&#34;&gt;Overlaying climate data with occurrence data&lt;/h2&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;So that&amp;rsquo;s how you could make a basic map, but what if you want to overlay climate data with occurrence data?  That&amp;rsquo;s easy too.  You repeat essentially the same steps as above, but be sure to grab some climate data too. In this example I&amp;rsquo;ve chose to grab data for 8 different tree species that exhibit somewhat of a lattitudinal gradient.  I&amp;rsquo;ll map them on top of historical temperature data.  In this case I&amp;rsquo;ll be using the average annual temperature from 1990 to 2000.  Because I want a bit better spatial resolution I&amp;rsquo;ll be using basin level data instead of country level data.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;
+### Download map data
+usmex &amp;lt;- c(273:284,328:365)
+usmex.basin &amp;lt;- create_map_df(usmex)
+
+## Download temperature data
+temp.dat &amp;lt;- get_historical_temp(usmex, &amp;quot;decade&amp;quot; )
+temp.dat &amp;lt;- subset(temp.dat,temp.dat$year == 2000 )
+
+
+#create my climate map
+usmex.map.df &amp;lt;- climate_map(usmex.basin,temp.dat,return_map=F)
+
+
+## Grab some species occurrence data for the 8 tree species.
+
+splist &amp;lt;- c(&amp;quot;Acer saccharum&amp;quot;,
+            &amp;quot;Abies balsamea&amp;quot;,
+            &amp;quot;Arbutus texana&amp;quot;,
+            &amp;quot;Betula alleghaniensis&amp;quot;,
+            &amp;quot;Chilopsis linearis&amp;quot;,
+            &amp;quot;Conocarpus erectus&amp;quot;,
+            &amp;quot;Populus tremuloides&amp;quot;,
+            &amp;quot;Larix laricina&amp;quot;)
+out &amp;lt;- occurrencelist_many(splist, coordinatestatus=TRUE, maxresults=1000, fixnames=&amp;quot;match&amp;quot;)
+
+## Now just create the base temperature map
+usmex.map &amp;lt;- ggplot()+geom_polygon(data=usmex.map.df,aes(x=long,y=lat,group=group,fill=data,alpha=.8))+scale_fill_continuous(&amp;quot;Average annual \n temp: 1990-2000&amp;quot;,low=&amp;quot;yellow&amp;quot;,high=&amp;quot;red&amp;quot;)+ guides(alpha=F)+theme_bw()
+
+
+## And overlay of gbif data
+usmex.map + geom_point(data=gbifdata(out),aes(y=decimalLatitude,x=decimalLongitude,group=taxonName,colour= taxonName)) + xlim(-125,-59)+ylim(5,55)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;
+&lt;img src=&#34;https://ropensci.org/assets/blog-images/2013-07-29-rWBclimate-rgbif/gbifmap2.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The map doesn&amp;rsquo;t have borders because it&amp;rsquo;s created at the basin level, but it would be easy enough to add an outline for the countries.  You could also plot any of your own data over climate maps because they are based on decimal lattitude and longitude coordinates, or data from multiple sources.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

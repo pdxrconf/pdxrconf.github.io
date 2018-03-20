@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Graphql on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/graphql/</link>
+    <description>Recent content in Graphql on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 05 Oct 2016 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/graphql/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>New package graphql: A GraphQL Query Parser</title>
+      <link>https://ropensci.org/technotes/2016/10/05/graphql-release-10/</link>
+      <pubDate>Wed, 05 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/technotes/2016/10/05/graphql-release-10/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;The new ropensci &lt;a href=&#34;https://cran.r-project.org/web/packages/graphql/&#34;&gt;graphql&lt;/a&gt; package is now on CRAN. It implements R bindings to the &lt;a href=&#34;https://github.com/graphql/libgraphqlparser&#34;&gt;libgraphqlparser C++ library&lt;/a&gt; to parse GraphQL syntax and export the syntax tree in JSON format:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;graphql2json(&amp;quot;{ field(complex: { a: { b: [ $var ] } }) }&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A syntax parser is perhaps not super useful to most end-users, but can be used to validate graphql queries or implement a GraphQL API in R. We hope to add more related functionality later on.&lt;/p&gt;
+
+&lt;h2 id=&#34;what-is-graphql&#34;&gt;What is GraphQL&lt;/h2&gt;
+
+&lt;p&gt;From the &lt;a href=&#34;http://graphql.org&#34;&gt;GraphQL website&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing data. GraphQL provides a complete and understandable description of the data in your API, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;GraphQL is a new approach and syntax to structuring API queries. It provides a modern, and perhaps more natural alternative to e.g. REST or SQL (which were designed for hypertext and relational data, respectively). A GraphQL query on the other hand resembles the structure of the data. For example the query:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;{
+  me {
+    name
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Could produce the JSON result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-json&#34;&gt;{
+  &amp;quot;me&amp;quot;: {
+    &amp;quot;name&amp;quot;: &amp;quot;Luke Skywalker&amp;quot;
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The Github API &lt;a href=&#34;https://developer.github.com/early-access/graphql/&#34;&gt;supports GraphQL&lt;/a&gt; and illustrates how GraphQL reduces the number of requests and data in comparison with traditional REST queries.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

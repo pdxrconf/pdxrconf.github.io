@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Tesseract and Magick: High Quality OCR in R</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article class="blog-post">
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h1 style="text-align: center;">Tesseract and Magick: High Quality OCR in R</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        &nbsp;
+                        
+                          <a href="/about/#team">Jeroen Ooms</a>
+                        
+                        
+                        &nbsp; |
+                    
+                    <small style="color: #5B617A; margin-left: 10px;"> AUGUST 17, 2017</small>
+                </p>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+                
+
+<p>Last week we released an update of the tesseract package to CRAN. This package provides R bindings to Google&rsquo;s OCR library <a href="https://en.wikipedia.org/wiki/Tesseract_(software)">Tesseract</a>.</p>
+
+<pre><code class="language-r">install.packages(&quot;tesseract&quot;)
+</code></pre>
+
+<p>The new version ships with the latest libtesseract 3.05.01 on Windows and MacOS. Furthermore it includes enhancements for managing language data and using tesseract together with the magick package.</p>
+
+<h2 id="installing-language-data">Installing Language Data</h2>
+
+<p>The new version has several improvements for installing additional language data. On Windows and MacOS you use the <code>tesseract_download()</code> function to install additional languages:</p>
+
+<pre><code class="language-r">tesseract_download(&quot;fra&quot;)
+</code></pre>
+
+<p>Language data are now stored in <code>rappdirs::user_data_dir('tesseract')</code> which makes it persist across updates of the package. To OCR french text:</p>
+
+<pre><code class="language-r">french &lt;- tesseract(&quot;fra&quot;)
+text &lt;- ocr(&quot;https://jeroen.github.io/images/french_text.png&quot;, engine = french)
+cat(text)
+</code></pre>
+
+<p>Très Bien! Note that on Linux you should not use <code>tesseract_download</code> but instead install languages using apt-get (e.g. <a href="https://packages.debian.org/testing/tesseract-ocr-fra">tesseract-ocr-fra</a>) or yum (e.g. <a href="https://apps.fedoraproject.org/packages/tesseract-langpack-fra">tesseract-langpack-fra</a>).</p>
+
+<h2 id="tesseract-and-magick">Tesseract and Magick</h2>
+
+<p>The tesseract developers <a href="https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality">recommend</a> to clean up the image before OCR&rsquo;ing it to improve the quality of the output. This involves things like cropping out the text area, rescaling, increasing contrast, etc.</p>
+
+<p>The rOpenSci <a href="https://ropensci.org/blog/blog/2017/08/15/magick-10">magick</a> package is perfectly suitable for this task. The latest version contains a convenient wrapper <code>image_ocr()</code> that works with pipes.</p>
+
+<pre><code class="language-r">devtools::install_github(&quot;ropensci/magick&quot;)
+</code></pre>
+
+<p>Let&rsquo;s give it a try on some <a href="https://courses.cs.vt.edu/csonline/AI/Lessons/VisualProcessing/OCRscans.html">example scans</a>:</p>
+
+<p><img src="https://courses.cs.vt.edu/csonline/AI/Lessons/VisualProcessing/OCRscans_files/bowers.jpg" alt="example" /></p>
+
+<pre><code class="language-r"># Requires devel version of magick
+# devtools::install_github(&quot;ropensci/magick&quot;)
+
+# Test it
+library(magick)
+library(magrittr)
+
+text &lt;- image_read(&quot;https://courses.cs.vt.edu/csonline/AI/Lessons/VisualProcessing/OCRscans_files/bowers.jpg&quot;) %&gt;%
+  image_resize(&quot;2000&quot;) %&gt;%
+  image_convert(colorspace = 'gray') %&gt;%
+  image_trim() %&gt;%
+  image_ocr()
+
+cat(text)
+</code></pre>
+
+<pre><code>The Llfe and Work of
+Fredson Bowers
+by
+G. THOMAS TANSELLE
+
+N EVERY FIELD OF ENDEAVOR THERE ARE A FEW FIGURES WHOSE ACCOM-
+plishment and inﬂuence cause them to be the symbols of their age;
+their careers and oeuvres become the touchstones by which the
+ﬁeld is measured and its history told. In the related pursuits of
+analytical and descriptive bibliography, textual criticism, and scholarly
+editing, Fredson Bowers was such a ﬁgure, dominating the four decades
+after 1949, when his Principles of Bibliographical Description was pub-
+lished. By 1973 the period was already being called “the age of Bowers”:
+in that year Norman Sanders, writing the chapter on textual scholarship
+for Stanley Wells's Shakespeare: Select Bibliographies, gave this title to
+a section of his essay. For most people, it would be achievement enough
+to rise to such a position in a ﬁeld as complex as Shakespearean textual
+studies; but Bowers played an equally important role in other areas.
+Editors of ninetcemh-cemury American authors, for example, would
+also have to call the recent past “the age of Bowers,&quot; as would the writers
+of descriptive bibliographies of authors and presses. His ubiquity in
+the broad ﬁeld of bibliographical and textual study, his seemingly com-
+plete possession of it, distinguished him from his illustrious predeces-
+sors and made him the personiﬁcation of bibliographical scholarship in
+
+his time.
+
+\Vhen in 1969 Bowers was awarded the Gold Medal of the Biblio-
+graphical Society in London, John Carter’s citation referred to the
+Principles as “majestic,&quot; called Bowers's current projects “formidable,&quot;
+said that he had “imposed critical discipline&quot; on the texts of several
+authors, described Studies in Bibliography as a “great and continuing
+achievement,&quot; and included among his characteristics &quot;uncompromising
+seriousness of purpose” and “professional intensity.&quot; Bowers was not
+unaccustomed to such encomia, but he had also experienced his share of
+attacks: his scholarly positions were not universally popular, and he
+expressed them with an aggressiveness that almost seemed calculated to
+</code></pre>
+
+<p>Not bad but not perfect. Can you do a better job?</p>
+
+            </div>
+            <br>
+
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+                <div id='discourse-comments'></div>
+                <script type="text/javascript">
+                DiscourseEmbed = { discourseUrl: 'https://discuss.ropensci.org/',
+                                   topicId:  831  };
+                (function() {
+                  var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+                  d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+                })();
+                </script>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

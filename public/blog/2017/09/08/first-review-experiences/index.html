@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Experiences as a first time rOpenSci package reviewer</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">Experiences as a first time rOpenSci package reviewer</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="http://blog.haunschmid.name" target="_blank"> Verena Haunschmid </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">September 8, 2017</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>It all started January 26<sup>th</sup> this year when I signed up to volunteer as
+a reviewer for R packages submitted to rOpenSci. My main motivation for
+wanting to volunteer was to learn something new and to
+contribute to the R open source community. If you are wondering why the
+people behind rOpenSci are doing this, you can read <a href="https://www.numfocus.org/blog/how-ropensci-uses-code-review-to-promote-reproducible-science/">How rOpenSci uses Code Review to Promote Reproducible Science</a>.</p>
+
+<p>Three months later I was contacted by <a href="https://twitter.com/masalmon">Maelle Salmon</a> asking whether I was interested in
+reviewing the R package <a href="https://github.com/ropensci/patentsview"><code>patentsview</code></a> for rOpenSci. And yes, I
+was! To be honest I was a little bit thrilled.</p>
+
+<p>The packages are submitted for review to rOpenSci via an issue to their
+GitHub repository and also the reviews happen there. So you can check out
+<a href="https://github.com/ropensci/onboarding/issues">all previous package submissions and reviews</a>.
+With all the information you
+get from rOpenSci and also the help from the editor it is straightforward
+to do the package review. Before I started I read the
+reviewer guides (links below) and checked out a few of the existing
+reviews. I installed the package <code>patentsview</code> from GitHub and also
+downloaded the source code so I could check out how it was implemented.</p>
+
+<p>I started by testing core functionality of the package by
+running the examples that were mentioned in the README of the
+package. I think this is a good
+starting point because you get a feeling of what the author wants to
+achieve with the package. Later on I came up with my
+own queries (side note: this R package interacts with an API from which
+you can query patents). During the process I used to switch between
+writing queries like a normal user of the package
+would do and checking the code. When I saw something in the code that
+wasn&rsquo;t quite clear to me or looked wrong I went back to writing new
+queries to check whether the behavior of the methods was as expected.</p>
+
+<p>With this approach I was able to give feedback to the package author
+which led to the inclusion of an additional unit test, a helper function
+that makes the package easier to use, clarification of an error message
+and an improved documentation. You can find the review I did <a href="https://github.com/ropensci/onboarding/issues/112">here</a>.</p>
+
+<p>There are several R packages that helped me get started with my review,
+e.g. <a href="https://github.com/hadley/devtools"><code>devtools</code></a> and
+<a href="https://github.com/MangoTheCat/goodpractice"><code>goodpractice</code></a>. These
+packages can also help you when you start writing your own packages. An
+example for a very useful method is <code>devtools::spell_check()</code>, which
+performs a spell check on the package description and on manual pages.
+At the beginning I had an issue with <code>goodpractice::gp()</code> but Maelle Salmon
+(the editor) helped me resolve it.</p>
+
+<p>In the rest of this article you can read what I gained personally from doing a
+review.</p>
+
+<h3 id="contributing-to-the-open-source-community">Contributing to the open source community</h3>
+
+<p>When people think about contributing to the open source community, the
+first thought is about creating a new R package or contributing to one
+of the major packages out there. But not everyone has the resources
+(e.g. time) to do so. You also don&rsquo;t have awesome ideas every other day
+which can immediately be implemented into new R packages to be used by
+the community. Besides contributing with code there are also lots of
+other things than can be useful for other R users, for example writing
+blog posts about problems you solved, speaking at meetups or reviewing
+code to help improve it. What I like much about reviewing code is that
+people see things differently and have other experiences. As a reviewer,
+you see a new package from the user&rsquo;s perspective which can be hard for
+the programmer themselves. Having someone else
+review your code helps finding things that are missing because they seem
+obvious to the package author or detect code pieces that require more
+testing. I had a great feeling when I finished the review, since I had
+helped improve an already amazing R package a little bit more.</p>
+
+<h3 id="reviewing-helps-improve-your-own-coding-style">Reviewing helps improve your own coding style</h3>
+
+<p>When I write R code I usually try to do it in the best way possible.
+<a href="https://google.github.io/styleguide/Rguide.xml">Google&rsquo;s R Style Guide</a>
+is a good start to get used to coding best practice in R and I also
+enjoyed reading <a href="https://github.com/timoxley/best-practices">Programming Best Practices
+Tidbits</a>. So normally
+when I think some piece of code can be improved (with respect to speed,
+readability or memory usage) I check online whether I can find a
+better solution. Often you just don&rsquo;t think something can be
+improved because you always did it in a certain way or the last time you
+checked there was no better solution. This is when it helps to follow
+other people&rsquo;s code. I do this by reading their blogs, following many R
+users on Twitter and checking their GitHub account. Reviewing an R
+package also helped me a great deal with getting new ideas because I
+checked each function a lot more carefully than when I read blog posts.
+In my opinion, good code does not only use the best package for each
+problem but also the small details are well implemented. One thing I
+used to do wrong for a long time was filling of data.frames until I
+found a better (much faster)
+<a href="https://stackoverflow.com/a/29419402">solution on stackoverflow</a>.
+And with respect to this you
+can learn a lot from someone else&rsquo;s code. What I found really cool in
+the package I reviewed was the usage of small helper functions (see
+<a href="https://github.com/ropensci/patentsview/blob/c03e1ab2537873d7a9b76025b0072953efb475c1/R/utils.R">utils.R</a>).
+Functions like <code>paste0_stop</code> and <code>paste0_message</code> make the rest of the
+code a lot easier to read.</p>
+
+<h3 id="good-start-for-writing-your-own-packages">Good start for writing your own packages</h3>
+
+<p>When reviewing an R package, you check the code like a really observant
+user. I noticed many things that you usually don&rsquo;t care about when using
+an R package, like comments, how helpful the documentation and the
+examples are, and also how well unit tests cover the code. I think that
+reviewing a few good packages can prepare you very well for writing your
+own packages.</p>
+
+<h3 id="do-you-want-to-contribute-to-ropensci-yourself">Do you want to contribute to rOpenSci yourself?</h3>
+
+<p>If I motivated you to become an rOpenSci reviewer, please sign up! Here
+is a list of useful things if you want to become an rOpenSci reviewer
+like me.</p>
+
+<ul>
+<li><p><a href="https://ropensci.org/onboarding/">Form to sign up (just takes a minute)</a></p></li>
+
+<li><p><a href="http://onboarding.ropensci.org/">Information for reviewers</a></p></li>
+
+<li><p><a href="https://mozillascience.github.io/codeReview/review.html">Mozilla reviewing guide</a></p></li>
+
+<li><p>While writing this blog post I found a nice article about <a href="http://www.tidyverse.org/articles/2017/08/contributing/">contributing
+to the tidyverse</a> which is
+mostly also applicable to other R packages in my opinion.</p></li>
+</ul>
+
+<p>If you are generally interested in either submitting or reviewing an R package, I would like to invite you to the <a href="https://ropensci.org/blog/blog/2017/08/31/comm-call-v14"> Community Call on rOpenSci software review and onboarding</a>.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/software"><span class="label">software</span></a>
+                
+                    <a href="/tags/review"><span class="label">review</span></a>
+                
+                    <a href="/tags/ropensci"><span class="label">ropensci</span></a>
+                
+                    <a href="/tags/onboarding"><span class="label">onboarding</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+                <div id='discourse-comments'></div>
+                <script type="text/javascript">
+                DiscourseEmbed = { discourseUrl: 'https://discuss.ropensci.org/',
+                                   topicId:  861  };
+                (function() {
+                  var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+                  d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+                })();
+                </script>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

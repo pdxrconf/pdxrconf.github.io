@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | dvn - Sharing Reproducible Research from R</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">dvn - Sharing Reproducible Research from R</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="http://thomasleeper.com/" target="_blank"> Thomas Leeper </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">February 20, 2014</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>Reproducible research involves the careful, annotated preservation of data, analysis code, and associated files, such that statistical procedures, output, and published results can be directly and fully replicated. As the push for reproducible research has grown, the R community has responded with an increasingly large set of tools for engaging in reproducible research practices (see, for example, the <a href="http://cran.r-project.org/web/views/ReproducibleResearch.html">ReproducibleResearch Task View</a> on CRAN). Most of these tools focus on improving one&rsquo;s own workflow through closer integration of data analysis and report generation. But reproducible research also requires the persistent - and perhaps indefinite - storage of research files so that they can be used to recreate or modify future analyses and reports.</p>
+
+<p>It is therefore critical that R include functionality for the persistent storage of reproducible research files. And I&rsquo;m pleased to announce here that the <strong>dvn</strong> package (<a href="http://cran.r-project.org/web/packages/dvn/index.html">CRAN</a>, <a href="http://ropensci.org/dvn.html">GitHub</a>) has now been integrated into the rOpenSci project. <strong>dvn</strong> provides simple, programmatic access to <a href="http://thedata.org/">The Dataverse Network Project</a>, an open-source data archive project created by Harvard University&rsquo;s <a href="http://www.iq.harvard.edu/">Institute for Quantitative Social Science</a>. Full details about <strong>dvn</strong> are forthcoming in <a href="http://journal.r-project.org/">The R Journal</a>, and this post provides a basic overview of the package&rsquo;s core functionality.</p>
+
+<p>Note that rOpenSci has already created the rFigShare package (<a href="http://cran.r-project.org/web/packages/rfigshare/index.html">CRAN</a>, <a href="http://ropensci.org/rfigshare.html">GitHub</a>), which allows users to upload files to <a href="http://figshare.com/">fishare</a>. Together, these packages give R users an array of tools to enhance the reproducible research workflow and extend it publicly and permanently for the benefit of future scientists.</p>
+
+<h2 id="installing-the-package">Installing the package</h2>
+
+<p>A stable version of the package (0.3.3) is now available on CRAN.</p>
+
+<pre><code>install.packages(&quot;dvn&quot;)
+</code></pre>
+
+<p>or you can install the latest development version from GitHub:</p>
+
+<pre><code class="language-r">library(&quot;devtools&quot;)
+install_github(&quot;ropensci/dvn&quot;)
+</code></pre>
+
+<h2 id="creating-a-dataverse-and-archiving-files">Creating a dataverse and archiving files</h2>
+
+<p>Creating a Dataverse Network account is simple. Just visit a Dataverse Network, such as <a href="http://thedata.harvard.edu/dvn/">The Harvard Dataverse Network</a>, click &ldquo;Create Account,&rdquo; and open a personal dataverse. From there, one can easily create studies, populate them with metadata and files, and release them to the public.</p>
+
+<p>To get started, simply load <strong>dvn</strong>, pick a Dataverse Network (the one you created an account through), and load your username and password.</p>
+
+<pre><code class="language-r">library(&quot;dvn&quot;)
+options(dvn = 'https://thedata.harvard.edu/dvn/')
+options(dvn.user = &quot;username&quot;)
+options(dvn.pwd = &quot;password&quot;)
+</code></pre>
+
+<p>Creating a study requires supplying basic metadata that will allow users to find the study. At a minimum, this includes the title for the study, but many other fields are allowed (see <code>? dvBuildMetadata</code>). The metadata need to be written in Dublin Core XML, so a helper function <code>dvBuildMetadata</code> can be used to easily write metadata fields to an appropriate format:</p>
+
+<pre><code class="language-r">m &lt;- dvBuildMetadata(title = &quot;My Study&quot;)
+</code></pre>
+
+<p>This metadata can then be used to create a new study within a named dataverse. When you initially create an account, you only have a personal dataverse but you can also create additional dataverses (through the web interface) for specific projects or institutions. Thus <code>dvCreateStudy</code> requires you to supply the name of the dataverse where you want to create a study:</p>
+
+<pre><code class="language-r">s &lt;- dvCreateStudy(&quot;mydataverse&quot;, m)
+</code></pre>
+
+<p>Once a study is created, you simply need to add files, such as code, data, etc. using <code>dvAddFile</code>. This can be done in a number of ways, including uploading all files in a .zip directory, uploading a vector of named files, or even uploading a dataframe that is currently open in R. An optional <code>category</code> argument can be used to organize the uploaded files into categories.</p>
+
+<pre><code class="language-r"># add files and release study using `objectid`
+dvAddFile(s, &quot;mydata.zip&quot;, category=&quot;Data&quot;)
+
+# or add multiple files:
+dvAddFile(s, c(&quot;analysis1.R&quot;, &quot;analysis2.R&quot;), category=&quot;Code&quot;)
+
+# or add R dataframes as files:
+mydf &lt;- data.frame(x = 1:10, y = 11:20)
+dvAddFile(s, dataframe = &quot;mydf&quot;)
+</code></pre>
+
+<p>With files uploaded, making the study publicly available is as easy as:</p>
+
+<pre><code class="language-r">dvReleaseStudy(s)
+</code></pre>
+
+<p>Before releasing a study, it is possible to add (<code>dvAddFile</code>) or delete files (<code>dvDeleteFile</code>) or change the metadata associated with the file using <code>dvEditStudy</code>. You can also delete the entire study using <code>dvDeleteStudy</code>. Once released, the study is version-controlled. Any changes made after a release put the study in &ldquo;DRAFT&rdquo; mode and the study needs to be released again for those changes to be publicly visible. A released study cannot be deleted but public access to its contents can be revoked using <code>dvDeleteStudy</code> (its DOI will point to a page noting the study was deaccessioned).</p>
+
+<p>At any point in the process, <code>dvStudyStatement</code> can be used to retrieve a quick overview of the study&rsquo;s status, metadata, and contents:</p>
+
+<pre><code class="language-r">dvStudyStatement('hdl:1902.1/17864')
+Study author:  James Druckman (Northwestern University); Jordan Fein (Northwestern University); Thomas Leeper (Northwestern University)
+Study title:   Replication data for: A Source of Bias in Public Opinion Stability
+ObjectId:      hdl:1902.1/17864
+Study URI:     https://thedata.harvard.edu/dvn/api/data-deposit/v1/swordv2/edit/study/hdl:1902.1/17864
+Last updated:  2013-07-27T10:54:30.200Z
+Status:        RELEASED
+Locked?        false
+Files:
+  src
+1 https://thedata.harvard.edu/dvn/api/data-deposit/v1/swordv2/edit-media/file/2340116/Codebook2011-05-04.doc
+2 https://thedata.harvard.edu/dvn/api/data-deposit/v1/swordv2/edit-media/file/2309028/Data.tab
+3 https://thedata.harvard.edu/dvn/api/data-deposit/v1/swordv2/edit-media/file/2341890/Articles.doc
+4 https://thedata.harvard.edu/dvn/api/data-deposit/v1/swordv2/edit-media/file/2341891/Questionnaire.doc
+  type                      updated                  fileId
+1 application/msword        2014-02-19T10:18:53.486Z 2340116
+2 text/tab-separated-values 2014-02-19T10:18:53.487Z 2309028
+3 application/msword        2014-02-19T10:18:53.488Z 2341890
+4 application/msword        2014-02-19T10:18:53.489Z 2341891
+</code></pre>
+
+<p>And <code>dvUserStudies</code> can retrieve a listing of all studies in one&rsquo;s dataverse:</p>
+
+<pre><code class="language-r">dvUserStudies('leeper')
+DV Title:      Thomas J. Leeper
+DV name:       leeper
+Released?      true
+Generated by:  http://www.swordapp.org/ 2.0
+Studies:
+  title
+1 Possible R ingest bug
+2 Replication data for: A Source of Bias in Public Opinion Stability
+3 Replication data for: The Informational Basis for Mass Polarization
+4 Replication data for: Self-Interest and Attention to News among Issue Publics
+5 Replication data for: Learning More from Political Communication Experiments: The Importance of Pretreatment Effects
+6 Replication data for: Doing What Others Do:  Norms, Science, and Collective Action on Global Warming
+7 Consequences of Selective Exposure for Political Engagement
+  objectId
+1 hdl:1902.1/LNEOX
+2 hdl:1902.1/17864
+3 hdl:1902.1/21964
+4 hdl:1902.1/17863
+5 hdl:1902.1/17218
+6 hdl:1902.1/18249
+7 hdl:1902.1/17865
+</code></pre>
+
+<h2 id="search-for-archived-studies">Search for archived studies</h2>
+
+<p>In addition to creating and managing dataverse studies, <strong>dvn</strong> also allows users to search a Dataverse Network for existing studies and download metadata. We can search by a number of metadata fields (the allowed fields are retrievable via <code>dvSearchField</code>):</p>
+
+<pre><code class="language-r"># specify a Dataverse Network
+options(dvn = 'https://thedata.harvard.edu/dvn/')
+
+# search by author name
+dvSearch(list(authorName = &quot;leeper&quot;))
+
+# search by title using a boolean OR logic
+dvSearch(list(title = &quot;Denmark&quot;, title = &quot;Sweden&quot;), boolean = &quot;OR&quot;)
+
+# search all fields
+dvSearch(&quot;Tobacco&quot;)
+</code></pre>
+
+<p>A search returns a list of <code>objectId</code> values, handles or DOIs that provide a global pointer to a particular study. Using an <code>objectId</code> one can gather detailed study metadata in Data Documentation Initiative format (the default), Dublin Core, or possibly other formats (the list is exanding). Here&rsquo;s an example:</p>
+
+<pre><code class="language-r"># return DDI (by default)
+dvMetadata(&quot;hdl:1902.1/21964&quot;)
+
+# return Dublic Core
+dvMetadata(&quot;hdl:1902.1/21964&quot;, format.type=&quot;oai_dc&quot;)
+</code></pre>
+
+<p>In either case the result is an XML file, as a single character string. The metadata can be extensive, and are therefore better viewed outside of R. But a few wrapper functions allow one to view critical parts of the metadata, such the listing of files stored in a study:</p>
+
+<pre><code class="language-r">files &lt;- dvExtractFileIds(dvMetadata(&quot;hdl:1902.1/21964&quot;))
+files[, c('fileName', 'fileId')]
+                          fileName  fileId
+1    study2-replication-analysis.r 2341713
+2    study1-replication-analysis.r 2341709
+3                      coefpaste.r 2341888
+4                     expResults.r 2341889
+5            Study 2 Codebook.docx 2341712
+6 study2-data-final-2012-06-08.csv 2341711
+7 study1-data-final-2012-06-08.csv 2341710
+8             Study 2 Webpages.zip 2341714
+9             Study 1 Webpages.zip 2341715
+</code></pre>
+
+<p>Generally, files cannot be directly downloaded into R because of Terms of Use restrictions currently placed on studies. In the future this may change, so <strong>dvn</strong> provides forward-compatible functions <code>dvDownloadInfo</code> and <code>dvDownload</code> to check whether files can be downloaded and to perform the download if allowed, respectively.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/api"><span class="label">API</span></a>
+                
+                    <a href="/tags/reproducibleresearch"><span class="label">reproducibleresearch</span></a>
+                
+                    <a href="/tags/data"><span class="label">data</span></a>
+                
+                    <a href="/tags/archiving"><span class="label">archiving</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

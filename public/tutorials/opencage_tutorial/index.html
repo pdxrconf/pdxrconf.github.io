@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | opencage tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>opencage tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.1.2</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p>This package is an interface to the OpenCage API that allows forward and reverse geocoding. To use the package, you will need an API key. To get an API key for OpenCage geocoding, register at <a href="https://geocoder.opencagedata.com/pricing">https://geocoder.opencagedata.com/pricing</a>. The free API key provides up to 2,500 calls a day. For ease of use, save your API key as an environment variable as described at <a href="http://stat545.com/bit003_api-key-env-var.html">http://stat545.com/bit003_api-key-env-var.html</a>.</p>
+
+<p>Both functions of the package will conveniently look for your API key using <code>Sys.getenv(&quot;OPENCAGE_KEY&quot;)</code> so if your API key is an environment variable called &ldquo;OPENCAGE_KEY&rdquo; you don&rsquo;t need to input it manually.</p>
+
+<h2 id="geocoding">Geocoding</h2>
+
+<p>The <a href="https://geocoder.opencagedata.com/">OpenCage</a> API supports forward and reverse geocoding. Sources of OpenCage are open geospatial data including OpenStreetMap, Yahoo! GeoPlanet, Natural Earth Data, Thematic Mapping, Ordnance Survey OpenSpace, Statistics New Zealand, Zillow, MaxMind, GeoNames, the US Census Bureau and Flickr&rsquo;s shapefiles plus a whole lot more besides. See <a href="https://geocoder.opencagedata.com/credits">this page</a> for the full list of credits.</p>
+
+<p>Both forward and reverse geocoding typically return multiple results. Regarding these multiple results, the API doc states, &ldquo;In cases where the geocoder is able to find multiple matches, the geocoder will return multiple results. The confidence or coordinates for each result should be examined to determine whether each result from an ambiguous query is sufficiently high to warrant using a result or not. A good strategy to reduce ambiguity is to use the optional <code>bounds</code> parameter described below to limit the area searched.&rdquo; Multiple results might mean you get a result for the airport and a road when querying a city name, or results for cities with the same name in different countries.</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>Stable version from CRAN</p>
+
+<pre><code class="language-r">install.packages(&quot;opencage&quot;)
+</code></pre>
+
+<p>Development version from GitHub</p>
+
+<pre><code class="language-r">if (!require(&quot;devtools&quot;)) install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;ropenscilabs/opencage&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;opencage&quot;)
+</code></pre>
+
+<h3 id="forward-geocoding">Forward geocoding</h3>
+
+<p>Forward geocoding is from placename to latitude and longitude tuplet(s).</p>
+
+<pre><code class="language-r">output &lt;- opencage_forward(placename = &quot;Sarzeau&quot;)
+library(&quot;dplyr&quot;)
+output$rate_info
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 1 x 3
+#&gt;   limit remaining               reset
+#&gt;   &lt;int&gt;     &lt;int&gt;              &lt;dttm&gt;
+#&gt; 1  2500      2499 2017-10-17 17:00:00
+</code></pre>
+
+<pre><code class="language-r">output$results
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 2 x 57
+#&gt;    annotations.DMS.lat annotations.DMS.lng annotations.MGRS
+#&gt;                  &lt;chr&gt;               &lt;chr&gt;            &lt;chr&gt;
+#&gt; 1 47° 31' 43.56984'' N 2° 45' 51.11856'' W  30TWT1774963954
+#&gt; 2 47° 31' 40.80828'' N  2° 46' 7.68144'' W  30TWT1740363867
+#&gt; # ... with 54 more variables: annotations.Maidenhead &lt;chr&gt;,
+#&gt; #   annotations.Mercator.x &lt;chr&gt;, annotations.Mercator.y &lt;chr&gt;,
+#&gt; #   annotations.OSM.edit_url &lt;chr&gt;, annotations.OSM.url &lt;chr&gt;,
+#&gt; #   annotations.callingcode &lt;fctr&gt;,
+#&gt; #   annotations.currency.decimal_mark &lt;fctr&gt;,
+#&gt; #   annotations.currency.html_entity &lt;fctr&gt;,
+#&gt; #   annotations.currency.iso_code &lt;fctr&gt;,
+#&gt; #   annotations.currency.iso_numeric &lt;fctr&gt;,
+#&gt; #   annotations.currency.name &lt;fctr&gt;,
+#&gt; #   annotations.currency.smallest_denomination &lt;fctr&gt;,
+#&gt; #   annotations.currency.subunit &lt;fctr&gt;,
+#&gt; #   annotations.currency.subunit_to_unit &lt;fctr&gt;,
+#&gt; #   annotations.currency.symbol &lt;fctr&gt;,
+#&gt; #   annotations.currency.symbol_first &lt;fctr&gt;,
+#&gt; #   annotations.currency.thousands_separator &lt;fctr&gt;,
+#&gt; #   annotations.geohash &lt;chr&gt;, annotations.qibla &lt;fctr&gt;,
+#&gt; #   annotations.sun.rise.apparent &lt;fctr&gt;,
+#&gt; #   annotations.sun.rise.astronomical &lt;fctr&gt;,
+#&gt; #   annotations.sun.rise.civil &lt;fctr&gt;,
+#&gt; #   annotations.sun.rise.nautical &lt;fctr&gt;,
+#&gt; #   annotations.sun.set.apparent &lt;fctr&gt;,
+#&gt; #   annotations.sun.set.astronomical &lt;fctr&gt;,
+#&gt; #   annotations.sun.set.civil &lt;fctr&gt;, annotations.sun.set.nautical &lt;fctr&gt;,
+#&gt; #   annotations.timezone.name &lt;fctr&gt;,
+#&gt; #   annotations.timezone.now_in_dst &lt;fctr&gt;,
+#&gt; #   annotations.timezone.offset_sec &lt;fctr&gt;,
+#&gt; #   annotations.timezone.offset_string &lt;fctr&gt;,
+#&gt; #   annotations.timezone.short_name &lt;fctr&gt;,
+#&gt; #   annotations.what3words.words &lt;chr&gt;, annotations.wikidata &lt;fctr&gt;,
+#&gt; #   bounds.northeast.lat &lt;chr&gt;, bounds.northeast.lng &lt;chr&gt;,
+#&gt; #   bounds.southwest.lat &lt;chr&gt;, bounds.southwest.lng &lt;chr&gt;,
+#&gt; #   `components.ISO_3166-1_alpha-2` &lt;fctr&gt;, components._type &lt;chr&gt;,
+#&gt; #   components.city &lt;fctr&gt;, components.country &lt;fctr&gt;,
+#&gt; #   components.country_code &lt;fctr&gt;, components.county &lt;fctr&gt;,
+#&gt; #   components.postcode &lt;fctr&gt;, components.state &lt;fctr&gt;, confidence &lt;chr&gt;,
+#&gt; #   formatted &lt;chr&gt;, geometry.lat &lt;dbl&gt;, geometry.lng &lt;dbl&gt;,
+#&gt; #   components.post_office &lt;fctr&gt;, components.road &lt;fctr&gt;,
+#&gt; #   components.suburb &lt;fctr&gt;, components.village &lt;fctr&gt;
+</code></pre>
+
+<h3 id="reverse-geocoding">Reverse geocoding</h3>
+
+<p>Reverse geocoding is from latitude and longitude to placename(s).</p>
+
+<pre><code class="language-r">output2 &lt;- opencage_reverse(latitude = 51.5034070,
+                            longitude = -0.1275920)
+output2$rate_info
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 1 x 3
+#&gt;   limit remaining               reset
+#&gt;   &lt;int&gt;     &lt;int&gt;              &lt;dttm&gt;
+#&gt; 1  2500      2498 2017-10-17 17:00:00
+</code></pre>
+
+<pre><code class="language-r">output2$results
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 1 x 61
+#&gt;    annotations.DMS.lat annotations.DMS.lng annotations.MGRS
+#&gt;                 &lt;fctr&gt;              &lt;fctr&gt;           &lt;fctr&gt;
+#&gt; 1 51° 30' 12.38472'' N  0° 7' 39.74916'' E  30UXC9933909723
+#&gt; # ... with 58 more variables: annotations.Maidenhead &lt;fctr&gt;,
+#&gt; #   annotations.Mercator.x &lt;fctr&gt;, annotations.Mercator.y &lt;fctr&gt;,
+#&gt; #   annotations.OSGB.easting &lt;fctr&gt;, annotations.OSGB.gridref &lt;fctr&gt;,
+#&gt; #   annotations.OSGB.northing &lt;fctr&gt;, annotations.OSM.edit_url &lt;fctr&gt;,
+#&gt; #   annotations.OSM.url &lt;fctr&gt;, annotations.callingcode &lt;fctr&gt;,
+#&gt; #   annotations.currency.decimal_mark &lt;fctr&gt;,
+#&gt; #   annotations.currency.html_entity &lt;fctr&gt;,
+#&gt; #   annotations.currency.iso_code &lt;fctr&gt;,
+#&gt; #   annotations.currency.iso_numeric &lt;fctr&gt;,
+#&gt; #   annotations.currency.name &lt;fctr&gt;,
+#&gt; #   annotations.currency.smallest_denomination &lt;fctr&gt;,
+#&gt; #   annotations.currency.subunit &lt;fctr&gt;,
+#&gt; #   annotations.currency.subunit_to_unit &lt;fctr&gt;,
+#&gt; #   annotations.currency.symbol &lt;fctr&gt;,
+#&gt; #   annotations.currency.symbol_first &lt;fctr&gt;,
+#&gt; #   annotations.currency.thousands_separator &lt;fctr&gt;,
+#&gt; #   annotations.geohash &lt;fctr&gt;, annotations.qibla &lt;fctr&gt;,
+#&gt; #   annotations.sun.rise.apparent &lt;fctr&gt;,
+#&gt; #   annotations.sun.rise.astronomical &lt;fctr&gt;,
+#&gt; #   annotations.sun.rise.civil &lt;fctr&gt;,
+#&gt; #   annotations.sun.rise.nautical &lt;fctr&gt;,
+#&gt; #   annotations.sun.set.apparent &lt;fctr&gt;,
+#&gt; #   annotations.sun.set.astronomical &lt;fctr&gt;,
+#&gt; #   annotations.sun.set.civil &lt;fctr&gt;, annotations.sun.set.nautical &lt;fctr&gt;,
+#&gt; #   annotations.timezone.name &lt;fctr&gt;,
+#&gt; #   annotations.timezone.now_in_dst &lt;fctr&gt;,
+#&gt; #   annotations.timezone.offset_sec &lt;fctr&gt;,
+#&gt; #   annotations.timezone.offset_string &lt;fctr&gt;,
+#&gt; #   annotations.timezone.short_name &lt;fctr&gt;,
+#&gt; #   annotations.what3words.words &lt;fctr&gt;, annotations.wikidata &lt;fctr&gt;,
+#&gt; #   bounds.northeast.lat &lt;fctr&gt;, bounds.northeast.lng &lt;fctr&gt;,
+#&gt; #   bounds.southwest.lat &lt;fctr&gt;, bounds.southwest.lng &lt;fctr&gt;,
+#&gt; #   `components.ISO_3166-1_alpha-2` &lt;fctr&gt;, components._type &lt;fctr&gt;,
+#&gt; #   components.attraction &lt;fctr&gt;, components.city &lt;fctr&gt;,
+#&gt; #   components.country &lt;fctr&gt;, components.country_code &lt;fctr&gt;,
+#&gt; #   components.house_number &lt;fctr&gt;, components.neighbourhood &lt;fctr&gt;,
+#&gt; #   components.postcode &lt;fctr&gt;, components.road &lt;fctr&gt;,
+#&gt; #   components.state &lt;fctr&gt;, components.state_district &lt;fctr&gt;,
+#&gt; #   components.suburb &lt;fctr&gt;, confidence &lt;fctr&gt;, formatted &lt;fctr&gt;,
+#&gt; #   geometry.lat &lt;dbl&gt;, geometry.lng &lt;dbl&gt;
+</code></pre>
+
+<h3 id="parameters">Parameters</h3>
+
+<p>Optional parameters of both <code>opencage_forward</code> and <code>opencage_reverse</code> can make the query more precise:</p>
+
+<ul>
+<li><code>bounds</code>: Provides the geocoder with a hint to the region that the query resides in. This value will restrict the possible results to the supplied region. The bounds parameter should be specified as 4 coordinate points forming the south-west and north-east corners of a bounding box. For example, <code>bounds = c(-0.563160, 51.280430, 0.278970, 51.683979)</code> (min long, min lat, max long, max lat).</li>
+</ul>
+
+<p>Below is an example of the use of <code>bounds</code> where the rectangle given in the second call does not include Europe so that we don&rsquo;t get results for Berlin in Germany.</p>
+
+<pre><code class="language-r">results1 &lt;- opencage_forward(placename = &quot;Berlin&quot;)
+results1$results
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 9 x 57
+#&gt;    annotations.DMS.lat  annotations.DMS.lng annotations.MGRS
+#&gt;                  &lt;chr&gt;                &lt;chr&gt;            &lt;chr&gt;
+#&gt; 1  52° 31' 1.33140'' N 13° 23' 19.89564'' E  33UUU9067619766
+#&gt; 2  44° 28' 8.65560'' N  71° 11' 6.81324'' W  19TCK2618626296
+#&gt; 3 41° 37' 17.35680'' N 72° 44' 44.34648'' W  18TXM8780710206
+#&gt; 4 39° 47' 28.41432'' N 74° 55' 44.59260'' W  18SWK0607404588
+#&gt; 5 42° 22' 52.33440'' N 71° 38' 13.24320'' W  19TBG8291095470
+#&gt; 6 38° 19' 21.41544'' N  75° 13' 3.68076'' W  18SVH8097141633
+#&gt; 7  43° 58' 4.93140'' N 88° 56' 36.41136'' W  16TCP4410170158
+#&gt; 8 39° 55' 14.29068'' N 78° 57' 28.08756'' W  17SPE7452920945
+#&gt; 9  4° 48' 37.67328'' N 75° 40' 55.66260'' W  18NVL2435931751
+#&gt; # ... with 54 more variables: annotations.Maidenhead &lt;chr&gt;,
+#&gt; #   annotations.Mercator.x &lt;chr&gt;, annotations.Mercator.y &lt;chr&gt;,
+#&gt; #   annotations.OSM.edit_url &lt;chr&gt;, annotations.OSM.url &lt;chr&gt;,
+#&gt; #   annotations.callingcode &lt;chr&gt;,
+#&gt; #   annotations.currency.decimal_mark &lt;chr&gt;,
+#&gt; #   annotations.currency.html_entity &lt;chr&gt;,
+#&gt; #   annotations.currency.iso_code &lt;chr&gt;,
+#&gt; #   annotations.currency.iso_numeric &lt;chr&gt;,
+#&gt; #   annotations.currency.name &lt;chr&gt;,
+#&gt; #   annotations.currency.smallest_denomination &lt;chr&gt;,
+#&gt; #   annotations.currency.subunit &lt;chr&gt;,
+#&gt; #   annotations.currency.subunit_to_unit &lt;fctr&gt;,
+#&gt; #   annotations.currency.symbol &lt;chr&gt;,
+#&gt; #   annotations.currency.symbol_first &lt;fctr&gt;,
+#&gt; #   annotations.currency.thousands_separator &lt;chr&gt;,
+#&gt; #   annotations.geohash &lt;chr&gt;, annotations.qibla &lt;chr&gt;,
+#&gt; #   annotations.sun.rise.apparent &lt;chr&gt;,
+#&gt; #   annotations.sun.rise.astronomical &lt;chr&gt;,
+#&gt; #   annotations.sun.rise.civil &lt;chr&gt;, annotations.sun.rise.nautical &lt;chr&gt;,
+#&gt; #   annotations.sun.set.apparent &lt;chr&gt;,
+#&gt; #   annotations.sun.set.astronomical &lt;chr&gt;,
+#&gt; #   annotations.sun.set.civil &lt;chr&gt;, annotations.sun.set.nautical &lt;chr&gt;,
+#&gt; #   annotations.timezone.name &lt;chr&gt;,
+#&gt; #   annotations.timezone.now_in_dst &lt;chr&gt;,
+#&gt; #   annotations.timezone.offset_sec &lt;chr&gt;,
+#&gt; #   annotations.timezone.offset_string &lt;chr&gt;,
+#&gt; #   annotations.timezone.short_name &lt;chr&gt;,
+#&gt; #   annotations.what3words.words &lt;chr&gt;, annotations.wikidata &lt;chr&gt;,
+#&gt; #   bounds.northeast.lat &lt;chr&gt;, bounds.northeast.lng &lt;chr&gt;,
+#&gt; #   bounds.southwest.lat &lt;chr&gt;, bounds.southwest.lng &lt;chr&gt;,
+#&gt; #   `components.ISO_3166-1_alpha-2` &lt;chr&gt;, components._type &lt;chr&gt;,
+#&gt; #   components.city &lt;chr&gt;, components.country &lt;chr&gt;,
+#&gt; #   components.country_code &lt;chr&gt;, components.state &lt;chr&gt;,
+#&gt; #   confidence &lt;chr&gt;, formatted &lt;chr&gt;, geometry.lat &lt;dbl&gt;,
+#&gt; #   geometry.lng &lt;dbl&gt;, annotations.currency.alternate_symbols &lt;chr&gt;,
+#&gt; #   annotations.currency.disambiguate_symbol &lt;chr&gt;,
+#&gt; #   components.county &lt;chr&gt;, components.state_code &lt;chr&gt;,
+#&gt; #   components.town &lt;fctr&gt;, components.city_district &lt;fctr&gt;
+</code></pre>
+
+<pre><code class="language-r">results2 &lt;- opencage_forward(placename = &quot;Berlin&quot;,
+                             bounds = c(-90,38,0, 45))
+results2$results
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 10 x 57
+#&gt;     annotations.DMS.lat  annotations.DMS.lng annotations.MGRS
+#&gt;                   &lt;chr&gt;                &lt;chr&gt;            &lt;chr&gt;
+#&gt;  1  44° 28' 8.65560'' N  71° 11' 6.81324'' W  19TCK2618626296
+#&gt;  2 41° 37' 17.35680'' N 72° 44' 44.34648'' W  18TXM8780710206
+#&gt;  3 39° 47' 28.41432'' N 74° 55' 44.59260'' W  18SWK0607404588
+#&gt;  4 42° 22' 52.33440'' N 71° 38' 13.24320'' W  19TBG8291095470
+#&gt;  5 38° 19' 21.41544'' N  75° 13' 3.68076'' W  18SVH8097141633
+#&gt;  6  43° 58' 4.93140'' N 88° 56' 36.41136'' W  16TCP4410170158
+#&gt;  7 39° 55' 14.29068'' N 78° 57' 28.08756'' W  17SPE7452920945
+#&gt;  8 39° 45' 32.17932'' N 89° 54' 11.38824'' W  16SBK5129805033
+#&gt;  9 42° 41' 35.28636'' N 73° 22' 19.39728'' W  18TXN3335128023
+#&gt; 10 40° 33' 40.22424'' N 81° 47' 39.48144'' W  17TME3275690348
+#&gt; # ... with 54 more variables: annotations.Maidenhead &lt;chr&gt;,
+#&gt; #   annotations.Mercator.x &lt;chr&gt;, annotations.Mercator.y &lt;chr&gt;,
+#&gt; #   annotations.OSM.edit_url &lt;chr&gt;, annotations.OSM.url &lt;chr&gt;,
+#&gt; #   annotations.callingcode &lt;fctr&gt;,
+#&gt; #   annotations.currency.alternate_symbols &lt;fctr&gt;,
+#&gt; #   annotations.currency.decimal_mark &lt;fctr&gt;,
+#&gt; #   annotations.currency.disambiguate_symbol &lt;fctr&gt;,
+#&gt; #   annotations.currency.html_entity &lt;fctr&gt;,
+#&gt; #   annotations.currency.iso_code &lt;fctr&gt;,
+#&gt; #   annotations.currency.iso_numeric &lt;fctr&gt;,
+#&gt; #   annotations.currency.name &lt;fctr&gt;,
+#&gt; #   annotations.currency.smallest_denomination &lt;fctr&gt;,
+#&gt; #   annotations.currency.subunit &lt;fctr&gt;,
+#&gt; #   annotations.currency.subunit_to_unit &lt;fctr&gt;,
+#&gt; #   annotations.currency.symbol &lt;fctr&gt;,
+#&gt; #   annotations.currency.symbol_first &lt;fctr&gt;,
+#&gt; #   annotations.currency.thousands_separator &lt;fctr&gt;,
+#&gt; #   annotations.geohash &lt;chr&gt;, annotations.qibla &lt;chr&gt;,
+#&gt; #   annotations.sun.rise.apparent &lt;chr&gt;,
+#&gt; #   annotations.sun.rise.astronomical &lt;chr&gt;,
+#&gt; #   annotations.sun.rise.civil &lt;chr&gt;, annotations.sun.rise.nautical &lt;chr&gt;,
+#&gt; #   annotations.sun.set.apparent &lt;chr&gt;,
+#&gt; #   annotations.sun.set.astronomical &lt;chr&gt;,
+#&gt; #   annotations.sun.set.civil &lt;chr&gt;, annotations.sun.set.nautical &lt;chr&gt;,
+#&gt; #   annotations.timezone.name &lt;chr&gt;,
+#&gt; #   annotations.timezone.now_in_dst &lt;fctr&gt;,
+#&gt; #   annotations.timezone.offset_sec &lt;chr&gt;,
+#&gt; #   annotations.timezone.offset_string &lt;chr&gt;,
+#&gt; #   annotations.timezone.short_name &lt;chr&gt;,
+#&gt; #   annotations.what3words.words &lt;chr&gt;, annotations.wikidata &lt;chr&gt;,
+#&gt; #   bounds.northeast.lat &lt;chr&gt;, bounds.northeast.lng &lt;chr&gt;,
+#&gt; #   bounds.southwest.lat &lt;chr&gt;, bounds.southwest.lng &lt;chr&gt;,
+#&gt; #   `components.ISO_3166-1_alpha-2` &lt;fctr&gt;, components._type &lt;chr&gt;,
+#&gt; #   components.city &lt;chr&gt;, components.country &lt;fctr&gt;,
+#&gt; #   components.country_code &lt;fctr&gt;, components.county &lt;chr&gt;,
+#&gt; #   components.state &lt;chr&gt;, components.state_code &lt;chr&gt;, confidence &lt;chr&gt;,
+#&gt; #   formatted &lt;chr&gt;, geometry.lat &lt;dbl&gt;, geometry.lng &lt;dbl&gt;,
+#&gt; #   components.town &lt;fctr&gt;, components.village &lt;fctr&gt;
+</code></pre>
+
+<ul>
+<li><code>countrycode</code>: Restricts the results to the given country. The country code is a two letter code as defined by the ISO 3166-1 Alpha 2 standard. E.g. &ldquo;GB&rdquo; for the United Kingdom, &ldquo;FR&rdquo; for France, &ldquo;US&rdquo; for United States. See example below.</li>
+</ul>
+
+<pre><code class="language-r">results3 &lt;- opencage_forward(placename = &quot;Berlin&quot;, country = &quot;DE&quot;)
+results3$results
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 9 x 65
+#&gt;    annotations.DMS.lat  annotations.DMS.lng annotations.MGRS
+#&gt;                  &lt;chr&gt;                &lt;chr&gt;            &lt;chr&gt;
+#&gt; 1  52° 31' 1.33140'' N 13° 23' 19.89564'' E  33UUU9067619766
+#&gt; 2 52° 27' 45.73296'' N 13° 24' 34.80876'' E  33UUU9195513692
+#&gt; 3  54° 2' 10.89780'' N 10° 26' 46.07268'' E  32UNE9470788534
+#&gt; 4 54° 24' 18.42840'' N  9° 25' 55.18776'' E  32UNF2804128682
+#&gt; 5 52° 22' 12.67680'' N  9° 45' 10.62252'' E  32UND5126202479
+#&gt; 6 52° 27' 24.31584'' N 13° 34' 45.17328'' E  33UVU0346012790
+#&gt; 7  52° 25' 7.43664'' N 13° 11' 47.05872'' E  33UUU7734509142
+#&gt; 8 52° 34' 59.62044'' N 13° 23' 56.74524'' E  33UUU9153427113
+#&gt; 9 53° 55' 45.85764'' N  9° 30' 50.81940'' E  32UNE3375675789
+#&gt; # ... with 62 more variables: annotations.Maidenhead &lt;chr&gt;,
+#&gt; #   annotations.Mercator.x &lt;chr&gt;, annotations.Mercator.y &lt;chr&gt;,
+#&gt; #   annotations.OSM.edit_url &lt;chr&gt;, annotations.OSM.url &lt;chr&gt;,
+#&gt; #   annotations.callingcode &lt;fctr&gt;,
+#&gt; #   annotations.currency.decimal_mark &lt;fctr&gt;,
+#&gt; #   annotations.currency.html_entity &lt;fctr&gt;,
+#&gt; #   annotations.currency.iso_code &lt;fctr&gt;,
+#&gt; #   annotations.currency.iso_numeric &lt;fctr&gt;,
+#&gt; #   annotations.currency.name &lt;fctr&gt;,
+#&gt; #   annotations.currency.smallest_denomination &lt;fctr&gt;,
+#&gt; #   annotations.currency.subunit &lt;fctr&gt;,
+#&gt; #   annotations.currency.subunit_to_unit &lt;fctr&gt;,
+#&gt; #   annotations.currency.symbol &lt;fctr&gt;,
+#&gt; #   annotations.currency.symbol_first &lt;fctr&gt;,
+#&gt; #   annotations.currency.thousands_separator &lt;fctr&gt;,
+#&gt; #   annotations.geohash &lt;chr&gt;, annotations.qibla &lt;chr&gt;,
+#&gt; #   annotations.sun.rise.apparent &lt;chr&gt;,
+#&gt; #   annotations.sun.rise.astronomical &lt;chr&gt;,
+#&gt; #   annotations.sun.rise.civil &lt;chr&gt;, annotations.sun.rise.nautical &lt;chr&gt;,
+#&gt; #   annotations.sun.set.apparent &lt;chr&gt;,
+#&gt; #   annotations.sun.set.astronomical &lt;chr&gt;,
+#&gt; #   annotations.sun.set.civil &lt;chr&gt;, annotations.sun.set.nautical &lt;chr&gt;,
+#&gt; #   annotations.timezone.name &lt;fctr&gt;,
+#&gt; #   annotations.timezone.now_in_dst &lt;fctr&gt;,
+#&gt; #   annotations.timezone.offset_sec &lt;fctr&gt;,
+#&gt; #   annotations.timezone.offset_string &lt;fctr&gt;,
+#&gt; #   annotations.timezone.short_name &lt;fctr&gt;,
+#&gt; #   annotations.what3words.words &lt;chr&gt;, annotations.wikidata &lt;fctr&gt;,
+#&gt; #   bounds.northeast.lat &lt;chr&gt;, bounds.northeast.lng &lt;chr&gt;,
+#&gt; #   bounds.southwest.lat &lt;chr&gt;, bounds.southwest.lng &lt;chr&gt;,
+#&gt; #   `components.ISO_3166-1_alpha-2` &lt;fctr&gt;, components._type &lt;chr&gt;,
+#&gt; #   components.city &lt;chr&gt;, components.country &lt;fctr&gt;,
+#&gt; #   components.country_code &lt;fctr&gt;, components.state &lt;chr&gt;,
+#&gt; #   confidence &lt;chr&gt;, formatted &lt;chr&gt;, geometry.lat &lt;dbl&gt;,
+#&gt; #   geometry.lng &lt;dbl&gt;, components.city_district &lt;chr&gt;,
+#&gt; #   components.house_number &lt;chr&gt;, components.industrial &lt;fctr&gt;,
+#&gt; #   components.postcode &lt;chr&gt;, components.suburb &lt;chr&gt;,
+#&gt; #   components.county &lt;chr&gt;, components.village &lt;chr&gt;,
+#&gt; #   components.road &lt;chr&gt;, components.unknown &lt;fctr&gt;,
+#&gt; #   components.building &lt;fctr&gt;, components.residential &lt;fctr&gt;,
+#&gt; #   components.artwork &lt;fctr&gt;, components.house &lt;fctr&gt;,
+#&gt; #   components.town &lt;fctr&gt;
+</code></pre>
+
+<ul>
+<li><code>language</code>: an IETF format language code (such as &ldquo;es&rdquo; for Spanish or &ldquo;pt-BR&rdquo; for Brazilian Portuguese). If no language is explicitly specified, we will look for an HTTP Accept-Language header like those sent by a brower and use the first language specified and if none are specified &ldquo;en&rdquo; (English) will be assumed. See example below.</li>
+</ul>
+
+<pre><code class="language-r">results4 &lt;- opencage_forward(placename = &quot;Berlin&quot;, country = &quot;DE&quot;, language = &quot;de&quot;)
+results4$results
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 9 x 65
+#&gt;    annotations.DMS.lat  annotations.DMS.lng annotations.MGRS
+#&gt;                  &lt;chr&gt;                &lt;chr&gt;            &lt;chr&gt;
+#&gt; 1  52° 31' 1.33140'' N 13° 23' 19.89564'' E  33UUU9067619766
+#&gt; 2 52° 27' 45.73296'' N 13° 24' 34.80876'' E  33UUU9195513692
+#&gt; 3  54° 2' 10.89780'' N 10° 26' 46.07268'' E  32UNE9470788534
+#&gt; 4 54° 24' 18.42840'' N  9° 25' 55.18776'' E  32UNF2804128682
+#&gt; 5 52° 22' 12.67680'' N  9° 45' 10.62252'' E  32UND5126202479
+#&gt; 6 52° 27' 24.31584'' N 13° 34' 45.17328'' E  33UVU0346012790
+#&gt; 7  52° 25' 7.43664'' N 13° 11' 47.05872'' E  33UUU7734509142
+#&gt; 8 52° 34' 59.62044'' N 13° 23' 56.74524'' E  33UUU9153427113
+#&gt; 9 53° 55' 45.85764'' N  9° 30' 50.81940'' E  32UNE3375675789
+#&gt; # ... with 62 more variables: annotations.Maidenhead &lt;chr&gt;,
+#&gt; #   annotations.Mercator.x &lt;chr&gt;, annotations.Mercator.y &lt;chr&gt;,
+#&gt; #   annotations.OSM.edit_url &lt;chr&gt;, annotations.OSM.url &lt;chr&gt;,
+#&gt; #   annotations.callingcode &lt;fctr&gt;,
+#&gt; #   annotations.currency.decimal_mark &lt;fctr&gt;,
+#&gt; #   annotations.currency.html_entity &lt;fctr&gt;,
+#&gt; #   annotations.currency.iso_code &lt;fctr&gt;,
+#&gt; #   annotations.currency.iso_numeric &lt;fctr&gt;,
+#&gt; #   annotations.currency.name &lt;fctr&gt;,
+#&gt; #   annotations.currency.smallest_denomination &lt;fctr&gt;,
+#&gt; #   annotations.currency.subunit &lt;fctr&gt;,
+#&gt; #   annotations.currency.subunit_to_unit &lt;fctr&gt;,
+#&gt; #   annotations.currency.symbol &lt;fctr&gt;,
+#&gt; #   annotations.currency.symbol_first &lt;fctr&gt;,
+#&gt; #   annotations.currency.thousands_separator &lt;fctr&gt;,
+#&gt; #   annotations.geohash &lt;chr&gt;, annotations.qibla &lt;chr&gt;,
+#&gt; #   annotations.sun.rise.apparent &lt;chr&gt;,
+#&gt; #   annotations.sun.rise.astronomical &lt;chr&gt;,
+#&gt; #   annotations.sun.rise.civil &lt;chr&gt;, annotations.sun.rise.nautical &lt;chr&gt;,
+#&gt; #   annotations.sun.set.apparent &lt;chr&gt;,
+#&gt; #   annotations.sun.set.astronomical &lt;chr&gt;,
+#&gt; #   annotations.sun.set.civil &lt;chr&gt;, annotations.sun.set.nautical &lt;chr&gt;,
+#&gt; #   annotations.timezone.name &lt;fctr&gt;,
+#&gt; #   annotations.timezone.now_in_dst &lt;fctr&gt;,
+#&gt; #   annotations.timezone.offset_sec &lt;fctr&gt;,
+#&gt; #   annotations.timezone.offset_string &lt;fctr&gt;,
+#&gt; #   annotations.timezone.short_name &lt;fctr&gt;,
+#&gt; #   annotations.what3words.words &lt;chr&gt;, annotations.wikidata &lt;fctr&gt;,
+#&gt; #   bounds.northeast.lat &lt;chr&gt;, bounds.northeast.lng &lt;chr&gt;,
+#&gt; #   bounds.southwest.lat &lt;chr&gt;, bounds.southwest.lng &lt;chr&gt;,
+#&gt; #   `components.ISO_3166-1_alpha-2` &lt;fctr&gt;, components._type &lt;chr&gt;,
+#&gt; #   components.city &lt;chr&gt;, components.country &lt;fctr&gt;,
+#&gt; #   components.country_code &lt;fctr&gt;, components.state &lt;chr&gt;,
+#&gt; #   confidence &lt;chr&gt;, formatted &lt;chr&gt;, geometry.lat &lt;dbl&gt;,
+#&gt; #   geometry.lng &lt;dbl&gt;, components.city_district &lt;chr&gt;,
+#&gt; #   components.house_number &lt;chr&gt;, components.industrial &lt;fctr&gt;,
+#&gt; #   components.postcode &lt;chr&gt;, components.suburb &lt;chr&gt;,
+#&gt; #   components.county &lt;chr&gt;, components.village &lt;chr&gt;,
+#&gt; #   components.road &lt;chr&gt;, components.unknown &lt;fctr&gt;,
+#&gt; #   components.building &lt;fctr&gt;, components.residential &lt;fctr&gt;,
+#&gt; #   components.artwork &lt;fctr&gt;, components.house &lt;fctr&gt;,
+#&gt; #   components.town &lt;fctr&gt;
+</code></pre>
+
+<ul>
+<li><p><code>limit</code>: How many results should be returned (1-100). Default is 10.</p></li>
+
+<li><p><code>min_confidence</code>: an integer from 1-10. Only results with at least this confidence will be returned.</p></li>
+
+<li><p><code>no_annotations</code>: Logical (default FALSE), when TRUE the output will not contain annotations.</p></li>
+
+<li><p><code>no_dedupe</code>: Logical (default FALSE), when TRUE the output will not be deduplicated.</p></li>
+</ul>
+
+<p>For more information about the output and the query parameters, see the package documentation, the <a href="https://geocoder.opencagedata.com/api">API doc</a> and <a href="https://geocoder.opencagedata.com/faq">OpenCage FAQ</a>.</p>
+
+<h3 id="caching">Caching</h3>
+
+<p>The underlying data at OpenCage is updated about once a day. Note that the package uses <a href="https://github.com/hadley/memoise">memoise</a> with no timeout argument so that results are cached inside an active R session.</p>
+
+<pre><code class="language-r">system.time(opencage_reverse(latitude = 10, longitude = 10))
+</code></pre>
+
+<pre><code>#&gt;    user  system elapsed 
+#&gt;   0.043   0.001   0.326
+</code></pre>
+
+<pre><code class="language-r">system.time(opencage_reverse(latitude = 10, longitude = 10))
+</code></pre>
+
+<pre><code>#&gt;    user  system elapsed 
+#&gt;   0.001   0.000   0.001
+</code></pre>
+
+<pre><code class="language-r">memoise::forget(opencage_reverse)
+</code></pre>
+
+<pre><code>#&gt; [1] TRUE
+</code></pre>
+
+<pre><code class="language-r">system.time(opencage_reverse(latitude = 10, longitude = 10))
+</code></pre>
+
+<pre><code>#&gt;    user  system elapsed 
+#&gt;   0.017   0.000   0.271
+</code></pre>
+
+<h3 id="privacy">Privacy</h3>
+
+<p>Both functions have a parameter <code>no_record</code>. It is <code>FALSE</code> by default.</p>
+
+<ul>
+<li><p>When <code>no_record</code> is <code>FALSE</code> a log of the query is made by OpenCage. The company uses them to better generally understand how people are using its service (forward or reverse geocoding, what parts of the world are people most interested in, etc) and for debugging. The overwhelming majority (99.9999+% of queries) are never specifically looked at (sheer volume prevents that) and are automatically deleted after a few days. More information about privacy can be found <a href="https://geocoder.opencagedata.com/faq#legal">here</a>.</p></li>
+
+<li><p>When <code>no_record</code> is <code>TRUE</code> the actual query is replaced with FILTERED in OpenCage logs, so that the company has no chance to see what your request was.</p></li>
+</ul>
+
+<h3 id="citing">Citing</h3>
+
+<blockquote>
+<p>Maëlle Salmon (2017). opencage: Interface to the OpenCage API. R
+  package version 0.1.2. <a href="https://CRAN.R-project.org/package=opencage">https://CRAN.R-project.org/package=opencage</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="https://opensource.org/licenses/GPL-2.0">GPL-2</a></li>
+<li>Report bugs at <a href="https://github.com/ropenscilabs/opencage/issues?state=open">our GitHub repo for opencage</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

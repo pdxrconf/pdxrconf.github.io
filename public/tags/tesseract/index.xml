@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tesseract on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/tesseract/</link>
+    <description>Recent content in Tesseract on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 17 Aug 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/tesseract/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tesseract and Magick: High Quality OCR in R</title>
+      <link>https://ropensci.org/technotes/2017/08/17/tesseract-16/</link>
+      <pubDate>Thu, 17 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/technotes/2017/08/17/tesseract-16/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Last week we released an update of the tesseract package to CRAN. This package provides R bindings to Google&amp;rsquo;s OCR library &lt;a href=&#34;https://en.wikipedia.org/wiki/Tesseract_(software)&#34;&gt;Tesseract&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;tesseract&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The new version ships with the latest libtesseract 3.05.01 on Windows and MacOS. Furthermore it includes enhancements for managing language data and using tesseract together with the magick package.&lt;/p&gt;
+
+&lt;h2 id=&#34;installing-language-data&#34;&gt;Installing Language Data&lt;/h2&gt;
+
+&lt;p&gt;The new version has several improvements for installing additional language data. On Windows and MacOS you use the &lt;code&gt;tesseract_download()&lt;/code&gt; function to install additional languages:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;tesseract_download(&amp;quot;fra&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Language data are now stored in &lt;code&gt;rappdirs::user_data_dir(&#39;tesseract&#39;)&lt;/code&gt; which makes it persist across updates of the package. To OCR french text:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;french &amp;lt;- tesseract(&amp;quot;fra&amp;quot;)
+text &amp;lt;- ocr(&amp;quot;https://jeroen.github.io/images/french_text.png&amp;quot;, engine = french)
+cat(text)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Très Bien! Note that on Linux you should not use &lt;code&gt;tesseract_download&lt;/code&gt; but instead install languages using apt-get (e.g. &lt;a href=&#34;https://packages.debian.org/testing/tesseract-ocr-fra&#34;&gt;tesseract-ocr-fra&lt;/a&gt;) or yum (e.g. &lt;a href=&#34;https://apps.fedoraproject.org/packages/tesseract-langpack-fra&#34;&gt;tesseract-langpack-fra&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h2 id=&#34;tesseract-and-magick&#34;&gt;Tesseract and Magick&lt;/h2&gt;
+
+&lt;p&gt;The tesseract developers &lt;a href=&#34;https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality&#34;&gt;recommend&lt;/a&gt; to clean up the image before OCR&amp;rsquo;ing it to improve the quality of the output. This involves things like cropping out the text area, rescaling, increasing contrast, etc.&lt;/p&gt;
+
+&lt;p&gt;The rOpenSci &lt;a href=&#34;https://ropensci.org/blog/blog/2017/08/15/magick-10&#34;&gt;magick&lt;/a&gt; package is perfectly suitable for this task. The latest version contains a convenient wrapper &lt;code&gt;image_ocr()&lt;/code&gt; that works with pipes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;devtools::install_github(&amp;quot;ropensci/magick&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let&amp;rsquo;s give it a try on some &lt;a href=&#34;https://courses.cs.vt.edu/csonline/AI/Lessons/VisualProcessing/OCRscans.html&#34;&gt;example scans&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://courses.cs.vt.edu/csonline/AI/Lessons/VisualProcessing/OCRscans_files/bowers.jpg&#34; alt=&#34;example&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Requires devel version of magick
+# devtools::install_github(&amp;quot;ropensci/magick&amp;quot;)
+
+# Test it
+library(magick)
+library(magrittr)
+
+text &amp;lt;- image_read(&amp;quot;https://courses.cs.vt.edu/csonline/AI/Lessons/VisualProcessing/OCRscans_files/bowers.jpg&amp;quot;) %&amp;gt;%
+  image_resize(&amp;quot;2000&amp;quot;) %&amp;gt;%
+  image_convert(colorspace = &#39;gray&#39;) %&amp;gt;%
+  image_trim() %&amp;gt;%
+  image_ocr()
+
+cat(text)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;The Llfe and Work of
+Fredson Bowers
+by
+G. THOMAS TANSELLE
+
+N EVERY FIELD OF ENDEAVOR THERE ARE A FEW FIGURES WHOSE ACCOM-
+plishment and inﬂuence cause them to be the symbols of their age;
+their careers and oeuvres become the touchstones by which the
+ﬁeld is measured and its history told. In the related pursuits of
+analytical and descriptive bibliography, textual criticism, and scholarly
+editing, Fredson Bowers was such a ﬁgure, dominating the four decades
+after 1949, when his Principles of Bibliographical Description was pub-
+lished. By 1973 the period was already being called “the age of Bowers”:
+in that year Norman Sanders, writing the chapter on textual scholarship
+for Stanley Wells&#39;s Shakespeare: Select Bibliographies, gave this title to
+a section of his essay. For most people, it would be achievement enough
+to rise to such a position in a ﬁeld as complex as Shakespearean textual
+studies; but Bowers played an equally important role in other areas.
+Editors of ninetcemh-cemury American authors, for example, would
+also have to call the recent past “the age of Bowers,&amp;quot; as would the writers
+of descriptive bibliographies of authors and presses. His ubiquity in
+the broad ﬁeld of bibliographical and textual study, his seemingly com-
+plete possession of it, distinguished him from his illustrious predeces-
+sors and made him the personiﬁcation of bibliographical scholarship in
+
+his time.
+
+\Vhen in 1969 Bowers was awarded the Gold Medal of the Biblio-
+graphical Society in London, John Carter’s citation referred to the
+Principles as “majestic,&amp;quot; called Bowers&#39;s current projects “formidable,&amp;quot;
+said that he had “imposed critical discipline&amp;quot; on the texts of several
+authors, described Studies in Bibliography as a “great and continuing
+achievement,&amp;quot; and included among his characteristics &amp;quot;uncompromising
+seriousness of purpose” and “professional intensity.&amp;quot; Bowers was not
+unaccustomed to such encomia, but he had also experienced his share of
+attacks: his scholarly positions were not universally popular, and he
+expressed them with an aggressiveness that almost seemed calculated to
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Not bad but not perfect. Can you do a better job?&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Tesseract Update: Options and Languages</title>
+      <link>https://ropensci.org/technotes/2016/12/08/tesseract-13/</link>
+      <pubDate>Thu, 08 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/technotes/2016/12/08/tesseract-13/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;A few weeks ago we &lt;a href=&#34;https://ropensci.org/blog/blog/2016/11/16/tesseract&#34;&gt;announced&lt;/a&gt; the first release of the &lt;a href=&#34;https://cran.r-project.org/web/packages/tesseract/index.html&#34;&gt;tesseract&lt;/a&gt; package: a high quality OCR engine in R. We have now released an update with extra features.&lt;/p&gt;
+
+&lt;h2 id=&#34;installing-training-data&#34;&gt;Installing Training Data&lt;/h2&gt;
+
+&lt;p&gt;As explained in the &lt;a href=&#34;https://ropensci.org/blog/blog/2016/11/16/tesseract&#34;&gt;first post&lt;/a&gt;, the tesseract system is powered by language specific training data. By default only English training data is installed. &lt;a href=&#34;https://cran.r-project.org/web/packages/tesseract/index.html&#34;&gt;Version 1.3&lt;/a&gt; adds utilities to make it easier to install additional training data.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Download French training data
+tesseract_download(&amp;quot;fra&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that this function is not needed on Linux. Here you should install training data via your system package manager instead. For example on Debian/Ubuntu:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sudo apt-get install tesseract-ocr-fra
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And on Fedora/CentOS you use:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-sh&#34;&gt;sudo yum install tesseract-langpack-fra
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Use &lt;code&gt;tesseract_info()&lt;/code&gt; to see which training data are currently installed.&lt;/p&gt;
+
+&lt;h2 id=&#34;ocr-engine-parameters&#34;&gt;OCR Engine Parameters&lt;/h2&gt;
+
+&lt;p&gt;Tesseract supports many &lt;a href=&#34;http://www.sk-spell.sk.cx/tesseract-ocr-parameters-in-302-version&#34;&gt;parameters&lt;/a&gt; to fine tune the OCR engine. For example you can limit the possible characters that can be recognized.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;engine &amp;lt;- tesseract(options = list(tessedit_char_whitelist = &amp;quot;0123456789&amp;quot;))
+ocr(&amp;quot;image.png&amp;quot;, engine = engine)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the example above, Tesseract will only consider numeric characters. If you know in advance the data is numeric (for example an accounting spreadsheet) such options can tremendously improve the accuracy.&lt;/p&gt;
+
+&lt;h2 id=&#34;magick-images&#34;&gt;Magick Images&lt;/h2&gt;
+
+&lt;p&gt;Tesseract now automatically recognizes images from the awesome &lt;a href=&#34;https://cran.r-project.org/web/packages/magick/index.html&#34;&gt;magick&lt;/a&gt; package (our &lt;a href=&#34;https://ropensci.org/blog/blog/2016/08/23/z-magick-release&#34;&gt;R wrapper to ImageMagick&lt;/a&gt;). This can be useful to preprocess images before feeding to tesseract.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(magick)
+library(tesseract)
+image &amp;lt;- image_read(&amp;quot;http://jeroen.github.io/files/dog_hq.png&amp;quot;)
+image &amp;lt;- image_crop(image, &amp;quot;1700x100+50+150&amp;quot;)
+cat(ocr(image))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We plan to more integration between Magick and Tesseract in future versions.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>The new Tesseract package: High Quality OCR in R</title>
+      <link>https://ropensci.org/blog/2016/11/16/tesseract/</link>
+      <pubDate>Wed, 16 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2016/11/16/tesseract/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Optical character recognition (OCR) is the process of extracting written or typed text from images such as photos and scanned documents into machine-encoded text. The new rOpenSci package &lt;a href=&#34;https://cran.r-project.org/web/packages/tesseract/index.html&#34;&gt;tesseract&lt;/a&gt; brings one of the best open-source OCR engines to R. This enables researchers or journalists, for example, to search and analyze vast numbers of documents that are only available in printed form.&lt;/p&gt;
+
+&lt;p&gt;People looking to extract text and metadata from pdf files in R should try our &lt;a href=&#34;https://cran.r-project.org/web/packages/pdftools/index.html&#34;&gt;pdftools&lt;/a&gt; package.&lt;/p&gt;
+
+&lt;h2 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h2&gt;
+
+&lt;p&gt;The package links to the libtesseract C++ library and works out of the box on Windows and Mac without installing any third party software.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;tesseract&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;On Linux you first need to install libtesseract (&lt;a href=&#34;https://github.com/ropensci/tesseract#readme&#34;&gt;readme&lt;/a&gt;) which ships with every popular distribution (Debian, Ubuntu, Fedora, CentOS, etc).&lt;/p&gt;
+
+&lt;p&gt;The package itself is very simple. The &lt;code&gt;ocr&lt;/code&gt; function takes a URL or path or raw vector with image data. On most platforms the image should either be in &lt;code&gt;png&lt;/code&gt; or &lt;code&gt;jpeg&lt;/code&gt; or &lt;code&gt;tiff&lt;/code&gt; format.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(tesseract)
+text &amp;lt;- ocr(&amp;quot;http://jeroen.github.io/images/testocr.png&amp;quot;)
+cat(text)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Running this in R should recognize the text in the example image almost perfectly. The &lt;code&gt;ocr&lt;/code&gt; function has one additional argument to set custom tesseract options. This is needed if you want to use custom or non-english training data (which we will explain below). The &lt;code&gt;?tesseract&lt;/code&gt; manual page has more information.&lt;/p&gt;
+
+&lt;h2 id=&#34;why-ocr-is-hard&#34;&gt;Why OCR is hard&lt;/h2&gt;
+
+&lt;p&gt;Finding and classifying visual patterns is incredibly difficult for computers, especially if the picture contains noise or other artifacts. Humans take advantage of prior knowledge about the language that we use to &amp;ldquo;fill in the gaps&amp;rdquo; when reading text. For this reason recognizing text within a blurred or deformed image is a common CAPTCHA method to tell humans apart from computers.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://ropensci.org/assets/blog-images/captcha.gif&#34; alt=&#34;captcha&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;When using OCR to extract text from a document, the result will rarely be perfect. The accuracy of the results varies depending on the quality of the image. Obviously images used by CAPTCHA software are designed to be too difficult to recognize by state of the art OCR methods.&lt;/p&gt;
+
+&lt;h2 id=&#34;context-language&#34;&gt;Context Language&lt;/h2&gt;
+
+&lt;p&gt;A character can often only be recognized in the context of the word or sentence appears in. For example if a text contains the words &lt;em&gt;In love&lt;/em&gt; the capital I and lower case l look (nearly) identical when printed.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://jeroen.github.io/files/inlove.png&#34;&gt;&lt;img src=&#34;http://jeroen.github.io/files/inlove.png&#34; alt=&#34;inlove&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;They can only be distinguished them from their context: both &lt;em&gt;in&lt;/em&gt; and &lt;em&gt;love&lt;/em&gt; are common words in English and a preposition may be followed by a noun. From from this context we can derive that the first character is most likely a capital I whereas the third character must be a lower case l.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;text &amp;lt;- ocr(&amp;quot;http://jeroen.github.io/files/inlove.png&amp;quot;)
+cat(text) # In love
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The OCR method used by tesseract uses language specific training data to optimize character recognition. The default language is English, training data for other languages are provided via the official &lt;a href=&#34;https://github.com/tesseract-ocr/tessdata&#34;&gt;tessdata repository&lt;/a&gt; directory. On Linux these can be installed directly with the &lt;a href=&#34;https://apps.fedoraproject.org/packages/tesseract&#34;&gt;yum&lt;/a&gt; or &lt;a href=&#34;https://packages.debian.org/search?suite=stable&amp;amp;section=all&amp;amp;arch=any&amp;amp;searchon=names&amp;amp;keywords=tesseract-ocr-&#34;&gt;apt&lt;/a&gt; package manager.&lt;/p&gt;
+
+&lt;p&gt;On Windows/MacOS you have to manually download training data for other langauges for now. The next version of the package will hopefully make this a little easier.&lt;/p&gt;
+
+&lt;h2 id=&#34;optimizing-performance&#34;&gt;Optimizing Performance&lt;/h2&gt;
+
+&lt;p&gt;Besides training data, the most important aspect of OCR performance is the quality of the input image. High resolution images with horizontal text, high contrast and little noise will achieve the best accuracy. The official &lt;a href=&#34;https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality&#34;&gt;Tesseract Wiki&lt;/a&gt; has some advice on how to improve the image quality.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://jeroen.github.io/files/dog_hq.png&#34;&gt;&lt;img src=&#34;http://jeroen.github.io/files/dog_hq.png&#34; alt=&#34;dogs&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;To put this to the test, we made two screenshots from the Wikipedia page above. The high quality image in the code below has approximately double the resolution of the low quality image. In addition the font rendering seems slightly better for the high quality image.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Low quality:
+text1 &amp;lt;- ocr(&amp;quot;http://jeroen.github.io/files/dog_lq.png&amp;quot;)
+cat(text1)
+
+# High quality:
+text2 &amp;lt;- ocr(&amp;quot;http://jeroen.github.io/files/dog_hq.png&amp;quot;)
+cat(text2)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Running this example in R shows that the accuracy of text extraction from the first image is very high but it dramatically decreases for the second image. Because Tesseract relies on the context to recognize characters, accuracy drops exponentially as increasingly many characters become blurry and ambiguous.&lt;/p&gt;
+
+&lt;h2 id=&#34;future-plans&#34;&gt;Future Plans&lt;/h2&gt;
+
+&lt;p&gt;The current version of the &amp;lsquo;tesseract&amp;rsquo; package is stable and essentially feature complete. We may release an update in the future to include additional utitlities for downloading and managing training data. These updates may also include some integration with the rOpenSci&amp;rsquo;s &lt;a href=&#34;https://cran.r-project.org/web/packages/magick/vignettes/intro.html&#34;&gt;magick&lt;/a&gt; package to help with preprocessing images.&lt;/p&gt;
+
+&lt;p&gt;All of our development at rOpenSci is driven by user feedback. If you find a problem or have suggestions for improvement, we would love to hear about it on our &lt;a href=&#34;https://github.com/ropensci/tesseract/issues&#34;&gt;Github page&lt;/a&gt;!&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

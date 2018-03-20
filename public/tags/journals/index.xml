@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Journals on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/journals/</link>
+    <description>Recent content in Journals on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 12 Dec 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/journals/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>fulltext v0.3: x, y, and z</title>
+      <link>https://ropensci.org/technotes/2017/12/12/fulltext-update/</link>
+      <pubDate>Tue, 12 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/technotes/2017/12/12/fulltext-update/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Text-mining - the art of answering questions by extracting patterns, data, etc. out of the published literature - is not easy. It&amp;rsquo;s made incredibly difficult because of publishers. Novels, etc. by writers are one thing - but it&amp;rsquo;s hard to swallow the fact that the vast majority of publicly funded research across the globe is published in paywall journals. That is, taxpayers pay twice for research: once for the grant to fund the work, then again to be able to read it.&lt;/p&gt;
+
+&lt;p&gt;Text-mining use cases run from determining the change in use of words through time [ref], to XYZ.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-fulltext-package&#34;&gt;the fulltext package&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;fulltext&lt;/code&gt; is a package to help R users get published literature from the web in it&amp;rsquo;s many forms, and across thousands upon thousands of publishers.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;fulltext&lt;/code&gt; tries to make the following use cases as easy as possible:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Search for articles&lt;/li&gt;
+&lt;li&gt;Fetch abstracts&lt;/li&gt;
+&lt;li&gt;Fetch full text articles&lt;/li&gt;
+&lt;li&gt;Get links for full text articles (xml, pdf)&lt;/li&gt;
+&lt;li&gt;Extract text from articles / convert formats&lt;/li&gt;
+&lt;li&gt;Collect sections of articles that you actually need (e.g., titles)&lt;/li&gt;
+&lt;li&gt;Download supplementary materials&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;fulltext&lt;/code&gt; organizes funvctions around use cases, then provides flexiblity to query many data sources within that use case (i.e. function). For example &lt;code&gt;fulltext::ft_search&lt;/code&gt; searches for articles - you can choose among one or more of many data sources to search, passing options to each source as needed.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;what-does-a-workflow-with-fulltext-look-like&#34;&gt;What does a workflow with fulltext look like?&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Search for articles with &lt;code&gt;ft_search()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Fetch articles with &lt;code&gt;ft_get()&lt;/code&gt; using the output of the previous step&lt;/li&gt;
+&lt;li&gt;Extract sections of articles needed with &lt;code&gt;chunks()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Do some further processing with &lt;code&gt;tm&lt;/code&gt; or &lt;code&gt;?????&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
+
+&lt;p&gt;Install &lt;code&gt;fulltext&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;fulltext&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or get the development version:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;devtools::install_github(&amp;quot;ropensci/fulltext&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(fulltext)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;search-ft-search&#34;&gt;Search: ft_search&lt;/h2&gt;
+
+&lt;p&gt;With &lt;code&gt;ft_search&lt;/code&gt; you can search&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;PLOS&lt;/li&gt;
+&lt;li&gt;BMC&lt;/li&gt;
+&lt;li&gt;Crossref&lt;/li&gt;
+&lt;li&gt;Entrez&lt;/li&gt;
+&lt;li&gt;arxiv&lt;/li&gt;
+&lt;li&gt;biorxiv&lt;/li&gt;
+&lt;li&gt;Euro&lt;/li&gt;
+&lt;li&gt;Scopus&lt;/li&gt;
+&lt;li&gt;Microsoft&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;res &amp;lt;- ft_search(query=&#39;ecology&#39;, from=&#39;plos&#39;)
+res
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Query:
+##   [ecology] 
+## Found:
+##   [PLoS: 40969; BMC: 0; Crossref: 0; Entrez: 0; arxiv: 0; biorxiv: 0; Europe PMC: 0; Scopus: 0; Microsoft: 0] 
+## Returned:
+##   [PLoS: 10; BMC: 0; Crossref: 0; Entrez: 0; arxiv: 0; biorxiv: 0; Europe PMC: 0; Scopus: 0; Microsoft: 0]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After running &lt;code&gt;ft_search&lt;/code&gt; you can index to each source that you
+selected in the &lt;code&gt;from&lt;/code&gt; parameter.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;res$plos
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Query: [ecology] 
+## Records found, returned: [40969, 10] 
+## License: [CC-BY] 
+##                              id
+## 1  10.1371/journal.pone.0001248
+## 2  10.1371/journal.pone.0059813
+## 3  10.1371/journal.pone.0155019
+## 4  10.1371/journal.pone.0080763
+## 5  10.1371/journal.pone.0150648
+## 6  10.1371/journal.pcbi.1003594
+## 7  10.1371/journal.pone.0102437
+## 8  10.1371/journal.pone.0175014
+## 9  10.1371/journal.pone.0166559
+## 10 10.1371/journal.pone.0054689
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you give many values for the &lt;code&gt;from&lt;/code&gt; parameter you&amp;rsquo;ll get many results, for
+example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;res &amp;lt;- ft_search(query=&#39;ecology&#39;, from=c(&#39;plos&#39;, &#39;crossref&#39;))
+res$plos
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Query: [ecology] 
+## Records found, returned: [40969, 10] 
+## License: [CC-BY] 
+##                              id
+## 1  10.1371/journal.pone.0001248
+## 2  10.1371/journal.pone.0059813
+## 3  10.1371/journal.pone.0155019
+## 4  10.1371/journal.pone.0080763
+## 5  10.1371/journal.pone.0150648
+## 6  10.1371/journal.pcbi.1003594
+## 7  10.1371/journal.pone.0102437
+## 8  10.1371/journal.pone.0175014
+## 9  10.1371/journal.pone.0166559
+## 10 10.1371/journal.pone.0054689
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;res$crossref
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Query: [ecology] 
+## Records found, returned: [142207, 10] 
+## License: [variable, see individual records] 
+##                  container.title    created  deposited
+## 1                        Ecology 2006-05-03 2017-04-14
+## 2                        Ecology 2006-05-03 2016-03-07
+## 3                        Ecology 2006-05-03 2016-03-07
+## 4                        Ecology 2006-05-03 2016-03-07
+## 5                        Ecology 2006-05-03 2017-04-15
+## 6                        Ecology 2006-05-03 2017-04-15
+## 7                        Ecology 2006-05-09 2016-03-07
+## 8                        Ecology 2017-04-26 2017-07-11
+## 9  Trends in Ecology &amp;amp; Evolution 2002-07-25 2017-06-14
+## 10 Journal of Industrial Ecology 2017-10-05 2017-11-14
+## Variables not shown: doi (chr), indexed (chr), issn (chr), issue (chr),
+##      issued (chr), license_date (chr), license_url (chr),
+##      license_delay.in.days (chr), license_content.version (chr), member
+##      (chr), page (chr), prefix (chr), publisher (chr), reference.count
+##      (chr), score (chr), source (chr), subject (chr), title (chr), type
+##      (chr), url (chr), volume (chr), author (list), link (list), archive
+##      (chr), alternative.id (chr), subtitle (chr)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;fetch-abstracts-ft-abstract&#34;&gt;Fetch abstracts: ft_abstract&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;PLOS&lt;/li&gt;
+&lt;li&gt;Scopus&lt;/li&gt;
+&lt;li&gt;Microsoft&lt;/li&gt;
+&lt;li&gt;Crossref&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;(res &amp;lt;- ft_search(query = &#39;biology&#39;, from = &#39;plos&#39;, limit = 10, 
+   plosopts = list(fq = list(&#39;doc_type:full&#39;, &#39;-article_type:correction&#39;,
+                  &#39;-article_type:viewpoints&#39;))))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Query:
+##   [biology] 
+## Found:
+##   [PLoS: 170852; BMC: 0; Crossref: 0; Entrez: 0; arxiv: 0; biorxiv: 0; Europe PMC: 0; Scopus: 0; Microsoft: 0] 
+## Returned:
+##   [PLoS: 10; BMC: 0; Crossref: 0; Entrez: 0; arxiv: 0; biorxiv: 0; Europe PMC: 0; Scopus: 0; Microsoft: 0]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;(out &amp;lt;- ft_abstract(x = res$plos$data$id, from = &amp;quot;plos&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## &amp;lt;fulltext abstracts&amp;gt;
+## Found:
+##   [PLOS: 84; Scopus: 0; Microsoft: 0; Crossref: 0]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;fetch-articles-ft-get&#34;&gt;Fetch articles: ft_get&lt;/h2&gt;
+
+&lt;p&gt;The function &lt;code&gt;ft_get&lt;/code&gt; is the workhorse for getting the namesake of the package:
+full text articles.&lt;/p&gt;
+
+&lt;p&gt;Beware that using this function can be tricky depending on where you want to
+get articles from. While searching (&lt;code&gt;ft_search&lt;/code&gt;) usually doesn&amp;rsquo;t present any
+barriers or stumbling blocks, &lt;code&gt;ft_get&lt;/code&gt; can get frustrating because so many
+publishers paywall their articles. The combination of paywalls and their
+patchwork of who gets to get through them means that we can&amp;rsquo;t easily predict
+who will run into problems with Elsevier, Wiley, etc.&lt;/p&gt;
+
+&lt;p&gt;With this version we&amp;rsquo;ve tried to bulk up the documentation as much as possible
+to make jumping over these barriers as easy as possible.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ft_get()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error in stop(&amp;quot;no &#39;ft_get&#39; method for &amp;quot;, class(x), call. = FALSE): argument &amp;quot;x&amp;quot; is missing, with no default
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;get-full-text-links-ft-links&#34;&gt;Get full text links: ft_links&lt;/h2&gt;
+
+&lt;p&gt;In case you want to sort out full text links yourself, and have those links for whatever purpose, &lt;code&gt;ft_links&lt;/code&gt; is your friend. It grabs data from PLOS, Crossref, Entrez, and BMC.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;(res2 &amp;lt;- ft_search(query=&#39;ecology&#39;, from=&#39;crossref&#39;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Query:
+##   [ecology] 
+## Found:
+##   [PLoS: 0; BMC: 0; Crossref: 142207; Entrez: 0; arxiv: 0; biorxiv: 0; Europe PMC: 0; Scopus: 0; Microsoft: 0] 
+## Returned:
+##   [PLoS: 0; BMC: 0; Crossref: 10; Entrez: 0; arxiv: 0; biorxiv: 0; Europe PMC: 0; Scopus: 0; Microsoft: 0]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;(out &amp;lt;- ft_links(res2))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## &amp;lt;fulltext links&amp;gt;
+## [Found] 10 
+## [IDs] 10.2307/1929908 10.2307/1931096 10.2307/1934287 10.2307/1943146
+##      10.2307/1930158 10.2307/1928969 10.2307/1935066 10.1002/ecy.1807
+##      10.1016/s0169-5347(97)89918-1 10.1111/jiec.12669 ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;out$crossref
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## $found
+## [1] 10
+## 
+## $ids
+##  [1] &amp;quot;10.2307/1929908&amp;quot;               &amp;quot;10.2307/1931096&amp;quot;              
+##  [3] &amp;quot;10.2307/1934287&amp;quot;               &amp;quot;10.2307/1943146&amp;quot;              
+##  [5] &amp;quot;10.2307/1930158&amp;quot;               &amp;quot;10.2307/1928969&amp;quot;              
+##  [7] &amp;quot;10.2307/1935066&amp;quot;               &amp;quot;10.1002/ecy.1807&amp;quot;             
+##  [9] &amp;quot;10.1016/s0169-5347(97)89918-1&amp;quot; &amp;quot;10.1111/jiec.12669&amp;quot;           
+## 
+## $data
+## $data$`10.2307/1929908`
+##                                                                     url
+## 1 https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.2307%2F1929908
+##               doi        type member
+## 1 10.2307/1929908 unspecified    311
+## 
+## $data$`10.2307/1931096`
+##                                                                    url
+## 1 http://api.wiley.com/onlinelibrary/tdm/v1/articles/10.2307%2F1931096
+##               doi        type member
+## 1 10.2307/1931096 unspecified    311
+## 
+## $data$`10.2307/1934287`
+##                                                                    url
+## 1 http://api.wiley.com/onlinelibrary/tdm/v1/articles/10.2307%2F1934287
+##               doi        type member
+## 1 10.2307/1934287 unspecified    311
+## 
+## $data$`10.2307/1943146`
+##                                                                    url
+## 1 http://api.wiley.com/onlinelibrary/tdm/v1/articles/10.2307%2F1943146
+##               doi        type member
+## 1 10.2307/1943146 unspecified    311
+## 
+## $data$`10.2307/1930158`
+##                                                                     url
+## 1  http://api.wiley.com/onlinelibrary/tdm/v1/articles/10.2307%2F1930158
+## 2 https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.2307%2F1930158
+##               doi        type member
+## 1 10.2307/1930158         pdf    311
+## 2 10.2307/1930158 unspecified    311
+## 
+## $data$`10.2307/1928969`
+##                                                                     url
+## 1  http://api.wiley.com/onlinelibrary/tdm/v1/articles/10.2307%2F1928969
+## 2 https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.2307%2F1928969
+##               doi        type member
+## 1 10.2307/1928969         pdf    311
+## 2 10.2307/1928969 unspecified    311
+## 
+## $data$`10.2307/1935066`
+##                                                                    url
+## 1 http://api.wiley.com/onlinelibrary/tdm/v1/articles/10.2307%2F1935066
+##               doi        type member
+## 1 10.2307/1935066 unspecified    311
+## 
+## $data$`10.1002/ecy.1807`
+##                                                                      url
+## 1 https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.1002%2Fecy.1807
+## 2       http://onlinelibrary.wiley.com/wol1/doi/10.1002/ecy.1807/fullpdf
+##                doi        type member
+## 1 10.1002/ecy.1807         pdf    311
+## 2 10.1002/ecy.1807 unspecified    311
+## 
+## $data$`10.1016/s0169-5347(97)89918-1`
+##                                                                                    url
+## 1   https://api.elsevier.com/content/article/PII:S0169534797899181?httpAccept=text/xml
+## 2 https://api.elsevier.com/content/article/PII:S0169534797899181?httpAccept=text/plain
+##                             doi  type member
+## 1 10.1016/s0169-5347(97)89918-1   xml     78
+## 2 10.1016/s0169-5347(97)89918-1 plain     78
+## 
+## $data$`10.1111/jiec.12669`
+##                                                                        url
+## 1 https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.1111%2Fjiec.12669
+## 2       http://onlinelibrary.wiley.com/wol1/doi/10.1111/jiec.12669/fullpdf
+##                  doi        type member
+## 1 10.1111/jiec.12669         pdf    311
+## 2 10.1111/jiec.12669 unspecified    311
+## 
+## 
+## $opts
+## list()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;out$crossref$data[[1]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##                                                                     url
+## 1 https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.2307%2F1929908
+##               doi        type member
+## 1 10.2307/1929908 unspecified    311
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;extract-text-ft-extract&#34;&gt;Extract text: ft_extract&lt;/h2&gt;
+
+&lt;p&gt;This is a simple wrapper around the &lt;a href=&#34;https://github.com/ropensci/pdftools&#34;&gt;pdftools&lt;/a&gt; package - when dealing with
+xml or plain text data, there&amp;rsquo;s no need to parse what you get from &lt;code&gt;ft_get&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;path &amp;lt;- system.file(&amp;quot;examples&amp;quot;, &amp;quot;example1.pdf&amp;quot;, package = &amp;quot;fulltext&amp;quot;)
+(res &amp;lt;- ft_extract(path))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## &amp;lt;document&amp;gt;/Library/Frameworks/R.framework/Versions/3.4/Resources/library/fulltext/examples/example1.pdf
+##   Title: Suffering and mental health among older people living in nursing homes---a mixed-methods study
+##   Producer: pdfTeX-1.40.10
+##   Creation date: 2015-07-17
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that &lt;code&gt;ft_extract&lt;/code&gt; can now handle both a file path to a pdf file, or
+raw bytes.&lt;/p&gt;
+
+&lt;h2 id=&#34;extract-parts-of-documents-you-want-chunk&#34;&gt;Extract parts of documents you want: chunk&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;chunk()&lt;/code&gt; helps you quickly extract sections of articles you want aross many articles and many publishers. This only handles XML (there&amp;rsquo;s no structure in plain text and pdf text) We have internal scripts targeting specific publishers so that we can handle variation in how publishers structure their XML.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;rplos&amp;quot;)
+(dois &amp;lt;- searchplos(q=&amp;quot;*:*&amp;quot;, fl=&#39;id&#39;,
+   fq=list(&#39;doc_type:full&#39;,&amp;quot;article_type:\&amp;quot;research article\&amp;quot;&amp;quot;),
+     limit=5)$data$id)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;10.1371/journal.pone.0074173&amp;quot; &amp;quot;10.1371/journal.pone.0060168&amp;quot;
+## [3] &amp;quot;10.1371/journal.pone.0170933&amp;quot; &amp;quot;10.1371/journal.pone.0170932&amp;quot;
+## [5] &amp;quot;10.1371/journal.pone.0187293&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;x &amp;lt;- ft_get(dois, from = &amp;quot;plos&amp;quot;)
+x %&amp;gt;% chunks(c(&amp;quot;doi&amp;quot;,&amp;quot;history&amp;quot;)) %&amp;gt;% tabularize()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## $plos
+##                            doi history.received history.accepted
+## 1 10.1371/journal.pone.0074173       2013-04-04       2013-07-27
+## 2 10.1371/journal.pone.0060168       2012-09-18       2013-02-25
+## 3 10.1371/journal.pone.0170933       2016-10-05       2017-01-12
+## 4 10.1371/journal.pone.0170932       2016-09-27       2017-01-12
+## 5 10.1371/journal.pone.0187293       2016-12-16       2017-10-17
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;notes&#34;&gt;Notes&lt;/h2&gt;
+
+&lt;h3 id=&#34;xxx&#34;&gt;xxx&lt;/h3&gt;
+
+&lt;p&gt;xxx&lt;/p&gt;
+
+&lt;h3 id=&#34;feedback&#34;&gt;Feedback!&lt;/h3&gt;
+
+&lt;p&gt;Please do upgrade/install &lt;code&gt;fulltext&lt;/code&gt;  &lt;code&gt;v0.3&lt;/code&gt; and let us know what you think.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

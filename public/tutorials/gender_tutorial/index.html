@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | gender tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>gender tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.5.1</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p><code>gender</code> encodes gender based on names and dates of birth using historical datasets. By using these datasets instead of lists of male and female names, this package is able to more accurately guess the gender of a name, and it is able to report the probability that a name was male or female.</p>
+
+<h3 id="installation">Installation</h3>
+
+<pre><code class="language-r">install.packages(&quot;gender&quot;)
+</code></pre>
+
+<p>Or development version from GitHub</p>
+
+<pre><code class="language-r">devtools::install_github(&quot;ropensci/gender&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;gender&quot;)
+</code></pre>
+
+<h3 id="usage">Usage</h3>
+
+<p>A common problem for researchers who work with data, especially historians, is that a dataset has a list of people with names but does not identify the gender of the person. Since first names often indicate gender, it should be possible to predict gender using names. However, the gender associated with names can change over time. To illustrate, take the names Madison, Hillary, Jordan, and Monroe. For babies born in the United States, those predominant gender associated with those names has changed over time.</p>
+
+<p><img src="../assets/tutorial-images/gender/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" /></p>
+
+<p>Predicting gender from names requires a fundamentally historical method. The <code>gender</code> package provides a way to calculate the proportion of male and female names given a year or range of birth years and a country or set of countries. The predictions are based on calculations from historical datasets.</p>
+
+<p>This vignette offers a brief guide to the <code>gender</code> package. For a fuller historical explanation and a sample case study using the package, please see our journal article: Cameron Blevins and Lincoln Mullen, &ldquo;Jane, John &hellip; Leslie? A Historical Method for Algorithmic Gender Prediction,&rdquo; <em>Digital Humanities Quarterly</em> (forthcoming 2015).</p>
+
+<h4 id="basic-usage">Basic usage</h4>
+
+<p>The main function in this package is <code>gender()</code>. That function lets you choose a dataset and pass in a set of names and a birth year or range of birth years. The result is always a data frame that includes a prediction of the gender of the name and the relative proportions between male and female. For example:</p>
+
+<pre><code class="language-r">library(gender)
+gender(c(&quot;Madison&quot;, &quot;Hillary&quot;), years = 1940, method = &quot;demo&quot;)
+#&gt; # A tibble: 2 x 6
+#&gt;      name proportion_male proportion_female gender year_min year_max
+#&gt;     &lt;chr&gt;           &lt;dbl&gt;             &lt;dbl&gt;  &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1 Hillary               1                 0   male     1940     1940
+#&gt; 2 Madison               1                 0   male     1940     1940
+gender(c(&quot;Madison&quot;, &quot;Hillary&quot;), years = 2000, method = &quot;demo&quot;)
+#&gt; # A tibble: 2 x 6
+#&gt;      name proportion_male proportion_female gender year_min year_max
+#&gt;     &lt;chr&gt;           &lt;dbl&gt;             &lt;dbl&gt;  &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1 Hillary          0.0000            1.0000 female     2000     2000
+#&gt; 2 Madison          0.0069            0.9931 female     2000     2000
+</code></pre>
+
+<p>The <code>gender</code> package itself contains only demonstration data. Datasets which permit you to make predictions for various times and places are available in the  <a href="https://github.com/ropensci/genderdata">genderdata package</a>. This package is not available on CRAN because of its size. The first time that you need to use the dataset you will be prompted to install it, or you can install it yourself from the <a href="http://packages.ropensci.org/">rOpenSci repository</a>:</p>
+
+<pre><code class="language-r">install.packages(&quot;genderdata&quot;, repos = &quot;http://packages.ropensci.org&quot;)
+</code></pre>
+
+<p>You specify which dataset you wish to use with the <code>method =</code> parameter. Below are some sample</p>
+
+<p>United States in the 1960s:</p>
+
+<pre><code class="language-r">gender(&quot;Madison&quot;, years = c(1960, 1969), method = &quot;ssa&quot;)
+</code></pre>
+
+<p>United States in the 1860s:</p>
+
+<pre><code class="language-r">gender(&quot;Madison&quot;, years = c(1860, 1869), method = &quot;ipums&quot;)
+</code></pre>
+
+<p>North Atlantic countries in the 1860s:</p>
+
+<pre><code class="language-r">gender(&quot;Hilde&quot;, years = c(1860, 1869), method = &quot;napp&quot;)
+</code></pre>
+
+<p>Just Sweden in the 1879:</p>
+
+<pre><code class="language-r">gender(&quot;Hilde&quot;, years = c(1879), method = &quot;napp&quot;, countries = &quot;Sweden&quot;)
+</code></pre>
+
+<h4 id="which-dataset-should-you-use">Which dataset should you use?</h4>
+
+<p>Each method is associated with a dataset suitable for a particular time and place.</p>
+
+<ul>
+<li><code>method = &quot;ipums&quot;</code>: United States from 1789 to 1930. Drawn from Census data.</li>
+<li><code>method = &quot;ssa&quot;</code>: United States from 1930 to 2012. Drawn from Social Security Administration data.</li>
+<li><code>method = &quot;napp&quot;</code>: Any combination of Canada, the United Kingdom, Germany, Iceland, Norway, and Sweden from the years 1758 to 1910, though the nineteenth-century data is likely more reliable than the eighteenth-century data.</li>
+</ul>
+
+<h4 id="description-of-the-datasets">Description of the datasets</h4>
+
+<p>U.S. Census data is provided by <a href="https://usa.ipums.org/usa/">IPUMS USA</a> from the Minnesota Population Center, University of Minnesota. The IPUMS data includes 1% and 5% samples from the Census returns. The Census, taken decennially, includes respondent&rsquo;s birth dates and gender. With the gender package, it is possible to use this dataset for years between 1789 and 1930. The dataset includes approximately 339,967 unique names.</p>
+
+<p>U.S. Social Security Administration data was collected from applicants to Social Security. The Social Security Board was created in the New Deal in 1935. Early applicants, however, were people who were nearing retirement age not people who were being born, so the dataset extends further into the past. However, the Social Security Administration did not immediately require all persons born in the United States to register for a Social Security Number. (See Shane Landrum, &ldquo;The State&rsquo;s Big Family Bible: Birth Certificates, Personal Identity, and Citizenship in the United States, 1840&ndash;1950&rdquo; [PhD dissertation, Brandeis University, 2014].) A <a href="https://github.com/ropensci/gender/issues/9">consequence</a> of this&mdash;for reasons that are not entirely clear&mdash;is that for years before 1918, the SSA dataset is heavily female; after about 1940 it skews slightly male. For this reason this package corrects the prediction to assume a secondary sex ratio that is evenly distributed between males and females. Also, the SSA dataset only includes names that were used more than five times in a given year, so the &ldquo;long tail&rdquo; of names is excluded. Even so, the dataset includes 91,320 unique names. The SSA dataset extends from 1880 to 2012, but for years before 1930 you should use the IPUMS method.</p>
+
+<p>The <a href="https://www.nappdata.org/napp/">North Atlantic Population Project</a> provides data for Canada, the United Kingdom, Germany, Iceland, Norway, and Sweden for years between 1758 and 1910, based on census microdata from those countries.</p>
+
+<h4 id="working-with-data-frames-of-names">Working with data frames of names</h4>
+
+<p>Most often you have a dataset and you want to predict gender for multiple names. Consider this sample dataset.</p>
+
+<pre><code class="language-r">library(dplyr)
+
+demo_names &lt;- c(&quot;Susan&quot;, &quot;Susan&quot;, &quot;Madison&quot;, &quot;Madison&quot;,
+                &quot;Hillary&quot;, &quot;Hillary&quot;, &quot;Hillary&quot;)
+demo_years &lt;- c(rep(c(1930, 2000), 3), 1930)
+demo_df &lt;- data_frame(first_names = demo_names,
+                      last_names = LETTERS[1:7],
+                      years = demo_years,
+                      min_years = demo_years - 3,
+                      max_years = demo_years + 3)
+
+demo_df
+#&gt; # A tibble: 7 x 5
+#&gt;   first_names last_names years min_years max_years
+#&gt;         &lt;chr&gt;      &lt;chr&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+#&gt; 1       Susan          A  1930      1927      1933
+#&gt; 2       Susan          B  2000      1997      2003
+#&gt; 3     Madison          C  1930      1927      1933
+#&gt; 4     Madison          D  2000      1997      2003
+#&gt; 5     Hillary          E  1930      1927      1933
+#&gt; 6     Hillary          F  2000      1997      2003
+#&gt; 7     Hillary          G  1930      1927      1933
+</code></pre>
+
+<p>Here we have a dataset with first names connected to years. It is important to emphasize that these years should be the years of birth. If you have years representing something else, you will have to estimate the years of birth. For this demo dataset, we have included a single birth year for each person. But since historians may only have a guess at the birth year of people, we have also included columns for the minimum and maximum years in an possible age range.</p>
+
+<p>We can pass this data frame to the <code>gender_df()</code> function, specifying the method that we wish to use and the names of the columns that contain the names and the birth years. The result is a data frame of predictions.</p>
+
+<pre><code class="language-r">results &lt;- gender_df(demo_df, name_col = &quot;first_names&quot;, year_col = &quot;years&quot;,
+                     method = &quot;demo&quot;)
+results
+#&gt; # A tibble: 6 x 6
+#&gt;      name proportion_male proportion_female gender year_min year_max
+#&gt; *   &lt;chr&gt;           &lt;dbl&gt;             &lt;dbl&gt;  &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1 Hillary          1.0000            0.0000   male     1930     1930
+#&gt; 2 Madison          1.0000            0.0000   male     1930     1930
+#&gt; 3   Susan          0.0000            1.0000 female     1930     1930
+#&gt; 4 Hillary          0.0000            1.0000 female     2000     2000
+#&gt; 5 Madison          0.0069            0.9931 female     2000     2000
+#&gt; 6   Susan          0.0000            1.0000 female     2000     2000
+</code></pre>
+
+<p>Notice that in our original data frame there were two Hillarys (<code>Hillary E</code> and <code>Hillary G</code>) born in 1930, but our resulting data frame only contains one. That is because the <code>gender_df()</code> function is efficient, calculating genders only for unique combinations of first names and years. In a dataset of any appreciable size, this saves quite a bit of computation time. The resulting data frame can be merged back into the original dataset.</p>
+
+<pre><code class="language-r">demo_df %&gt;%
+  left_join(results, by = c(&quot;first_names&quot; = &quot;name&quot;, &quot;years&quot; = &quot;year_min&quot;))
+#&gt; # A tibble: 7 x 9
+#&gt;   first_names last_names years min_years max_years proportion_male
+#&gt;         &lt;chr&gt;      &lt;chr&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;           &lt;dbl&gt;
+#&gt; 1       Susan          A  1930      1927      1933          0.0000
+#&gt; 2       Susan          B  2000      1997      2003          0.0000
+#&gt; 3     Madison          C  1930      1927      1933          1.0000
+#&gt; 4     Madison          D  2000      1997      2003          0.0069
+#&gt; 5     Hillary          E  1930      1927      1933          1.0000
+#&gt; 6     Hillary          F  2000      1997      2003          0.0000
+#&gt; 7     Hillary          G  1930      1927      1933          1.0000
+#&gt; # ... with 3 more variables: proportion_female &lt;dbl&gt;, gender &lt;chr&gt;,
+#&gt; #   year_max &lt;dbl&gt;
+</code></pre>
+
+<p>We can also use <code>gender_df()</code> to predict gender a range of years by passing it the names of columns with minimum and maximum years of the range to be used for each person. As in the previous example, only unique combinations of first names and ranges of years will be calculated.</p>
+
+<pre><code class="language-r">gender_df(demo_df, name_col = &quot;first_names&quot;,
+          year_col = c(&quot;min_years&quot;, &quot;max_years&quot;), method = &quot;demo&quot;)
+#&gt; # A tibble: 6 x 6
+#&gt;      name proportion_male proportion_female gender year_min year_max
+#&gt; *   &lt;chr&gt;           &lt;dbl&gt;             &lt;dbl&gt;  &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1 Hillary          1.0000            0.0000   male     1927     1933
+#&gt; 2 Madison          1.0000            0.0000   male     1927     1933
+#&gt; 3   Susan          0.0028            0.9972 female     1927     1933
+#&gt; 4 Hillary          0.0092            0.9908 female     1997     2003
+#&gt; 5 Madison          0.0081            0.9919 female     1997     2003
+#&gt; 6   Susan          0.0000            1.0000 female     1997     2003
+</code></pre>
+
+<h4 id="working-with-dplyr">Working with dplyr</h4>
+
+<p>The <code>gender_df()</code> function is simply a wrapper around a <a href="https://cran.r-project.org/package=dplyr">dplyr</a> data manipulation chain. Should you wish, you can  use dplyr&rsquo;s <code>do()</code> function to run the <code>gender()</code> function on each name and birth year (i.e., each row). This will result in a dataframe containing a column of dataframes. Another call to <code>do()</code> and <code>bind_rows()</code> will create a the single data frame that we expect.</p>
+
+<pre><code class="language-r">demo_df %&gt;%
+  distinct(first_names, years) %&gt;%
+  rowwise() %&gt;%
+  do(results = gender(.$first_names, years = .$years, method = &quot;demo&quot;)) %&gt;%
+  do(bind_rows(.$results))
+#&gt; Source: local data frame [6 x 6]
+#&gt; Groups: &lt;by row&gt;
+#&gt; 
+#&gt; # A tibble: 6 x 6
+#&gt;      name proportion_male proportion_female gender year_min year_max
+#&gt; *   &lt;chr&gt;           &lt;dbl&gt;             &lt;dbl&gt;  &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1   Susan          0.0000            1.0000 female     1930     1930
+#&gt; 2   Susan          0.0000            1.0000 female     2000     2000
+#&gt; 3 Madison          1.0000            0.0000   male     1930     1930
+#&gt; 4 Madison          0.0069            0.9931 female     2000     2000
+#&gt; 5 Hillary          1.0000            0.0000   male     1930     1930
+#&gt; 6 Hillary          0.0000            1.0000 female     2000     2000
+</code></pre>
+
+<p>That method of using dplyr is the most intuitive, since it calls <code>gender()</code> once for each row. (In the example above, there are six calls to the function.) However, because of the way that the <code>gender()</code> function works, it can handle multiple names provided that they all use the same range of years. In other words, we will do better to group the data frame by the year. In the code below, we call <code>gender()</code> once for each year (i.e. two times) which results in a considerable time savings.</p>
+
+<pre><code class="language-r">demo_df %&gt;%
+  distinct(first_names, years) %&gt;%
+  group_by(years) %&gt;%
+  do(results = gender(.$first_names, years = .$years[1], method = &quot;demo&quot;)) %&gt;%
+  do(bind_rows(.$results))
+#&gt; Source: local data frame [6 x 6]
+#&gt; Groups: &lt;by row&gt;
+#&gt; 
+#&gt; # A tibble: 6 x 6
+#&gt;      name proportion_male proportion_female gender year_min year_max
+#&gt; *   &lt;chr&gt;           &lt;dbl&gt;             &lt;dbl&gt;  &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1 Hillary          1.0000            0.0000   male     1930     1930
+#&gt; 2 Madison          1.0000            0.0000   male     1930     1930
+#&gt; 3   Susan          0.0000            1.0000 female     1930     1930
+#&gt; 4 Hillary          0.0000            1.0000 female     2000     2000
+#&gt; 5 Madison          0.0069            0.9931 female     2000     2000
+#&gt; 6   Susan          0.0000            1.0000 female     2000     2000
+</code></pre>
+
+<p>These results can then be joined back into your original dataset.</p>
+
+<h3 id="citing">Citing</h3>
+
+<p>To cite <code>gender</code> in publications use:</p>
+
+<p><br></p>
+
+<blockquote>
+<p>Lincoln Mullen (2015). gender: Predict Gender from Names Using
+  Historical Data. R package version 0.5.1
+  <a href="https://github.com/ropensci/gender">https://github.com/ropensci/gender</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/gender/issues?state=open">our Github repo for gender</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

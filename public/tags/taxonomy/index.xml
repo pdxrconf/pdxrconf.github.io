@@ -1,0 +1,2499 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Taxonomy on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/taxonomy/</link>
+    <description>Recent content in Taxonomy on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 27 Jul 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/taxonomy/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The rOpenSci Taxonomy Suite</title>
+      <link>https://ropensci.org/blog/2017/07/27/taxonomy-suite/</link>
+      <pubDate>Thu, 27 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/07/27/taxonomy-suite/</guid>
+      <description>
+        
+        
+
+&lt;h2 id=&#34;what-is-taxonomy&#34;&gt;What is Taxonomy?&lt;/h2&gt;
+
+&lt;p&gt;Taxonomy in its most general sense is &lt;a href=&#34;https://en.wikipedia.org/wiki/Taxonomy_(general)&#34;&gt;the practice and science of classification&lt;/a&gt;. It can refer to many things. You may have heard or used the word &lt;em&gt;taxonomy&lt;/em&gt; used to indicate any sort of classification of things, whether it be companies or widgets. Here, we&amp;rsquo;re talking about &lt;a href=&#34;https://en.wikipedia.org/wiki/Taxonomy_(biology)&#34;&gt;biological taxonomy&lt;/a&gt;, the science of defining and naming groups of biological organisms.&lt;/p&gt;
+
+&lt;p&gt;In case you aren&amp;rsquo;t familiar with the terminology, here&amp;rsquo;s a brief intro.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;species&lt;/code&gt; - the term you are likely most familiar with, usually defined as a group of individuals in which any 2 individuals can produce fertile offspring, although definitions can vary.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;genus&lt;/code&gt;/&lt;code&gt;family&lt;/code&gt;/&lt;code&gt;order&lt;/code&gt;/&lt;code&gt;class&lt;/code&gt;/&lt;code&gt;phylum&lt;/code&gt;/&lt;code&gt;kingdom&lt;/code&gt; -  These are nested groupings of similar species. &lt;code&gt;genus&lt;/code&gt; (e.g. &lt;em&gt;Homo&lt;/em&gt;) is  restrictive grouping and &lt;code&gt;kingdom&lt;/code&gt; (e.g. &lt;em&gt;Animalia&lt;/em&gt;) is a much more inclusive grouping. There are genera in families, families in orders, etc.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;taxon&lt;/code&gt; - a species or grouping of species. e.g. &lt;em&gt;Homo sapiens&lt;/em&gt;, &lt;em&gt;Primates&lt;/em&gt;, and &lt;em&gt;Animalia&lt;/em&gt; are all taxa.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;taxa&lt;/code&gt; - the plural of &lt;code&gt;taxon&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;taxonomic hierarchy&lt;/code&gt; or &lt;code&gt;taxonomic classification&lt;/code&gt; - the list of groups a species (or other taxon) belongs to. For example the taxonomic classification of humans is: &lt;code&gt;Animalia;Chordata;Mammalia;Primates;Hominidae;Homo;sapiens&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ubiquity-and-importance-of-taxonomic-names&#34;&gt;Ubiquity and Importance of Taxonomic Names&lt;/h2&gt;
+
+&lt;p&gt;We put a lot of time into our suite of taxonomic software for a good reason - probably all naturalists/biologists/environmental consultants/etc. will be confronted with taxonomic names in their research/work/surveys/etc. at some point or all along the way. Some people study a single species their entire career, likely having little trouble with taxonomic names - while others study entire communities or ecosystems, dealing with thousands of taxonomic names.&lt;/p&gt;
+
+&lt;p&gt;Taxonomic names are not only ubiquitous but are incredibly important to get right. Just as the URL points to the correct page you want to view on the internet (an incorrect URL will not get you where you want to go), taxonomic names point to the right definition/description of a taxon, leading to lots of resources increasingly online including text, images, sounds, etc. If you get the taxonomic name wrong, all information downstream is likely to be wrong.&lt;/p&gt;
+
+&lt;h2 id=&#34;why-r-for-taxonomic-names&#34;&gt;Why R for taxonomic names?&lt;/h2&gt;
+
+&lt;p&gt;R is gaining in popularity in general (&lt;a href=&#34;https://www.tiobe.com/tiobe-index//&#34;&gt;TIOBE index&lt;/a&gt;, &lt;a href=&#34;http://r4stats.com/articles/popularity/&#34;&gt;Muenchen 2017&lt;/a&gt;), and in &lt;a href=&#34;http://www.nature.com/news/programming-tools-adventures-with-r-1.16609&#34;&gt;academia&lt;/a&gt;. At least in my graduate school experience (&amp;lsquo;06 - &amp;lsquo;12), most graduate students used R - despite their bosses often using other things.&lt;/p&gt;
+
+&lt;p&gt;Given that R is widely used among biologists that have to deal with taxonomic names, it makes a lot of sense to build taxonomic tools in R.&lt;/p&gt;
+
+&lt;h2 id=&#34;ropensci-taxonomy-suite&#34;&gt;rOpenSci Taxonomy Suite&lt;/h2&gt;
+
+&lt;p&gt;We have an ever-growing suite of packages that enable users to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Search for taxonomic names&lt;/li&gt;
+&lt;li&gt;Correct taxonomic names&lt;/li&gt;
+&lt;li&gt;Embed their taxonomic names in R classes that enable powerful downstream manipulations&lt;/li&gt;
+&lt;li&gt;Leverage dozens of taxonomic data sources&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The packages:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;taxize&lt;/code&gt; - taxonomic data from many sources&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;taxizedb&lt;/code&gt; - work with taxonomic SQL databases locally&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;taxa&lt;/code&gt; - taxonomic classes and manipulation functions&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;binomen&lt;/code&gt; - taxonomic name classes and parsing methods (getting folded into &lt;code&gt;taxa&lt;/code&gt;, will be archived on CRAN soon)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;wikitaxa&lt;/code&gt; - taxonomic data from Wikipedia/Wikidata/Wikispecies&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ritis&lt;/code&gt; - get ITIS (Integrated Taxonomic Information Service) taxonomic data&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;worrms&lt;/code&gt; - get WORMS (World Register of Marine Species) taxonomic data&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pegax&lt;/code&gt; - taxonomy PEG (Parsing Expression Grammar)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;For each package below, there are 2-3 badges. One for whether the package is on CRAN
+&lt;br&gt;
+&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312; color:white&#34;&gt;cran&lt;/span&gt;
+&lt;br&gt;
+a link to source on GitHub
+&lt;br&gt;
+&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB; color:white&#34;&gt;github&lt;/span&gt;
+&lt;br&gt;
+and another for when the package is community contributed:&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#19B698; color:white&#34;&gt;community&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;For each package we show a very brief example - all packages have much more functionality - check them out on CRAN or GitHub.&lt;/p&gt;
+
+&lt;h2 id=&#34;taxize&#34;&gt;taxize&lt;/h2&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/taxize/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/taxize&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This was our first package for taxonomy. It is a one stop shop for lots of different taxonomic data sources online, including NCBI, ITIS, GBIF, EOL, IUCN, and more - up to 22 data sources now.&lt;/p&gt;
+
+&lt;p&gt;The canonical reference for &lt;code&gt;taxize&lt;/code&gt; is the paper we published in 2013:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Chamberlain, S. A., &amp;amp; Szöcs, E. (2013). taxize: taxonomic search and retrieval in R. F1000Research.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Check it out at &lt;a href=&#34;https://doi.org/10.12688/f1000research.2-191.v1&#34;&gt;https://doi.org/10.12688/f1000research.2-191.v1&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We released a new version (&lt;code&gt;v0.8.8&lt;/code&gt;) about a month ago (a tiny bug fix was pushed more recently (&lt;code&gt;v0.8.9&lt;/code&gt;)) with some new features requested by users:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You can now get downstream taxa from NCBI, see &lt;code&gt;ncbi_downstream&lt;/code&gt; and &lt;code&gt;downstream&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Wikipedia/Wikidata/Wikispecies are now data sources! via the &lt;code&gt;wikitaxa&lt;/code&gt; package&lt;/li&gt;
+&lt;li&gt;Now you can get IUCN IDs for taxa, see &lt;code&gt;get_iucn&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tax_rank&lt;/code&gt; now works with many more data sources: ncbi, itis, eol, col, tropicos, gbif, nbn,
+worms, natserv, and bold&lt;/li&gt;
+&lt;li&gt;Many improvements and bug fixes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;example&#34;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;A quick example of the power of &lt;code&gt;taxize&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;taxize&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;taxize&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Get WORMS identifiers for three taxa:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ids &amp;lt;- get_wormsid(c(&amp;quot;Platanista gangetica&amp;quot;, &amp;quot;Lichenopora neapolitana&amp;quot;, &#39;Gadus morhua&#39;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Get classifications for each taxon&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;clazz &amp;lt;- classification(ids, db = &#39;worms&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Combine all three into a single data.frame&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(rbind(clazz))
+#&amp;gt;            name       rank     id  query
+#&amp;gt; 1      Animalia    Kingdom      2 254967
+#&amp;gt; 2      Chordata     Phylum   1821 254967
+#&amp;gt; 3    Vertebrata  Subphylum 146419 254967
+#&amp;gt; 4 Gnathostomata Superclass   1828 254967
+#&amp;gt; 5     Tetrapoda Superclass   1831 254967
+#&amp;gt; 6      Mammalia      Class   1837 254967
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;taxizedb&#34;&gt;taxizedb&lt;/h2&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/taxizedb/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/taxizedb&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;taxizedb&lt;/code&gt; is a relatively new package. We just released a new version (&lt;code&gt;v0.1.4&lt;/code&gt;) about one month ago, with fixes for the new &lt;code&gt;dplyr&lt;/code&gt; version.&lt;/p&gt;
+
+&lt;p&gt;The sole purpose of &lt;code&gt;taxizedb&lt;/code&gt; is to solve the use case where a user has a lot of taxonomic names, and thus using &lt;code&gt;taxize&lt;/code&gt; is too slow. Although &lt;code&gt;taxize&lt;/code&gt; is a powerful tool, every request is a transaction over the internet, and the speed of that transaction can vary from very fast to very slow, depending on three factors: data provider speed (including many things), your internet speed, and how much data you requested. &lt;code&gt;taxizedb&lt;/code&gt; gets around this problem by using a local SQL database of the same stuff the data providers have, so you can get things done much faster.&lt;/p&gt;
+
+&lt;p&gt;The trade-off with &lt;code&gt;taxizedb&lt;/code&gt; is that the interface is quite different from &lt;code&gt;taxize&lt;/code&gt;.  So there is a learning curve. There are two options in &lt;code&gt;taxizedb&lt;/code&gt;: you can use SQL syntax, or &lt;code&gt;dplyr&lt;/code&gt; commands. I&amp;rsquo;m guessing people are more familiar with the latter.&lt;/p&gt;
+
+&lt;h3 id=&#34;example-1&#34;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;Install &lt;code&gt;taxizedb&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;taxizedb&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;taxizedb&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here, we show working with the ITIS SQL database. Other sources work with the same workflow of function calls.&lt;/p&gt;
+
+&lt;p&gt;Download ITIS SQL database&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;x &amp;lt;- db_download_itis()
+#&amp;gt; downloading...
+#&amp;gt; unzipping...
+#&amp;gt; cleaning up...
+#&amp;gt; [1] &amp;quot;/Users/sacmac/Library/Caches/R/taxizedb/ITIS.sql&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;db_load_tpl()&lt;/code&gt; loads the SQL database into Postgres. Data sources vary in the SQL database used, see help for more.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;db_load_tpl(x, &amp;quot;&amp;lt;your Postgresql user name&amp;gt;&amp;quot;, &amp;quot;your Postgresql password, if any&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Create a &lt;code&gt;src&lt;/code&gt; object to connect to the SQL database.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;src &amp;lt;- src_itis(&amp;quot;&amp;lt;your Postgresql user name&amp;gt;&amp;quot;, &amp;quot;your Postgresql password, if any&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Query!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(dbplyr)
+library(dplyr)
+tbl(src, sql(&amp;quot;select * from taxonomic_units limit 10&amp;quot;))
+# Source:   SQL [?? x 26]
+# Database: postgres 9.6.0 [sacmac@localhost:5432/ITIS]
+     tsn unit_ind1                          unit_name1 unit_ind2 unit_name2 unit_ind3 unit_name3 unit_ind4 unit_name4
+   &amp;lt;int&amp;gt;     &amp;lt;chr&amp;gt;                               &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;
+ 1    50      &amp;lt;NA&amp;gt; Bacteria                                 &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+ 2    51      &amp;lt;NA&amp;gt; Schizomycetes                            &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+ 3    52      &amp;lt;NA&amp;gt; Archangiaceae                            &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+ 4    53      &amp;lt;NA&amp;gt; Pseudomonadales                          &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+ 5    54      &amp;lt;NA&amp;gt; Rhodobacteriineae                        &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+ 6    55      &amp;lt;NA&amp;gt; Pseudomonadineae                         &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+ 7    56      &amp;lt;NA&amp;gt; Nitrobacteraceae                         &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+ 8    57      &amp;lt;NA&amp;gt; Nitrobacter                              &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+ 9    58      &amp;lt;NA&amp;gt; Nitrobacter                              &amp;lt;NA&amp;gt;     agilis      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+10    59      &amp;lt;NA&amp;gt; Nitrobacter                              &amp;lt;NA&amp;gt;     flavus      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+# ... with more rows, and 17 more variables: unnamed_taxon_ind &amp;lt;chr&amp;gt;, name_usage &amp;lt;chr&amp;gt;, unaccept_reason &amp;lt;chr&amp;gt;,
+#   credibility_rtng &amp;lt;chr&amp;gt;, completeness_rtng &amp;lt;chr&amp;gt;, currency_rating &amp;lt;chr&amp;gt;, phylo_sort_seq &amp;lt;int&amp;gt;, initial_time_stamp &amp;lt;dttm&amp;gt;,
+#   parent_tsn &amp;lt;int&amp;gt;, taxon_author_id &amp;lt;int&amp;gt;, hybrid_author_id &amp;lt;int&amp;gt;, kingdom_id &amp;lt;int&amp;gt;, rank_id &amp;lt;int&amp;gt;, update_date &amp;lt;date&amp;gt;,
+#   uncertain_prnt_ind &amp;lt;chr&amp;gt;, n_usage &amp;lt;chr&amp;gt;, complete_name &amp;lt;chr&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;taxa&#34;&gt;taxa&lt;/h2&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/taxa/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/taxa&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;taxa&lt;/code&gt; is our newest entry (hit CRAN just a few weeks ago) into the taxonomic R package space. It defines taxonomic classes for R, and basic, but powerful manipulations on those classes.&lt;/p&gt;
+
+&lt;p&gt;It defines two broad types of classes: those with just taxonomic data, and a class with taxonomic data plus other associated data (such as traits, environmental data, etc.) called &lt;code&gt;taxmap&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;taxa&lt;/code&gt; package includes functions to do various operations with these taxonomic classes. With the taxonomic classes, you can filter out or keep taxa based on various criteria. In the case of the &lt;code&gt;taxmap&lt;/code&gt; class, when you filter on taxa, the associated data is filtered the same way so taxa and data are in sync.&lt;/p&gt;
+
+&lt;p&gt;A manuscript about &lt;code&gt;taxa&lt;/code&gt; is being prepared at the moment - so look out for that.&lt;/p&gt;
+
+&lt;p&gt;Most of the hard work in &lt;code&gt;taxa&lt;/code&gt; has been done by my co-maintainer &lt;a href=&#34;https://github.com/zachary-foster&#34;&gt;Zachary Foster&lt;/a&gt;!&lt;/p&gt;
+
+&lt;h3 id=&#34;example-2&#34;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;A quick example of the power of &lt;code&gt;taxa&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;taxa&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;taxa&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;An example &lt;code&gt;Hierarchy&lt;/code&gt; data object that comes with the package:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ex_hierarchy1
+#&amp;gt; &amp;lt;Hierarchy&amp;gt;
+#&amp;gt;   no. taxon&#39;s:  3
+#&amp;gt;   Poaceae / family / 4479
+#&amp;gt;   Poa / genus / 4544
+#&amp;gt;   Poa annua / species / 93036
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can remove taxa like the following, combining criteria targeting ranks, taxonomic names, or IDs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ex_hierarchy1 %&amp;gt;% pop(ranks(&amp;quot;family&amp;quot;), ids(4544))
+#&amp;gt; &amp;lt;Hierarchy&amp;gt;
+#&amp;gt;   no. taxon&#39;s:  1
+#&amp;gt;   Poa annua / species / 93036
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;An example &lt;code&gt;taxmap&lt;/code&gt; class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ex_taxmap
+#&amp;gt; &amp;lt;Taxmap&amp;gt;
+#&amp;gt;   17 taxa: b. Mammalia ... q. lycopersicum, r. tuberosum
+#&amp;gt;   17 edges: NA-&amp;gt;b, NA-&amp;gt;c, b-&amp;gt;d ... j-&amp;gt;o, k-&amp;gt;p, l-&amp;gt;q, l-&amp;gt;r
+#&amp;gt;   4 data sets:
+#&amp;gt;     info:
+#&amp;gt;       # A tibble: 6 x 4
+#&amp;gt;           name n_legs dangerous taxon_id
+#&amp;gt;         &amp;lt;fctr&amp;gt;  &amp;lt;dbl&amp;gt;     &amp;lt;lgl&amp;gt;    &amp;lt;chr&amp;gt;
+#&amp;gt;       1  tiger      4      TRUE        m
+#&amp;gt;       2    cat      4     FALSE        n
+#&amp;gt;       3   mole      4     FALSE        o
+#&amp;gt;       # ... with 3 more rows
+#&amp;gt;     phylopic_ids:  e148eabb-f138-43c6-b1e4-5cda2180485a ... 63604565-0406-460b-8cb8-1abe954b3f3a
+#&amp;gt;     foods: a list with 6 items
+#&amp;gt;     And 1 more data sets: abund
+#&amp;gt;   1 functions:
+#&amp;gt;  reaction
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here, filter by taxonomic names to those starting with the letter &lt;code&gt;t&lt;/code&gt; (notice the taxa, edgelist, and datasets have changed)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;filter_taxa(ex_taxmap, startsWith(taxon_names, &amp;quot;t&amp;quot;))
+#&amp;gt; &amp;lt;Taxmap&amp;gt;
+#&amp;gt;   3 taxa: m. tigris, o. typhlops, r. tuberosum
+#&amp;gt;   3 edges: NA-&amp;gt;m, NA-&amp;gt;o, NA-&amp;gt;r
+#&amp;gt;   4 data sets:
+#&amp;gt;     info:
+#&amp;gt;       # A tibble: 3 x 4
+#&amp;gt;           name n_legs dangerous taxon_id
+#&amp;gt;         &amp;lt;fctr&amp;gt;  &amp;lt;dbl&amp;gt;     &amp;lt;lgl&amp;gt;    &amp;lt;chr&amp;gt;
+#&amp;gt;       1  tiger      4      TRUE        m
+#&amp;gt;       2   mole      4     FALSE        o
+#&amp;gt;       3 potato      0     FALSE        r
+#&amp;gt;     phylopic_ids:  e148eabb-f138-43c6-b1e4-5cda2180485a ... 63604565-0406-460b-8cb8-1abe954b3f3a
+#&amp;gt;     foods: a list with 3 items
+#&amp;gt;     And 1 more data sets: abund
+#&amp;gt;   1 functions:
+#&amp;gt;  reaction
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;wikitaxa&#34;&gt;wikitaxa&lt;/h2&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/wikitaxa/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/wikitaxa&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;wikitaxa&lt;/code&gt; is a client that allows you to get taxonomic data from four different Wiki-* sites:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Wikipedia&lt;/li&gt;
+&lt;li&gt;Wikispecies&lt;/li&gt;
+&lt;li&gt;Wikidata&lt;/li&gt;
+&lt;li&gt;Wikicommons&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Only Wikispecies is focused on taxonomy - for the others you could use &lt;code&gt;wikitaxa&lt;/code&gt; to do any searches, but we look for and parse out taxonomic specific items in the wiki objects that are returned.&lt;/p&gt;
+
+&lt;p&gt;We released a new version (&lt;code&gt;v0.1.4&lt;/code&gt;) earlier this year. Big thanks to &lt;a href=&#34;https://github.com/ezwelty&#34;&gt;Ethan Welty&lt;/a&gt; for help on this package.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;wikitaxa&lt;/code&gt; is used in &lt;code&gt;taxize&lt;/code&gt; to get Wiki* data.&lt;/p&gt;
+
+&lt;h3 id=&#34;example-3&#34;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;A quick example of the power of &lt;code&gt;wikitaxa&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;wikitaxa&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;wikitaxa&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Search for &lt;em&gt;Malus domestica&lt;/em&gt; (apple):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;res &amp;lt;- wt_wikispecies(name = &amp;quot;Malus domestica&amp;quot;)
+# links to language sites for the taxon
+res$langlinks
+#&amp;gt; # A tibble: 12 x 5
+#&amp;gt;     lang                                                   url    langname
+#&amp;gt;  * &amp;lt;chr&amp;gt;                                                 &amp;lt;chr&amp;gt;       &amp;lt;chr&amp;gt;
+#&amp;gt;  1   ast        https://ast.wikipedia.org/wiki/Malus_domestica    Asturian
+#&amp;gt;  2    es         https://es.wikipedia.org/wiki/Malus_domestica     Spanish
+#&amp;gt;  3    hu              https://hu.wikipedia.org/wiki/Nemes_alma   Hungarian
+#&amp;gt;  4    ia         https://ia.wikipedia.org/wiki/Malus_domestica Interlingua
+#&amp;gt;  5    it         https://it.wikipedia.org/wiki/Malus_domestica     Italian
+#&amp;gt;  6   nds              https://nds.wikipedia.org/wiki/Huusappel  Low German
+#&amp;gt;  7    nl           https://nl.wikipedia.org/wiki/Appel_(plant)       Dutch
+#&amp;gt;  8    pl https://pl.wikipedia.org/wiki/Jab%C5%82o%C5%84_domowa      Polish
+#&amp;gt;  9   pms        https://pms.wikipedia.org/wiki/Malus_domestica Piedmontese
+#&amp;gt; 10    pt         https://pt.wikipedia.org/wiki/Malus_domestica  Portuguese
+#&amp;gt; 11    sk https://sk.wikipedia.org/wiki/Jablo%C5%88_dom%C3%A1ca      Slovak
+#&amp;gt; 12    vi         https://vi.wikipedia.org/wiki/Malus_domestica  Vietnamese
+#&amp;gt; # ... with 2 more variables: autonym &amp;lt;chr&amp;gt;, `*` &amp;lt;chr&amp;gt;
+# any external links on the page
+res$externallinks
+#&amp;gt; [1] &amp;quot;https://web.archive.org/web/20090115062704/http://www.ars-grin.gov/cgi-bin/npgs/html/taxon.pl?104681&amp;quot;
+# any common names, and the language they are from
+res$common_names
+#&amp;gt; # A tibble: 19 x 2
+#&amp;gt;               name   language
+#&amp;gt;              &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;
+#&amp;gt;  1          Ябълка  български
+#&amp;gt;  2    Poma, pomera     català
+#&amp;gt;  3           Apfel    Deutsch
+#&amp;gt;  4     Aed-õunapuu      eesti
+#&amp;gt;  5           Μηλιά   Ελληνικά
+#&amp;gt;  6           Apple    English
+#&amp;gt;  7         Manzano    español
+#&amp;gt;  8           Pomme   français
+#&amp;gt;  9           Melâr     furlan
+#&amp;gt; 10        사과나무     한국어
+#&amp;gt; 11          ‘Āpala    Hawaiʻi
+#&amp;gt; 12            Melo   italiano
+#&amp;gt; 13           Aapel Nordfriisk
+#&amp;gt; 14  Maçã, Macieira  português
+#&amp;gt; 15 Яблоня домашняя    русский
+#&amp;gt; 16   Tarhaomenapuu      suomi
+#&amp;gt; 17            Elma     Türkçe
+#&amp;gt; 18  Яблуня домашня українська
+#&amp;gt; 19          Pomaro     vèneto
+# the taxonomic hierarchy - or classification
+res$classification
+#&amp;gt; # A tibble: 8 x 2
+#&amp;gt;          rank          name
+#&amp;gt;         &amp;lt;chr&amp;gt;         &amp;lt;chr&amp;gt;
+#&amp;gt; 1 Superregnum     Eukaryota
+#&amp;gt; 2      Regnum       Plantae
+#&amp;gt; 3      Cladus   Angiosperms
+#&amp;gt; 4      Cladus      Eudicots
+#&amp;gt; 5      Cladus Core eudicots
+#&amp;gt; 6      Cladus        Rosids
+#&amp;gt; 7      Cladus    Eurosids I
+#&amp;gt; 8        Ordo       Rosales
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;ritis&#34;&gt;ritis&lt;/h2&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/ritis/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/ritis&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;ritis&lt;/code&gt; is a client for ITIS (Integrated Taxonomic Information Service), part of &lt;a href=&#34;https://www.usgs.gov/&#34;&gt;USGS&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;There&amp;rsquo;s a number of different ways to get ITIS data, one of which (local SQL dump) is available in &lt;code&gt;taxizedb&lt;/code&gt;, while the others are covered in &lt;code&gt;ritis&lt;/code&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;SOLR web service &lt;a href=&#34;https://www.itis.gov/solr_documentation.html&#34;&gt;https://www.itis.gov/solr_documentation.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;RESTful web service &lt;a href=&#34;https://www.itis.gov/web_service.html&#34;&gt;https://www.itis.gov/web_service.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The functions that use the SOLR service are: &lt;code&gt;itis_search&lt;/code&gt;, &lt;code&gt;itis_facet&lt;/code&gt;, &lt;code&gt;itis_group&lt;/code&gt;, and &lt;code&gt;itis_highlight&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;All other functions interact with the RESTful web service.&lt;/p&gt;
+
+&lt;p&gt;We released a new version (&lt;code&gt;v0.5.4&lt;/code&gt;) late last year.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ritis&lt;/code&gt; is used in &lt;code&gt;taxize&lt;/code&gt; to get ITIS data.&lt;/p&gt;
+
+&lt;h3 id=&#34;example-4&#34;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;A quick example of the power of &lt;code&gt;ritis&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;ritis&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;ritis&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Search for blue oak ( &lt;em&gt;Quercus douglasii&lt;/em&gt; )&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;search_scientific(&amp;quot;Quercus douglasii&amp;quot;)
+#&amp;gt; # A tibble: 1 x 12
+#&amp;gt;         author      combinedName kingdom   tsn unitInd1 unitInd2 unitInd3
+#&amp;gt; *        &amp;lt;chr&amp;gt;             &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;    &amp;lt;lgl&amp;gt;    &amp;lt;lgl&amp;gt;    &amp;lt;lgl&amp;gt;
+#&amp;gt; 1 Hook. &amp;amp; Arn. Quercus douglasii Plantae 19322       NA       NA       NA
+#&amp;gt; # ... with 5 more variables: unitInd4 &amp;lt;lgl&amp;gt;, unitName1 &amp;lt;chr&amp;gt;,
+#&amp;gt; #   unitName2 &amp;lt;chr&amp;gt;, unitName3 &amp;lt;lgl&amp;gt;, unitName4 &amp;lt;lgl&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Get taxonomic hierarchy down from the Oak genus - that is, since it&amp;rsquo;s a genus, get all species in the Oak genus&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;res &amp;lt;- search_scientific(&amp;quot;Quercus&amp;quot;)
+hierarchy_down(res[1,]$tsn)
+#&amp;gt; # A tibble: 207 x 5
+#&amp;gt;    parentname parenttsn rankname          taxonname   tsn
+#&amp;gt;  *      &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;              &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;
+#&amp;gt;  1    Quercus     19276  Species    Quercus falcata 19277
+#&amp;gt;  2    Quercus     19276  Species     Quercus lyrata 19278
+#&amp;gt;  3    Quercus     19276  Species  Quercus michauxii 19279
+#&amp;gt;  4    Quercus     19276  Species      Quercus nigra 19280
+#&amp;gt;  5    Quercus     19276  Species  Quercus palustris 19281
+#&amp;gt;  6    Quercus     19276  Species    Quercus phellos 19282
+#&amp;gt;  7    Quercus     19276  Species Quercus virginiana 19283
+#&amp;gt;  8    Quercus     19276  Species Quercus macrocarpa 19287
+#&amp;gt;  9    Quercus     19276  Species   Quercus coccinea 19288
+#&amp;gt; 10    Quercus     19276  Species  Quercus agrifolia 19289
+#&amp;gt; # ... with 197 more rows
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;worrms&#34;&gt;worrms&lt;/h2&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/worrms/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/worrms&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;worrms&lt;/code&gt; is a client for working with data from World Register of Marine Species (WoRMS).&lt;/p&gt;
+
+&lt;p&gt;WoRMS is the most authoritative list of names of all marine species globally.&lt;/p&gt;
+
+&lt;p&gt;We released our first version (&lt;code&gt;v0.1.0&lt;/code&gt;) earlier this year.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;worrms&lt;/code&gt; is used in &lt;code&gt;taxize&lt;/code&gt; to get WoRMS data.&lt;/p&gt;
+
+&lt;h3 id=&#34;example-5&#34;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;A quick example of the power of &lt;code&gt;worrms&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;worrms&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;worrms&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Get taxonomic name synonyms for salmon ( &lt;em&gt;Oncorhynchus&lt;/em&gt; )&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;xx &amp;lt;- wm_records_name(&amp;quot;Oncorhynchus&amp;quot;, fuzzy = FALSE)
+wm_synonyms(id = xx$AphiaID)
+#&amp;gt; # A tibble: 4 x 25
+#&amp;gt;   AphiaID                                                           url
+#&amp;gt; *   &amp;lt;int&amp;gt;                                                         &amp;lt;chr&amp;gt;
+#&amp;gt; 1  296858 http://www.marinespecies.org/aphia.php?p=taxdetails&amp;amp;id=296858
+#&amp;gt; 2  397908 http://www.marinespecies.org/aphia.php?p=taxdetails&amp;amp;id=397908
+#&amp;gt; 3  397909 http://www.marinespecies.org/aphia.php?p=taxdetails&amp;amp;id=397909
+#&amp;gt; 4  297397 http://www.marinespecies.org/aphia.php?p=taxdetails&amp;amp;id=297397
+#&amp;gt; # ... with 23 more variables: scientificname &amp;lt;chr&amp;gt;, authority &amp;lt;chr&amp;gt;,
+#&amp;gt; #   status &amp;lt;chr&amp;gt;, unacceptreason &amp;lt;chr&amp;gt;, rank &amp;lt;chr&amp;gt;, valid_AphiaID &amp;lt;int&amp;gt;,
+#&amp;gt; #   valid_name &amp;lt;chr&amp;gt;, valid_authority &amp;lt;chr&amp;gt;, kingdom &amp;lt;chr&amp;gt;, phylum &amp;lt;chr&amp;gt;,
+#&amp;gt; #   class &amp;lt;chr&amp;gt;, order &amp;lt;chr&amp;gt;, family &amp;lt;chr&amp;gt;, genus &amp;lt;chr&amp;gt;, citation &amp;lt;chr&amp;gt;,
+#&amp;gt; #   lsid &amp;lt;chr&amp;gt;, isMarine &amp;lt;int&amp;gt;, isBrackish &amp;lt;lgl&amp;gt;, isFreshwater &amp;lt;lgl&amp;gt;,
+#&amp;gt; #   isTerrestrial &amp;lt;int&amp;gt;, isExtinct &amp;lt;lgl&amp;gt;, match_type &amp;lt;chr&amp;gt;, modified &amp;lt;chr&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;pegax&#34;&gt;pegax&lt;/h2&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://github.com/ropensci/pegax&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;pegax&lt;/code&gt; aims to be a powerful taxonomic name parser for R. This package started at &lt;a href=&#34;http://unconf17.ropensci.org/&#34;&gt;#runconf17&lt;/a&gt; - was made possible because the talented &lt;a href=&#34;https://github.com/Ironholds/&#34;&gt;Oliver Keyes&lt;/a&gt; created a &lt;a href=&#34;https://en.wikipedia.org/wiki/Parsing_expression_grammar&#34;&gt;Parsing Expression Grammar&lt;/a&gt; package for R: &lt;a href=&#34;https://github.com/Ironholds/piton&#34;&gt;piton&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;From &lt;code&gt;piton&lt;/code&gt; PEGs are:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;a way of defining formal grammars for formatted data that allow you to identify matched structures and then take actions on them&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Some great taxonomic name parsing does exist already. &lt;a href=&#34;https://github.com/GlobalNamesArchitecture/gnparser&#34;&gt;Global Names Parser, gnparser&lt;/a&gt; is a great effort by &lt;a href=&#34;https://github.com/dimus&#34;&gt;Dmitry Mozzherin&lt;/a&gt; and others. The only problem is Java does not play nice with R - thus &lt;code&gt;pegax&lt;/code&gt;, implementing in C++. We&amp;rsquo;ll definitely try to learn alot from the work they have done on &lt;code&gt;gnparser&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;pegax&lt;/code&gt; is not on CRAN yet.  The package is in very very early days, so expect lots of changes.&lt;/p&gt;
+
+&lt;h3 id=&#34;example-6&#34;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;A quick example of the power of &lt;code&gt;pegax&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;devtools::install_github(&amp;quot;ropenscilabs/pegax&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;pegax&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Parse out authority name&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;authority_names(&amp;quot;Linnaeus, 1758&amp;quot;)
+#&amp;gt; [1] &amp;quot;Linnaeus&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Parse out authority year&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;authority_years(&amp;quot;Linnaeus, 1758&amp;quot;)
+#&amp;gt; [1] &amp;quot;1758&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;taxonomic-adjacent-packages&#34;&gt;Taxonomic adjacent packages&lt;/h2&gt;
+
+&lt;p&gt;These packages do not primarily deal with taxonomy, but do include taxonomic data. No examples are included below, but do check out their vignettes and other documentation to get started.&lt;/p&gt;
+
+&lt;h3 id=&#34;rotl&#34;&gt;rotl&lt;/h3&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/rotl/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/rotl&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt; &lt;span class=&#34;label&#34; style=&#34;background-color:#19B698&#34;&gt;community&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;rotl&lt;/code&gt; is maintained by &lt;a href=&#34;https://github.com/fmichonneau&#34;&gt;Francois Michonneau&lt;/a&gt;, &lt;a href=&#34;https://github.com/josephwb&#34;&gt;Joseph Brown&lt;/a&gt;, and &lt;a href=&#34;https://github.com/dwinter&#34;&gt;David Winter&lt;/a&gt;, and is a package to interact with the &lt;a href=&#34;https://opentreeoflife.org/&#34;&gt;Open Tree of Life (OTL)&lt;/a&gt;. OTL main purpose is perhaps about phylogeny data, but they do have a taxonomy they maintain, and &lt;code&gt;rotl&lt;/code&gt; has functions that let you access that taxonomic data.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;rotl&lt;/code&gt; is used in &lt;code&gt;taxize&lt;/code&gt; to get OTL data.&lt;/p&gt;
+
+&lt;h3 id=&#34;rredlist&#34;&gt;rredlist&lt;/h3&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/rredlist/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/rredlist&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;rredlist&lt;/code&gt; is an interface to the &lt;a href=&#34;http://www.iucnredlist.org/&#34;&gt;IUCN Redlist of Threatened Species&lt;/a&gt;,&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;which provides taxonomic, conservation status and distribution information on plants, fungi and animals that have been globally evaluated using the IUCN Red List Categories and Criteria.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code&gt;rredlist&lt;/code&gt; is used in &lt;code&gt;taxize&lt;/code&gt; to get IUCN Redlist Taxonomy data.&lt;/p&gt;
+
+&lt;h3 id=&#34;bold&#34;&gt;bold&lt;/h3&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/bold/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/bold&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;bold&lt;/code&gt; is an interface to the &lt;a href=&#34;http://www.iucnredlist.org/&#34;&gt;IUCN Redlist of Threatened Species&lt;/a&gt;,&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;which provides taxonomic, conservation status and distribution information on plants, fungi and animals that have been globally evaluated using the IUCN Red List Categories and Criteria.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code&gt;bold&lt;/code&gt; is used in &lt;code&gt;taxize&lt;/code&gt; to get BOLD taxonomy data.&lt;/p&gt;
+
+&lt;h3 id=&#34;rgbif&#34;&gt;rgbif&lt;/h3&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/rgbif/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/rgbif&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;rgbif&lt;/code&gt; is an interface to the &lt;a href=&#34;http://www.gbif.org/&#34;&gt;Global Biodiversity Information Facility&lt;/a&gt;, the largest provider of free and open access biodiversity data.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;rgbif&lt;/code&gt; is used in &lt;code&gt;taxize&lt;/code&gt; to get GBIF taxonomy data.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Together, the rOpenSci taxonomy suite of packages make it much easier to work with taxonomy data in R. We hope you agree :)&lt;/p&gt;
+
+&lt;p&gt;Despite all of the above, we still have some things to work on:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use &lt;code&gt;taxa&lt;/code&gt; taxonomy classes where appropriate. We plan to deploy &lt;code&gt;taxa&lt;/code&gt; classes inside of the &lt;code&gt;taxize&lt;/code&gt; package very soon, but they may be appropriate elsewhere as well. Using the same classes in many packages will make working with taxonomic data more consistent across packages.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;taxizedb&lt;/code&gt; needs to be more robust. Given that the package not only touches your file system, and for some databases depends on different SQL databases, we likely will run into many problems with various operating system + database combinations. Please do kick the tires and get back to us!&lt;/li&gt;
+&lt;li&gt;Once &lt;code&gt;pegax&lt;/code&gt; is ready for use, we&amp;rsquo;ll be able to use it in many packages whenever we need to parse taxonomic names.&lt;/li&gt;
+&lt;li&gt;They&amp;rsquo;ll always be more data sources that we can potentially add to &lt;code&gt;taxize&lt;/code&gt; - get in touch and let us know.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;What do you think about the taxonomic suite of packages?  Anything we&amp;rsquo;re missing? Anything we can be doing better with any of the packages?  Are you working on a taxonomic R package? Consider &lt;a href=&#34;https://github.com/ropensci/onboarding&#34;&gt;submitting to rOpenSci&lt;/a&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>taxize v0.3.0 update - a new data source, taxonomy in writing, and uBio examples</title>
+      <link>https://ropensci.org/blog/2014/05/20/taxize_v03/</link>
+      <pubDate>Tue, 20 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2014/05/20/taxize_v03/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;We just released &lt;code&gt;v0.3&lt;/code&gt; of &lt;code&gt;taxize&lt;/code&gt;. For details on the update, see the &lt;a href=&#34;https://github.com/ropensci/taxize/releases/tag/v0.3.0&#34;&gt;release notes&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;some-new-features&#34;&gt;Some new features&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;New function &lt;code&gt;iplant_resolve()&lt;/code&gt; to do name resolution using the iPlant name resolution service. Note, this is different from &lt;a href=&#34;http://taxosaurus.org/&#34;&gt;http://taxosaurus.org/&lt;/a&gt; that is wrapped in the &lt;code&gt;tnrs()&lt;/code&gt; function.&lt;/li&gt;
+&lt;li&gt;New function &lt;code&gt;ipni_search()&lt;/code&gt; to search for names in the International Plant Names Index (IPNI). See below for more.&lt;/li&gt;
+&lt;li&gt;New function &lt;code&gt;resolve()&lt;/code&gt; that unifies name resolution services from iPlant&amp;rsquo;s name resolution service (via &lt;code&gt;iplant_resolve()&lt;/code&gt;), Taxosaurus&amp;rsquo; TNRS (via &lt;code&gt;tnrs()&lt;/code&gt;), and GNR&amp;rsquo;s name resolution service (via &lt;code&gt;gnr_resolve()&lt;/code&gt;).&lt;/li&gt;
+&lt;li&gt;All &lt;code&gt;get_&lt;/code&gt; functions now returning a new &lt;em&gt;uri&lt;/em&gt; attribute that is a link to the taxon on the web. If NA is given back (e.g. nothing found), the uri attribute is blank. You can go directly to the uri in your default browser by doing, for example: &lt;code&gt;browseURL(attr(result, &amp;quot;uri&amp;quot;))&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;updating-to-v0-3&#34;&gt;Updating to v0.3&lt;/h2&gt;
+
+&lt;p&gt;Since &lt;code&gt;taxize&lt;/code&gt; is not updated to &lt;code&gt;v0.3&lt;/code&gt; on CRAN yet at the time of writing this, install &lt;code&gt;taxize&lt;/code&gt; from GitHub:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;devtools::install_github(&amp;quot;ropensci/taxize&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then load &lt;code&gt;taxize&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;taxize&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;international-plant-names-index-ipni&#34;&gt;International Plant Names Index (IPNI)&lt;/h2&gt;
+
+&lt;p&gt;We added the IPNI as a new data source in &lt;code&gt;taxize&lt;/code&gt; in &lt;code&gt;v0.3&lt;/code&gt;. Currently, there is only one function to interact with IPNI: &lt;code&gt;ipni_search()&lt;/code&gt;. What follows are a few examples of how you can use &lt;code&gt;ipni_search()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Search for the genus &lt;em&gt;Brintonia&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ipni_search(genus=&#39;Brintonia&#39;)[,c(1:3)]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##         id version     family
+## 1   7996-1     1.3 Asteraceae
+## 2 296073-2     1.3 Asteraceae
+## 3  36551-2     1.3 Asteraceae
+## 4 186337-1     1.3 Asteraceae
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Search for the species &lt;em&gt;Pinus contorta&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(ipni_search(genus=&#39;Pinus&#39;, species=&#39;contorta&#39;)[,c(1:3)])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##           id     version   family
+## 1   262873-1 1.1.2.1.1.2 Pinaceae
+## 2   262872-1 1.2.2.1.1.1 Pinaceae
+## 3 30000492-2     1.1.2.1 Pinaceae
+## 4   196950-2         1.4 Pinaceae
+## 5   921291-1         1.4 Pinaceae
+## 6   196949-2         1.5 Pinaceae
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Different output formats (the default is &lt;em&gt;minimal&lt;/em&gt;)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(ipni_search(genus=&#39;Ceanothus&#39;)[,c(1:3)])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##           id     version     family
+## 1    55268-3         1.1 Rhamnaceae
+## 2 30006383-2 1.1.2.1.1.3 Rhamnaceae
+## 3    55269-3         1.1 Rhamnaceae
+## 4    33421-1         1.5 Rhamnaceae
+## 5 60461578-2         1.1 Rhamnaceae
+## 6   331948-2         1.4 Rhamnaceae
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(ipni_search(genus=&#39;Ceanothus&#39;, output=&#39;extended&#39;))[,c(1:3)]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##           id     version     family
+## 1    55269-3         1.1 Rhamnaceae
+## 2    33421-1         1.5 Rhamnaceae
+## 3    55268-3         1.1 Rhamnaceae
+## 4 30006383-2 1.1.2.1.1.3 Rhamnaceae
+## 5 60461578-2         1.1 Rhamnaceae
+## 6   331948-2         1.4 Rhamnaceae
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you do something wrong, you get a message, and the actual output is &lt;code&gt;NA&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ipni_search(genus=&#39;Brintoniaasasf&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Warning: No data found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] NA
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;ubio-examples&#34;&gt;uBio examples&lt;/h2&gt;
+
+&lt;p&gt;Until now, we have had functions to interact with uBio&amp;rsquo;s API, but it probably hasn&amp;rsquo;t been too clear how to use them, and they were a little buggy for sure. We have squashed many bugs in ubio functions. Here is an example workflow of how to use ubio functions.&lt;/p&gt;
+
+&lt;h3 id=&#34;ubio-search&#34;&gt;ubio_search&lt;/h3&gt;
+
+&lt;p&gt;Search uBio by taxonomic name. This is sort of the entry point for uBio where you can search by taxonomic name, from which  you can get namebankID&amp;rsquo;s that can be passed to the &lt;code&gt;ubio_classification_search&lt;/code&gt; and &lt;code&gt;ubio_namebankID&lt;/code&gt; functions&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;lapply(ubio_search(searchName = &#39;elephant&#39;), head)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## $scientific
+##   namebankid       namestring   fullnamestring packageid packagename
+## 1    6938660 Cerylon elephant Cerylon elephant        80 Cerylonidae
+##   basionymunit rankid rankname
+## 1      6938660     24  species
+##
+## $vernacular
+##   namebankid    namestring languagecode    languagename packageid
+## 1    8118711 Elephant fish          115 Creole, English         3
+## 2    8118714 Elephant fish          115 Creole, English         3
+## 3    8118726 Elephant fish          115 Creole, English         3
+## 4    8115700 Elephant fish          115 Creole, English         3
+## 5    8115663 Elephant fish          115 Creole, English         3
+## 6    8114377 Elephant fish          115 Creole, English      2463
+##   packagename namebankidlink   namestringlink
+## 1      Pisces         132263 Mormyrus tapirus
+## 2      Pisces         132258 Mormyrus tapirus
+## 3      Pisces         181174 Mormyrus tapirus
+## 4      Pisces         128971 Mormyrus tapirus
+## 5      Pisces         128972 Mormyrus tapirus
+## 6  Mormyridae        2299821 Mormyrus tapirus
+##                  fullnamestringlink
+## 1 Mormyrus tapirus Pappenheim, 1905
+## 2 Mormyrus tapirus Pappenheim, 1905
+## 3 Mormyrus tapirus Pappenheim, 1905
+## 4 Mormyrus tapirus Pappenheim, 1905
+## 5 Mormyrus tapirus Pappenheim, 1905
+## 6 Mormyrus tapirus Pappenheim, 1905
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;id &amp;lt;- ubio_search(searchName = &#39;elephant&#39;)$scientific$namebankid[1]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error: CHAR() can only be applied to a &#39;CHARSXP&#39;, not a &#39;NULL&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;ubio-id&#34;&gt;ubio_id&lt;/h3&gt;
+
+&lt;p&gt;Get data on a specific uBio &lt;code&gt;namebankID&lt;/code&gt;. Use the id from the previous code block&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ubio_id(namebankID = id)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## $data
+##   namebankid       namestring   fullnamestring packageid packagename
+## 1    6938660 Cerylon elephant Cerylon elephant        80 Cerylonidae
+##   basionymunit rankid rankname
+## 1      6938660     24  Species
+##
+## $synonyms
+## NULL
+##
+## $vernaculars
+## NULL
+##
+## $cites
+## NULL
+##
+## $mappings
+## NULL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;ubio-classification-search&#34;&gt;ubio_classification_search&lt;/h3&gt;
+
+&lt;p&gt;Return &lt;code&gt;hierarchiesID&lt;/code&gt; that refer to the given &lt;code&gt;namebankID&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ubio_classification_search(namebankID = 3070378)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##   hierarchiesid classificationtitleid              classificationtitle
+## 1       2477072                    84                    NCBI Taxonomy
+## 2      11166818                   100                    NCBI Taxonomy
+## 3      17950600                   104 uBiota 2008-03-20T10:36:50-04:00
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;ubio-classification&#34;&gt;ubio_classification&lt;/h3&gt;
+
+&lt;p&gt;Return all ClassificationBank data pertaining to a particular &lt;code&gt;hierarchiesID&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ubio_classification(hierarchiesID = 2483153)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error: XML content does not seem to be XML: &#39;&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;ubio-synonyms&#34;&gt;ubio_synonyms&lt;/h3&gt;
+
+&lt;p&gt;Search for taxonomic synonyms by &lt;code&gt;hierarchiesID&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ubio_synonyms(hierarchiesID = 4091702)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Error: invalid subscript type &#39;list&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;examples-of-using-taxize-in-writing&#34;&gt;Examples of using taxize in writing&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;rsquo;s say one is writing a paragraph in which you are using taxonomic or common names, and perhaps you want to have the number of taxa in a particular group. You can write a paragaph like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;I studied the common weed species _Tragopogon dubius_ (`r sci2comm(&#39;Tragopogon dubius&#39;, db=&#39;itis&#39;)[[1]][1]`; `r tax_name(query = &amp;quot;Tragopogon dubius&amp;quot;, get = &amp;quot;family&amp;quot;, db = &amp;quot;ncbi&amp;quot;)[[1]]`) and _Cirsium arvense_ (`r sci2comm(&#39;Cirsium arvense&#39;, db=&#39;itis&#39;)[[1]][1]`; `r tax_name(query = &amp;quot;Cirsium arvense&amp;quot;, get = &amp;quot;family&amp;quot;, db = &amp;quot;ncbi&amp;quot;)[[1]]`).
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Which renders to:&lt;/p&gt;
+
+&lt;p&gt;I studied the common weed species &lt;em&gt;Tragopogon dubius&lt;/em&gt; (yellow salsify; Asteraceae) and &lt;em&gt;Cirsium arvense&lt;/em&gt; (Canada thistle; Asteraceae).&lt;/p&gt;
+
+&lt;p&gt;Notice how inside backticks you can execute code by starting with an &lt;em&gt;r&lt;/em&gt;, then doing something like searching for common names for a taxon.&lt;/p&gt;
+
+&lt;h3 id=&#34;another-example&#34;&gt;Another example:&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;We found that `r sci2comm(&#39;Tragopogon dubius&#39;, db=&#39;itis&#39;)[[1]][1]` was very invasive.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Renders to:&lt;/p&gt;
+
+&lt;p&gt;We found that yellow salsify was very invasive.&lt;/p&gt;
+
+&lt;h3 id=&#34;another-example-1&#34;&gt;Another example:&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;There are `r nrow(downstream(&#39;Tragopogon&#39;, db = &amp;quot;col&amp;quot;, downto = &amp;quot;Species&amp;quot;)$Tragopogon)` species (source: Catalogue of Life) in the _Tragopogon_ genus, meaning there is much more to study :)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Renders to:&lt;/p&gt;
+
+&lt;p&gt;There are 142 species (source: Catalogue of Life) in the &lt;em&gt;Tragopogon&lt;/em&gt; genus, meaning there is much more to study :)&lt;/p&gt;
+
+&lt;h2 id=&#34;el-fin&#34;&gt;el fin&lt;/h2&gt;
+
+&lt;p&gt;Please do update to &lt;code&gt;v0.3&lt;/code&gt;, try it out, report bugs, and get back to us with any questions!&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>New features in the most recent taxize update, v0.2</title>
+      <link>https://ropensci.org/blog/2014/02/19/taxize-update/</link>
+      <pubDate>Wed, 19 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2014/02/19/taxize-update/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;We just released a new version of &lt;code&gt;taxize&lt;/code&gt; - version 0.2.0. This release contains a number of new features, and bug fixes. Here is a run down of some of the changes:&lt;/p&gt;
+
+&lt;h2 id=&#34;first-install-and-load-taxize&#34;&gt;First, install and load taxize&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;rgbif&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(taxize)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;new-things&#34;&gt;New things&lt;/h2&gt;
+
+&lt;h3 id=&#34;new-functions-class2tree&#34;&gt;New functions: class2tree&lt;/h3&gt;
+
+&lt;p&gt;Sometimes you just want to have a visual of the taxonomic relationships among taxa. If you don&amp;rsquo;t know how to build a molecular phylogeny, don&amp;rsquo;t have time, or there just isn&amp;rsquo;t molecular data, you can sorta build one using taxonomy. Building on our &lt;code&gt;classification&lt;/code&gt; function, you can get a bunch of taxonomic hierarchies from the &lt;code&gt;classification&lt;/code&gt; function, then pass them to the new function &lt;code&gt;class2tree&lt;/code&gt;. Like so:&lt;/p&gt;
+
+&lt;p&gt;Define a species list&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;spnames &amp;lt;- c(&amp;quot;Latania lontaroides&amp;quot;, &amp;quot;Randia cubana&amp;quot;, &amp;quot;Blumea brevipes&amp;quot;, &amp;quot;Commelina erecta&amp;quot;,
+    &amp;quot;Miconia pyramidalis&amp;quot;, &amp;quot;Aquilegia moorcroftiana&amp;quot;, &amp;quot;Acridocarpus austrocaledonicus&amp;quot;,
+    &amp;quot;Vaccinium wrightii&amp;quot;, &amp;quot;Riocreuxia flanaganii&amp;quot;, &amp;quot;Macroditassa adnata&amp;quot;, &amp;quot;Acianthera ochreata&amp;quot;,
+    &amp;quot;Spathodea campanulata&amp;quot;, &amp;quot;Leucadendron salicifolium&amp;quot;, &amp;quot;Habenaria fluminensis&amp;quot;,
+    &amp;quot;Platostoma siamense&amp;quot;, &amp;quot;Bulbophyllum hoehnei&amp;quot;, &amp;quot;Aspidosperma polyneuron&amp;quot;,
+    &amp;quot;Rhynchospora fascicularis&amp;quot;, &amp;quot;Sida lonchitis&amp;quot;, &amp;quot;Ardisia cymosa&amp;quot;, &amp;quot;Morinda brachycalyx&amp;quot;,
+    &amp;quot;Tetrastigma hypoglaucum&amp;quot;, &amp;quot;Paphiopedilum vietnamense&amp;quot;, &amp;quot;Goodenia glabra&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then collect taxonomic hierarchies for each taxon, and remove those with no results (those with no results are just &lt;code&gt;NA&lt;/code&gt;) (I&amp;rsquo;m setting &lt;code&gt;verbose=TRUE&lt;/code&gt; to suppress messages for this example)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;out &amp;lt;- classification(spnames, db = &amp;quot;ncbi&amp;quot;, verbose = FALSE)
+out &amp;lt;- out[!is.na(out)]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Use &lt;code&gt;class2tree&lt;/code&gt; to automagically convert the list of hierarchies to a ape &lt;code&gt;phylo&lt;/code&gt; object, then plot&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;tr &amp;lt;- class2tree(out)
+plot(tr, no.margin = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2014-02-19-taxize-update/unnamed-chunk-5.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;new-functions-get-gbfid&#34;&gt;New functions: get_gbfid&lt;/h3&gt;
+
+&lt;p&gt;The Global Biodiversity Information Facility (GBIF) has their own taxonomy. They allow programmatic access to their taxonomy, see &lt;a href=&#34;http://www.gbif.org/developer/summary&#34;&gt;here&lt;/a&gt; for details. Also see our &lt;a href=&#34;https://github.com/ropensci/rgbif&#34;&gt;&lt;code&gt;rgbif&lt;/code&gt; package&lt;/a&gt; that wraps all their API services.&lt;/p&gt;
+
+&lt;p&gt;We added a similar function to our &lt;code&gt;get_tsn&lt;/code&gt;, &lt;code&gt;get_uid&lt;/code&gt;, etc. functions for various taxonomies, but for the GBIF taxonomy. Here are some example calls:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_gbifid(sciname = &amp;quot;Poa annua&amp;quot;, verbose = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##         1
+## &amp;quot;2704179&amp;quot;
+## attr(,&amp;quot;class&amp;quot;)
+## [1] &amp;quot;gbifid&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_gbifid(sciname = &amp;quot;Pinus contorta&amp;quot;, verbose = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##         1
+## &amp;quot;5285750&amp;quot;
+## attr(,&amp;quot;class&amp;quot;)
+## [1] &amp;quot;gbifid&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_gbifid(sciname = &amp;quot;Puma concolor&amp;quot;, verbose = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##         1
+## &amp;quot;2435099&amp;quot;
+## attr(,&amp;quot;class&amp;quot;)
+## [1] &amp;quot;gbifid&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_gbifid(c(&amp;quot;Poa annua&amp;quot;, &amp;quot;Pinus contorta&amp;quot;), verbose = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;2704179&amp;quot; &amp;quot;5285750&amp;quot;
+## attr(,&amp;quot;class&amp;quot;)
+## [1] &amp;quot;gbifid&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This could be useful if you for example, want to have the exact IDs GBIF uses for your set of species to use at some later point - and at that later point you could use our &lt;code&gt;rgbif&lt;/code&gt; package and search for biodiversity occurrence data with the IDs you collected. For example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(rgbif)
+(id &amp;lt;- get_gbifid(sciname = &amp;quot;Puma concolor&amp;quot;, verbose = FALSE))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##         1
+## &amp;quot;2435099&amp;quot;
+## attr(,&amp;quot;class&amp;quot;)
+## [1] &amp;quot;gbifid&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;occ_search(id)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## $meta
+## $meta$offset
+## [1] 0
+##
+## $meta$limit
+## [1] 20
+##
+## $meta$endOfRecords
+## [1] FALSE
+##
+## $meta$count
+## [1] 8392
+##
+##
+## $hierarchy
+## $hierarchy[[1]]
+##            name     key    rank
+## 1      Animalia       1 kingdom
+## 2      Chordata      44  phylum
+## 3      Mammalia     359   clazz
+## 4     Carnivora     732   order
+## 5       Felidae    9703  family
+## 6          Puma 2435098   genus
+## 7 Puma concolor 2435099 species
+##
+##
+## $data
+##             name       key longitude latitude
+## 1  Puma concolor 866527350   -110.58    31.85
+## 2  Puma concolor 866545169   -103.60    29.16
+## 3  Puma concolor 866495627   -106.39    35.13
+## 4  Puma concolor 866498665    -89.43    20.31
+## 5  Puma concolor 866508658   -105.04    19.47
+## 6  Puma concolor 866523280   -118.24    34.06
+## 7  Puma concolor 866526517   -104.45    29.92
+## 8  Puma concolor 866530535   -118.30    34.07
+## 9  Puma concolor 860790696    -77.35     2.77
+## 10 Puma concolor        NA        NA       NA
+## 11 Puma concolor        NA        NA       NA
+## 12 Puma concolor        NA        NA       NA
+## 13 Puma concolor 866525528   -123.83    40.13
+## 14 Puma concolor 866531329   -123.83    40.13
+## 15 Puma concolor 866519497   -118.90    34.54
+## 16 Puma concolor 866601452   -122.52    38.45
+## 17 Puma concolor 866547065   -110.30    41.88
+## 18 Puma concolor 866562541   -123.83    40.13
+## 19 Puma concolor 866562081   -123.82    40.13
+## 20 Puma concolor 866558112   -103.13    29.65
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In addition, &lt;code&gt;get_ids&lt;/code&gt; now accepts &amp;lsquo;gbif&amp;rsquo; as an option for the &lt;code&gt;db&lt;/code&gt; parameter - &lt;code&gt;get_ids&lt;/code&gt; is our omnibus function to search for taxon ids across all sources available in &lt;code&gt;taxize&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;new-functions-rbind-and-cbind-for-classification&#34;&gt;New functions: rbind and cbind for classification&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;classification&lt;/code&gt; function gives back taxonomic hierarchies from a variety of sources, including NCBI, ITIS, Catalogue of Life, Tropicos, EOL, and now GBIF. If you pass in many taxonomic IDs or taxon names, you get back a list of hierarchies. We added two functions to make it convenient to mash these outputs together, &lt;code&gt;rbind&lt;/code&gt; for basically stacking hierarchies on top of one another, and &lt;code&gt;cbind&lt;/code&gt; for making a width-wise combination of hierarchies. Our &lt;code&gt;cbind&lt;/code&gt; doesn&amp;rsquo;t do exactly what your used to cbind doing for data.frame&amp;rsquo;s. The examples below are based on some changed code since the newest CRAN version, but you can install the development version with the changes from Github (see &lt;a href=&#34;https://github.com/ropensci/taxize#install-taxize&#34;&gt;here&lt;/a&gt; for instructions).&lt;/p&gt;
+
+&lt;p&gt;From a call to &lt;code&gt;get_ids&lt;/code&gt;, then passed on to &lt;code&gt;classification&lt;/code&gt;, we get a object of class &lt;code&gt;classification_ids&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;(out &amp;lt;- get_ids(names = &amp;quot;Puma concolor&amp;quot;, db = c(&amp;quot;ncbi&amp;quot;, &amp;quot;gbif&amp;quot;), verbose = FALSE))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## $ncbi
+## Puma concolor
+##        &amp;quot;9696&amp;quot;
+## attr(,&amp;quot;match&amp;quot;)
+## [1] &amp;quot;found&amp;quot;
+## attr(,&amp;quot;class&amp;quot;)
+## [1] &amp;quot;uid&amp;quot;
+##
+## $gbif
+## Puma concolor
+##     &amp;quot;2435099&amp;quot;
+## attr(,&amp;quot;class&amp;quot;)
+## [1] &amp;quot;gbifid&amp;quot;
+##
+## attr(,&amp;quot;class&amp;quot;)
+## [1] &amp;quot;ids&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;(cl &amp;lt;- classification(out, verbose = FALSE))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## $ncbi
+## $`9696`
+##                    name         rank
+## 1    cellular organisms      no rank
+## 2             Eukaryota superkingdom
+## 3          Opisthokonta      no rank
+## 4               Metazoa      kingdom
+## 5             Eumetazoa      no rank
+## 6             Bilateria      no rank
+## 7         Deuterostomia      no rank
+## 8              Chordata       phylum
+## 9              Craniata    subphylum
+## 10           Vertebrata      no rank
+## 11        Gnathostomata   superclass
+## 12           Teleostomi      no rank
+## 13         Euteleostomi      no rank
+## 14        Sarcopterygii      no rank
+## 15 Dipnotetrapodomorpha      no rank
+## 16            Tetrapoda      no rank
+## 17              Amniota      no rank
+## 18             Mammalia        class
+## 19               Theria      no rank
+## 20             Eutheria      no rank
+## 21        Boreoeutheria      no rank
+## 22       Laurasiatheria   superorder
+## 23            Carnivora        order
+## 24           Feliformia     suborder
+## 25              Felidae       family
+## 26              Felinae    subfamily
+## 27                 Puma        genus
+## 28        Puma concolor      species
+##
+## attr(,&amp;quot;class&amp;quot;)
+## [1] &amp;quot;classification&amp;quot;
+## attr(,&amp;quot;db&amp;quot;)
+## [1] &amp;quot;ncbi&amp;quot;
+##
+## $gbif
+## $`2435099`
+##            name    rank
+## 1      Animalia kingdom
+## 2      Chordata  phylum
+## 3      Mammalia   clazz
+## 4     Carnivora   order
+## 5       Felidae  family
+## 6          Puma   genus
+## 7 Puma concolor species
+##
+## attr(,&amp;quot;class&amp;quot;)
+## [1] &amp;quot;classification&amp;quot;
+##
+## attr(,&amp;quot;class&amp;quot;)
+## [1] &amp;quot;classification_ids&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can bind width-wise&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;cbind(cl)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##              no rank superkingdom  kingdom   phylum subphylum
+## 1 cellular organisms    Eukaryota  Metazoa Chordata  Craniata
+## 2               &amp;lt;NA&amp;gt;         &amp;lt;NA&amp;gt; Animalia Chordata      &amp;lt;NA&amp;gt;
+##      superclass    class     superorder     order   suborder  family
+## 1 Gnathostomata Mammalia Laurasiatheria Carnivora Feliformia Felidae
+## 2          &amp;lt;NA&amp;gt;     &amp;lt;NA&amp;gt;           &amp;lt;NA&amp;gt; Carnivora       &amp;lt;NA&amp;gt; Felidae
+##   subfamily genus       species    clazz
+## 1   Felinae  Puma Puma concolor     &amp;lt;NA&amp;gt;
+## 2      &amp;lt;NA&amp;gt;  Puma Puma concolor Mammalia
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or bind length-wise&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;rbind(cl)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##    source taxonid                 name         rank
+## 1    ncbi    9696   cellular organisms      no rank
+## 2    ncbi    9696            Eukaryota superkingdom
+## 3    ncbi    9696         Opisthokonta      no rank
+## 4    ncbi    9696              Metazoa      kingdom
+## 5    ncbi    9696            Eumetazoa      no rank
+## 6    ncbi    9696            Bilateria      no rank
+## 7    ncbi    9696        Deuterostomia      no rank
+## 8    ncbi    9696             Chordata       phylum
+## 9    ncbi    9696             Craniata    subphylum
+## 10   ncbi    9696           Vertebrata      no rank
+## 11   ncbi    9696        Gnathostomata   superclass
+## 12   ncbi    9696           Teleostomi      no rank
+## 13   ncbi    9696         Euteleostomi      no rank
+## 14   ncbi    9696        Sarcopterygii      no rank
+## 15   ncbi    9696 Dipnotetrapodomorpha      no rank
+## 16   ncbi    9696            Tetrapoda      no rank
+## 17   ncbi    9696              Amniota      no rank
+## 18   ncbi    9696             Mammalia        class
+## 19   ncbi    9696               Theria      no rank
+## 20   ncbi    9696             Eutheria      no rank
+## 21   ncbi    9696        Boreoeutheria      no rank
+## 22   ncbi    9696       Laurasiatheria   superorder
+## 23   ncbi    9696            Carnivora        order
+## 24   ncbi    9696           Feliformia     suborder
+## 25   ncbi    9696              Felidae       family
+## 26   ncbi    9696              Felinae    subfamily
+## 27   ncbi    9696                 Puma        genus
+## 28   ncbi    9696        Puma concolor      species
+## 29   gbif 2435099             Animalia      kingdom
+## 30   gbif 2435099             Chordata       phylum
+## 31   gbif 2435099             Mammalia        clazz
+## 32   gbif 2435099            Carnivora        order
+## 33   gbif 2435099              Felidae       family
+## 34   gbif 2435099                 Puma        genus
+## 35   gbif 2435099        Puma concolor      species
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or we can do the same thing on the class &lt;code&gt;classification&lt;/code&gt; that we get back from a call to one of &lt;code&gt;get_colid&lt;/code&gt;, &lt;code&gt;get_tsn&lt;/code&gt;, &lt;code&gt;get_eolid&lt;/code&gt;, &lt;code&gt;get_tpsid&lt;/code&gt;, &lt;code&gt;get_gbifid&lt;/code&gt;, or &lt;code&gt;get_uid&lt;/code&gt;, that&amp;rsquo;s then passed on to &lt;code&gt;classification&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;cl_col &amp;lt;- classification(get_colid(c(&amp;quot;Puma concolor&amp;quot;, &amp;quot;Accipiter striatus&amp;quot;),
+    verbose = FALSE))
+rbind(cl_col)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##    source  taxonid            name    rank
+## 1     col  6862841        Animalia Kingdom
+## 2     col  6862841        Chordata  Phylum
+## 3     col  6862841        Mammalia   Class
+## 4     col  6862841       Carnivora   Order
+## 5     col  6862841         Felidae  Family
+## 6     col  6862841            Puma   Genus
+## 7     col 11909487        Animalia Kingdom
+## 8     col 11909487        Chordata  Phylum
+## 9     col 11909487            Aves   Class
+## 10    col 11909487 Accipitriformes   Order
+## 11    col 11909487    Accipitridae  Family
+## 12    col 11909487       Accipiter   Genus
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;cbind(cl_col)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##    kingdom   phylum    class           order       family     genus
+## 1 Animalia Chordata Mammalia       Carnivora      Felidae      Puma
+## 2 Animalia Chordata     Aves Accipitriformes Accipitridae Accipiter
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Read more about changes in v0.2 &lt;a href=&#34;https://github.com/ropensci/taxize/releases/tag/v0.2.0&#34;&gt;at Github&lt;/a&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>AntWeb - programmatic interface to ant biodiversity data</title>
+      <link>https://ropensci.org/blog/2014/02/18/antweb/</link>
+      <pubDate>Tue, 18 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2014/02/18/antweb/</guid>
+      <description>
+        
+        
+
+&lt;!-- &lt;div class=&#34;alert alert-info&#34; role=&#34;alert&#34;&gt;
+This post was updated on August 20, 2014, with &lt;code&gt;AntWeb&lt;/code&gt; version &lt;code&gt;0.7.2.99&lt;/code&gt;. Please install an updated version to make sure the code works.
+&lt;/div&gt; --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;This post was updated on August 20, 2014, with &lt;code&gt;AntWeb&lt;/code&gt; version &lt;code&gt;0.7.2.99&lt;/code&gt;. Please install an updated version to make sure the code works.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2014-02-18-antweb/casent0003205_h_1_high.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Data on more than &lt;code&gt;10,000&lt;/code&gt; species of ants recorded worldwide are available through from &lt;a href=&#34;http://www.calacademy.org/&#34;&gt;California Academy of Sciences&lt;/a&gt;&amp;rsquo; &lt;a href=&#34;http://www.antweb.org/&#34;&gt;AntWeb&lt;/a&gt;, a repository that boasts a wealth of natural history data, digital images, and specimen records on ant species from a large community of museum curators.&lt;/p&gt;
+
+&lt;p&gt;Digging through some of the earliest announcements of AntWeb, I came across a Nature News piece titled &lt;strong&gt;&amp;ldquo;Mashups mix data into global service&amp;rdquo;&lt;/strong&gt; from January 2006. The article contains this great quote from &lt;a href=&#34;http://en.wikipedia.org/wiki/Roderic_D.M._Page&#34;&gt;Roderic Page&lt;/a&gt; &lt;em&gt;&amp;ldquo;If you could pool data from every museum or lab in the world, you could do amazing things&amp;rdquo;&lt;/em&gt;. The article also says &lt;em&gt;&amp;ldquo;So far, only researchers with advanced programming skills, working in fields organized enough to have data online and tagged appropriately, have been able to do this.&amp;rdquo;&lt;/em&gt;  In many ways this really is motivation for why we develop interfaces to these rich data repositories. Our express intent is to facilitate researchers explore amazing opportunities that lie within such data by lowering techinical barriers to use. Right on the heels of our most recent package (&lt;a href=&#34;http://ropensci.org/blog/2014/01/30/ecoengine/&#34;&gt;&lt;code&gt;ecoengine&lt;/code&gt;&lt;/a&gt;), we are now happy to first release of an interface to  &lt;a href=&#34;http://www.antweb.org/&#34;&gt;AntWeb&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;A stable version of our R package &lt;a href=&#34;http://ropensci.org/AntWeb.html&#34;&gt;AntWeb&lt;/a&gt; is now available from CRAN. The API currently does not require a key for access  but larger requests will be throttled on the server side. It is worth noting that much of these same data are also ported through the Global Biodiversity Information Facility and accessible through our &lt;a href=&#34;http://ropensci.org/rgbif.html&#34;&gt;&lt;code&gt;gbif&lt;/code&gt;&lt;/a&gt; package. This package provides a more direct interface to more of the ant specific natural history data.&lt;/p&gt;
+
+&lt;h2 id=&#34;installing-the-package&#34;&gt;Installing the package&lt;/h2&gt;
+
+&lt;p&gt;A stable version of the package (&lt;code&gt;0.7&lt;/code&gt;) is now available on CRAN.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;AntWeb&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or you can install the latest development version (the master branch is also always stable &amp;amp; deployable and most up-to-date. Current version is &lt;code&gt;0.5.3&lt;/code&gt; at the time of this writing).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(devtools)
+install_github(&amp;quot;ropensci/AntWeb&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;searching-through-the-database&#34;&gt;Searching through the database&lt;/h2&gt;
+
+&lt;p&gt;As with most of our packages, there are several ways to search through an API. In the case of AntWeb, you can search by a genus or full species name or by other taxonomic ranks like sub-phylum.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Data on ants&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;To obtain data on any taxonomic group, you can make a request using the &lt;code&gt;aw_data()&lt;/code&gt; function. It&amp;rsquo;s possible to search easily by a taxonomic rank (e.g. a genus) or by passing a complete scientific name.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Searching by Genus&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(AntWeb)
+# To get data on an ant genus found widely through Central and South America
+data_genus_only &amp;lt;- aw_data(genus = &amp;quot;acanthognathus&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  430 results available for query.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;leaf_cutter_ants  &amp;lt;- aw_data(genus = &amp;quot;acromyrmex&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  713 results available for query.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;unique(leaf_cutter_ants$data$scientific_name)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;   [1] &amp;quot;acromyrmex versicolor&amp;quot;   &amp;quot;acromyrmex striatus&amp;quot;
+   [3] &amp;quot;acromyrmex balzani&amp;quot;      &amp;quot;acromyrmex coronatus&amp;quot;
+   [5] &amp;quot;acromyrmex crassispinus&amp;quot; &amp;quot;acromyrmex heyeri&amp;quot;
+   [7] &amp;quot;acromyrmex lundii&amp;quot;       &amp;quot;acromyrmex fracticornis&amp;quot;
+   [9] &amp;quot;acromyrmex niger&amp;quot;        &amp;quot;acromyrmex nigrosetosus&amp;quot;
+  [11] &amp;quot;acromyrmex rugosus&amp;quot;      &amp;quot;acromyrmex subterraneus&amp;quot;
+  [13] &amp;quot;acromyrmex alw01&amp;quot;        &amp;quot;acromyrmex alw02&amp;quot;
+  [15] &amp;quot;acromyrmex alw03&amp;quot;        &amp;quot;acromyrmex alw04&amp;quot;
+  [17] &amp;quot;acromyrmex octospinosus&amp;quot; &amp;quot;acromyrmex lobicornis&amp;quot;
+  [19] &amp;quot;acromyrmex silvestrii&amp;quot;   &amp;quot;acromyrmex landolti&amp;quot;
+  [21] &amp;quot;acromyrmex ambiguus&amp;quot;     &amp;quot;acromyrmex hystrix&amp;quot;
+  [23] &amp;quot;acromyrmex laticeps&amp;quot;     &amp;quot;acromyrmex indet&amp;quot;
+  [25] &amp;quot;acromyrmex echinatior&amp;quot;   &amp;quot;acromyrmex volcanus&amp;quot;
+  [27] &amp;quot;acromyrmex disciger&amp;quot;     &amp;quot;acromyrmex aspersus&amp;quot;
+  [29] &amp;quot;acromyrmex pubescens&amp;quot;    &amp;quot;acromyrmex moelleri&amp;quot;
+  [31] &amp;quot;acromyrmex evenkul&amp;quot;      &amp;quot;acromyrmex hispidus&amp;quot;
+  [33] &amp;quot;acromyrmex nobilis&amp;quot;      &amp;quot;acromyrmex pulvereus&amp;quot;
+  [35] &amp;quot;acromyrmex lundi&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Searching by species&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# You can request data on any particular species
+acanthognathus_df &amp;lt;- aw_data(scientific_name = &amp;quot;acanthognathus brevicornis&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  2 results available for query.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(acanthognathus_df)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  $count
+  [1] 2
+
+  $call
+  $call$genus
+  [1] &amp;quot;acanthognathus&amp;quot;
+
+  $call$species
+  [1] &amp;quot;brevicornis&amp;quot;
+
+
+  $data
+                                                                url
+  1 http://antweb.org/api/v2/?occurrenceId=CAS:ANTWEB:casent0280684
+  2 http://antweb.org/api/v2/?occurrenceId=CAS:ANTWEB:casent0637708
+    catalogNumber     family  subfamily          genus specificEpithet
+  1 casent0280684 formicidae myrmicinae Acanthognathus     brevicornis
+  2 casent0637708 formicidae myrmicinae Acanthognathus     brevicornis
+               scientific_name typeStatus stateProvince  country
+  1 acanthognathus brevicornis                          Colombia
+  2 acanthognathus brevicornis
+    dateIdentified habitat minimumElevationInMeters
+  1                                              NA
+  2     2013-09-12                               NA
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# You can also limit queries to observation records that have been geoferenced
+acanthognathus_df_geo &amp;lt;- aw_data(genus = &amp;quot;acanthognathus&amp;quot;, species = &amp;quot;brevicornis&amp;quot;, georeferenced = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It&amp;rsquo;s also possible to search for records around any location by specifying a search radius.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;data_by_loc &amp;lt;- aw_coords(coord = &amp;quot;37.76,-122.45&amp;quot;, r = 2)
+# This will search for data on a 2 km radius around that latitude/longitude
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Image data&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Most specimens in the database have images associated with them. These include high, medium, and low resolution version of the head, dorsal side, full profile, and the specimen label. For example we can retrieve data on a specimen of &lt;em&gt;Ecitoninaeeciton burchellii&lt;/em&gt; with the following call:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Data and images for Ecitoninaeeciton burchellii
+eb &amp;lt;- aw_code(occurrenceid =&amp;quot;CAS:ANTWEB:casent0003205&amp;quot;)
+eb$image_data$high[[2]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  NULL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you&amp;rsquo;re primarily interested in ant images and would like to keep up with recent additions to the database, you can also use the &lt;code&gt;aw_images&lt;/code&gt; function. This function takes two arguments: &lt;code&gt;since&lt;/code&gt;, the number of days to search backward, and a &lt;code&gt;type&lt;/code&gt;. Possible options for type are &lt;code&gt;h&lt;/code&gt; for head, &lt;code&gt;d&lt;/code&gt; for dorsal, &lt;code&gt;p&lt;/code&gt; for profile, and &lt;code&gt;l&lt;/code&gt; for label. If a type is not specified, all available images are retrieved.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Retrieve only dorsal images for the last five days
+head(aw_images(since = 5, img_type = &amp;quot;d&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;                                                                     high
+  1 http://www.antweb.org/images/casent0914000/casent0914000_d_1_high.jpg
+  2 http://www.antweb.org/images/antweb1008677/antweb1008677_d_1_high.jpg
+  3 http://www.antweb.org/images/casent0906977/casent0906977_d_1_high.jpg
+  4 http://www.antweb.org/images/casent0914012/casent0914012_d_1_high.jpg
+  5 http://www.antweb.org/images/antweb1008691/antweb1008691_d_1_high.jpg
+  6 http://www.antweb.org/images/casent0906997/casent0906997_d_1_high.jpg
+                                                                     med
+  1 http://www.antweb.org/images/casent0914000/casent0914000_d_1_low.jpg
+  2 http://www.antweb.org/images/antweb1008677/antweb1008677_d_1_low.jpg
+  3 http://www.antweb.org/images/casent0906977/casent0906977_d_1_low.jpg
+  4 http://www.antweb.org/images/casent0914012/casent0914012_d_1_low.jpg
+  5 http://www.antweb.org/images/antweb1008691/antweb1008691_d_1_low.jpg
+  6 http://www.antweb.org/images/casent0906997/casent0906997_d_1_low.jpg
+                                                                     low
+  1 http://www.antweb.org/images/casent0914000/casent0914000_d_1_med.jpg
+  2 http://www.antweb.org/images/antweb1008677/antweb1008677_d_1_med.jpg
+  3 http://www.antweb.org/images/casent0906977/casent0906977_d_1_med.jpg
+  4 http://www.antweb.org/images/casent0914012/casent0914012_d_1_med.jpg
+  5 http://www.antweb.org/images/antweb1008691/antweb1008691_d_1_med.jpg
+  6 http://www.antweb.org/images/casent0906997/casent0906997_d_1_med.jpg
+                                                                     thumbnail
+  1 http://www.antweb.org/images/casent0914000/casent0914000_d_1_thumbview.jpg
+  2 http://www.antweb.org/images/antweb1008677/antweb1008677_d_1_thumbview.jpg
+  3 http://www.antweb.org/images/casent0906977/casent0906977_d_1_thumbview.jpg
+  4 http://www.antweb.org/images/casent0914012/casent0914012_d_1_thumbview.jpg
+  5 http://www.antweb.org/images/antweb1008691/antweb1008691_d_1_thumbview.jpg
+  6 http://www.antweb.org/images/casent0906997/casent0906997_d_1_thumbview.jpg
+    img_type                                                catalog_id
+  1        d http://www.antweb.org/api/v2/?catalogNumber=casent0914000
+  2        d http://www.antweb.org/api/v2/?catalogNumber=antweb1008677
+  3        d http://www.antweb.org/api/v2/?catalogNumber=casent0906977
+  4        d http://www.antweb.org/api/v2/?catalogNumber=casent0914012
+  5        d http://www.antweb.org/api/v2/?catalogNumber=antweb1008691
+  6        d http://www.antweb.org/api/v2/?catalogNumber=casent0906997
+            upload_date
+  1 2014-08-15 15:11:14
+  2 2014-08-20 13:52:13
+  3 2014-08-15 15:11:14
+  4 2014-08-15 15:11:15
+  5 2014-08-20 13:52:13
+  6 2014-08-15 15:11:15
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It&amp;rsquo;s also possible to retrieve unique lists of any taxonomic rank using the &lt;code&gt;aw_unique&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;subfamily_list &amp;lt;- aw_distinct(rank = &amp;quot;subfamily&amp;quot;)
+subfamily_list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  [Total results on the server]: 67
+  [Args]:
+  rank = subfamily
+  limit = 1000
+  [Dataset]: [67 x 1]
+  [Data preview] :
+  [1] apidae     bethylidae
+  67 Levels: aenictinae agroecomyrmecinae amblyoponinae ... xylocopinae
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;genus_list &amp;lt;- aw_distinct(rank = &amp;quot;genus&amp;quot;)
+genus_list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  [Total results on the server]: 490
+  [Args]:
+  rank = genus
+  limit = 1000
+  [Dataset]: [490 x 1]
+  [Data preview] :
+  [1] Aenictinae    Amblyoponinae
+  490 Levels: Acanthognathus Acanthomyrmex Acanthoponera ... Zigrasimecia
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;species_list &amp;lt;- aw_distinct(rank = &amp;quot;species&amp;quot;)
+species_list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  [Total results on the server]: 10547
+  [Args]:
+  rank = species
+  limit = 1000
+  [Dataset]: [1000 x 1]
+  [Data preview] :
+  [1] basicerotini indet
+  1000 Levels: a abbreviata abdelazizi abdera abdita abditivata ... orizabanum_complex
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you work with existing specimens, you can also query directly by a specimen ID.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;(data_by_code &amp;lt;- aw_code(catalogNumber=&amp;quot;inb0003695883&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  [Total results on the server]: 1
+  [Args]:
+  catalogNumber = inb0003695883
+  [Dataset]: [1 x 16]
+  [Data preview] :
+                                                       specimens.url
+  1  http://antweb.org/api/v2/?occurrenceId=CAS:ANTWEB:inb0003695883
+  NA                                                            &amp;lt;NA&amp;gt;
+     specimens.catalogNumber specimens.family specimens.subfamily
+  1            inb0003695883       formicidae          myrmicinae
+  NA                    &amp;lt;NA&amp;gt;             &amp;lt;NA&amp;gt;                &amp;lt;NA&amp;gt;
+     specimens.genus specimens.specificEpithet specimens.scientific_name
+  1   Acanthognathus                teledectus acanthognathus teledectus
+  NA            &amp;lt;NA&amp;gt;                      &amp;lt;NA&amp;gt;                      &amp;lt;NA&amp;gt;
+     specimens.typeStatus specimens.stateProvince specimens.country
+  1                                       Heredia        Costa Rica
+  NA                 &amp;lt;NA&amp;gt;                    &amp;lt;NA&amp;gt;              &amp;lt;NA&amp;gt;
+     specimens.dateIdentified                       specimens.habitat
+  1                2006-11-02 mature wet forest ex sifted leaf litter
+  NA                     &amp;lt;NA&amp;gt;                                    &amp;lt;NA&amp;gt;
+     specimens.minimumElevationInMeters specimens.geojson.type
+  1                                  50                  point
+  NA                               &amp;lt;NA&amp;gt;                   &amp;lt;NA&amp;gt;
+     decimal_latitude decimal_longitude
+  1         10.413477        -84.023636
+  NA             &amp;lt;NA&amp;gt;              &amp;lt;NA&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# This will return a list with a metadata data.frame and a image data.frame
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you have a multiple specimen IDs, as is often the case when working with research data, you can get data on all of them at the same time. The function automatically retuns &lt;code&gt;NULL&lt;/code&gt; values when no data are found and you can have these removed using &lt;code&gt;plyr::compact&lt;/code&gt; (this happens automatically when you use a function call like &lt;code&gt;ldply&lt;/code&gt;.)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;specimens &amp;lt;- c(&amp;quot;casent0908629&amp;quot;, &amp;quot;casent0908650&amp;quot;, &amp;quot;casent0908637&amp;quot;)
+results &amp;lt;- lapply(specimens, function(x) aw_code(x))
+names(results) &amp;lt;- specimens
+length(results)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  [1] 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;mapping-ant-specimen-data&#34;&gt;Mapping ant specimen data&lt;/h2&gt;
+
+&lt;p&gt;As with the previous ecoengine package, you can also visualize location data for any set of species. Adding &lt;code&gt;georeferenced = TRUE&lt;/code&gt; to a data retrieval call will filter out any data points without location information. Once retrieved the data are mapped with the open source &lt;a href=&#34;http://leafletjs.com/&#34;&gt;Leaflet.js&lt;/a&gt; and pushed to your default browser. Maps and associated &lt;code&gt;geoJSON&lt;/code&gt; files are also saved to a location specified (or defaults to your &lt;code&gt;/tmp&lt;/code&gt; folder). This feature is only available on the development version on GitHub (&lt;code&gt;0.5.2&lt;/code&gt; or greater; see above on how to install) and will be available from CRAN in version &lt;code&gt;0.6&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;acd &amp;lt;- aw_data(genus = &amp;quot;acanthognathus&amp;quot;)
+aw_map(acd)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2014-02-18-antweb/antweb_map.png&#34; alt=&#34;Distribution of long trap-jaw ants in Central and South America&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;integration-with-the-rest-of-our-biodiversity-suite&#34;&gt;Integration with the rest of our biodiversity suite&lt;/h2&gt;
+
+&lt;p&gt;Our newest package on CRAN, &lt;a href=&#34;https://github.com/ropensci/spocc&#34;&gt;&lt;code&gt;spocc&lt;/code&gt;&lt;/a&gt; (Species Occurrence Data), currently in review at CRAN, integrates &lt;code&gt;AntWeb&lt;/code&gt; among other sources. More details on &lt;code&gt;spocc&lt;/code&gt; in our next blog post.&lt;/p&gt;
+
+&lt;p&gt;As always please send &lt;a href=&#34;https://github.com/ropensci/AntWeb/issues/new&#34;&gt;suggestions, bug reports, and ideas&lt;/a&gt; related to the AntWeb R package directly to our repo.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Introducing the ecoengine package</title>
+      <link>https://ropensci.org/blog/2014/01/30/ecoengine/</link>
+      <pubDate>Thu, 30 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2014/01/30/ecoengine/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Natural history museums have long been valuable repositories of data on species diversity. These data have been critical for fostering and shaping the development of fields such as  biogeography and systematics. The importance of these data repositories is becoming increasingly important, especially in the context of climate change, where a strong understanding of how species responded to past climate is key to understanding their responses in the future. Leading the way in opening up such valuable data is a new effort by the &lt;a href=&#34;http://globalchange.berkeley.edu/ecoinformatics-engine&#34;&gt; Berkeley Initiative in Global Change Biology&lt;/a&gt; called the &lt;a href=&#34;http://ecoengine.berkeley.edu/&#34;&gt;Ecoengine&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The engine is a &lt;a href=&#34;http://ecoengine.berkeley.edu/&#34;&gt;fast and open API&lt;/a&gt; that provides access to over 3 million specimens and vegetation data from surveys. Many of these specimens have already been georeferenced opening up several use cases for such data. In addition, the engine also provides access to species checklists and sensor data from the Keck Hydrowatch project from the Eel river field station. Our newest package, &lt;code&gt;ecoengine&lt;/code&gt;, provides an easy interface to these data.&lt;/p&gt;
+
+&lt;h3 id=&#34;installing-the-package&#34;&gt;Installing the package&lt;/h3&gt;
+
+&lt;p&gt;A stable version of the package (&lt;code&gt;1.1&lt;/code&gt;) is now &lt;a href=&#34;http://cran.r-project.org/web/packages/ecoengine/index.html&#34;&gt;available on CRAN&lt;/a&gt;. To install:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;ecoengine&amp;quot;)
+# A small bug with factors (to be resolved in a couple of days in 1.1.2) requires strings as factors to be FALSE
+options(stringsAsFactors = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can also install a development version of the package that has additional features (more below), with several new updates that will appear on the next CRAN version (ETA mid-March). To install the development version:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(devtools)
+install_github(&amp;quot;ropensci/ecoengine&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Observation data&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The workhorse function of the package is &lt;code&gt;ee_observations()&lt;/code&gt; which provides a way to query any taxonomic field. Searches for any field are automatically fuzzy but one can request exact searches by adding &lt;code&gt;__exact&lt;/code&gt; (note the two underscores) to any field being searched. So for example, if you are interested in data on the genus lynx, one can query those data like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(ecoengine)
+lynx_data &amp;lt;- ee_observations(genus = &amp;quot;lynx&amp;quot;, progress = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Search contains 795 observations (downloading 1 of 1 pages)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;lynx_data
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [Total results]: 795
+## [Args]:
+## country = United States
+## genus = lynx
+## georeferenced = FALSE
+## page_size = 25
+## page = 1
+## [Type]: observations
+## [Number of results]: 25
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All ecoengine queries are returned as &lt;code&gt;S3&lt;/code&gt; objects of class &lt;code&gt;ecoengine&lt;/code&gt;. The object includes a total number of results available, the arguments used (so someone else can reconstruct the same query), the type of data returned (&lt;code&gt;photos&lt;/code&gt;, &lt;code&gt;observations&lt;/code&gt;, &lt;code&gt;checklists&lt;/code&gt;, &lt;code&gt;sensor&lt;/code&gt;), and the actual data itself. The results are paginated to prevent large requests from hanging part way. Each call returns 25 observations (can be overridden) and one can request more data by passing a page argument (e.g. &lt;code&gt;page = 1&lt;/code&gt;). Pages can also be ranges, or &amp;ldquo;all&amp;rdquo; to request all available data for a query. The pagination method allows calls to be parallelized and reassembled easily, especially when requests may return tens of thousand of records. In this case there are only &lt;code&gt;795&lt;/code&gt; records so we can request everything in one go.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(ecoengine)
+lynx_data &amp;lt;- ee_observations(genus = &amp;quot;lynx&amp;quot;, progress = FALSE, page = &amp;quot;all&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Search contains 795 observations (downloading 32 of 32 pages)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# The progress bar is useful on the command line but tends to clutter up
+# documentation which is why it’s been turned off here. Messages can also be
+# turned off with quiet = TRUE
+lynx_data
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [Total results]: 795
+## [Args]:
+## country = United States
+## genus = lynx
+## georeferenced = FALSE
+## page_size = 25
+## page = all
+## [Type]: observations
+## [Number of results]: 795
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Other fields (all documented and available from &lt;code&gt;?ee_observations&lt;/code&gt;) include kingdom, phylum, clss (intentionally misspelled to avoid conflict with a sql keyword), genus and scientific_name. Any of these fields can also be searched exactly by adding &lt;code&gt;__exact&lt;/code&gt; at the end.&lt;/p&gt;
+
+&lt;p&gt;We can request georeferenced data only for visualization purposes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;lynx_data &amp;lt;- ee_observations(genus = &amp;quot;lynx&amp;quot;, progress = FALSE, page = &amp;quot;all&amp;quot;,
+    georeferenced = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Search contains 714 observations (downloading 29 of 29 pages)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and it’s easy to examine these data as an interactive map using the &lt;code&gt;ee_map&lt;/code&gt; function (the function is currently only available in the dev version).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ee_map(lynx_data)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This generates an interactive Leaflet JS map and renders to your default browser. You can easily embed such maps into talks using iFrames and &lt;a href=&#34;http://slidify.org/&#34;&gt;Slidify&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2014-01-30-ecoengine/ecoengine_map.png&#34; alt=&#34;Map of Lynx observations across North America&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The search possibilities are endless and the data can be supplemented by many other sources in our site (e.g. taxize). Here are a few example queries.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;pinus &amp;lt;- ee_observations(scientific_name = &amp;quot;Pinus&amp;quot;)
+lynx_data &amp;lt;- ee_observations(genus = &amp;quot;Lynx&amp;quot;)
+# Georeferenced data only
+lynx_data &amp;lt;- ee_observations(genus = &amp;quot;Lynx&amp;quot;, georeferenced = TRUE)
+animalia &amp;lt;- ee_observations(kingdom = &amp;quot;Animalia&amp;quot;)
+Artemisia &amp;lt;- ee_observations(scientific_name = &amp;quot;Artemisia douglasiana&amp;quot;)
+asteraceae &amp;lt;- ee_observationss(family = &amp;quot;asteraceae&amp;quot;)
+vulpes &amp;lt;- ee_observations(genus = &amp;quot;vulpes&amp;quot;)
+Anas &amp;lt;- ee_observations(scientific_name = &amp;quot;Anas cyanoptera&amp;quot;, page = &amp;quot;all&amp;quot;)
+loons &amp;lt;- ee_observations(scientific_name = &amp;quot;Gavia immer&amp;quot;, page = &amp;quot;all&amp;quot;)
+plantae &amp;lt;- ee_observations(kingdom = &amp;quot;plantae&amp;quot;)
+chordata &amp;lt;- ee_observations(phylum = &amp;quot;chordata&amp;quot;)
+# Class is clss since the former is a reserved keyword in SQL.
+aves &amp;lt;- ee_observations(clss = &amp;quot;aves&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Checklist data&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The museum contains checklists of species spanning a long time scale. To query checklists, use &lt;code&gt;ee_checklists()&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;all_lists &amp;lt;- ee_checklists()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Returning 57 checklists
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(all_lists[, c(&amp;quot;footprint&amp;quot;, &amp;quot;subject&amp;quot;)])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##                                                        footprint
+## 1   http://ecoengine.berkeley.edu/api/footprints/angelo-reserve/
+## 2   http://ecoengine.berkeley.edu/api/footprints/angelo-reserve/
+## 3   http://ecoengine.berkeley.edu/api/footprints/angelo-reserve/
+## 4 http://ecoengine.berkeley.edu/api/footprints/hastings-reserve/
+## 5   http://ecoengine.berkeley.edu/api/footprints/angelo-reserve/
+## 6 http://ecoengine.berkeley.edu/api/footprints/hastings-reserve/
+##      subject
+## 1    Mammals
+## 2     Mosses
+## 3    Beetles
+## 4    Spiders
+## 5 Amphibians
+## 6       Ants
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Currently there are 57 lists available. We can drill deeper into any list to get all the available data. We can also narrow our checklist search to groups of interest (see &lt;code&gt;unique(all_lists$subject)&lt;/code&gt;). For example, to get the list of Spiders:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;spiders &amp;lt;- ee_checklists(subject = &amp;quot;Spiders&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Returning 2 checklists
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;spiders
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##                  record
+## 4  bigcb:specieslist:15
+## 10 bigcb:specieslist:20
+##                                                         footprint
+## 4  http://ecoengine.berkeley.edu/api/footprints/hastings-reserve/
+## 10   http://ecoengine.berkeley.edu/api/footprints/angelo-reserve/
+##                                                                       url
+## 4  http://ecoengine.berkeley.edu/api/checklists/bigcb%3Aspecieslist%3A15/
+## 10 http://ecoengine.berkeley.edu/api/checklists/bigcb%3Aspecieslist%3A20/
+##                                           source subject
+## 4  http://ecoengine.berkeley.edu/api/sources/18/ Spiders
+## 10 http://ecoengine.berkeley.edu/api/sources/18/ Spiders
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we can drill deep into each list. For this tutorial I&amp;rsquo;ll just retrieve data from the the two lists returned above.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(plyr)
+spider_details &amp;lt;- ldply(spiders$url, checklist_details)
+names(spider_details)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;url&amp;quot;                              &amp;quot;observation_type&amp;quot;
+##  [3] &amp;quot;scientific_name&amp;quot;                  &amp;quot;collection_code&amp;quot;
+##  [5] &amp;quot;institution_code&amp;quot;                 &amp;quot;country&amp;quot;
+##  [7] &amp;quot;state_province&amp;quot;                   &amp;quot;county&amp;quot;
+##  [9] &amp;quot;locality&amp;quot;                         &amp;quot;coordinate_uncertainty_in_meters&amp;quot;
+## [11] &amp;quot;begin_date&amp;quot;                       &amp;quot;end_date&amp;quot;
+## [13] &amp;quot;kingdom&amp;quot;                          &amp;quot;phylum&amp;quot;
+## [15] &amp;quot;clss&amp;quot;                             &amp;quot;order&amp;quot;
+## [17] &amp;quot;family&amp;quot;                           &amp;quot;genus&amp;quot;
+## [19] &amp;quot;specific_epithet&amp;quot;                 &amp;quot;infraspecific_epithet&amp;quot;
+## [21] &amp;quot;source&amp;quot;                           &amp;quot;remote_resource&amp;quot;
+## [23] &amp;quot;earliest_period_or_lowest_system&amp;quot; &amp;quot;latest_period_or_highest_system&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;unique(spider_details$scientific_name)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;holocnemus pluchei&amp;quot;        &amp;quot;oecobius navus&amp;quot;
+##  [3] &amp;quot;uloborus diversus&amp;quot;         &amp;quot;neriene litigiosa&amp;quot;
+##  [5] &amp;quot;theridion sp. A&amp;quot;           &amp;quot;tidarren sp.&amp;quot;
+##  [7] &amp;quot;dictyna sp. A&amp;quot;             &amp;quot;dictyna sp. B&amp;quot;
+##  [9] &amp;quot;mallos sp.&amp;quot;                &amp;quot;yorima sp.&amp;quot;
+## [11] &amp;quot;hahnia sanjuanensis&amp;quot;       &amp;quot;cybaeus sp.&amp;quot;
+## [13] &amp;quot;zanomys sp.&amp;quot;               &amp;quot;anachemmis sp.&amp;quot;
+## [15] &amp;quot;titiotus sp.&amp;quot;              &amp;quot;oxyopes scalaris&amp;quot;
+## [17] &amp;quot;zora hespera&amp;quot;              &amp;quot;drassinella sp.&amp;quot;
+## [19] &amp;quot;phrurotimpus mateonus&amp;quot;     &amp;quot;scotinella sp.&amp;quot;
+## [21] &amp;quot;castianeira luctifera&amp;quot;     &amp;quot;meriola californica&amp;quot;
+## [23] &amp;quot;drassyllus insularis&amp;quot;      &amp;quot;herpyllus propinquus&amp;quot;
+## [25] &amp;quot;micaria utahna&amp;quot;            &amp;quot;trachyzelotes lyonneti&amp;quot;
+## [27] &amp;quot;ebo evansae&amp;quot;               &amp;quot;habronattus oregonensis&amp;quot;
+## [29] &amp;quot;metaphidippus sp.&amp;quot;         &amp;quot;platycryptus californicus&amp;quot;
+## [31] &amp;quot;calymmaria sp.&amp;quot;            &amp;quot;frontinella communis&amp;quot;
+## [33] &amp;quot;undetermined sp.&amp;quot;          &amp;quot;latrodectus hesperus&amp;quot;
+## [35] &amp;quot;theridion sp. B&amp;quot;           &amp;quot;agelenopsis oregonensis&amp;quot;
+## [37] &amp;quot;pardosa spp.&amp;quot;              &amp;quot;schizocosa mccooki&amp;quot;
+## [39] &amp;quot;hololena sp.&amp;quot;              &amp;quot;callobius sp.&amp;quot;
+## [41] &amp;quot;pimus sp.&amp;quot;                 &amp;quot;aliatypus sp.&amp;quot;
+## [43] &amp;quot;antrodiaetus sp.&amp;quot;          &amp;quot;antrodiaetus riversi&amp;quot;
+## [45] &amp;quot;anyphaena californica&amp;quot;     &amp;quot;aculepeira packardi&amp;quot;
+## [47] &amp;quot;araneus bispinosus&amp;quot;        &amp;quot;araniella displicata&amp;quot;
+## [49] &amp;quot;cyclosa conica&amp;quot;            &amp;quot;cyclosa turbinata&amp;quot;
+## [51] &amp;quot;brommella sp.&amp;quot;             &amp;quot;cicurina sp.&amp;quot;
+## [53] &amp;quot;dictyna sp.&amp;quot;               &amp;quot;emblyna oregona&amp;quot;
+## [55] &amp;quot;orodrassus sp.&amp;quot;            &amp;quot;sergiolus sp.&amp;quot;
+## [57] &amp;quot;erigone sp.&amp;quot;               &amp;quot;pityohyphantes sp.&amp;quot;
+## [59] &amp;quot;tachygyna sp.&amp;quot;             &amp;quot;alopecosa kochi&amp;quot;
+## [61] &amp;quot;oxyopes salticus&amp;quot;          &amp;quot;philodromus sp.&amp;quot;
+## [63] &amp;quot;tibellus oblongus&amp;quot;         &amp;quot;pimoa sp.&amp;quot;
+## [65] &amp;quot;undetermined spp.&amp;quot;         &amp;quot;metaphidippus manni&amp;quot;
+## [67] &amp;quot;thiodina sp.&amp;quot;              &amp;quot;diaea livens&amp;quot;
+## [69] &amp;quot;metellina sp.&amp;quot;             &amp;quot;cobanus cambridgei&amp;quot;
+## [71] &amp;quot;tetragnatha sp.&amp;quot;           &amp;quot;tetragnatha versicolor&amp;quot;
+## [73] &amp;quot;dipoena sp.&amp;quot;               &amp;quot;theridion spp.&amp;quot;
+## [75] &amp;quot;misumena vatia&amp;quot;            &amp;quot;misumenops sp.&amp;quot;
+## [77] &amp;quot;tmarus angulatus&amp;quot;          &amp;quot;xysticus sp.&amp;quot;
+## [79] &amp;quot;hyptiotes gertschi&amp;quot;        &amp;quot;mexigonus morosus&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Photo data&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The ecoengine also contains a large number of photos from various sources. It&amp;rsquo;s easy to query the photo database using similar arguments as above. One can search by taxa, location, source, collection and much more. To get all pictures of the California condor from the database:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;condor &amp;lt;- ee_photos(scientific_name = &amp;quot;Gymnogyps californianus&amp;quot;, quiet = TRUE, progress = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;condor
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [Total results]: 8
+## [Args]:
+## page_size = 25
+## scientific_name = Gymnogyps californianus
+## georeferenced = FALSE
+## page = 1
+## [Type]: photos
+## [Number of results]: 8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The package also provides functionality to quickly browse photos in the default browser. By calling &lt;code&gt;view_photos()&lt;/code&gt; on any &lt;code&gt;ecoengine&lt;/code&gt; object of type &lt;code&gt;photos&lt;/code&gt;, R will render a static html page with thumbnails and metadata and launch a default browser with additional links.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;view_photos(ee_photos(scientific_name = &amp;quot;Gymnogyps californianus&amp;quot;, quiet = TRUE))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2014-01-30-ecoengine/ecoengine_photo_viewer.png&#34; alt=&#34;Ecoengine photo viewer&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Sensor data&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Sensor data come from the &lt;a href=&#34;http://nrs.ucop.edu/research/special_projects/Keck_HydroWatchl.htm&#34;&gt;Keck HydroWatch Center&lt;/a&gt;. Retrieving the data are simple. Three functions provides all the necessary functionality.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ee_list_sensors()&lt;/code&gt;  - provides a list of sensors and the data they provide.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ee_sensor_data()&lt;/code&gt; - retrieves data for any of these sensors (ids obtained by the previous function) and a date window.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ee_sensor_agg&lt;/code&gt; - provides aggregated data that can be requested in any interval (minutes, days, weeks, months, years).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;searching-the-engine&#34;&gt;Searching the engine&lt;/h3&gt;
+
+&lt;p&gt;The search is &lt;a href=&#34;http://www.elasticsearch.org/&#34;&gt;elastic&lt;/a&gt; by default. One can search for any field in &lt;code&gt;ee_observations()&lt;/code&gt; across all available resources. For example,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# The search function runs an automatic elastic search across all resources
+# available through the engine.
+lynx_results &amp;lt;- ee_search(query = &amp;quot;genus:Lynx&amp;quot;)
+lynx_results[, -3]
+# This gives you a breakdown of what&#39;s available allowing you dig deeper.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Upcoming features&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In the next CRAN update we will add methods to retrieve all the vegetation data, the interactive maps, searching the data directly from the map (for example by drawing bounding boxes) and having a formatted query returned back to your R prompt for inclusion in a script.&lt;/p&gt;
+
+&lt;p&gt;As with all of our packages we welcome contributions to the &lt;a href=&#34;https://github.com/ropensci/ecoengine&#34;&gt;GitHub repository&lt;/a&gt; as &lt;a href=&#34;https://github.com/ropensci/ecoengine/issues?page=1&amp;amp;state=open&#34;&gt;issues&lt;/a&gt; or &lt;a href=&#34;https://github.com/ropensci/ecoengine/pulls&#34;&gt;pull requests&lt;/a&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>rgbif changes in v0.4</title>
+      <link>https://ropensci.org/blog/2013/11/21/rgbif-changes/</link>
+      <pubDate>Thu, 21 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/11/21/rgbif-changes/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;The Global Biodiversity Information Facility (GBIF) is a warehouse of species occurrence data - collecting data from a lot of different sources. Our package &lt;code&gt;rgbif&lt;/code&gt; allows you to interact with GBIF from R. We interact with GBIF via their Application Programming Interface, or API. Our last version on CRAN (v0.3) interacted with the older version of their API - this version interacts with the new version of their API. However, we also retained functions that interact with the old API.&lt;/p&gt;
+
+&lt;p&gt;We have strived to have meaningful error messages for various arguments that have been changed, and for functions that were in v0.3, but now work with the new API (e.g. &lt;code&gt;organizations&lt;/code&gt;, &lt;code&gt;networks&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;GBIF did a large overhaul of the interface, so the possible arguments to use in each function are quite different. Don&amp;rsquo;t hesitate to get in touch if you have a question! They have a set of methods to look up metadata about sources (under &lt;a href=&#34;http://www.gbif.org/developer/registry&#34;&gt;Registry&lt;/a&gt;), a set of methods for species names (under &lt;a href=&#34;http://www.gbif.org/developer/species&#34;&gt;Species&lt;/a&gt;), a set of methods for occurrences (under &lt;a href=&#34;http://www.gbif.org/developer/occurrence&#34;&gt;Occurrences&lt;/a&gt;), and a set of methods for requesting tile map layers (under &lt;a href=&#34;http://www.gbif.org/developer/maps&#34;&gt;Maps&lt;/a&gt;). In &lt;code&gt;rgbif&lt;/code&gt; we provide functions for the first three, Registry, Species, and Occurrences. We don&amp;rsquo;t provide R interfaces to their Maps service as it only makes sense to use in a web native workflow.&lt;/p&gt;
+
+&lt;p&gt;Tutorial for old GBIF API: &lt;a href=&#34;http://ropensci.org/tutorials/rgbif_tutorial.html&#34;&gt;http://ropensci.org/tutorials/rgbif_tutorial.html&lt;/a&gt;
+Tutorial for new GBIF API: &lt;a href=&#34;http://ropensci.org/tutorials/rgbif_tutorial_newapi.html&#34;&gt;http://ropensci.org/tutorials/rgbif_tutorial_newapi.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Note: the Mac OSX binary is not available yet on CRAN&amp;hellip;&lt;/em&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;install-and-load-rgbif&#34;&gt;Install and load rgbif&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;rgbif&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(rgbif)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;registry&#34;&gt;Registry&lt;/h2&gt;
+
+&lt;h3 id=&#34;look-up-datasets&#34;&gt;Look up datasets&lt;/h3&gt;
+
+&lt;p&gt;Look up specific datasets&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;out &amp;lt;- datasets(data = &amp;quot;contact&amp;quot;, uuid = &amp;quot;a6998220-7e3a-485d-9cd6-73076bd85657&amp;quot;)
+library(plyr)
+ldply(out, data.frame)[, c(1:4)]  # just a few columns for brevity
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##     key                            type primary firstName
+## 1 22901 ADMINISTRATIVE_POINT_OF_CONTACT    TRUE       Ian
+## 2 22900                          AUTHOR   FALSE    Graham
+## 3 22899                 METADATA_AUTHOR    TRUE       Ian
+## 4 22898                      ORIGINATOR    TRUE       Ian
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Search datasets: Get all datasets tagged with keyword &amp;ldquo;france&amp;rdquo;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;out &amp;lt;- dataset_search(keyword = &amp;quot;france&amp;quot;)
+out$data
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##                                                                                  title
+## 1                                    Cartographie des Leguminosae (Fabaceae) en France
+## 2                                                                      Carnet en Ligne
+## 3                                            Phytochorologie des départements français
+## 4 Actualisation de la cartographie des Ptéridophytes de France et d&#39;Europe occidentale
+##   hostingOrganization owningOrganization       type publishingCountry
+## 1       Tela-Botanica      Tela-Botanica OCCURRENCE                FR
+## 2       Tela-Botanica      Tela-Botanica OCCURRENCE                FR
+## 3       Tela-Botanica      Tela-Botanica OCCURRENCE                FR
+## 4       Tela-Botanica      Tela-Botanica OCCURRENCE                FR
+##                                    key
+## 1 cbd241aa-a115-4856-af66-fac5cb90f2cc
+## 2 baa86fb2-7346-4507-a34f-44e4c1bd0d57
+## 3 2d680d46-d783-4ea7-94b1-2556cd653e36
+## 4 2aaf8ea9-0460-41d2-a651-3583479947c6
+##                 hostingOrganizationKey
+## 1 b2dbd210-90c2-11df-86a3-b8a03c50a862
+## 2 b2dbd210-90c2-11df-86a3-b8a03c50a862
+## 3 b2dbd210-90c2-11df-86a3-b8a03c50a862
+## 4 b2dbd210-90c2-11df-86a3-b8a03c50a862
+##                  owningOrganizationKey
+## 1 b2dbd210-90c2-11df-86a3-b8a03c50a862
+## 2 b2dbd210-90c2-11df-86a3-b8a03c50a862
+## 3 b2dbd210-90c2-11df-86a3-b8a03c50a862
+## 4 b2dbd210-90c2-11df-86a3-b8a03c50a862
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Get dataset metrics&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dataset_metrics(uuid = &amp;quot;3f8a1297-3259-4700-91fc-acc4170b27ce&amp;quot;)$countByRank
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##    SPECIES      GENUS    VARIETY SUBSPECIES    SECTION      TRIBE
+##       5924       1223        854        748        324        323
+##   SUBGENUS     FAMILY  SUBFAMILY SUBSECTION   SUBTRIBE      ORDER
+##        194        171        147         59         57         55
+##     SERIES SUPERORDER   SUBCLASS      CLASS
+##         40         12          6          2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;look-up-nodes&#34;&gt;Look up nodes&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;nodes(data = &amp;quot;identifier&amp;quot;, uuid = &amp;quot;1193638d-32d1-43f0-a855-8727c94299d8&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [[1]]
+## [[1]]$key
+## [1] 13587
+##
+## [[1]]$type
+## [1] &amp;quot;GBIF_PARTICIPANT&amp;quot;
+##
+## [[1]]$identifier
+## [1] &amp;quot;57&amp;quot;
+##
+## [[1]]$createdBy
+## [1] &amp;quot;registry-migration.gbif.org&amp;quot;
+##
+## [[1]]$created
+## [1] &amp;quot;2013-10-24T09:06:08.312+0000&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;look-up-organizations&#34;&gt;Look up organizations&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;out &amp;lt;- organizations(data = &amp;quot;contact&amp;quot;, uuid = &amp;quot;4b4b2111-ee51-45f5-bf5e-f535f4a1c9dc&amp;quot;)
+ldply(out, data.frame)[, c(1:4)]  # just a few columns for brevity
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##     key                            type primary
+## 1 20006 ADMINISTRATIVE_POINT_OF_CONTACT    TRUE
+## 2 20007      TECHNICAL_POINT_OF_CONTACT    TRUE
+## 3 20008      TECHNICAL_POINT_OF_CONTACT   FALSE
+##                       firstName
+## 1 Francisco Javier Bonet García
+## 2     Antonio Jesús Pérez Luque
+## 3             Ramon Perez Perez
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;species&#34;&gt;Species&lt;/h2&gt;
+
+&lt;h3 id=&#34;lookup-names-in-gbif-taxonomy-backbone&#34;&gt;Lookup names in GBIF taxonomy backbone&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;out &amp;lt;- name_backbone(name = &amp;quot;Helianthus&amp;quot;, rank = &amp;quot;genus&amp;quot;, kingdom = &amp;quot;plants&amp;quot;)
+out$phylum
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;Magnoliophyta&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;data.frame(out)  # as a data.frame
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##   usageKey scientificName canonicalName  rank synonym confidence matchType
+## 1  3119134  Helianthus L.    Helianthus GENUS   FALSE         97     EXACT
+##   kingdom        phylum         clazz     order     family      genus
+## 1 Plantae Magnoliophyta Magnoliopsida Asterales Asteraceae Helianthus
+##   kingdomKey phylumKey classKey orderKey familyKey genusKey
+## 1          6        49      220      414      3065  3119134
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;lookup-names-across-all-taxonomies-in-gbif&#34;&gt;Lookup names across all taxonomies in GBIF&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;out &amp;lt;- name_lookup(query = &amp;quot;Cnaemidophor&amp;quot;, rank = &amp;quot;genus&amp;quot;)
+head(out$data)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##         key  nubKey parentKey        parent  kingdom     phylum   clazz
+## 1 116755723 1858636 110614854 Pterophoridae Animalia Arthropoda Insecta
+## 2   1858636 1858636      8863 Pterophoridae Animalia Arthropoda Insecta
+## 3 124531302 1858636        NA          &amp;lt;NA&amp;gt;     &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;    &amp;lt;NA&amp;gt;
+## 4 101053441 1858636 100725398 Pterophoridae Animalia Arthropoda Insecta
+## 5 126862804 1858636 126783981 Pterophoridae Animalia Arthropoda Insecta
+## 6 107119486 1858636 107119872 Pterophoridae     &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;    &amp;lt;NA&amp;gt;
+##         order        family          genus kingdomKey phylumKey  classKey
+## 1 Lepidoptera Pterophoridae Cnaemidophorus  116630539 116762374 116686069
+## 2 Lepidoptera Pterophoridae Cnaemidophorus          1        54       216
+## 3        &amp;lt;NA&amp;gt;          &amp;lt;NA&amp;gt; Cnaemidophorus         NA        NA        NA
+## 4 Lepidoptera Pterophoridae Cnaemidophorus  101719444 102545136 101674726
+## 5 Lepidoptera Pterophoridae Cnaemidophorus  126774927 126774928 126775138
+## 6        &amp;lt;NA&amp;gt; Pterophoridae Cnaemidophorus         NA        NA        NA
+##    orderKey familyKey  genusKey  canonicalName       authorship   nameType
+## 1 116843281 110614854 116755723 Cnaemidophorus Wallengren, 1862 WELLFORMED
+## 2       797      8863   1858636 Cnaemidophorus Wallengren, 1862 WELLFORMED
+## 3        NA        NA 124531302 Cnaemidophorus                  WELLFORMED
+## 4 102306154 100725398 101053441 Cnaemidophorus Wallengren, 1860 WELLFORMED
+## 5 126775421 126783981 126862804 Cnaemidophorus                  WELLFORMED
+## 6        NA 107119872 107119486 Cnaemidophorus Wallengren, 1862 WELLFORMED
+##    rank numOccurrences
+## 1 GENUS              0
+## 2 GENUS              0
+## 3 GENUS              0
+## 4 GENUS              0
+## 5 GENUS              0
+## 6 GENUS              0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;lookup-details-for-specific-names-or-ids-in-all-taxonomies-in-gbif&#34;&gt;Lookup details for specific names or IDs in all taxonomies in GBIF.&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ldply(name_usage(key = 3119195, data = &amp;quot;vernacular_names&amp;quot;)$results, data.frame)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##       key  usageKey                           datasetKey   vernacularName
+## 1  512055 117075019 244609a2-e92e-4465-bc9c-f3faa8ce0fcc Common sunflower
+## 2  267381 117214133 134eca5f-65ab-49a2-a229-3d0d35fcbefe Common sunflower
+## 3  786116 125790787 16c3f9cb-4b19-4553-ac8e-ebb90003aa02      Sonnenblume
+## 4  496979 106239436 fab88965-e69d-4491-a04d-e3198b626e52 common sunflower
+## 5  750838 124893865 705922f7-5ba5-49ab-a75d-722e3090e690 common sunflower
+## 6   38463 100019171 3f8a1297-3259-4700-91fc-acc4170b27ce common sunflower
+## 7   38464 100019171 3f8a1297-3259-4700-91fc-acc4170b27ce garden sunflower
+## 8   38465 100019171 3f8a1297-3259-4700-91fc-acc4170b27ce     grand soleil
+## 9   38466 100019171 3f8a1297-3259-4700-91fc-acc4170b27ce hélianthe annuel
+## 10  38467 100019171 3f8a1297-3259-4700-91fc-acc4170b27ce           soleil
+## 11 267382 117214133 134eca5f-65ab-49a2-a229-3d0d35fcbefe        sunflower
+## 12 512056 117075019 244609a2-e92e-4465-bc9c-f3faa8ce0fcc        sunflower
+## 13  38468 100019171 3f8a1297-3259-4700-91fc-acc4170b27ce        tournesol
+## 14 291752 116845199 cbb6498e-8927-405a-916b-576d00a6289b     Подсолнечник
+## 15 637567 110853779 1ec61203-14fa-4fbd-8ee5-a4a80257b45a           向日葵
+##    language preferred
+## 1   ENGLISH     FALSE
+## 2   ENGLISH     FALSE
+## 3    GERMAN     FALSE
+## 4   UNKNOWN     FALSE
+## 5   ENGLISH     FALSE
+## 6   ENGLISH     FALSE
+## 7   ENGLISH     FALSE
+## 8    FRENCH     FALSE
+## 9    FRENCH     FALSE
+## 10   FRENCH     FALSE
+## 11  ENGLISH     FALSE
+## 12  ENGLISH     FALSE
+## 13   FRENCH     FALSE
+## 14  RUSSIAN     FALSE
+## 15  CHINESE     FALSE
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;suggest-names&#34;&gt;Suggest names.&lt;/h3&gt;
+
+&lt;p&gt;This is meant to be a quick name suggestion function that returns up to 20 names by doing prefix matching against the scientific name. Results are ordered by relevance.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;name_suggest(q = &amp;quot;Puma&amp;quot;, fields = c(&amp;quot;key&amp;quot;, &amp;quot;canonicalName&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##        key                canonicalName
+## 1  2435098                         Puma
+## 2  2435099                Puma concolor
+## 3  2435146            Puma yagouaroundi
+## 4  4969803               Puma lacustris
+## 5  6164589       Puma concolor anthonyi
+## 6  6164590        Puma concolor couguar
+## 7  6164591    Puma concolor kaibabensis
+## 8  6164592    Puma concolor oregonensis
+## 9  6164594 Puma concolor vancouverensis
+## 10 6164599         Puma concolor azteca
+## 11 6164600          Puma concolor coryi
+## 12 6164602      Puma concolor improcera
+## 13 6164603   Puma concolor missoulensis
+## 14 6164604     Puma concolor stanleyana
+## 15 6164608    Puma concolor californica
+## 16 6164610    Puma concolor hippolestes
+## 17 6164611       Puma concolor mayensis
+## 18 6164613      Puma concolor schorgeri
+## 19 6164618         Puma concolor browni
+## 20 6164620         Puma concolor cougar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;occurrences&#34;&gt;Occurrences&lt;/h2&gt;
+
+&lt;h3 id=&#34;get-simple-count-of-number-of-records-given-parameters&#34;&gt;Get simple count of number of records given parameters&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;occ_count(nubKey = 2435099, georeferenced = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] 2541
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;get-specific-occurrence-records-with-know-keys&#34;&gt;Get specific occurrence records with know keys&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;occ_get(key = c(773433533, 101010, 240713150, 855998194, 49819470), return = &amp;quot;data&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##                                    name       key longitude latitude
+## 1                  Helianthus annuus L. 773433533   -117.00    32.85
+## 2  Platydoras costatus (Linnaeus, 1758)    101010    -70.07    -4.35
+## 3                              Pelosina 240713150    163.58   -77.57
+## 4       Sciurus vulgaris Linnaeus, 1758 855998194     12.04    58.41
+## 5 Phlogophora meticulosa Linnaeus, 1758  49819470     13.28    55.72
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;get-occurrence-records&#34;&gt;Get occurrence records&lt;/h3&gt;
+
+&lt;p&gt;This is the most common function you may use in &lt;code&gt;rgbif&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;key &amp;lt;- name_backbone(name = &amp;quot;Helianthus annuus&amp;quot;, kingdom = &amp;quot;plants&amp;quot;)$speciesKey
+occ_search(taxonKey = key, limit = 2)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## $meta
+## $meta$offset
+## [1] 0
+##
+## $meta$limit
+## [1] 2
+##
+## $meta$endOfRecords
+## [1] FALSE
+##
+## $meta$count
+## [1] 18190
+##
+##
+## $hierarchy
+## $hierarchy[[1]]
+##                   name     key    rank
+## 1              Plantae       6 kingdom
+## 2        Magnoliophyta      49  phylum
+## 3        Magnoliopsida     220   clazz
+## 4            Asterales     414   order
+## 5           Asteraceae    3065  family
+## 6           Helianthus 3119134   genus
+## 7 Helianthus annuus L. 3119195 species
+##
+##
+## $data
+##                   name       key longitude latitude
+## 1 Helianthus annuus L. 773433533   -117.00    32.85
+## 2 Helianthus annuus L. 855868468     16.42    56.58
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Another example, using Well Known Text Area as a bounding polygon to search on&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;occ_search(geometry = &amp;quot;POLYGON((30.1 10.1, 10 20, 20 40, 40 40, 30.1 10.1))&amp;quot;)$data
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##                                                   name      key longitude
+## 1          Carcharhinus albimarginatus (Ruppell, 1837) 8.57e+08     34.86
+## 2  Goniobranchus tinctorius (Rüppell &amp;amp; Leuckart, 1828) 8.57e+08     33.92
+## 3                Megalomma vesiculosum (Montagu, 1815) 8.57e+08     23.98
+## 4                   Thalassoma lunare (Linnaeus, 1758) 8.57e+08     33.92
+## 5                 Hermodice carunculata (Pallas, 1766) 8.57e+08     23.98
+## 6                    Pterois volitans (Linnaeus, 1758) 8.57e+08     33.92
+## 7             Marthasterias glacialis (Linnaeus, 1758) 8.57e+08     23.98
+## 8                  Epinephelus marginatus (Lowe, 1834) 8.57e+08     23.98
+## 9                Scorpaenopsis diabolus (Cuvier, 1829) 8.57e+08     33.92
+## 10                       Muraena helena Linnaeus, 1758 8.57e+08     23.98
+## 11                 Gobius bucchichi Steindachner, 1870 8.57e+08     23.98
+## 12               Thalassoma purpureum (Forsskål, 1775) 8.57e+08     33.92
+## 13                      Bothus podas (Delaroche, 1809) 8.57e+08     23.98
+## 14                    Symphodus tinca (Linnaeus, 1758) 8.57e+08     34.07
+## 15                      Pagrus pagrus (Linnaeus, 1758) 8.57e+08     34.07
+## 16                Sargocentron rubrum (Forsskål, 1775) 8.57e+08     34.07
+## 17            Marthasterias glacialis (Linnaeus, 1758) 8.57e+08     23.98
+## 18                  Spongia officinalis Linnaeus, 1759 8.57e+08     23.98
+## 19                Hermodice carunculata (Pallas, 1766) 8.57e+08     23.98
+## 20                       Octopus hubbsorum Berry, 1953 8.57e+08     23.98
+##    latitude
+## 1     25.31
+## 2     27.36
+## 3     37.66
+## 4     27.36
+## 5     37.66
+## 6     27.36
+## 7     37.66
+## 8     37.66
+## 9     27.36
+## 10    37.66
+## 11    37.66
+## 12    27.36
+## 13    37.66
+## 14    35.00
+## 15    35.00
+## 16    35.00
+## 17    37.66
+## 18    37.66
+## 19    37.66
+## 20    37.66
+&lt;/code&gt;&lt;/pre&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>taxize changes</title>
+      <link>https://ropensci.org/blog/2013/11/19/taxize-changes/</link>
+      <pubDate>Tue, 19 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/11/19/taxize-changes/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;We are building a taxonomic toolbelt for R called taxize - which gives you programmatic access to many sources of taxonomic data on the web. We just pushed a new version to &lt;a href=&#34;http://cran.r-project.org/web/packages/taxize/index.html&#34;&gt;CRAN (v0.1.5)&lt;/a&gt; with a lot of changes (see &lt;a href=&#34;https://github.com/ropensci/taxize#notes-on-the-itis-api&#34;&gt;here&lt;/a&gt; for a rundown). Here are a few highlights of the changes.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Note: the windows binary may not be available yet&amp;hellip;&lt;/em&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;install-and-load-taxize&#34;&gt;Install and load taxize&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;taxize&amp;quot;)
+library(taxize)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;taxonomic-identifiers&#34;&gt;Taxonomic identifiers&lt;/h2&gt;
+
+&lt;p&gt;Each taxonomic service has their own unique ID for a taxon. We had a way to get ITIS and NCBI identifiers before - we now have functions for Tropicos, EOL, and the Catalogue of Life.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_tpsid(sciname = &amp;quot;Helianthus petiolaris patens&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##        1
+## 50140022
+## attr(,&amp;quot;class&amp;quot;)
+## [1] &amp;quot;tpsid&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_colid(sciname = &amp;quot;Pinus contorta&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##          1
+## &amp;quot;14376216&amp;quot;
+## attr(,&amp;quot;class&amp;quot;)
+## [1] &amp;quot;colid&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And we have a new function to get identifiers across all sources. And it&amp;rsquo;s vectorized so you can pass in many names.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;get_ids(names = c(&amp;quot;Chironomus riparius&amp;quot;, &amp;quot;Poa annua&amp;quot;), db = c(&amp;quot;ncbi&amp;quot;, &amp;quot;itis&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## $ncbi
+## Chironomus riparius           Poa annua
+##            &amp;quot;315576&amp;quot;             &amp;quot;93036&amp;quot;
+## attr(,&amp;quot;match&amp;quot;)
+## [1] &amp;quot;found&amp;quot; &amp;quot;found&amp;quot;
+## attr(,&amp;quot;class&amp;quot;)
+## [1] &amp;quot;uid&amp;quot;
+##
+## $itis
+## Chironomus riparius           Poa annua
+##            &amp;quot;129313&amp;quot;             &amp;quot;41107&amp;quot;
+## attr(,&amp;quot;match&amp;quot;)
+## [1] &amp;quot;found&amp;quot; &amp;quot;found&amp;quot;
+## attr(,&amp;quot;class&amp;quot;)
+## [1] &amp;quot;tsn&amp;quot;
+##
+## attr(,&amp;quot;class&amp;quot;)
+## [1] &amp;quot;ids&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;taxonomic-classifications&#34;&gt;Taxonomic classifications&lt;/h2&gt;
+
+&lt;p&gt;We had a function called &lt;code&gt;classification&lt;/code&gt; to get a taxonomic hierarchy from a particular source, ITIS or NCBI. We now have functions for Tropicos, EOL, and the Catalogue of Life. In addition, we have a function to get classifications across sources.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;out &amp;lt;- get_ids(names = &amp;quot;Poa annua&amp;quot;, db = c(&amp;quot;ncbi&amp;quot;, &amp;quot;itis&amp;quot;))
+classification(out)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## $ncbi
+## $ncbi$`Poa annua`
+##        ScientificName         Rank    UID
+## 1  cellular organisms      no rank 131567
+## 2           Eukaryota superkingdom   2759
+## 3       Viridiplantae      kingdom  33090
+## 4        Streptophyta       phylum  35493
+## 5      Streptophytina      no rank 131221
+## 6         Embryophyta      no rank   3193
+## 7        Tracheophyta      no rank  58023
+## 8       Euphyllophyta      no rank  78536
+## 9       Spermatophyta      no rank  58024
+## 10      Magnoliophyta      no rank   3398
+## 11         Liliopsida        class   4447
+## 12        commelinids     subclass   4734
+## 13             Poales        order  38820
+## 14            Poaceae       family   4479
+## 15          BEP clade      no rank 359160
+## 16           Pooideae    subfamily 147368
+## 17              Poeae        tribe 147387
+## 18             Poinae     subtribe 640628
+## 19                Poa        genus   4544
+## 20          Poa annua      species  93036
+##
+##
+## $itis
+## $itis$`Poa annua`
+##         rankName       taxonName    tsn
+## 1        Kingdom         Plantae 202422
+## 2     Subkingdom  Viridaeplantae 846492
+## 3   Infrakingdom    Streptophyta 846494
+## 4       Division    Tracheophyta 846496
+## 5    Subdivision Spermatophytina 846504
+## 6  Infradivision    Angiospermae 846505
+## 7          Class   Magnoliopsida  18063
+## 8     Superorder        Lilianae 846542
+## 9          Order          Poales 846620
+## 10        Family         Poaceae  40351
+## 11         Genus             Poa  41074
+## 12       Species       Poa annua  41107
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;synonyms&#34;&gt;Synonyms&lt;/h2&gt;
+
+&lt;p&gt;Just like the &lt;code&gt;classification&lt;/code&gt; function, synonyms now searches across sources for synonym names. However, this function only has methods for ITIS and Tropicos.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;synonyms(c(&amp;quot;Poa annua&amp;quot;, &amp;quot;Pinus contorta&amp;quot;, &amp;quot;Puma concolor&amp;quot;), db = &amp;quot;itis&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## $`Poa annua`
+##                           name    tsn
+## 1      Poa annua var. aquatica 538978
+## 2       Poa annua var. reptans 538979
+## 3                  Aira pumila 785854
+## 4             Catabrosa pumila 787993
+## 5               Ochlopoa annua 791574
+## 6               Poa aestivalis 793946
+## 7                   Poa algida 793954
+## 8         Poa annua var. annua 802116
+## 9     Poa annua var. eriolepis 802117
+## 10 Poa annua var. rigidiuscula 802119
+## 11        Poa annua f. reptans 803667
+##
+## $`Pinus contorta`
+##      name    tsn
+## 1 nomatch 183327
+##
+## $`Puma concolor`
+##             name    tsn
+## 1 Felis concolor 180587
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;common-names-from-scientific-names-and-vice-versa&#34;&gt;Common names from scientific names and vice versa&lt;/h2&gt;
+
+&lt;p&gt;We have a variety of ways to get common names from scientific names for different sources. To simply things, there are two new functions to work across sources.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sci2comm(scinames = &amp;quot;Helianthus annuus&amp;quot;, db = &amp;quot;itis&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## $`Helianthus annuus`
+##            comname    lang   tsn
+## 1 common sunflower English 36616
+## 2        sunflower English 36616
+## 3   wild sunflower English 36616
+## 4 annual sunflower English 36616
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And vice versa&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;comm2sci(commnames = &amp;quot;annual blue grass&amp;quot;, db = &amp;quot;tropicos&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## $`annual blue grass`
+##     NameId ScientificName ScientificNameWithAuthors  Family
+## 1 25509881      Poa annua              Poa annua L. Poaceae
+##   RankAbbreviation NomenclatureStatusID NomenclatureStatusName Symbol
+## 1              sp.                    1             Legitimate      !
+##   Author DisplayReference DisplayDate TotalRows
+## 1     L.    Sp. Pl. 1: 68        1753         1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;itis-functions&#34;&gt;ITIS functions&lt;/h2&gt;
+
+&lt;p&gt;We reworked the functions that interact with the ITIS service. We still have all the same functions, but there are now a number of higher level functions that make the interface to ITIS simpler. Here are some examples:&lt;/p&gt;
+
+&lt;p&gt;Get references associated with names.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;itis_refs(c(202385, 70340))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [[1]]
+##   actualPubDate          isbn issn listedPubDate        pages
+## 1    2005-10-01 0-8018-8221-4         2005-10-01         2142
+## 2    1993-01-01 1-56098-217-9         1992-01-01 xviii + 1207
+## 3    1981-04-03                       1981-04-03         1181
+##                                      pubComment
+## 1
+## 2 Corrections were made to text at 3rd printing
+## 3
+##                                                                                    pubName
+## 1  Mammal Species of the World: A Taxonomic and Geographic Reference, 3rd ed., vols. 1 &amp;amp; 2
+## 2 Mammal Species of the World: A Taxonomic and Geographic Reference, 2nd ed., 3rd printing
+## 3                                    The Mammals of North America, vols. I and II, 2nd ed.
+##                   pubPlace                      publisher
+## 1 Baltimore, Maryland, USA Johns Hopkins University Press
+## 2      Washington, DC, USA  Smithsonian Institution Press
+## 3  New York, New York, USA      John Wiley and Sons, Inc.
+##                              referenceAuthor                    name
+## 1 Wilson, Don E., and DeeAnn M. Reeder, eds. Ursus arctos horribilis
+## 2 Wilson, Don E., and DeeAnn M. Reeder, eds. Ursus arctos horribilis
+## 3                           Hall, E. Raymond Ursus arctos horribilis
+##   refLanguage referredTsn title updateDate
+## 1                  202385       2013-11-04
+## 2                  202385       2013-11-04
+## 3                  202385       2013-11-04
+##
+## [[2]]
+##   actualPubDate          isbn      issn listedPubDate     pages pubComment
+## 1    1988-01-01 0-913235-47-4 0097-0638    1988-01-01 vii + 277
+## 2    1998-01-01 1-888569-01-8 0097-0638    1998-01-01       526
+##                                             pubName
+## 1 American Fisheries Society Special Publication 16
+## 2 American Fisheries Society Special Publication 26
+##                  pubPlace                  publisher
+## 1 Bethesda, Maryland, USA American Fisheries Society
+## 2 Bethesda, Maryland, USA American Fisheries Society
+##                                                                                  referenceAuthor
+## 1          Turgeon, D. D., A. E. Bogan, E. V. Coan, W. K. Emerson, W. G. Lyons, W. Pratt, et al.
+## 2 Turgeon, D. D., J. F. Quinn, Jr., A. E. Bogan, E. V. Coan, F. G. Hochberg, W. G. Lyons, et al.
+##                 name refLanguage referredTsn
+## 1 Tulotoma magnifica                   70340
+## 2 Tulotoma magnifica                   70340
+##                                                                                                       title
+## 1          Common and scientific names of aquatic invertebrates from the United States and Canada: mollusks
+## 2 Common and scientific names of aquatic invertebrates from the United States and Canada: Mollusks, 2nd ed.
+##   updateDate
+## 1 2013-04-26
+## 2 2013-11-04
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Get hierarchy: full, up (immediate), and down (immediate)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;itis_hierarchy(tsn = 180543)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##       parentName parentTsn     rankName                 taxonName    tsn
+## 1                               Kingdom                  Animalia 202423
+## 2       Animalia    202423   Subkingdom                 Bilateria 914154
+## 3      Bilateria    914154 Infrakingdom             Deuterostomia 914156
+## 4  Deuterostomia    914156       Phylum                  Chordata 158852
+## 5       Chordata    158852    Subphylum                Vertebrata 331030
+## 6     Vertebrata    331030  Infraphylum             Gnathostomata 914179
+## 7  Gnathostomata    914179   Superclass                 Tetrapoda 914181
+## 8      Tetrapoda    914181        Class                  Mammalia 179913
+## 9       Mammalia    179913     Subclass                    Theria 179916
+## 10        Theria    179916   Infraclass                  Eutheria 179925
+## 11      Eutheria    179925        Order                 Carnivora 180539
+## 12     Carnivora    180539     Suborder                Caniformia 552303
+## 13    Caniformia    552303       Family                   Ursidae 180540
+## 14       Ursidae    180540        Genus                     Ursus 180541
+## 15         Ursus    180541      Species              Ursus arctos 180543
+## 16  Ursus arctos    180543   Subspecies   Ursus arctos alascensis 726985
+## 17  Ursus arctos    180543   Subspecies       Ursus arctos arctos 202383
+## 18  Ursus arctos    180543   Subspecies  Ursus arctos beringianus 726986
+## 19  Ursus arctos    180543   Subspecies Ursus arctos californicus 726987
+## 20  Ursus arctos    180543   Subspecies     Ursus arctos collaris 726988
+## 21  Ursus arctos    180543   Subspecies    Ursus arctos crowtheri 726989
+## 22  Ursus arctos    180543   Subspecies        Ursus arctos dalli 726990
+## 23  Ursus arctos    180543   Subspecies         Ursus arctos gyas 726991
+## 24  Ursus arctos    180543   Subspecies   Ursus arctos horribilis 202385
+## 25  Ursus arctos    180543   Subspecies  Ursus arctos isabellinus 622068
+## 26  Ursus arctos    180543   Subspecies     Ursus arctos lasiotus 726992
+## 27  Ursus arctos    180543   Subspecies Ursus arctos middendorffi 726993
+## 28  Ursus arctos    180543   Subspecies    Ursus arctos pruinosus 202386
+## 29  Ursus arctos    180543   Subspecies    Ursus arctos sitkensis 726994
+## 30  Ursus arctos    180543   Subspecies Ursus arctos stikeenensis 726995
+## 31  Ursus arctos    180543   Subspecies     Ursus arctos syriacus 726996
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;itis_hierarchy(tsn = 180543, what = &amp;quot;up&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##   parentName parentTsn rankName    taxonName    tsn
+## 1      Ursus    180541  Species Ursus arctos 180543
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;itis_hierarchy(tsn = 180543, what = &amp;quot;down&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##      parentName parentTsn   rankName                 taxonName    tsn
+## 1  Ursus arctos    180543 Subspecies       Ursus arctos arctos 202383
+## 2  Ursus arctos    180543 Subspecies   Ursus arctos horribilis 202385
+## 3  Ursus arctos    180543 Subspecies    Ursus arctos pruinosus 202386
+## 4  Ursus arctos    180543 Subspecies  Ursus arctos isabellinus 622068
+## 5  Ursus arctos    180543 Subspecies   Ursus arctos alascensis 726985
+## 6  Ursus arctos    180543 Subspecies  Ursus arctos beringianus 726986
+## 7  Ursus arctos    180543 Subspecies Ursus arctos californicus 726987
+## 8  Ursus arctos    180543 Subspecies     Ursus arctos collaris 726988
+## 9  Ursus arctos    180543 Subspecies    Ursus arctos crowtheri 726989
+## 10 Ursus arctos    180543 Subspecies        Ursus arctos dalli 726990
+## 11 Ursus arctos    180543 Subspecies         Ursus arctos gyas 726991
+## 12 Ursus arctos    180543 Subspecies     Ursus arctos lasiotus 726992
+## 13 Ursus arctos    180543 Subspecies Ursus arctos middendorffi 726993
+## 14 Ursus arctos    180543 Subspecies    Ursus arctos sitkensis 726994
+## 15 Ursus arctos    180543 Subspecies Ursus arctos stikeenensis 726995
+## 16 Ursus arctos    180543 Subspecies     Ursus arctos syriacus 726996
+&lt;/code&gt;&lt;/pre&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

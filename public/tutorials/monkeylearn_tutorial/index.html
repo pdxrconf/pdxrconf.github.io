@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | monkeylearn tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>monkeylearn tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.1.3</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p>This package is an interface to the <a href="http://docs.monkeylearn.com/article/api-reference/">MonkeyLearn API</a>. MonkeyLearn is a Machine Learning platform on the cloud that allows software companies and developers to easily extract actionable data from text.</p>
+
+<p>The goal of the package is not to support machine learning algorithms development with R or the API, but only to <em>reap the benefits of the existing modules on Monkeylearn</em>. Therefore, there are only two functions, one for using <em>extractors</em>, and one for using <em>classifiers</em>. The difference between extractors and classifiers is that extractors output information about words, whereas classifiers output information about each text as a whole. Named entity recognition is an extraction task, whereas assigning a topic to a text is a classification task.</p>
+
+<p>To get an API key for MonkeyLearn, register at <a href="http://monkeylearn.com/">http://monkeylearn.com/</a>. Note that MonkeyLearn supports registration through GitHub, which makes the registration process really easy. The free API key provides up to 100,000 requests a month For ease of use, save your API key as an environment variable as described at <a href="http://stat545.com/bit003_api-key-env-var.html">http://stat545.com/bit003_api-key-env-var.html</a>.</p>
+
+<p>Both functions of the package will conveniently look for your API key using <code>Sys.getenv(&quot;MONKEYLEARN_KEY&quot;)</code> so if your API key is an environment variable called &ldquo;MONKEYLEARN_KEY&rdquo; you don&rsquo;t need to input it manually.</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>CRAN version</p>
+
+<pre><code class="language-r">install.packages(&quot;monkeylearn&quot;)
+</code></pre>
+
+<p>Development version from GitHub</p>
+
+<pre><code class="language-r">if (!require(&quot;devtools&quot;)) install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;ropenscilabs/monkeylearn&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;monkeylearn&quot;)
+</code></pre>
+
+<h3 id="extract">Extract</h3>
+
+<h4 id="a-first-example">A first example</h4>
+
+<pre><code class="language-r">text &lt;- &quot;In the 19th century, the major European powers had gone to great lengths to maintain a balance of power throughout Europe, resulting in the existence of a complex network of political and military alliances throughout the continent by 1900.[7] These had started in 1815, with the Holy Alliance between Prussia, Russia, and Austria. Then, in October 1873, German Chancellor Otto von Bismarck negotiated the League of the Three Emperors (German: Dreikaiserbund) between the monarchs of Austria-Hungary, Russia and Germany.&quot;
+output &lt;- monkeylearn_extract(request = text,
+                              extractor_id = &quot;ex_isnnZRbS&quot;)
+output
+</code></pre>
+
+<pre><code>#&gt;   count      tag            entity                         text_md5
+#&gt; 1     1 LOCATION            Europe 95132b831aa7a4ba1a666b93490b3c9c
+#&gt; 2     1 LOCATION           Prussia 95132b831aa7a4ba1a666b93490b3c9c
+#&gt; 3     1 LOCATION   Austria-Hungary 95132b831aa7a4ba1a666b93490b3c9c
+#&gt; 4     1 LOCATION           Austria 95132b831aa7a4ba1a666b93490b3c9c
+#&gt; 5     1 LOCATION           Germany 95132b831aa7a4ba1a666b93490b3c9c
+#&gt; 6     1   PERSON Otto von Bismarck 95132b831aa7a4ba1a666b93490b3c9c
+#&gt; 7     2 LOCATION            Russia 95132b831aa7a4ba1a666b93490b3c9c
+</code></pre>
+
+<pre><code class="language-r">attr(output, &quot;headers&quot;)
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 1 x 11
+#&gt;         server                          date     content.type
+#&gt;         &lt;fctr&gt;                        &lt;fctr&gt;           &lt;fctr&gt;
+#&gt; 1 nginx/1.11.5 Tue, 17 Oct 2017 16:38:10 GMT application/json
+#&gt; # ... with 8 more variables: transfer.encoding &lt;fctr&gt;, connection &lt;fctr&gt;,
+#&gt; #   x.query.limit.limit &lt;fctr&gt;, x.query.limit.remaining &lt;fctr&gt;,
+#&gt; #   x.query.limit.request.queries &lt;fctr&gt;, allow &lt;fctr&gt;,
+#&gt; #   content.encoding &lt;fctr&gt;, text_md5 &lt;list&gt;
+</code></pre>
+
+<h3 id="parameters">Parameters</h3>
+
+<p>If the documentation of the extractor you use states it has parameters, you can pass them as a named list, see below.</p>
+
+<pre><code class="language-r">text &lt;- &quot;A panel of Goldman Sachs employees spent a recent Tuesday night at the
+Columbia University faculty club trying to convince a packed room of potential
+recruits that Wall Street, not Silicon Valley, was the place to be for computer
+scientists.\n\n The Goldman employees knew they had an uphill battle. They were
+ fighting against perceptions of Wall Street as boring and regulation-bound and
+ Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar
+  stock options.\n\n Their argument to the room of technologically inclined students
+  was that Wall Street was where they could find far more challenging, diverse and,
+   yes, lucrative jobs working on some of the worlds most difficult technical problems.\n\n
+   Whereas in other opportunities you might be considering, it is working one type of data
+   or one type of application, we deal in hundreds of products in hundreds of markets, with
+    thousands or tens of thousands of clients, every day, millions of times of day worldwide,
+     Afsheen Afshar, a managing director at Goldman Sachs, told the students.&quot;
+output &lt;- monkeylearn_extract(text,
+                              extractor_id = &quot;ex_y7BPYzNG&quot;,
+                              params = list(max_keywords = 3))
+output
+</code></pre>
+
+<pre><code>#&gt;   count relevance positions_in_text                      keyword
+#&gt; 1     3     0.978     164, 341, 568                  Wall Street
+#&gt; 2     2     0.652          181, 389               Silicon Valley
+#&gt; 3     0     0.543                   million-dollar stock options
+#&gt;                           text_md5
+#&gt; 1 c52e4d898bf4009ba347820c86275973
+#&gt; 2 c52e4d898bf4009ba347820c86275973
+#&gt; 3 c52e4d898bf4009ba347820c86275973
+</code></pre>
+
+<pre><code class="language-r">output2 &lt;- monkeylearn_extract(text,
+                              extractor_id = &quot;ex_y7BPYzNG&quot;,
+                              params = list(max_keywords = 1))
+output2
+</code></pre>
+
+<pre><code>#&gt;   count relevance positions_in_text     keyword
+#&gt; 1     3     0.978     164, 341, 568 Wall Street
+#&gt;                           text_md5
+#&gt; 1 c52e4d898bf4009ba347820c86275973
+</code></pre>
+
+<pre><code class="language-r">attr(output2, &quot;headers&quot;)
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 1 x 11
+#&gt;         server                          date     content.type
+#&gt;         &lt;fctr&gt;                        &lt;fctr&gt;           &lt;fctr&gt;
+#&gt; 1 nginx/1.11.5 Tue, 17 Oct 2017 16:38:10 GMT application/json
+#&gt; # ... with 8 more variables: transfer.encoding &lt;fctr&gt;, connection &lt;fctr&gt;,
+#&gt; #   x.query.limit.limit &lt;fctr&gt;, x.query.limit.remaining &lt;fctr&gt;,
+#&gt; #   x.query.limit.request.queries &lt;fctr&gt;, allow &lt;fctr&gt;,
+#&gt; #   content.encoding &lt;fctr&gt;, text_md5 &lt;list&gt;
+</code></pre>
+
+<h3 id="how-to-find-extractors">How to find extractors?</h3>
+
+<p>You can find extractors and their IDs, including extractors for text in Spanish, at <a href="https://app.monkeylearn.com/main/explore">https://app.monkeylearn.com/main/explore</a></p>
+
+<p>There is no endpoint for automatically finding all extractors, but if you find one in the website you particularly like and use a lot in your language and application, you could choose to save its id as an environment variable as explained <a href="http://stat545.com/bit003_api-key-env-var.html">here</a>. Reading about extractors on the website will give you a good overview of their characteristics and original application.</p>
+
+<p>Here are a few ones for text in English:</p>
+
+<ul>
+<li><p><a href="https://app.monkeylearn.com/extraction/extractors/ex_isnnZRbS/tab/description-tab">Entity extractor</a>, <code>extractor_id = &quot;ex_isnnZRbS&quot;</code> (used in the first example). Extract Entities from text using Named Entity Recognition (NER). NER labels sequences of words in a text which are the names of things, such as person and company names. This implementation labels 3 classes: PERSON, ORGANIZATION and LOCATION. This NER tagger is implemented using Conditional Random Field (CRF) sequence models.</p></li>
+
+<li><p><a href="https://app.monkeylearn.com/extraction/extractors/ex_y7BPYzNG/tab/description-tab">Keyword extractor</a>, <code>extractor_id = &quot;ex_y7BPYzNG&quot;</code>. Extract keywords from text in English. Keywords can be compounded by one or more words and are defined as the important topics in your content and can be used to index data, generate tag clouds or for searching. This keyword extraction algorithm employs statistical algorithms and natural language processing technology to analyze your content and identify the relevant keywords.</p></li>
+</ul>
+
+<pre><code class="language-r">text &lt;- &quot;A panel of Goldman Sachs employees spent a recent Tuesday night at the Columbia University faculty club trying to convince a packed room of potential recruits that Wall Street, not Silicon Valley, was the place to be for computer scientists.
+
+The Goldman employees knew they had an uphill battle. They were fighting against perceptions of Wall Street as boring and regulation-bound and Silicon Valley as the promised land of flip-flops, beanbag chairs and million-dollar stock options.
+
+Their argument to the room of technologically inclined students was that Wall Street was where they could find far more challenging, diverse and, yes, lucrative jobs working on some of the world’s most difficult technical problems.
+
+“Whereas in other opportunities you might be considering, it is working one type of data or one type of application, we deal in hundreds of products in hundreds of markets, with thousands or tens of thousands of clients, every day, millions of times of day worldwide,” Afsheen Afshar, a managing director at Goldman Sachs, told the students.&quot;
+output &lt;- monkeylearn_extract(request = text,
+                              extractor_id = &quot;ex_y7BPYzNG&quot;)
+output
+</code></pre>
+
+<pre><code>#&gt;    count relevance positions_in_text                      keyword
+#&gt; 1      3     0.978     164, 339, 560                  Wall Street
+#&gt; 2      2     0.652          181, 386               Silicon Valley
+#&gt; 3      1     0.543               456 million-dollar stock options
+#&gt; 4      1     0.543                11      Goldman Sachs employees
+#&gt; 5      1     0.543                80      University faculty club
+#&gt; 6      1     0.543                43         recent Tuesday night
+#&gt; 7      1     0.543               689 difficult technical problems
+#&gt; 8      2     0.435          898, 919                    thousands
+#&gt; 9      2     0.435          796, 816                         type
+#&gt; 10     2     0.435          848, 872                     hundreds
+#&gt;                            text_md5
+#&gt; 1  06674f3b0fc7a6135c0afb3e8b5f87f1
+#&gt; 2  06674f3b0fc7a6135c0afb3e8b5f87f1
+#&gt; 3  06674f3b0fc7a6135c0afb3e8b5f87f1
+#&gt; 4  06674f3b0fc7a6135c0afb3e8b5f87f1
+#&gt; 5  06674f3b0fc7a6135c0afb3e8b5f87f1
+#&gt; 6  06674f3b0fc7a6135c0afb3e8b5f87f1
+#&gt; 7  06674f3b0fc7a6135c0afb3e8b5f87f1
+#&gt; 8  06674f3b0fc7a6135c0afb3e8b5f87f1
+#&gt; 9  06674f3b0fc7a6135c0afb3e8b5f87f1
+#&gt; 10 06674f3b0fc7a6135c0afb3e8b5f87f1
+</code></pre>
+
+<ul>
+<li><a href="https://app.monkeylearn.com/extraction/extractors/ex_dqRio5sG/tab/description-tab">Useful data extractor</a>, <code>extractor_id = &quot;ex_dqRio5sG&quot;</code>. Extract useful data from text. This algorithm can be used to detect many different useful data: links, phones, ips, prices, times, emails, bitcoin addresses, dates, ipv6s, hex colors and credit cards.</li>
+</ul>
+
+<p>When using this extractor, the format of the API output is a bit different than for other extractors, see below how the output looks like.</p>
+
+<pre><code class="language-r">text &lt;- &quot;Hi, my email is john@example.com and my credit card is 4242-4242-4242-4242 so you can charge me with $10. My phone number is 15555 9876. We can get in touch on April 16, at 10:00am&quot;
+text2 &lt;- &quot;Hi, my email is mary@example.com and my credit card is 4242-4232-4242-4242. My phone number is 16655 9876. We can get in touch on April 16, at 10:00am&quot;
+output &lt;- monkeylearn_extract(request = c(text, text2),
+                              extractor_id = &quot;ex_dqRio5sG&quot;)
+output
+</code></pre>
+
+<pre><code>#&gt;       dates       links     phones ipv6s hex_colors  ips
+#&gt; 1 April 16, example.com 15555 9876  NULL       NULL NULL
+#&gt; 2 April 16, example.com 16655 9876  NULL       NULL NULL
+#&gt;          credit_cards prices   times           emails bitcoin_addresses
+#&gt; 1 4242-4242-4242-4242    $10 10:00am john@example.com              NULL
+#&gt; 2 4242-4232-4242-4242        10:00am mary@example.com              NULL
+#&gt;                           text_md5
+#&gt; 1 8c2b65bfca064616356c6a2cae2f5519
+#&gt; 2 c97eba30f94868ba6b7c3d250f59133a
+</code></pre>
+
+<h3 id="classify">Classify</h3>
+
+<h4 id="a-first-example-1">A first example</h4>
+
+<pre><code class="language-r">text1 &lt;- &quot;my dog is an avid rice eater&quot;
+text2 &lt;- &quot;i want to buy an iphone&quot;
+request &lt;- c(text1, text2)
+monkeylearn_classify(request,
+                     classifier_id = &quot;cl_oFKL5wft&quot;)
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 6 x 4
+#&gt;   category_id probability              label
+#&gt;         &lt;int&gt;       &lt;dbl&gt;              &lt;chr&gt;
+#&gt; 1    18313097       0.130               Pets
+#&gt; 2    18313108       0.239               Dogs
+#&gt; 3    18313113       0.082           Dog Food
+#&gt; 4    18314739       0.113        Cell Phones
+#&gt; 5    18314740       0.186        Accessories
+#&gt; 6    18314741       0.094 Cases &amp; Protectors
+#&gt; # ... with 1 more variables: text_md5 &lt;chr&gt;
+</code></pre>
+
+<h4 id="how-to-find-classifiers">How to find classifiers?</h4>
+
+<p>You can find classifiers and their IDs at <a href="https://app.monkeylearn.com/main/explore">https://app.monkeylearn.com/main/explore</a> or you can use the <code>monkeylearn_classifiers</code> function, choosing to show all classifiers or only the private ones with <code>private = TRUE</code>. The first column of the resulting data.frame is the <code>classifier_id</code> to be used in <code>monkeylearn_classify</code>.</p>
+
+<pre><code class="language-r">monkeylearn_classifiers(private = FALSE)
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 41 x 19
+#&gt;    classifier_id                                              name
+#&gt;            &lt;chr&gt;                                             &lt;chr&gt;
+#&gt;  1   cl_sGdE8hD9              NPS SaaS Product Feedback Classifier
+#&gt;  2   cl_T7XMb74S                           IAB Taxonomy Classifier
+#&gt;  3   cl_nLW3yR6m      Telcos -  Customer Support Ticket Classifier
+#&gt;  4   cl_4LqLD7cN  Telcos - Customer Complaint Classifier (Twitter)
+#&gt;  5   cl_rtdVEb8p            Telcos - Sentiment analysis (Facebook)
+#&gt;  6   cl_szya8upj Telcos - Customer Complaint Classifier (Facebook)
+#&gt;  7   cl_uEzzFRHh          Telcos - Needs Help Detection (Facebook)
+#&gt;  8   cl_zSDSt8QP                Outbound Sales Response Classifier
+#&gt;  9   cl_nuBGDNiN                Startup News - Industry Classifier
+#&gt; 10   cl_GhPhiVYE     E-commerce Customer Support Ticket Classifier
+#&gt; # ... with 31 more rows, and 17 more variables: description &lt;chr&gt;,
+#&gt; #   train_state &lt;chr&gt;, train_job_id &lt;lgl&gt;, language &lt;chr&gt;,
+#&gt; #   ngram_range &lt;chr&gt;, use_stemmer &lt;lgl&gt;, stop_words &lt;chr&gt;,
+#&gt; #   max_features &lt;int&gt;, strip_stopwords &lt;lgl&gt;, is_multilabel &lt;lgl&gt;,
+#&gt; #   is_twitter_data &lt;lgl&gt;, normalize_weights &lt;lgl&gt;, classifier &lt;chr&gt;,
+#&gt; #   industry &lt;chr&gt;, classifier_type &lt;chr&gt;, text_type &lt;chr&gt;,
+#&gt; #   permissions &lt;chr&gt;
+</code></pre>
+
+<p>For instance, for doing sentiment analysis in French, one could extract all classifiers and then look at classifiers containing the word &ldquo;sentiment&rdquo; in their name and &ldquo;fr&rdquo; as language.</p>
+
+<pre><code class="language-r">classifiers &lt;- monkeylearn_classifiers(private = FALSE)
+classifiers_sentiment_french &lt;- dplyr::filter(classifiers,
+                                              grepl(&quot;[Ss]entiment&quot;, name), language == &quot;fr&quot;)
+</code></pre>
+
+<p>Here are a few other examples:</p>
+
+<ul>
+<li><a href="https://app.monkeylearn.com/categorizer/projects/cl_oJNMkt2V/tab/main-tab">Language detection</a>, <code>classifier_id = &quot;cl_oJNMkt2V&quot;</code>. Detect language in text. New languages were added for a total of 48 different languages arranged in language families.</li>
+</ul>
+
+<pre><code class="language-r">text1 &lt;- &quot;Hauràs de dirigir-te al punt de trobada del grup al que et vulguis unir.&quot;
+text2 &lt;- &quot;i want to buy an iphone&quot;
+text3 &lt;- &quot;Je déteste ne plus avoir de dentifrice.&quot;
+request &lt;- c(text1, text2, text3)
+monkeylearn_classify(request,
+                     classifier_id = &quot;cl_oJNMkt2V&quot;)
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 5 x 4
+#&gt;   category_id probability         label                         text_md5
+#&gt;         &lt;int&gt;       &lt;dbl&gt;         &lt;chr&gt;                            &lt;chr&gt;
+#&gt; 1     2324978       1.000        Italic e8d671fbd9d74e6fc58e6d5a34025534
+#&gt; 2     2324979       1.000    Catalan-ca e8d671fbd9d74e6fc58e6d5a34025534
+#&gt; 3     2325016       0.686 Vietnamese-vi af5c621a49a008f6e6a0d5ad47f2e1f4
+#&gt; 4     2324978       1.000        Italic d3b4ce291cfb147a8246f71e0534c7c8
+#&gt; 5     2324980       1.000     French-fr d3b4ce291cfb147a8246f71e0534c7c8
+</code></pre>
+
+<ul>
+<li><a href="https://app.monkeylearn.com/categorizer/projects/cl_KFXhoTdt/tab/main-tab">Profanity and abuse detection</a>, <code>classifier_id = &quot;cl_KFXhoTdt&quot;</code>.</li>
+</ul>
+
+<pre><code class="language-r">text1 &lt;- &quot;I think this is awesome.&quot;
+text2 &lt;- &quot;Holy shit! You did great!&quot;
+request &lt;- c(text1, text2)
+monkeylearn_classify(request,
+                     classifier_id = &quot;cl_KFXhoTdt&quot;)
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 2 x 4
+#&gt;   category_id probability     label                         text_md5
+#&gt;         &lt;int&gt;       &lt;dbl&gt;     &lt;chr&gt;                            &lt;chr&gt;
+#&gt; 1    22375077       0.803     clean 641e443d9485034d30fec6c36d67d4cd
+#&gt; 2    22375076       0.997 profanity 2b9e3eb08b256277e4c2b3dfcc8d5c75
+</code></pre>
+
+<ul>
+<li><a href="https://app.monkeylearn.com/categorizer/projects/cl_5icAVzKR/tab/">General topic classifier</a>, <code>classifier_id = &quot;cl_5icAVzKR&quot;</code>.</li>
+</ul>
+
+<pre><code class="language-r">text1 &lt;- &quot;Let me tell you about my dog and my cat. They are really friendly and like going on walks. They both like chasing mice.&quot;
+text2 &lt;- &quot;My first R package was probably a disaster but I keep learning how to program.&quot;
+request &lt;- c(text1, text2)
+monkeylearn_classify(request,
+                     classifier_id = &quot;cl_5icAVzKR&quot;)
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 5 x 4
+#&gt;   category_id probability                label
+#&gt;         &lt;int&gt;       &lt;dbl&gt;                &lt;chr&gt;
+#&gt; 1       64600       0.894              Animals
+#&gt; 2       64608       0.649              Mammals
+#&gt; 3       64611       0.869         Land Mammals
+#&gt; 4       64638       0.240 Computers &amp; Internet
+#&gt; 5       64640       0.252             Internet
+#&gt; # ... with 1 more variables: text_md5 &lt;chr&gt;
+</code></pre>
+
+<h3 id="check-the-number-of-remaining-calls">Check the number of remaining calls</h3>
+
+<p>After each call to a function you can check how many calls to the API you can still make  using <code>attr(output, &quot;headers&quot;)$x.query.limit.remaining</code> and <code>attr(output, &quot;headers&quot;)$x.query.limit.limit</code>. The period after which <code>attr(output, &quot;headers&quot;)$x.query.limit.remaining</code> depends on your subscription and is not included in the output.</p>
+
+<h3 id="citing">Citing</h3>
+
+<blockquote>
+<p>Maëlle Salmon (2017). monkeylearn: Accesses the Monkeylearn API for
+  Text Classifiers and Extractors. R package version 0.1.3.
+  <a href="https://CRAN.R-project.org/package=monkeylearn">https://CRAN.R-project.org/package=monkeylearn</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropenscilabs/monkeylearn/issues?state=open">our GitHub repo for monkeylearn</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

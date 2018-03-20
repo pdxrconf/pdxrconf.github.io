@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ecology on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/ecology/</link>
+    <description>Recent content in Ecology on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 05 Aug 2013 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/ecology/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>NOAA climate sparklines</title>
+      <link>https://ropensci.org/blog/2013/08/05/noaa-sparklines/</link>
+      <pubDate>Mon, 05 Aug 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/08/05/noaa-sparklines/</guid>
+      <description>
+        
+        &lt;p&gt;We have started a new R package interacting with NOAA climate data called &lt;strong&gt;rnoaa&lt;/strong&gt;. You can find our package in development &lt;a href=&#34;https://github.com/ropensci/rnoaa&#34;&gt;here&lt;/a&gt; and documentation for NOAA web services &lt;a href=&#34;http://www.ncdc.noaa.gov/cdo-web/webservices&#34;&gt;here&lt;/a&gt;. It is still early days for this package, but we wanted to demo what you can do with the package.&lt;/p&gt;
+
+&lt;p&gt;In this example, we search for stations that collect climate data, then get the data for those stations, pull out only the precipitation data, then get latitude/longitude coordinates for each station, and plot data on a map.&lt;/p&gt;
+
+&lt;p&gt;Load packages&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(rnoaa)
+library(scales)
+library(lubridate)
+library(maptools)
+library(ggplot2)
+library(doMC)
+library(ggsubplot)
+library(maps)
+library(plyr)
+library(stringr)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Find stations to get data from&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;stations &amp;lt;- noaa_stations(dataset = &amp;quot;GHCND&amp;quot;, enddate = &amp;quot;20121201&amp;quot;)
+res &amp;lt;- sapply(stations$data, function(x) x$meta$id)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Get data from stations, just searching on the first 60.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;noaa_fw &amp;lt;- failwith(NULL, noaa)
+registerDoMC(cores = 4)
+dat &amp;lt;- compact(llply(as.character(res)[1:60], function(x) noaa_fw(dataset = &amp;quot;GHCND&amp;quot;,
+    station = x, year = 2010, month = 7), .parallel = TRUE))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Make a data.frame and fix dates.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;df &amp;lt;- ldply(dat, function(x) x$data)
+df$date &amp;lt;- ymd(str_replace(as.character(df$date), &amp;quot;T00:00:00\\.000&amp;quot;, &amp;quot;&amp;quot;))
+df &amp;lt;- df[df$dataType == &amp;quot;PRCP&amp;quot;, ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Get station lat and long data so that we can put data on a map.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;latlongs &amp;lt;- llply(res[1:60], function(x) noaa_stations(x, dataset = &amp;quot;GHCND&amp;quot;)$data$meta[c(&amp;quot;id&amp;quot;,
+    &amp;quot;latitude&amp;quot;, &amp;quot;longitude&amp;quot;)])
+latlongs &amp;lt;- ldply(latlongs, function(x) as.data.frame(x))
+df2 &amp;lt;- merge(df, latlongs, by.x = &amp;quot;station&amp;quot;, by.y = &amp;quot;id&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here&amp;rsquo;s what the first six rows of data look like&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(df2)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;            station       date dataType value  atts latitude longitude
+1 GHCND:AQC00914000 2010-07-01     PRCP   297 01000   -14.32    -170.8
+2 GHCND:AQC00914000 2010-07-02     PRCP    56 01000   -14.32    -170.8
+3 GHCND:AQC00914000 2010-07-03     PRCP   122 01000   -14.32    -170.8
+4 GHCND:AQC00914000 2010-07-04     PRCP     0 01000   -14.32    -170.8
+5 GHCND:AQC00914000 2010-07-05     PRCP    61 01000   -14.32    -170.8
+6 GHCND:AQC00914000 2010-07-06     PRCP   437 01000   -14.32    -170.8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Plot the data. Each sparkline on the map is the precipitation data for a station, where the values are tenths of mm of precipitation. The x-axis of each sparkline is number of days, where each line is the last 30 days of precipitation data. The blue line in each sparkline is the same y-axis for each line for reference. The station with the greatest value (87.6 mm) is the one in the ocean in American Somoa at (-14.31667,-170.7667).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;world_map &amp;lt;- map_data(&amp;quot;world&amp;quot;)
+p &amp;lt;- ggplot() + geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+    fill = &amp;quot;white&amp;quot;, color = &amp;quot;gray40&amp;quot;, size = 0.2) + annotate(geom = &amp;quot;text&amp;quot;,
+    x = -155, y = -55, label = sprintf(&amp;quot;Max value is\n %s mm&amp;quot;, max(df2$value)/10))
+p + geom_subplot(aes(longitude, latitude, group = station, subplot = geom_line(aes(date,
+    value)), size = 1), ref = ref_vline(aes(fill = length(value)), thickness = 0.1),
+    width = rel(2), height = rel(5), data = df2) + theme(legend.position = &amp;quot;none&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2013-08-05-noaa-sparklines/plotit.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There is a lot more to come in this package. Keep an eye on this blog and our twitter account (@ropensci).&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Overlaying climate data with species occurrence data</title>
+      <link>https://ropensci.org/blog/2013/07/29/rwbclimate-rgbif/</link>
+      <pubDate>Mon, 29 Jul 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/07/29/rwbclimate-rgbif/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;One of our primary goals at ROpenSci is to wrap as many science API&amp;rsquo;s as possible.  While each package can be used as a standalone interface, there&amp;rsquo;s lots of ways our packages can overlap and complement each other.  Sure &lt;a href=&#34;http://www.youtube.com/watch?v=7yeA7a0uS3A&#34;&gt;He-Man&lt;/a&gt; usually rode &lt;a href=&#34;http://en.wikipedia.org/wiki/Battle_Cat&#34;&gt;Battle Cat&lt;/a&gt;, but there&amp;rsquo;s no reason he couldn&amp;rsquo;t ride a &lt;a href=&#34;http://drawception.com/pub/panels/2012/5-14/swgpnXLCRm-8.png&#34;&gt;my little pony&lt;/a&gt; sometimes too.  That&amp;rsquo;s the case with our packages for &lt;a href=&#34;http://www.gbif.org/&#34;&gt;GBIF&lt;/a&gt; and the &lt;a href=&#34;http://data.worldbank.org/developers/climate-data-api&#34;&gt;worldbank climate data api&lt;/a&gt;.  Both packages will give you lots and lots of data, but a shared feature of both is the ability to plot spatial information.  The &lt;a href=&#34;https://github.com/ropensci/rWBclimate&#34;&gt;rWBclimate&lt;/a&gt; package provides a robust mapping ability on top of access to climate data.  At it&amp;rsquo;s most bare bones, it can be used as alternative to the built in mapping facilities included in &lt;a href=&#34;https://github.com/ropensci/rgbif/&#34;&gt;rgbif&lt;/a&gt;.  Building on the example in the &lt;a href=&#34;http://www.ropensci.org/tutorials/rgbif_tutorial.html#occurrencelist&#34;&gt;rgbif tutorial&lt;/a&gt; we&amp;rsquo;ll plot data for two species in the US and Mexico, the dark eyed junco (&lt;em&gt;Junco hyemalis&lt;/em&gt;) and the wood duck (&lt;em&gt;Aix sponsa&lt;/em&gt;).  Here&amp;rsquo;s how you can use the kml interface from rWBclimate to download a map of the US and Mexico and overlay it with data from rgbif.
+&lt;br&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;
+library(ggplot2)
+library(rWBclimate)
+library(rgbif)
+## Grab some occurrence data
+
+splist &amp;lt;- c(&amp;quot;Junco hyemalis&amp;quot;, &amp;quot;Aix sponsa&amp;quot;)
+out &amp;lt;- occurrencelist_many(splist, coordinatestatus = TRUE, maxresults = 1000)
+
+## Set the map data path
+options(kmlpath = &amp;quot;/Users/edmundhart/kmltemp&amp;quot;)
+sp.map.df &amp;lt;- create_map_df(c(&amp;quot;USA&amp;quot;,&amp;quot;MEX&amp;quot;))
+
+## create map plot
+sp.map &amp;lt;- ggplot(sp.map.df,aes(x=long,y=lat,group=group))+geom_polygon(fill=&amp;quot;white&amp;quot;,colour=&amp;quot;black&amp;quot;)+xlim(-130,-65)+ylim(12,50)
+
+## Overlay occurrence data
+sp.map + geom_point(data=gbifdata(out),aes(y=decimalLatitude,x=decimalLongitude,group=taxonName,colour=taxonName))
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;
+&lt;img src=&#34;https://ropensci.org/assets/blog-images/2013-07-29-rWBclimate-rgbif/gbifmap1.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;overlaying-climate-data-with-occurrence-data&#34;&gt;Overlaying climate data with occurrence data&lt;/h2&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;So that&amp;rsquo;s how you could make a basic map, but what if you want to overlay climate data with occurrence data?  That&amp;rsquo;s easy too.  You repeat essentially the same steps as above, but be sure to grab some climate data too. In this example I&amp;rsquo;ve chose to grab data for 8 different tree species that exhibit somewhat of a lattitudinal gradient.  I&amp;rsquo;ll map them on top of historical temperature data.  In this case I&amp;rsquo;ll be using the average annual temperature from 1990 to 2000.  Because I want a bit better spatial resolution I&amp;rsquo;ll be using basin level data instead of country level data.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;
+### Download map data
+usmex &amp;lt;- c(273:284,328:365)
+usmex.basin &amp;lt;- create_map_df(usmex)
+
+## Download temperature data
+temp.dat &amp;lt;- get_historical_temp(usmex, &amp;quot;decade&amp;quot; )
+temp.dat &amp;lt;- subset(temp.dat,temp.dat$year == 2000 )
+
+
+#create my climate map
+usmex.map.df &amp;lt;- climate_map(usmex.basin,temp.dat,return_map=F)
+
+
+## Grab some species occurrence data for the 8 tree species.
+
+splist &amp;lt;- c(&amp;quot;Acer saccharum&amp;quot;,
+            &amp;quot;Abies balsamea&amp;quot;,
+            &amp;quot;Arbutus texana&amp;quot;,
+            &amp;quot;Betula alleghaniensis&amp;quot;,
+            &amp;quot;Chilopsis linearis&amp;quot;,
+            &amp;quot;Conocarpus erectus&amp;quot;,
+            &amp;quot;Populus tremuloides&amp;quot;,
+            &amp;quot;Larix laricina&amp;quot;)
+out &amp;lt;- occurrencelist_many(splist, coordinatestatus=TRUE, maxresults=1000, fixnames=&amp;quot;match&amp;quot;)
+
+## Now just create the base temperature map
+usmex.map &amp;lt;- ggplot()+geom_polygon(data=usmex.map.df,aes(x=long,y=lat,group=group,fill=data,alpha=.8))+scale_fill_continuous(&amp;quot;Average annual \n temp: 1990-2000&amp;quot;,low=&amp;quot;yellow&amp;quot;,high=&amp;quot;red&amp;quot;)+ guides(alpha=F)+theme_bw()
+
+
+## And overlay of gbif data
+usmex.map + geom_point(data=gbifdata(out),aes(y=decimalLatitude,x=decimalLongitude,group=taxonName,colour= taxonName)) + xlim(-125,-59)+ylim(5,55)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;
+&lt;img src=&#34;https://ropensci.org/assets/blog-images/2013-07-29-rWBclimate-rgbif/gbifmap2.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The map doesn&amp;rsquo;t have borders because it&amp;rsquo;s created at the basin level, but it would be easy enough to add an outline for the countries.  You could also plot any of your own data over climate maps because they are based on decimal lattitude and longitude coordinates, or data from multiple sources.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>is.invasive()</title>
+      <link>https://ropensci.org/blog/2012/11/26/is-invasive/</link>
+      <pubDate>Mon, 26 Nov 2012 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2012/11/26/is-invasive/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;The following is a guest post from &lt;a href=&#34;http://www.bartomeus.cat/es/ignasi/&#34;&gt;Ignasi Bartomeus&lt;/a&gt;, originally &lt;a href=&#34;http://ibartomeus.wordpress.com/2012/11/26/is-invasive/&#34;&gt;posted&lt;/a&gt; on &lt;a href=&#34;http://ibartomeus.wordpress.com/&#34;&gt;his blog&lt;/a&gt; on 26 Nov, 2012. Check out a related blog post &lt;a href=&#34;http://sckott.github.com/2012/12/is-invasive/&#34;&gt;here&lt;/a&gt;. Note the functionality discussed in this post is now in our &lt;a href=&#34;https://github.com/ropensci/taxize_&#34;&gt;taxize&lt;/a&gt; package under the function &lt;a href=&#34;https://github.com/ropensci/taxize_/blob/master/R/gisd_isinvasive.R&#34;&gt;&lt;code&gt;gisd_isinvasive&lt;/code&gt;&lt;/a&gt;. We hacked out a quick &lt;a href=&#34;http://www.rstudio.com/shiny/&#34;&gt;Shiny&lt;/a&gt; app so you can play around with the below function in taxize on the web to get invasive status and plot it on a phylogeny. Check it out &lt;a href=&#34;http://glimmer.rstudio.com/ropensci/taxize_invasive/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;ignasi-bartomeus&#34;&gt;Ignasi Bartomeus&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/ignasi_bartomeus.png&#34; alt=&#34;ignasi&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Celebrating that I am contributing to the R-bloggers.com blog aggregator I am going to post a very simple function to check which species (both plants and animals) are considered “invaders” somewhere in the world. Basically the function asks that to the &lt;a href=&#34;http://www.issg.org/database/welcome/&#34;&gt;Global Invasive Species Database (GISD)&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I coded this because a friend of mine aks me precisely that question [Yes, friends assumes you should know this kind of stuff (and also why the plants of their balcony are dying) off the top of your head just because you are a biologist]. However, I do not know much things and I am too lazy to check all 250 species one by one on the GISD webpage. Also is a good R practice, and I am ok investing some work time on personal projects. Google (and other big companies) encourage it’s employees to spend 20% of the time working on projects that aren’t necessarily in their job descriptions in order to bust its innovation power, so that should be even more important in science!&lt;/p&gt;
+
+&lt;p&gt;Hope it can be useful to more people, I uploaded the code as a Gist:&lt;/p&gt;
+
+&lt;script src=&#34;https://gist.github.com/ibartomeus/4136068.js&#34;&gt;&lt;/script&gt;
+
+&lt;p&gt;UPDATE: The function is now available on &lt;a href=&#34;https://github.com/ropensci/taxize/&#34;&gt;taxize R package&lt;/a&gt; developed by the rOpenScience people!&lt;/p&gt;
+
+&lt;hr /&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

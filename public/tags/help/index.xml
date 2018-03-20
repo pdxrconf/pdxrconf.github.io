@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Help on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/help/</link>
+    <description>Recent content in Help on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 08 Oct 2013 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/help/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Guide to using rOpenSci packages during the US Gov&#39;t shutdown</title>
+      <link>https://ropensci.org/blog/2013/10/08/shutdown/</link>
+      <pubDate>Tue, 08 Oct 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/10/08/shutdown/</guid>
+      <description>
+        
+        &lt;p&gt;With the US government shut down, many of the federal government provided data APIs are down. We write R packages to interact with many of these APIs. We have been tweeting about what APIs that are down related to R pacakges we make, but we thought we would write up a proper blog post on the issue.&lt;/p&gt;
+
+&lt;p&gt;NCBI services are still up! NCBI is within NIH, which is within the Department of Health and Human Services. Here is the message on the NCBI page:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;The information on this web site remains accessible; but, due to the lapse in government funding, the information may not be up to date, and the agency may not be able to respond to inquiries until appropriations are enacted. For updates regarding government operating status see USA.gov.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Most USGS services are down. Some of the message on the USGS page (ITIS is under USGS, which is under the Department of the Interior):&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Due to the Federal government shutdown, usgs.gov and most associated web sites are unavailable. Only web sites necessary to protect lives and property will be maintained&amp;hellip;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;However, the USGS BISON service is still up for some reason - perhaps a different pot of money than other USGS projects?&lt;/p&gt;
+
+&lt;p&gt;Some of the shutdown message from NOAA, under the Department of Commerce:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Due to the Federal government shutdown, NOAA.gov and most associated web sites are unavailable. Specific NOAA web sites necessary to protect lives and property are operational and will be maintained.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Here&amp;rsquo;s a table of APIs we interact with, the related R package, and any notes:
+&lt;br&gt;&lt;br&gt;
+&lt;table class=&#34;table table-bordered table-striped&#34;&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;API provider&lt;/th&gt;
+        &lt;th&gt;API still up?&lt;/th&gt;
+        &lt;th&gt;rOpenSci R package&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;USGS BISON (Biodiversity Information Serving our Nation) &lt;a href=&#34;http://bison.usgs.ornl.gov/services.html&#34;&gt;link&lt;/a&gt;&lt;/td&gt;
+        &lt;td&gt;Yep!&lt;/td&gt;
+        &lt;td&gt;&lt;a href=&#34;https://github.com/ropensci/rbison&#34;&gt;rbison&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;NOAA Climate data &lt;a href=&#34;http://www.ncdc.noaa.gov/cdo-web/webservices&#34;&gt;link&lt;/a&gt;&lt;/td&gt;
+        &lt;td&gt;No :(&lt;/td&gt;
+        &lt;td&gt;&lt;a href=&#34;https://github.com/ropensci/rnoaa&#34;&gt;rnoaa&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;USGS ITIS (Integrated Taxonomic Information Service) &lt;a href=&#34;http://www.itis.gov/ws_description.html&#34;&gt;link&lt;/a&gt;&lt;/td&gt;
+        &lt;td&gt;No :(&lt;/td&gt;
+        &lt;td&gt;&lt;a href=&#34;https://github.com/ropensci/taxize_&#34;&gt;taxize&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;NCBI Entrez &lt;a href=&#34;http://www.ncbi.nlm.nih.gov/&#34;&gt;link&lt;/a&gt;&lt;/td&gt;
+        &lt;td&gt;No :(&lt;/td&gt;
+        &lt;td&gt;&lt;a href=&#34;https://github.com/ropensci/taxize_&#34;&gt;taxize&lt;/a&gt;,&lt;a href=&#34;https://github.com/ropensci/rentrez&#34;&gt;rentrez&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;PubMed &lt;a href=&#34;http://www.ncbi.nlm.nih.gov/pubmed&#34;&gt;link&lt;/a&gt;&lt;/td&gt;
+        &lt;td&gt;No :(&lt;/td&gt;
+        &lt;td&gt;&lt;a href=&#34;https://github.com/ropensci/rpubmed&#34;&gt;rpubmed&lt;/a&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;
+For those wanting to get NOAA climate data, perhaps check out the &lt;a href=&#34;http://cran.r-project.org/web/packages/RNCEP/index.html&#34;&gt;RNCEP package&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;For those using taxize, you can grab taxonomic IDs from NCBI using &lt;code&gt;get_uid()&lt;/code&gt; rather than the ITIS version &lt;code&gt;get_tsn()&lt;/code&gt;. With a UID from NCBI, you can do things like get a taxonomic classification using the function &lt;code&gt;classification()&lt;/code&gt;. There are many non-government taxonomic sources in taxize, so you should be able to find what you need without ITIS. Other functions that use ITIS, and that you should avoid until the shutdown is over, are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A long list carried over from the itis package that is now within taxize: &lt;code&gt;getacceptednamesfromtsn()&lt;/code&gt;, &lt;code&gt;getanymatchcount()&lt;/code&gt;, &lt;code&gt;getcommentdetailfromtsn()&lt;/code&gt;, &lt;code&gt;getcommonnamesfromtsn()&lt;/code&gt;, &lt;code&gt;getcoremetadatafromtsn()&lt;/code&gt;, &lt;code&gt;getcoveragefromtsn()&lt;/code&gt;, &lt;code&gt;getcredibilityratingfromtsn()&lt;/code&gt;, &lt;code&gt;getcredibilityratings()&lt;/code&gt;, &lt;code&gt;getcurrencyfromtsn()&lt;/code&gt;, &lt;code&gt;getdatedatafromtsn()&lt;/code&gt;, &lt;code&gt;getdescription()&lt;/code&gt;, &lt;code&gt;getexpertsfromtsn()&lt;/code&gt;, &lt;code&gt;getfullhierarchyfromtsn()&lt;/code&gt;, &lt;code&gt;getfullrecordfromlsid()&lt;/code&gt;, &lt;code&gt;getfullrecordfromtsn()&lt;/code&gt;, &lt;code&gt;getgeographicdivisionsfromtsn()&lt;/code&gt;, &lt;code&gt;getgeographicvalues()&lt;/code&gt;, &lt;code&gt;getglobalspeciescompletenessfromtsn()&lt;/code&gt;, &lt;code&gt;gethierarchydownfromtsn()&lt;/code&gt;, &lt;code&gt;gethierarchyupfromtsn()&lt;/code&gt;, &lt;code&gt;getitistermsfromcommonname()&lt;/code&gt;, &lt;code&gt;getitistermsfromscientificname()&lt;/code&gt;, &lt;code&gt;getjurisdictionaloriginfromtsn()&lt;/code&gt;, &lt;code&gt;getjurisdictionoriginvalues()&lt;/code&gt;, &lt;code&gt;getjurisdictionvalues()&lt;/code&gt;, &lt;code&gt;getkingdomnamefromtsn()&lt;/code&gt;, &lt;code&gt;getkingdomnames()&lt;/code&gt;, &lt;code&gt;getlastchangedate()&lt;/code&gt;, &lt;code&gt;getlsidfromtsn()&lt;/code&gt;, &lt;code&gt;getothersourcesfromtsn()&lt;/code&gt;, &lt;code&gt;getparenttsnfromtsn()&lt;/code&gt;, &lt;code&gt;getpublicationsfromtsn()&lt;/code&gt;, &lt;code&gt;getranknames()&lt;/code&gt;, &lt;code&gt;getrecordfromlsid()&lt;/code&gt;, &lt;code&gt;getreviewyearfromtsn()&lt;/code&gt;, &lt;code&gt;getscientificnamefromtsn()&lt;/code&gt;, &lt;code&gt;getsynonymnamesfromtsn()&lt;/code&gt;, &lt;code&gt;gettaxonauthorshipfromtsn()&lt;/code&gt;, &lt;code&gt;gettaxonomicranknamefromtsn()&lt;/code&gt;, &lt;code&gt;gettaxonomicusagefromtsn()&lt;/code&gt;, &lt;code&gt;gettsnbyvernacularlanguage()&lt;/code&gt;, &lt;code&gt;gettsnfromlsid()&lt;/code&gt;, &lt;code&gt;getunacceptabilityreasonfromtsn()&lt;/code&gt;, &lt;code&gt;getvernacularlanguages()&lt;/code&gt;, &lt;code&gt;searchbycommonname()&lt;/code&gt;, &lt;code&gt;searchbycommonnamebeginswith()&lt;/code&gt;, &lt;code&gt;searchbycommonnameendswith()&lt;/code&gt;, &lt;code&gt;searchbyscientificname()&lt;/code&gt;, &lt;code&gt;searchforanymatch()&lt;/code&gt;, &lt;code&gt;searchforanymatchpaged()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;itis_acceptname()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;itis_downstream()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;itis_name()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;itis_taxrank()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;In &lt;code&gt;tax_agg()&lt;/code&gt;, only use db=&amp;ldquo;ncbi&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;In &lt;code&gt;tax_name()&lt;/code&gt;, only use db=&amp;ldquo;ncbi&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;In &lt;code&gt;tax_rank()&lt;/code&gt;, only use db=&amp;ldquo;ncbi&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Let us know if you have any questions or comments.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>A new tutorials setup</title>
+      <link>https://ropensci.org/blog/2013/10/03/tutorials/</link>
+      <pubDate>Thu, 03 Oct 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/10/03/tutorials/</guid>
+      <description>
+        
+        &lt;p&gt;To help you use rOpenSci packages we put tutorials up on our site at &lt;a href=&#34;http://ropensci.org/tutorials&#34;&gt;http://ropensci.org/tutorials&lt;/a&gt;. Up to now, we created them with combination of raw html + converting code blocks to html and inserting them, etc. &amp;ndash; it was a slow process to update them when changes happened in our packages.&lt;/p&gt;
+
+&lt;p&gt;So we thought of a better plan&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;Recently CRAN started accepting R package vignettes (basically, tutorials built in to packages) in R Markdown format. This is great because executable Markdown with code plus text is easy to do with the help of &lt;a href=&#34;http://yihui.name/knitr/&#34;&gt;knitr&lt;/a&gt;. And since our website is created using Jekyll, we can take our package vignettes with only text and code as a .Rmd file, convert to a .md file with text + code + the output of that code, insert some yaml metadata at the top, and have Jekyll automagically generate html pages. This may sound complicated, but once we have the vignette in a package, it&amp;rsquo;s just a few lines of code away from generating the html page for this site.&lt;/p&gt;
+
+&lt;p&gt;This workflow allows us to easily keep our changes in the functions/etc. of our packages and associated vignettes in sync with tutorials on our website. In addition, the vignette and tutorials on our site should have the same content.&lt;/p&gt;
+
+&lt;p&gt;We do say at the top of every tutorial &lt;em&gt;This is the vignette in the XYZ package&lt;/em&gt;. The CRAN versions of packages may not have the vignette yet, but should show up in the next update of the package on CRAN, and should be in the Github version of the package now.&lt;/p&gt;
+
+&lt;p&gt;As always, let us know if you have any questions on our packages, and if you think the tutorials could use any additional examples, etc.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Web Technologies and Services taskview is up on CRAN</title>
+      <link>https://ropensci.org/blog/2013/10/03/uptaskview/</link>
+      <pubDate>Thu, 03 Oct 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/10/03/uptaskview/</guid>
+      <description>
+        
+        &lt;p&gt;Just a quick note that the Task View we have been working on with others &lt;strong&gt;Web Technologies and Services&lt;/strong&gt; is up on CRAN now. Find it here &lt;a href=&#34;http://cran.r-project.org/web/views/WebTechnologies.html&#34;&gt;http://cran.r-project.org/web/views/WebTechnologies.html&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is the first version - there are definitely changes to come. Changes are being suggested as I write this on Twitter&amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;The draft version of the task view is on Github &lt;a href=&#34;https://github.com/ropensci/webservices&#34;&gt;here&lt;/a&gt; if you want to &lt;a href=&#34;https://github.com/ropensci/webservices/issues&#34;&gt;file an issue&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;We use many packages to do stuff with the web like XML, RCurl, httr, RJSONIO, etc., and we create many packages that grab data from the web. So it made a lot of sense to work on this task view. We hope it is a good resource for everyone.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

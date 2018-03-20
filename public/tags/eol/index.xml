@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Eol on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/eol/</link>
+    <description>Recent content in Eol on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 12 Feb 2014 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/eol/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Caching Encyclopedia of Life API calls</title>
+      <link>https://ropensci.org/blog/2014/02/12/caching-with-api/</link>
+      <pubDate>Wed, 12 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2014/02/12/caching-with-api/</guid>
+      <description>
+        
+        &lt;p&gt;In &lt;a href=&#34;http://ropensci.org/blog/2014/02/03/caching-offline/&#34;&gt;a recent blog post&lt;/a&gt; we discussed caching calls to the web offline, on your own computer. Just like you can cache data on your own computer, a data provider can do the same thing. Most of the data providers we work with do not provide caching. However, at least one does: &lt;a href=&#34;http://eol.org/&#34;&gt;EOL&lt;/a&gt;, or Encyclopedia of Life. EOL allows you to set the amount of time (in seconds) that the call is cached, within which time you can make the same call and get the data back faster. We have a number of functions to interface with EOL in our &lt;code&gt;taxize&lt;/code&gt; package.&lt;/p&gt;
+
+&lt;p&gt;Install and load &lt;code&gt;taxize&lt;/code&gt; and &lt;code&gt;ggplot2&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(c(&amp;quot;taxize&amp;quot;, &amp;quot;ggplot2&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(taxize)
+library(ggplot2)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To easily visualize the benefit of using EOL&amp;rsquo;s caching, let&amp;rsquo;s define a function to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Make a call to the EOL API search service (via the &lt;code&gt;eol_search&lt;/code&gt; function in &lt;code&gt;taxize&lt;/code&gt;) with caching set to X seconds (which means the cached result will be available for X seconds). This first call caches the query on their servers. Note that in the &lt;code&gt;eol_search&lt;/code&gt; function below, we are using the &lt;code&gt;cache_ttl&lt;/code&gt; parameter to set the number of seconds to cache the request.&lt;/li&gt;
+&lt;li&gt;The second call is done before X seconds pass, so should be faster as the first one was cached.&lt;/li&gt;
+&lt;li&gt;Sleep for a period, a bit longer than the amount of time the call is cached.&lt;/li&gt;
+&lt;li&gt;The third call occurs after the cached call should be gone on the EOL servers.&lt;/li&gt;
+&lt;li&gt;Plot the times each request took.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;testcache &amp;lt;- function(terms, cache){
+  first &amp;lt;- system.time( eol_search(terms=terms, cache_ttl = cache) )
+  second &amp;lt;- system.time( eol_search(terms=terms, cache_ttl = cache) )
+  Sys.sleep(cache+2)
+  third &amp;lt;- system.time( eol_search(terms=terms, cache_ttl = cache) )
+
+  df &amp;lt;- data.frame(labs=c(&#39;nocache&#39;,&#39;withcache&#39;,&#39;cachetimedout&#39;),
+                   vals=c(first[[3]], second[[3]], third[[3]]))
+  df$labs &amp;lt;- factor(df$labs, levels = c(&#39;nocache&#39;,&#39;withcache&#39;,&#39;cachetimedout&#39;))
+  ggplot(df, aes(labs, vals)) +
+    geom_bar(stat=&#39;identity&#39;) +
+    theme_grey(base_size = 20) +
+    ggtitle(sprintf(&amp;quot;search term: &#39;%s&#39;\n&amp;quot;, terms)) +
+    labs(y=&#39;Time to get data\n&#39;, x=&#39;&#39;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Search for the term &lt;em&gt;lion&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;testcache(terms = &amp;quot;lion&amp;quot;, cache = 5)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2014-02-12-caching-with-api/unnamed-chunk-4.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Search for the term &lt;em&gt;beetle&lt;/em&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;testcache(terms = &amp;quot;beetle&amp;quot;, cache = 10)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2014-02-12-caching-with-api/unnamed-chunk-5.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Caching works the same way with the &lt;code&gt;eol_pages&lt;/code&gt; function. No other API services and associated functions in &lt;code&gt;taxize&lt;/code&gt; support caching on the server side by the data provider. Of course you can do your own caching using &lt;code&gt;knitr&lt;/code&gt; or other methods - some of which we discussed in &lt;a href=&#34;http://ropensci.org/blog/2014/02/03/caching-offline/&#34;&gt;an earlier post&lt;/a&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

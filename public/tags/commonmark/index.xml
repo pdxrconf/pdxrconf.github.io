@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Commonmark on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/commonmark/</link>
+    <description>Recent content in Commonmark on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 02 Dec 2016 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/commonmark/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>High Performance CommonMark and Github Markdown Rendering in R</title>
+      <link>https://ropensci.org/blog/2016/12/02/commonmark/</link>
+      <pubDate>Fri, 02 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2016/12/02/commonmark/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;This week the folks at Github have open sourced their &lt;a href=&#34;https://github.com/github/cmark&#34;&gt;fork&lt;/a&gt; of libcmark (based on the extensive &lt;a href=&#34;https://github.com/jgm/cmark/pull/123&#34;&gt;PR by Mathieu Duponchelle&lt;/a&gt;), which they use to render markdown text within documents, issues, comments and anything else on the Github website. The new release of the &lt;a href=&#34;https://cran.r-project.org/web/packages/commonmark/index.html&#34;&gt;commonmark&lt;/a&gt; R package incorporates this library so that we can take advantage of Github quality markdown rendering in R.&lt;/p&gt;
+
+&lt;p&gt;The most exciting change is that the library has gained an extension mechanism to provide optional rendering features which are missing from the commonmark spec. Most notably, Github has added extentions for rendering GFM style tables and autolinks, both very useful features for R users.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/consolemd.png&#34; alt=&#34;consolemd&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;what-is-commonmark&#34;&gt;What is CommonMark&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://spec.commonmark.org/&#34;&gt;CommonMark&lt;/a&gt; is an initiative by Professor John MacFarlane (author of Pandoc) to formally define markdown syntax specification and provide high quality reference implementations. His high performance &lt;a href=&#34;https://github.com/jgm/cmark&#34;&gt;cmark&lt;/a&gt; C library converts markdown text into xml, html, latex or groff man in the &lt;a href=&#34;https://github.com/jgm/cmark#readme&#34;&gt;blink of an eye&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&#34;https://cran.r-project.org/web/packages/commonmark/index.html&#34;&gt;commonmark&lt;/a&gt; R package wraps libcmark and has been on CRAN for a while. It should replace the old &lt;a href=&#34;https://cran.r-project.org/web/packages/markdown/index.html&#34;&gt;markdown&lt;/a&gt; package which is based on the deprecated Sundown library (the &lt;a href=&#34;https://github.com/vmg/sundown&#34;&gt;author&lt;/a&gt; of Sundown now works for Github and is one of the contributors to libcmark).&lt;/p&gt;
+
+&lt;h2 id=&#34;commonmark-extensions&#34;&gt;CommonMark Extensions&lt;/h2&gt;
+
+&lt;p&gt;Commonmark is extremely reliable and optimized, but the disadvantage of the formal specification is that it can take a long time for new feature proposals to be adopted. For example a &lt;a href=&#34;https://talk.commonmark.org/t/tables-in-pure-markdown/81&#34;&gt;proposal&lt;/a&gt; for markdown tables has been open for over two years, but ironing out the syntax details has proven to be difficult.&lt;/p&gt;
+
+&lt;p&gt;For this reason many commonmark implementations include &amp;lsquo;extensions&amp;rsquo; to enable features which are not (yet) part of the official specification. The current version of the commonmark R package offers 4 such extensions:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;table&lt;/strong&gt; support rendering of tables&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;strikethough&lt;/strong&gt; via &lt;code&gt;~sometext~&lt;/code&gt; syntax&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;autolink&lt;/strong&gt; automatically turn URLs into hyperlinks&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;tagfilter&lt;/strong&gt; blacklist html tags: &lt;code&gt;title&lt;/code&gt; &lt;code&gt;textarea&lt;/code&gt; &lt;code&gt;style&lt;/code&gt; &lt;code&gt;xmp&lt;/code&gt; &lt;code&gt;iframe&lt;/code&gt;
+&lt;code&gt;noembed&lt;/code&gt; &lt;code&gt;noframes&lt;/code&gt; &lt;code&gt;script&lt;/code&gt; &lt;code&gt;plaintext&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These extensions were added by Github to support &lt;a href=&#34;https://guides.github.com/features/mastering-markdown/&#34;&gt;GitHub Flavored Markdown&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/autolink.png&#34; alt=&#34;roxygenmd&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Note that extensions are not enabled by default. For example to render tables, you need to set the &lt;code&gt;extensions&lt;/code&gt; parameter to &lt;code&gt;TRUE&lt;/code&gt; or &lt;code&gt;&amp;quot;table&amp;quot;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;markdown-and-roxygen&#34;&gt;Markdown and Roxygen&lt;/h2&gt;
+
+&lt;p&gt;We also use commonmark in the upcoming version 6.0 of roxygen2 to support &lt;a href=&#34;https://github.com/klutometis/roxygen/blob/master/vignettes/markdown.Rmd&#34;&gt;markdown within roxygen&lt;/a&gt;, which is super awesome.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/roxygenmd.png&#34; alt=&#34;roxygenmd&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;To give this a try you need the development version of roxygen2:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;devtools::install_github(&amp;quot;klutometis/roxygen&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To enable markdown roxygen for a given package, all you need to do is add a line with &lt;code&gt;Roxygen: list(markdown = TRUE)&lt;/code&gt; to the package DESCRIPTION file. For more details check out the &lt;a href=&#34;https://github.com/klutometis/roxygen/blob/master/vignettes/markdown.Rmd&#34;&gt;vignette&lt;/a&gt;.
+There is also package &lt;a href=&#34;https://github.com/r-pkgs/roxygen2md&#34;&gt;roxygen2md&lt;/a&gt; which will automatically convert existing roxygen code to markdown.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

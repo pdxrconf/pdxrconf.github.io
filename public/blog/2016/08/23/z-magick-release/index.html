@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Advanced Image-Processing in R with Magick, Part I</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">Advanced Image-Processing in R with Magick, Part I</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="/about/#team"> Jeroen Ooms </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">August 23, 2016</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>The new <a href="https://cran.r-project.org/web/packages/magick/index.html">magick</a> package is an ambitious effort to modernize and simplify high-quality image processing in R. It wraps the <a href="https://www.imagemagick.org/Magick++/STL.html">ImageMagick STL</a> which is perhaps the most comprehensive open-source image processing library available today.</p>
+
+<p>The ImageMagick library has an overwhelming amount of functionality. The current version of Magick exposes a decent chunk of it, but being a first release, documentation is still sparse. This post briefly introduces the most important concepts to get started. There will also be an <a href="https://github.com/ropensci/commcalls/issues/11">rOpenSci community call</a> on Wednesday in which we demonstrate basic functionality.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>On Windows or OS-X the package is most easily installed via CRAN.</p>
+
+<pre><code class="language-r">install.packages(&quot;magick&quot;)
+</code></pre>
+
+<p>On Linux you need to install the ImageMagick++ library: on Debian/Ubuntu this is called <a href="https://packages.debian.org/testing/libmagick++-dev">libmagick++-dev</a>:</p>
+
+<pre><code>sudo apt-get install libmagick++-dev
+</code></pre>
+
+<p>On Fedora or CentOS/RHEL we need <a href="https://apps.fedoraproject.org/packages/ImageMagick-c++-devel">ImageMagick-c++-devel</a>:</p>
+
+<pre><code>sudo yum install ImageMagick-c++-devel
+</code></pre>
+
+<p>To install from source on OS-X you need <code>imagemagick</code> from homebrew.</p>
+
+<pre><code>brew install imagemagick --with-fontconfig --with-librsvg --with-fftw
+</code></pre>
+
+<p>The default imagemagick configuration on homebrew disables a bunch of features. I recommend you install <code>--with-fontconfig</code> and <code>--with-librsvg</code> to get high quality font / svg rendering (the CRAN OSX binary package enables these as well).</p>
+
+<pre><code class="language-r">library(magick)
+magick_config()
+</code></pre>
+
+<p>Use <code>magick_config</code> to see which features and formats are supported by your version of ImageMagick.</p>
+
+<h2 id="reading-and-writing">Reading and writing</h2>
+
+<p>Images can be read directly from a file path, URL, or raw vector with image data. Similarly we can write images back to disk, or in memory by setting <code>path=NULL</code>.</p>
+
+<pre><code># Render svg to png
+tiger &lt;- image_read('https://upload.wikimedia.org/wikipedia/commons/f/fd/Ghostscript_Tiger.svg')
+image_write(tiger, path = &quot;tiger.png&quot;, format = &quot;png&quot;)
+
+</code></pre>
+
+<p>IDE&rsquo;s with a built-in web browser (such as RStudio) automatically display magick images in the viewer. This results in a neat interactive image editing environment.</p>
+
+<p><img src="/assets/blog-images/magick-rstudio.png" alt="RStudio Screenshot" /></p>
+
+<p>Alternatively, on Linux you can use <code>image_display</code> to preview the image in an X11 window. Finally <code>image_browse</code> opens the image in your system&rsquo;s default application for a given type.</p>
+
+<pre><code class="language-r"># X11 only
+image_display(tiger)
+
+# System dependent
+image_browse(tiger)
+</code></pre>
+
+<p>There is some functionality to convert images to R raster graphics and plot it on R&rsquo;s graphics display, but this doesn&rsquo;t always work too well yet.</p>
+
+<pre><code class="language-r">frink &lt;- image_read(&quot;https://jeroen.github.io/images/frink.png&quot;)
+raster &lt;- as.raster(frink)
+plot(raster)
+</code></pre>
+
+<p>Also the R graphics device is relatively slow for displaying bitmap images.</p>
+
+<h2 id="transformations-and-effects">Transformations and effects</h2>
+
+<p>The best way to get a sense of available transformations is walk through the examples in the <code>?transformations</code> help page in RStudio. Below a few examples to get a sense of what is possible.</p>
+
+<pre><code class="language-r"># Example image
+frink &lt;- image_read(&quot;https://jeroen.github.io/images/frink.png&quot;)
+
+# Trim margins
+image_trim(frink)
+
+# Passport pica
+image_crop(frink, &quot;100x150+50&quot;)
+
+# Resize
+image_scale(frink, &quot;200x&quot;) # width: 200px
+image_scale(frink, &quot;x200&quot;) # height: 200px
+
+# Rotate or mirror
+image_rotate(frink, 45)
+image_flip(frink)
+image_flop(frink)
+
+# Set a background color
+image_background(frink, &quot;pink&quot;, flatten = TRUE)
+
+# World-cup outfit (Flood fill)
+image_fill(frink, &quot;orange&quot;, &quot;+100+200&quot;, 30000)
+</code></pre>
+
+<p>ImageMagick also has a bunch of standard effects that are worth checking out.</p>
+
+<pre><code class="language-r"># Add randomness
+image_blur(frink, 10, 5)
+image_noise(frink)
+
+# Silly filters
+image_charcoal(frink)
+image_oilpaint(frink)
+image_emboss(frink)
+image_edge(frink)
+image_negate(frink)
+</code></pre>
+
+<p>Finally it can be useful to print some text on top of images:</p>
+
+<pre><code class="language-r"># Add some text
+image_annotate(frink, &quot;I like R!&quot;, size = 50)
+
+# Customize text
+image_annotate(frink, &quot;CONFIDENTIAL&quot;, size = 30, color = &quot;red&quot;, boxcolor = &quot;pink&quot;,
+  degrees = 60, location = &quot;+50+100&quot;)
+
+# Only works if ImageMagick has fontconfig
+image_annotate(frink, &quot;The quick brown fox&quot;, font = 'times-new-roman', size = 30)
+</code></pre>
+
+<p>Maybe this is enough to get started.</p>
+
+<h2 id="layers-and-animation">Layers and animation</h2>
+
+<p>The examples above concern single images. However all functions in magick have been vectorized to support working with layers, compositions or animation.</p>
+
+<p>The standard base vector methods <code>[</code> <code>[[</code>, <code>$</code>, <code>c()</code> and <code>length()</code> are used to manipulate sets of images which can then be treated as layers or frames. This system is actually so extensive that we will do a separate blog post about it later.</p>
+
+<p>For now here is an example on how to generate the instant classic dancing banana on R logo (which is probably why you are here):</p>
+
+<pre><code class="language-r"># Background image
+logo &lt;- image_read(&quot;https://www.r-project.org/logo/Rlogo.png&quot;)
+background &lt;- image_scale(logo, &quot;400&quot;)
+
+# Foreground image
+banana &lt;- image_read(system.file(&quot;banana.gif&quot;, package = &quot;magick&quot;))
+front &lt;- image_scale(banana, &quot;300&quot;)
+
+# Combine and flatten frames
+frames &lt;- lapply(as.list(front), function(x) image_flatten(c(background, x)))
+
+# Turn frames into animation
+animation &lt;- image_animate(image_join(frames))
+print(animation)
+
+# Save as GIF
+image_write(animation, &quot;Rlogo-banana.gif&quot;)
+</code></pre>
+
+<p>If time permits we will demonstrate more examples during our <a href="https://github.com/ropensci/commcalls/issues/11">community call</a> on Wednesday!</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/magick"><span class="label">magick</span></a>
+                
+                    <a href="/tags/graphics"><span class="label">graphics</span></a>
+                
+                    <a href="/tags/imaging"><span class="label">imaging</span></a>
+                
+                    <a href="/tags/cran"><span class="label">CRAN</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

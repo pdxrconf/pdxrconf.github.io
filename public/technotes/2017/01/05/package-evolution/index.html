@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Package evolution - changing stuff in your package</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article class="blog-post">
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h1 style="text-align: center;">Package evolution - changing stuff in your package</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        &nbsp;
+                        
+                          <a href="/about/#team">Scott Chamberlain</a> 
+                        
+                        
+                        &nbsp; |
+                    
+                    <small style="color: #5B617A; margin-left: 10px;"> JANUARY 5, 2017</small>
+                </p>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+                
+
+<p>Making packages is a great way to organize R code, whether it’s a set of scripts for personal use, a set of functions for internal company use or a lab group, or to distribute your new cool framework <code>foobar</code> to the masses. There&rsquo;s a number of guides to writing packages, including <a href="http://r-pkgs.had.co.nz/">http://r-pkgs.had.co.nz/</a>.</p>
+
+<p>As you develop packages there&rsquo;s a number of issues that don&rsquo;t often get much air time. I&rsquo;ll cover some of them here.</p>
+
+<h2 id="philosophy-of-changes">Philosophy of changes</h2>
+
+<p>Everyone&rsquo;s free to have their own opinion about how freely parameters/functions/etc. are changed in a library - rules about package changes are not enforced by CRAN or otherwise. Generally, as a library gets more mature, changes to user facing methods (i.e., exported functions in an R package) should become very rare. Libraries that are depended on by many other libraries are likely to be more careful, and should be, about changes.</p>
+
+<h2 id="parameters-changing-parameter-names">Parameters: changing parameter names</h2>
+
+<p>Sometimes parameter names must be changed for clarity, or some other reason.</p>
+
+<p>An approach I often use is to catch all parameters passed in to the function and check against some list of parameters, and stop or warn with a meaningful message.</p>
+
+<pre><code class="language-r">foo_bar &lt;- function(x, y) {
+    calls &lt;- names(sapply(match.call(), deparse))[-1]
+    if(any(&quot;x&quot; %in% calls)) {
+        stop(&quot;use 'y' instead of 'x'&quot;)
+    }
+    y^2
+}
+
+foo_bar(x = 5)
+#&gt; Error in foo_bar(x = 5) : use 'y' instead of 'x' 
+</code></pre>
+
+<p>Or instead of stopping with error, you could check for use of <code>x</code> parameter and set it to <code>y</code> internally.</p>
+
+<pre><code class="language-r">foo_bar &lt;- function(x, y) {
+    calls &lt;- names(sapply(match.call(), deparse))[-1]
+    if(any(&quot;x&quot; %in% calls)) {
+        y &lt;- x
+    }
+    y^2
+}
+
+foo_bar(x = 5)
+#&gt; 25
+</code></pre>
+
+<p>Be aware of the parameter <code>...</code>. If your function has <code>...</code>, and you have already removed a parameter (lets call it <code>z</code>), a user may have older code that uses <code>z</code>. When they pass in <code>z</code>, it&rsquo;s not a parameter in the function definition, and will likely be silently ignored - not what you want. So do make sure to always check for removed parameters moving forward since you can&rsquo;t force users to upgrade.</p>
+
+<h2 id="functions-changing-function-names">Functions: changing function names</h2>
+
+<p>If you must change a function name, do it gradually, as with any package changes.</p>
+
+<p>Let&rsquo;s say you have a function <code>foo</code>.</p>
+
+<pre><code class="language-r">foo &lt;- function(x) x + 1
+</code></pre>
+
+<p>However, you want to change the function name to <code>bar</code>.</p>
+
+<p>Instead of simply changing the function name and <code>foo</code> no longer existing straight away, in the first version of the package that <code>bar</code> appears, make an alias like:</p>
+
+<pre><code class="language-r">#' foo - add 1 to an input
+#' @export
+foo &lt;- function(x) x + 1
+
+#' @export
+#' @rdname foo
+bar &lt;- foo
+</code></pre>
+
+<p>With the above, the user can use either <code>foo()</code> or <code>bar()</code> - either will do the same thing, as they are the same function.</p>
+
+<p>It&rsquo;s also useful to have a message but then you&rsquo;ll only want to throw that message when they use the old function name, e.g.,</p>
+
+<pre><code class="language-r">#' foo - add 1 to an input
+#' @export
+foo &lt;- function(x) {
+    if (as.character(match.call()[[1]]) == &quot;foo&quot;) {
+        warning(&quot;please use bar() instead of foo()&quot;, call. = FALSE)
+    }
+    x + 1
+}
+
+#' @export
+#' @rdname foo
+bar &lt;- foo
+</code></pre>
+
+<p>After users have used the package version for a while (with both <code>foo</code> and <code>bar</code>), in the next version you can remove the old function name (<code>foo</code>), and only have <code>bar</code>.</p>
+
+<pre><code class="language-r">#' bar - add 1 to an input
+#' @export
+bar &lt;- function(x) x + 1
+</code></pre>
+
+<h2 id="functions-deprecate-defunct">Functions: deprecate &amp; defunct</h2>
+
+<p>To remove a function from a package (let&rsquo;s say your package name is <code>helloworld</code>), I use the following protocol:</p>
+
+<ul>
+<li>Mark the function as deprecated in package version <code>x</code> (e.g., <code>v0.2.0</code>)</li>
+</ul>
+
+<p>In the function itself, use <code>.Deprecated()</code> like:</p>
+
+<pre><code class="language-r">foo &lt;- function() {
+    .Deprecated(msg = &quot;'foo' will be removed in the next version&quot;)
+}
+</code></pre>
+
+<p>There&rsquo;s options in <code>.Deprecated</code> for specifying a new function name, as well as a new package name, which I do use when moving functions into different packages.</p>
+
+<p>The message that&rsquo;s given by <code>.Deprecated</code> is a warning, so can be suppressed by users with <code>suppressWarnings()</code> if desired.</p>
+
+<p>Make a man page for deprecated functions like:</p>
+
+<pre><code class="language-r">#' Deprecated functions in helloworld
+#' 
+#' These functions still work but will be removed (defunct) in the next version.
+#' 
+#' \itemize{
+#'  \item \code{\link{foo}}: This function is deprecated, and will
+#'  be removed in the next version of this package.
+#' }
+#' 
+#' @name helloworld-deprecated
+NULL
+</code></pre>
+
+<p>This creates a man page that users can access like <code>?helloworld-deprecated</code> and they&rsquo;ll see in the documentation index. Add any functions to this page as needed, and take away as a function moves to defunct (see below).</p>
+
+<ul>
+<li>In the next version (<code>v0.3.0</code>) you can make the function defunct (that is, completely gone from the package, except for a man page with a note about it).</li>
+</ul>
+
+<p>In the function itself, use <code>.Defunct()</code> like:</p>
+
+<pre><code class="language-r">foo &lt;- function() {
+    .Defunct(msg = &quot;'foo' has been removed from this package&quot;)
+}
+</code></pre>
+
+<p>Note that the message in <code>.Defunct</code> is an error, so the function stops - whereas <code>.Deprecated</code> returned a warning, letting the function proceed.</p>
+
+<p>In addition, I like to add <code>...</code> to all defunct functions so that if users pass in any parameters they&rsquo;ll get the same defunct message instead of a <code>unused argument</code> message, so like:</p>
+
+<pre><code class="language-r">foo &lt;- function(...) {
+    .Defunct(msg = &quot;'foo' has been removed from this package&quot;)
+}
+</code></pre>
+
+<p>Without <code>...</code> gives:</p>
+
+<pre><code class="language-r">foo(x = 5)
+#&gt; Error in foo(x = 5) : unused argument (x = 5)
+</code></pre>
+
+<p>And with <code>...</code> gives:</p>
+
+<pre><code class="language-r">foo(x = 5)
+#&gt; Error: 'foo' has been removed from this package
+</code></pre>
+
+<p>Make a man page for defunct functions like:</p>
+
+<pre><code class="language-r">#' Defunct functions in helloworld
+#' 
+#' These functions are gone, no longer available.
+#' 
+#' \itemize{
+#'  \item \code{\link{foo}}: This function is defunct.
+#' }
+#' 
+#' @name helloworld-defunct
+NULL
+</code></pre>
+
+<p>This creates a man page that users can access like <code>?helloworld-defunct</code> and they&rsquo;ll see in the documentation index. Add any functions to this page as needed. You&rsquo;ll likely want to keep this man page indefinitely.</p>
+
+<h2 id="others">Others?</h2>
+
+<p>What are some other less discussed aspects of how to make changes in your packages?</p>
+
+            </div>
+            <br>
+
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

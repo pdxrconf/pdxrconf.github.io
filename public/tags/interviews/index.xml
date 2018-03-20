@@ -1,0 +1,545 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Interviews on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/interviews/</link>
+    <description>Recent content in Interviews on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 08 Dec 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/interviews/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>.rprofile: Jenny Bryan</title>
+      <link>https://ropensci.org/blog/2017/12/08/rprofile-jenny-bryan/</link>
+      <pubDate>Fri, 08 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/12/08/rprofile-jenny-bryan/</guid>
+      <description>
+        
+        &lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-12-08-rprofile-jenny-bryan/jenny_bryan_lowres.jpg&#34; alt=&#34;Jenny Bryan&#34; style=&#34;margin: 0px 20px; width: 250px;&#34; align=&#34;left&#34;&gt;
+&lt;em&gt;Jenny Bryan @JennyBryan is a Software Engineer at RStudio and is on leave from being an Associate Professor at the University of British Columbia. Jenny serves in leadership positions with rOpenSci and &lt;a href=&#34;https://forwards.github.io/&#34;&gt;Forwards&lt;/a&gt; and as an Ordinary member of &lt;a href=&#34;https://www.r-project.org/foundation/&#34;&gt;The R Foundation&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;KO: What is your name, your title, and how many years have you worked in R?&lt;/p&gt;
+
+&lt;p&gt;JB: I’m Jenny Bryan, I am a software engineer at RStudio (still getting used to that title)., And I am on leave from being an Associate Professor at the University of British Columbia. I’ve been working with R or it’s predecessors since 1996. I switched to R from S in the early 2000s.&lt;/p&gt;
+
+&lt;p&gt;KO: Why did you make the switch to R from S?&lt;/p&gt;
+
+&lt;p&gt;JB: It just seemed like the community was switching over to R and I didn’t have a specific reason to do otherwise, I was just following the communal path of least resistance.&lt;/p&gt;
+
+&lt;p&gt;KO: You have a huge following from all the stuff you post about your course. Did you always want to be a teacher? How did you get into teaching?&lt;/p&gt;
+
+&lt;p&gt;JB: No, I wouldn’t say that I always wanted to be a teacher, but I think I’ve enjoyed that above average compared to other professors. But it was more that I realized several years ago that I could have a bigger impact on what people did by improving data analysis workflows, thinking, and tooling instead of trying to make incremental progress on statistical methodology. It is a reflection of where I have a comparative advantage with respect to interest and aptitude, so it’s not really a knock on statistical methodology. But I feel we could use more people working on this side of the field &amp;ndash; working on knowledge translation.&lt;/p&gt;
+
+&lt;p&gt;I was also reacting to what I saw in my collaborative work. I would work with people in genomics and if I’m completely honest with myself, often my biggest contribution to the paper would be getting all the datasets and analyses organized. I didn’t necessarily do some highly sophisticated statistical analysis. It would often boil down to just doing millions of t-tests or something. But the reason I had an impact on the project would be that I got everything organized so that we could re-run it and have more confidence in our results. And I was like, I have a PhD in stats, why is this my main contribution? Why do the postdocs, grad students, and bioinformaticians not know how to do these things? So then I started to make that more and more the focus of my course, instead of squeezing in more statistical methods. Then the teaching sort of changed who I was and what I allowed myself to think about and spend time on. I used to not let myself spend time on those things. Or if I did, I would feel guilty about it because I thought, I can’t get any professional credit for this! It’s not statistically profound, but it seems to be what the world needs me to do, and needs other people to be doing.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;You don’t always have to be proving a theorem, you don’t always have to be writing a package, there’s still a lot of space for worthwhile activity in between all of those things.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;KO: Do you feel proud of what you’ve accomplished?&lt;/p&gt;
+
+&lt;p&gt;JB: I finally in some sense gave myself permission to start teaching what I thought people actually needed to know. And then after spending lots of time on it in the classroom, you realize what gaps there are, you become increasingly familiar with the tooling that you’re teaching and you’re like, hey I could actually improve that. Or no one really talks about how you get the output of this step to flow nicely as the input into the following step, i.e. how to create workflows. It really helped open my mind to different forms of work that are still valuable. You don’t always have to be proving a theorem, you don’t always have to be writing a package, there’s still a lot of space for worthwhile activity in between all of those things. However because we don’t have names for all of it, it can be difficult from a career point of view. But so many people see it, use it, and are grateful for it.&lt;/p&gt;
+
+&lt;p&gt;KO: Can you talk about your transition into working for RStudio and what that will look like on a day-to-day basis?&lt;/p&gt;
+
+&lt;p&gt;JB: In many ways it looks a lot like my life already did because I had, especially in the last two to three years, decided if I want to work on R packages or on exposition, I’m going to do that. That’s what I think tenure is for! So I had decided to stop worrying about how to sell myself in a framework set up to reward traditional work in statistical methodology. That freed up a lot of mental energy, to pursue these other activities, unapologetically. Which lead to other opportunities, such as RStudio. I was already working mostly from home. The Statistics department is by no means a negative environment for me, but the internet helped me find virtual colleagues around the globe who really share my interests. The physical comfort of home is very appealing. RStudio is also very light on meetings, which is a beautiful thing.&lt;/p&gt;
+
+&lt;p&gt;KO: What is your team like at RStudio? How many projects are you juggling at any given time? Do you have an idea of what you want to accomplish while you’re there?&lt;/p&gt;
+
+&lt;p&gt;JB: The person I interact with most is &lt;a href=&#34;http://hadley.nz/&#34;&gt;Hadley Wickham&lt;/a&gt; and he now has a team of five. There’s a fair amount of back and forth with other team members. I might seek their advice on, e.g., development practices, or just put questions out there for everyone. This team is pretty new and the formalization of the &lt;a href=&#34;https://www.tidyverse.org/&#34;&gt;tidyverse&lt;/a&gt; is pretty new, so everyone has different packages that they’re working on, either from scratch or shifting some of the maintenance burden off of Hadley. There’s a concerted effort to figure out “what does it mean to be an ecosystem of packages that work together?&amp;ldquo;.&lt;/p&gt;
+
+&lt;p&gt;KO: Do you have a well defined road map at this point on the team?&lt;/p&gt;
+
+&lt;p&gt;JB: I’ve been on that team since January and before that we had queued up &lt;a href=&#34;http://readxl.tidyverse.org/&#34;&gt;readxl&lt;/a&gt; as a good project for me. It was also overdue for maintenance! I was already a “Spreadsheet Lady”, very familiar with the underlying objects, and with the problem space. It was a good opportunity for me to write compiled code which I hadn’t done in a really long time. I had never written C++ so it was a way to kill at least three birds with one stone. So that was an easy selection for the first thing to work on. And even before that was done, it was clear that going back and doing another project in the Google arena made sense. We knew we would do some work with interns. Wrapping the Google Drive API was going to be useful (in general and for a future update of &lt;a href=&#34;https://github.com/jennybc/googlesheets&#34;&gt;googlesheets&lt;/a&gt;) and I knew our intern &lt;a href=&#34;http://www.lucymcgowan.com/&#34;&gt;Lucy McGowan&lt;/a&gt; would be a great person to work with on it.&lt;/p&gt;
+
+&lt;p&gt;So no, there’s not some detailed 18-month roadmap stretching ahead of me. I think it will cycle between doing something that’s mine or new and doing maintenance on something that already exists. I also continue to do a lot of exposition, training, and speaking.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;It actually pisses me off when people criticize “when” people work - like that’s a signifier of a poor work-life balance … their heart is in the right place to encourage balance, but I have a certain amount of work I want to get done.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;KO: Day-to-day, do you have regular standups? How do you like your day to be structured?&lt;/p&gt;
+
+&lt;p&gt;JB: Oh there&amp;rsquo;s how I wish my day was structured and how it&amp;rsquo;s actually structured. I wish I could get up and just work because that’s when I feel by far my most productive. Unfortunately, this coincides with the morning chaos of a household with three kids, who, despite the fact that we’re trying to get them more independent with lunches and getting to school, you cannot completely tune out through this part of the day. So I do not really get up and just work, I sort of work until everyone gets out the door. Then I usually go exercise at that point, get that taken care of. I get more work done in the afternoon until the children all arrive home. I do a lot of work between 9 or 10 at night and 1 in the morning. Not because I love working at that time, but that’s just what I have.&lt;/p&gt;
+
+&lt;p&gt;Given that I have this platform, it actually pisses me off when people criticize “when” people work - like that’s a signifier of a poor work-life balance, though it is possible that I have a poor work-life balance, but I feel like it’s usually coming from people who don’t have the same constraints in their life. “You shouldn’t work on the weekends, You shouldn’t work in the evenings”. I’m like, when the heck else do you think I would work? I feel like sometimes people are - their heart is in the right place to encourage balance, but I have a certain amount of work I want to get done. And I have a family and it means that I work when my children are asleep.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;They’re happy years but the tension between all the things you want to do is unbelievable because you will not do all of them. You cannot do it all.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;KO: This topic is very interesting and personal to me. As I get older I’ve been thinking (nebulously) about starting a family, and I don’t know what that looks like. It’s scary to me, to not want to give up this lifestyle and this career that I’ve started for myself.&lt;/p&gt;
+
+&lt;p&gt;JB: My pivoting of thinking about myself as an applied statistician to more of a data scientist, coincided with me reemerging from having little kids. I had all of them pre-tenure and at some point we had “three under three”. I was trying to get tenure, just barely getting it all done and I was kind of in my own little world, just surviving. Then the tenure process completed successfully, the kids got older, they were all in school, and eventually they didn’t need any out of school care. So me being able to string multiple abstract thoughts together and carve out hours at a time to do thought work coincided with me also freeing myself to work on stuff that I found more interesting.&lt;/p&gt;
+
+&lt;p&gt;I don’t know how this all would have worked out if the conventional academic statistical work had suited me better. The time where I was most conflicted between doing a decent job parenting and doing decent work was also when I was doing work I wasn’t passionate about. I can’t tell if having more enthusiasm about the work would have made that period harder or easier! I really thought about ditching it all more than a few times.&lt;/p&gt;
+
+&lt;p&gt;The reinvigoration that coincided with switching emphasis also coincided with the reinvigoration that comes from the kids becoming more independent. It does eventually happen! There are some very tough years - they’re not dark years, they’re happy years but the tension between all the things you want to do is unbelievable because you will not do all of them. You cannot do it all.&lt;/p&gt;
+
+&lt;p&gt;KO: What are your favorite tools for managing your workflow?&lt;/p&gt;
+
+&lt;p&gt;JB: In terms of working with R I’ve completely standardized on working with RStudio. Before that I was an Emacs-ESS zealot and I still have more accumulated years in that sphere. But once RStudio really existed and was viable, I started teaching with it. I hate doing R one way when I’m in front of students and another when I’m alone. It got very confusing and mixing up the keyboard shortcuts would create chaos. So now I’ve fully embraced RStudio and have never looked back.&lt;/p&gt;
+
+&lt;p&gt;I’m also a &lt;a href=&#34;http://happygitwithr.com/&#34;&gt;git evangelist&lt;/a&gt;. Everything I do is in git, everything is on &lt;a href=&#34;https://github.com/jennybc&#34;&gt;Github&lt;/a&gt; and at this point, almost everything is public because I’ve gotten unselfconscious enough to put it up there. Plus there’s enough volume now that no one could be looking at any particular one thing. It’s so much easier for me to find it again later. I just put everything in a public place rather than trying to have this granular access control; it simplifies things greatly. Working in the open has simplified a lot of decisions, that’s nice.&lt;/p&gt;
+
+&lt;p&gt;Otherwise I feel like my workflow is very primitive. I have thousands of email in my inbox. I’ve completely given up on managing email and I’m mostly okay with that. It’s out of my control and I can’t commit to a system where I’m forced to get to inbox zero. I’ve just given up on it. And twitter and slack are important ways to feel connected when I’m sitting at home on my sofa.&lt;/p&gt;
+
+&lt;p&gt;KO: Do you have any online blogs, personalities or podcasts that you particularly enjoy? It doesn’t have to be R related.&lt;/p&gt;
+
+&lt;p&gt;JB: I do follow people on twitter and the &lt;a href=&#34;https://twitter.com/hashtag/rstats&#34;&gt;rstats hashtag&lt;/a&gt;, so that often results in serendipitous one-off links that I enjoy. I don’t follow certain blogs regularly, but there are certain places that I end up at regularly. I like the Not So Standard Deviations podcast. In the end I always listen to every episode, but it’s what I do on an airplane or car drive.&lt;/p&gt;
+
+&lt;p&gt;KO: You build up a backlog?&lt;/p&gt;
+
+&lt;p&gt;JB: Exactly. Then the next time I need to drive to Seattle in traffic, I’ll power through four episodes.&lt;/p&gt;
+
+&lt;p&gt;KO: What are some of your favorite R packages - do you have some that you think are funny, or love?&lt;/p&gt;
+
+&lt;p&gt;JB: I live entirely in the tidyverse. I’m not doing primary data analysis on projects anymore. It’s weird that the more involved you become in honing the tools, the less time you spend wielding them. So I’m increasingly focused on the data prep, data wrangling, data input part of the cycle and not on modeling. I did a lot more of that when I was a statistician and now it’s not where my comparative interest and advantage seems to lie. There’s plenty to do on the other end. And also not that many people who like it. I actually do enjoy it. I don’t have to force myself to enjoy it - this is really important, and it pleases me. Given how important I think the work is, it’s a relatively uncrowded field. Whereas machine learning, it seems like everyone wants to make a contribution there. I’m like, you go for it - I’m going to be over here getting data out of Excel spreadsheets.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>.rprofile: Mara Averick</title>
+      <link>https://ropensci.org/blog/2017/11/10/rprofile-mara-averick/</link>
+      <pubDate>Fri, 10 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/11/10/rprofile-mara-averick/</guid>
+      <description>
+        
+        &lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-11-10-rprofile-mara-averick/mara_averick.png&#34; alt=&#34;Mara Averick, Data Nerd At Large&#34; style=&#34;margin: 0px 20px; width: 250px;&#34; align=&#34;left&#34;&gt;
+&lt;em&gt;Mara Averick is a non-profit data nerd, NBA stats junkie, and most recently, tidyverse developer advocate at RStudio. She is the voice behind two very popular Twitter accounts, @dataandme and @batpigandme. Mara and I discussed sports analytics, how attending a cool conference can change the approach to your career, and how she uses Twitter as a mechanism for self-imposed forced learning.&lt;/em&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;KO: What is your name, job title, and how long have you been using R? [Note: This interview took place in May 2017. Mara joined RStudio as their tidyverse developer advocate in November 2017.]&lt;/p&gt;
+
+&lt;p&gt;MA: My name is Mara Averick, I do consulting, data science, I just say “data nerd at large” because I’ve seen those Venn diagrams and I’m definitely not a data scientist. I used R in high school for fantasy basketball. I graduated from high school in 2003, and then in college used SPSS, and I didn’t use R for a long time. And then I was working with a company that does grant proposals for non-profits, doing all of the demand- and outcome-analysis and it all was in Excel and I thought, we could do better - R might also be helpful for this. It turns out there’s a package for American Community Survey data in R (&lt;a href=&#34;https://cran.r-project.org/web/packages/acs/index.html&#34;&gt;acs&lt;/a&gt;), so that was how I got back into R.&lt;/p&gt;
+
+&lt;p&gt;KO: How did you find out about R when you first started using it in high school?&lt;/p&gt;
+
+&lt;p&gt;MA: I honestly don’t remember. I didn’t even use RStudio until two years ago. I think it was probably from other fantasy nerds?&lt;/p&gt;
+
+&lt;p&gt;KO: Is there an underground R fantasy basketball culture?&lt;/p&gt;
+
+&lt;p&gt;MA: Well R for fantasy football is legit. &lt;a href=&#34;http://fantasyfootballanalytics.net/&#34;&gt;Fantasy Football Analytics&lt;/a&gt; is all R modeling.&lt;/p&gt;
+
+&lt;p&gt;KO: That’s awesome - so now, do you work with sports analytics? Or is that your personal project/passion?&lt;/p&gt;
+
+&lt;p&gt;MA: A little bit of both, I worked for this startup called Stattleship (&lt;a href=&#34;https://twitter.com/stattleship&#34;&gt;@stattleship&lt;/a&gt;). Because I’ll get involved with anything if there’s a good pun involved… and so we were doing sports analytics work that kind of ended up shifting more in a marketing direction. I still do consulting with the head data scientist [&lt;a href=&#34;https://twitter.com/tanyacash21/&#34;&gt;Tanya Cashorali&lt;/a&gt;] for that [at &lt;a href=&#34;http://tcbanalytics.com/&#34;&gt;TCB Analytics&lt;/a&gt;]. Some of the analysis/consulting will be with companies who are doing either consumer products for sports or data journalism stuff around sports analytics.&lt;/p&gt;
+
+&lt;p&gt;KO: How often do you use R now?&lt;/p&gt;
+
+&lt;p&gt;MA: Oh, I use R like every day. I use it… I don’t use Word any more. [Laughter] Yeah so one of the things about basketball is that there are times of the year where there are games every day. So that’s been my morning workflow for a while - scraping basketball data.&lt;/p&gt;
+
+&lt;p&gt;KO: So you get up every morning and scrape what’s new in Basketball?&lt;/p&gt;
+
+&lt;p&gt;MA: Yeah! So I end up in RStudio bright and early (often late, as well).&lt;/p&gt;
+
+&lt;p&gt;KO: So is that literally what the first half hour of your day looks like?&lt;/p&gt;
+
+&lt;p&gt;MA: No, so incidentally that’s kind of how this Twitter thing got started. My dog has long preceded me on Twitter and the internet at large, he’s kind of an internet famous dog &lt;a href=&#34;https://twitter.com/batpigandme&#34;&gt;@batpigandme&lt;/a&gt;. There’s an application called &lt;a href=&#34;https://buffer.com/&#34;&gt;Buffer&lt;/a&gt; which allows you to schedule tweets and facebook page posts, which was most of Batpig’s traffic - &lt;a href=&#34;https://www.facebook.com/batpigandme&#34;&gt;facebook page&lt;/a&gt; visits from Japan. And so I had this morning routine (started in the winter when I had one of those light things you sit in front of for a certain number of minutes) where I would wake up and schedule batpig posts while I’m sitting there and read emails. And that ended up being a nice morning workflow thing.&lt;/p&gt;
+
+&lt;p&gt;I went to a &lt;a href=&#34;http://www.dogooddata.com/&#34;&gt;Do Good Data&lt;/a&gt; conference, which is a &lt;a href=&#34;http://www.dataanalystsforsocialgood.com/&#34;&gt;Data Analysts for Social Good&lt;/a&gt; (&lt;a href=&#34;https://twitter.com/DA4SG&#34;&gt;@DA4SG&lt;/a&gt;) event, just over two years ago, and everyone there was giving out their twitter handles, and I was like, oh - maybe people who aren’t dogs also use Twitter? [Laughter] So that was how I ended up creating my own account &lt;a href=&#34;https://twitter.com/dataandme&#34;&gt;@dataandme&lt;/a&gt; independent from Batpig.&lt;/p&gt;
+
+&lt;p&gt;KO: What happened after you went to this conference? Was it awesome, did it inspire you?&lt;/p&gt;
+
+&lt;p&gt;MA: Yeah so, I was the stats person at the company I was working at. And I didn’t realize there was all this really awesome work being done with really rigorous evaluation that wasn’t necessarily federal grant proposal stuff.  So I was really inspired by that and started learning more about what other people were doing, some of it in R, some of it not. I kept in touch with some of the people from that conference. And then NBA Twitter is also a thing it turns out, and NBA, R/Statistics is also a really big thing so that was kind of what pulled me in. And it was really fun. A lot of interesting projects and people that I work with were all through that [Twitter] which still surprises me - that I can read a book and tell the author something and they care? It’s weird.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;I like to make arbitrary rules for myself, one of the things is I don’t tweet stuff that I haven’t read.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;KO: Everyone loves your twitter account. How do you find and curate the things you end up posting about?&lt;/p&gt;
+
+&lt;p&gt;MA: I like to make arbitrary rules for myself, one of the things is I don’t tweet stuff that I haven’t read. I like to learn new things and/or I have to learn new things every day so I basically started scheduling [tweets] as a way to make myself read the things that I want to read and get back to.&lt;/p&gt;
+
+&lt;p&gt;KO: Wait, so you schedule a tweet and then you’re like, okay well this is my deadline to read this thing - or I’ll be a liar.&lt;/p&gt;
+
+&lt;p&gt;MA: Totally.&lt;/p&gt;
+
+&lt;p&gt;KO: Whoa that’s awesome.&lt;/p&gt;
+
+&lt;p&gt;MA: I’ve also never not finished a book in my life. It’s one of my rules, I’m really strict about it.&lt;/p&gt;
+
+&lt;p&gt;KO: That’s a lot of pressure!&lt;/p&gt;
+
+&lt;p&gt;MA: So that was kind of how it started out - especially because I didn’t even know all the stuff I didn’t know. Then, as I’ve used R more and more, there’s stuff that I’ve just happened to read because I don’t know what I’m doing.&lt;/p&gt;
+
+&lt;p&gt;KO: The more you learn the more you can learn.&lt;/p&gt;
+
+&lt;p&gt;MA: Yeah so now a lot of the stuff [tweets] is stuff I end up reading over the course of the day and then add it [to the queue]. Or it’s just stuff I’ve already read when I feel like being lazy.&lt;/p&gt;
+
+&lt;p&gt;KO: Do you have side projects other than the basketball/sports stuff?&lt;/p&gt;
+
+&lt;p&gt;MA: I actually majored in science and technology studies, which means I was randomly trained in ethical/legal/social implications of science. So I’m working on some data ethics projects which unfortunately I can’t talk about. And then my big side project for total amusement was this &lt;a href=&#34;https://archervisualization.herokuapp.com/&#34;&gt;D3.js in Action analysis of Archer&lt;/a&gt; which is a cartoon that I watch. But that’s also how I learned really how to use &lt;a href=&#34;https://github.com/juliasilge/tidytext&#34;&gt;tidytext&lt;/a&gt;. So then I ended up doing a technical review for David [Robinson] and Julia&amp;rsquo;s [Silge] book &lt;a href=&#34;http://tidytextmining.com/&#34;&gt;Text Mining with R: A Tidy Approach&lt;/a&gt;. It was super fun. So yeah, I always have a bunch of random side projects going on.&lt;/p&gt;
+
+&lt;p&gt;KO: How is your work-life balance?&lt;/p&gt;
+
+&lt;p&gt;MA: It’s funny because I like what I do. So I don’t always know where that starts and ends. And I’m really bad at capitalism. It never occurs to me that I should be paid for doing some things. Especially if it involves open data and open source - surely you can’t charge for that? But I read a lot of stuff that’s not R too. I think I’m getting sort of a balance, but I’m not sure.&lt;/p&gt;
+
+&lt;p&gt;KO: Switching back to your job-job now. Are you on a team, are you remote, are you in an office, what are the logistics like?&lt;/p&gt;
+
+&lt;p&gt;MA: Kind of all of the above. In my old job I was on a team but I was the only person doing anything data related. And I developed some really lazy habits from that - really ugly code and committing terrible stuff to git. But with this NBA project I end up working with a lot of different people (who are also basketball-stat nerds).&lt;/p&gt;
+
+&lt;p&gt;KO: Do you work with people who are employed by the actual NBA teams, or just people who are really interested in the subject?&lt;/p&gt;
+
+&lt;p&gt;MA: No, so there is an unfortunate attrition of people whom I work with when they get hired by teams - which is not unfortunate, it’s awesome, but then they can no longer do anything with us. So that’s collaborative work but I don’t work on a team anymore.&lt;/p&gt;
+
+&lt;p&gt;KO: So you don’t have daily stand-ups or anything.&lt;/p&gt;
+
+&lt;p&gt;MA: No, no. I could probably benefit from that, but my goal is never to be 100% remote. After I went to that first data conference, I felt like being around all these people who are so much smarter than I am, and know so much more than I do is intimidating, but I also learned so much. And I learned so many things I was doing, not wrong, but inefficiently. I still learn about 80 things I’m doing inefficiently every day.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;My goal right now - stop holding on to all of my projects that are not as done as I want them to be, and will never be done.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;KO: Do you have set beginnings and endings to projects? How many projects are you juggling at a given time?&lt;/p&gt;
+
+&lt;p&gt;MA: After doing federal grant proposals, it doesn’t feel like anything is a deadline compared to that. They don’t care if your house burned down if it’s not in at the right time. So nothing feels as hard and fast as that. There are certain things like the NBA that —&lt;/p&gt;
+
+&lt;p&gt;KO: There are timely things.&lt;/p&gt;
+
+&lt;p&gt;MA: Yeah, and then sometimes we’ll just set arbitrary deadlines, just to kind of get out of a cycle of trying to perfect it, which I fall deeply into. Yeah so that’s kind of a little bit of my goal right now - stop holding on to all of my projects that are not as done as I want them to be, and will never be done. With the first iteration of this Archer thing I literally spent three days trying to get this faceted bar chart thing to sort in multiple ways and was super frustrated and then I tweeted something about it and immediately David Robinson responded with precisely what I needed and would have never figured out. So I’m working on doing that more. And also because it’s so helpful to me when other people do that.&lt;/p&gt;
+
+&lt;p&gt;KO: How did you get hooked up with Julia and David, just through Twitter?&lt;/p&gt;
+
+&lt;p&gt;MA: Yeah! So Julia I’d met at Open Vis Conf, David I’d read his &lt;a href=&#34;http://varianceexplained.org/programming/bad-code/&#34;&gt;blog about a million lines of bad code&lt;/a&gt; - it was open on my iPad for like years because I loved it so much, and still do. And yeah so again as this super random twitter-human that I feel like I am, I do end up meeting and doing things with cool people who are super smart and do really cool things.&lt;/p&gt;
+
+&lt;p&gt;KO: It’s impressive how much you post and not just that, but it’s really evident that you care. People can tell that this isn’t just someone who reposts a million things day.&lt;/p&gt;
+
+&lt;p&gt;MA: I mean it’s totally selfish, don’t get me wrong. But I’m super glad that it’s helpful to other people too. It gives me so much anxiety to think that people might think I know how to do all the things that I post, which I don’t, that’s why I had to read them - but even when I read them, sometimes I don’t know. The R community is pretty awesome, at least the parts of it that I know; which is not universally true of any community of any group of scientists. R Twitter is super-super helpful. And that was evident really quickly, at least to me.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;My plea to everyone who has a blog is to put their Twitter handle somewhere on it.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;KO: What are some of your favorite things on the internet? Blogs, Twitter Accounts, Podcasts…&lt;/p&gt;
+
+&lt;p&gt;MA: I have never skipped one of &lt;a href=&#34;https://juliasilge.com/&#34;&gt;Julia Silge’s blog&lt;/a&gt; posts. Her posts are always something that I know I should learn how to do. Both she and D-Rob [David Robinson] know their stuff and they write really well. So those are two blogs and follows that I love. &lt;a href=&#34;https://rud.is/b/&#34;&gt;Bob Rudis&lt;/a&gt; - almost daily, I can’t believe how quickly he churns stuff out. R-Bloggers is a great way to discover new stuff. Dr. Simon J [&lt;a href=&#34;https://drsimonj.svbtle.com/&#34;&gt;Simon Jackson&lt;/a&gt;] - I literally think of people by their twitter handles [&lt;a href=&#34;https://twitter.com/drsimonj&#34;&gt;@drsimonj&lt;/a&gt;], and there are so many others.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-11-10-rprofile-mara-averick/put-a-bird-on-it.png&#34; alt=&#34;PUT A BIRD ON IT!&#34; align=&#34;right&#34; style=&#34;margin: 0px 20px&#34;, width=&#34;350px&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;Every day I’m amazed by all the stuff I didn’t know existed. And also there’s stuff that people wrote three or four years ago. A lot of the data vis stuff I end up finding from weird angles. So those are some of my favorites - I’m sure there are more. Oh! Thomas Lin Pedersen, &lt;a href=&#34;http://www.data-imaginist.com&#34;&gt;Data Imaginist is his blog&lt;/a&gt;. There are so many good blogs. My plea to everyone who has a blog is to put their twitter handle somewhere on it. I actually try really hard to find attribution stuff. Every now and then I get it really wrong and it’ll be someone who has nothing to do with it but who has the same name. There’s a bikini model who has the same name as someone who I said wrote a thing - which I vetted it too! I was like, well she’s multi-faceted, good for her! And then somebody was like, I don’t think that’s the right one. Oops! I have to say that that’s the one thing that Medium nailed - when you click share it gives you their twitter handle. If you have a blog, put your twitter handle there so I don’t end up attributing it to a bikini model.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>.rprofile: David Smith</title>
+      <link>https://ropensci.org/blog/2017/10/13/rprofile-david-smith/</link>
+      <pubDate>Fri, 13 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/10/13/rprofile-david-smith/</guid>
+      <description>
+        
+        &lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-10-13-rprofile_david_smith/david-smith.jpg&#34; alt=&#34;David Smith, R Community Lead at Microsoft&#34; style=&#34;margin: 0px 20px; width: 250px;&#34; align=&#34;left&#34;&gt;
+&lt;em&gt;David Smith is a Blogger and Community Lead at Microsoft. I had the chance to interview David last May at rOpenSci unconf17. We spoke about his career, the process of working remote within a team, community development/outreach and his personal methods for discovering great content to share and write about.&lt;/em&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;KO: What is your name, job title, and how long have you been using R?&lt;/p&gt;
+
+&lt;p&gt;DS: My name is David Smith. I work at Microsoft and my self-imposed title is ‘R Community Lead’. I’ve been working with R specifically for about 10 years, but I’d been working with S since the early 90s.&lt;/p&gt;
+
+&lt;p&gt;KO: How did you transition into using R?&lt;/p&gt;
+
+&lt;p&gt;DS: I was using S for a long, long time, and I worked for the company that commercialized S, where I was a project manager for S-PLUS. And I got out of that company, and then worked for a startup in a different industry for a couple of years. But while I was there, the people that founded Revolution Analytics approached me because they were setting up a company to build a commercial business around R, and reached out to me because of my connections with the S community.&lt;/p&gt;
+
+&lt;p&gt;KO: So you came to Microsoft through Revolution?&lt;/p&gt;
+
+&lt;p&gt;DS: That’s correct. I was with Revolution Analytics and then Microsoft bought that company, so I’ve been with Microsoft since then.&lt;/p&gt;
+
+&lt;p&gt;KO: How has that transition gone, is there a Revolution team inside of Microsoft, or has it become more spread out?&lt;/p&gt;
+
+&lt;p&gt;DS: It’s been more spread out. It got split up into the engineering people and the marketing people, sales people all got distributed around. When I first went to Microsoft I started off in the engineering group doing product management. But I was also doing the community role, and it just wasn’t a very good fit just time-wise, between doing community stuff and doing code or product management. So then I switched to a different group called the Ecosystem team, and so now I’m 100% focused on community within a group that’s focused on the ecosystem in general.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;The one piece of advice I could give anyone starting out in their careers is - write what you do, write it in public, and make it so that other people can reproduce what you did.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;KO: What does it mean to be 100% community focused, do you do a lot of training?&lt;/p&gt;
+
+&lt;p&gt;DS: I don’t do a lot of training myself, but I work with a lot of other people on the team who do training. We’re focused mainly on building up the ecosystem of people that ultimately add value to the products that Microsoft has. And we’re specifically involved in the products that Microsoft has that now incorporate R by building up the value of the R ecosystem.&lt;/p&gt;
+
+&lt;p&gt;KO: What does your day-to-day look like, are you in an office, do you work remote?&lt;/p&gt;
+
+&lt;p&gt;DS: I work from home. I had moved from Seattle where Microsoft is headquartered to Chicago a couple of months before the acquisition happened, so I wasn’t about to move back to Seattle. But they let me work from home in Chicago, which has worked out great because most of my job is communicating with the community at large. So I do the &lt;a href=&#34;http://blog.revolutionanalytics.com/&#34;&gt;Revolutions Blog&lt;/a&gt;, which I’ve been writing for eight or nine years now, writing stories about people using R, and applications of R packages. All as a way of communicating to the wider world the cool stuff that people can do with R, and also to the R community occasionally, what kind of things you can do with R in the Microsoft environment.&lt;/p&gt;
+
+&lt;p&gt;KO: Have you always been a writer or interested in writing and communications?&lt;/p&gt;
+
+&lt;p&gt;DS: No, no. I have a mathematics and computer science degree. I’m not trained as a writer. But it’s actually been useful having the perspective of statistics and mathematics and programming, and to bring that to a broader audience through writing. I’ve learned a lot about the whole writing and blogging and journalism process through that, but I’m certainly not trained in that way.&lt;/p&gt;
+
+&lt;p&gt;KO: How does your Ecosystems team at Microsoft function and collaborate?&lt;/p&gt;
+
+&lt;p&gt;DS: Unlike many teams at Microsoft, our team is very distributed. We have people working remotely from Denver, I’m in Chicago, Seattle, we’re all kind of distributed all around the place. So we meet virtually through Skype, have video meetings once a week and communicate a lot online.&lt;/p&gt;
+
+&lt;p&gt;KO: What kind of tools are you using?&lt;/p&gt;
+
+&lt;p&gt;DS: Traditionally, as in Microsoft, mainly email and Skype for the meetings. I set up an internal team focused around community more broadly around Microsoft and we use Microsoft Teams for that,
+which is a little bit like Slack. But a lot of the stuff that I do is more out in the open, so I use a lot of Twitter and Github for the code that I point to and stuff like that.&lt;/p&gt;
+
+&lt;p&gt;KO: How do you manage your Twitter?&lt;/p&gt;
+
+&lt;p&gt;DS: Twitter I do manually in real-time. I don’t do a lot of scheduling except for &lt;a href=&#34;https://twitter.com/rlangtip&#34;&gt;@RLangTip&lt;/a&gt;
+which is a feed of daily R tips. And for that I do scheduling through Tweetdeck on the web.&lt;/p&gt;
+
+&lt;p&gt;KO: How many Twitter accounts are you managing?&lt;/p&gt;
+
+&lt;p&gt;DS: I run &lt;a href=&#34;https://twitter.com/revodavid&#34;&gt;@revodavid&lt;/a&gt; which is my personal twitter account, and &lt;a href=&#34;https://twitter.com/rlangtip&#34;&gt;@RLangTip&lt;/a&gt; which is R language tips. I tweet for &lt;a href=&#34;https://twitter.com/R_Forwards&#34;&gt;@R_Forwards&lt;/a&gt; which is the diversity community for R, &lt;a href=&#34;https://twitter.com/RConsortium&#34;&gt;@RConsortium&lt;/a&gt;, the R Consortium, so quite a few.&lt;/p&gt;
+
+&lt;p&gt;KO: How long has this been a core part of your work day?&lt;/p&gt;
+
+&lt;p&gt;DS: The community thing as a focus, maybe five or six years? My career path for a long time was in product management. So I managed S-PLUS as a product for a long time, I managed another product at a different startup, and then I came to Revolution and I did a combination of engineering and product management. But in the last 18 months I’ve been 100% in the community space.&lt;/p&gt;
+
+&lt;p&gt;KO: How did you get into product management to begin with?&lt;/p&gt;
+
+&lt;p&gt;DS: That’s a good question that I’m not sure I know the answer to. I started off my first job after university &amp;ndash; I actually left university specifically to become a support engineer for S-PLUS. When I took on that role, they didn’t really have product management yet at that company, and so when they were looking for somebody to basically steer S-PLUS as a product, it was a good fit for me and an opportunity to move to the States. I took that on and I kind of just learned product management as I did it. I went to a few sort of training/seminar type things, but I didn’t study it.&lt;/p&gt;
+
+&lt;p&gt;KO: Sure. It seems like something that people just kind of get saddled with sometimes?&lt;/p&gt;
+
+&lt;p&gt;DS: Exactly. It’s a discipline that doesn’t really have discipline. But for the various companies I’ve worked for, mostly startups, they all seem to have very different perspectives on what product management is and what the role of a product manager is.&lt;/p&gt;
+
+&lt;p&gt;KO: Yeah, I know what you mean. Are you happy to have sort of moved away from that?&lt;/p&gt;
+
+&lt;p&gt;DS: I am in the sense of &amp;ndash; it was different being in a startup where being a product manager was more like being the shepherd of an entire product ecosystem, whereas in a big company the product manager is a lot more focused and inherently so, a lot more narrow. I happen to prefer the bigger picture I guess.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Honestly, I kind of focus from the point of view of what interests me personally. Which doesn’t sound very community oriented at all… but it’s an exercise in empathy.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;KO: What’s your process for deciding what things you talk about and bring to the community?&lt;/p&gt;
+
+&lt;p&gt;DS: Honestly, I kind of focus from the point of view of what interests me personally. Which doesn’t sound very community oriented at all… but it’s an exercise in empathy. If I can write about something, or find a topic that I might find is interesting or exciting and I can communicate that with other people, I’m motivated to write about it and I hope that people are then motivated to learn about it. Kind of the antithesis of this is when I worked in marketing for a while; a lot of that style of writing was the bane of my existence because you’re producing these documents that literally are designed for nobody to read, in this language that nobody engages with. I much prefer blogging and tweeting because it’s much more directly for people.&lt;/p&gt;
+
+&lt;p&gt;KO: What have some of your most popular or successful engagements been about? Feel free to interpret ‘successful&amp;rsquo; in any way.&lt;/p&gt;
+
+&lt;p&gt;DS: Well, from the point of view of what has been the most rewarding part of my job, is finding under-recognized or just these really cool things that people have done that just haven’t had a lot of exposure. And I’ve got a fairly big audience and a fairly wide reach, and it’s always fun for me to find things that people have done that maybe haven’t been seen. And it’s not my work, but I can &amp;ndash; you know &amp;ndash; take an eight page document that somebody’s written that has really cool things in it and just pull out various things. There is so much very cool stuff that people have done, half of the battle is getting it out there.&lt;/p&gt;
+
+&lt;p&gt;KO: What are some of your favorite sources for discovering cool things on the internet?&lt;/p&gt;
+
+&lt;p&gt;DS: There are channels on Reddit that I get a lot of material from, like &lt;a href=&#34;https://www.reddit.com/r/dataisbeautiful/&#34;&gt;/r/dataisbeautiful&lt;/a&gt; and things like that. It’s hard to say particular accounts on twitter, but I’ve spent a lot of time following people where I’ve read one of their blog posts and I find their twitter account, and they have just a few followers, I’ll follow them, and then over time it amounts to some good stuff. I have twitter open all day, every day. I don’t read everything on my feed every day, but I certainly keep it open.&lt;/p&gt;
+
+&lt;p&gt;KO: How much of your day is just spent exploring?&lt;/p&gt;
+
+&lt;p&gt;DS: A lot of it. I spend about half of any given day reading. It takes a long time, but every now and then you find this really cool stuff.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;It’s one thing to be able to do really cool stuff in R or any other language, but until you can distill that down into something that other people consume, it’s going to be hard to sell yourself.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;KO: Do you have any last nuggets of wisdom for people starting out their careers in R?&lt;/p&gt;
+
+&lt;p&gt;DS: For people starting out their careers, I think one of the most important skills to learn is that communication skill. It’s one thing to be able to do really cool stuff in R or any other language, but until you can distill that down into something that other people consume, it’s going to be hard to sell yourself. And it’s also going to be hard to be valuable. A lot of the people I’ve watched evolve in the community are people who have begun very early in their careers, blogging about what they do. The one piece of advice I could give anyone starting out in their careers is - write what you do, write it in public, and make it so that other people can reproduce what you did.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Introducing our Postdoctoral Fellow, Dr. Dan Sholler</title>
+      <link>https://ropensci.org/blog/2017/06/30/postdoc_dan_sholler/</link>
+      <pubDate>Fri, 30 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/06/30/postdoc_dan_sholler/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;We are pleased to welcome our Postdoctoral Fellow, &lt;a href=&#34;https://danielsholler.wordpress.com/&#34;&gt;Dr. Dan Sholler&lt;/a&gt;. Dan is an expert in qualitative research (yes, you read that correctly) and studies digital infrastructure creation, growth, and maintenance efforts. Through this research interest, he was drawn to the open science community and its ongoing development of tools and communities to support sustainable, reproducible, high-quality research. With rOpenSci, he intends to investigate &lt;em&gt;what drives scientists to engage with or resist open science tools and communities&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Dan will be the first postdoc for the rOpenSci project, based at UC Berkeley and the &lt;a href=&#34;https://bids.berkeley.edu/&#34;&gt;Berkeley Institute for Data Science&lt;/a&gt;, supervised by Karthik Ram and co-supervised by &lt;a href=&#34;https://ropensci.org/about/#team&#34;&gt;Carl Boettiger&lt;/a&gt; and &lt;a href=&#34;http://danielskatz.org/&#34;&gt;Daniel Katz&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://i.imgur.com/piOAomv.jpg&#34; alt=&#34;Dr Dan Sholler&#34; align=&#34;left&#34; style=&#34;margin: 0px 20px&#34; width=&#34;250&#34; style=&#34;float: left;clear:both&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;We interviewed Dan to introduce you to him and his research (a fascinating conversation!). This short introduction can’t do him justice, but he&amp;rsquo;ll share his research plan in another post in Fall 2017.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;q-tell-us-a-bit-about-your-background&#34;&gt;Q: Tell us a bit about your background&lt;/h3&gt;
+
+&lt;p&gt;I&amp;rsquo;m a (mostly) qualitative, ethnographic researcher who studies user acceptance, resistance, and adaptation in digital infrastructure development programs. In other words, I like to study the factors that motivate people to engage with or resist new technologies, with the goal of helping to improve design and implementation strategies for eliciting engagement.&lt;/p&gt;
+
+&lt;p&gt;I completed my B.A. in &lt;a href=&#34;https://hss.sas.upenn.edu/undergraduate/science-technology-and-society-major&#34;&gt;Science, Technology and Society at University of Pennsylvania&lt;/a&gt;. During that time, I learned that technologies don’t just succeed or fail based on their merit; instead, a host of social and political factors play influential roles in determining technological outcomes. My Ph.D. research at the &lt;a href=&#34;https://www.ischool.utexas.edu/&#34;&gt;University of Texas School of Information&lt;/a&gt; under &lt;a href=&#34;https://www.dianebailey.me/&#34;&gt;Dr. Diane Bailey&lt;/a&gt; involved looking at contemporary deployments of new information technologies in developing countries, in government agencies, and in healthcare clinics. Alongside my research, I took courses in organizational theory, organizational behaviour, and information systems, sparking my interest in studying how organizational IT persist and become robust, or fail in the face of resistance from users during the implementation and use phases.&lt;/p&gt;
+
+&lt;p&gt;Sometimes, the unanticipated actions users take actually help an IT implementation to succeed. In the first study I participated in at UT with Dr. Bailey, we looked at a new branchless banking system intended to allow rural Brazilians to receive welfare benefits and pay utility bills without journeying to bank branches in major cities (think a network of simplified ATMs). The plan was to place point-of-service machines in places like grocery stores and post offices and allow clients to access self-service features. However, most of the clients were unable to use the machines themselves due to low technical literacy and they often encountered technical errors they couldn’t resolve. The owners and clerks in the shops took on new roles to fill the gap between the design of the technology and the reality of the situation: Elderly clients often handed over PINs; customers facing issues asked the shopkeepers to get in contact with the bank or utility companies; and some shop owners even borrowed money from their own registers to cover benefit checks when the system was down. All of these role-expanding actions ensured that the branchless system persisted.&lt;/p&gt;
+
+&lt;p&gt;In other cases, users’ reactions to a new implementation can lead to implementation failure. In my dissertation work, I found that doctors actively resisted and impeded a federally-mandated implementation of electronic medical records (EMR) in the U.S. healthcare industry. Clinics implemented “certified” EMR and had their costs partially subsidized by the federal government. In the study, I found that doctors were frustrated with the extra time they spent using EMR, particularly because it added little perceived benefit to patient treatment. Through interviews and observations, I learned that doctors could not affect any technological change within their local organizations because of strict federal policies. Through actions like lobbying Congress, holding town hall meetings, and voicing the medical community’s concerns in public outlets, the American Medical Association effectively stalled the progression of the federal program, which remains in jeopardy today.&lt;/p&gt;
+
+&lt;p&gt;I want to leverage my experience to explore how and why scientists engage with or resist open science communities and technologies, focusing on how particular communities like rOpenSci manage engagement and resistance to ensure positive outcomes. In turn, I hope to contribute to our understanding of best-practices for open science infrastructure development, including what community leaders, users, universities, government agencies, and other actors can do to develop robust infrastructures.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;q-what-would-you-like-to-accomplish-with-your-postdoc&#34;&gt;Q: What would you like to accomplish with your postdoc?&lt;/h3&gt;
+
+&lt;p&gt;Just like any other academic postdoc, I plan to publish papers - in my case, examining the development of open science communities - and draw upon theories that might help to understand engagement and resistance. I intend to apply what I learn from the project and advise rOpenSci (and other open science communities) about strategies for anticipating, dealing with, and overcoming issues related to user engagement and/or resistance.&lt;/p&gt;
+
+&lt;p&gt;I’ll strive to gain a deeper understanding of the open science movement, focusing first on general questions like:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;“What drives community leaders to devote time and resources to building a robust infrastructure to support open science?&lt;/li&gt;
+&lt;li&gt;What social and technical circumstances support or stand in the way of infrastructure development?&lt;/li&gt;
+&lt;li&gt;What managerial strategies might be applied to get scientists to engage or to help them deal with the perceived detriments of participating in the open science community?”&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To answer these questions, I’ll conduct a qualitative, comparative study of multiple open science communities, beginning with rOpenSci. In the study, I’ll interview and observe the leaders of these communities and the scientists who (a) actively engage with the open science tools produced by the communities and (b) might stand to benefit from the use of the tools, but instead resist use. I plan to evaluate the managerial strategies used across the communities. Focusing on multiple communities will assist the effort to generalize my findings to the broader open science movement. Throughout the study, I’ll consider the following prominent issues identified in the literature on digital infrastructure development, open science, open data, and related areas of study:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Organizational motivations for building open science infrastructures and communities&lt;/li&gt;
+&lt;li&gt;The need for balance between flexibility and standardization in managing users and their behaviors&lt;/li&gt;
+&lt;li&gt;Best practices for creating infrastructures and managing their growth, including both technical and social elements&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;q-how-do-you-arrive-at-doing-qualitative-research-in-an-environment-full-of-quantitative-researchers&#34;&gt;Q: How do you arrive at doing qualitative research in an environment full of quantitative researchers?&lt;/h3&gt;
+
+&lt;p&gt;I first heard about rOpenSci through a member of my dissertation committee, &lt;a href=&#34;https://www.ischool.utexas.edu/people/person_details?PersonID=175&#34;&gt;Dr. James Howison&lt;/a&gt;, while at UT-Austin. James is a renowned researcher of scientific software issues, including topics like software citation and attribution in academic journals. He worked with members of the rOpenSci community and clued me into the ongoing development of open science infrastructures. Additionally, I had also heard from my peers about &lt;a href=&#34;https://ropensci.org/blog/blog/2017/06/02/unconf2017&#34;&gt;rOpenSci’s annual unconference&lt;/a&gt; and its novel approach to building technical and social capacity in the R community.&lt;/p&gt;
+
+&lt;p&gt;The open science community has no shortage of exciting, innovative software tools to support scientific research. However, time and again, authors recognize that perhaps the biggest impediment to the widespread use of these tools is eliciting engagement from users who aren’t software developers themselves or who are hesitant to open their methods and data to the broader scientific community. I think my research will support efforts to expand infrastructure participation to these scientists by uncovering what their concerns and hesitations may be and considering how we might begin to address them, both through technical design and social approaches.&lt;/p&gt;
+
+&lt;p&gt;The rOpenSci community, to me, is an ideal place to carry out a qualitative research project with quantitative researchers. Although many other communities exist and have their own merits, rOpenSci has quickly and effectively engaged an interdisciplinary community of researchers and produced tools with immediate impacts. Studying this community and comparing it to related communities will aid in understanding what makes rOpenSci’s approach so effective. I believe that drawing out lessons about managing engagement can be applied to other communities and benefit the open science community as a whole.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;want-to-learn-more-about-dan-sholler&#34;&gt;Want to learn more about Dan Sholler?&lt;/h3&gt;
+
+&lt;p&gt;Read Dan’s publications on &lt;a href=&#34;https://scholar.google.com/citations?user=fHVPc94AAAAJ&amp;amp;hl=en&amp;amp;oi=ao&#34;&gt;Google Scholar&lt;/a&gt;
+&lt;br&gt;
+Follow &lt;a href=&#34;https://twitter.com/dansholler&#34;&gt;Dan on Twitter&lt;/a&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Announcing our first fellowship awarded to Dr. Nick Golding</title>
+      <link>https://ropensci.org/blog/2016/12/12/ropensci-fellowship-zoon/</link>
+      <pubDate>Mon, 12 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2016/12/12/ropensci-fellowship-zoon/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;rOpenSci&amp;rsquo;s overarching mission is to promote a culture of transparent, open, and reproducible research across various scientific communities. All of our activities are geared towards lowering barriers to participation, and building a community of practitioners around the world. In addition to developing and maintaining a large suite of open source tools for data science, we actively support the research community with expert review on research software development, community calls, and hosting annual unconferences around the world.&lt;/p&gt;
+
+&lt;p&gt;To further promote reproducible research activities within specialized domains, we will soon be announcing our annual fellowship program. These fellowships will provide support for collaborative research projects that strengthen one or more of rOpenSci&amp;rsquo;s core efforts. These activities may include development of new domain-specific tools, or supporting projects that are exemplars of reproducible research. Our early fellowships are by invitation and an open call will be forthcoming in early 2017.&lt;/p&gt;
+
+&lt;p&gt;We are pleased to award the first fellowship to &lt;a href=&#34;https://scholar.google.co.uk/citations?user=peoal7wAAAAJ&amp;amp;hl=en&#34;&gt;Dr. Nick Golding&lt;/a&gt; to continue developing a framework for building and sharing reproducible species distribution models (SDM). Nick Golding is a Research Fellow in the &lt;a href=&#34;https://qaeco.com/&#34;&gt;Quantitative &amp;amp; Applied Ecology Group&lt;/a&gt; at the University of Melbourne, Australia. He develops statistical models and software to predict the distributions of species and human diseases like those caused by the Zika and Ebola viruses. Nick is particularly interested in improving these models with information about traits, mechanistic relationships and population dynamics.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2016-12-12-ropensci-fellowship-zoon/nick-golding.jpg&#34; alt=&#34;Dr Nick Golding, rOpenSci Fellow&#34; align=&#34;left&#34; style=&#34;margin: 0px 20px&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;We interviewed Nick to learn more about him, the project, and what the fellowship will help him and his collaborators accomplish.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;q-what-is-the-zoon-project&#34;&gt;Q: What is the Zoon Project?&lt;/h3&gt;
+
+&lt;p&gt;The Zoon Project began in the Computer Science department in Oxford as part of the EPSRC-funded &lt;a href=&#34;http://www.2020science.net/&#34;&gt;2020 Science project&lt;/a&gt;, and is a collaboration between &lt;a href=&#34;https://zoonproject.wordpress.com/user-panel/&#34;&gt;a group of researchers&lt;/a&gt; with interests in SDM, scientific software and building better research communities. The name (Zoon) refers to an individual that is part of a compound organism, like the polyps that make up jellyfish. It’s a bit of a geeky name (you can blame Greg McInerny for that), but it fits well with the project’s aim to improve collaboration in this area of science.&lt;/p&gt;
+
+&lt;p&gt;The main piece of the project is an R package: &lt;a href=&#34;https://github.com/zoonproject/modules&#34;&gt;zoon&lt;/a&gt;; that allows you to develop your SDM analysis as a reproducible workflow. SDM involves taking records on where species have been observed and the environmental characteristics of those locations, representing these mathematically, and applying algorithms to turn these into predictions of geographical species distribution. The field of SDM within ecology has boomed in the last fifteen years&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:free-pdf-https-www-researchgate-net-profile-Fabiana-Barbosa4-publication-279750919-Characteristics-of-the-top-cited-papers-in-species-distribution-predictive-models-links-559963f108ae21086d25abe2-pdf&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:free-pdf-https-www-researchgate-net-profile-Fabiana-Barbosa4-publication-279750919-Characteristics-of-the-top-cited-papers-in-species-distribution-predictive-models-links-559963f108ae21086d25abe2-pdf&#34;&gt;0&lt;/a&gt;&lt;/sup&gt; coinciding with the increase in data and the birth of machine learning. The challenge is that the field is now a crowded and confusing place. There are hundreds of different candidate models, and probably thousands of papers on SDM methods, with each new method generally evaluated against a different dataset. That poses a serious hurdle to the community objectively evaluating the available methods and can be baffling to newcomers to the field.&lt;/p&gt;
+
+&lt;p&gt;In other applications of machine learning, there are benchmark datasets used by everyone in the community to evaluate methods (e.g. &lt;a href=&#34;http://yann.lecun.com/exdb/mnist/&#34;&gt;MNIST&lt;/a&gt; and &lt;a href=&#34;https://archive.ics.uci.edu/ml/datasets&#34;&gt;many more&lt;/a&gt;). There are also software platforms (like &lt;a href=&#34;http://topepo.github.io/caret/&#34;&gt;caret&lt;/a&gt;) that enable many of the candidate methods to be run from the same software, and compared on the same dataset. We don’t currently have either of these things for SDM, which makes it really difficult to synthesize information from the literature. The motivation for the Zoon Project is to address this reproducibility challenge faced by the community.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2016-12-12-ropensci-fellowship-zoon/zoon_workflow.png&#34; alt=&#34;Zoon workflow&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The Zoon package implements SDM analyses as workflows of bite-sized, interoperable software modules. Each module represents one of the five key steps in an SDM analysis.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Get data on where species occur&lt;/li&gt;
+&lt;li&gt;Get environmental data&lt;/li&gt;
+&lt;li&gt;Pre-process data&lt;/li&gt;
+&lt;li&gt;Plug data into a model&lt;/li&gt;
+&lt;li&gt;Generate some outputs&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Multiple modules can be used at each stage, allowing them to be combined or compared and because modules can be switched in and out it’s easy to quickly see how an analysis would change if a different method or dataset were used.&lt;/p&gt;
+
+&lt;p&gt;What makes the Zoon project unique is that all of these modules are developed by the community (not the Zoon team) and held together in an online repository, just like community-contributed R packages (but much easier). Basically, each software module has to conform to a set of input and output formats to make sure the modules are interoperable, and also requires some basic documentation. The &lt;a href=&#34;https://github.com/zoonproject/modules&#34;&gt;zoon&lt;/a&gt; R package helps users to write, document, test and share these modules so that everyone, not just experienced R developers, can contribute modules.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;q-what-s-an-example-of-a-research-question-that-can-be-addressed-using-the-zoon-r-package&#34;&gt;Q: What’s an example of a research question that can be addressed using the Zoon R package?&lt;/h3&gt;
+
+&lt;p&gt;SDM is increasingly being used in epidemiology and public health research. For example, the recent outbreak of Ebola in West Africa occurred in a place people weren’t really expecting, so being able to anticipate where future outbreaks might start is pretty important. During the outbreak, I worked with some colleagues to develop an SDM to identify areas in Africa that are environmentally similar to those where previous human outbreaks have started&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:code-https-github-com-SEEG-Oxford-ebola-zoonotic&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:code-https-github-com-SEEG-Oxford-ebola-zoonotic&#34;&gt;0&lt;/a&gt;&lt;/sup&gt;. This used location data for humans and animals infected with Ebola, environmental covariates like vegetation, elevation, temperature and evapotranspiration, and a machine learning method known in the SDM world as Boosted Regression Tree modelling. We didn’t have Zoon back then, but it would have made that whole workflow quicker to put together, and really easy to quickly evaluate the effects of changing model assumptions on areas predicted to be at risk of future outbreaks.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2016-12-12-ropensci-fellowship-zoon/elife-04395-fig5b-v2_crop.jpg&#34; alt=&#34;Figure 5B, Pigott et al 2014&#34; /&gt;
+&lt;strong&gt;Predicted geographical distribution of the zoonotic niche for Ebola virus.&lt;/strong&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:3&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:3&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; &lt;em&gt;The scale reflects the relative probability that zoonotic transmission of Ebola virus could occur at these locations; areas closer to 1 (red) are more likely to harbour zoonotic transmission than those closer to 0 (blue). (Figure 5B from Pigott et al 2014. CC BY 4.0)&lt;/em&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;q-what-would-you-like-to-accomplish-with-your-fellowship&#34;&gt;Q: What would you like to accomplish with your fellowship?&lt;/h3&gt;
+
+&lt;p&gt;We’ve already done most of the technical work in setting up the software and online repository for Zoon, what we really need now is to build a community of SDM users who can apply and contribute modules to the online &lt;a href=&#34;https://github.com/zoonproject/modules&#34;&gt;repository&lt;/a&gt;, as well as SDM experts to help the community start to synthesize all of the published research. During the term of the fellowship I’ll be developing an online hub for community-contributed SDM resources (SDM guides for beginners and best practice guidelines around different aspects of SDM) to make it easier for new SDM users to get started, and a forum where SDM experts can discuss what these best practice guides should look like.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;The Zoon Hub will include:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A single web-based portal for new users&lt;/li&gt;
+&lt;li&gt;A basic introduction with tutorials to enable someone new to SDM to fit a model using the R package and share their workflow with others. The objective here is to make Zoon easy to use so new SDM users get started using software with reproducibility baked in.&lt;/li&gt;
+&lt;li&gt;A series of expert-written best practice guides, covering contentious or nuanced topics in SDM methodology, like dealing with biases in occurrence data. Each of these guides will  be backed up by reproducible examples in the form of Zoon workflows. We’ll be soliciting feedback on these guides from SDM methods experts via an open online forum. We’ll be encouraging any disputes about best practice to be resolved in an evidence-based way by sharing workflows that demonstrate a point.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We want new SDM users to try out the tutorials and guides and tell us how they’re working. We have a group of experts who will advise us on best practices, but we’ll invite others to tell us what’s wrong with our suggestions. We’d also love to hear advice on infrastructure from people who live and breathe reproducible software. Our ultimate aim is to build a self sustaining community suggesting, discussing, and implementing new elements.&lt;/p&gt;
+
+&lt;p&gt;The rOpenSci fellowship allows us to complete this next step of Zoon development, moving the discussion from one of opinions on which models are best, to one of testable reproducible evidence-based answers.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;q-how-did-you-arrive-at-working-in-an-environment-where-you-apply-computational-statistical-skills-to-epidemiology&#34;&gt;Q: How did you arrive at working in an environment where you apply computational statistical skills to epidemiology?&lt;/h3&gt;
+
+&lt;p&gt;I started with an undergraduate degree in ecology from John Moores University in Liverpool and then worked as research assistant, briefly doing real biology (even some pipetting in a lab). I then did my PhD in mosquito ecology at Oxford, during which time I steadily drifted from field-based research to statistical ecology and particularly SDM. After three years as a Postdoc in Oxford applying these methods to mapping diseases, I moved to the University of Melbourne in February 2016, where I’m a Research Fellow. My fellowship in Melbourne is about developing new statistical methods and software to improve our ability to map species and diseases.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;q-how-did-you-hear-about-ropensci&#34;&gt;Q: How did you hear about rOpenSci?&lt;/h3&gt;
+
+&lt;p&gt;It’s hard to say, but I almost certainly first heard about &lt;a href=&#34;https://twitter.com/ropensci&#34;&gt;rOpenSci on twitter&lt;/a&gt;. I’ve followed members of the team on there for a while, particularly because they’re part of an active online community interested in reproducibility in research. rOpenSci has lots of really useful tools. Packages like &lt;a href=&#34;https://github.com/ropensci/rgbif/&#34;&gt;rgbif&lt;/a&gt;, which evolved into &lt;a href=&#34;https://github.com/ropensci/spocc&#34;&gt;spocc&lt;/a&gt; are part of the core input that goes into SDM models in Zoon.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;q-if-you-could-tell-ropensci-what-tool-to-develop-next-what-would-have-the-most-impact-on-your-research&#34;&gt;Q: If you could tell rOpenSci what tool to develop next, what would have the most impact on your research?&lt;/h3&gt;
+
+&lt;p&gt;Unlike species occurrence data, there’s currently no single portal to access a wide array of different gridded environmental data (the maps of climatic and environmental conditions that SDM needs to make prediction maps). There are a couple of different data sources out there, with R interfaces to some of them, but it would be great to have access to all of them via a single R API.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;&lt;strong&gt;Want to learn more about Nick Golding and Zoon?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Nick will share more details about the Zoon Project, and outline how you can get involved, in a Spring 2017 Community Call.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/zoonproject/modules&#34;&gt;Zoon on GitHub&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Read Nick’s papers on &lt;a href=&#34;https://scholar.google.ca/citations?user=peoal7wAAAAJ&amp;amp;hl=en&#34;&gt;Google Scholar&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;Follow Nick on &lt;a href=&#34;https://twitter.com/_nickgolding_&#34;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;!-- references --&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:3&#34;&gt;Figure 5. Pigott DM, Golding N, Mylne A, Huang Z, Henry AJ, Weiss DJ, Brady OJ, Kraemer MU, Smith DL, Moyes CL, Bhatt S, Gething PW, Horby PW, Bogoch II, Brownstein JS, Mekaru SR, Tatem AJ, Khan K, Hay SI. (2014). Mapping the zoonotic niche of Ebola virus disease in Africa. Elife, 8(3), e04395. &lt;a href=&#34;https://doi.org/10.7554/eLife.04395.009&#34;&gt;https://doi.org/10.7554/eLife.04395.009&lt;/a&gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:3&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

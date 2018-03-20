@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | finch - parse Darwin Core files</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article class="blog-post">
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h1 style="text-align: center;">finch - parse Darwin Core files</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        &nbsp;
+                        
+                          <a href="/about/#team">Scott Chamberlain</a> 
+                        
+                        
+                        &nbsp; |
+                    
+                    <small style="color: #5B617A; margin-left: 10px;"> DECEMBER 23, 2016</small>
+                </p>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+                
+
+<p><code>finch</code> has just been released to CRAN (binaries should be up soon).</p>
+
+<p><code>finch</code> is a package to parse Darwin Core files. <a href="http://rs.tdwg.org/dwc/">Darwin Core</a> (<code>DwC</code>) is:</p>
+
+<blockquote>
+<p>a body of standards. It includes a glossary of terms (in other contexts these might be called properties, elements, fields, columns, attributes, or concepts) intended to facilitate the sharing of information about biological diversity by providing reference definitions, examples, and commentaries. The Darwin Core is primarily based on taxa, their occurrence in nature as documented by observations, specimens, samples, and related information. &hellip; The Simple Darwin Core [SIMPLEDWC] is a specification for one particular way to use the terms - to share data about taxa and their occurrences in a simply structured way - and is probably what is meant if someone suggests to &ldquo;format your data according to the Darwin Core&rdquo;.</p>
+</blockquote>
+
+<p>GBIF (Global Biodiversity Information Facility) is the biggest holder of biodiversity data. When you request
+data in bulk format from GBIF they call give it to you in what&rsquo;s called a Darwin Core Archive, or
+<code>DwC-A</code>. GBIF has a validator for DwC-A files as well: <a href="http://tools.gbif.org/dwca-validator/">http://tools.gbif.org/dwca-validator/</a></p>
+
+<p>One of our most used packages is probably <code>rgbif</code>, a client to interact with GBIF&rsquo;s web services.
+There&rsquo;s a series of functions in <code>rgbif</code> to request data in bulk format (see functions starting
+with <code>occ_download</code>), and from this you get a DwC-A file. This is where <code>finch</code> comes in:
+it can parse these DwC-A files into something useable inside R.</p>
+
+<h2 id="installation">Installation</h2>
+
+<pre><code class="language-r">install.packages(&quot;finch&quot;)
+# or from source if binary not available yet
+install.packages(&quot;finch&quot;, type = &quot;source&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;finch&quot;)
+</code></pre>
+
+<p>To parse a simple darwin core file like</p>
+
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;SimpleDarwinRecordSet
+ xmlns=&quot;http://rs.tdwg.org/dwc/xsd/simpledarwincore/&quot;
+ xmlns:dc=&quot;http://purl.org/dc/terms/&quot;
+ xmlns:dwc=&quot;http://rs.tdwg.org/dwc/terms/&quot;
+ xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+ xsi:schemaLocation=&quot;http://rs.tdwg.org/dwc/xsd/simpledarwincore/ ../../xsd/tdwg_dwc_simple.xsd&quot;&gt;
+ &lt;SimpleDarwinRecord&gt;
+  &lt;dwc:occurrenceID&gt;urn:catalog:YPM:VP.057488&lt;/dwc:occurrenceID&gt;
+  &lt;dc:type&gt;PhysicalObject&lt;/dc:type&gt;
+  &lt;dc:modified&gt;2009-02-12T12:43:31&lt;/dc:modified&gt;
+  &lt;dc:language&gt;en&lt;/dc:language&gt;
+  &lt;dwc:basisOfRecord&gt;FossilSpecimen&lt;/dwc:basisOfRecord&gt;
+  &lt;dwc:institutionCode&gt;YPM&lt;/dwc:institutionCode&gt;
+  &lt;dwc:collectionCode&gt;VP&lt;/dwc:collectionCode&gt;
+  &lt;dwc:catalogNumber&gt;VP.057488&lt;/dwc:catalogNumber&gt;
+  &lt;dwc:individualCount&gt;1&lt;/dwc:individualCount&gt;
+  &lt;dwc:locationID xsi:nil=&quot;true&quot;/&gt;
+  &lt;dwc:continent&gt;North America&lt;/dwc:continent&gt;
+  &lt;dwc:country&gt;United States&lt;/dwc:country&gt;
+  &lt;dwc:countryCode&gt;US&lt;/dwc:countryCode&gt;
+  &lt;dwc:stateProvince&gt;Montana&lt;/dwc:stateProvince&gt;
+  &lt;dwc:county&gt;Garfield&lt;/dwc:county&gt;
+  &lt;dwc:scientificName&gt;Tyrannosourus rex&lt;/dwc:scientificName&gt;
+  &lt;dwc:genus&gt;Tyrannosourus&lt;/dwc:genus&gt;
+  &lt;dwc:specificEpithet&gt;rex&lt;/dwc:specificEpithet&gt;
+  &lt;dwc:earliestPeriodOrHighestSystem&gt;Creataceous&lt;/dwc:earliestPeriodOrHighestSystem&gt;
+  &lt;dwc:latestPeriodOrHighestSystem&gt;Creataceous&lt;/dwc:latestPeriodOrHighestSystem&gt;
+  &lt;dwc:earliestEonOrHighestEonothem&gt;Late Cretaceous&lt;/dwc:earliestEonOrHighestEonothem&gt;
+  &lt;dwc:latestEonOrHighestEonothem&gt;Late Cretaceous&lt;/dwc:latestEonOrHighestEonothem&gt;
+ &lt;/SimpleDarwinRecord&gt;
+&lt;/SimpleDarwinRecordSet&gt;
+</code></pre>
+
+<p>This file is in this package as an example file, get the file, then <code>simple()</code></p>
+
+<pre><code class="language-r">file &lt;- system.file(&quot;examples&quot;, &quot;example_simple_fossil.xml&quot;, package = &quot;finch&quot;)
+out &lt;- simple_read(file)
+</code></pre>
+
+<p>Index to <code>meta</code>, <code>dc</code> or <code>dwc</code></p>
+
+<pre><code class="language-r">out$dc
+#&gt; [[1]]
+#&gt; [[1]]$type
+#&gt; [1] &quot;PhysicalObject&quot;
+#&gt; 
+#&gt; 
+#&gt; [[2]]
+#&gt; [[2]]$modified
+#&gt; [1] &quot;2009-02-12T12:43:31&quot;
+#&gt; 
+#&gt; 
+#&gt; [[3]]
+#&gt; [[3]]$language
+#&gt; [1] &quot;en&quot;
+</code></pre>
+
+<h2 id="parse-darwin-core-archive">Parse Darwin Core Archive</h2>
+
+<p>To parse a Darwin Core Archive like can be gotten from GBIF use <code>dwca_read()</code></p>
+
+<p><code>dwca_read()</code> can parse a DwC-A file as a directory, zipped file, or from a URL.</p>
+
+<p>There&rsquo;s an example Darwin Core Archive:</p>
+
+<pre><code class="language-r">file &lt;- system.file(&quot;examples&quot;, &quot;0000154-150116162929234.zip&quot;, package = &quot;finch&quot;)
+(out &lt;- dwca_read(file, read = TRUE))
+#&gt; &lt;gbif dwca&gt;
+#&gt;   Package ID: 6cfaaf9c-d518-4ca3-8dc5-f5aadddc0390
+#&gt;   No. data sources: 10
+#&gt;   No. datasets: 3
+#&gt;   Dataset occurrence.txt: [225 X 443]
+#&gt;   Dataset multimedia.txt: [15 X 1]
+#&gt;   Dataset verbatim.txt: [209 X 443]
+</code></pre>
+
+<p>List files in the archive</p>
+
+<pre><code class="language-r">out$files
+#&gt; $xml_files
+#&gt; [1] &quot;/Library/Frameworks/R.framework/Versions/3.3/Resources/library/finch/examples/0000154-150116162929234/meta.xml&quot;    
+#&gt; [2] &quot;/Library/Frameworks/R.framework/Versions/3.3/Resources/library/finch/examples/0000154-150116162929234/metadata.xml&quot;
+#&gt; 
+#&gt; $txt_files
+#&gt; [1] &quot;/Library/Frameworks/R.framework/Versions/3.3/Resources/library/finch/examples/0000154-150116162929234/citations.txt&quot; 
+#&gt; [2] &quot;/Library/Frameworks/R.framework/Versions/3.3/Resources/library/finch/examples/0000154-150116162929234/multimedia.txt&quot;
+#&gt; [3] &quot;/Library/Frameworks/R.framework/Versions/3.3/Resources/library/finch/examples/0000154-150116162929234/occurrence.txt&quot;
+#&gt; [4] &quot;/Library/Frameworks/R.framework/Versions/3.3/Resources/library/finch/examples/0000154-150116162929234/rights.txt&quot;    
+#&gt; [5] &quot;/Library/Frameworks/R.framework/Versions/3.3/Resources/library/finch/examples/0000154-150116162929234/verbatim.txt&quot;  
+...
+</code></pre>
+
+<p>High level metadata for the whole archive (printing a subset for brevity)</p>
+
+<pre><code class="language-r">out$emlmeta
+#&gt; &lt;eml packageId=&quot;6cfaaf9c-d518-4ca3-8dc5-f5aadddc0390&quot; system=&quot;http://gbif.org&quot; scope=&quot;system&quot; xml:lang=&quot;en&quot; xsi:schemaLocation=&quot;eml://ecoinformatics.org/eml-2.1.1 http://rs.gbif.org/schema/eml-gbif-profile/1.0.2/eml.xsd&quot;&gt;
+#&gt;   &lt;dataset&gt;
+#&gt;     &lt;title&gt;GBIF Occurrence Download 0000154-150116162929234&lt;/title&gt;
+#&gt;     &lt;creator&gt;
+#&gt;       &lt;individualName&gt;
+#&gt;         &lt;surName&gt;GBIF Download Service&lt;/surName&gt;
+#&gt;       &lt;/individualName&gt;
+#&gt;     &lt;/creator&gt;
+#&gt;     &lt;metadataProvider&gt;
+#&gt;       &lt;individualName&gt;
+#&gt;         &lt;surName&gt;GBIF Download Service&lt;/surName&gt;
+#&gt;       &lt;/individualName&gt;
+#&gt;     &lt;/metadataProvider&gt;
+#&gt;     &lt;associatedParty&gt;
+#&gt;       &lt;organizationName&gt;OZCAM (Online Zoological Collections of Australian Museums) Provider&lt;/organizationName&gt;
+#&gt;       &lt;onlineUrl&gt;http://www.ozcam.org.au/&lt;/onlineUrl&gt;
+#&gt;       &lt;role&gt;CONTENT_PROVIDER&lt;/role&gt;
+#&gt;     &lt;/associatedParty&gt;
+#&gt;     &lt;associatedParty&gt;
+#&gt;       &lt;individualName&gt;
+...
+</code></pre>
+
+<p>High level metadata for each data file, there&rsquo;s many files, but we&rsquo;ll just look at one</p>
+
+<pre><code class="language-r">hm &lt;- out$highmeta
+head( hm$occurrence.txt )
+#&gt;   index                                        term delimitedBy
+#&gt; 1     0         http://rs.gbif.org/terms/1.0/gbifID        &lt;NA&gt;
+#&gt; 2     1           http://purl.org/dc/terms/abstract        &lt;NA&gt;
+#&gt; 3     2       http://purl.org/dc/terms/accessRights        &lt;NA&gt;
+#&gt; 4     3      http://purl.org/dc/terms/accrualMethod        &lt;NA&gt;
+#&gt; 5     4 http://purl.org/dc/terms/accrualPeriodicity        &lt;NA&gt;
+#&gt; 6     5      http://purl.org/dc/terms/accrualPolicy        &lt;NA&gt;
+</code></pre>
+
+<p>You can get the same metadata as above for each dataset that went into the tabular dataset downloaded</p>
+
+<pre><code class="language-r">out$dataset_meta[[1]]
+</code></pre>
+
+<p>View one of the datasets, brief overview.</p>
+
+<pre><code class="language-r">head(out$data[[1]][,c(1:5)])
+#&gt;      gbifID abstract accessRights accrualMethod accrualPeriodicity
+#&gt; 1  50280003       NA                         NA                 NA
+#&gt; 2 477550574       NA                         NA                 NA
+#&gt; 3 239703844       NA                         NA                 NA
+#&gt; 4 239703843       NA                         NA                 NA
+#&gt; 5 239703833       NA                         NA                 NA
+#&gt; 6 477550692       NA                         NA                 NA
+</code></pre>
+
+<pre><code class="language-r">names(out$data[[1]])[1:20]
+#&gt;  [1] &quot;gbifID&quot;                &quot;abstract&quot;             
+#&gt;  [3] &quot;accessRights&quot;          &quot;accrualMethod&quot;        
+#&gt;  [5] &quot;accrualPeriodicity&quot;    &quot;accrualPolicy&quot;        
+#&gt;  [7] &quot;alternative&quot;           &quot;audience&quot;             
+#&gt;  [9] &quot;available&quot;             &quot;bibliographicCitation&quot;
+#&gt; [11] &quot;conformsTo&quot;            &quot;contributor&quot;          
+#&gt; [13] &quot;coverage&quot;              &quot;created&quot;              
+#&gt; [15] &quot;creator&quot;               &quot;date&quot;                 
+#&gt; [17] &quot;dateAccepted&quot;          &quot;dateCopyrighted&quot;      
+#&gt; [19] &quot;dateSubmitted&quot;         &quot;description&quot;
+</code></pre>
+
+<h2 id="using-with-rgbif">Using with rgbif</h2>
+
+<p>Now that we have <code>finch</code> we can make working with GBIF bulk downloads from R a
+richer experience.</p>
+
+<p>Right now, we make it easy to import just the occurrence data from DwC-A files
+via <code>occ_download_import()</code>, e.g.,</p>
+
+<pre><code class="language-r">library(rgbif)
+res &lt;- occ_download('taxonKey = 7264332', 'hasCoordinate = TRUE')
+dat &lt;- occ_download_get(res)
+occ_download_import(dat)
+#&gt; Download file size: 0.26 MB
+#&gt;
+#&gt;        gbifID abstract accessRights accrualMethod accrualPeriodicity accrualPolicy
+#&gt; 1  1269880600       NA                         NA                 NA            NA
+#&gt; 2  1269861719       NA                         NA                 NA            NA
+#&gt; 3  1269850111       NA                         NA                 NA            NA
+#&gt; 4  1265524086       NA                         NA                 NA            NA
+#&gt; 5  1257400209       NA                         NA                 NA            NA
+#&gt; 6  1257396860       NA                         NA                 NA            NA
+#&gt; 7  1257391874       NA                         NA                 NA            NA
+#&gt; 8  1257390731       NA                         NA                 NA            NA
+#&gt; 9  1257383844       NA                         NA                 NA            NA
+#&gt; 10 1257375500       NA                         NA                 NA            NA
+#&gt; ..        ...      ...          ...           ...                ...           ...
+#&gt; Variables not shown: accrualPolicy (lgl), alternative (lgl), audience (lgl),
+#&gt;      available (lgl), bibliographicCitation (lgl), conformsTo (lgl),
+#&gt;      contributor (lgl), coverage (lgl), created (lgl), creator (lgl), date
+#&gt;      (lgl), dateAccepted (lgl), dateCopyrighted (lgl), dateSubmitted (lgl),
+#&gt;      description (lgl), educationLevel (lgl), extent (lgl), format (lgl),
+#&gt;      hasFormat (lgl), hasPart (lgl), hasVersion (lgl), identifier (chr),
+#&gt;      instructionalMethod (lgl), isFormatOf (lgl), isPartOf (lgl),
+#&gt;      isReferencedBy (lgl), isReplacedBy (lgl), isRequiredBy (lgl), ...
+</code></pre>
+
+<p>With <code>finch</code>, you can access all the data in the DwC-A file. <code>finch</code> is not integrated
+into <code>rgbif</code>, though we may in the future.</p>
+
+<p>The object returned from <code>occ_download_get</code> is just a path, so we can use that
+with <code>finch</code></p>
+
+<pre><code class="language-r">library(finch)
+(out &lt;- dwca_read(dat[1], read = TRUE))
+#&gt; &lt;gbif dwca&gt;
+#&gt;   Package ID: 10.15468/dl.mmecqc
+#&gt;   No. data sources: 8
+#&gt;   No. datasets: 3
+#&gt;   Dataset occurrence.txt: [235 X 1371]
+#&gt;   Dataset multimedia.txt: [15 X 0]
+#&gt;   Dataset verbatim.txt: [217 X 1371]
+</code></pre>
+
+<p>Now we have access to not just the occurrence data</p>
+
+<pre><code class="language-r">head(out$data$occurrence.txt)[,1:5]
+#&gt;       gbifID abstract accessRights accrualMethod accrualPeriodicity
+#&gt; 1 1269880600       NA                         NA                 NA
+#&gt; 2 1269861719       NA                         NA                 NA
+#&gt; 3 1269850111       NA                         NA                 NA
+#&gt; 4 1265524086       NA                         NA                 NA
+#&gt; 5 1257400209       NA                         NA                 NA
+#&gt; 6 1257396860       NA                         NA                 NA
+</code></pre>
+
+<p>But all the rich metadata in the other files. Yay!</p>
+
+<h2 id="future-work">Future work</h2>
+
+<p>DwC-A files can be very large - This is for sure going to be a pain point for some.
+We&rsquo;ll continue to test and refine on big data files.</p>
+
+<h2 id="feedback">Feedback?</h2>
+
+<p>We&rsquo;d love to know what people think about this package.</p>
+
+<p>Documentation can be better, e.g., there&rsquo;s no vignette yet (but adding
+that soon).</p>
+
+            </div>
+            <br>
+
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

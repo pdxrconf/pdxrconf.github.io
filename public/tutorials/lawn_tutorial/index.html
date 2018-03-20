@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | lawn tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>lawn tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.4.2</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p><code>lawn</code> is an R wrapper for the Javascript library <a href="http://turfjs.org/">turf.js</a> for advanced geospatial analysis. In addition, we have a few functions to interface with the <a href="https://github.com/mapbox/geojson-random">geojson-random</a> Javascript library.</p>
+
+<p><code>lawn</code> includes traditional spatial operations, helper functions for creating GeoJSON data, and data classification and statistics tools.</p>
+
+<p>There is an additional helper function (see <code>view()</code>) in this package to help visualize data with interactive maps via the <code>leaflet</code> package (<a href="https://github.com/rstudio/leaflet">https://github.com/rstudio/leaflet</a>). Note that <code>leaflet</code> is not required to install <code>lawn</code> - it&rsquo;s in Suggests, not Imports or Depends.</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>If installing <code>leaflet</code></p>
+
+<pre><code class="language-r">devtools::install_github(&quot;rstudio/leaflet&quot;)
+</code></pre>
+
+<p>Stable <code>lawn</code> version from CRAN</p>
+
+<pre><code class="language-r">install.packages(&quot;lawn&quot;)
+</code></pre>
+
+<p>Or, the development version from Github</p>
+
+<pre><code class="language-r">devtools::install_github(&quot;ropensci/lawn&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;lawn&quot;)
+</code></pre>
+
+<h3 id="make-some-geojson-data">Make some geojson data</h3>
+
+<p>Point</p>
+
+<pre><code class="language-r">lawn_point(c(-74.5, 40))
+#&gt; &lt;Point&gt;
+#&gt;   Bounding box: -74.5 40.0 -74.5 40.0
+#&gt;   Coordinates: -74.5 40.0
+#&gt;   Properties: NULL
+</code></pre>
+
+<p>Polygon</p>
+
+<pre><code class="language-r">rings &lt;- list(list(
+  c(-2.275543, 53.464547),
+  c(-2.275543, 53.489271),
+  c(-2.215118, 53.489271),
+  c(-2.215118, 53.464547),
+  c(-2.275543, 53.464547)
+))
+lawn_polygon(rings)
+#&gt; &lt;Polygon&gt;
+#&gt;   Bounding box: -2.3 53.5 -2.2 53.5
+#&gt;   No. points: 5
+#&gt;   Properties: NULL
+</code></pre>
+
+<h3 id="distance">distance</h3>
+
+<p>Define two points</p>
+
+<pre><code class="language-r">from &lt;- '{
+ &quot;type&quot;: &quot;Feature&quot;,
+ &quot;properties&quot;: {},
+ &quot;geometry&quot;: {
+   &quot;type&quot;: &quot;Point&quot;,
+   &quot;coordinates&quot;: [-75.343, 39.984]
+ }
+}'
+to &lt;- '{
+  &quot;type&quot;: &quot;Feature&quot;,
+  &quot;properties&quot;: {},
+  &quot;geometry&quot;: {
+    &quot;type&quot;: &quot;Point&quot;,
+    &quot;coordinates&quot;: [-75.534, 39.123]
+  }
+}'
+</code></pre>
+
+<p>Calculate distance, default units is kilometers (default output: <code>km</code>)</p>
+
+<pre><code class="language-r">lawn_distance(from, to)
+#&gt; [1] 97.15958
+</code></pre>
+
+<h3 id="random-set-of-points">random set of points</h3>
+
+<pre><code class="language-r">lawn_random(n = 2)
+#&gt; &lt;FeatureCollection&gt;
+#&gt;   Bounding box: 107.2 -43.0 120.1 76.6
+#&gt;   No. features: 2
+#&gt;   No. points: 4
+#&gt;   Properties: NULL
+</code></pre>
+
+<pre><code class="language-r">lawn_random(n = 5)
+#&gt; &lt;FeatureCollection&gt;
+#&gt;   Bounding box: -87.8 -59.7 179.3 67.0
+#&gt;   No. features: 5
+#&gt;   No. points: 10
+#&gt;   Properties: NULL
+</code></pre>
+
+<h3 id="random-features-with-geojson-random">random features with geojson-random</h3>
+
+<p>Positions</p>
+
+<pre><code class="language-r">gr_position()
+#&gt; [1] 10.277207 -2.040502
+</code></pre>
+
+<p>Points</p>
+
+<pre><code class="language-r">gr_point(2)
+#&gt; &lt;FeatureCollection&gt;
+#&gt;   Bounding box: -146.1 63.4 87.6 74.3
+#&gt;   No. features: 2
+#&gt;   No. points: 4
+#&gt;   Properties: NULL
+</code></pre>
+
+<p>Polygons</p>
+
+<pre><code class="language-r">gr_polygon(n = 1, vertices = 5, max_radial_length = 5)
+#&gt; &lt;FeatureCollection&gt;
+#&gt;   Bounding box: -0.6 42.2 3.6 44.6
+#&gt;   No. features: 1
+#&gt;   No. points: 12
+#&gt;   Properties: NULL
+</code></pre>
+
+<h3 id="sample-from-a-featurecollection">sample from a FeatureCollection</h3>
+
+<pre><code class="language-r">dat &lt;- lawn_data$points_average
+lawn_sample(dat, 1)
+#&gt; &lt;FeatureCollection&gt;
+#&gt;   Bounding box: 10.7 59.9 10.7 59.9
+#&gt;   No. features: 1
+#&gt;   No. points: 2
+#&gt;   Properties: 
+#&gt;   population
+#&gt; 1        100
+</code></pre>
+
+<pre><code class="language-r">lawn_sample(dat, 2)
+#&gt; &lt;FeatureCollection&gt;
+#&gt;   Bounding box: 10.7 59.9 10.7 59.9
+#&gt;   No. features: 2
+#&gt;   No. points: 4
+#&gt;   Properties: 
+#&gt;   population
+#&gt; 1        100
+#&gt; 2        600
+</code></pre>
+
+<pre><code class="language-r">lawn_sample(dat, 3)
+#&gt; &lt;FeatureCollection&gt;
+#&gt;   Bounding box: 10.7 59.9 10.8 59.9
+#&gt;   No. features: 3
+#&gt;   No. points: 6
+#&gt;   Properties: 
+#&gt;   population
+#&gt; 1        100
+#&gt; 2        200
+#&gt; 3        300
+</code></pre>
+
+<h3 id="extent">extent</h3>
+
+<pre><code class="language-r">lawn_extent(lawn_data$points_average)
+#&gt; [1] 10.71579 59.90478 10.80643 59.93162
+</code></pre>
+
+<h3 id="within">within</h3>
+
+<pre><code class="language-r">lawn_within(lawn_data$points_within, lawn_data$polygons_within)
+#&gt; &lt;FeatureCollection&gt;
+#&gt;   Bounding box: -46.6 -23.6 -46.6 -23.6
+#&gt;   No. features: 2
+#&gt;   No. points: 4
+#&gt;   Properties: NULL
+</code></pre>
+
+<h3 id="buffer">buffer</h3>
+
+<pre><code class="language-r">dat &lt;- '{
+ &quot;type&quot;: &quot;Feature&quot;,
+ &quot;properties&quot;: {},
+ &quot;geometry&quot;: {
+     &quot;type&quot;: &quot;Polygon&quot;,
+     &quot;coordinates&quot;: [[
+       [-112.072391,46.586591],
+       [-112.072391,46.61761],
+       [-112.028102,46.61761],
+       [-112.028102,46.586591],
+       [-112.072391,46.586591]
+     ]]
+   }
+}'
+lawn_buffer(dat, 1, &quot;miles&quot;)
+#&gt; &lt;Feature&gt;
+#&gt;   Type: Polygon
+#&gt;   Bounding box: -112.1 46.6 -112.0 46.6
+#&gt;   No. points: 74
+#&gt;   Properties: NULL
+</code></pre>
+
+<h3 id="lint-input-geojson">lint input geojson</h3>
+
+<p>For most functions, you can lint your input geojson data to make sure it is proper geojson. We use
+the javascript library geojsonhint. See the <code>lint</code> parameter where available.</p>
+
+<p>Good GeoJSON</p>
+
+<pre><code class="language-r">dat &lt;- '{
+  &quot;type&quot;: &quot;FeatureCollection&quot;,
+  &quot;features&quot;: [
+    {
+      &quot;type&quot;: &quot;Feature&quot;,
+      &quot;properties&quot;: {
+        &quot;population&quot;: 200
+      },
+      &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;Point&quot;,
+        &quot;coordinates&quot;: [10.724029, 59.926807]
+      }
+    },
+      {
+      &quot;type&quot;: &quot;Feature&quot;,
+      &quot;properties&quot;: {
+        &quot;population&quot;: 600
+      },
+      &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;Point&quot;,
+        &quot;coordinates&quot;: [10.715789, 59.904778]
+      }
+    }
+  ]
+}'
+lawn_extent(dat)
+#&gt; [1] 10.71579 59.90478 10.72403 59.92681
+</code></pre>
+
+<p>Bad GeoJSON</p>
+
+<pre><code class="language-r">dat &lt;- '{
+  &quot;type&quot;: &quot;FeatureCollection&quot;,
+  &quot;features&quot;: [
+    {
+      &quot;type&quot;: &quot;Feature&quot;,
+      &quot;properties&quot;: {
+        &quot;population&quot;: 200
+      },
+      &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;Point&quot;
+      }
+    },
+      {
+      &quot;type&quot;: &quot;Feature&quot;,
+      &quot;properties&quot;: {
+        &quot;population&quot;: 600
+      },
+      &quot;geometry&quot;: {
+        &quot;type&quot;: &quot;Point&quot;,
+        &quot;coordinates&quot;: [10.715789, 59.904778]
+      }
+    }
+  ]
+}'
+lawn_extent(dat, lint = TRUE)
+
+#&gt; Error: Line 1 - &quot;coordinates&quot; property required
+</code></pre>
+
+<h3 id="view">view</h3>
+
+<p><code>lawn</code> includes a tiny helper function for visualizing geojson.</p>
+
+<pre><code class="language-r">view(lawn_data$points_average)
+</code></pre>
+
+<p><img src="../assets/tutorial-images/lawn/map1.png" alt="map1" /></p>
+
+<p>Here, we sample at random two points from the same dataset just viewed.</p>
+
+<pre><code class="language-r">lawn_sample(lawn_data$points_average, 2) %&gt;% view()
+</code></pre>
+
+<p><img src="../assets/tutorial-images/lawn/map2.png" alt="map2" /></p>
+
+<h3 id="citing">Citing</h3>
+
+<p>To cite <code>lawn</code> in publications use:</p>
+
+<p><br></p>
+
+<blockquote>
+<p>Scott Chamberlain and Jeff Hollister (NA). lawn: Client for &lsquo;Turfjs&rsquo;
+  for &lsquo;Geospatial&rsquo; Analysis. R package version 0.4.1.9110.
+  <a href="https://github.com/ropensci/lawn">https://github.com/ropensci/lawn</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/lawn/issues?state=open">our Github repo for lawn</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

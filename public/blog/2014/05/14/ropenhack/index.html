@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | rOpenHack report</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">rOpenHack report</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="/about/#team"> Karthik Ram </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">May 14, 2014</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>The rOpenSci project is a poster child for the fluid collaboration that has become increasingly common these days thanks to platforms like Twitter and GitHub. It has been really inspring to see open discussions take shape as rough ideas, which rapidly turn into prototype research software, all of which are now happening in the order of few days to weeks rather than months to years. The origins of this project itself lead back to a series of serendipitous conversations that occurred over Twitter three years ago. Today we are a rapidly growing community of scientists, students, software developers, and information researchers.</p>
+
+<p>When we wrote our proposal to the Sloan foundation last year, we budgeted a small meeting (hackathon) for the four core developers and a few members of the advisory board members. But pretty early on into our funding cycle, we realized that such a meeting could be far more impactful, both in terms of building community and prototyping software, if we were a lot more inclusive. Thanks to a series of fortuitous circumstances we were able to hold exactly such an event last month.</p>
+
+<p>We held <a href="http://ropensci.github.io/hackathon/">rOpenHack</a>, a coding un-conference at <a href="https://foursquare.com/v/github-hq-30/50f75cc0e4b07201af25590d">GitHub&rsquo;s HQ</a> in San Francisco from March 30th to April 1st. In addition to the core members, we invited several valuable contributors from the R community and put out an <a href="http://ropensci.org/blog/2014/02/10/ropensci-hackathon/">open call for other to join</a>. All in all, we had ~ 30 people attend in person with a handful of folks contributing remotely. The attendees were a mix of academics, developers (both industry and non-profit) and several independent scientists, with ~ 40% of the participants being women.</p>
+
+<p>Since this was our first time planning an event like this, we loosely followed an unconference model (similar to <a href="http://scienceonline.com/">Science Online</a>) and asked participants to propose projects on the <a href="https://github.com/ropensci/hackathon/issues">hackathon repo</a> in advance of the event. This approach was a really great opportunity for folks to identify projects and fellow participants, and allowed us to quickly gauge where there was the most interest. While we didn&rsquo;t work on every single idea over those two days, we did manage to get quite a bit done. Here are some projects where we made a lot of headway:</p>
+
+<h1 id="what-we-hacked-on">What we hacked on</h1>
+
+<ul>
+<li><p>Gavin Simpson wrote a package called <a href="https://github.com/ropensci/dependencies"><code>Dependencies</code></a> to track package dependencies (which is still a challenge in R).</p></li>
+
+<li><p>Ciera Martinez, Ben Marwick, Ed Szocs, Juan Batiz-Benet and Jeff Hollister worked on a  comprehensive <a href="https://github.com/ropensci/reproducibility-guide">reproducibility guide</a>.</p></li>
+
+<li><p>Thomas Kluyver from the IPython project (with help from Jeroen Ooms and Ramnath Vaidyanathan) made great headway in finishing up a full iteration of the R kernel (which works great at this writing)</p></li>
+
+<li><p>Martin Fenner, Gavin Simpson and Carl Boettiger built an rOpenSci cookbook of software recipes but this project has much wider applications. Once a few remaining bugs are ironed out, it will be an amazingly cool new knitr plugin for <a href="https://github.com/ropensci/docs">Jekyll along with a Ruby gem wrapping the knitr R package</a>.</p></li>
+
+<li><p><a href="https://github.com/ropensci/testdat"><code>testdat</code></a> - An R package to run unit tests (check for missing data, missing dates, bad formatting, outliers, non-ascii characters etc) on tabular data (Karthik Ram, Hilary Parker, Aylssa Frazee, Anya Bida, Dave Harris and Winston Chang)</p></li>
+
+<li><p>A <a href="https://github.com/hadley/httr/blob/master/vignettes/api-packages.Rmd">best practices guide</a> for working with APIs in R (<a href="http://had.co.nz/">Hadley Wickham</a></p></li>
+
+<li><p><a href="http://www.juretriglav.si/">Jure Triglav</a> was an awesome remote contributor and built a Ruby gem to <a href="https://github.com/ScienceToolbox/code_citations">search for citations to R packages</a>.</div></p></li>
+</ul>
+
+<p><div class="full_fig"><a href="https://www.youtube.com/watch?v=iUcm5COsKJo&nofeather=True"><img src="/assets/blog-images/2014-05-13-ropenhack/hackathon.jpg"></a></div><div class="col-sm-8 col-sm-offset-2"></p>
+
+<p>There were several other really cool projects like a new Git binding for R (by our Swedish collaborator <a href="https://github.com/stewid">Stefan Widgren</a>), spatial tools (Ramnath Vaidyanathan, Scott Chamberlain, Amelia McNamara, Ian A. Muñoz, and Ted Hart), a text-mining applications from <a href="http://cpsievert.github.io/">Carson Sievert</a> (see <a href="http://ropensci.org/blog/2014/04/16/topic-modeling-in-R/">blog post</a>).</p>
+
+<p>Hosting an event like this in the Bay Area did have other advantages. Given that many of our fantastic colleagues in the larger data science realm were local, we couldn&rsquo;t pass up the opportunity to bring the community together during the event. Thanks to sponsorship from <a href="http://f1000research.com/">F100 Research</a> and <a href="https://github.com/">GitHub</a>, we invited developers from related projects like IPython and Julia, our friends at various tech companies, data non-profits, and also several PIs from the newly created <a href="http://vcresearch.berkeley.edu/datascience/bids-launch-dec-12">Berkeley Institute of Data Science</a>. The social and dinner was a great opportunity for many of the newer folks to connect but also just another occasion for the community to grow stronger.</p>
+
+<p>It would have been impossible to put together an event like this without the cooperation of several people and organizations. Our funding from the <a href="http://www.sloan.org/">Sloan Foundation</a> made it possible to fly in several participants and cover most of the event expenses, GitHub (<a href="https://github.com/arfon">Arfon</a> and <a href="https://github.com/Kelseyschimm">Kelsey</a>) were fantastic hosts providing us with great space to hack in (and drinks!), and F1000 Research helped us throw together the hugely successful data science social.</p>
+
+<p>Alyssa Frazee wrote a great summary of the event on the <a href="http://simplystatistics.org/2014/04/10/the-ropensci-hackathon-ropenhack/">Simply Statistics blog</a>, and the fine folks at GitHub (<a href="https://github.com/furyus">Peter</a> and Kevin) with awesome direction from <a href="http://www.dtrapezoid.com/">Dani Traphagen</a> made a fantastic video of the event. <a href="https://github.com/blog/1840-improving-github-for-science">Check out the video along with a blog post</a> by GitHub&rsquo;s chief scientist, <a href="https://github.com/blog/1665-arfon-smith-is-a-githubber">Arfon Smith</a>.</p>
+
+<!-- Video embed code -->
+
+<h2 id="what-s-next-on-our-event-calendar">What&rsquo;s next on our event calendar?</h2>
+
+<p>We&rsquo;re already looking forward to hosting the event again next year (late March 2015) at GitHub, in the very early stages of organizing something similar in London this fall (right around <a href="http://2014.mozillafestival.org/">Mozfest</a>) and possibly one in Australia in February 2015. So if you live near one of these places and can help organize or sponsor any part of the event, please drop us a note. We would love to hear from you soon. Once we get the logistics and funding sorted out, we&rsquo;ll post a general call for participation with more lead time this year. If you&rsquo;re not already subscribed to our mailing list, this would be the perfect time to do it since we are gearing up for several more events this summer and fall.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/community"><span class="label">community</span></a>
+                
+                    <a href="/tags/events"><span class="label">events</span></a>
+                
+                    <a href="/tags/hackathon"><span class="label">hackathon</span></a>
+                
+                    <a href="/tags/ropenhack"><span class="label">ropenhack</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

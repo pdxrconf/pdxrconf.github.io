@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Text on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/text/</link>
+    <description>Recent content in Text on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 07 Sep 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/text/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Spelling 1.0: quick and effective spell checking in R</title>
+      <link>https://ropensci.org/technotes/2017/09/07/spelling-release/</link>
+      <pubDate>Thu, 07 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/technotes/2017/09/07/spelling-release/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;The new rOpenSci &lt;a href=&#34;https://cran.r-project.org/web/packages/spelling/index.html&#34;&gt;spelling&lt;/a&gt; package provides utilities for spell checking common document formats including latex, markdown, manual pages, and DESCRIPTION files. It also includes tools especially for package authors to automate spell checking of R documentation and vignettes.&lt;/p&gt;
+
+&lt;h2 id=&#34;spell-checking-packages&#34;&gt;Spell Checking Packages&lt;/h2&gt;
+
+&lt;p&gt;The main purpose of this package is to quickly find spelling errors in R packages. The &lt;code&gt;spell_check_package()&lt;/code&gt; function extracts all text from your package manual pages and vignettes, compares it against a language (e.g. en_US or en_GB), and lists potential errors in a nice tidy format:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;&amp;gt; spelling::spell_check_package(&amp;quot;~/workspace/writexl&amp;quot;)
+  WORD       FOUND IN
+booleans   write_xlsx.Rd:21
+xlsx       write_xlsx.Rd:6,18
+           title:1
+           description:1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Results may contain false positives, i.e. names or technical jargon which does not appear in the English dictionary. Therefore you can create a WORDLIST file, which serves as a package-specific dictionary of allowed words:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;&amp;gt; spelling::update_wordlist(&amp;quot;~/workspace/writexl&amp;quot;)
+The following words will be added to the wordlist:
+ - booleans
+ - xlsx
+Are you sure you want to update the wordlist?
+1: Yes
+2: No
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Words added to this file are ignored in the spell check, making it easier to catch actual spelling errors:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;&amp;gt; spell_check_package(&amp;quot;~/workspace/writexl&amp;quot;)
+No spelling errors found.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The package also includes a cool function &lt;code&gt;spell_check_setup()&lt;/code&gt; which adds a unit test to your package that automatically runs the spell check.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;&amp;gt; spelling::spell_check_setup(&amp;quot;~/workspace/writexl&amp;quot;)
+No changes required to /Users/jeroen/workspace/writexl/inst/WORDLIST
+Updated /Users/jeroen/workspace/writexl/tests/spelling.R
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;By default this unit test will never actually fail; it merely displays potential spelling errors at the end of a &lt;code&gt;R CMD check&lt;/code&gt;. But you can configure it to fail if you&amp;rsquo;d like, which can be useful to automatically highlight spelling errors on e.g. Travis CI.&lt;/p&gt;
+
+&lt;h2 id=&#34;under-the-hood&#34;&gt;Under the Hood&lt;/h2&gt;
+
+&lt;p&gt;The spelling package builds on &lt;a href=&#34;https://ropensci.org/blog/technotes/2016/09/12/hunspell-release-20&#34;&gt;hunspell&lt;/a&gt; which has a fully customizable spell checking engine. Most of the code in the spelling package is dedicated to parsing and extracting text from documents before feeding it to the spell checker.
+For example, when spell checking an rmarkdown file, we first extract words from headers and paragraphs (but not urls or R syntax).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Spell check this post
+&amp;gt; spelling::spell_check_files(&amp;quot;~/workspace/roweb/_posts/2017-09-07-spelling-release.md&amp;quot;, lang = &#39;en_US&#39;)
+  WORD         FOUND IN
+blog         2017-09-07-spelling-release.md:7
+commonmark   2017-09-07-spelling-release.md:88
+hunspell     2017-09-07-spelling-release.md:69
+Jeroen       2017-09-07-spelling-release.md:7
+knitr        2017-09-07-spelling-release.md:88
+Ooms         2017-09-07-spelling-release.md:7
+rmarkdown    2017-09-07-spelling-release.md:88
+rOpenSci     2017-09-07-spelling-release.md:18
+urls         2017-09-07-spelling-release.md:88
+wordlist     2017-09-07-spelling-release.md:49
+WORDLIST     2017-09-07-spelling-release.md:34
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To accomplish this, we use knitr to drop code chunks, and subsequently parse markdown using &lt;a href=&#34;https://ropensci.org/blog/blog/2016/12/02/commonmark&#34;&gt;commonmark&lt;/a&gt; and xml2, which gives us the text nodes and approximate line numbers in the source document.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

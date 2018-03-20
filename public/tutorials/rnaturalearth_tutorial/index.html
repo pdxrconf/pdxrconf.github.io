@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | rnaturalearth tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>rnaturalearth tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.1.0</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p>This vignette is an introduction to <a href="https://github.com/ropenscilabs/rnaturalearth">rnaturalearth</a>, an R package to hold and facilitate interaction with natural earth vector map data. <code>rnaturalearth</code> is a data package designed to provide map data that can be visualised using other R packages.</p>
+
+<p><a href="http://www.naturalearthdata.com/">Natural Earth</a> is a public domain map dataset including vector country and other administrative boundaries.</p>
+
+<p><a href="https://github.com/ropenscilabs/rnaturalearth">rnaturalearth</a> does two main things.</p>
+
+<ol>
+<li><p>Contains pre-downloaded vector maps for :</p>
+
+<ul>
+<li>countries <code>ne_countries()</code></li>
+<li>states <code>ne_states()</code></li>
+<li>coastline <code>ne_coastline()</code></li>
+</ul></li>
+
+<li><p>Has <code>ne_download()</code> function to facilitate download of other vector and raster maps.</p></li>
+</ol>
+
+<p>This vignette uses <code>sp::plot</code> as a simple, quick way to show how different data can be accessed.<code>rnaturalearth</code> is designed to provide data allowing creation of more elaborate maps in other visualisation packages (e.g. <code>ggplot2</code>, <code>tmap</code> and <code>choroplethr</code>).</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>CRAN version</p>
+
+<pre><code class="language-r">install.packages(&quot;rnaturalearth&quot;)
+</code></pre>
+
+<p>Development version from GitHub</p>
+
+<pre><code class="language-r">if (!require(&quot;devtools&quot;)) install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;ropenscilabs/rnaturalearth&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;rnaturalearth&quot;)
+library(&quot;sp&quot;)
+</code></pre>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="1-maps-in-the-package">1. Maps in the package.</h3>
+
+<p>Pre-downloaded maps can be accessed with :</p>
+
+<ol>
+<li><code>ne_countries()</code> for country (admin-0) boundaries</li>
+<li><code>ne_states()</code> for boundaries within countries (admin-1)</li>
+<li><code>ne_coastline()</code> for world coastline</li>
+</ol>
+
+<p>World at small scale (low resolution)</p>
+
+<pre><code class="language-r">sp::plot(ne_countries(type = 'countries', scale = 'small'))
+</code></pre>
+
+<p><img src="/img/tutorial-images/rnaturalearth/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" /></p>
+
+<p>Countries, UK undivided</p>
+
+<pre><code class="language-r">sp::plot(ne_countries(country = 'united kingdom', type='countries'))
+</code></pre>
+
+<p><img src="/img/tutorial-images/rnaturalearth/unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6" /></p>
+
+<p><code>map_units</code>, UK divided into England, Scotland, Wales and Northern Ireland</p>
+
+<pre><code class="language-r">sp::plot(ne_countries(country = 'united kingdom', type='map_units'))
+</code></pre>
+
+<p><img src="/img/tutorial-images/rnaturalearth/unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7" /></p>
+
+<p>Countries, small scale</p>
+
+<pre><code class="language-r">sp::plot(ne_countries(country = 'united kingdom', scale = 'small'))
+</code></pre>
+
+<p><img src="/img/tutorial-images/rnaturalearth/unnamed-chunk-8-1.png" alt="plot of chunk unnamed-chunk-8" /></p>
+
+<p>Countries, medium scale</p>
+
+<pre><code class="language-r">sp::plot(ne_countries(country = 'united kingdom', scale = 'medium'))
+</code></pre>
+
+<p><img src="/img/tutorial-images/rnaturalearth/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9" /></p>
+
+<p>Coastline of the world subsetting of coastline is not possible because the Natural Earth data are not attributed in that way</p>
+
+<pre><code class="language-r">sp::plot(ne_coastline())
+</code></pre>
+
+<p><img src="/img/tutorial-images/rnaturalearth/unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10" /></p>
+
+<h3 id="2-downloading-other-natural-earth-vectors-with-ne-download">2. Downloading other Natural Earth vectors with ne_download().</h3>
+
+<p>Each <a href="http://www.naturalearthdata.com/">Natural Earth</a> dataset is characterised on the website according to <code>scale</code>, <code>type</code> and <code>category</code>. <a href="https://github.com/ropenscilabs/rnaturalearth">rnaturalearth</a> allows you to specify <code>scale</code>, <code>type</code> and <code>category</code> and will construct the url and download the corresponding file.</p>
+
+<pre><code class="language-r">
+# lakes
+lakes110 &lt;- ne_download(scale = 110, type = 'lakes', category = 'physical')
+sp::plot(lakes110, col = 'blue')
+
+# rivers
+rivers110 &lt;- ne_download(scale = 110, type = 'rivers_lake_centerlines', category = 'physical')
+sp::plot(rivers110, col = 'blue')
+</code></pre>
+
+<h3 id="citing">Citing</h3>
+
+<blockquote>
+<p>Andy South (2017). rnaturalearth: World Map Data from Natural Earth.
+  R package version 0.1.0.
+  <a href="https://CRAN.R-project.org/package=rnaturalearth">https://CRAN.R-project.org/package=rnaturalearth</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropenscilabs/rnaturalearth/issues?state=open">our GitHub repo for rnaturalearth</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

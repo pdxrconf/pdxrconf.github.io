@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | NCEAS Codefest Follow-up</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">NCEAS Codefest Follow-up</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="/about/#team"> Scott Chamberlain </a>&nbsp;
+                        
+                    
+                        
+                          <a href="/about/#team"> Ted Hart </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">September 23, 2014</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                <p>The week after labor day, we had the pleasure of attending the <a href="http://nceas.github.io/open-science-codefest/">NCEAS open science codefest</a> event in Santa Barbara. It was great to meet folks like the new arrivals at the expanding <a href="http://mozillascience.org">Mozilla Science Lab</a>, <a href="https://twitter.com/billdoesphysics">Bill Mills</a> and <a href="https://twitter.com/abbycabs">Abby Cabunoc</a> (Bill even already has a great <a href="http://mozillascience.org/worries-critical-mass/">post up about the codefest</a>), and see old friends from NCEAS and DataONE, among many more. This 2.5 day event ran smoothly thanks to the leadership of <a href="https://www.nceas.ucsb.edu/~jones/">Matt Jones</a>. The event was run in <a href="http://en.wikipedia.org/wiki/Unconference">unconference style</a>. Each idea was then posted up on a giant post it on the wall and people had  30 minutes to wander the room choosing projects. The approach allowed for a consensus based filtering of ideas. We had the opportunity to suggest some ideas, and a chance to help out with others. Here&rsquo;s an overview of the projects the rOpenSci team worked on and what we accomplished at the open science codefest.</p>
+
+<ol>
+<li><a href="https://github.com/dataoneorg/rdataone">rdataone</a> - R client for the <a href="https://www.dataone.org/">DataONE</a> <a href="http://mule1.dataone.org/ArchitectureDocs-current/apis/">API</a> that is native to R and doesn&rsquo;t rely on Java libraries. We were able to implement some of the many API methods in the package which is still in active development.</li>
+<li><a href="https://etherpad.mozilla.org/osmanuscript">open science in ecology manuscript</a> - A publication on the state of open science in ecology, and a guide for ecologists wanting to practice open science.  We contributed to the text of the manuscipt and used some of the rOpenSci package suite to generate figures.</li>
+<li><a href="https://github.com/ropensci/mdextract">coverage extraction</a> - A package to extract coverage (temporal, spatial, taxonomic) metadata from datasets.  This package will be integrated with a variety of other packages such as <a href="https://github.com/ropensci/EML">EML</a> and <a href="https://github.com/ropensci/spocc">spocc</a>, facilitating the creation of metadata. We were able to implement many of the components, and just need to tie it all together in a consistent data model.</li>
+<li><a href="https://github.com/ropensci/pangaear">pangear</a> - An R client to interact with the <a href="http://www.pangaea.de/">Pangaea database</a></li>
+<li><a href="https://github.com/ropensci/datapackage">datapackage</a> - An R package to create and read data packages (similar to <a href="http://data.okfn.org/doc/data-package">OKFN&rsquo;s data packages</a>)</li>
+</ol>
+
+<p>One great thing about this event was mixing more experienced programmers with less experienced ones. In addition to making software, there was a fair amount of training going on. For example, a few people were interested in how to make an R package, so we went through the whole process with <a href="https://github.com/ropensci/pangaear">pangear</a>, and now we have <a href="https://github.com/ropensci/pangaear/graphs/contributors">5 awesome contributors on the package</a>. Overall we had a great time, were able to begin some new projects, and contribute to some important existing ones. We hope to continue to build out what we started at codefest and integrate it into our existing tool set and workflows.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/conference"><span class="label">Conference</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

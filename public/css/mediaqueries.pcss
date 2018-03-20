@@ -1,0 +1,281 @@
+/*  --------------------------------------------------  Media Queries Declaration */
+@-ms-viewport{
+  width: device-width;
+}
+
+@media screen and (orientation: portrait) {
+    .center-m {
+        text-align: center;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+
+    .container {
+        width: 98%;
+        margin: 0 auto;
+    }
+
+    form.filter {
+        text-align: left;
+        & label {
+            width: 45%;
+            float: left;
+            &:not(:last-child) {
+                margin: 0;
+            }
+        }
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    h1 {
+        font-size: 3rem;
+    }
+
+    h2 {
+        font-size: 2rem
+    }
+
+    #footer {
+        text-align: left;
+        & img[src$='.svg'] {
+            max-width: 50%;
+            width: 50%;
+        }
+        & .row {
+            text-align: left;
+            justify-content: start;
+        }
+    }
+
+    #upcoming-events {
+        & th, & td {
+            &:nth-child(4), &:last-child{
+                display: none;
+            }
+        }
+    }
+
+    .between {
+        justify-content: space-between;
+    }
+
+}
+
+@media screen and (max-width: 736px) {
+
+    @for $i from 1 to 20 {
+        .top-$i {
+            margin-top: calc( 2 * $i )px;
+        }
+
+        .bottom-$i {
+            margin-bottom: calc( 2 * $i )px;
+        }
+    }
+
+    .container {
+        width: 90%;
+    }
+
+
+    .middle-container {
+        width: 90%;
+        margin: 0 auto;
+        padding: 0 10px;
+    }
+
+
+    .sidebar {
+        display: none;
+    }
+
+    #footer {
+        text-align: left;
+        & img[src$='.svg'] {
+            max-width: 50%;
+            width: 50%;
+        }
+        & .row {
+            text-align: left;
+            justify-content: start;
+        }
+    }
+
+    #upcoming-events {
+        & th, & td {
+            &:nth-child(4), &:last-child{
+                display: none;
+            }
+        }
+    }
+
+    .between {
+        justify-content: space-between;
+    }
+
+    .list {
+        width: 50%;
+    }
+
+    @for $i from 1 to 2 {
+        .col-$i { 
+            flex-basis: 50%;
+            max-width: 50%;
+            box-sizing: border-box;
+        }
+    }
+
+    @for $i from 3 to 12 {
+        .col-$i { 
+            flex-basis: 100%;
+            max-width: 100%;
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+    }
+
+    .col-1-3 {
+        flex-basis: 33.3333%;
+        max-width: 33.3333%;
+        box-sizing: border-box;
+    }
+
+    @for $i from 1 to 12 {
+        .col-offset-$i {
+            margin-left: 0;
+        }
+    }
+
+}
+
+@custom-media --mPortrait (max-width: 320px);
+@media screen and (--mPortrait) {
+    :root {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 3rem;
+    }
+
+    h2 {
+        font-size: 2rem
+    }
+
+    .container {
+        width: 90%;
+    }
+
+    .middle-container {
+        width: 90%;
+        margin: 0 auto;
+        padding: 0 10px;
+    }
+
+
+    .list {
+        width: 50%;
+        margin-top: 6vh;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    #footer {
+        text-align: left;
+        & img[src$=".svg"] {
+            max-width: 50%;
+            width: 50%;
+        }
+        & .row {
+            justify-content: flex-start;
+            text-align: start;
+
+            & .col-1{
+                max-width: 50%;
+                flex-basis: 50%;
+            }
+
+            & .col-2 {
+                max-width: 50%;
+                flex-basis: 50%;
+            }
+        }
+    }
+
+    nav ul li {
+        font-size: .75rem;
+        &:not(:last-child){
+            margin-right: 15px;
+        }
+    }
+
+     @for $i from 1 to 2 {
+        .col-$i { 
+            flex-basis: 70%;
+            max-width: 70%;
+            box-sizing: border-box;
+        }
+    }
+
+    @for $i from 3 to 12 {
+        .col-$i { 
+            flex-basis: 100%;
+            max-width: 100%;
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+    }
+
+    @for $i from 1 to 12 {
+        .col-offset-$i {
+            margin-left: 0;
+        }
+    }
+
+
+}
+
+@custom-media --mLandscape (max-width: 736px);
+@media screen and (orientation: landscape) and (--mLandscape) {
+    h1 {
+        font-size: 3rem;
+    }
+
+    h2 {
+        font-size: 2rem
+    }
+
+    .container {
+        width: 90%;
+    }
+
+    .middle-container {
+        width: 90%;
+        margin: 0 auto;
+        padding: 0 10px;
+    }
+    .hero {
+        height: 120vh;
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    #footer {
+        & .icon {
+            width: 28%;
+            &:before {
+                font-size: 1rem;
+            }
+        }
+    }
+
+}

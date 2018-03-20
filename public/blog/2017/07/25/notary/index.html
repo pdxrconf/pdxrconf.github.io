@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | notary - Signing &amp; Verification of R Packages</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">notary - Signing &amp; Verification of R Packages</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="/about/#team"> Rich FitzJohn </a>&nbsp;
+                        
+                    
+                        
+                          <a href="https://github.com/ironholds" target="_blank"> Oliver Keyes </a>&nbsp;
+                        
+                    
+                        
+                          <a href="https://github.com/stephlocke" target="_blank"> Stephanie Locke </a>&nbsp;
+                        
+                    
+                        
+                          <a href="/about/#team"> Jeroen Ooms </a>&nbsp;
+                        
+                    
+                        
+                          <a href="https://github.com/hrbrmstr" target="_blank"> Bob Rudis </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">July 25, 2017</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>Most of us who work in R just want to Get Stuff Done&trade;. We want a minimum amount of friction between ourselves and the data we need to wrangle, analyze, and visualize. We&rsquo;re focused on solving a problem or gaining insights into a new area of research. We rely on a rich, community-driven ecosystem of packages to help get our work done and likely make an unconscious assumption that there is a safety net out there, protecting us from harm.</p>
+
+<p>Unfortunately, I get to be &ldquo;that guy&rdquo; who comes along and shatters such assumptions. It&rsquo;s time to put our hard hats on, get our clipboards out, and take a safety inspection tour of R. Along the way, we&rsquo;ll introduce features and design concepts of our rOpenSci #runconf17 project &mdash; the <a href="https://github.com/ropenscilabs/notary"><code>notary</code> package</a> &mdash; that are aimed at making working in R a bit safer and more secure.</p>
+
+<h2 id="meet-the-team">Meet The Team</h2>
+
+<p>Since we say &ldquo;we&rdquo; quite a bit in this post, here are the folks that are represented by those two letters:</p>
+
+<ul>
+<li><a href="https://github.com/richfitz">Rich FitzJohn</a></li>
+<li><a href="https://github.com/ironholds">Oliver Keyes</a></li>
+<li><a href="https://github.com/stephlocke">Stephanie Locke</a></li>
+<li><a href="https://github.com/jeroen">Jeroen Ooms</a></li>
+<li><a href="https://github.com/hrbrmstr/">Bob Rudis</a></li>
+</ul>
+
+<p>(Since &ldquo;Bob&rdquo; typed out the post, I get to insert what a privilege it was to work with those four folks. They&rsquo;re incredibly talented individuals doing really great work for the R community.)</p>
+
+<h2 id="cran-trust-needs-verification">CRAN : Trust Needs Verification</h2>
+
+<p><center><img src="https://raw.githubusercontent.com/ropenscilabs/notary/master/img/trust.jpg"/></center><br/></p>
+
+<p>Before we go into the concept of package trust, we&rsquo;d like you to put one finger on this blog post (to hold the page) and switch over to your R console and verify what CRAN mirror you are using. Since you&rsquo;re down to one hand you can copy and paste this snippet: <code>options(&quot;repos&quot;)</code> and review the results.</p>
+
+<p>If any URL in that list doesn&rsquo;t start with <code>https://</code> replace it with one from <a href="https://cran.rstudio.com/mirrors.html">this official mirror list</a> that does (you will likely need to use both hands for that, so make sure you leave the browser tab open). If you don&rsquo;t use a crytographically secure method of installing packages, then everyone from your ISP, to your employer, to the government (depending on where you reside) can see what packages you&rsquo;re downloading and installing. Furthermore, using plain ol&rsquo; <code>http://</code> means it&rsquo;s far easier for those who would seek to do you harm to intercept and switch out the contents of what you&rsquo;re retrieving.</p>
+
+<p>Now, that you&rsquo;re sure you&rsquo;re using <code>https://</code>, consider how much you know about the CRAN mirror you just picked. Are you <em>sure</em> that you can either trust the site or at least trust that the site is maintained sufficiently to deter attackers who would seek to do you (or the community) harm? Running a secure site is non-trivial and, like it or not, &ldquo;data science&rdquo; is one of the fastest growth areas in virtually every modern organization (commercial or academic). Such a condition is a natural attractor for attackers and while the R package ecosystem may not be in the top ten most sinister threat scenarios (for now), it will be easy to take advantage of in its current state.</p>
+
+<p>To that end, the team came up with the concept of <em>signing</em> packages (hence the <code>notary</code> name). Without taking you down a deep dive into <a href="https://en.wikipedia.org/wiki/Digital_signature">digital signatures</a>, you&rsquo;re already familiar with this concept if you use something like an iOS-based device (i.e. iPhone or iPad) and have downloaded an app from the Apple app store. A developer applies for a developer account with Apple. They get a key. They make an app. They digitally sign the app with the key they received. Apple reviews the app and (usually)eventually approves it. The signed app goes into the store and your iOS device (if you haven&rsquo;t &ldquo;rooted&rdquo; it) is configured to only run signed and approved apps.</p>
+
+<p>There are three functions in <code>notary</code> to help facilitate a more secure package ecosystem &mdash; <code>install_packages()</code>, <code>download_packages()</code> &amp; <code>available_packages()</code> &mdash; each of which is a thin wrapper around their base, dotted counterparts which ultimately will require modifications to CRAN mirrors to house digital signatures for packages and CRAN mirror sites themselves.</p>
+
+<p>Why all this extra infrastructure and scaffolding? If we think of the R Core/CRAN team as the R equivalent of the Apple app store guardians, then when they review and approve a package that version becomes the gold standard. But, there&rsquo;s no current, easy, complete way to know for sure that what&rsquo;s on <code>cran.r-project.org</code> is also what&rsquo;s on one of the mirror sites.</p>
+
+<p>By having a similar set of signing and validation idioms, it will be possible to ensure that what you think you&rsquo;re getting from a CRAN repository is what was approved by the CRAN team. We still need to get one &ldquo;secure&rdquo; mirror setup to enable a proof-of-concept, so stay tuned for advancements in this area.</p>
+
+<h2 id="a-sheriff-for-the-wild-wild-west-i-e-making-github-safer">A Sheriff for the Wild, Wild West (i.e. Making GitHub Safer)</h2>
+
+<p><img src="https://raw.githubusercontent.com/ropenscilabs/notary/master/img/badge.png" align="right"/> While the CRAN distribution model is not perfect, it&rsquo;s Fort Knox compared to GitHub.</p>
+
+<p>Oh, but before we go into that, you should check out some extremely cutting edge functionality <a href="https://github.com/hadley">Hadley</a> and others are putting into <code>purrr</code>. Just do a quick <code>devtools::install_github(&quot;hadlley/purrr&quot;)</code> bring up the help for the new <em>threaded</em> parallel execution of <code>map()</code>: <code>map_t()</code>.</p>
+
+<p>Now, you know this is a post about security &amp; R so hopefully your Spidey-sense was triggered and you knew enough not to even try that or you caught the <code>ll</code> before you did the copy/paste. If you did end up doing the install attempt, be a <em>teensy</em> bit thankful that I deleted the <code>hadlley</code> account before I wrote the post.</p>
+
+<p>GitHub (and other public code repositories) are wonderful places where folks can collaborate and share creations. They are also fraught with peril. This is easily demonstrated by this proof-of-concept R package <a href="https://github.com/hrbrmstr/rpwnd"><code>rpwnd</code></a>. Since GitHub is the most popular public R package development area, we&rsquo;ll focus on it for the remainder of this section.</p>
+
+<p>One way to begin to mitigate the threat of GitHub package distribution is to impose some rules and provide a means to ensure some level of authenticity at the author and release level. To that end, we have two core functions: <code>install_release()</code> and <code>validate_release()</code> that rely on a setting that most of you likely do not have enabled in GitHub - <a href="https://github.com/settings/keys">PGP keys</a>. You can read up on <a href="https://help.github.com/articles/signing-commits-with-gpg/">GitHub &amp; PGP</a> but you should really keep one finger on this page (again) and go check out <a href="https://mikegerwitz.com/papers/git-horror-story.html"><em>A Git Horror Story: Repository Integrity With Signed Commits</em></a>.</p>
+
+<p>Back? Good. Let&rsquo;s continue.</p>
+
+<p>The premise is simple: only install actual releases (which is a good idea anyway) and only, then, install <em>signed</em> releases. <em>This is not a panacea</em> and does not fix all the security &amp; integrity problems associated with the GitHub distribution model, but if combined with some manual inspection of the repository and repo owner profile it will help ensure that you&rsquo;re somewhat closer to getting benign code.</p>
+
+<p>This functionality is available today. So go setup your own PGP keys, add them to your owner profile and start generating signed releases.</p>
+
+<h2 id="source-sources-safely-with-signatures">Source Sources Safely With Signatures</h2>
+
+<p>Rounding out the feature set are two functions <code>source_safe_sign()</code> and <code>sys_source_safe_sign()</code> which are more secure (well, at least safer) wrappers for their dotted base siblings.</p>
+
+<p>I literally break down into tears when I see a <code>source()</code> suggestion posted anywhere, especially to non-<code>https://</code> URLs. Why? Even if you did a manual inspection at one point in time that the code is not malicious, how do you know that it hasn&rsquo;t been modified since then? Their <code>devtools</code> counterparts (<code>source_gist()</code>/<code>source_url()</code>) are a tad better, provided they you use <code>sha1</code> parameter to ensure that what you think you are sourcing hasn&rsquo;t changed.</p>
+
+<p>The <code>notary</code> sourcers go one step further and use a <a href="https://github.com/jeroen/sodium"><code>sodium</code></a>-based signature to verify the integrity of the source code you so desperately want to use via this methodology. These functions need some kinder, gentler companion functions to make it easier for all users to sign scripts, so you&rsquo;ll have to check back for those as we continue to poke at the project.</p>
+
+<p><center><img src="https://raw.githubusercontent.com/ropenscilabs/notary/master/img/reliable.png"></center><br/></p>
+
+<h2 id="collaborating-for-community-safety">Collaborating for Community Safety</h2>
+
+<p>While we have a great start at building a foundation of safer and more secure R package and code delivery, the best part of building the <code>notary</code> package was working with a team who genuinely wants to help ensure that the R community can operate as safely as possible without garish, creativity-crushing impediments. Rich, Oliver, Stephanie and Jeroen all had clever ideas for tough problems and we&rsquo;ll hopefully be able to continue to make small steps towards progress.</p>
+
+<h2 id="jump-on-the-crazy-train-with-us">Jump on the Crazy Train With Us!</h2>
+
+<p>Hopefully we&rsquo;ve helped folks understand some of the dangers that are out there and further demonstrated that we&rsquo;ve begun to address some of them with the <code>notary</code> package. If the idea of helping find ways to keep data science folks safer has piqued your interest, please do not hesitate to contact any of the team. We&rsquo;d love to engage with more of the community on <code>notary</code>, and would love feedback on usability and ideas for new or improved functionality.</p>
+
+<p>Thank you, again, to rOpenSci for the opportunity to come together and collaborate on this project.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/security"><span class="label">security</span></a>
+                
+                    <a href="/tags/packages"><span class="label">packages</span></a>
+                
+                    <a href="/tags/cran"><span class="label">CRAN</span></a>
+                
+                    <a href="/tags/github"><span class="label">GitHub</span></a>
+                
+                    <a href="/tags/notary"><span class="label">notary</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+                <div id='discourse-comments'></div>
+                <script type="text/javascript">
+                DiscourseEmbed = { discourseUrl: 'https://discuss.ropensci.org/',
+                                   topicId:  792  };
+                (function() {
+                  var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+                  d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+                })();
+                </script>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

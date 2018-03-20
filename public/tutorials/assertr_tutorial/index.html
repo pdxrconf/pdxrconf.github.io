@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | assertr tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>assertr tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v2.0.2.2</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p>In data analysis workflows that depend on un-sanitized data sets from external
+sources, it’s very common that errors in data bring an analysis to a
+screeching halt. Oftentimes, these errors occur late in the analysis and
+provide no clear indication of which datum caused the error.</p>
+
+<p>On occasion, the error resulting from bad data won’t even appear to be a
+data error at all. Still worse, errors in data will pass through analysis
+without error, remain undetected, and produce inaccurate results.</p>
+
+<p>The solution to the problem is to provide as much information as you can about
+how you expect the data to look up front so that any deviation from this
+expectation can be dealt with immediately. This is what the <code>assertr</code> package
+tries to make dead simple.</p>
+
+<p>Essentially, <code>assertr</code> provides a suite of functions designed to verify
+assumptions about data early in an analysis pipeline. This package needn&rsquo;t
+be used with the <code>magrittr</code>/<code>dplyr</code> piping mechanism but the examples in this
+vignette will use them to enhance clarity.</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>Stable version from CRAN</p>
+
+<pre><code class="language-r">install.packages(&quot;assertr&quot;)
+</code></pre>
+
+<p>Development version from GitHub</p>
+
+<pre><code class="language-r">if (!require(&quot;devtools&quot;)) install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;ropenscilabs/assertr&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;assertr&quot;)
+</code></pre>
+
+<h4 id="concrete-data-errors">concrete data errors</h4>
+
+<p>Let’s say, for example, that the R’s built-in car dataset, <code>mtcars</code>, was not
+built-in but rather procured from an external source that was known for making
+errors in data entry or coding.</p>
+
+<p>In particular, the mtcars dataset looks like this:</p>
+
+<pre><code class="language-r">head(mtcars)
+#&gt;                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+#&gt; Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+#&gt; Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+#&gt; Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+#&gt; Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+#&gt; Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+#&gt; Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+</code></pre>
+
+<p>But let&rsquo;s pretend that the data we got accidentally negated the 5th mpg value:</p>
+
+<pre><code class="language-r">our.data &lt;- mtcars
+our.data$mpg[5] &lt;- our.data$mpg[5] * -1
+our.data[4:6,]
+#&gt;                     mpg cyl disp  hp drat    wt  qsec vs am gear carb
+#&gt; Hornet 4 Drive     21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+#&gt; Hornet Sportabout -18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+#&gt; Valiant            18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+</code></pre>
+
+<p>Whoops!</p>
+
+<p>If we wanted to find the average miles per gallon for each number of engine
+cylinders, we might do so like this:</p>
+
+<pre><code class="language-r">library(dplyr)
+
+our.data %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+#&gt; # A tibble: 3 x 2
+#&gt;     cyl  avg.mpg
+#&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1     4 26.66364
+#&gt; 2     6 19.74286
+#&gt; 3     8 12.42857
+</code></pre>
+
+<p>This indicates that the average miles per gallon for a 8 cylinder car is a lowly
+12.43. However, in the correct dataset it&rsquo;s really just over 15. Data errors
+like that are extremely easy to miss because it doesn&rsquo;t cause an error, and the
+results look reasonable.</p>
+
+<h4 id="enter-assertr">enter assertr</h4>
+
+<p>To combat this, we might want to use assertr&rsquo;s <code>verify</code> function to make sure
+that <code>mpg</code> is a positive number:</p>
+
+<pre><code class="language-r">library(assertr)
+
+our.data %&gt;%
+  verify(mpg &gt;= 0) %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+#&gt; verification [mpg &gt;= 0] failed! (1 failure)
+#&gt; Error: assertr stopped execution
+</code></pre>
+
+<p>If we had done this, we would have caught this data error.</p>
+
+<p>The <code>verify</code> function takes a data frame (its first argument is provided by
+the <code>%&gt;%</code> operator), and a logical (boolean) expression. Then, <code>verify</code>
+evaluates that expression using the scope of the provided data frame. If any
+of the logical values of the expression&rsquo;s result are <code>FALSE</code>, <code>verify</code> will
+raise an error that terminates any further processing of the pipeline.</p>
+
+<p>We could have also written this assertion using <code>assertr</code>&rsquo;s <code>assert</code> function&hellip;</p>
+
+<pre><code class="language-r">our.data %&gt;%
+  assert(within_bounds(0,Inf), mpg) %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+#&gt; Column 'mpg' violates assertion 'within_bounds(0, Inf)' 1 time
+#&gt;   index value
+#&gt; 1     5 -18.7
+#&gt; Error: assertr stopped execution
+</code></pre>
+
+<p>The <code>assert</code> function takes a data frame, a predicate function, and an arbitrary
+number of columns to apply the predicate function to. The predicate function
+(a function that returns a logical/boolean value) is then applied to every
+element of the columns selected, and will raise an error when if it finds
+violations.</p>
+
+<p>Internally, the <code>assert</code> function uses <code>dplyr</code>&rsquo;s <code>select</code> function to extract
+the columns to test the predicate function on. This allows for complex
+assertions. Let&rsquo;s say we wanted to make sure that all values in the dataset
+are <em>greater</em> than zero (except <code>mpg</code>):</p>
+
+<pre><code class="language-r">library(assertr)
+
+our.data %&gt;%
+  assert(within_bounds(0,Inf, include.lower=FALSE), -mpg) %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+#&gt; Column 'vs' violates assertion 'within_bounds(0, Inf, include.lower = FALSE)' 18 times
+#&gt;   index value
+#&gt; 1     1     0
+#&gt; 2     2     0
+#&gt; 3     5     0
+#&gt; 4     7     0
+#&gt; 5    12     0
+#&gt;   [omitted 13 rows]
+#&gt;
+#&gt; Column 'am' violates assertion 'within_bounds(0, Inf, include.lower = FALSE)' 19 times
+#&gt;   index value
+#&gt; 1     4     0
+#&gt; 2     5     0
+#&gt; 3     6     0
+#&gt; 4     7     0
+#&gt; 5     8     0
+#&gt;   [omitted 14 rows]
+#&gt; Error: assertr stopped execution
+</code></pre>
+
+<h4 id="verify-vs-assert">verify vs. assert</h4>
+
+<p>The first noticable difference between <code>verify</code> and <code>assert</code> is that <code>verify</code>
+takes an expression, and <code>assert</code> takes a predicate and columns to apply it to.
+This might make the <code>verify</code> function look more elegant&ndash;but there&rsquo;s an
+important drawback. <code>verify</code> has to evaluate the entire expression first, and
+<em>then</em> check if there were any violations. Because of this, <code>verify</code> can&rsquo;t
+tell you the offending datum.</p>
+
+<p>One important drawback to <code>assert</code>, and a consequence of its application of
+the predicate to <em>columns</em>, is that <code>assert</code> can&rsquo;t confirm assertions about
+the data structure <em>itself</em>. For example, let&rsquo;s say we were reading a dataset
+from disk that we know has more than 100 observations; we could write a check
+of that assumption like this:</p>
+
+<pre><code class="language-r">dat &lt;- read.csv(&quot;a-data-file.csv&quot;)
+dat %&gt;%
+  verify(nrow(.) &gt; 100) %&gt;%
+  ....
+</code></pre>
+
+<p>This is a powerful advantage over <code>assert</code>&hellip; but <code>assert</code> has one more
+advantage of its own that we heretofore ignored.</p>
+
+<h4 id="assertr-s-predicates">assertr&rsquo;s predicates</h4>
+
+<p><code>assertr</code>&rsquo;s predicates, both built-in and custom, make <code>assert</code> very powerful.
+The predicates that are built in to <code>assertr</code> are</p>
+
+<ul>
+<li><code>not_na</code> - that checks if an element is not NA</li>
+<li><code>within_bounds</code> - that returns a predicate function that checks if a numeric
+value falls within the bounds supplied, and</li>
+<li><code>in_set</code> - that returns a predicate function that checks if an element is
+a member of the set supplied.</li>
+<li><code>is_uniq</code> - that checks to see if each element appears only once</li>
+</ul>
+
+<p>We&rsquo;ve already seen <code>within_bounds</code> in action&hellip; let&rsquo;s use the <code>in_set</code> function
+to make sure that there are only 0s and 1s (automatic and manual, respectively)
+values in the <code>am</code> column&hellip;</p>
+
+<pre><code class="language-r">our.data %&gt;%
+  assert(in_set(0,1), am) %&gt;%
+  ...
+</code></pre>
+
+<p>If we were reading a dataset that contained a column representing boroughs of
+New York City (named <code>BORO</code>), we can verify that there are no mis-spelled
+or otherwise unexpected boroughs like so&hellip;</p>
+
+<pre><code class="language-r">boroughs &lt;- c(&quot;Bronx&quot;, &quot;Manhattan&quot;, &quot;Queens&quot;, &quot;Brooklyn&quot;, &quot;Staten Island&quot;)
+
+read.csv(&quot;a-dataset.csv&quot;) %&gt;%
+  assert(in_set(boroughs), BORO) %&gt;%
+  ...
+</code></pre>
+
+<p>Rad!</p>
+
+<h4 id="custom-predicates">custom predicates</h4>
+
+<p>A convenient feature of <code>assertr</code> is that it makes the construction of custom
+predicate functions easy.</p>
+
+<p>In order to make a custom predicate, you only have to specify cases where the
+predicate should return FALSE. Let&rsquo;s say that a dataset has an ID column
+(named <code>ID</code>) that we want to check is not an empty string. We can create a
+predicate like this:</p>
+
+<pre><code class="language-r">not.empty.p &lt;- function(x) if(x==&quot;&quot;) return(FALSE)
+</code></pre>
+
+<p>and apply it like this:</p>
+
+<pre><code class="language-r">read.csv(&quot;another-dataset.csv&quot;) %&gt;%
+  assert(not.empty.p, ID) %&gt;%
+  ...
+</code></pre>
+
+<p>Let&rsquo;s say that the ID column is always a 7-digit number. We can confirm that
+all the IDs are 7-digits by defining the following predicate:</p>
+
+<pre><code class="language-r">seven.digit.p &lt;- function(x) nchar(x)==7
+</code></pre>
+
+<p>A powerful consequence of this easy creation of predicates is that the
+<code>assert</code> function lends itself to use with lambda predicates (unnamed
+predicates that are only used once). The check above might be better written as</p>
+
+<pre><code class="language-r">read.csv(&quot;another-dataset.csv&quot;) %&gt;%
+  assert(function(x) nchar(x)==7, ID) %&gt;%
+  ...
+</code></pre>
+
+<p>Neat-o!</p>
+
+<h4 id="enter-insist-and-predicate-generators">enter <code>insist</code> and predicate &lsquo;generators&rsquo;</h4>
+
+<p>Very often, there is a need to dynamically determine the predicate function
+to be used based on the vector being checked.</p>
+
+<p>For example, to check to see if every element of a vector is within <em>n</em>
+standard deviations of the mean, you need to create a <code>within_bounds</code>
+predicate <em>after</em> dynamically determining the bounds by reading and computing
+on the vector itself.</p>
+
+<p>To this end, the <code>assert</code> function is no good; it just applies a raw predicate
+to a vector. We need a function like <code>assert</code> that will apply predicate
+<em>generators</em> to vectors, return predicates, and <em>then</em> perform <code>assert</code>-like
+functionality by checking each element of the vectors with its respective custom
+predicate. This is precisely what <code>insist</code> does.</p>
+
+<p>This is all much simpler than it may sound. Hopefully, the examples will clear
+up any confusion.</p>
+
+<p>The primary use case for <code>insist</code> is in conjunction with the <code>within_n_sds</code> or
+<code>within_n_mads</code> predicate generator.</p>
+
+<p>Suppose we wanted to check that every <code>mpg</code> value in the <code>mtcars</code> data set was
+within 3 standard deviations of the mean before finding the average miles
+per gallon for each number of engine cylinders. We could write something
+like this:</p>
+
+<pre><code class="language-r">
+mtcars %&gt;%
+  insist(within_n_sds(3), mpg) %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+#&gt; # A tibble: 3 x 2
+#&gt;     cyl  avg.mpg
+#&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1     4 26.66364
+#&gt; 2     6 19.74286
+#&gt; 3     8 15.10000
+</code></pre>
+
+<p>Notice what happens when we drop that z-score to 2 standard deviations
+from the mean</p>
+
+<pre><code class="language-r">mtcars %&gt;%
+  insist(within_n_sds(2), mpg) %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+#&gt; Column 'mpg' violates assertion 'within_n_sds(2)' 2 times
+#&gt;   index value
+#&gt; 1    18  32.4
+#&gt; 2    20  33.9
+#&gt; Error: assertr stopped execution
+</code></pre>
+
+<p>Execution of the pipeline was halted. But now we know exactly which data point
+violated the predicate that <code>within_n_sds(2)(mtcars$mpg)</code>
+returned.</p>
+
+<p>Now that&rsquo;s an efficient car!</p>
+
+<p>After the predicate generator, <code>insist</code> takes an arbitrary number of columns
+just like <code>assert</code> using the syntax of <code>dplyr</code>&rsquo;s <code>select</code> function. If you
+wanted to check that everything in mtcars is within 10 standard deviations
+of the mean (of each column vector), you can do so like this:</p>
+
+<pre><code class="language-r">mtcars %&gt;%
+  insist(within_n_sds(10), mpg:carb) %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+#&gt; # A tibble: 3 x 2
+#&gt;     cyl  avg.mpg
+#&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1     4 26.66364
+#&gt; 2     6 19.74286
+#&gt; 3     8 15.10000
+</code></pre>
+
+<p>Aces!</p>
+
+<p>I chose to use <code>within_n_sds</code> in this example because people are familiar
+z-scores. However, for most practical purposes, the related predicate generator
+<code>within_n_mads</code> is more useful.</p>
+
+<p>The problem with <code>within_n_sds</code> is the mean and standard deviation are so
+heavily influenced by outliers, their very presence will compromise attempts
+to identify them using these statistics. In contrast with <code>within_n_sds</code>,
+<code>within_n_mads</code> uses the robust statistics, median and median absolute
+deviation, to identify potentially erroneous data points.</p>
+
+<p>For example, the vector <code>&lt;7.4, 7.1, 7.2, 72.1&gt;</code> almost certainly has an erroneous
+data point, but <code>within_n_sds(2)</code> will fail to detect it.</p>
+
+<pre><code class="language-r">example.vector &lt;- c(7.4, 7.1, 7.2, 72.1)
+within_n_sds(2)(example.vector)(example.vector)
+#&gt; [1] TRUE TRUE TRUE TRUE
+</code></pre>
+
+<p>whereas <code>within_n_mads</code> will detect it at even lower levels of power&hellip;.</p>
+
+<pre><code class="language-r">example.vector &lt;- c(7.4, 7.1, 7.2, 72.1)
+within_n_mads(2)(example.vector)(example.vector)
+#&gt; [1]  TRUE  TRUE  TRUE FALSE
+within_n_mads(1)(example.vector)(example.vector)
+#&gt; [1]  TRUE  TRUE  TRUE FALSE
+</code></pre>
+
+<p>Tubular!</p>
+
+<h4 id="row-wise-assertions-and-row-reduction-functions">row-wise assertions and row reduction functions</h4>
+
+<p>As cool as it&rsquo;s been so far, this still isn&rsquo;t enough to constitute a complete
+grammar of data integrity checking. To see why, check out the following
+small example data set:</p>
+
+<pre><code class="language-r">example.data &lt;- data.frame(x=c(8, 9, 6, 5, 9, 5, 6, 7,
+                             8, 9, 6, 5, 5, 6, 7),
+                         y=c(82, 91, 61, 49, 40, 49, 57,
+                             74, 78, 90, 61, 49, 51, 62, 68))
+(example.data)
+#&gt;    x  y
+#&gt; 1  8 82
+#&gt; 2  9 91
+#&gt; 3  6 61
+#&gt; 4  5 49
+#&gt; 5  9 40
+#&gt; 6  5 49
+#&gt; 7  6 57
+#&gt; 8  7 74
+#&gt; 9  8 78
+#&gt; 10 9 90
+#&gt; 11 6 61
+#&gt; 12 5 49
+#&gt; 13 5 51
+#&gt; 14 6 62
+#&gt; 15 7 68
+</code></pre>
+
+<p>Can you spot the brazen outlier? You&rsquo;re certainly not going to find it by
+checking the distribution of each <em>column</em>! All elements from both columns are
+within 2 standard deviations of their respective means.</p>
+
+<p>Unless you have a <em>really</em> good eye, the only way you&rsquo;re going to catch this
+mistake is by plotting the data set.</p>
+
+<pre><code class="language-r">plot(example.data$x, example.data$y, xlab=&quot;&quot;, ylab=&quot;&quot;)
+</code></pre>
+
+<p><img src="/img/tutorial-images/assertr/unnamed-chunk-24-1.png" alt="plot of chunk unnamed-chunk-24" /></p>
+
+<p>Ok, so all the <code>y</code>s are roughly 10 times the <code>x</code>s except the outlying data
+point.</p>
+
+<p>The problem having to plot data sets to catch anomalies is that it is <em>really</em>
+hard to visualize 4-dimensions at once, and it is near impossible with
+high-dimensional data.</p>
+
+<p>There&rsquo;s no way of catching this anomaly by looking at each individual
+column separately; the only way to catch it is to view each row as a complete
+observation and compare it to the rest.</p>
+
+<p>To this end, <code>assertr</code> provides two functions that take a data frame, and
+reduce each row into a single value. We&rsquo;ll call them <em>row reduction functions</em>.</p>
+
+<p>The first one we&rsquo;ll look at is called <code>maha_dist</code>. It computes the average
+mahalanobis distance (kind of like multivariate z-scoring for outlier
+detection) of each row from the whole data set. The big idea is that in the
+resultant vector, big/distant values are potential anomalous entries. Let&rsquo;s
+look at the distribution of mahalanobis distances for this data set&hellip;</p>
+
+<pre><code class="language-r">maha_dist(example.data)
+#&gt;  [1]  1.28106379  3.10992407  0.25081851  1.35993969 12.81898913
+#&gt;  [6]  1.35993969  0.26181283  0.47714597  0.87804987  2.95741956
+#&gt; [11]  0.25081851  1.35993969  1.29208587  0.28235776  0.05969507
+
+maha_dist(example.data) %&gt;% hist(main=&quot;&quot;, xlab=&quot;&quot;)
+</code></pre>
+
+<p><img src="/img/tutorial-images/assertr/unnamed-chunk-25-1.png" alt="plot of chunk unnamed-chunk-25" /></p>
+
+<p>There&rsquo;s no question here as to whether there&rsquo;s an anomalous entry! But how do
+you check for this sort of thing using <code>assertr</code> constructs?</p>
+
+<p>Well, <code>maha_dist</code> will typically be used with the <code>insist_rows</code> function.
+<code>insist_rows</code> takes a data frame, a row reduction function, a
+predicate-generating function, and an arbitrary number of columns to apply
+the predicate function to. The row reduction function (<code>maha_dist</code> in this case)
+is applied to the data frame, and returns a value for each row. The
+predicate-generating function is then applied to the vector returned from
+the row reduction function and the resultant predicate is applied to each
+element of that vector. It will raise an error if it finds any violations.</p>
+
+<p>As always, this undoubtedly sounds far more confusing than it really is. Here&rsquo;s
+an example of it in use</p>
+
+<pre><code class="language-r">example.data %&gt;%
+  insist_rows(maha_dist, within_n_mads(3), dplyr::everything())
+#&gt; Data frame row reduction 'maha_dist' violates predicate 'within_n_mads(3)' 1 time
+#&gt;   rownumber
+#&gt; 1         5
+#&gt; Error: assertr stopped execution
+</code></pre>
+
+<p>Check that out! To be clear, this function is running the supplied data frame
+through the <code>maha_dist</code> function which returns a value for each row
+corresponding to its mahalanobis distance. (The whole data frame is used because
+we used the <code>everything()</code> selection function from the <code>dplyr</code> package.)
+Then, <code>within_n_mads(3)</code> computes on that vector and returns a bounds
+checking predicate. The bounds checking predicate checks to see that all
+mahalanobis distances are within 3 median absolute deviations
+of each other. They are not, and the pipeline errors out.</p>
+
+<p>This is probably the most powerful construct in <code>assertr</code>&ndash;it can find a whole
+lot of nasty errors that would be very difficult to check for by hand.</p>
+
+<p>Part of what makes it so powerful is how flexible <code>maha_dist</code> is. We only used
+it, so far, on a data frame of numerics, but it can handle all sorts of data
+frames. To really see it shine, let&rsquo;s use it on the iris data set, that contains
+a categorical variable in its right-most column&hellip;</p>
+
+<pre><code class="language-r">head(iris)
+#&gt;   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+#&gt; 1          5.1         3.5          1.4         0.2  setosa
+#&gt; 2          4.9         3.0          1.4         0.2  setosa
+#&gt; 3          4.7         3.2          1.3         0.2  setosa
+#&gt; 4          4.6         3.1          1.5         0.2  setosa
+#&gt; 5          5.0         3.6          1.4         0.2  setosa
+#&gt; 6          5.4         3.9          1.7         0.4  setosa
+
+iris %&gt;% maha_dist %&gt;% hist(main=&quot;&quot;, xlab=&quot;&quot;)
+</code></pre>
+
+<p><img src="/img/tutorial-images/assertr/unnamed-chunk-27-1.png" alt="plot of chunk unnamed-chunk-27" /></p>
+
+<p>Looks ok, but what happens when we accidentally enter a row as a different
+species&hellip;</p>
+
+<pre><code class="language-r">mistake &lt;- iris
+(mistake[149,5])
+#&gt; [1] virginica
+#&gt; Levels: setosa versicolor virginica
+mistake[149,5] &lt;- &quot;setosa&quot;
+
+mistake %&gt;% maha_dist %&gt;% hist(main=&quot;&quot;, xlab=&quot;&quot;)
+</code></pre>
+
+<p><img src="/img/tutorial-images/assertr/unnamed-chunk-28-1.png" alt="plot of chunk unnamed-chunk-28" /></p>
+
+<pre><code class="language-r">
+mistake %&gt;% maha_dist %&gt;% which.max
+#&gt; [1] 149
+</code></pre>
+
+<p>Look at that! This mistake can easily be picked up by any reasonable bounds
+checker&hellip;</p>
+
+<pre><code class="language-r">mistake %&gt;% insist_rows(maha_dist, within_n_mads(7), dplyr::everything())
+#&gt; Data frame row reduction 'maha_dist' violates predicate 'within_n_mads(7)' 1 time
+#&gt;   rownumber
+#&gt; 1       149
+#&gt; Error: assertr stopped execution
+</code></pre>
+
+<p><code>insist</code> and <code>insist_rows</code> are both similar in that they both take predicate
+generators and not actual predicates. What makes <code>insist_rows</code> different is
+its usage of a row-reduce data frame.</p>
+
+<p><code>assert</code> has a row-oriented counterpart, too; it&rsquo;s called <code>assert_rows</code>.
+<code>insist</code> is to <code>assert</code> as <code>insist_rows</code> is to <code>assert_rows</code>.</p>
+
+<p><code>assert_rows</code> works the same as <code>insist_rows</code>, except that instead of using
+a predicate generator on the row-reduced data frame, it uses a regular-old
+predicate.</p>
+
+<p>For an example of a <code>assert_rows</code> use case, let&rsquo;s say that we got a data set
+(<code>another-dataset.csv</code>) from the web and we don&rsquo;t want to continue processing
+the data set if any row contains more than two missing values (NAs). You
+can use the row reduction function <code>num_row_NAs</code> to reduce all the rows into
+the number of NAs they contain. Then, a simple bounds checker will suffice for
+ensuring that no element is higher than 2&hellip;</p>
+
+<pre><code class="language-r">read.csv(&quot;another-dataset.csv&quot;) %&gt;%
+  assert_rows(num_row_NAs, within_bounds(0,2), dplyr::everything()) %&gt;%
+  ...
+</code></pre>
+
+<p><code>assert_rows</code> can be used for anomaly detection as well. A future version of
+<code>assertr</code> may contain a cosine distance row reduction function. Since all
+cosine distances are constained from -1 to 1, it is easy to use a non-dynamic
+predicate to disallow certain values.</p>
+
+<h4 id="success-and-error-functions">success and error functions</h4>
+
+<p>The behavior of functions like <code>assert</code>, <code>assert_rows</code>,
+<code>insist</code>, <code>insist_rows</code>, <code>verify</code> when the assertion
+passes or fails is configurable via the <code>success_fun</code>
+and <code>error_fun</code> parameters, respectively.</p>
+
+<p>The <code>success_fun</code> parameter takes a function that takes
+the data passed to the assertion function as a parameter. You can
+write your own success handler function, but there are two
+provided by this package:</p>
+
+<ul>
+<li><p><code>success_continue</code> - just returns the data that was passed into the
+assertion function (this is default)</p></li>
+
+<li><p><code>success_logical</code> - returns TRUE</p></li>
+</ul>
+
+<p>The <code>error_fun</code> parameter takes a function that takes
+the data passed to the assertion function as a parameter. You can
+write your own error handler function, but there are a few
+provided by this package:</p>
+
+<ul>
+<li><p><code>error_stop</code> - Prints a summary of the errors and
+                        halts execution (default)</p></li>
+
+<li><p><code>error_report</code> - Prints <em>all</em> the information available
+                          about the errors and halts execution.</p></li>
+
+<li><p><code>error_append</code> - Attaches the errors to a special
+attribute of <code>data</code> and returns the data. This is chiefly
+to allow assertr errors to be accumulated in a pipeline so that
+all assertions can have a chance to be checked and so that all
+the errors can be displayed at the end of the chain.</p></li>
+
+<li><p><code>error_logical</code> - returns FALSE</p></li>
+
+<li><p><code>just_warn</code> - Prints a summary of the errors but does
+not halt execution, it just issues a warning.</p></li>
+
+<li><p><code>warn_report</code> - Prints all the information available
+about the errors but does not halt execution, it just issues a warning.</p></li>
+</ul>
+
+<h4 id="combining-chains-of-assertions">combining chains of assertions</h4>
+
+<p>Let&rsquo;s say that as part of an automated pipeline that grabs mtcars from an
+untrusted source and finds the average miles per gallon for each number of
+engine cylinders, we want to perform the following checks&hellip;</p>
+
+<ul>
+<li>that it has the columns &ldquo;mpg&rdquo;, &ldquo;vs&rdquo;, and &ldquo;am&rdquo;</li>
+<li>that the dataset contains more than 10 observations</li>
+<li>that the column for &lsquo;miles per gallon&rsquo; (mpg) is a positive number</li>
+<li>that the column for &lsquo;miles per gallon&rsquo; (mpg) does not contain a
+datum that is outside 4 standard deviations from its mean, and</li>
+<li>that the am and vs columns (automatic/manual and v/straight engine,
+respectively) contain 0s and 1s only</li>
+</ul>
+
+<p>This could be written thusly:</p>
+
+<pre><code class="language-r">mtcars %&gt;%
+  verify(has_all_names(&quot;mpg&quot;, &quot;vs&quot;, &quot;am&quot;)) %&gt;%
+  verify(nrow(mtcars) &gt; 10) %&gt;%
+  verify(mpg &gt; 0) %&gt;%
+  insist(within_n_sds(4), mpg) %&gt;%
+  assert(in_set(0,1), am, vs) %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+#&gt; # A tibble: 3 x 2
+#&gt;     cyl  avg.mpg
+#&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1     4 26.66364
+#&gt; 2     6 19.74286
+#&gt; 3     8 15.10000
+</code></pre>
+
+<p>In an assertr chain with default options, <code>assert</code>, <code>assert_rows</code>,
+<code>insist</code>, <code>insist_rows</code>, and <code>verify</code> will stop at the
+first assertion that yields an error and not go on to process the
+assertions further down in the chain. For some needs, this is sensible
+behavior. There are times, however, when we might like to get a report
+of all assertion violations. For example, one might want to write an R
+program to download some dataset from the internet and get a detailed
+report of all deviations from expectation.</p>
+
+<p>The best thing to do for this use case, is to use the <code>chain_start</code>,
+and <code>chain_end</code> functions at the beginning and end of a chain of
+assertr assertions. When <code>chain_start</code> gets called with data, the
+data gets a special tag that tells the assertr assertions that follow
+to override their <code>success_fun</code> and <code>error_fun</code> values and
+replace them with <code>success_continue</code> (which passes the data along
+if the test passes) and <code>error_append</code> (which we&rsquo;ve just discussed).
+After all relevant verifications, <code>chain_end</code> will receive the
+data (possibly with accumulated error messages attached) and, by default,
+print a report of all the errors that have been found since the start of
+the chain.</p>
+
+<p>Let&rsquo;s see it in action!</p>
+
+<pre><code class="language-r">mtcars %&gt;%
+  chain_start %&gt;%
+  verify(nrow(mtcars) &gt; 10) %&gt;%
+  verify(mpg &gt; 0) %&gt;%
+  insist(within_n_sds(4), mpg) %&gt;%
+  assert(in_set(0,1), am, vs) %&gt;%
+  chain_end %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+#&gt; # A tibble: 3 x 2
+#&gt;     cyl  avg.mpg
+#&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1     4 26.66364
+#&gt; 2     6 19.74286
+#&gt; 3     8 15.10000
+</code></pre>
+
+<p>Now <em>all</em> assertions will be checked and reported.</p>
+
+<p>Tip: we can make this whole thing look a lot better by abstracting out
+all the assertions:</p>
+
+<pre><code class="language-r">check_me &lt;- . %&gt;%
+  chain_start %&gt;%
+  verify(nrow(mtcars) &gt; 10) %&gt;%
+  verify(mpg &gt; 0) %&gt;%
+  insist(within_n_sds(4), mpg) %&gt;%
+  assert(in_set(0,1), am, vs)
+  chain_end
+
+mtcars %&gt;%
+  check_me %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+</code></pre>
+
+<p>Awesome! Now we can add an arbitrary number of assertions, as the need arises,
+without touching the real logic.</p>
+
+<h4 id="advanced-send-email-reports-using-custom-error-functions">advanced: send email reports using custom error functions</h4>
+
+<p>One particularly cool application of <code>assertr</code> is to use it as a data integrity
+checker for frequently updated data sources. A script can download new data as
+it becomes available, and then run <code>assertr</code> checks on it. This makes <code>assertr</code>
+into a sort of &ldquo;continuous integration&rdquo; tool (but for data,
+not code.)</p>
+
+<p>In an unsupervised &ldquo;continuous integration&rdquo; environment, you need a way to
+discover that the assertions failed. In CI-as-a-service in the software world,
+failed automated checks often send an email of reporting the maintainer of a
+botched build; why not bring that functionality to <code>assertr</code>?!</p>
+
+<p>As we learned in the last sections, all assertion verbs in <code>assertr</code>
+support a custom error function. <code>chain_end</code> similarly supports custom
+error functions. By default, this is <code>error_stop</code> (or <code>error_report</code> in the
+case of <code>chain_end</code>) which prints a summary of the errors and halts execution.</p>
+
+<p>You can specify your own, though, to hijack this behavior and redirect
+flow-of-control wherever you want.</p>
+
+<p>Your custom error function must take, as its first argument,
+a list of <code>assertr_error</code> S3 objects. The second argument must be the
+<code>data.frame</code> that the verb is computing on. Every error function must
+take this because there may be some other errors that are attached to the
+<code>data.frame</code>&rsquo;s <code>assertr_errors</code> attribute leftover from other previous
+assertions.</p>
+
+<p>Below we are going to build a function that takes a list of <code>assertr_errors</code>,
+gets a string representation of the errors and emails it to someone before
+halting execution. We will use the <code>mailR</code> package to send the mail.</p>
+
+<pre><code class="language-r">
+library(mailR)
+
+email_me &lt;- function(list_of_errors, data=NULL, ...){
+  # we are checking to see if there are any errors that
+  # are still attached to the data.frame
+  if(!is.null(data) &amp;&amp; !is.null(attr(data, &quot;assertr_errors&quot;)))
+    errors &lt;- append(attr(data, &quot;assertr_errors&quot;), errors)
+
+  num.of.errors &lt;- length(list_of_errors)
+
+  preface &lt;- sprintf(&quot;There %s %d error%s:\n&quot;,
+                     ifelse(num.of.errors==1,&quot;is&quot;, &quot;are&quot;),
+                     num.of.errors,
+                     ifelse(num.of.errors==1,&quot;&quot;, &quot;s&quot;))
+
+  # all `assertr_error` S3 objects have `print` and `summary` methods
+  # here, we will call `print` on all of the errors since `print`
+  # will give us the complete/unabridged error report
+  error_string &lt;- capture.output(tmp &lt;- lapply(list_of_errors,
+                                               function(x){
+                                                 cat(&quot;\n- &quot;);
+                                                 print(x);
+                                                 return();}))
+  error_string &lt;- c(preface, error_string)
+  error_string &lt;- error_string %&gt;% paste0(collapse=&quot;\n&quot;)
+
+  send.mail(from=&quot;assertr@gmail.com&quot;, to=&quot;YOU@gmail.com&quot;,
+            subject=&quot;error from assertr&quot;, body=error_string,
+            smtp = list(host.name=&quot;aspmx.l.google.com&quot;, port=25),
+            authenticate = FALSE, send=TRUE)
+  stop(&quot;assertr stopped execution&quot;, call.=FALSE)
+}
+
+questionable_mtcars %&gt;%
+  chain_start %&gt;%
+  verify(nrow(.) &gt; 10) %&gt;%
+  insist(within_n_sds(4), mpg) %&gt;%
+  # ...
+  chain_end(error_fun=email.me)
+</code></pre>
+
+<p>(this particular <code>send.mail</code> formulation will only work for gmail
+recipients; see the <code>mailR</code> documentation for more information)</p>
+
+<p>Now you&rsquo;ll get notified of <s>any</s> all failed assertions via email. Groovy!</p>
+
+<h4 id="advanced-creating-your-own-predicate-generators-for-insist">advanced: creating your own predicate generators for <code>insist</code></h4>
+
+<p><code>assertr</code> is build with robustness, correctness, and extensibility in mind.
+Just like <code>assertr</code> makes it easy to create your own custom predicates, so
+too does this package make it easy to create your own custom predicate
+generators.</p>
+
+<p>Okay&hellip; so its, perhaps, not <em>easy</em> because predicate generators by nature
+are functions that return functions. But it&rsquo;s possible!</p>
+
+<p>Let&rsquo;s say you wanted to create a predicate generator that checks if all
+elements of a vector are within 3 times the vector&rsquo;s interquartile range from
+the median. We need to create a function that looks like this</p>
+
+<pre><code class="language-r">within_3_iqrs &lt;- function(a_vector){
+  the_median &lt;- median(a_vector)
+  the_iqr &lt;- IQR(a_vector)
+  within_bounds((the_median-the_iqr*3), (the_median+the_iqr*3))
+}
+</code></pre>
+
+<p>Now, we can use it on <code>mpg</code> from <code>mtcars</code> like so:</p>
+
+<pre><code class="language-r">mtcars %&gt;%
+  insist(within_3_iqrs, mpg) %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+#&gt; # A tibble: 3 x 2
+#&gt;     cyl  avg.mpg
+#&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1     4 26.66364
+#&gt; 2     6 19.74286
+#&gt; 3     8 15.10000
+</code></pre>
+
+<p>There are two problems with this, though&hellip;</p>
+
+<ol>
+<li>We may want to abstract this so that we can supply an arbitrary number
+of IQRs to create the bounds with</li>
+<li>We lose the ability to choose what optional arguments (if any) that we
+give to the returned <code>within_bounds</code> predicate.</li>
+</ol>
+
+<p>Now we have to write a function that returns a function that returns
+a function&hellip;</p>
+
+<pre><code class="language-r">within_n_iqrs &lt;- function(n, ...){
+  function(a_vector){
+    the_median &lt;- median(a_vector)
+    the_iqr &lt;- IQR(a_vector)
+    within_bounds((the_median-the_iqr*n), (the_median+the_iqr*n), ...)
+  }
+}
+</code></pre>
+
+<p>Much better! Now, if we want to check that every <code>mpg</code> from <code>mtcars</code> is
+within 5 IQRs of the median and <em>not allow NA values</em> we can do so like this:</p>
+
+<pre><code class="language-r">mtcars %&gt;%
+  insist(within_n_iqrs(5), mpg) %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+#&gt; # A tibble: 3 x 2
+#&gt;     cyl  avg.mpg
+#&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+#&gt; 1     4 26.66364
+#&gt; 2     6 19.74286
+#&gt; 3     8 15.10000
+</code></pre>
+
+<p>Super!</p>
+
+<h4 id="advanced-programming-with-assertion-functions">advanced: programming with assertion functions</h4>
+
+<p>These assertion functions use the <a href="https://rpubs.com/hadley/dplyr-programming">tidyeval</a> framework.  In the past,
+programming in a tidyverse-like setting was accomplished through
+standard evaluation versions of verbs, which used functions postfixed
+with an underscore: <code>insist_</code> instead of <code>insist</code>, for example.  However,
+when tidyeval was made popular with <code>dplyr</code> 0.7.0, this usage became deprecated,
+and therefore underscore-postfixed functions are no longer part of <code>assertr</code>.</p>
+
+<h3 id="citing">Citing</h3>
+
+<blockquote>
+<p>Tony Fischetti (2017). assertr: Assertive Programming for R Analysis Pipelines. R package version
+  2.0.2.2. <a href="https://cran.rstudio.com/package=assertr">https://cran.rstudio.com/package=assertr</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/assertr/issues?state=open">our GitHub repo for assertr</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

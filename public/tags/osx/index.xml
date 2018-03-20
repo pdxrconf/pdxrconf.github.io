@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Osx on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/osx/</link>
+    <description>Recent content in Osx on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 12 Jul 2016 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/osx/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Testing packages with R Travis for OS-X</title>
+      <link>https://ropensci.org/blog/2016/07/12/travis-osx/</link>
+      <pubDate>Tue, 12 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2016/07/12/travis-osx/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Travis is a continuous integration service which allows for running automated testing code everytime you push to GitHub. Hadley&amp;rsquo;s &lt;a href=&#34;http://r-pkgs.had.co.nz/check.html&#34;&gt;book&lt;/a&gt; about R packages explains how and why R package authors should take advantage of this in their development process.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-build-matrix&#34;&gt;The build matrix&lt;/h2&gt;
+
+&lt;p&gt;Travis is now providing support for &lt;a href=&#34;https://docs.travis-ci.com/user/multi-os/&#34;&gt;multiple operating systems&lt;/a&gt;, including Ubuntu 14.04 (Trusty) and various flavors of Mac OS-X. Jim Hester has done a great job of &lt;a href=&#34;https://github.com/travis-ci/travis-build/commits/master/lib/travis/build/script/r.rb&#34;&gt;tweaking&lt;/a&gt; the travis &lt;a href=&#34;https://github.com/travis-ci/travis-build/blob/master/lib/travis/build/script/r.rb&#34;&gt;R-language build script&lt;/a&gt; to automate building and checking of R packages on the various platforms.&lt;/p&gt;
+
+&lt;p&gt;Cross system testing is mainly useful to check packages with compiled code (i.e. C or C++) against various combinations of compiler versions, external libraries or system services. However any R package can easily be configured to take advantage of these features immediately. It is free and easy to setup!&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://travis-ci.org/rstats-db/RMySQL&#34;&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/travis.png&#34; alt=&#34;Travis Screenshot&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The R travis options are pretty well &lt;a href=&#34;https://docs.travis-ci.com/user/languages/r&#34;&gt;documented&lt;/a&gt;. The quickest way to get started is by borrowing a &lt;code&gt;.travis.yml&lt;/code&gt; configuration from another package. Below a few example packages with a multi-OS build matrix which illustrate various options:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://travis-ci.org/ropensci/jqr&#34;&gt;jqr&lt;/a&gt;: basic example with C code: &lt;a href=&#34;https://github.com/ropensci/jqr/blob/master/.travis.yml&#34;&gt;.travis.yml&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://travis-ci.org/jeroen/jsonlite&#34;&gt;jsonlite&lt;/a&gt;: also requires a custom Latex package (preprint): &lt;a href=&#34;https://github.com/jeroen/jsonlite/blob/master/.travis.yml&#34;&gt;.travis.yml&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://travis-ci.org/ropensci/pdftools&#34;&gt;pdftools&lt;/a&gt;: requires external library (libpoppler): &lt;a href=&#34;https://github.com/ropensci/pdftools/blob/master/.travis.yml&#34;&gt;.travis.yml&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://travis-ci.org/jeroen/curl&#34;&gt;curl&lt;/a&gt;: external library (libcurl) and custom options: &lt;a href=&#34;https://github.com/jeroen/curl/blob/master/.travis.yml&#34;&gt;.travis.yml&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://travis-ci.org/jeroen/sodium&#34;&gt;sodium&lt;/a&gt;: depends on an external library from a PPA. &lt;a href=&#34;https://github.com/jeroen/sodium/blob/master/.travis.yml&#34;&gt;.travis.yml&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://travis-ci.org/rstats-db/RMySQL&#34;&gt;RMySQL&lt;/a&gt;: package with unit-tests that require both mysql server and client library. Also checks alternative configurations with mariadb: &lt;a href=&#34;https://github.com/rstats-db/RMySQL/blob/master/.travis.yml&#34;&gt;.travis.yml&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;For extra credit also check out the &lt;a href=&#34;https://github.com/wesm/feather/blob/master/.travis.yml&#34;&gt;feather&lt;/a&gt; package which uses a single platform but has a very cool build matrix targeting multiple compilers with both the python and R interfaces.&lt;/p&gt;
+
+&lt;h2 id=&#34;systems-and-libraries&#34;&gt;Systems and Libraries&lt;/h2&gt;
+
+&lt;p&gt;Most configuration options can either be set within or outside the multi-system build matrix (the &lt;code&gt;include&lt;/code&gt; field in the yaml). Options which are set outside the matrix apply to each of the systems. If an option is both set within and outside the matrix the former overrides the latter.&lt;/p&gt;
+
+&lt;p&gt;The default system on Travis is currently still Ubuntu 12.04 (Precise). To build on Ubuntu 14.04 (Trusty) set the &lt;code&gt;dist&lt;/code&gt; and &lt;code&gt;sudo&lt;/code&gt; fields:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;os: linux
+dist: trusty
+sudo: required
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;sudo&lt;/code&gt; field is required to disable the docker environment which currently &lt;a href=&#34;https://docs.travis-ci.com/user/trusty-ci-environment/&#34;&gt;does not support&lt;/a&gt; Trusty yet. This &lt;a href=&#34;https://blog.rstudio.org/2016/03/09/r-on-travis-ci/&#34;&gt;blog post&lt;/a&gt; by RStudio has some more information about docker on Travis.&lt;/p&gt;
+
+&lt;p&gt;To build on OS-X set the &lt;code&gt;os&lt;/code&gt; and &lt;code&gt;osx_image&lt;/code&gt; fields:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;os: osx
+osx_image: xcode8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;osx_image&lt;/code&gt; field specifies which version of OS-X and X-code this system has. The Travis &lt;a href=&#34;https://docs.travis-ci.com/user/osx-ci-environment/&#34;&gt;OS-X manual&lt;/a&gt; lists which combinations are currently available.&lt;/p&gt;
+
+&lt;h2 id=&#34;homebrew&#34;&gt;Homebrew&lt;/h2&gt;
+
+&lt;p&gt;By default all OS-X images include a copy of homebrew. The &lt;code&gt;brew_packages&lt;/code&gt; field can be used to install brew packages before building and checking the R package, similar to &lt;code&gt;apt_packages&lt;/code&gt; on Linux. See &lt;a href=&#34;https://github.com/ropensci/pdftools/blob/master/.travis.yml&#34;&gt;pdftools&lt;/a&gt; or &lt;a href=&#34;https://github.com/jeroen/sodium/blob/master/.travis.yml&#34;&gt;sodium&lt;/a&gt; for examples.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;os: osx
+osx_image: xcode8
+brew_packages: poppler
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Set the &lt;code&gt;disable_homebrew&lt;/code&gt; option to specifically test on a system without brew. The following config simulates the CRAN mac-builder machine which runs OS-X Mavericks 10.9:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;os: osx
+osx_image: beta-xcode6.1
+disable_homebrew: true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;additional-os-x-options&#34;&gt;Additional OS-X options&lt;/h2&gt;
+
+&lt;p&gt;Besides the version of OS-X and brew packages there are some additional options to customize the config. For example we can customize if Latex should be installed (defaults to true). Latex is huge and annoying so R packages that do not include pdf vignettes can significantly speed up the build process by disabling this.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;latex: false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When latex is disabled &lt;code&gt;R CMD check&lt;/code&gt; automatically runs with &lt;code&gt;--no-manual&lt;/code&gt; to prevent check from failing to build the PDF manual. And while we&amp;rsquo;re add it, to set additional custom &lt;code&gt;R CMD build&lt;/code&gt; and &lt;code&gt;R CMD check&lt;/code&gt; parameters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;r_build_args: &#39;--no-build-vignettes&#39;
+r_check_args: &#39;--ignore-vignettes --no-examples&#39;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;a href=&#34;https://github.com/jeroen/curl/blob/master/.travis.yml&#34;&gt;curl&lt;/a&gt; config has a real world example. Finally you can put almost anything in the before and after install scripts. Use the &lt;code&gt;TRAVIS_OS_NAME&lt;/code&gt; environment variable to run something only on OSX or Linux. An example from &lt;a href=&#34;https://github.com/jeroen/jsonlite/blob/master/.travis.yml&#34;&gt;jsonlite&lt;/a&gt; which installs a custom Latex package:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;before_install:
+  - if [ &amp;quot;${TRAVIS_OS_NAME}&amp;quot; == &amp;quot;osx&amp;quot; ]; then sudo tlmgr install preprint; fi
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Travis R &lt;a href=&#34;https://docs.travis-ci.com/user/languages/r&#34;&gt;documentation&lt;/a&gt; has some more options.&lt;/p&gt;
+
+&lt;p&gt;Big thanks to Jim Hester and Craig Citro who have done all this amazing work to get R to work on Travis!&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

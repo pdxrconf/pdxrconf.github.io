@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | treebase tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>treebase tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.0-7.1</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p>Here are a few introductory examples to illustrate some of the functionality of the package. Thanks in part to new data deposition requirements at journals such as Evolution, Am Nat, and Sys Bio, and
+data management plan requirements from NSF, I hope the package will become increasingly useful for teaching by replicating results and for meta-analyses that can be automatically updated as the repository grows. Additional information and bug-reports welcome via the <a href="http://ropensci.org/packages/treebase.html#support">treebase page</a>.</p>
+
+<p><section id="installation"></p>
+
+<h2 id="installation">Installation</h2>
+
+<pre><code class="language-r">install.packages('treebase')
+</code></pre>
+
+<pre><code class="language-r">library(treebase)
+</code></pre>
+
+<p><section id="usage"></p>
+
+<h2 id="usage">Usage</h2>
+
+<h1 id="basic-tree-and-metadata-queries">Basic tree and metadata queries</h1>
+
+<p>Downloading trees by different queries: by author, taxa, &amp; study. More options are described in the help file.</p>
+
+<pre><code class="language-r">both &lt;- search_treebase(&quot;Ronquist or Hulesenbeck&quot;, by=c(&quot;author&quot;, &quot;author&quot;))
+dolphins &lt;- search_treebase('&quot;Delphinus&quot;', by=&quot;taxon&quot;, max_trees=5)
+studies &lt;- search_treebase(&quot;2377&quot;, by=&quot;id.study&quot;)
+</code></pre>
+
+<pre><code class="language-r">Near &lt;- search_treebase(&quot;Near&quot;, &quot;author&quot;, branch_lengths=TRUE, max_trees=3)
+Near[1]
+</code></pre>
+
+<pre><code>[[1]]
+
+Phylogenetic tree with 19 tips and 6 internal nodes.
+
+Tip labels:
+	Etheostoma_barrenense_A, Etheostoma_rafinesquei_B, Etheostoma_atripinne_A, Etheostoma_atripinne_D, Etheostoma_atripinne_P, Etheostoma_orientale_H, ...
+
+Unrooted; includes branch lengths.
+</code></pre>
+
+<p>We can query the metadata record directly. For instance, plot the growth of Treebase submissions by publication date</p>
+
+<pre><code class="language-r">all &lt;- download_metadata(&quot;&quot;, by=&quot;all&quot;)
+dates &lt;- sapply(all, function(x) as.numeric(x$date))
+library(ggplot2)
+qplot(dates, main=&quot;Treebase growth&quot;, xlab=&quot;Year&quot;, binwidth=.5)
+</code></pre>
+
+<p>(The previous query could also take a date range)</p>
+
+<p>How do the weekly&rsquo;s do on submissions to Treebase? We construct this in a way that gives us back the indices of the matches, so we can then grab those trees directly. Run the scripts yourself to see if they&rsquo;ve changed!</p>
+
+<pre><code class="language-r">nature &lt;- sapply(all, function(x) length(grep(&quot;Nature&quot;, x$publisher))&gt;0)
+science &lt;- sapply(all, function(x) length(grep(&quot;^Science$&quot;, x$publisher))&gt;0)
+sum(nature)
+sum(science)
+</code></pre>
+
+<h2 id="replicating-results">Replicating results</h2>
+
+<p>A nice paper by Derryberry et al. appeared in Evolution recently on <a href="http://www.museum.lsu.edu/brumfield/pubs/furnphylogeny2011.pdf">diversification in ovenbirds and woodcreepers, 0.1111/j.1558-5646.2011.01374.x</a>. The article mentions that the tree is on Treebase, so let&rsquo;s see if we can replicate their diversification rate analysis: Let&rsquo;s grab the trees by that author and make sure we have the right one:</p>
+
+<pre><code class="language-r">search_treebase(&quot;Derryberry&quot;, &quot;author&quot;)[[1]] -&gt; tree
+plot(tree)
+</code></pre>
+
+<p><img src="../assets/tutorial-images/treebase/unnamed-chunk-3.png" alt="plot of chunk unnamed-chunk-3" /></p>
+
+<p>They fit a variety of diversification rate models avialable in the <code>laser</code> R package, which they compare using AIC.</p>
+
+<pre><code class="language-r">install.packages(&quot;laser&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(laser)
+tt &lt;- branching.times(tree)
+models &lt;-  list(pb = pureBirth(tt),
+                bdfit = bd(tt),
+                y2r = yule2rate(tt), # yule model with single shift pt
+                ddl = DDL(tt), # linear, diversity-dependent
+                ddx = DDX(tt), #exponential diversity-dendent
+                sv = fitSPVAR(tt), # vary speciation in time
+                ev = fitEXVAR(tt), # vary extinction in time
+                bv = fitBOTHVAR(tt)# vary both
+                )
+names(models[[3]])[5] &lt;- &quot;aic&quot;
+aics &lt;- sapply(models, &quot;[[&quot;, &quot;aic&quot;)
+# show the winning model
+models[which.min(aics)]
+</code></pre>
+
+<pre><code>$y2r
+        LH         r1         r2        st1        aic
+ 229.26699   18.31627    4.07539    0.01006 -452.53398
+</code></pre>
+
+<p>Yup, their result agrees with our analysis. Using the extensive toolset for diversification rates in R, we could now rather easily check if these results hold up in newer methods such as TreePar, etc.</p>
+
+<h2 id="meta-analysis">Meta-Analysis</h2>
+
+<p>Of course one of the more interesting challenges of having an automated interface is the ability to perform meta-analyses across the set of available phylogenies in treebase. As a simple proof-of-principle, let&rsquo;s check all the phylogenies in treebase to see if they fit a birth-death model or yule model better.</p>
+
+<p>We&rsquo;ll create two simple functions to help with this analysis. While these can be provided by the treebase package, I&rsquo;ve included them here to illustrate that the real flexibility comes from being able to create custom functions(These are primarily illustrative; I hope users and developers will create their own. In a proper analysis we would want a few additional checks.)</p>
+
+<pre><code class="language-r">timetree &lt;- function(tree){
+    check.na &lt;- try(sum(is.na(tree$edge.length))&gt;0)
+    if(is(check.na, &quot;try-error&quot;) | check.na)
+      NULL
+    else
+    try( chronoMPL(multi2di(tree)) )
+}
+drop_errors &lt;- function(tr){
+  tt &lt;- tr[!sapply(tr, is.null)]
+  tt &lt;- tt[!sapply(tt, function(x) is(x, &quot;try-error&quot;))]
+  print(paste(&quot;dropped&quot;, length(tr)-length(tt), &quot;trees&quot;))
+  tt
+}
+require(laser)
+pick_branching_model &lt;- function(tree){
+  m1 &lt;- try(pureBirth(branching.times(tree)))
+  m2 &lt;- try(bd(branching.times(tree)))
+  as.logical(try(m2$aic &lt; m1$aic))
+}
+</code></pre>
+
+<p>Return only treebase trees that have branch lengths. This has to download every tree in treebase, so this will take a while. Good thing we don&rsquo;t have to do that by hand.</p>
+
+<pre><code class="language-r">all &lt;- search_treebase(&quot;Consensus&quot;, &quot;type.tree&quot;, branch_lengths=TRUE)
+tt &lt;- drop_errors(sapply(all, timetree))
+is_yule &lt;- sapply(tt, pick_branching_model)
+table(is_yule)
+</code></pre>
+
+<p><em>Note: The output is not shown, but do run on your own!</em></p>
+
+<p><section id="citing"></p>
+
+<h2 id="citing">Citing</h2>
+
+<p>To cite <code>treebase</code> in publications use:</p>
+
+<p><br></p>
+
+<blockquote>
+<p>Carl Boettiger and Duncan Temple Lang (2011). treebase: An R package for discovery, access and manipulation of online phylogenies. R package version 0.0-7.1. <a href="https://github.com/ropensci/treebase">https://github.com/ropensci/treebase</a></p>
+</blockquote>
+
+<p><section id="license_bugs"></p>
+
+<h2 id="license-and-bugs">License and bugs</h2>
+
+<ul>
+<li>License: <a href="http://creativecommons.org/choose/zero/">CC0</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/treebase/issues?state=open">our Github repo for treebase</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

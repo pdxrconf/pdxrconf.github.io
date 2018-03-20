@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | crul - an HTTP client</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article class="blog-post">
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h1 style="text-align: center;">crul - an HTTP client</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        &nbsp;
+                        
+                          <a href="/about/#team">Scott Chamberlain</a> 
+                        
+                        
+                        &nbsp; |
+                    
+                    <small style="color: #5B617A; margin-left: 10px;"> NOVEMBER 9, 2016</small>
+                </p>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+                
+
+<p>A new package <a href="https://cran.rstudio.com/web/packages/crul">crul</a> is
+on CRAN. <code>crul</code> is another HTTP client for R, but is relatively simplified
+compared to <a href="https://github.com/hadley/httr">httr</a>, and is being built
+to link closely with <a href="https://github.com/ropenscilabs/webmockr">webmockr</a> and <a href="https://github.com/ropenscilabs/vcr">vcr</a>. <code>webmockr</code> and
+<code>vcr</code> are packages ported from Ruby&rsquo;s <a href="https://github.com/bblimke/webmock">webmock</a>
+and <a href="https://github.com/vcr/vcr">vcr</a>, respectively.
+They both make mocking HTTP requests really easy.</p>
+
+<p>A major use case for mocking HTTP requests is for unit tests. Nearly all the
+packages I work on personally make HTTP
+requests in their test suites, so I wanted to make it really easy to
+mock HTTP requests. You don&rsquo;t have to use mocking in test suites of course.</p>
+
+<p><code>crul</code> is not meant to replace other HTTP R libraries, but rather to make it
+easy to integrate mocking.</p>
+
+<h2 id="installation">Installation</h2>
+
+<pre><code class="language-r">install.packages(&quot;crul&quot;)
+</code></pre>
+
+<p>If binaries aren&rsquo;t available, try from source:
+<code>install.packages(&quot;crul&quot;, type = &quot;source&quot;)</code> or from GitHub:
+<code>devtools::install_github(&quot;ropenscilabs/crul&quot;)</code></p>
+
+<pre><code class="language-r">library(crul)
+</code></pre>
+
+<h2 id="the-client">The client</h2>
+
+<p><code>HttpClient</code> is where to start</p>
+
+<pre><code class="language-r">(x &lt;- HttpClient$new(
+  url = &quot;https://httpbin.org&quot;,
+  opts = list(
+    timeout = 1
+  ),
+  headers = list(
+    a = &quot;hello world&quot;
+  )
+))
+#&gt; &lt;crul connection&gt;
+#&gt;   url: https://httpbin.org
+#&gt;   options:
+#&gt;     timeout: 1
+#&gt;   headers:
+#&gt;     a: hello world
+</code></pre>
+
+<p>Makes a R6 class, that has all the bits and bobs you&rsquo;d expect for doing HTTP
+requests. When it prints, it gives any defaults you&rsquo;ve set. As you update
+the object you can see what&rsquo;s been set</p>
+
+<pre><code class="language-r">x$opts
+#&gt; $timeout
+#&gt; [1] 1
+</code></pre>
+
+<pre><code class="language-r">x$headers
+#&gt; $a
+#&gt; [1] &quot;hello world&quot;
+</code></pre>
+
+<h2 id="make-a-request">Make a request</h2>
+
+<p>The client object created above has http methods that you can call,
+and pass paths to, as well as query parameters, body values, and any other
+curl options.</p>
+
+<p>Here, we&rsquo;ll do a <strong>GET</strong> request on the route <code>/get</code> on our base url
+<code>https://httpbin.org</code> (the full url is then <code>https://httpbin.org/get</code>)</p>
+
+<pre><code class="language-r">res &lt;- x$get(&quot;get&quot;)
+</code></pre>
+
+<p>The response from a http request is another R6 class <code>HttpResponse</code>, which
+has slots for the outputs of the request, and some functions to deal with
+the response:</p>
+
+<p>Status code</p>
+
+<pre><code class="language-r">res$status_code
+#&gt; [1] 200
+</code></pre>
+
+<p>Status code with the message and explanation</p>
+
+<pre><code class="language-r">res$status_http()
+#&gt; &lt;Status code: 200&gt;
+#&gt;   Message: OK
+#&gt;   Explanation: Request fulfilled, document follows
+</code></pre>
+
+<p>The content</p>
+
+<pre><code class="language-r">res$content
+#&gt;   [1] 7b 0a 20 20 22 61 72 67 73 22 3a 20 7b 7d 2c 20 0a 20 20 22 68 65 61
+#&gt;  [24] 64 65 72 73 22 3a 20 7b 0a 20 20 20 20 22 41 22 3a 20 22 68 65 6c 6c
+#&gt;  [47] 6f 20 77 6f 72 6c 64 22 2c 20 0a 20 20 20 20 22 41 63 63 65 70 74 22
+#&gt;  [70] 3a 20 22 2a 2f 2a 22 2c 20 0a 20 20 20 20 22 41 63 63 65 70 74 2d 45
+#&gt;  [93] 6e 63 6f 64 69 6e 67 22 3a 20 22 67 7a 69 70 2c 20 64 65 66 6c 61 74
+#&gt; [116] 65 22 2c 20 0a 20 20 20 20 22 48 6f 73 74 22 3a 20 22 68 74 74 70 62
+#&gt; [139] 69 6e 2e 6f 72 67 22 2c 20 0a 20 20 20 20 22 55 73 65 72 2d 41 67 65
+#&gt; [162] 6e 74 22 3a 20 22 6c 69 62 63 75 72 6c 2f 37 2e 34 39 2e 31 20 72 2d
+#&gt; [185] 63 75 72 6c 2f 32 2e 32 20 63 72 75 6c 2f 30 2e 31 2e 30 22 0a 20 20
+#&gt; [208] 7d 2c 20 0a 20 20 22 6f 72 69 67 69 6e 22 3a 20 22 31 35 37 2e 31 33
+#&gt; [231] 30 2e 31 37 39 2e 38 36 22 2c 20 0a 20 20 22 75 72 6c 22 3a 20 22 68
+#&gt; [254] 74 74 70 73 3a 2f 2f 68 74 74 70 62 69 6e 2e 6f 72 67 2f 67 65 74 22
+#&gt; [277] 0a 7d 0a
+</code></pre>
+
+<p>HTTP method</p>
+
+<pre><code class="language-r">res$method
+#&gt; [1] &quot;get&quot;
+</code></pre>
+
+<p>Request headers</p>
+
+<pre><code class="language-r">res$request_headers
+#&gt; $a
+#&gt; [1] &quot;hello world&quot;
+</code></pre>
+
+<p>Response headers</p>
+
+<pre><code class="language-r">res$response_headers
+#&gt; [1] &quot;HTTP/1.1 200 OK&quot;
+#&gt; [2] &quot;Server: nginx&quot;
+#&gt; [3] &quot;Date: Wed, 09 Nov 2016 19:25:14 GMT&quot;
+#&gt; [4] &quot;Content-Type: application/json&quot;
+#&gt; [5] &quot;Content-Length: 279&quot;
+#&gt; [6] &quot;Connection: keep-alive&quot;
+#&gt; [7] &quot;Access-Control-Allow-Origin: *&quot;
+#&gt; [8] &quot;Access-Control-Allow-Credentials: true&quot;
+</code></pre>
+
+<p>And you can parse the content with a provided function:</p>
+
+<pre><code class="language-r">res$parse()
+#&gt; [1] &quot;{\n  \&quot;args\&quot;: {}, \n  \&quot;headers\&quot;: {\n    \&quot;A\&quot;: \&quot;hello world\&quot;, \n    \&quot;Accept\&quot;: \&quot;*/*\&quot;, \n    \&quot;Accept-Encoding\&quot;: \&quot;gzip, deflate\&quot;, \n    \&quot;Host\&quot;: \&quot;httpbin.org\&quot;, \n    \&quot;User-Agent\&quot;: \&quot;libcurl/7.49.1 r-curl/2.2 crul/0.1.0\&quot;\n  }, \n  \&quot;origin\&quot;: \&quot;157.130.179.86\&quot;, \n  \&quot;url\&quot;: \&quot;https://httpbin.org/get\&quot;\n}\n&quot;
+</code></pre>
+
+<p>parse the JSON</p>
+
+<pre><code class="language-r">jsonlite::fromJSON(res$parse())
+#&gt; $args
+#&gt; named list()
+#&gt;
+#&gt; $headers
+#&gt; $headers$A
+#&gt; [1] &quot;hello world&quot;
+#&gt;
+#&gt; $headers$Accept
+#&gt; [1] &quot;*/*&quot;
+#&gt;
+#&gt; $headers$`Accept-Encoding`
+#&gt; [1] &quot;gzip, deflate&quot;
+#&gt;
+#&gt; $headers$Host
+#&gt; [1] &quot;httpbin.org&quot;
+#&gt;
+#&gt; $headers$`User-Agent`
+#&gt; [1] &quot;libcurl/7.49.1 r-curl/2.2 crul/0.1.0&quot;
+#&gt;
+#&gt;
+#&gt; $origin
+#&gt; [1] &quot;157.130.179.86&quot;
+#&gt;
+#&gt; $url
+#&gt; [1] &quot;https://httpbin.org/get&quot;
+</code></pre>
+
+<h2 id="future-work">Future work</h2>
+
+<h3 id="mocking">Mocking</h3>
+
+<p><code>crul</code> doesn&rsquo;t currently have mocking ability, but I am working right now on
+getting the first version of <a href="https://github.com/ropenscilabs/webmockr">webmockr</a> on
+CRAN. It will work together with <code>crul</code> so that when you use <code>crul</code> you can
+choose to turn on mocking, specify which patterns to match for mocking,
+and much more.  <code>webmockr</code> is built with plugin system in mind, so that we
+could make a plugin for <code>httr</code>, <code>RCurl</code>, or any other http R library.</p>
+
+<p>I actually started <code>vcr</code> first, but realized that I needed to go back and
+build <code>webmockr</code> first. So once <code>webmockr</code> is up on CRAN, I&rsquo;ll work on getting
+<code>vcr</code> on CRAN as well.</p>
+
+<h3 id="errors">Errors</h3>
+
+<p>Another package I&rsquo;ve been working on, <a href="https://github.com/sckott/fauxpas">fauxpas</a>, is meant to be a
+general purpose HTTP errors package, and work with any HTTP R library.
+Other similar languages like Ruby and Python have a better error story,
+and I thought I&rsquo;d try it out for R.  I&rsquo;ll work on incorporating <code>fauxpas</code>
+into <code>crul</code> as well, though probably in Suggests in case users don&rsquo;t want
+to use it.</p>
+
+            </div>
+            <br>
+
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reproducibleresearch on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/reproducibleresearch/</link>
+    <description>Recent content in Reproducibleresearch on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 03 Jun 2015 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/reproducibleresearch/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The challenge of combining 176 x &amp;#35;otherpeoplesdata to create the Biomass And Allometry Database</title>
+      <link>https://ropensci.org/blog/2015/06/03/baad/</link>
+      <pubDate>Wed, 03 Jun 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2015/06/03/baad/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Despite the hype around &amp;ldquo;big data&amp;rdquo;, a more immediate problem facing many scientific analyses is that large-scale databases must be assembled from a collection of small independent and heterogeneous fragments &amp;ndash; the outputs of many and isolated scientific studies conducted around the globe.&lt;/p&gt;
+
+&lt;p&gt;Collecting and compiling these fragments is challenging at both political and technical levels. The political challenge is to manage the carrots and sticks needed to promote sharing of data within the scientific community. The politics of data sharing have been the primary focus for debate over the last 5 years, but now that many journals and funding agencies are requiring data to be archived at the time of publication, the availability of these data fragments is increasing. But little progress has been made on the technical challenge: &lt;strong&gt;how can you combine a collection of independent fragments, each with its own peculiarities, into a single quality database?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Together with 92 other co-authors, we recently published the &lt;a href=&#34;https://github.com/dfalster/baad&#34;&gt;Biomass And Allometry Database (BAAD)&lt;/a&gt; as a &lt;a href=&#34;http://www.esapubs.org/archive/ecol/E096/128/&#34;&gt;data paper&lt;/a&gt; in the journal Ecology, combining data from 176 different scientific studies into a single unified database. We built BAAD for several reasons: i) we needed it for our own work ii) we perceived a strong need within the vegetation modelling community for such a database and iii) because it allowed us to road-test some new methods for building and maintaining a database &lt;sup&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:database&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:database&#34;&gt;0&lt;/a&gt;&lt;/sup&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;Until now, every other data compilation we are aware of has been assembled in the dark. By this we mean, end-users are provided with a finished product, but remain unaware of the diverse modifications that have been made to components in assembling the unified database. Thus users have limited insight into the quality of methods used, nor are they able to build on the compilation themselves.&lt;/p&gt;
+
+&lt;p&gt;The approach we took with BAAD is quite different: our database is built from raw inputs using scripts; plus the entire work-flow and history of modifications is available for users to inspect, run themselves and ultimately build upon. We believe this is a better way for managing lots of #otherpeoplesdata and so below share some of the key insights from our experience.&lt;/p&gt;
+
+&lt;h2 id=&#34;1-script-everything-and-rebuild-from-source&#34;&gt;1. Script everything and rebuild from source&lt;/h2&gt;
+
+&lt;p&gt;From the beginning of the project, we decided to script everything. We wanted the entire work-flow of transforming raw data files into a unified database to be completely scripted and able to be rerun at any point. When your work-flow is scripted, you can make a small change and then rebuild the database in an instant. Another reason for scripting is that it ensures all the modifications to the data are well documented. This simply isn&amp;rsquo;t possible in Excel. Looking at our code, you can see exactly how we modified the data to arrive at the end product.&lt;/p&gt;
+
+&lt;p&gt;The only potential cost of continually rebuilding the database is that the process of rebuilding can take time. In the end, the time taken to make all the transformations and combine all 176 studies was pretty minimal &amp;ndash; ~9 seconds all-up. But the job of continually rebuilding the database became a lot quicker once we started using &lt;a href=&#34;https://github.com/richfitz/remake&#34;&gt;remake&lt;/a&gt; &lt;sup&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:remake&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:remake&#34;&gt;0&lt;/a&gt;&lt;/sup&gt;&lt;/sup&gt;. Remake caches built objects (e.g. the transformed data from each study) and only rebuilds each of them if either the data or code generating that particular object has changed. So after the first longer run, rebuilding the entire database takes in the range of 1&amp;ndash;2 seconds.&lt;/p&gt;
+
+&lt;p&gt;Another advantage of constantly rebuilding is that we were forced to make our code more robust and portable, so that it would run safely on all the collaborators machines. Recently we took this one step further by setting up some automated builds, using a continuous integration system (&lt;a href=&#34;https://travis-ci.or&#34;&gt;Travis&lt;/a&gt;) that automatically rebuilds the database on a fresh remote virtual machine &lt;sup&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:TravisCI&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:TravisCI&#34;&gt;0&lt;/a&gt;&lt;/sup&gt;&lt;/sup&gt;. This approach allows us to detect undocumented dependencies or changes to dependencies that would prevent others rebuilding the database.&lt;/p&gt;
+
+&lt;p&gt;The current status of the BAAD is: &lt;a href=&#34;https://travis-ci.org/dfalster/baad&#34;&gt;&lt;img src=&#34;https://travis-ci.org/dfalster/baad.svg?branch=master&#34; alt=&#34;Build Status&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;2-establish-a-data-processing-pipeline&#34;&gt;2. Establish a data-processing pipeline&lt;/h2&gt;
+
+&lt;p&gt;The hashtag &lt;a href=&#34;https://twitter.com/search?q=%23otherpeoplesdata&#34;&gt;#otherpeoplesdata&lt;/a&gt; documents the challenge and frustrations of working with data that were curated by others. (We each have our own ways of preparing a dataset, but often the logic we bring to the problem cannot be inferred by others from the spreadsheet alone.) For us, the trick to working with large amounts of #otherpeoplesdata was to establish a solid processing pipeline, and then focus on getting every new study into that pipeline. Once in the pipeline, a common set of operations is applied (Figure 1). So the challenge for each new study was reduced from &amp;ldquo;transform into final output&amp;rdquo;, to &amp;ldquo;get it into the pipeline&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Figure 1:&lt;/strong&gt; Work flow for building the BAAD. Data from each study is processed in the same way, using a standardised set of input files, resulting in a single database with a common format.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2015-06-03-baad/stuff.png&#34; alt=&#34;baad figure 1&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The following principles were applied in establishing our processing pipeline.&lt;/p&gt;
+
+&lt;h3 id=&#34;don-t-modify-raw-data-files&#34;&gt;Don&amp;rsquo;t modify raw data files&lt;/h3&gt;
+
+&lt;p&gt;Raw data is holy. A back-of-the-envelope calculation suggests the data we are managing would cost millions to collect afresh. We decided early on that we would aim to keep the original files sent to us unchanged, as much as possible. In many cases it was necessary to export an Excel spreadsheet as a csv file, but beyond that, the file should be basically as it was provided. A limited number of actions were performed on raw data files such as (click on links for examples) &lt;a href=&#34;https://github.com/dfalster/baad/commit/7d10aede58080d83d59fe3be5043829b15f0236b&#34;&gt;incorporating an updated dataset from a contributor&lt;/a&gt;, or minor modifications allowing data
+to be loaded into R, including &lt;a href=&#34;https://github.com/dfalster/baad/commit/5bb9044e7e4b63ad2febca986ebf1e45f24cdd0e&#34;&gt;modifying line endings&lt;/a&gt; &lt;sup&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:line-endings&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:line-endings&#34;&gt;0&lt;/a&gt;&lt;/sup&gt;&lt;/sup&gt;, &lt;a href=&#34;https://github.com/dfalster/baad/commit/ec82e83d1b50f4e6bc2df2a780d2bb1684530652&#34;&gt;removing a string of trailing empty columns&lt;/a&gt;, &lt;a href=&#34;https://github.com/dfalster/baad/commit/d22bc1ee1db3870a7e281de22862eaa1ced4ddd1&#34;&gt;removing special characters causing R to crash&lt;/a&gt;, and &lt;a href=&#34;https://github.com/dfalster/baad/commit/4c83c70eb965bfd9c3b7c30f88312e646476836b&#34;&gt;making column names unique&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The types of operations that were not allowed include data-transformations and creation of new columns &amp;ndash; these were all handled in our pipeline.&lt;/p&gt;
+
+&lt;h3 id=&#34;encode-meta-data-as-data-not-as-code&#34;&gt;Encode meta-data as data, not as code&lt;/h3&gt;
+
+&lt;p&gt;In the early stages of our project, we encoded a lot of the changes we wanted to make to the data into our R scripts. For example, the code below is taken from &lt;a href=&#34;https://github.com/dfalster/baad/blob/912163bb371e280340dee2bb4cf872a1d7ede81b/R/makeCleanDataFiles.R&#34;&gt;early in the project&amp;rsquo;s history&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;	if(names[i]==&amp;quot;Kohyama1987&amp;quot;){
+		raw        &amp;lt;-  read.csv(paste(dir.rawData,&amp;quot;/&amp;quot;,names[i],&amp;quot;/data.csv&amp;quot;, sep=&#39;&#39;), h=T, stringsAsFactors=FALSE)
+		raw$SpecCode[raw$SpecCode==&#39;Cs&#39;]  &amp;lt;-  &amp;quot;Camellia sasanqua&amp;quot;
+		raw$SpecCode[raw$SpecCode==&#39;Cj&#39;]  &amp;lt;-  &amp;quot;Camellia japonia&amp;quot;
+		...
+		...
+		raw$leaf.mass  &amp;lt;-  raw$Wtl.g + raw$Wbl.g
+		raw$m.st       &amp;lt;-  raw$Wts.g + raw$Wbs.g
+		new[[i]]   &amp;lt;-  cbind(dataset=names[i], species=raw$SpecCode, raw[,c(5:8, 14:ncol(raw))], latitude=30.31667, longitude=130.4333, location=&amp;quot;Ohkou River, Yakushima Island, Kyushu, Japan&amp;quot;, reference=&amp;quot;Kohyama T (1987) Significance of architecture and allometry in saplings. Functional Ecology 1:399-404.&amp;quot;, growingCondition=&amp;quot;FW&amp;quot;, vegetation=&amp;quot;TempRf&amp;quot;, stringsAsFactors=FALSE)
+	}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The code above shows operations for a single study: loading raw data, making new columns, save the compiled object. The &lt;strong&gt;problem&lt;/strong&gt; with this code is that it mixes in a bunch of useful data with our R code. We had not yet identified a common pipeline for processing data. Eventually we moved all this extra data into their own &lt;em&gt;.csv&lt;/em&gt; files and treated them as we should, as data. We then use functions
+to modify the raw data, using the &lt;a href=&#34;http://nicercode.github.io/blog/2013-07-09-modifying-data-with-lookup-tables/&#34;&gt;new files as input&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Each study in the database was therefore required to have a standard set of files to enter the data-processing pipeline:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;data.csv&lt;/code&gt;: raw data table provided by authors.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dataMatchColumns.csv&lt;/code&gt;: for each column in &lt;code&gt;data.csv&lt;/code&gt;, provides units of the incoming variable, and the name of the variable onto which we want to map this data.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;dataNew.csv&lt;/code&gt;: allows for addition of any new data not present in &lt;code&gt;data.csv&lt;/code&gt;, or modification of existing values based on a find-and-replace logic.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;studyMetadata.csv&lt;/code&gt;: information about the methods used to collect the data.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;studyContact.csv&lt;/code&gt;: contacts and affiliations information for contributors.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;studyRef.bib&lt;/code&gt;: bibliographic record of primary source, in &lt;a href=&#34;https://en.wikipedia.org/wiki/Bibtex&#34;&gt;bibtex format&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Changes are then made using &lt;a href=&#34;http://nicercode.github.io/blog/2013-07-09-modifying-data-with-lookup-tables/&#34;&gt;lookup tables&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are several important benefits to this approach of separating code from data:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;it is highly scalable.&lt;/li&gt;
+&lt;li&gt;it separates data from code, so that potentially someone could replace the R code using the exact same data.&lt;/li&gt;
+&lt;li&gt;it drastically reduced the amount of R code needed.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;establish-a-formal-process-for-processing-and-reviewing-each-data-set&#34;&gt;Establish a formal process for processing and reviewing each data set&lt;/h3&gt;
+
+&lt;p&gt;We established a system for tracking the progress of each dataset entering BAAD&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Initial screening (basic meta-data extracted from paper).&lt;/li&gt;
+&lt;li&gt;Primary authors contacted (asking if they wish to contribute).&lt;/li&gt;
+&lt;li&gt;Initial response from authors (indicating interest or not).&lt;/li&gt;
+&lt;li&gt;Email sent requesting raw data from authors.&lt;/li&gt;
+&lt;li&gt;Raw data received from authors.&lt;/li&gt;
+&lt;li&gt;Data processed and entered into BAAD (we filled out as much of information as we could ourselves).&lt;/li&gt;
+&lt;li&gt;A review of data, including any queries, sent to authors for error checking.&lt;/li&gt;
+&lt;li&gt;Data approved.&lt;/li&gt;
+&lt;li&gt;Data excluded because of issues that arose (no response, not interested, could not locate data, data not suitable etc.).&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;At each stage we automated as much as possible. We used a script to generate emails in R based on information in our database, and made it as easy as possible for the contributors to fulfil their tasks and get back to us.&lt;/p&gt;
+
+&lt;p&gt;Step 7, where we inspected data for errors, was still time consuming. To make this easier for both us and original contributors, we used the package &lt;a href=&#34;http://cran.r-project.org/package=knitr&#34;&gt;knitr&lt;/a&gt; (using &lt;a href=&#34;https://github.com/dfalster/baad/blob/841c346d5c90181b47b0757994901fc520f5e4c6/reports/report.Rmd&#34;&gt;this Rmd template&lt;/a&gt;) to create a standardised report for each study. Each report includes a processed version of the data and metadata, including maps of study site locations and bivariate plots of all variables provided in this study, overlayed against the rest of the data from BAAD. The current set of reports can be viewed &lt;a href=&#34;https://github.com/dfalster/baad/wiki&#34;&gt;on our wiki&lt;/a&gt;, with one page for each study (&lt;a href=&#34;for example&#34;&gt;https://github.com/dfalster/baad/wiki/BondLamberty2002&lt;/a&gt;)&lt;/p&gt;
+
+&lt;p&gt;The generated reports are useful in two key ways: i) they provide a nice overview of the data contributed from any single study, and ii) they were invaluable in identifying errors (Figure 2).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Figure 2:&lt;/strong&gt; Example plot from report on &lt;a href=&#34;https://github.com/dfalster/baad/wiki/Kitazawa1959&#34;&gt;Kitazawa1959 dataset&lt;/a&gt;, showing how data from this study (red) is displaced from the rest of the dataset (grey). The problem was fixed in this &lt;a href=&#34;https://github.com/dfalster/baad/commit/220272b79ceb3aa792523b0c66629be0f23d4468&#34;&gt;commit by changing &lt;code&gt;cm&lt;/code&gt;  to &lt;code&gt;m&lt;/code&gt; as the unit description in the meatadata&lt;/a&gt; (i.e. we did not change the data itself but the transformation used in the processing pipeline).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2015-06-03-baad/plot.png&#34; alt=&#34;Figure: Example figure showing problematic data&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;3-use-version-control-git-to-track-changes-and-code-sharing-website-github-for-effective-collaboration&#34;&gt;3. Use version control (git) to track changes and code sharing website (github) for effective collaboration&lt;/h2&gt;
+
+&lt;p&gt;The BAAD project began in July 2012, in Feb 2013 Rich FitzJohn got involved and introduced us to version control. You can see the structure of our database at that time &lt;a href=&#34;https://github.com/dfalster/baad/tree/912163bb371e280340dee2bb4cf872a1d7ede81b&#34;&gt;here&lt;/a&gt;. We can&amp;rsquo;t recall that much about what happened prior 13 Feb 2013, but since that day, every single change to the BAAD has been recorded. We know who changed what lines of code or data and when. Many people have been extolling the virtues of git for managing computer code (e.g. &lt;a href=&#34;http://git-scm.com/book&#34;&gt;Chacon 2009&lt;/a&gt;), but others have noted that git is equally good for managing data (&lt;a href=&#34;http://doi.org/10.1186/1751-0473-8-7&#34;&gt;Ram et al 2013&lt;/a&gt;) &lt;sup&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:git-for-data&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:git-for-data&#34;&gt;0&lt;/a&gt;&lt;/sup&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;Alongside git, we used the code-sharing website &lt;a href=&#34;www.github.com&#34;&gt;Github&lt;/a&gt; to host our git repository. Github facilitates seamless collaboration by:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;syncing changes to scripts and data among collaborators.&lt;/li&gt;
+&lt;li&gt;allowing us track the &lt;a href=&#34;https://github.com/dfalster/baad/issues?q=is%3Aissue+is%3Aclosed&#34;&gt;many issues&lt;/a&gt; identified while reviewing data sets.&lt;/li&gt;
+&lt;li&gt;providing a nice interface for seeing who changed what and when.&lt;/li&gt;
+&lt;li&gt;allowing others to make changes to their data.&lt;/li&gt;
+&lt;li&gt;releasing compiled versions of the data.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;4-embrace-openness&#34;&gt;4. Embrace openness&lt;/h2&gt;
+
+&lt;p&gt;BAAD is far from the first compilation in our field, but as far we know, it possibly the first to be entirely open. By entirely open, we mean&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;the entire work flow, including its history, is open and transparent;&lt;/li&gt;
+&lt;li&gt;the raw data and meta-data are made available for others to reuse in new and different contexts;&lt;/li&gt;
+&lt;li&gt;the data is immediately available on the web, without need to register or login into a site, or submit a project approval.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Anyone can use the compiled data in whatever way they see fit. Our goal was to create a database that many scientists would immediately want to use, and that would therefore get cited.&lt;/p&gt;
+
+&lt;p&gt;Another concern was that the database would be sustainable. By making the entire process open and scripted, we are effectively allowing ourselves to step away from the project at some point in the future, if that&amp;rsquo;s what we want to do. Moreover, it allows future researchers who are out in the field collecting more raw data to contribute to the this existing unified database.&lt;/p&gt;
+
+&lt;h2 id=&#34;5-a-living-database&#34;&gt;5. A living database&lt;/h2&gt;
+
+&lt;p&gt;We hope that BAAD will continue to grow.  To that end, we have written a very small package &lt;a href=&#34;https://github.com/traitecoevo/baad.data&#34;&gt;baad.data&lt;/a&gt; for accessing data by version in &lt;code&gt;R&lt;/code&gt;.  After installing the package (instructions &lt;a href=&#34;https://github.com/traitecoevo/baad.data&#34;&gt;here&lt;/a&gt;), users can run&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(baad.data)
+x &amp;lt;- baad_data(&amp;quot;1.0.0&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;to download the version stored in Ecological Archives, or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;x &amp;lt;- baad_data(&amp;quot;x.y.z&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;to download an earlier or more recent version (where version numbers will follow the &lt;a href=&#34;http://semver.org&#34;&gt;semantic versioning&lt;/a&gt; guidelines, eg. &amp;ldquo;0.9.0&amp;rdquo;). The &lt;code&gt;baad.data&lt;/code&gt; package caches everything so subsequent calls, even across sessions, are very fast.  This should facilitate greater reproducibility by making it easy to depend on the version used for a particular analysis, and allowing different analyses to use different versions of the database.&lt;/p&gt;
+
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;We really hope that the techniques used in building BAAD will help others develop open and transparent compilations of #otherpeoplesdata. On that point, we conclude by thanking all our wonderful &lt;a href=&#34;http://www.esajournals.org/doi/abs/10.1890/14-1889.1&#34;&gt;co-authors&lt;/a&gt; who were willing to put their data out there for others to use.&lt;/p&gt;
+
+&lt;h3 id=&#34;footnotes&#34;&gt;Footnotes&lt;/h3&gt;
+
+&lt;p&gt;&lt;a id=&#34;database&#34;&gt;&lt;sup&gt;^1&lt;/sup&gt;&lt;/a&gt; BAAD is a database in the sense that it is an &lt;a href=&#34;http://en.wikipedia.org/wiki/Database&#34;&gt;organized collection of data&lt;/a&gt;, but we do not use common database tools like SQL or Microsoft Access etc. These are simply not needed and prevent other features like version control.&lt;/p&gt;
+
+&lt;p&gt;&lt;a id=&#34;remake&#34;&gt;&lt;sup&gt;^2&lt;/sup&gt;&lt;/a&gt; The package &lt;code&gt;remake&lt;/code&gt; was originally called maker and was introduced on &lt;a href=&#34;https://github.com/dfalster/baad/tree/82b0b1c832e9fcfd7c1d1e6cf42f7c8b97e5d323&#34;&gt;Nov 19 2014&lt;/a&gt;, relatively late in development of BAAD. Earlier we experimented we building a package &lt;a href=&#34;https://github.com/dfalster/dataMashR&#34;&gt;dataMashR&lt;/a&gt; to implement the conversions, but eventually settled on the remake work-flow. DataMashR lives on as a working prototype.&lt;/p&gt;
+
+&lt;p&gt;&lt;a id=&#34;TravisCI&#34;&gt;&lt;sup&gt;^3&lt;/sup&gt;&lt;/a&gt;  You can see the record of the automated &lt;a href=&#34;https://travis-ci.org/dfalster/baad/builds/&#34;&gt;builds here&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a id=&#34;line_endings&#34;&gt;&lt;sup&gt;^4&lt;/sup&gt;&lt;/a&gt; Excel makes a mess of line endings on Mac and has done for a long time - see &lt;a href=&#34;http://nicercode.github.io/blog/2013-04-30-excel-and-line-endings/&#34;&gt;here&lt;/a&gt; for our thoughts and an early solution.&lt;/p&gt;
+
+&lt;p&gt;&lt;a id=&#34;git_for_data&#34;&gt;&lt;sup&gt;^5&lt;/sup&gt;&lt;/a&gt; Provided the data is not too large. &lt;a href=&#34;https://help.github.com/articles/what-is-my-disk-quota/&#34;&gt;Github works&lt;/a&gt; with files &amp;lt; 100MB and for git repositories &amp;lt; 1GB. Although there are &lt;a href=&#34;https://help.github.com/articles/what-is-my-disk-quota/&#34;&gt;strategies for larger sizes&lt;/a&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Introducing Rocker: Docker for R</title>
+      <link>https://ropensci.org/blog/2014/10/23/introducing-rocker/</link>
+      <pubDate>Thu, 23 Oct 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2014/10/23/introducing-rocker/</guid>
+      <description>
+        
+        
+
+&lt;blockquote&gt;
+&lt;p&gt;You only know two things about Docker. First, it uses Linux
+containers. Second, the Internet won&amp;rsquo;t shut up about it.&lt;/p&gt;
+
+&lt;p&gt;&amp;ndash; attributed to Solomon Hykes, Docker CEO&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&#34;so-what-is-docker&#34;&gt;So what is Docker?&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.docker.com&#34;&gt;Docker&lt;/a&gt; is a relatively new &lt;a href=&#34;https://github.com/docker/docker/tree/master/LICENSE&#34;&gt;open
+source&lt;/a&gt; application
+and service, which is seeing interest across a number of areas. It
+uses recent Linux kernel features (containers, namespaces) to shield
+processes. While its use (superficially) resembles that of virtual
+machines, it is &lt;em&gt;much more lightweight&lt;/em&gt; as it operates at the level of a
+single process (rather than an emulation of an entire OS layer).  This also
+allows it to start almost instantly, require very little resources and
+hence permits an order of magnitude more deployments per host than a
+virtual machine.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://www.docker.com&#34;&gt;Docker&lt;/a&gt; offers a standard interface
+to creation, distribution and deployment. The &lt;em&gt;shipping
+container&lt;/em&gt; analogy is apt: just how shipping containers (via
+their standard size and &amp;ldquo;interface&amp;rdquo;) allow global trade to
+prosper, Docker is aiming for nothing less for deployment.  A
+&lt;a href=&#34;https://docs.docker.com/articles/dockerfile_best-practices/&#34;&gt;Dockerfile&lt;/a&gt;
+provides a concise, extensible, and executable description
+of the computational environment. Docker software then builds a
+&lt;a href=&#34;https://docs.docker.com/userguide/dockerimages/&#34;&gt;Docker image&lt;/a&gt;
+from the Dockerfile.  Docker images are analogous to virtual machine images,
+but smaller and built in discrete, extensible and reuseable layers. Images can be
+distributed and run on any machine that has Docker software
+installed&amp;mdash;including Windows, OS X and of course Linux. Running instances are called &lt;a href=&#34;https://docs.docker.com/userguide/usingdocker/&#34;&gt;Docker
+containers&lt;/a&gt;. A single
+machine can run hundreds of such containers, including multiple containers
+running the same image.&lt;/p&gt;
+
+&lt;p&gt;There are many good tutorials and introductory materials on &lt;a href=&#34;http://www.docker.com&#34;&gt;Docker&lt;/a&gt;
+on the web. The &lt;a href=&#34;https://www.docker.com/tryit/&#34;&gt;official online tutorial&lt;/a&gt; is a good place to
+start; this post can not go into more detail in order to remain short and introductory.&lt;/p&gt;
+
+&lt;h3 id=&#34;so-what-is-rocker&#34;&gt;So what is Rocker?&lt;/h3&gt;
+
+&lt;p&gt;&lt;img alt=&#34;rocker logo&#34;
+style=&#34;float:left;margin:10px 40px 10px 0;&#34;
+width=&#34;100&#34; height=&#34;100&#34;
+src=&#34;https://en.gravatar.com/userimage/73204427/563567819bd642c7a9e3af9d8ddb7581.png?size=100&#34;/&gt;&lt;/p&gt;
+
+&lt;p&gt;At its core, Rocker is a project for running &lt;a href=&#34;http://www.r-project.org&#34;&gt;R&lt;/a&gt; using Docker
+containers. We provide a collection of Dockerfiles and pre-built Docker
+images that can be used and extended for many purposes.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/rocker-org/rocker&#34;&gt;Rocker&lt;/a&gt; is the the name of our
+&lt;a href=&#34;https://github.com/&#34;&gt;GitHub&lt;/a&gt; repository contained with the
+&lt;a href=&#34;https://github.com/rocker-org&#34;&gt;Rocker-Org&lt;/a&gt; GitHub organization.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://hub.docker.com/account/organizations/rocker/&#34;&gt;Rocker&lt;/a&gt; is also the
+name the account under which the automated builds at &lt;a href=&#34;http://www.docker.com&#34;&gt;Docker&lt;/a&gt; provide
+containers ready for download.&lt;/p&gt;
+
+&lt;h3 id=&#34;current-rocker-status&#34;&gt;Current Rocker Status&lt;/h3&gt;
+
+&lt;h4 id=&#34;core-rocker-containers&#34;&gt;Core Rocker Containers&lt;/h4&gt;
+
+&lt;p&gt;The Rocker project develops the following containers in the core Rocker repository&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://registry.hub.docker.com/u/rocker/r-base/&#34;&gt;r-base&lt;/a&gt; provides a base
+R container to build from&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://registry.hub.docker.com/u/rocker/r-devel/&#34;&gt;r-devel&lt;/a&gt; provides the
+basic R container, as well as a complete R-devel build based on current SVN
+sources of R&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://registry.hub.docker.com/u/rocker/rstudio/&#34;&gt;rstudio&lt;/a&gt; provides the
+base R container as well an
+&lt;a href=&#34;http://www.rstudio.com/products/rstudio/&#34;&gt;RStudio Server&lt;/a&gt; instance&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We have settled on these three core images after earlier work in repositories
+such as docker-debian-r and docker-ubuntu-r.&lt;/p&gt;
+
+&lt;h4 id=&#34;rocker-use-case-containers&#34;&gt;Rocker Use Case Containers&lt;/h4&gt;
+
+&lt;p&gt;Within the Rocker-org organization on GitHub, we are also working on&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://registry.hub.docker.com/u/rocker/hadleyverse/&#34;&gt;Hadleyverse&lt;/a&gt; which
+extends the rstudio container with a number of Hadley packages&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://registry.hub.docker.com/u/rocker/ropensci/&#34;&gt;rOpenSci&lt;/a&gt; which
+extends hadleyverse with a number of &lt;a href=&#34;http://ropensci.org/&#34;&gt;rOpenSci&lt;/a&gt; packages&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://registry.hub.docker.com/u/rocker/r-devel-san/&#34;&gt;r-devel-san&lt;/a&gt;
+provides an R-devel build for &amp;ldquo;Sanitizer&amp;rdquo; run-time diagnostics via a properly
+instrumented version of R-devel via a recent compiler build&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/rocker-org/rocker-versioned&#34;&gt;rocker-versioned&lt;/a&gt;
+aims to provided containers with &amp;lsquo;versioned&amp;rsquo; previous R releases and matching packages&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Other repositories will probably be added as new needs and opportunities are
+identified.&lt;/p&gt;
+
+&lt;h3 id=&#34;deprecation&#34;&gt;Deprecation&lt;/h3&gt;
+
+&lt;p&gt;The Rocker effort supersedes and replaces earlier work by Dirk (in the
+docker-debian-r and docker-ubuntu-r GitHub repositories) and Carl.  Please
+use the &lt;a href=&#34;https://github.com/rocker-org/rocker&#34;&gt;Rocker GitHub repo&lt;/a&gt; and
+&lt;a href=&#34;https://hub.docker.com/account/organizations/rocker/&#34;&gt;Rocker Containers from Docker.com&lt;/a&gt;
+going forward.&lt;/p&gt;
+
+&lt;h3 id=&#34;next-steps&#34;&gt;Next Steps&lt;/h3&gt;
+
+&lt;p&gt;We intend to follow-up with more posts detailing usage of both the source
+Dockerfiles and binary containers on different platforms.&lt;/p&gt;
+
+&lt;p&gt;Rocker containers are fully functional. We invite you to take them for a
+spin. Bug reports, comments, and suggestions are welcome; we suggest you use the
+&lt;a href=&#34;https://github.com/rocker-org/rocker/issues&#34;&gt;GitHub issue tracker&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;acknowledgments&#34;&gt;Acknowledgments&lt;/h3&gt;
+
+&lt;p&gt;We are very appreciative of all comments received by early adopters and
+testers. We also would like to thank RStudio for allowing us the
+redistribution of their RStudio Server binary.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Published concurrently at &lt;a href=&#34;http://ropensci.org/blog/&#34;&gt;rOpenSci blog&lt;/a&gt;
+and &lt;a href=&#34;http://dirk.eddelbuettel.com/blog&#34;&gt;Dirk&amp;rsquo;s blog&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Reproducible research is still a challenge</title>
+      <link>https://ropensci.org/blog/2014/06/09/reproducibility/</link>
+      <pubDate>Mon, 09 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2014/06/09/reproducibility/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Science is reportedly in the middle of a &lt;a href=&#34;http://theconversation.com/science-is-in-a-reproducibility-crisis-how-do-we-resolve-it-16998&#34;&gt;reproducibility crisis&lt;/a&gt;.  Reproducibility seems laudable and is frequently called for (e.g., &lt;a href=&#34;http://www.nature.com/nature/focus/reproducibility/&#34;&gt;nature&lt;/a&gt; and &lt;a href=&#34;http://www.sciencemag.org/content/334/6060/1226&#34;&gt;science&lt;/a&gt;).  In general the argument is that research that can be independently reproduced is more reliable than research that cannot be independently reproduced.  It is also worth noting that reproducing research is not solely a checking process, and it can provide useful jumping-off points for future research questions.  It is difficult to find a counter-argument to these claims, but arguing that reproducibility is laudable in general glosses over the fact that for each research group it is a significant amount of work to make their research (easily) reproducible for independent scientists.  While much of the attention has focused on &lt;a href=&#34;http://www.nature.com/nature/journal/v483/n7391/full/483531a.html&#34;&gt;entirely repeating laboratory experiments&lt;/a&gt;, there are many simpler forms of reproducibility including, for example, the ability to recompute analyses on known sets of data.&lt;/p&gt;
+
+&lt;p&gt;Different types of scientific research are inherently easier or harder to reproduce.  At one extreme is analytic mathematical research, which should in many cases allow for straightforward reproduction based on the equations in the manuscript.  At the other extreme are field-based studies, which may depend upon factors that are not under the control of the scientist. To use an extreme example, it will always be effectively impossible to entirely reproduce a before and after study of the effects of a hurricane.&lt;/p&gt;
+
+&lt;p&gt;The current frontier of reproducibility is somewhere between these two extreme examples, and the location of this frontier at any given time depends upon the set of tools available to researchers.  Open source software, cloud computing, data archiving, standardised biological materials, and widely available computing resources have all pushed this frontier to allow for the reproduction of &lt;em&gt;more types&lt;/em&gt; of research than was previously the case.   However, the  &lt;a href=&#34;http://theconversation.com/science-is-in-a-reproducibility-crisis-how-do-we-resolve-it-16998&#34;&gt;&amp;ldquo;reproducibility crisis&amp;rdquo;&lt;/a&gt; rhetoric suggests that the current set of tools, while substantial, has not completely solved the problem.&lt;/p&gt;
+
+&lt;p&gt;We recently worked on a project &amp;ndash; a moderately complex analysis of a moderately sized database (&lt;a href=&#34;https://datadryad.org/resource/doi:10.5061/dryad.63q27&#34;&gt;49061 rows&lt;/a&gt;) &amp;ndash; that we treated as an experiment to determine what it would take to make it fully reproducible. (This was to answer a very simple research question: &lt;a href=&#34;http://onlinelibrary.wiley.com/doi/10.1111/1365-2745.12260/abstract&#34;&gt;what proportion of the world&amp;rsquo;s plant species are woody?&lt;/a&gt;.) Our specific experiences in trying to make this research reproducible may be useful for the on-going discussion of how to allow scientists with less time and fewer technical skills than we had available to make their research reproducible.  In other words, how do we usefully move the &amp;ldquo;frontier of reproducibility&amp;rdquo; to include more types of studies and in doing so make more science more reliable.&lt;/p&gt;
+
+&lt;p&gt;In the end, our analysis and paper have been reproduced independently and it is relatively easy for anyone who wants to do so, but &lt;em&gt;implementing&lt;/em&gt; this level of reproducibility was not without considerable effort.  For those interested, the entirety of our the code and documentation is available &lt;a href=&#34;https://github.com/richfitz/wood&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;There are two parts to the reproducibility of a project such as this: the data and the analysis. We should note that the fact that this project was even possible is due to the &lt;a href=&#34;http://en.wikipedia.org/wiki/Scientific_data_archiving&#34;&gt;recent developments in data archiving&lt;/a&gt;.  It was relatively straightforward to write a script that downloads the main data from &lt;a href=&#34;http://datadryad.org/&#34;&gt;Dryad&lt;/a&gt; and prepare it for analysis.  However, this proved to be only the beginning of the challenge: the analysis portion turned out to be much more challenging.  The following is essentially a list of lessons learned from that experience.  Each point below details one of the challenges we faced in making our research reproducible and the tool we chose to address that challenge.&lt;/p&gt;
+
+&lt;h2 id=&#34;challenges-and-tools-for-reproducibility&#34;&gt;Challenges and tools for reproducibility&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Using canonical data sources&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We downloaded data from canonical sources (&lt;a href=&#34;http://datadryad.org&#34;&gt;Dryad&lt;/a&gt; and &lt;a href=&#34;http://theplantlist.org&#34;&gt;The Plant List&lt;/a&gt;) and only modified them programmatically, so that the chain of modification was preserved.  The benefits of open data will only be realised if we preserve identity of data sets and do not end up re-archiving hundreds of slightly modified versions.  This also helps ensure credit for data contributors.  However, issues such as taxonomic standardisation remain a real stumbling block for ecological data reuse.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Combining thoughts and code&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We used &lt;a href=&#34;http://yihui.name/knitr/&#34;&gt;knitr&lt;/a&gt; to implement the analysis in a &lt;a href=&#34;http://en.wikipedia.org/wiki/Literate_programming&#34;&gt;literate programming&lt;/a&gt; style.  The entire analysis, including justification of the core functions, is &lt;a href=&#34;http://richfitz.github.io/wood/wood.html&#34;&gt;available to interested people&lt;/a&gt;.  However, working with blocks of ugly data-wrangling code, or with long-running calculations, remains a challenge.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Dynamic generation of figures&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;All of our data manipulation was handled with scripts, and we could delete all figures/outputs and recreate them at will.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Automated caching of dependencies&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We used &lt;a href=&#34;http://en.wikipedia.org/wiki/Make_%28software%29&#34;&gt;make&lt;/a&gt; to document dependencies within components of the projects, rebuilding only the sections that required changing.  This also makes the build process somewhat self documenting.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Version control&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;All of our scripts were under version control using &lt;a href=&#34;http://git-scm.com&#34;&gt;git&lt;/a&gt; from &lt;a href=&#34;https://github.com/richfitz/wood/commit/8ed0c8c10dfda2a8f11f169ec528b7e161832eeb&#34;&gt;the beginning&lt;/a&gt;, enabling us to dig back through old versions.  This was central to everything we did!  See &lt;a href=&#34;http://www.scfbm.org/content/8/1/7&#34;&gt;this article&lt;/a&gt; for much more on how version control facilitates research.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Automated checking that modifications don&amp;rsquo;t break things&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We used the &amp;ldquo;&lt;a href=&#34;http://en.wikipedia.org/wiki/Continuous_integration&#34;&gt;continuous integration&lt;/a&gt;&amp;rdquo; environment &lt;a href=&#34;http://travis-ci.org&#34;&gt;Travis CI&lt;/a&gt; to guard against changes in the analysis causing it to fail.  Every time we made a change, this system downloads the source code, all relevant data and runs the analysis, sending us an email if anything failed.  It even &lt;a href=&#34;http://richfitz.github.io/wood&#34;&gt;uploads the compiled versions of the analysis and manuscript&lt;/a&gt; each time it runs.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Documenting dependencies&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We used &lt;a href=&#34;https://github.com/rstudio/packrat&#34;&gt;packrat&lt;/a&gt; for managing and archiving R package dependencies to ensure future repeatability.  In theory, this means that if software versions change enough to break our scripts, we have an archived set of packages that can be used.  This is a very new tool; only time will tell if this will work.&lt;/p&gt;
+
+&lt;h2 id=&#34;remaining-challenges&#34;&gt;Remaining challenges&lt;/h2&gt;
+
+&lt;p&gt;We found that moving from running analyses on one person&amp;rsquo;s computer (with their particular constellation of software locations) to another was difficult. For example, see &lt;a href=&#34;https://github.com/richfitz/wood/issues/1&#34;&gt;this issue&lt;/a&gt; for the trouble that we had running the analyses on our own computers, knowing the scope of the project.  It&amp;rsquo;s hard to anticipate all possible causes for confusion: one initial try at replication by &lt;a href=&#34;http://carlboettiger.info&#34;&gt;Carl Boettiger&lt;/a&gt; had &lt;a href=&#34;https://github.com/richfitz/wood/issues/12&#34;&gt;trouble&lt;/a&gt; due to incomplete documentation of required package versions.&lt;/p&gt;
+
+&lt;p&gt;The set of scripts that manages the above jobs is comparable in size to the actual analysis; this is a large overhead to place on researchers.  There are also many different languages and frameworks involved, increasing both the technical knowledge required and the chance that something will break.  Automating as much of this process as possible is essential for reproducibility to become standard practice.&lt;/p&gt;
+
+&lt;p&gt;The continuous integration approach has a huge potential to save headaches in managing computational research projects.  However, while our analysis acts as a proof-of-concept, it will be of limited general use: it requires that the project is open source (in a &lt;em&gt;public&lt;/em&gt; &lt;a href=&#34;https://github.com&#34;&gt;github&lt;/a&gt; repository), and that the analysis is relatively quick to run (under an hour).  These limitations are reasonable given that it is a free service, but they don&amp;rsquo;t match well with many research projects where development does not occur &amp;ldquo;in the open&amp;rdquo;, and where computation can take many hours or days.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;We found our reproducibility goals for this paper to be a useful exercise, and it forms the basis of &lt;a href=&#34;https://github.com/richfitz/modeladequacy&#34;&gt;ongoing research projects&lt;/a&gt;.  However, the process is far too complicated at the moment. It is not going to be enough to simply tell people to make their projects reproducible. We need to develop tools that are &lt;em&gt;at least&lt;/em&gt; as easy to use as version control before we can expect project reproducibility to become mainstream.&lt;/p&gt;
+
+&lt;p&gt;We don&amp;rsquo;t disagree with Titus Brown that &lt;a href=&#34;http://ivory.idyll.org/blog/2014-myths-of-computational-reproducibility.html&#34;&gt;partial reproducibility is better than nothing&lt;/a&gt; (50% of people making their work 50% reproducible would be better than 5% of people making their work 100% reproducible!).  However, we disagree with Titus in his contention that new tools are not needed. The current tools are very raw and too numerous to expect widespread adoption from scientists whose main aim is not reproducibility.  Given that reproducibility &lt;a href=&#34;http://software-carpentry.org/blog/2013/02/correctness-isnt-compelling.html&#34;&gt;isn&amp;rsquo;t compelling&lt;/a&gt;, we can&amp;rsquo;t expect people to pour their time into it just for some public greater good, especially if it comes with a large time cost.&lt;/p&gt;
+
+&lt;p&gt;Other efforts for this simple goal of recomputibility are not much more encouraging than ours.  A study in the &lt;a href=&#34;http://www.zoology.ubc.ca/~repro&#34;&gt;UBC Reproducibility Group&lt;/a&gt; found that they &lt;a href=&#34;http://onlinelibrary.wiley.com/doi/10.1111/j.1365-294X.2012.05754.x/abstract&#34;&gt;could not reproduce the results in 30%&lt;/a&gt; of published analyses using the population genetic package STRUCTURE, using the same data as provided by the authors.  In an even more trivial case, a &lt;a href=&#34;http://reproducibility.cs.arizona.edu/&#34;&gt;research group at Arizona University&lt;/a&gt; found that they could only &lt;em&gt;build&lt;/em&gt; about half of the published software that they could download, without even testing that the software did what it was intended to do (note that this study is currently &lt;a href=&#34;http://cs.brown.edu/~sk/Memos/Examining-Reproducibility/&#34;&gt;being reproduced!&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;The process of making our study reproducible reveals that we are only part of the way to making reproducible research broadly accessible to practicing scientists.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>dvn - Sharing Reproducible Research from R</title>
+      <link>https://ropensci.org/blog/2014/02/20/dvn-dataverse-network/</link>
+      <pubDate>Thu, 20 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2014/02/20/dvn-dataverse-network/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Reproducible research involves the careful, annotated preservation of data, analysis code, and associated files, such that statistical procedures, output, and published results can be directly and fully replicated. As the push for reproducible research has grown, the R community has responded with an increasingly large set of tools for engaging in reproducible research practices (see, for example, the &lt;a href=&#34;http://cran.r-project.org/web/views/ReproducibleResearch.html&#34;&gt;ReproducibleResearch Task View&lt;/a&gt; on CRAN). Most of these tools focus on improving one&amp;rsquo;s own workflow through closer integration of data analysis and report generation. But reproducible research also requires the persistent - and perhaps indefinite - storage of research files so that they can be used to recreate or modify future analyses and reports.&lt;/p&gt;
+
+&lt;p&gt;It is therefore critical that R include functionality for the persistent storage of reproducible research files. And I&amp;rsquo;m pleased to announce here that the &lt;strong&gt;dvn&lt;/strong&gt; package (&lt;a href=&#34;http://cran.r-project.org/web/packages/dvn/index.html&#34;&gt;CRAN&lt;/a&gt;, &lt;a href=&#34;http://ropensci.org/dvn.html&#34;&gt;GitHub&lt;/a&gt;) has now been integrated into the rOpenSci project. &lt;strong&gt;dvn&lt;/strong&gt; provides simple, programmatic access to &lt;a href=&#34;http://thedata.org/&#34;&gt;The Dataverse Network Project&lt;/a&gt;, an open-source data archive project created by Harvard University&amp;rsquo;s &lt;a href=&#34;http://www.iq.harvard.edu/&#34;&gt;Institute for Quantitative Social Science&lt;/a&gt;. Full details about &lt;strong&gt;dvn&lt;/strong&gt; are forthcoming in &lt;a href=&#34;http://journal.r-project.org/&#34;&gt;The R Journal&lt;/a&gt;, and this post provides a basic overview of the package&amp;rsquo;s core functionality.&lt;/p&gt;
+
+&lt;p&gt;Note that rOpenSci has already created the rFigShare package (&lt;a href=&#34;http://cran.r-project.org/web/packages/rfigshare/index.html&#34;&gt;CRAN&lt;/a&gt;, &lt;a href=&#34;http://ropensci.org/rfigshare.html&#34;&gt;GitHub&lt;/a&gt;), which allows users to upload files to &lt;a href=&#34;http://figshare.com/&#34;&gt;fishare&lt;/a&gt;. Together, these packages give R users an array of tools to enhance the reproducible research workflow and extend it publicly and permanently for the benefit of future scientists.&lt;/p&gt;
+
+&lt;h2 id=&#34;installing-the-package&#34;&gt;Installing the package&lt;/h2&gt;
+
+&lt;p&gt;A stable version of the package (0.3.3) is now available on CRAN.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;install.packages(&amp;quot;dvn&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or you can install the latest development version from GitHub:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;devtools&amp;quot;)
+install_github(&amp;quot;ropensci/dvn&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;creating-a-dataverse-and-archiving-files&#34;&gt;Creating a dataverse and archiving files&lt;/h2&gt;
+
+&lt;p&gt;Creating a Dataverse Network account is simple. Just visit a Dataverse Network, such as &lt;a href=&#34;http://thedata.harvard.edu/dvn/&#34;&gt;The Harvard Dataverse Network&lt;/a&gt;, click &amp;ldquo;Create Account,&amp;rdquo; and open a personal dataverse. From there, one can easily create studies, populate them with metadata and files, and release them to the public.&lt;/p&gt;
+
+&lt;p&gt;To get started, simply load &lt;strong&gt;dvn&lt;/strong&gt;, pick a Dataverse Network (the one you created an account through), and load your username and password.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;dvn&amp;quot;)
+options(dvn = &#39;https://thedata.harvard.edu/dvn/&#39;)
+options(dvn.user = &amp;quot;username&amp;quot;)
+options(dvn.pwd = &amp;quot;password&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Creating a study requires supplying basic metadata that will allow users to find the study. At a minimum, this includes the title for the study, but many other fields are allowed (see &lt;code&gt;? dvBuildMetadata&lt;/code&gt;). The metadata need to be written in Dublin Core XML, so a helper function &lt;code&gt;dvBuildMetadata&lt;/code&gt; can be used to easily write metadata fields to an appropriate format:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;m &amp;lt;- dvBuildMetadata(title = &amp;quot;My Study&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This metadata can then be used to create a new study within a named dataverse. When you initially create an account, you only have a personal dataverse but you can also create additional dataverses (through the web interface) for specific projects or institutions. Thus &lt;code&gt;dvCreateStudy&lt;/code&gt; requires you to supply the name of the dataverse where you want to create a study:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;s &amp;lt;- dvCreateStudy(&amp;quot;mydataverse&amp;quot;, m)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Once a study is created, you simply need to add files, such as code, data, etc. using &lt;code&gt;dvAddFile&lt;/code&gt;. This can be done in a number of ways, including uploading all files in a .zip directory, uploading a vector of named files, or even uploading a dataframe that is currently open in R. An optional &lt;code&gt;category&lt;/code&gt; argument can be used to organize the uploaded files into categories.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# add files and release study using `objectid`
+dvAddFile(s, &amp;quot;mydata.zip&amp;quot;, category=&amp;quot;Data&amp;quot;)
+
+# or add multiple files:
+dvAddFile(s, c(&amp;quot;analysis1.R&amp;quot;, &amp;quot;analysis2.R&amp;quot;), category=&amp;quot;Code&amp;quot;)
+
+# or add R dataframes as files:
+mydf &amp;lt;- data.frame(x = 1:10, y = 11:20)
+dvAddFile(s, dataframe = &amp;quot;mydf&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With files uploaded, making the study publicly available is as easy as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dvReleaseStudy(s)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Before releasing a study, it is possible to add (&lt;code&gt;dvAddFile&lt;/code&gt;) or delete files (&lt;code&gt;dvDeleteFile&lt;/code&gt;) or change the metadata associated with the file using &lt;code&gt;dvEditStudy&lt;/code&gt;. You can also delete the entire study using &lt;code&gt;dvDeleteStudy&lt;/code&gt;. Once released, the study is version-controlled. Any changes made after a release put the study in &amp;ldquo;DRAFT&amp;rdquo; mode and the study needs to be released again for those changes to be publicly visible. A released study cannot be deleted but public access to its contents can be revoked using &lt;code&gt;dvDeleteStudy&lt;/code&gt; (its DOI will point to a page noting the study was deaccessioned).&lt;/p&gt;
+
+&lt;p&gt;At any point in the process, &lt;code&gt;dvStudyStatement&lt;/code&gt; can be used to retrieve a quick overview of the study&amp;rsquo;s status, metadata, and contents:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dvStudyStatement(&#39;hdl:1902.1/17864&#39;)
+Study author:  James Druckman (Northwestern University); Jordan Fein (Northwestern University); Thomas Leeper (Northwestern University)
+Study title:   Replication data for: A Source of Bias in Public Opinion Stability
+ObjectId:      hdl:1902.1/17864
+Study URI:     https://thedata.harvard.edu/dvn/api/data-deposit/v1/swordv2/edit/study/hdl:1902.1/17864
+Last updated:  2013-07-27T10:54:30.200Z
+Status:        RELEASED
+Locked?        false
+Files:
+  src
+1 https://thedata.harvard.edu/dvn/api/data-deposit/v1/swordv2/edit-media/file/2340116/Codebook2011-05-04.doc
+2 https://thedata.harvard.edu/dvn/api/data-deposit/v1/swordv2/edit-media/file/2309028/Data.tab
+3 https://thedata.harvard.edu/dvn/api/data-deposit/v1/swordv2/edit-media/file/2341890/Articles.doc
+4 https://thedata.harvard.edu/dvn/api/data-deposit/v1/swordv2/edit-media/file/2341891/Questionnaire.doc
+  type                      updated                  fileId
+1 application/msword        2014-02-19T10:18:53.486Z 2340116
+2 text/tab-separated-values 2014-02-19T10:18:53.487Z 2309028
+3 application/msword        2014-02-19T10:18:53.488Z 2341890
+4 application/msword        2014-02-19T10:18:53.489Z 2341891
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And &lt;code&gt;dvUserStudies&lt;/code&gt; can retrieve a listing of all studies in one&amp;rsquo;s dataverse:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dvUserStudies(&#39;leeper&#39;)
+DV Title:      Thomas J. Leeper
+DV name:       leeper
+Released?      true
+Generated by:  http://www.swordapp.org/ 2.0
+Studies:
+  title
+1 Possible R ingest bug
+2 Replication data for: A Source of Bias in Public Opinion Stability
+3 Replication data for: The Informational Basis for Mass Polarization
+4 Replication data for: Self-Interest and Attention to News among Issue Publics
+5 Replication data for: Learning More from Political Communication Experiments: The Importance of Pretreatment Effects
+6 Replication data for: Doing What Others Do:  Norms, Science, and Collective Action on Global Warming
+7 Consequences of Selective Exposure for Political Engagement
+  objectId
+1 hdl:1902.1/LNEOX
+2 hdl:1902.1/17864
+3 hdl:1902.1/21964
+4 hdl:1902.1/17863
+5 hdl:1902.1/17218
+6 hdl:1902.1/18249
+7 hdl:1902.1/17865
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;search-for-archived-studies&#34;&gt;Search for archived studies&lt;/h2&gt;
+
+&lt;p&gt;In addition to creating and managing dataverse studies, &lt;strong&gt;dvn&lt;/strong&gt; also allows users to search a Dataverse Network for existing studies and download metadata. We can search by a number of metadata fields (the allowed fields are retrievable via &lt;code&gt;dvSearchField&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# specify a Dataverse Network
+options(dvn = &#39;https://thedata.harvard.edu/dvn/&#39;)
+
+# search by author name
+dvSearch(list(authorName = &amp;quot;leeper&amp;quot;))
+
+# search by title using a boolean OR logic
+dvSearch(list(title = &amp;quot;Denmark&amp;quot;, title = &amp;quot;Sweden&amp;quot;), boolean = &amp;quot;OR&amp;quot;)
+
+# search all fields
+dvSearch(&amp;quot;Tobacco&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A search returns a list of &lt;code&gt;objectId&lt;/code&gt; values, handles or DOIs that provide a global pointer to a particular study. Using an &lt;code&gt;objectId&lt;/code&gt; one can gather detailed study metadata in Data Documentation Initiative format (the default), Dublin Core, or possibly other formats (the list is exanding). Here&amp;rsquo;s an example:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# return DDI (by default)
+dvMetadata(&amp;quot;hdl:1902.1/21964&amp;quot;)
+
+# return Dublic Core
+dvMetadata(&amp;quot;hdl:1902.1/21964&amp;quot;, format.type=&amp;quot;oai_dc&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In either case the result is an XML file, as a single character string. The metadata can be extensive, and are therefore better viewed outside of R. But a few wrapper functions allow one to view critical parts of the metadata, such the listing of files stored in a study:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;files &amp;lt;- dvExtractFileIds(dvMetadata(&amp;quot;hdl:1902.1/21964&amp;quot;))
+files[, c(&#39;fileName&#39;, &#39;fileId&#39;)]
+                          fileName  fileId
+1    study2-replication-analysis.r 2341713
+2    study1-replication-analysis.r 2341709
+3                      coefpaste.r 2341888
+4                     expResults.r 2341889
+5            Study 2 Codebook.docx 2341712
+6 study2-data-final-2012-06-08.csv 2341711
+7 study1-data-final-2012-06-08.csv 2341710
+8             Study 2 Webpages.zip 2341714
+9             Study 1 Webpages.zip 2341715
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Generally, files cannot be directly downloaded into R because of Terms of Use restrictions currently placed on studies. In the future this may change, so &lt;strong&gt;dvn&lt;/strong&gt; provides forward-compatible functions &lt;code&gt;dvDownloadInfo&lt;/code&gt; and &lt;code&gt;dvDownload&lt;/code&gt; to check whether files can be downloaded and to perform the download if allowed, respectively.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Open Science with R</title>
+      <link>https://ropensci.org/blog/2013/12/02/open-science-with-r/</link>
+      <pubDate>Mon, 02 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/12/02/open-science-with-r/</guid>
+      <description>
+        
+        &lt;p&gt;&lt;strong&gt;Upcoming Book on Open Science with R&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We&amp;rsquo;re pleased to announce that the rOpenSci core team has just signed a contract with &lt;a href=&#34;http://www.taylorandfrancis.com/books/series/CRCTHERSER/&#34;&gt;CRC Press/Taylor and Francis R series&lt;/a&gt; to publish a new book on practical ways to implement open science into your own research using R. Given all the talk about the importance of open science, the discussion often lacks practical suggestions on how one might actually incorporate these practices into their day to day research workflow.&lt;/p&gt;
+
+&lt;p&gt;In many ways writing this book will be an exercise for us to share our research workflow with the rest of the community. If R plays an important role in your research this book will help you learn how to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Share your computational methods using sound scientific software guidelines.&lt;/li&gt;
+&lt;li&gt;Document your datasets with valid metadata and deposit them into persistent repositories.&lt;/li&gt;
+&lt;li&gt;Write reports, manuscripts, and presentations.&lt;/li&gt;
+&lt;li&gt;Maintain an open lab notebook.&lt;/li&gt;
+&lt;li&gt;Build packages that interface with data sources on the web.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The publisher has been kind enough to allow us to maintain a public version the book as a GitHub repository. Anyone will be able to read our chapters, review, comment, and send pull requests. The final edited and nicely formatted version with a complete index will of course only be available via the publisher copy. But that is a small trade off in this case. As an added advantage, we will be able to keep the material current and up-to-date long after publication.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/ropensci/open-science-with-R&#34;&gt;GitHub repository for the book&lt;/a&gt;
+&lt;a href=&#34;https://github.com/ropensci/open-science-with-R/issues?labels=chapter-01&amp;amp;state=open&#34;&gt;Issues, comments and suggestions&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We expect the book to be out shortly after July 2014.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,2533 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2017/12/12/fulltext-update/</loc>
+    <lastmod>2017-12-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/12/08/rprofile-jenny-bryan/</loc>
+    <lastmod>2017-12-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/12/05/rperseus/</loc>
+    <lastmod>2017-12-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2017/12/05/magick-16/</loc>
+    <lastmod>2017-12-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/12/01/unconf-welcome/</loc>
+    <lastmod>2017-12-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/11/29/review-collaboration-mee/</loc>
+    <lastmod>2017-11-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/11/28/ropensci-changes/</loc>
+    <lastmod>2017-11-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/11/21/ochre/</loc>
+    <lastmod>2017-11-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/11/17/unconf-sixtips/</loc>
+    <lastmod>2017-11-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/11/14/realtime/</loc>
+    <lastmod>2017-11-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/11/10/rprofile-mara-averick/</loc>
+    <lastmod>2017-11-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2017/11/08/solrium-solr-r/</loc>
+    <lastmod>2017-11-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2017/11/07/magick-knitr/</loc>
+    <lastmod>2017-11-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2017/11/02/image-convolve/</loc>
+    <lastmod>2017-11-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/10/31/ozunconf2017/</loc>
+    <lastmod>2017-10-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/10/17/bikedata/</loc>
+    <lastmod>2017-10-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/10/13/rprofile-david-smith/</loc>
+    <lastmod>2017-10-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2017/10/10/curl-30/</loc>
+    <lastmod>2017-10-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/10/06/sholler-plan/</loc>
+    <lastmod>2017-10-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/10/03/googlelanguager/</loc>
+    <lastmod>2017-10-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/10/02/hacktoberfest/</loc>
+    <lastmod>2017-10-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/09/27/rrricanes/</loc>
+    <lastmod>2017-09-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/09/19/patentsview/</loc>
+    <lastmod>2017-09-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/09/11/software-review-update/</loc>
+    <lastmod>2017-09-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/09/08/first-review-experiences/</loc>
+    <lastmod>2017-09-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2017/09/08/writexl-release/</loc>
+    <lastmod>2017-09-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2017/09/07/spelling-release/</loc>
+    <lastmod>2017-09-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/09/01/nf-softwarereview/</loc>
+    <lastmod>2017-09-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/08/31/comm-call-v14/</loc>
+    <lastmod>2017-08-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/08/29/rtimicropem/</loc>
+    <lastmod>2017-08-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2017/08/24/feddata-release/</loc>
+    <lastmod>2017-08-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/08/22/visdat/</loc>
+    <lastmod>2017-08-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/08/22/first-package-review/</loc>
+    <lastmod>2017-08-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2017/08/17/tesseract-16/</loc>
+    <lastmod>2017-08-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/08/15/magick-10/</loc>
+    <lastmod>2017-08-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/08/11/ropensci-at-meetings/</loc>
+    <lastmod>2017-08-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/08/08/unconfroadsnottaken/</loc>
+    <lastmod>2017-08-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2017/08/02/elasticsearch-client/</loc>
+    <lastmod>2017-08-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/08/01/emldown/</loc>
+    <lastmod>2017-08-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/07/27/taxonomy-suite/</loc>
+    <lastmod>2017-07-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/07/25/notary/</loc>
+    <lastmod>2017-07-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/07/18/value-of-welcome/</loc>
+    <lastmod>2017-07-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/</loc>
+    <lastmod>2017-07-13T22:00:37-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/</loc>
+    <lastmod>2017-07-13T22:00:37-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/</loc>
+    <lastmod>2017-07-13T22:00:37-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/</loc>
+    <lastmod>2017-07-13T22:00:37-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/07/11/skimr/</loc>
+    <lastmod>2017-07-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/07/06/ropensci-fellowships/</loc>
+    <lastmod>2017-07-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/07/05/webrockets/</loc>
+    <lastmod>2017-07-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/06/30/postdoc_dan_sholler/</loc>
+    <lastmod>2017-06-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/06/27/packagemetrics/</loc>
+    <lastmod>2017-06-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/06/23/community/</loc>
+    <lastmod>2017-06-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2017/06/22/charlatan/</loc>
+    <lastmod>2017-06-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/06/20/checkers/</loc>
+    <lastmod>2017-06-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/06/13/ropensci_text_tools/</loc>
+    <lastmod>2017-06-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/06/09/unconf_recap_5/</loc>
+    <lastmod>2017-06-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/06/08/unconf_recap_4/</loc>
+    <lastmod>2017-06-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/06/07/unconf_projects_3/</loc>
+    <lastmod>2017-06-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/06/06/unconf_recap_2/</loc>
+    <lastmod>2017-06-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/06/05/unconf_recap_1/</loc>
+    <lastmod>2017-06-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/06/02/unconf2017/</loc>
+    <lastmod>2017-06-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/05/16/lingtypology/</loc>
+    <lastmod>2017-05-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/05/03/textworkshop17/</loc>
+    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/05/01/ropensci-at-meetings/</loc>
+    <lastmod>2017-05-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/04/27/ropensci-interns/</loc>
+    <lastmod>2017-04-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2017/04/20/randgeo/</loc>
+    <lastmod>2017-04-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/04/18/tabulizer/</loc>
+    <lastmod>2017-04-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/04/11/assertr/</loc>
+    <lastmod>2017-04-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/04/04/gsodr/</loc>
+    <lastmod>2017-04-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/03/21/camsrad/</loc>
+    <lastmod>2017-03-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/03/10/mongolite/</loc>
+    <lastmod>2017-03-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/03/07/hddtools/</loc>
+    <lastmod>2017-03-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2017/03/01/ccafs-release/</loc>
+    <lastmod>2017-03-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/02/21/ropenaq/</loc>
+    <lastmod>2017-02-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/02/17/comm-call-v13/</loc>
+    <lastmod>2017-02-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/02/06/plater-blog-post/</loc>
+    <lastmod>2017-02-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/02/02/unconf2017/</loc>
+    <lastmod>2017-02-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/01/25/obis/</loc>
+    <lastmod>2017-01-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/01/10/xslt-release/</loc>
+    <lastmod>2017-01-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/01/09/sustaining-research-projects/</loc>
+    <lastmod>2017-01-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2017/01/05/package-evolution/</loc>
+    <lastmod>2017-01-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2017/01/04/jsonlite-12/</loc>
+    <lastmod>2017-01-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2017/01/03/aaas-cefp/</loc>
+    <lastmod>2017-01-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2016/12/23/finch-release/</loc>
+    <lastmod>2016-12-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/12/21/commcallv12-review-coc/</loc>
+    <lastmod>2016-12-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/12/12/ropensci-fellowship-zoon/</loc>
+    <lastmod>2016-12-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2016/12/09/pdftools-10/</loc>
+    <lastmod>2016-12-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2016/12/08/tesseract-13/</loc>
+    <lastmod>2016-12-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/12/02/commonmark/</loc>
+    <lastmod>2016-12-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/11/22/geospatial-suite/</loc>
+    <lastmod>2016-11-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2016/11/18/fauxpas-release/</loc>
+    <lastmod>2016-11-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/11/16/tesseract/</loc>
+    <lastmod>2016-11-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/11/09/ropensci-at-meetings/</loc>
+    <lastmod>2016-11-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2016/11/09/crul-release/</loc>
+    <lastmod>2016-11-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2016/11/03/isdparser-release/</loc>
+    <lastmod>2016-11-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/10/31/comm-call-v12/</loc>
+    <lastmod>2016-10-31T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2016/10/19/gpg-release/</loc>
+    <lastmod>2016-10-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/10/12/your-community-manager/</loc>
+    <lastmod>2016-10-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2016/10/06/rdefra-release-033/</loc>
+    <lastmod>2016-10-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2016/10/05/graphql-release-10/</loc>
+    <lastmod>2016-10-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2016/09/12/hunspell-release-20/</loc>
+    <lastmod>2016-09-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/technotes/2016/09/08/magick-release-03/</loc>
+    <lastmod>2016-09-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/09/07/postdoc-position/</loc>
+    <lastmod>2016-09-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/08/23/z-magick-release/</loc>
+    <lastmod>2016-08-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/08/23/tokenizers-joins-ropensci/</loc>
+    <lastmod>2016-08-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/07/26/rotl-paper-published/</loc>
+    <lastmod>2016-07-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/07/12/travis-osx/</loc>
+    <lastmod>2016-07-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/06/16/au-unconf/</loc>
+    <lastmod>2016-06-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/05/25/software-sustanability-ropensci/</loc>
+    <lastmod>2016-05-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/03/28/software-review/</loc>
+    <lastmod>2016-03-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/03/17/ropensci-geospatial-stack/</loc>
+    <lastmod>2016-03-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/03/10/community-manager-position/</loc>
+    <lastmod>2016-03-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/03/09/au-unconf-down-under/</loc>
+    <lastmod>2016-03-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/03/01/pdftools-and-jeroen/</loc>
+    <lastmod>2016-03-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2016/01/07/survey/</loc>
+    <lastmod>2016-01-07T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2015/11/19/helmsley-trust-funding/</loc>
+    <lastmod>2015-11-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2015/09/24/rentrez-1_0-release/</loc>
+    <lastmod>2015-09-24T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2015/08/04/a-drat-repository-for-ropensci/</loc>
+    <lastmod>2015-08-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2015/06/03/baad/</loc>
+    <lastmod>2015-06-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2015/05/20/database-interfaces/</loc>
+    <lastmod>2015-05-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2015/03/10/introducing-wishlist/</loc>
+    <lastmod>2015-03-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/12/18/curl-options/</loc>
+    <lastmod>2014-12-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/12/15/community-calls/</loc>
+    <lastmod>2014-12-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/11/10/open-data-growth/</loc>
+    <lastmod>2014-11-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/10/23/introducing-rocker/</loc>
+    <lastmod>2014-10-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/10/01/numfocus-partnership/</loc>
+    <lastmod>2014-10-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/09/23/nceas-codefest-follow-up/</loc>
+    <lastmod>2014-09-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/08/15/open-tree-of-life-hackathon/</loc>
+    <lastmod>2014-08-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/08/11/ambassadors-program/</loc>
+    <lastmod>2014-08-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/08/08/text-commmunity/</loc>
+    <lastmod>2014-08-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/08/06/nceas-codefest/</loc>
+    <lastmod>2014-08-06T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/07/21/rnoaa_v02/</loc>
+    <lastmod>2014-07-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/06/10/new-sloan-award/</loc>
+    <lastmod>2014-06-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/06/09/reproducibility/</loc>
+    <lastmod>2014-06-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/05/20/taxize_v03/</loc>
+    <lastmod>2014-05-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/05/14/ropenhack/</loc>
+    <lastmod>2014-05-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/04/22/rwbclimate-sp/</loc>
+    <lastmod>2014-04-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/04/17/plotly/</loc>
+    <lastmod>2014-04-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/04/16/topic-modeling-in-r/</loc>
+    <lastmod>2014-04-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/04/14/webapis/</loc>
+    <lastmod>2014-04-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/03/26/rinat/</loc>
+    <lastmod>2014-03-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/03/17/spocc/</loc>
+    <lastmod>2014-03-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/03/13/rnoaa/</loc>
+    <lastmod>2014-03-13T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/02/20/dvn-dataverse-network/</loc>
+    <lastmod>2014-02-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/02/19/taxize-update/</loc>
+    <lastmod>2014-02-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/02/18/antweb/</loc>
+    <lastmod>2014-02-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/02/17/rgbif-update/</loc>
+    <lastmod>2014-02-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/02/12/caching-with-api/</loc>
+    <lastmod>2014-02-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/02/10/ropensci-hackathon/</loc>
+    <lastmod>2014-02-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/02/03/caching-offline/</loc>
+    <lastmod>2014-02-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/01/30/ecoengine/</loc>
+    <lastmod>2014-01-30T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2014/01/27/solr/</loc>
+    <lastmod>2014-01-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/12/02/rplos-highlights/</loc>
+    <lastmod>2013-12-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/12/02/open-science-with-r/</loc>
+    <lastmod>2013-12-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/11/21/rgbif-changes/</loc>
+    <lastmod>2013-11-21T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/11/19/taxize-changes/</loc>
+    <lastmod>2013-11-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/11/04/data-to-cartodb/</loc>
+    <lastmod>2013-11-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/10/23/style-geojson-polygon/</loc>
+    <lastmod>2013-10-23T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/10/22/oaweek-rplos/</loc>
+    <lastmod>2013-10-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/10/15/altmetrics-conf/</loc>
+    <lastmod>2013-10-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/10/08/shutdown/</loc>
+    <lastmod>2013-10-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/10/03/tutorials/</loc>
+    <lastmod>2013-10-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/10/03/uptaskview/</loc>
+    <lastmod>2013-10-03T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/09/11/taskview/</loc>
+    <lastmod>2013-09-11T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/09/10/usecases/</loc>
+    <lastmod>2013-09-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/08/18/sciordata/</loc>
+    <lastmod>2013-08-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/08/05/noaa-sparklines/</loc>
+    <lastmod>2013-08-05T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/08/01/altmetrics/</loc>
+    <lastmod>2013-08-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/07/29/rwbclimate-rgbif/</loc>
+    <lastmod>2013-07-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/07/29/esa-2013/</loc>
+    <lastmod>2013-07-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/07/19/rwbclimate-maps/</loc>
+    <lastmod>2013-07-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/07/17/style-geojson/</loc>
+    <lastmod>2013-07-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/07/04/rbison-geoson/</loc>
+    <lastmod>2013-07-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/06/19/usgs-app/</loc>
+    <lastmod>2013-06-19T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/06/14/goals-for-year/</loc>
+    <lastmod>2013-06-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/06/12/sloan/</loc>
+    <lastmod>2013-06-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/05/27/rbison/</loc>
+    <lastmod>2013-05-27T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/05/20/updates/</loc>
+    <lastmod>2013-05-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/05/16/pyopensci/</loc>
+    <lastmod>2013-05-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/05/10/introducing-befdata/</loc>
+    <lastmod>2013-05-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/04/22/usgs_app/</loc>
+    <lastmod>2013-04-22T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/04/12/rgbif-genus/</loc>
+    <lastmod>2013-04-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/03/15/r-metadata/</loc>
+    <lastmod>2013-03-15T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/03/14/ropensci-challenge/</loc>
+    <lastmod>2013-03-14T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2013/03/08/ropensci-collaboration/</loc>
+    <lastmod>2013-03-08T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/blog/2012/11/26/is-invasive/</loc>
+    <lastmod>2012-11-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/about/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/careers/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/coc/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/community/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/contact/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/donate/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/packages/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/related/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/resources/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/submit_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/alm_vignette/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/alm_tweets/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/rgbif_gistmap/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/rvertnet/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/rwbclimate_intro/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/rwbclimate_mapping/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/scripts/occurrences_oaks/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/scripts/rbison/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/scripts/rgbif_biodivcomp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/scripts/rgbif_dams/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/scripts/rgbif_dams/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/scripts/rvertnet/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/scripts/rwbclimate_plotting/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/scripts/shit/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/scripts/taxize_invasivephylo/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/scripts/taxize_invasivephylo/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/scripts/taxize_listtomap/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/scripts/taxize_matchdfs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/taxize_invasivephylo/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/taxize_iucn1/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/altmetrics/</loc>
+    <lastmod>2013-10-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/antweb_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/api/</loc>
+    <lastmod>2017-12-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/archiving/</loc>
+    <lastmod>2015-06-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/australia/</loc>
+    <lastmod>2017-11-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/bikedata/</loc>
+    <lastmod>2017-10-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/binomen/</loc>
+    <lastmod>2017-07-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/biodiversity/</loc>
+    <lastmod>2017-01-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/book/</loc>
+    <lastmod>2013-12-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/careers/</loc>
+    <lastmod>2016-09-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/cartodb/</loc>
+    <lastmod>2013-11-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/classics/</loc>
+    <lastmod>2017-12-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/climate/</loc>
+    <lastmod>2017-03-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/climate-change/</loc>
+    <lastmod>2017-03-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/climate-data/</loc>
+    <lastmod>2017-04-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/clld/</loc>
+    <lastmod>2017-05-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/commonmark/</loc>
+    <lastmod>2016-12-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/community/</loc>
+    <lastmod>2017-12-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/occurrences_oaks/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/conference/</loc>
+    <lastmod>2014-09-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/cran/</loc>
+    <lastmod>2017-07-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/crypto/</loc>
+    <lastmod>2016-10-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/curl/</loc>
+    <lastmod>2014-12-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/data/</loc>
+    <lastmod>2017-12-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/data-access/</loc>
+    <lastmod>2017-10-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/data-extraction/</loc>
+    <lastmod>2017-12-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/data-visualisation/</loc>
+    <lastmod>2017-08-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/database/</loc>
+    <lastmod>2015-05-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/databases/</loc>
+    <lastmod>2017-11-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/datasets/</loc>
+    <lastmod>2017-06-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/datavis/</loc>
+    <lastmod>2017-11-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/development/</loc>
+    <lastmod>2017-01-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/rwbclimate_plotting/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/drat/</loc>
+    <lastmod>2015-08-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/earth-science/</loc>
+    <lastmod>2017-04-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/spocc_gistmap/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/rgbif_nichemodel/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/ecology/</loc>
+    <lastmod>2013-08-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/elastic/</loc>
+    <lastmod>2017-08-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/elasticsearch/</loc>
+    <lastmod>2017-08-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/elife/</loc>
+    <lastmod>2014-04-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/emldown/</loc>
+    <lastmod>2017-08-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/eol/</loc>
+    <lastmod>2014-02-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/events/</loc>
+    <lastmod>2017-08-31T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/excel/</loc>
+    <lastmod>2017-09-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/feddata/</loc>
+    <lastmod>2017-08-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/fellowships/</loc>
+    <lastmod>2017-07-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/taxize_listtomap/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/fulltext/</loc>
+    <lastmod>2017-12-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/funding/</loc>
+    <lastmod>2017-07-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/gbif/</loc>
+    <lastmod>2016-12-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/geo/</loc>
+    <lastmod>2016-03-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/geojson/</loc>
+    <lastmod>2017-04-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/geospatial/</loc>
+    <lastmod>2017-10-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/ggplot2/</loc>
+    <lastmod>2014-04-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/git/</loc>
+    <lastmod>2017-11-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/github/</loc>
+    <lastmod>2017-07-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/glottolog/</loc>
+    <lastmod>2017-05-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/googlelanguager/</loc>
+    <lastmod>2017-10-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/governance/</loc>
+    <lastmod>2017-10-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/gpg/</loc>
+    <lastmod>2016-10-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/graphics/</loc>
+    <lastmod>2016-08-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/graphql/</loc>
+    <lastmod>2016-10-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/gtfsr/</loc>
+    <lastmod>2017-02-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/ecoengine_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/hackathon/</loc>
+    <lastmod>2014-05-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/hacktoberfest/</loc>
+    <lastmod>2017-10-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/hardware/</loc>
+    <lastmod>2017-08-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/help/</loc>
+    <lastmod>2013-10-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/http/</loc>
+    <lastmod>2016-11-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/hunspell/</loc>
+    <lastmod>2016-09-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/hurricanes/</loc>
+    <lastmod>2017-09-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/hydrology/</loc>
+    <lastmod>2017-03-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/images/</loc>
+    <lastmod>2017-12-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/imaging/</loc>
+    <lastmod>2016-08-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/informatics/</loc>
+    <lastmod>2014-02-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/infrastructure/</loc>
+    <lastmod>2016-05-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/interviews/</loc>
+    <lastmod>2017-12-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/jobs/</loc>
+    <lastmod>2016-10-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/journals/</loc>
+    <lastmod>2017-12-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/json/</loc>
+    <lastmod>2013-10-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/jsonlite/</loc>
+    <lastmod>2017-01-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/key-value/</loc>
+    <lastmod>2015-05-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/linguistic-mapping/</loc>
+    <lastmod>2017-05-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/linguistics/</loc>
+    <lastmod>2017-12-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/rbison/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/magick/</loc>
+    <lastmod>2017-12-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/taxize_makephylo/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/maps/</loc>
+    <lastmod>2014-04-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/markdown/</loc>
+    <lastmod>2016-12-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/taxize_matchdfs/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/meeting/</loc>
+    <lastmod>2014-02-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/meetings/</loc>
+    <lastmod>2017-11-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/metadata/</loc>
+    <lastmod>2013-03-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/museums/</loc>
+    <lastmod>2014-01-30T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/natural-language/</loc>
+    <lastmod>2016-08-23T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/ncbi/</loc>
+    <lastmod>2015-09-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/networking/</loc>
+    <lastmod>2017-10-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/nosql/</loc>
+    <lastmod>2015-05-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/notary/</loc>
+    <lastmod>2017-07-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/occurrence/</loc>
+    <lastmod>2014-04-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/ocr/</loc>
+    <lastmod>2017-08-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/onboarding/</loc>
+    <lastmod>2017-11-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/open-tree/</loc>
+    <lastmod>2016-07-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/openair/</loc>
+    <lastmod>2017-02-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/opendata/</loc>
+    <lastmod>2017-06-13T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/openscience/</loc>
+    <lastmod>2017-10-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/osmdata/</loc>
+    <lastmod>2017-02-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/osx/</loc>
+    <lastmod>2016-07-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/ozunconf/</loc>
+    <lastmod>2017-11-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/package/</loc>
+    <lastmod>2017-10-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/packages/</loc>
+    <lastmod>2017-12-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/palettes/</loc>
+    <lastmod>2017-11-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/patents/</loc>
+    <lastmod>2017-09-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/patentsview/</loc>
+    <lastmod>2017-09-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/pdf/</loc>
+    <lastmod>2017-06-13T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/pdftools/</loc>
+    <lastmod>2016-12-09T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/pegax/</loc>
+    <lastmod>2017-07-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/phenology/</loc>
+    <lastmod>2013-08-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/plater/</loc>
+    <lastmod>2017-02-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/plos/</loc>
+    <lastmod>2013-12-02T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/plot/</loc>
+    <lastmod>2017-11-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/plotly/</loc>
+    <lastmod>2014-04-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/positions/</loc>
+    <lastmod>2016-09-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/postdoc/</loc>
+    <lastmod>2017-10-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/publication/</loc>
+    <lastmod>2016-07-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/pyopensci/</loc>
+    <lastmod>2013-05-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/python/</loc>
+    <lastmod>2013-05-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/r/</loc>
+    <lastmod>2017-12-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rnexml_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/rbison/</loc>
+    <lastmod>2013-07-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/rdefra/</loc>
+    <lastmod>2017-02-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/realtime/</loc>
+    <lastmod>2017-11-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/rentrez/</loc>
+    <lastmod>2015-09-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/reproducibility/</loc>
+    <lastmod>2017-04-11T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/reproducibleresearch/</loc>
+    <lastmod>2015-06-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/researchsoftware/</loc>
+    <lastmod>2016-05-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/review/</loc>
+    <lastmod>2017-11-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/rgbif/</loc>
+    <lastmod>2013-11-04T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/riem/</loc>
+    <lastmod>2017-02-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/ritis/</loc>
+    <lastmod>2017-07-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/rnoaa/</loc>
+    <lastmod>2017-02-21T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/rnrfa/</loc>
+    <lastmod>2017-03-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/ropenaq/</loc>
+    <lastmod>2017-08-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/ropenhack/</loc>
+    <lastmod>2014-05-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/ropensci/</loc>
+    <lastmod>2017-11-14T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/ropensci-team/</loc>
+    <lastmod>2017-12-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/rotl/</loc>
+    <lastmod>2016-07-26T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/rplos/</loc>
+    <lastmod>2013-10-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/rprofile/</loc>
+    <lastmod>2017-12-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/rrricanes/</loc>
+    <lastmod>2017-09-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/rrricanesdata/</loc>
+    <lastmod>2017-09-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/security/</loc>
+    <lastmod>2017-07-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/shiny/</loc>
+    <lastmod>2013-04-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/sig/</loc>
+    <lastmod>2017-05-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/software/</loc>
+    <lastmod>2017-11-29T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/solr/</loc>
+    <lastmod>2017-11-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/solrium/</loc>
+    <lastmod>2017-11-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/spatial/</loc>
+    <lastmod>2017-08-24T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/species/</loc>
+    <lastmod>2014-04-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/usecases/rgbif_biodivcomp/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/spelling/</loc>
+    <lastmod>2017-09-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/spenv/</loc>
+    <lastmod>2017-01-25T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/sql/</loc>
+    <lastmod>2015-05-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/survey/</loc>
+    <lastmod>2016-01-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/sustainability/</loc>
+    <lastmod>2017-10-06T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/tabulizer/</loc>
+    <lastmod>2017-04-18T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/</loc>
+    <lastmod>2013-10-15T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/taxa/</loc>
+    <lastmod>2017-07-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/taxize/</loc>
+    <lastmod>2017-07-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/taxizedb/</loc>
+    <lastmod>2017-07-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/taxonomy/</loc>
+    <lastmod>2017-07-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/team/</loc>
+    <lastmod>2017-01-03T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/tesseract/</loc>
+    <lastmod>2017-08-17T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/testing/</loc>
+    <lastmod>2017-06-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/text/</loc>
+    <lastmod>2017-09-07T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/text-analysis/</loc>
+    <lastmod>2017-12-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/text-mining/</loc>
+    <lastmod>2017-12-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/text-visualization/</loc>
+    <lastmod>2017-12-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/textmining/</loc>
+    <lastmod>2017-12-05T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/topic-modeling/</loc>
+    <lastmod>2014-04-16T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/travis/</loc>
+    <lastmod>2016-07-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/unconf/</loc>
+    <lastmod>2017-12-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/usgs/</loc>
+    <lastmod>2013-06-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/uspto/</loc>
+    <lastmod>2017-09-19T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/versioncontrol/</loc>
+    <lastmod>2017-11-28T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/visdat/</loc>
+    <lastmod>2017-08-22T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/weather/</loc>
+    <lastmod>2017-09-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/welcome/</loc>
+    <lastmod>2017-12-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/wikitaxa/</loc>
+    <lastmod>2017-07-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/windows/</loc>
+    <lastmod>2017-10-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/wkt/</loc>
+    <lastmod>2017-04-20T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/worrms/</loc>
+    <lastmod>2017-07-27T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/xlsx/</loc>
+    <lastmod>2017-09-08T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/xml/</loc>
+    <lastmod>2017-01-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tags/xslt/</loc>
+    <lastmod>2017-01-10T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/arxiv_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/alm_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/assertr_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/binomen_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/bold_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/brranching_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/ckanr_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/convertr_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/ecoretriever_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/elastic_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/etseed_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/europepmc_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/fulltext_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/gender_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/geojsonio_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/geojsonlint_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/getlandsat_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/gistr_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/gutenbergr_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/historydata_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/hunspell_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/internetarchive_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/jqr_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/lawn_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/magick_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/mapr_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/monkeylearn_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/mregions_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/musemeta_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/neotoma_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/oai_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/opencage_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/originr_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/osmplotr_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/pangaear_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/pdftools_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/raltmetric_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/</loc>
+    <lastmod>2017-12-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rwbclimate_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rbhl_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rbison_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rcrossref_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rdatacite_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rdataretriever_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rdpla_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rebird_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rentrez_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rerddap_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rfishbase_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rfisheries_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rgbif_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/riem_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rinat_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/ritis_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rnaturalearth_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rnoaa_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/ropenaq_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rorcid_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rotl_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rplos_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rredlist_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rselenium_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rsnps_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/rvertnet_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/scrubr_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/sofa_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/solr_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/solrium_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/spocc_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/tabulizer_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/taxize_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/taxize_v04/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/taxize_v05/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/taxize/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/textreuse_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/tokenizers_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/traits_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/treebase_tutorial/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/treebase_tutorial_pt/</loc>
+  </url>
+  
+  <url>
+    <loc>https://ropensci.org/tutorials/wellknown_tutorial/</loc>
+  </url>
+  
+</urlset>

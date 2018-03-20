@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | scrubr tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>scrubr tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.1.1</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p><code>scrubr</code> is a general purpose toolbox for cleaning biological occurrence records. Think
+of it like <code>dplyr</code> but specifically for occurrence data. It includes functionality for
+cleaning based on various aspects of spatial coordinates, unlikely values due to political
+centroids, taxonomic names, and more.</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>Stable <code>scrubr</code> version from CRAN</p>
+
+<pre><code class="language-r">install.packages(&quot;scrubr&quot;)
+</code></pre>
+
+<p>Or, the development version from Github</p>
+
+<pre><code class="language-r">devtools::install_github(&quot;ropenscilabs/scrubr&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;scrubr&quot;)
+</code></pre>
+
+<h2 id="usage">Usage</h2>
+
+<p>We&rsquo;ll use sample datasets included with the package, they are lazy loaded,
+and available via <code>sample_data_1</code> and <code>sample_data_2</code></p>
+
+<h3 id="data-frame-s">data.frame&rsquo;s</h3>
+
+<p>All functions expect data.frame&rsquo;s as input, and output data.frame&rsquo;s</p>
+
+<h3 id="pipe-vs-no-pipe">Pipe vs. no pipe</h3>
+
+<p>We think that using a piping workflow with <code>%&gt;%</code> makes code easier to
+build up, and easier to understand. However, in some examples below we provide
+commented out examples without the pipe to demonstrate traditional usage - which
+you can use if you remove the comment <code>#</code> at beginning of the line.</p>
+
+<h3 id="dframe">dframe</h3>
+
+<p><code>dframe()</code> is a utility function to create a compact data.frame representation. You
+don&rsquo;t have to use it. If you do, you can work with <code>scrubr</code> functions with a compact
+data.frame, making it easier to see the data quickly. If you don&rsquo;t use <code>dframe()</code>
+we just use your regular data.frame. Problem is with large data.frame&rsquo;s you deal with
+lots of stuff printed to the screen, making it hard to quickly wrangle data.</p>
+
+<h3 id="coordinate-based-cleaning">Coordinate based cleaning</h3>
+
+<p>Remove impossible coordinates (using sample data included in the pkg)</p>
+
+<pre><code class="language-r"># coord_impossible(dframe(sample_data_1)) # w/o pipe
+dframe(sample_data_1) %&gt;% coord_impossible()
+#&gt; # A tibble: 1,500 x 5
+#&gt;                name  longitude latitude                date        key
+#&gt;  *            &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt;              &lt;dttm&gt;      &lt;int&gt;
+#&gt;  1 Ursus americanus  -79.68283 38.36662 2015-01-14 16:36:45 1065590124
+#&gt;  2 Ursus americanus  -82.42028 35.73304 2015-01-13 00:25:39 1065588899
+#&gt;  3 Ursus americanus  -99.09625 23.66893 2015-02-20 23:00:00 1098894889
+#&gt;  4 Ursus americanus  -72.77432 43.94883 2015-02-13 16:16:41 1065611122
+#&gt;  5 Ursus americanus  -72.34617 43.86464 2015-03-01 20:20:45 1088908315
+#&gt;  6 Ursus americanus -108.53674 32.65219 2015-03-29 17:06:54 1088932238
+#&gt;  7 Ursus americanus -108.53691 32.65237 2015-03-29 17:12:50 1088932273
+#&gt;  8 Ursus americanus -123.82900 40.13240 2015-03-28 23:00:00 1132403409
+#&gt;  9 Ursus americanus  -78.25027 36.93018 2015-03-20 21:11:24 1088923534
+#&gt; 10 Ursus americanus  -76.78671 35.53079 2015-04-05 23:00:00 1088954559
+#&gt; # ... with 1,490 more rows
+</code></pre>
+
+<p>Remove incomplete coordinates</p>
+
+<pre><code class="language-r"># coord_incomplete(dframe(sample_data_1)) # w/o pipe
+dframe(sample_data_1) %&gt;% coord_incomplete()
+#&gt; # A tibble: 1,306 x 5
+#&gt;                name  longitude latitude                date        key
+#&gt;  *            &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt;              &lt;dttm&gt;      &lt;int&gt;
+#&gt;  1 Ursus americanus  -79.68283 38.36662 2015-01-14 16:36:45 1065590124
+#&gt;  2 Ursus americanus  -82.42028 35.73304 2015-01-13 00:25:39 1065588899
+#&gt;  3 Ursus americanus  -99.09625 23.66893 2015-02-20 23:00:00 1098894889
+#&gt;  4 Ursus americanus  -72.77432 43.94883 2015-02-13 16:16:41 1065611122
+#&gt;  5 Ursus americanus  -72.34617 43.86464 2015-03-01 20:20:45 1088908315
+#&gt;  6 Ursus americanus -108.53674 32.65219 2015-03-29 17:06:54 1088932238
+#&gt;  7 Ursus americanus -108.53691 32.65237 2015-03-29 17:12:50 1088932273
+#&gt;  8 Ursus americanus -123.82900 40.13240 2015-03-28 23:00:00 1132403409
+#&gt;  9 Ursus americanus  -78.25027 36.93018 2015-03-20 21:11:24 1088923534
+#&gt; 10 Ursus americanus  -76.78671 35.53079 2015-04-05 23:00:00 1088954559
+#&gt; # ... with 1,296 more rows
+</code></pre>
+
+<p>Remove unlikely coordinates (e.g., those at 0,0)</p>
+
+<pre><code class="language-r"># coord_unlikely(dframe(sample_data_1)) # w/o pipe
+dframe(sample_data_1) %&gt;% coord_unlikely()
+#&gt; # A tibble: 1,488 x 5
+#&gt;                name  longitude latitude                date        key
+#&gt;  *            &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt;              &lt;dttm&gt;      &lt;int&gt;
+#&gt;  1 Ursus americanus  -79.68283 38.36662 2015-01-14 16:36:45 1065590124
+#&gt;  2 Ursus americanus  -82.42028 35.73304 2015-01-13 00:25:39 1065588899
+#&gt;  3 Ursus americanus  -99.09625 23.66893 2015-02-20 23:00:00 1098894889
+#&gt;  4 Ursus americanus  -72.77432 43.94883 2015-02-13 16:16:41 1065611122
+#&gt;  5 Ursus americanus  -72.34617 43.86464 2015-03-01 20:20:45 1088908315
+#&gt;  6 Ursus americanus -108.53674 32.65219 2015-03-29 17:06:54 1088932238
+#&gt;  7 Ursus americanus -108.53691 32.65237 2015-03-29 17:12:50 1088932273
+#&gt;  8 Ursus americanus -123.82900 40.13240 2015-03-28 23:00:00 1132403409
+#&gt;  9 Ursus americanus  -78.25027 36.93018 2015-03-20 21:11:24 1088923534
+#&gt; 10 Ursus americanus  -76.78671 35.53079 2015-04-05 23:00:00 1088954559
+#&gt; # ... with 1,478 more rows
+</code></pre>
+
+<p>Do all three</p>
+
+<pre><code class="language-r">dframe(sample_data_1) %&gt;%
+  coord_impossible() %&gt;%
+  coord_incomplete() %&gt;%
+  coord_unlikely()
+#&gt; # A tibble: 1,294 x 5
+#&gt;                name  longitude latitude                date        key
+#&gt;  *            &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt;              &lt;dttm&gt;      &lt;int&gt;
+#&gt;  1 Ursus americanus  -79.68283 38.36662 2015-01-14 16:36:45 1065590124
+#&gt;  2 Ursus americanus  -82.42028 35.73304 2015-01-13 00:25:39 1065588899
+#&gt;  3 Ursus americanus  -99.09625 23.66893 2015-02-20 23:00:00 1098894889
+#&gt;  4 Ursus americanus  -72.77432 43.94883 2015-02-13 16:16:41 1065611122
+#&gt;  5 Ursus americanus  -72.34617 43.86464 2015-03-01 20:20:45 1088908315
+#&gt;  6 Ursus americanus -108.53674 32.65219 2015-03-29 17:06:54 1088932238
+#&gt;  7 Ursus americanus -108.53691 32.65237 2015-03-29 17:12:50 1088932273
+#&gt;  8 Ursus americanus -123.82900 40.13240 2015-03-28 23:00:00 1132403409
+#&gt;  9 Ursus americanus  -78.25027 36.93018 2015-03-20 21:11:24 1088923534
+#&gt; 10 Ursus americanus  -76.78671 35.53079 2015-04-05 23:00:00 1088954559
+#&gt; # ... with 1,284 more rows
+</code></pre>
+
+<p>Don&rsquo;t drop bad data</p>
+
+<pre><code class="language-r">dframe(sample_data_1) %&gt;% coord_incomplete(drop = TRUE) %&gt;% NROW
+#&gt; [1] 1306
+dframe(sample_data_1) %&gt;% coord_incomplete(drop = FALSE) %&gt;% NROW
+#&gt; [1] 1500
+</code></pre>
+
+<h3 id="deduplicate">Deduplicate</h3>
+
+<pre><code class="language-r">smalldf &lt;- sample_data_1[1:20, ]
+# create a duplicate record
+smalldf &lt;- rbind(smalldf, smalldf[10,])
+row.names(smalldf) &lt;- NULL
+# make it slightly different
+smalldf[21, &quot;key&quot;] &lt;- 1088954555
+NROW(smalldf)
+#&gt; [1] 21
+dp &lt;- dframe(smalldf) %&gt;% dedup()
+NROW(dp)
+#&gt; [1] 20
+attr(dp, &quot;dups&quot;)
+#&gt; # A tibble: 1 x 5
+#&gt;               name longitude latitude                date        key
+#&gt;              &lt;chr&gt;     &lt;dbl&gt;    &lt;dbl&gt;              &lt;dttm&gt;      &lt;dbl&gt;
+#&gt; 1 Ursus americanus -76.78671 35.53079 2015-04-05 23:00:00 1088954555
+</code></pre>
+
+<h3 id="dates">Dates</h3>
+
+<p>Standardize/convert dates</p>
+
+<pre><code class="language-r"># date_standardize(dframe(df), &quot;%d%b%Y&quot;) # w/o pipe
+dframe(sample_data_1) %&gt;% date_standardize(&quot;%d%b%Y&quot;)
+#&gt; &lt;scrubr dframe&gt;
+#&gt; Size: 1500 X 5
+#&gt; 
+#&gt; 
+#&gt;                name  longitude latitude      date        key
+#&gt;               (chr)      (dbl)    (dbl)     (chr)      (int)
+#&gt; 1  Ursus americanus  -79.68283 38.36662 14Jan2015 1065590124
+#&gt; 2  Ursus americanus  -82.42028 35.73304 13Jan2015 1065588899
+#&gt; 3  Ursus americanus  -99.09625 23.66893 20Feb2015 1098894889
+#&gt; 4  Ursus americanus  -72.77432 43.94883 13Feb2015 1065611122
+#&gt; 5  Ursus americanus  -72.34617 43.86464 01Mar2015 1088908315
+#&gt; 6  Ursus americanus -108.53674 32.65219 29Mar2015 1088932238
+#&gt; 7  Ursus americanus -108.53691 32.65237 29Mar2015 1088932273
+#&gt; 8  Ursus americanus -123.82900 40.13240 28Mar2015 1132403409
+#&gt; 9  Ursus americanus  -78.25027 36.93018 20Mar2015 1088923534
+#&gt; 10 Ursus americanus  -76.78671 35.53079 05Apr2015 1088954559
+#&gt; ..              ...        ...      ...       ...        ...
+</code></pre>
+
+<p>Drop records without dates</p>
+
+<pre><code class="language-r">NROW(sample_data_1)
+#&gt; [1] 1500
+NROW(dframe(sample_data_1) %&gt;% date_missing())
+#&gt; [1] 1498
+</code></pre>
+
+<p>Create date field from other fields</p>
+
+<pre><code class="language-r">dframe(sample_data_2) %&gt;% date_create(year, month, day)
+#&gt; &lt;scrubr dframe&gt;
+#&gt; Size: 1500 X 8
+#&gt; 
+#&gt; 
+#&gt;                name  longitude latitude        key  year month   day
+#&gt;               (chr)      (dbl)    (dbl)      (int) (chr) (chr) (chr)
+#&gt; 1  Ursus americanus  -79.68283 38.36662 1065590124  2015    01    14
+#&gt; 2  Ursus americanus  -82.42028 35.73304 1065588899  2015    01    13
+#&gt; 3  Ursus americanus  -99.09625 23.66893 1098894889  2015    02    20
+#&gt; 4  Ursus americanus  -72.77432 43.94883 1065611122  2015    02    13
+#&gt; 5  Ursus americanus  -72.34617 43.86464 1088908315  2015    03    01
+#&gt; 6  Ursus americanus -108.53674 32.65219 1088932238  2015    03    29
+#&gt; 7  Ursus americanus -108.53691 32.65237 1088932273  2015    03    29
+#&gt; 8  Ursus americanus -123.82900 40.13240 1132403409  2015    03    28
+#&gt; 9  Ursus americanus  -78.25027 36.93018 1088923534  2015    03    20
+#&gt; 10 Ursus americanus  -76.78671 35.53079 1088954559  2015    04    05
+#&gt; ..              ...        ...      ...        ...   ...   ...   ...
+#&gt; Variables not shown: date (chr).
+</code></pre>
+
+<h3 id="taxonomy">Taxonomy</h3>
+
+<p>Only one function exists for taxonomy cleaning, it removes rows where taxonomic names are
+either missing an epithet, or are missing altogether  (<code>NA</code> or <code>NULL</code>).</p>
+
+<p>Get some data from GBIF, via <code>rgbif</code></p>
+
+<pre><code class="language-r">if (requireNamespace(&quot;rgbif&quot;, quietly = TRUE)) {
+  library(&quot;rgbif&quot;)
+  res &lt;- occ_data(limit = 500)$data
+} else {
+  res &lt;- sample_data_3
+}
+</code></pre>
+
+<p>Clean names</p>
+
+<pre><code class="language-r">NROW(res)
+#&gt; [1] 500
+df &lt;- dframe(res) %&gt;% tax_no_epithet(name = &quot;name&quot;)
+NROW(df)
+#&gt; [1] 470
+attr(df, &quot;name_var&quot;)
+#&gt; NULL
+attr(df, &quot;tax_no_epithet&quot;)
+#&gt; # A tibble: 30 x 121
+#&gt;     name        key decimalLatitude decimalLongitude           issues
+#&gt;    &lt;chr&gt;      &lt;int&gt;           &lt;dbl&gt;            &lt;dbl&gt;            &lt;chr&gt;
+#&gt;  1  &lt;NA&gt; 1440079043       -25.62458         30.79125   cdround,gass84
+#&gt;  2  &lt;NA&gt; 1440083929       -34.04125         18.54125   gass84,txmathi
+#&gt;  3  &lt;NA&gt; 1440102029       -29.54125         30.29125   gass84,txmathi
+#&gt;  4  &lt;NA&gt; 1440105439       -29.45792         30.20792   cdround,gass84
+#&gt;  5  &lt;NA&gt; 1440107570       -32.87458         28.04125   cdround,gass84
+#&gt;  6  &lt;NA&gt; 1563170865       -26.93389        -49.38000   cdround,gass84
+#&gt;  7  &lt;NA&gt; 1563449751        42.78535          2.46788           gass84
+#&gt;  8  &lt;NA&gt; 1563455851        14.72054         98.54309   gass84,txmathi
+#&gt;  9  &lt;NA&gt; 1563886565       -11.44000         47.35000 cudc,cuiv,gass84
+#&gt; 10  &lt;NA&gt; 1563886576       -13.05067         45.01783 cudc,cuiv,gass84
+#&gt; # ... with 20 more rows, and 116 more variables: datasetKey &lt;chr&gt;,
+#&gt; #   publishingOrgKey &lt;chr&gt;, publishingCountry &lt;chr&gt;, protocol &lt;chr&gt;,
+#&gt; #   lastCrawled &lt;chr&gt;, lastParsed &lt;chr&gt;, crawlId &lt;int&gt;,
+#&gt; #   basisOfRecord &lt;chr&gt;, individualCount &lt;int&gt;, taxonKey &lt;int&gt;,
+#&gt; #   kingdomKey &lt;int&gt;, phylumKey &lt;int&gt;, classKey &lt;int&gt;, orderKey &lt;int&gt;,
+#&gt; #   familyKey &lt;int&gt;, genusKey &lt;int&gt;, scientificName &lt;chr&gt;, kingdom &lt;chr&gt;,
+#&gt; #   phylum &lt;chr&gt;, order &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;,
+#&gt; #   genericName &lt;chr&gt;, specificEpithet &lt;chr&gt;, taxonRank &lt;chr&gt;,
+#&gt; #   elevation &lt;dbl&gt;, elevationAccuracy &lt;dbl&gt;, stateProvince &lt;chr&gt;,
+#&gt; #   year &lt;int&gt;, month &lt;int&gt;, day &lt;int&gt;, eventDate &lt;chr&gt;, modified &lt;chr&gt;,
+#&gt; #   lastInterpreted &lt;chr&gt;, license &lt;chr&gt;, geodeticDatum &lt;chr&gt;,
+#&gt; #   class &lt;chr&gt;, countryCode &lt;chr&gt;, country &lt;chr&gt;, identifier &lt;chr&gt;,
+#&gt; #   catalogNumber &lt;chr&gt;, recordedBy &lt;chr&gt;, institutionCode &lt;chr&gt;,
+#&gt; #   fieldNotes &lt;chr&gt;, municipality &lt;chr&gt;, county &lt;chr&gt;, locality &lt;chr&gt;,
+#&gt; #   gbifID &lt;chr&gt;, collectionCode &lt;chr&gt;, occurrenceID &lt;chr&gt;,
+#&gt; #   coordinatePrecision &lt;dbl&gt;, sex &lt;chr&gt;, eventID &lt;chr&gt;,
+#&gt; #   vernacularName &lt;chr&gt;, associatedReferences &lt;chr&gt;, datasetName &lt;chr&gt;,
+#&gt; #   occurrenceRemarks &lt;chr&gt;, coordinateUncertaintyInMeters &lt;dbl&gt;,
+#&gt; #   continent &lt;chr&gt;, rightsHolder &lt;chr&gt;, scientificNameID &lt;chr&gt;,
+#&gt; #   identificationVerificationStatus &lt;chr&gt;, language &lt;chr&gt;, type &lt;chr&gt;,
+#&gt; #   taxonID &lt;chr&gt;, occurrenceStatus &lt;chr&gt;, taxonConceptID &lt;chr&gt;,
+#&gt; #   eventTime &lt;chr&gt;, behavior &lt;chr&gt;, informationWithheld &lt;chr&gt;,
+#&gt; #   endDayOfYear &lt;chr&gt;, originalNameUsage &lt;chr&gt;, startDayOfYear &lt;chr&gt;,
+#&gt; #   datasetID &lt;chr&gt;, bibliographicCitation &lt;chr&gt;, accessRights &lt;chr&gt;,
+#&gt; #   higherClassification &lt;chr&gt;, habitat &lt;chr&gt;, recordNumber &lt;chr&gt;,
+#&gt; #   collectionID &lt;chr&gt;, verbatimEventDate &lt;chr&gt;, institutionID &lt;chr&gt;,
+#&gt; #   samplingEffort &lt;chr&gt;, georeferenceRemarks &lt;chr&gt;, eventRemarks &lt;chr&gt;,
+#&gt; #   verbatimLocality &lt;chr&gt;, locationAccordingTo &lt;chr&gt;,
+#&gt; #   locationRemarks &lt;chr&gt;, ownerInstitutionCode &lt;chr&gt;,
+#&gt; #   samplingProtocol &lt;chr&gt;, identificationRemarks &lt;chr&gt;,
+#&gt; #   identifiedBy &lt;chr&gt;, rights &lt;chr&gt;, dateIdentified &lt;chr&gt;,
+#&gt; #   references &lt;chr&gt;, `http://unknown.org/occurrenceDetails` &lt;chr&gt;,
+#&gt; #   identificationID &lt;chr&gt;, earliestEraOrLowestErathem &lt;chr&gt;,
+#&gt; #   earliestEpochOrLowestSeries &lt;chr&gt;, preparations &lt;chr&gt;, ...
+</code></pre>
+
+<h3 id="citing">Citing</h3>
+
+<p>To cite <code>scrubr</code> in publications use:</p>
+
+<p><br></p>
+
+<blockquote>
+<p>Scott Chamberlain (2016). scrubr: Clean Biological Occurrence Records. R package version 0.1.1.
+<a href="https://github.com/ropenscilabs/scrubr">https://github.com/ropenscilabs/scrubr</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropenscilabs/scrubr/issues?state=open">our Github repo for scrubr</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

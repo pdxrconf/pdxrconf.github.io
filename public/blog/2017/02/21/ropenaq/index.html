@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | ropenaq, a breath of fresh air/R</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">ropenaq, a breath of fresh air/R</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="http://www.masalmon.eu/" target="_blank"> Maëlle Salmon </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">February 21, 2017</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>Do you fancy open data, R, and breathing? Then you might be interested in <code>ropenaq</code> which provides access to open air quality data via OpenAQ! Also note that in French, R and air are homophones, therefore we French speakers can make puns like the one in the title. Please re-read it with a French accent and don&rsquo;t judge me.</p>
+
+<p>In this post I&rsquo;ll motivate the existence of the package, then show you the basics of its use, and finally show off with some pretty figures. You can skip any part but if I were you I wouldn&rsquo;t!</p>
+
+<h2 id="discovering-openaq-and-ropensci">Discovering OpenAQ and rOpenSci</h2>
+
+<p>I work as a data manager and statistician for an epidemiology project called <a href="http://www.chaiproject.org/">CHAI</a> for <em>Cardio-vascular health effects of air pollution in Telangana, India</em>. We have generated quite a lot of data of our own, including ambient air quality monitoring at three fixed sites in rural Telangana for one year. Being able to compare these numbers with longer-term measures in the closest city, Hyderabad, was something that probably would be useful at some point, so besides data cleaning, I had a look at other data sources.</p>
+
+<p>However, in that part of the world, you don&rsquo;t get much air quality data, and even less open and easily accessible air quality data. One pretty easily gets data from the US consulate in Hyderabad (well, easily thanks to <a href="https://github.com/ropensci/tabulizer"><code>tabulizer</code></a>, since parts of the data are pdf!). But going on the website of the Indian Central Pollution Control Board I embarked on a kind of scavenger hunt clicking around which felt quite frustrating. This also happens with websites from other countries, with a different scavenger hunt for each website. Sure you learn about <code>tabulizer</code>, <a href="https://github.com/ropensci/rselenium"><code>rSelenium</code></a>, <a href="https://github.com/johndharrison/seleniumPipes"><code>seleniumPipes</code></a> and other awesome &ndash; often rOpenSci-branded &ndash; packages along the way but it just doesn&rsquo;t feel right to have to spend so much time doing this!</p>
+
+<p>At the end of 2015, during a symposium about the future of environmental epidemiology, <a href="https://twitter.com/cathryn_tonne">my boss</a> mentioned OpenAQ, a platform aggregating and sharing open air quality data from official sources around the world. A bit after that, I found myself looking at the API documentation and got really excited. I contacted OpenAQ founders and asked them whether a R package already existed, and Christa Hasenkopf told me I could open an issue about it which I had zero intention of doing, I wanted to make it happen <em>right now</em>! So I started writing the package.</p>
+
+<p>At the same period of my life, a bit earlier, on one week-end I had been googling ways to download scientific literature metadata in R because of a discussion I&rsquo;d had with my husband. Doing that I had discovered the website of rOpenSci (see all the literature access packages <a href="https://ropensci.org/packages/#literature">here</a>) and had really thought it looked like an awesome project, I even saw there was an onboarding system where you could submit your package and make it part of the suite&hellip; I had more urgent things to do on that week-end, like finishing to write my PhD thesis, but the idea stuck with me.</p>
+
+<p>So really soon after writing the first version of <code>ropenaq</code>, I submitted my package to rOpenSci! I was a bit scared, I had to google parts of the words of the guidelines, like &ldquo;continuous integration&rdquo;, but there are many resources out there and from all rOpenSci reviews I&rsquo;ve read you can ask for help at any point of the process.</p>
+
+<p>I received the reviews of <a href="https://twitter.com/andyteucher">Andy Teucher</a> and <a href="https://twitter.com/polesasunder">Andrew MacDonald</a> a few weeks later. Their comments were as nice as they were useful! You can read the review <a href="https://github.com/ropensci/onboarding/issues/24">here</a> and see what I mean by nice and useful! I improved <code>ropenaq</code> and really dug the rOpenSci review process. Not only did my package get better, but my R skills and knowledge of best practice also improved, which is useful every day of my life as a data manager and statistician. And I became a contributor of both OpenAQ and rOpenSci, two projects whose goals resonated with me!</p>
+
+<p>So end of the story, now let&rsquo;s move to the more interesting stuff, what can you do with <code>ropenaq</code>? Download all the data from OpenAQ! Well not all the data in one go, if you really wanted to do that you should look at their <a href="http://openaq-data.s3.amazonaws.com/index.html">daily data dumps</a> or contact them, but here&rsquo;s how you would deal with the query &ldquo;How are PM2.5 values in Hyderabad?&rdquo;. OpenAQ has data for 7 pollutants: PM2.5 (particles smaller than 2.5μm), PM10 (particles smaller than 10μm), <em>SO</em><sub>2</sub> (sulfur dioxide), <em>NO</em><sub>2</sub> (nitrogen dioxide), <em>O</em><sub>3</sub> (ozone), CO (carbon monoxide), BC (black carbon). All of them are bad for human health with effects than can be revealed in the short or long term. In the whole post I&rsquo;ll only show examples with PM2.5, but other pollutants can be as interesting.</p>
+
+<h2 id="getting-data-via-ropenaq">Getting data via <code>ropenaq</code></h2>
+
+<h3 id="install-the-package">Install the package</h3>
+
+<p>Install the package with:</p>
+
+<pre><code class="language-r">install.packages(&quot;ropenaq&quot;)
+</code></pre>
+
+<p>Or install the development version using devtools with:</p>
+
+<pre><code class="language-r">library(&quot;devtools&quot;)
+install_github(&quot;ropensci/ropenaq&quot;)
+</code></pre>
+
+<p>Currently the development version, 1.0.4 implements OpenAQ new limit per API call of 10,000, while the CRAN version, 1.0.3, only allows to return 1,000 lines per API call. The development version should soon be submitted to CRAN.</p>
+
+<h2 id="find-the-air-quality-stations-with-available-data">Find the air quality stations with available data</h2>
+
+<p>The package contains three functions that are useful to find the stations at which there is data: <code>aq_countries</code>, <code>aq_cities</code> and <code>aq_locations</code>.</p>
+
+<p>So say I&rsquo;m looking for Indian data, I could choose to first check there&rsquo;s data for India.</p>
+
+<pre><code class="language-r">library(&quot;ropenaq&quot;)
+library(&quot;dplyr&quot;)
+import::from(dplyr, filter)
+countries &lt;- aq_countries()
+filter(countries, name == &quot;India&quot;)
+</code></pre>
+
+<pre><code>## # A tibble: 1 × 5
+##    name  code cities locations   count
+##   &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;     &lt;int&gt;   &lt;int&gt;
+## 1 India    IN     93        93 2766369
+</code></pre>
+
+<p>In the other functions of <code>ropenaq</code>, what you&rsquo;ll need to use for saying you want data for India is the country code, <code>IN</code>. By the way if you ever need to convert country names and codes, have a look at the <a href="https://github.com/vincentarelbundock/countrycode"><code>countrycode</code> package</a>.</p>
+
+<p>Now we could look for cities for which there is data in India.</p>
+
+<pre><code class="language-r">in_cities &lt;- aq_cities(country = &quot;IN&quot;)
+filter(in_cities, city == &quot;Hyderabad&quot;)
+</code></pre>
+
+<pre><code>## # A tibble: 1 × 5
+##        city country locations  count   cityURL
+##       &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;  &lt;int&gt;     &lt;chr&gt;
+## 1 Hyderabad      IN        10 159191 Hyderabad
+</code></pre>
+
+<p>In <code>ropenaq</code> other functions, what you&rsquo;ll use for the city is its <code>cityURL</code>. Now we can have a look at all stations for Hyderabad.</p>
+
+<pre><code class="language-r">aq_locations(city = &quot;Hyderabad&quot;) %&gt;%
+  knitr::kable()
+</code></pre>
+
+<table class="table">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> location </th>
+   <th style="text-align:left;"> pm25 </th>
+   <th style="text-align:left;"> pm10 </th>
+   <th style="text-align:left;"> no2 </th>
+   <th style="text-align:left;"> so2 </th>
+   <th style="text-align:left;"> o3 </th>
+   <th style="text-align:left;"> co </th>
+   <th style="text-align:left;"> bc </th>
+   <th style="text-align:left;"> lastUpdated </th>
+   <th style="text-align:left;"> firstUpdated </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> Bollaram Industrial Area </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> 2017-02-17 05:15:00 </td>
+   <td style="text-align:left;"> 2017-02-16 07:15:00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Bollaram Industrial Area, Hyderabad - TSPCB </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> 2017-02-20 19:45:00 </td>
+   <td style="text-align:left;"> 2017-02-17 05:45:00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ICRISAT Patancheru </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> 2017-02-17 05:30:00 </td>
+   <td style="text-align:left;"> 2017-02-15 18:30:00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ICRISAT Patancheru, Hyderabad - TSPCB </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> 2017-02-20 19:30:00 </td>
+   <td style="text-align:left;"> 2017-02-17 05:30:00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IDA Pashamylaram,Hyderabad </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> 2016-09-20 09:45:00 </td>
+   <td style="text-align:left;"> 2016-09-20 04:45:00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> IDA Pashamylaram, Hyderabad - TSPCB </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> 2017-02-20 19:30:00 </td>
+   <td style="text-align:left;"> 2016-09-20 10:15:00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Sanathnagar - Hyderabad - TSPCB </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> 2017-02-20 19:30:00 </td>
+   <td style="text-align:left;"> 2016-03-22 09:50:00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> TSPCBPashamylaram </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> 2016-09-20 04:45:00 </td>
+   <td style="text-align:left;"> 2016-09-18 18:30:00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> US Diplomatic Post: Hyderabad </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> 2017-02-20 19:30:00 </td>
+   <td style="text-align:left;"> 2015-12-11 21:30:00 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ZooPark </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> TRUE </td>
+   <td style="text-align:left;"> FALSE </td>
+   <td style="text-align:left;"> 2017-02-20 19:15:00 </td>
+   <td style="text-align:left;"> 2016-03-21 18:30:00 </td>
+  </tr>
+</tbody>
+</table>
+
+<p>In this table you see the parameters available for each station, and the dates for which you can get data. One could also directly filter stations with, say, PM2.5 information:</p>
+
+<pre><code class="language-r">aq_locations(city = &quot;Hyderabad&quot;, parameter = &quot;pm25&quot;)
+</code></pre>
+
+<pre><code>## # A tibble: 10 × 19
+##                                       location      city country count
+##                                          &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;
+## 1                     Bollaram Industrial Area Hyderabad      IN     5
+## 2  Bollaram Industrial Area, Hyderabad - TSPCB Hyderabad      IN   151
+## 3                           ICRISAT Patancheru Hyderabad      IN    38
+## 4        ICRISAT Patancheru, Hyderabad - TSPCB Hyderabad      IN   151
+## 5                   IDA Pashamylaram,Hyderabad Hyderabad      IN    11
+## 6          IDA Pashamylaram, Hyderabad - TSPCB Hyderabad      IN  6694
+## 7              Sanathnagar - Hyderabad - TSPCB Hyderabad      IN    74
+## 8                            TSPCBPashamylaram Hyderabad      IN    35
+## 9                US Diplomatic Post: Hyderabad Hyderabad      IN 10305
+## 10                                     ZooPark Hyderabad      IN 13674
+## # ... with 15 more variables: sourceNames &lt;list&gt;, lastUpdated &lt;dttm&gt;,
+## #   firstUpdated &lt;dttm&gt;, sourceName &lt;chr&gt;, latitude &lt;dbl&gt;,
+## #   longitude &lt;dbl&gt;, pm25 &lt;lgl&gt;, pm10 &lt;lgl&gt;, no2 &lt;lgl&gt;, so2 &lt;lgl&gt;,
+## #   o3 &lt;lgl&gt;, co &lt;lgl&gt;, bc &lt;lgl&gt;, cityURL &lt;chr&gt;, locationURL &lt;chr&gt;
+</code></pre>
+
+<p>I do agree that the workflow that I&rsquo;ve just presented is a bit tedious, but I really wanted you to know these three functions and to see how many countries/cities are represented. But actually things can be easier! The <code>aq_measurements</code> function I&rsquo;m about to present you has a <code>longitude</code>, <code>latitude</code> and <code>radius</code> arguments allowing you to make a query directly inside a circle of your choice on the Earth&rsquo;s surface! So if you have, for instance, names of cities in German, you don&rsquo;t need to worry about their English names, just use your favorite geocoding package (may I suggest <a href="https://github.com/ropensci/opencage"><code>opencage</code></a>?) and you&rsquo;ll be good to go.</p>
+
+<h3 id="get-air-quality-data">Get air quality data!</h3>
+
+<p>For getting measurements themselves, you can either use <code>aq_latest</code> or <code>aq_measurements</code>. <code>aq_latest</code> only gives you the latest measurements for a given place, <code>aq_measurements</code> gives all the measurements for a given place, and time period if you indicate one, this up to 10,000 data points per page. So if you make a query for a station with loads of data, you&rsquo;ll have to loop or more elegantly/modernly map over pages. Don&rsquo;t worry, <code>ropenaq</code> helps you know just how many pages there are. Say I want all PM2.5 data for Hyderabad&hellip;</p>
+
+<pre><code class="language-r"># find how many measurements there are
+first_test &lt;- aq_measurements(city = &quot;Hyderabad&quot;,
+                              date_from = &quot;2016-01-01&quot;,
+                              date_to = &quot;2016-12-31&quot;,
+                              parameter = &quot;pm25&quot;)
+count &lt;- attr(first_test, &quot;meta&quot;)$found
+print(count)
+</code></pre>
+
+<pre><code>## [1] 24685
+</code></pre>
+
+<pre><code class="language-r">library(&quot;purrr&quot;)
+
+# map queries over all pages
+allthedata &lt;- (1:ceiling(count/10000)) %&gt;%
+  purrr::map(function(page){
+    aq_measurements(city = &quot;Hyderabad&quot;,
+                   date_from = &quot;2016-01-01&quot;,
+                   date_to = &quot;2016-12-31&quot;,
+                   parameter = &quot;pm25&quot;,
+                   page = page,
+                   limit = 10000)
+    }) %&gt;%
+  bind_rows()
+
+allthedata
+</code></pre>
+
+<pre><code>## # A tibble: 24,685 × 12
+##                               location parameter value  unit country
+##                                  &lt;chr&gt;     &lt;chr&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;
+## 1  IDA Pashamylaram, Hyderabad - TSPCB      pm25  56.0 µg/m³      IN
+## 2                              ZooPark      pm25  56.0 µg/m³      IN
+## 3        US Diplomatic Post: Hyderabad      pm25 158.6 µg/m³      IN
+## 4  IDA Pashamylaram, Hyderabad - TSPCB      pm25  56.0 µg/m³      IN
+## 5                              ZooPark      pm25  56.0 µg/m³      IN
+## 6  IDA Pashamylaram, Hyderabad - TSPCB      pm25  56.0 µg/m³      IN
+## 7                              ZooPark      pm25  56.0 µg/m³      IN
+## 8  IDA Pashamylaram, Hyderabad - TSPCB      pm25  56.0 µg/m³      IN
+## 9        US Diplomatic Post: Hyderabad      pm25 148.8 µg/m³      IN
+## 10                             ZooPark      pm25  56.0 µg/m³      IN
+## # ... with 24,675 more rows, and 7 more variables: city &lt;chr&gt;,
+## #   dateUTC &lt;dttm&gt;, dateLocal &lt;dttm&gt;, latitude &lt;dbl&gt;, longitude &lt;dbl&gt;,
+## #   cityURL &lt;chr&gt;, locationURL &lt;chr&gt;
+</code></pre>
+
+<p>Yeah! We got the data! And now we can make a plot! Since all <code>ropenaq</code> functions return tidy <code>data.frame</code>s, you can use them with any of your favourite plotting libraries. Mine are <code>ggplot2</code> coupled with <code>viridis</code>.</p>
+
+<p>I&rsquo;ll filter out the negative values, which are actually invalid values, because the original data source returns &ldquo;-999&rdquo; instead of NA and OpenAQ doesn&rsquo;t make any change to the original data.</p>
+
+<pre><code class="language-r">library(&quot;ggplot2&quot;)
+library(&quot;viridis&quot;)
+allthedata %&gt;%
+  filter(value != - 999) %&gt;%
+  group_by(day = as.Date(dateLocal), location) %&gt;%
+  filter(n() &gt; 0) %&gt;%
+  summarize(average = mean(value)) %&gt;%
+ggplot() +
+  geom_line(aes(x = day, y = average, col = location)) +
+  facet_grid(location ~ .) +
+  geom_hline(yintercept = 25) +
+  scale_color_viridis(discrete = TRUE) +
+  theme(legend.position = &quot;none&quot;,
+        strip.text.y = element_text(angle=0))+
+  ylab(expression(paste(&quot;Average daily PM2.5 concentration (&quot;, mu, &quot;g/&quot;,m^3,&quot;)&quot;))) +
+  xlab(&quot;Time (days)&quot;)
+</code></pre>
+
+<p><img src="/assets/blog-images/2017-02-21-ropenaq/unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6" /></p>
+
+<p>What can we conclude from looking at this graph? One point is that the WHO daily limit of 25μg/m3, indicated by the black horizontal line on the plot, is very often exceeded. Another point is that some stations produce so little data that we don&rsquo;t even get a curve for them (note that in some cases gap in the data can be due to an OpenAQ issue rather than a provider issue). Both points can be interesting for fighting air pollution: having proof that the air is unhealthy might help trigger action against air pollution; and knowing the devices for measuring it were broken or that data wasn&rsquo;t communicated is something one can complain about to official authorities.</p>
+
+<p>Currently OpenAQ doesn&rsquo;t have all the data sources available in the world, nor all the existing historical data. But the number of sources is constantly increasing thanks to volunteers building new adapters between sources and OpenAQ, or uploading their data. Yes, you can be such a <a href="https://github.com/openaq/openaq-info/blob/master/FAQ.md">volunteer</a>!</p>
+
+<p>And with the current data available on OpenAQ, you&rsquo;d already get much more data for the same efforts than on, say, the Indian Central Pollution Control Board website. So the existence of OpenAQ and of <code>ropenaq</code> are already really good news. For instance as an epidemiologist planning a study about the link between PM2.5 concentration and a disease. For choosing a sample size which would allow you to detect the assumed effect, you need to have a rough idea of the exposure of your study population to PM2.5. Maybe you got data from a collaborator for a rural area and you want to also recruit people in a more exposed, say urban area. With OpenAQ you could already use the average concentration of the last year in e.g. Delhi for your calculations.</p>
+
+<h2 id="some-animated-plots-of-openaq-data">Some animated plots of OpenAQ data</h2>
+
+<p>I promised I would show off cool plots&hellip; Let&rsquo;s say that in general plotting air quality numbers that kill people isn&rsquo;t that cool, but one can also have fun with air quality data.</p>
+
+<h3 id="data-surfing">Data surfing</h3>
+
+<p>One day I was testing out <code>gganimate</code> for decorating a very simple air quality time series and while discussing options with <a href="https://twitter.com/sciencerely">Christa Hasenkopf</a> and <a href="https://twitter.com/dirk_sch">Dirk Schumacher</a>&hellip; the data surfer was born! In the meantime I started using <a href="https://github.com/ropensci/magick"><code>magick</code></a> instead of <code>gganimate</code>, probably because of the elegance of <a href="https://rud.is/b/2016/07/27/u-s-drought-animations-with-the-witchs-brew-purrr-broom-magick/">this post</a>. Also, <code>magick</code> is an rOpenSci package and this is the rOpenSci blog!</p>
+
+<pre><code class="language-r">library(&quot;emojifont&quot;)
+library(&quot;magick&quot;)
+library(&quot;ggthemes&quot;)
+
+load.emojifont('OpenSansEmoji.ttf')
+
+lima &lt;- aq_measurements(country = &quot;PE&quot;, limit = 1000)
+lima &lt;- filter(lima, location == &quot;US Diplomatic Post: Lima&quot;)
+lima &lt;- mutate(lima, label = emoji(&quot;surfer&quot;))
+
+figure_onetime &lt;- function(now, lima){
+
+  p &lt;- ggplot(lima)+
+  geom_area(aes(x = dateLocal,
+                 y = value),
+             size = 2, fill = &quot;navyblue&quot;)+
+  geom_text(aes(x = dateLocal,
+                y = value+1,
+                label = label),
+                col = &quot;goldenrod&quot;,
+            family=&quot;OpenSansEmoji&quot;, size=20,
+            data = filter_(lima, ~dateLocal == now))+
+  ylab(expression(paste(&quot;PM2.5 concentration (&quot;, mu, &quot;g/&quot;,m^3,&quot;)&quot;)))+
+  xlab('Local date and time, Lima, Peru')+
+  ylim(0, 50)+
+  ggtitle(as.character(now))+
+  theme_hc(bgcolor = &quot;darkunica&quot;) +
+  scale_colour_hc(&quot;darkunica&quot;)+
+  theme(text = element_text(size=40)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  theme(plot.title=element_text(family=&quot;OpenSansEmoji&quot;,
+                                face=&quot;bold&quot;))+
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+  outfil &lt;- gsub(&quot;-&quot;, &quot;&quot;, now)
+  outfil &lt;- gsub(&quot; &quot;, &quot;&quot;, outfil)
+  outfil &lt;- gsub(&quot;[:punct:]&quot;, &quot;&quot;, outfil)
+  outfil &lt;- paste0(outfil, &quot;.png&quot;)
+  ggsave(outfil, p, width=8, height=5)
+
+  outfil
+}
+
+sort(unique(lima$dateLocal)) %&gt;%
+  map(figure_onetime, lima = lima)  %&gt;%
+  map(image_read) %&gt;%
+  image_join() %&gt;%
+  image_animate(fps=2) %&gt;%
+  image_write(&quot;surf.gif&quot;)
+</code></pre>
+
+<p><img src="/assets/blog-images/2017-02-21-ropenaq/surf.gif" alt="" /></p>
+
+<p>The use of such a plot might be to illustrate a very serious talk about the need for open air quality data. I promise you&rsquo;ll get attention from the audience.</p>
+
+<h3 id="fireworks-across-the-us-on-the-4th-of-july">Fireworks across the US on the 4th of July</h3>
+
+<p>When looking at the time series of PM2.5 over years in say Delhi, one can see peaks corresponding to fireworks for celebrating Diwali. Last summer I decided to explore PM2.5 values on the 4th of July in the US.</p>
+
+<p>First I got the necessary data.</p>
+
+<pre><code class="language-r"># find how many measurements there are
+first_test &lt;- aq_measurements(country = &quot;US&quot;,
+                              has_geo = TRUE,
+                              parameter = &quot;pm25&quot;,
+                              limit = 10000,
+                              date_from = &quot;2016-07-04&quot;,
+                              date_to = &quot;2016-07-06&quot;,
+                              value_from = 0)
+count &lt;- attr(first_test, &quot;meta&quot;)$found
+print(count)
+</code></pre>
+
+<pre><code>## [1] 25446
+</code></pre>
+
+<pre><code class="language-r">library(&quot;purrr&quot;)
+
+# map queries over all pages
+usdata &lt;- (1:ceiling(count/10000)) %&gt;%
+  purrr::map(function(page){
+    aq_measurements(country = &quot;US&quot;,
+                    has_geo = TRUE,
+                    parameter = &quot;pm25&quot;,
+                    limit = 10000,
+                    date_from = &quot;2016-07-04&quot;,
+                    date_to = &quot;2016-07-06&quot;,
+                    value_from = 0,
+                    page = page)
+    }) %&gt;%
+  bind_rows()
+</code></pre>
+
+<p>I then summarize it for having one value by hour only and replace values over 80 by 80, because otherwise it&rsquo;s hard to find a good colour scale for the graph later.</p>
+
+<pre><code class="language-r">usdata &lt;- usdata %&gt;%
+  group_by(hour = update(dateUTC, minute = 0),
+           location, longitude, latitude, dateUTC) %&gt;%
+  summarize(value = mean(value))
+
+usdata &lt;- usdata %&gt;%
+  ungroup() %&gt;%
+  mutate(hour = update(hour, hour = lubridate::hour(hour) - 5)) %&gt;%
+  mutate(value = ifelse(value &gt; 80, 80, value))
+save(usdata, file = &quot;data/4th_july.RData&quot;)
+</code></pre>
+
+<p>This is how I make the visualization itself, using once again <code>magick</code>, and also <a href="https://github.com/hrbrmstr/albersusa"><code>albersusa</code></a>. The package has to be installed from Github: <code>devtools::install_github(&quot;hrbrmstr/albersusa&quot;)</code>. Note that I don&rsquo;t show Alaska and Hawaii.</p>
+
+<pre><code class="language-r">load( &quot;data/4th_july.RData&quot;)
+
+mintime &lt;- lubridate::ymd_hms(&quot;2016 07 04 17 00 00&quot;)
+maxtime &lt;- lubridate::ymd_hms(&quot;2016 07 05 07 00 00&quot;)
+
+usdata &lt;- filter(usdata, hour &gt;= mintime)
+usdata &lt;- filter(usdata, hour &lt;= maxtime)
+
+library(&quot;albersusa&quot;)
+us &lt;- usa_composite()
+us_map &lt;- fortify(us, region=&quot;name&quot;)
+us_map &lt;- filter(us_map, !id %in% c(&quot;Alaska&quot;, &quot;Hawaii&quot;))
+gg &lt;- ggplot()
+gg &lt;- gg + geom_map(data=us_map, map=us_map,
+                    aes(x=long, y=lat, map_id=id),
+                    color=&quot;white&quot;, size=0.1, fill=&quot;black&quot;)
+gg &lt;- gg + theme_map(base_size = 40)
+gg &lt;- gg + theme(plot.title = element_text(color=&quot;white&quot;))
+gg &lt;- gg + theme(legend.position = &quot;bottom&quot;)
+gg &lt;- gg + theme(panel.background = element_rect(fill = &quot;black&quot;))
+gg &lt;- gg + theme(plot.background=element_rect(fill=&quot;black&quot;))
+gg &lt;- gg + theme(legend.background= element_rect(fill=&quot;black&quot;, colour= NA))
+gg &lt;- gg + theme(legend.text = element_text(colour=&quot;white&quot;))
+gg &lt;- gg + theme(legend.title = element_text(colour=&quot;white&quot;))
+
+# find the maximal number of data points for the period
+lala &lt;- group_by(usdata, location, latitude) %&gt;% summarize(n = n())
+# and keep only stations with data for each hour
+usdata &lt;- group_by(usdata, location, latitude) %&gt;%
+  filter(n() == max(lala$n),
+         latitude &lt; 50, longitude &gt; - 130) %&gt;%
+  ungroup()
+
+firework_onehour &lt;- function(now, gg, usdata){
+  p &lt;- gg+
+  geom_point(data = filter_(usdata, ~ hour == now),
+             aes(x=longitude,
+                  y =latitude,
+                  colour = value,
+                  size = value))+
+    ggtitle(as.character(now)) +
+  coord_map()+
+  viridis::scale_color_viridis(expression(paste(&quot;PM2.5 concentration (&quot;, mu, &quot;g/&quot;,m^3,&quot;)Set to 80 if &gt;80&quot;)),
+                               option = &quot;inferno&quot;,
+                               limits = c(min(usdata$value),
+                                          max(usdata$value))) +
+    scale_size(limits = c(min(usdata$value),
+                                          max(usdata$value)))
+outfil &lt;- gsub(&quot;-&quot;, &quot;&quot;, now)
+  outfil &lt;- gsub(&quot; &quot;, &quot;&quot;, outfil)
+  outfil &lt;- gsub(&quot;[:punct:]&quot;, &quot;&quot;, outfil)
+  outfil &lt;- paste0(outfil, &quot;_fireworks.png&quot;)
+  ggsave(outfil, p, width=12, height=6)
+
+  outfil
+}
+
+sort(unique(usdata$hour)) %&gt;%
+  map(firework_onehour, gg = gg, usdata = usdata)  %&gt;%
+  map(image_read) %&gt;%
+  image_join() %&gt;%
+  image_animate(fps=1) %&gt;%
+  image_write(&quot;fireworks.gif&quot;)
+</code></pre>
+
+<p><img src="/assets/blog-images/2017-02-21-ropenaq/fireworks.gif" width="600"></p>
+
+<p>On this gif, where the title indicates the time in New York City, one sees the East to West wave of PM2.5 peaks due to fireworks as soon as it gets dark in each city, which happens at different times across the US. I think it&rsquo;s an interesting way of looking at this holiday. Holidays and fireworks are one thing, but one could also imagine coupling <code>ropenaq</code> data with data about fires, or weather, for which rOpenSci got you covered with <code>rnoaa</code> (<a href="https://github.com/ropensci/rnoaa">https://github.com/ropensci/rnoaa</a>) and <code>riem</code> (<a href="https://github.com/ropensci/riem">https://github.com/ropensci/riem</a>). Or for parts of the world with a high density of locations, why not compare air quality with land-use information from Openstreetmap via <a href="https://github.com/osmdatar/osmdata"><code>osmdata</code></a> and with transit information processed via <a href="https://github.com/ropenscilabs/gtfsr"><code>gtfsr</code></a>?</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<h3 id="what-can-you-do">What can YOU do?</h3>
+
+<p>I&rsquo;d strongly encourage you to get involved with the open-source projects you think are useful and cool, and in particular with rOpenSci and OpenAQ since I know these are friendly places, which is even made official by <a href="https://ropensci.org/blog/blog/2016/10/31/comm-call-v12">Codes</a> <a href="https://github.com/ropensci/ropenaq/blob/master/CONDUCT.md">of</a> <a href="https://github.com/openaq/openaq-info/blob/master/CODE-OF-CONDUCT.md">conduct</a>. Tweet at both organizations, look at their website, you&rsquo;ll meet people who&rsquo;ll be more than happy to include you and your contributions. All OpenAQ <a href="https://github.com/openaq/">Github repos</a> have contributing guides.</p>
+
+<p>If you want to get involved with <code>ropenaq</code> itself, you&rsquo;re welcome to do so! I&rsquo;ve opened <a href="https://github.com/ropensci/ropenaq/issues">issues</a> of possible enhancements of the package. Currently, two of them are I think more geared towards new-ish users of R that have an air quality background, one of them is more technical. And don&rsquo;t hesitate to open an issue if you notice a bug or think of a new functionality! Also, I like to collect use cases of the package, feel free to share your <code>ropenaq</code> examples.</p>
+
+<h3 id="a-few-concluding-words">A few concluding words</h3>
+
+<p>Note that <code>ropenaq</code> isn&rsquo;t the only R package providing access to open air quality data, you can have a look at:</p>
+
+<ul>
+<li><p>The <a href="https://github.com/ropensci/rdefra"><code>rdefra</code> package</a>, also part of the rOpenSci project,
+allows to  to interact with the UK AIR pollution database from DEFRA, including historical measures. I actually reviewed this package for rOpenSci, see <a href="https://github.com/ropensci/onboarding/issues/68">the review here</a>. I tried to be as nice and helpful as Andy and Andrew and think Claudia did an awesome work with her package!</p></li>
+
+<li><p>The <a href="https://github.com/davidcarslaw/openair"><code>openair</code> package</a>, on top of the plotting tools appreciated by air quality folks, gives access to the same data as <code>rdefra</code> but relies on a local and compressed copy of the data on servers at King&rsquo;s College (UK), periodically updated.</p></li>
+
+<li><p>The <a href="https://github.com/masalmon/usaqmindia"><code>usaqmindia</code> package</a> provides data from the US air quality monitoring program in India for Delhi, Mumbai, Chennai, Hyderabad and Kolkata from 2013. I packaged it up for ease of use, the data is included in the package.</p></li>
+</ul>
+
+<p>Thanks for reading until here! I also thank Stefanie Butland, Scott Chamberlain and Karthik Ram for their support during the preparation of this post.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">r</span></a>
+                
+                    <a href="/tags/community"><span class="label">community</span></a>
+                
+                    <a href="/tags/software"><span class="label">software</span></a>
+                
+                    <a href="/tags/review"><span class="label">review</span></a>
+                
+                    <a href="/tags/ropenaq"><span class="label">ropenaq</span></a>
+                
+                    <a href="/tags/rdefra"><span class="label">rdefra</span></a>
+                
+                    <a href="/tags/openair"><span class="label">openair</span></a>
+                
+                    <a href="/tags/osmdata"><span class="label">osmdata</span></a>
+                
+                    <a href="/tags/magick"><span class="label">magick</span></a>
+                
+                    <a href="/tags/gtfsr"><span class="label">gtfsr</span></a>
+                
+                    <a href="/tags/riem"><span class="label">riem</span></a>
+                
+                    <a href="/tags/rnoaa"><span class="label">rnoaa</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | mregions tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>mregions tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.1.6</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p><code>mregions</code> is useful to a wide diversity of R users because you get access to all of the
+data MarineRegions has, which can help in a variety of use cases:</p>
+
+<ul>
+<li>Visualize marine regions alone</li>
+<li>Visualize marine regions with associated data paired with analysis</li>
+<li>Use marine region geospatial boundaries to query data providers (e.g., OBIS (<a href="http://www.iobis.org">http://www.iobis.org</a>))</li>
+<li>Geocode - get geolocation data from place names</li>
+<li>Reverse Geocode - get place names from geolocation data</li>
+</ul>
+
+<h3 id="installation">Installation</h3>
+
+<p>Stable version from CRAN</p>
+
+<pre><code class="language-r">install.packages(&quot;mregions&quot;)
+</code></pre>
+
+<p>Development version from GitHub</p>
+
+<pre><code class="language-r">if (!require(&quot;devtools&quot;)) install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;ropenscilabs/mregions&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;mregions&quot;)
+</code></pre>
+
+<h3 id="geojson">GeoJSON</h3>
+
+<p>Get region</p>
+
+<pre><code class="language-r">res1 &lt;- mr_geojson(key = &quot;Morocco:dam&quot;)
+</code></pre>
+
+<p>Get <code>leaflet</code> library</p>
+
+<pre><code class="language-r">install.packages(&quot;leaflet&quot;)
+</code></pre>
+
+<p>Plot data</p>
+
+<pre><code class="language-r">library('leaflet')
+leaflet() %&gt;%
+  addProviderTiles(provider = 'OpenStreetMap') %&gt;%
+  addGeoJSON(geojson = res1$features) %&gt;%
+  setView(-3.9, 35, zoom = 10)
+</code></pre>
+
+<p><img src="/img/tutorial-images/mregions/leaf1.png" alt="map" /></p>
+
+<h3 id="shape">Shape</h3>
+
+<p>Get region</p>
+
+<pre><code class="language-r">res2 &lt;- mr_shp(key = &quot;MarineRegions:eez_iho_union_v2&quot;, maxFeatures = 5)
+</code></pre>
+
+<p>Get helper library</p>
+
+<pre><code class="language-r">install.packages(&quot;leaflet&quot;)
+</code></pre>
+
+<p>Plot data</p>
+
+<pre><code class="language-r">library('leaflet')
+leaflet() %&gt;%
+  addProviderTiles(provider = 'OpenStreetMap') %&gt;%
+  addPolygons(data = res2)
+</code></pre>
+
+<p><img src="/img/tutorial-images/mregions/leaf2.png" alt="map2" /></p>
+
+<h3 id="convert-to-wkt">Convert to WKT</h3>
+
+<p>From geojson</p>
+
+<pre><code class="language-r">res3 &lt;- mr_geojson(key = &quot;Morocco:dam&quot;)
+mr_as_wkt(res3, fmt = 5)
+
+#&gt; [1] &quot;MULTIPOLYGON (((41.573732 -1.659444, 45.891882 ... cutoff
+</code></pre>
+
+<p>From shp object (<code>SpatialPolygonsDataFrame</code>) or file, both work</p>
+
+<pre><code class="language-r">mr_as_wkt(mr_shp(key = &quot;MarineRegions:eez_iho_union_v2&quot;))
+
+#&gt; [1] &quot;GEOMETRYCOLLECTION (POLYGON ((-7.25 ... cutoff
+</code></pre>
+
+<h3 id="get-obis-eez-id">Get OBIS EEZ ID</h3>
+
+<pre><code class="language-r">mr_obis_eez_id(&quot;bulgarian exclusive economic zone&quot;)
+#&gt; [1] 71
+</code></pre>
+
+<h3 id="citing">Citing</h3>
+
+<blockquote>
+<p>Scott Chamberlain (2017). mregions: Marine Regions Data from
+  &lsquo;Marineregions.org&rsquo;. R package version 0.1.46.
+  <a href="https://CRAN.R-project.org/package=mregions">https://CRAN.R-project.org/package=mregions</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropenscilabs/mregions/issues?state=open">our GitHub repo for mregions</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

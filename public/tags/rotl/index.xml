@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rotl on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/rotl/</link>
+    <description>Recent content in Rotl on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 26 Jul 2016 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/rotl/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>rotl paper published</title>
+      <link>https://ropensci.org/blog/2016/07/26/rotl-paper-published/</link>
+      <pubDate>Tue, 26 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2016/07/26/rotl-paper-published/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;We are excited to announce a paper describing &lt;code&gt;rotl&lt;/code&gt;, our package for the
+&lt;a href=&#34;http://www.opentreeoflife.org/&#34;&gt;Open Tree of Life&lt;/a&gt; data, has been
+&lt;a href=&#34;https://doi.org/10.1111/2041-210X.12593&#34;&gt;published&lt;/a&gt;. The full
+citation is:&lt;/p&gt;
+
+&lt;p&gt;Michonneau, F., Brown, J. W. and Winter, D. J. (2016), rotl: an R
+package to interact with the Open Tree of Life data. &lt;em&gt;Methods Ecol
+Evol.&lt;/em&gt; doi: &lt;a href=&#34;https://doi.org/10.1111/2041-210X.12593&#34;&gt;https://doi.org/10.1111/2041-210X.12593&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The paper, which is freely available, describes the package and the data
+it wraps in detail. Rather than rehash the information here, we will use
+this post to briefly introduce the goals of the package and thank some
+of the people that helped it come to be.&lt;/p&gt;
+
+&lt;h3 id=&#34;what-data-does-open-tree-have-and-how-can-rotl-help-you-get-it&#34;&gt;What data does Open Tree have and how can &lt;code&gt;rotl&lt;/code&gt; help you get it?&lt;/h3&gt;
+
+&lt;p&gt;The &lt;a href=&#34;http://www.opentreeoflife.org/&#34;&gt;Open Tree of Life&lt;/a&gt; combines
+knowledge from thousands of scientific studies to produce a single
+source of information about the relationships among all species on
+earth. In addition to storing the trees and taxonomies that go into this
+project, the Open Tree provides a &amp;ldquo;synthesis tree&amp;rdquo; that represents this
+combined knowledge. The Open Tree data can be accessed via the web page
+linked above, and through an API.&lt;code&gt;rotl&lt;/code&gt; takes advantage of this API to
+give R users the ability to search for phylogenetic information and
+import the results into their R sessions. The imported data can then be
+used with the growing ecosystem of packages for phylogenetic and
+comparative biology in R.&lt;/p&gt;
+
+&lt;h3 id=&#34;a-small-example&#34;&gt;A small example&lt;/h3&gt;
+
+&lt;p&gt;Using &lt;code&gt;rotl&lt;/code&gt; to get a tree for a set of names is usually a two step
+process. You need to start by matching the set of names you have to
+records in the Open Tree database, and obtain unique IDs for each one.
+The function &lt;code&gt;tnrs_match_names&lt;/code&gt; handles this task:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;library(rotl)
+apes &amp;lt;- c(&amp;quot;Pongo&amp;quot;, &amp;quot;Pan&amp;quot;, &amp;quot;Gorilla&amp;quot;, &amp;quot;Hoolock&amp;quot;, &amp;quot;Homo&amp;quot;)
+resolved_names &amp;lt;- tnrs_match_names(apes)
+resolved_names
+
+##   search_string unique_name approximate_match ott_id is_synonym flags
+## 1         pongo       Pongo             FALSE 417949      FALSE
+## 2           pan         Pan             FALSE 417957      FALSE
+## 3       gorilla     Gorilla             FALSE 417969      FALSE
+## 4       hoolock     Hoolock             FALSE 712902      FALSE
+## 5          homo        Homo             FALSE 770309      FALSE
+##   number_matches
+## 1              1
+## 2              1
+## 3              1
+## 4              1
+## 5              1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Once you have a good set of unique IDs, you will want to fetch a tree.
+You can use &lt;code&gt;ott_id&lt;/code&gt; to extract just the IDs from the table returned by
+&lt;code&gt;tnrs_match_names&lt;/code&gt; and pass those to &lt;code&gt;tol_induced_subtree&lt;/code&gt; to fetch a
+tree with theses species in the tips&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;tr &amp;lt;- tol_induced_subtree(ott_ids=ott_id(resolved_names))
+plot(tr)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/rotl_pub/ape_tree.png&#34; alt=&#34;img&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The tree is an object of the &lt;code&gt;ape&lt;/code&gt; class &lt;code&gt;phylo&lt;/code&gt;, which is used by most
+other phylogeny packages in R. There are two vignettes describing how
+the fetched trees can be &lt;a href=&#34;https://cran.rstudio.com/web/packages/rotl/vignettes/data_mashups.html&#34;&gt;paired with other
+data&lt;/a&gt;
+and used to &lt;a href=&#34;https://cran.rstudio.com/web/packages/rotl/vignettes/meta-analysis.html&#34;&gt;reproduce a comparative
+analysis&lt;/a&gt;.
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/rotl/vignettes/how-to-use-rotl.html&#34;&gt;Another
+vignette&lt;/a&gt;
+provides and introduction to the package and includes an FAQ.&lt;/p&gt;
+
+&lt;h3 id=&#34;thanks&#34;&gt;Thanks&lt;/h3&gt;
+
+&lt;p&gt;We&amp;rsquo;d like to thank the Open Tree project for providing such an amazing
+resource, and  for producing a powerful and well-documented API. &lt;code&gt;rotl&lt;/code&gt; was
+initially developed as part of the &lt;a href=&#34;https://ropensci.org/blog/2014/08/15/open-tree-of-life-hackathon/&#34;&gt;Open Tree&amp;rsquo;s hackathon in Ann Arbor
+in
+2014&lt;/a&gt;.
+We&amp;rsquo;d like to thank the Open Tree project for inviting us to the meeting
+and all participants of that meeting for discussions and their feedback
+on &lt;code&gt;rotl&lt;/code&gt;. The package was reviewed as part of the ROpenSci onboarding
+process, and we&amp;rsquo;d like to thank &lt;a href=&#34;http://scottchamberlain.info/&#34;&gt;Scott
+Chamberlain&lt;/a&gt; for the time and expertise
+that went into this review and improved the package.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

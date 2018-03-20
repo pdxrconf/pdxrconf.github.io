@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | NOAA climate sparklines</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">NOAA climate sparklines</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="/about/#team"> Scott Chamberlain </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">August 5, 2013</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                <p>We have started a new R package interacting with NOAA climate data called <strong>rnoaa</strong>. You can find our package in development <a href="https://github.com/ropensci/rnoaa">here</a> and documentation for NOAA web services <a href="http://www.ncdc.noaa.gov/cdo-web/webservices">here</a>. It is still early days for this package, but we wanted to demo what you can do with the package.</p>
+
+<p>In this example, we search for stations that collect climate data, then get the data for those stations, pull out only the precipitation data, then get latitude/longitude coordinates for each station, and plot data on a map.</p>
+
+<p>Load packages</p>
+
+<pre><code class="language-r">library(rnoaa)
+library(scales)
+library(lubridate)
+library(maptools)
+library(ggplot2)
+library(doMC)
+library(ggsubplot)
+library(maps)
+library(plyr)
+library(stringr)
+</code></pre>
+
+<p>Find stations to get data from</p>
+
+<pre><code class="language-r">stations &lt;- noaa_stations(dataset = &quot;GHCND&quot;, enddate = &quot;20121201&quot;)
+res &lt;- sapply(stations$data, function(x) x$meta$id)
+</code></pre>
+
+<p>Get data from stations, just searching on the first 60.</p>
+
+<pre><code class="language-r">noaa_fw &lt;- failwith(NULL, noaa)
+registerDoMC(cores = 4)
+dat &lt;- compact(llply(as.character(res)[1:60], function(x) noaa_fw(dataset = &quot;GHCND&quot;,
+    station = x, year = 2010, month = 7), .parallel = TRUE))
+</code></pre>
+
+<p>Make a data.frame and fix dates.</p>
+
+<pre><code class="language-r">df &lt;- ldply(dat, function(x) x$data)
+df$date &lt;- ymd(str_replace(as.character(df$date), &quot;T00:00:00\\.000&quot;, &quot;&quot;))
+df &lt;- df[df$dataType == &quot;PRCP&quot;, ]
+</code></pre>
+
+<p>Get station lat and long data so that we can put data on a map.</p>
+
+<pre><code class="language-r">latlongs &lt;- llply(res[1:60], function(x) noaa_stations(x, dataset = &quot;GHCND&quot;)$data$meta[c(&quot;id&quot;,
+    &quot;latitude&quot;, &quot;longitude&quot;)])
+latlongs &lt;- ldply(latlongs, function(x) as.data.frame(x))
+df2 &lt;- merge(df, latlongs, by.x = &quot;station&quot;, by.y = &quot;id&quot;)
+</code></pre>
+
+<p>Here&rsquo;s what the first six rows of data look like</p>
+
+<pre><code class="language-r">head(df2)
+</code></pre>
+
+<pre><code>            station       date dataType value  atts latitude longitude
+1 GHCND:AQC00914000 2010-07-01     PRCP   297 01000   -14.32    -170.8
+2 GHCND:AQC00914000 2010-07-02     PRCP    56 01000   -14.32    -170.8
+3 GHCND:AQC00914000 2010-07-03     PRCP   122 01000   -14.32    -170.8
+4 GHCND:AQC00914000 2010-07-04     PRCP     0 01000   -14.32    -170.8
+5 GHCND:AQC00914000 2010-07-05     PRCP    61 01000   -14.32    -170.8
+6 GHCND:AQC00914000 2010-07-06     PRCP   437 01000   -14.32    -170.8
+</code></pre>
+
+<p>Plot the data. Each sparkline on the map is the precipitation data for a station, where the values are tenths of mm of precipitation. The x-axis of each sparkline is number of days, where each line is the last 30 days of precipitation data. The blue line in each sparkline is the same y-axis for each line for reference. The station with the greatest value (87.6 mm) is the one in the ocean in American Somoa at (-14.31667,-170.7667).</p>
+
+<pre><code class="language-r">world_map &lt;- map_data(&quot;world&quot;)
+p &lt;- ggplot() + geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+    fill = &quot;white&quot;, color = &quot;gray40&quot;, size = 0.2) + annotate(geom = &quot;text&quot;,
+    x = -155, y = -55, label = sprintf(&quot;Max value is\n %s mm&quot;, max(df2$value)/10))
+p + geom_subplot(aes(longitude, latitude, group = station, subplot = geom_line(aes(date,
+    value)), size = 1), ref = ref_vline(aes(fill = length(value)), thickness = 0.1),
+    width = rel(2), height = rel(5), data = df2) + theme(legend.position = &quot;none&quot;)
+</code></pre>
+
+<p><img src="/assets/blog-images/2013-08-05-noaa-sparklines/plotit.png" alt="center" /></p>
+
+<p>There is a lot more to come in this package. Keep an eye on this blog and our twitter account (@ropensci).</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/ecology"><span class="label">ecology</span></a>
+                
+                    <a href="/tags/api"><span class="label">API</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Species occurrence data</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">Species occurrence data</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">March 17, 2014</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<div class="alert alert-info" role="alert">
+UPDATE: mapping functions are in a separate package now (<a href="https://cran.rstudio.com/web/packages/mapr">mapr</a>). Examples that do mapping below have been updated.
+</div>
+
+<p>The rOpenSci projects aims to provide programmatic access to scientific data repositories on the web. A vast majority of the packages in our current suite retrieve some form of biodiversity or taxonomic data. Since several of these datasets have been georeferenced, it provides numerous opportunities for visualizing species distributions, building species distribution maps, and for using it analyses such as species distribution models. In an effort to streamline access to these data, we have developed a package called Spocc, which provides a unified API to all the biodiversity sources that we provide. The obvious advantage is that a user can interact with a common API and not worry about the nuances in syntax that differ between packages. As more data sources come online, users can access even more data without significant changes to their code. However, it is important to note that spocc will never replicate the full functionality that exists within specific packages. Therefore users with a strong interest in one of the specific data sources listed below would benefit from familiarising themselves with the inner working of the appropriate packages.</p>
+
+<h2 id="data-sources">Data Sources</h2>
+
+<p><code>spocc</code> currently interfaces with five major biodiversity repositories. Many of these packages have been part of the rOpenSci suite:</p>
+
+<ol>
+<li><p>Global Biodiversity Information Facility (<code>rgbif</code>)
+<a href="http://www.gbif.org/">GBIF</a> is a government funded open data repository with several partner organizations with the express goal of providing access to data on Earth&rsquo;s biodiversity. The data are made available by a network of member nodes, coordinating information from various participant organizations and government agencies.</p></li>
+
+<li><p><a href="http://ecoengine.berkeley.edu/">Berkeley Ecoengine</a> (<code>ecoengine</code>)
+The ecoengine is an open API built by the <a href="http://globalchange.berkeley.edu/">Berkeley Initiative for Global Change Biology</a>. The repository provides access to over 3 million specimens from various Berkeley natural history museums. These data span more than a century and provide access to georeferenced specimens, species checklists, photographs, vegetation surveys and resurveys and a variety of measurements from environmental sensors located at reserves across University of California&rsquo;s natural reserve system. (<a href="http://ropensci.org/blog/2014/01/30/ecoengine/">related blog post</a>)</p></li>
+
+<li><p><strong>iNaturalist</strong> (<code>rinat</code>)
+iNaturalist provides access to crowd sourced citizen science data on species observations.</p></li>
+
+<li><p><a href="http://vertnet.org/index.php">VertNet</a> (<code>rvertnet</code>)
+Similar to <code>rgbif</code>, ecoengine, and <code>rbison</code> (see below), VertNet provides access to more than 80 million vertebrate records spanning a large number of institutions and museums primarly covering four major disciplines (mammology, herpetology, ornithology, and icthyology). <strong>Note that we don&rsquo;t currenlty support VertNet data in this package, but we should soon</strong></p></li>
+
+<li><p><a href="http://bison.usgs.ornl.gov/">Biodiversity Information Serving Our Nation</a> (<code>rbison</code>)
+Built by the US Geological Survey&rsquo;s core science analytic team, BISON is a portal that provides access to species occurrence data from several participating institutions.</p></li>
+
+<li><p><a href="http://ebird.org/content/ebird/">eBird</a> (<code>rebird</code>)
+ebird is a database developed and maintained by the Cornell Lab of Ornithology and the National Audubon Society. It provides real-time access to checklist data, data on bird abundance and distribution, and communtiy reports from birders.</p></li>
+
+<li><p><a href="http://antweb.org">AntWeb</a> (<code>AntWeb</code>)
+AntWeb is the world&rsquo;s largest online database of images, specimen records, and natural history information on ants. It is community driven and open to contribution from anyone with specimen records, natural history comments, or images. (<a href="http://ropensci.org/blog/2014/02/18/antweb/">related blog post</a>)</p></li>
+</ol>
+
+<p><strong>Note:</strong> It&rsquo;s important to keep in mind that several data providers interface with many of the above mentioned repositories. This means that occurence data obtained from BISON may be duplicates of data that are also available through GBIF. We do not have a way to resolve these duplicates or overlaps at this time but it is an issue we are hoping to address in future versions of the package.</p>
+
+<h2 id="installing-the-package">Installing the package</h2>
+
+<pre><code class="language-r">install.packages(&quot;spocc&quot;)
+# or install the most recent version
+devtools::install_github(&quot;ropensci/spocc&quot;)
+library(spocc)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;spocc&quot;)
+</code></pre>
+
+<h2 id="searching-species-occurrence-data">Searching species occurrence data</h2>
+
+<p>The main workhorse function of the package is called <code>occ</code>. The function allows you to search for occurrence records on a single species or list of species and from particular sources of interest or several. The main input is a <code>query</code> with sources specified under the argument <code>from</code>. So to look at a really simply query:</p>
+
+<pre><code class="language-r">results &lt;- occ(query = 'Accipiter striatus', from = 'gbif')
+results
+</code></pre>
+
+<pre><code>#&gt; Searched: gbif
+#&gt; Occurrences - Found: 529,471, Returned: 500
+#&gt; Search type: Scientific
+#&gt;   gbif: Accipiter striatus (500)
+</code></pre>
+
+<p>This returns the results as an S3 class with a slot for each data source. Since we only requested data from <code>gbif</code>, the remaining slots are empty. To view the data:</p>
+
+<pre><code class="language-r">results$gbif
+</code></pre>
+
+<pre><code>#&gt; Species [Accipiter striatus (500)]
+#&gt; First 10 rows of [Accipiter_striatus]
+#&gt;
+#&gt; Source: local data frame [500 x 117]
+#&gt;
+#&gt;                  name  longitude latitude  prov                 issues
+#&gt;                 &lt;chr&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;                  &lt;chr&gt;
+#&gt; 1  Accipiter striatus  -97.94314 30.04580  gbif         cdround,gass84
+#&gt; 2  Accipiter striatus -122.40089 37.49201  gbif         cdround,gass84
+#&gt; 3  Accipiter striatus  -97.63810 30.24674  gbif    cdround,cudc,gass84
+#&gt; 4  Accipiter striatus  -81.85267 28.81852  gbif                 gass84
+#&gt; 5  Accipiter striatus -106.31531 31.71593  gbif         cdround,gass84
+#&gt; 6  Accipiter striatus  -97.81493 26.03150  gbif cdround,cucdmis,gass84
+#&gt; 7  Accipiter striatus  -95.50117 29.76086  gbif         cdround,gass84
+#&gt; 8  Accipiter striatus -116.67145 32.94147  gbif         cdround,gass84
+#&gt; 9  Accipiter striatus  -96.91463 32.82949  gbif         cdround,gass84
+#&gt; 10 Accipiter striatus  -75.65139 45.44557  gbif         cdround,gass84
+#&gt; ..                ...        ...      ...   ...                    ...
+#&gt; Variables not shown: key &lt;int&gt;, datasetKey &lt;chr&gt;, publishingOrgKey &lt;chr&gt;,
+#&gt;   publishingCountry &lt;chr&gt;, protocol &lt;chr&gt;, lastCrawled &lt;chr&gt;, lastParsed
+#&gt;   &lt;chr&gt;, extensions &lt;chr&gt;, basisOfRecord &lt;chr&gt;, taxonKey &lt;int&gt;, kingdomKey
+#&gt;   &lt;int&gt;, phylumKey &lt;int&gt;, classKey &lt;int&gt;, orderKey &lt;int&gt;, familyKey &lt;int&gt;,
+#&gt;   genusKey &lt;int&gt;, speciesKey &lt;int&gt;, scientificName &lt;chr&gt;, kingdom &lt;chr&gt;,
+#&gt;   phylum &lt;chr&gt;, order &lt;chr&gt;, family &lt;chr&gt;, genus &lt;chr&gt;, species &lt;chr&gt;,
+#&gt;   genericName &lt;chr&gt;, specificEpithet &lt;chr&gt;, taxonRank &lt;chr&gt;,
+#&gt;   dateIdentified &lt;chr&gt;, coordinateUncertaintyInMeters &lt;dbl&gt;, year &lt;int&gt;,
+#&gt;   month &lt;int&gt;, day &lt;int&gt;, eventDate &lt;date&gt;, modified &lt;chr&gt;,
+#&gt;   lastInterpreted &lt;chr&gt;, references &lt;chr&gt;, identifiers &lt;chr&gt;, facts &lt;chr&gt;,
+#&gt;   relations &lt;chr&gt;, geodeticDatum &lt;chr&gt;, class &lt;chr&gt;, countryCode &lt;chr&gt;,
+#&gt;   country &lt;chr&gt;, rightsHolder &lt;chr&gt;, identifier &lt;chr&gt;, informationWithheld
+#&gt;   &lt;chr&gt;, verbatimEventDate &lt;chr&gt;, datasetName &lt;chr&gt;, verbatimLocality
+#&gt;   &lt;chr&gt;, collectionCode &lt;chr&gt;, gbifID &lt;chr&gt;, occurrenceID &lt;chr&gt;, taxonID
+#&gt;   &lt;chr&gt;, license &lt;chr&gt;, catalogNumber &lt;chr&gt;, recordedBy &lt;chr&gt;,
+#&gt;   http...unknown.org.occurrenceDetails &lt;chr&gt;, institutionCode &lt;chr&gt;,
+#&gt;   rights &lt;chr&gt;, eventTime &lt;chr&gt;, identificationID &lt;chr&gt;, occurrenceRemarks
+#&gt;   &lt;chr&gt;, individualCount &lt;int&gt;, elevation &lt;dbl&gt;, elevationAccuracy &lt;dbl&gt;,
+#&gt;   continent &lt;chr&gt;, stateProvince &lt;chr&gt;, institutionID &lt;chr&gt;, county &lt;chr&gt;,
+#&gt;   identificationVerificationStatus &lt;chr&gt;, language &lt;chr&gt;, type &lt;chr&gt;,
+#&gt;   locationAccordingTo &lt;chr&gt;, preparations &lt;chr&gt;, identifiedBy &lt;chr&gt;,
+#&gt;   georeferencedDate &lt;chr&gt;, higherGeography &lt;chr&gt;, nomenclaturalCode &lt;chr&gt;,
+#&gt;   georeferencedBy &lt;chr&gt;, georeferenceProtocol &lt;chr&gt;, endDayOfYear &lt;chr&gt;,
+#&gt;   georeferenceVerificationStatus &lt;chr&gt;, locality &lt;chr&gt;,
+#&gt;   verbatimCoordinateSystem &lt;chr&gt;, otherCatalogNumbers &lt;chr&gt;, organismID
+#&gt;   &lt;chr&gt;, previousIdentifications &lt;chr&gt;, identificationQualifier &lt;chr&gt;,
+#&gt;   samplingProtocol &lt;chr&gt;, accessRights &lt;chr&gt;, higherClassification &lt;chr&gt;,
+#&gt;   georeferenceSources &lt;chr&gt;, sex &lt;chr&gt;, establishmentMeans &lt;chr&gt;,
+#&gt;   occurrenceStatus &lt;chr&gt;, disposition &lt;chr&gt;, startDayOfYear &lt;chr&gt;,
+#&gt;   dynamicProperties &lt;chr&gt;, infraspecificEpithet &lt;chr&gt;, georeferenceRemarks
+#&gt;   &lt;chr&gt;, and 12 more &lt;...&gt;.
+</code></pre>
+
+<p>If you prefer data from more than one source, simply pass a vector of source names for the <code>from</code> argument. Example:</p>
+
+<pre><code class="language-r">occ(query = 'Accipiter striatus', from = c('ecoengine', 'gbif'))
+</code></pre>
+
+<pre><code>#&gt; Searched: ecoengine, gbif
+#&gt; Occurrences - Found: 530,224, Returned: 1,000
+#&gt; Search type: Scientific
+#&gt;   gbif: Accipiter striatus (500)
+#&gt;   ecoengine: Accipiter striatus (500)
+</code></pre>
+
+<p>We can also search for multiple species across multiple engines.</p>
+
+<pre><code class="language-r">species_list &lt;- c(&quot;Accipiter gentilis&quot;, &quot;Accipiter poliogaster&quot;, &quot;Accipiter badius&quot;)
+res_set &lt;- occ(species_list, from = c('gbif', 'ecoengine'))
+</code></pre>
+
+<p>Similarly, we can search for data on the Sharp-shinned Hawk from other data sources too.</p>
+
+<pre><code class="language-r">occ(query = 'Accipiter striatus', from = 'ecoengine')
+# or look for data on other species
+occ(query = 'Danaus plexippus', from = 'inat')
+occ(query = 'Bison bison', from = 'bison')
+occ(query = &quot;acanthognathus brevicornis&quot;, from = &quot;antweb&quot;)
+</code></pre>
+
+<p><code>occ</code> is also extremely flexible and can take package specific arguments for any source you might be querying. You can pass these as a list under <code>package_name_opts</code> (e.g. <code>antweb_opts</code>, <code>ecoengine_opts</code>). See the help file for <code>?occ</code> for more information.</p>
+
+<h2 id="visualizing-biodiversity-data">Visualizing biodiversity data</h2>
+
+<p>We provide several methods to visualize the resulting data. Current options include Leaflet.js, ggmap, a Mapbox implementation in a GitHub gist, or a static map.</p>
+
+<p><strong>Mapping with Leaflet</strong></p>
+
+<blockquote>
+<p>UPDATE: mapping functions are in a separate package called <code>mapr</code>. Eg below updated</p>
+</blockquote>
+
+<pre><code class="language-r">spp &lt;- c(&quot;Danaus plexippus&quot;, &quot;Accipiter striatus&quot;, &quot;Pinus contorta&quot;)
+dat &lt;- occ(query = spp, from = &quot;gbif&quot;, has_coords = TRUE, limit = 50)
+library(&quot;mapr&quot;)
+map_leaflet(dat)
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-03-17-spocc/leaflet_map.png" alt="leaflet_map" /></p>
+
+<p><strong>Render a geojson file automatically as a GitHub gist</strong></p>
+
+<p>To have a map automatically posted as a gist, you&rsquo;ll need to set up your GitHub credentials ahead of time. You can either pass these as variables <code>github.username</code> and <code>github.password</code>, or store them in your options (taking regular precautions as you would with passwords of course). If you don&rsquo;t have these stored, you&rsquo;ll be prompted to enter them before posting.</p>
+
+<pre><code class="language-r">spp &lt;- c(&quot;Danaus plexippus&quot;, &quot;Accipiter striatus&quot;, &quot;Pinus contorta&quot;)
+dat &lt;- occ(query = spp, from = &quot;gbif&quot;, has_coords = TRUE)
+dat &lt;- fixnames(dat)
+library(&quot;mapr&quot;)
+map_gist(dat, color = c(&quot;#976AAE&quot;, &quot;#6B944D&quot;, &quot;#BD5945&quot;))
+</code></pre>
+
+<script src="https://gist.github.com/sckott/daa7077cf80f2d2fbf2c5a41a9a00836.js"></script>
+
+<p><strong>Static maps</strong></p>
+
+<p>If interactive maps aren&rsquo;t your cup of tea, or you prefer to have one that you can embed in a paper, try one of our static map options. You can go with the more elegant <code>ggmap</code> option or stick with something from base graphics.</p>
+
+<pre><code class="language-r">ecoengine_data &lt;- occ(query = &quot;Lynx rufus californicus&quot;, from = &quot;ecoengine&quot;, has_coords = TRUE)
+map_ggplot(ecoengine_data, map = &quot;usa&quot;)
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-03-17-spocc/ggplot.png" alt="ggplot_maps" /></p>
+
+<pre><code class="language-r">spnames &lt;- c(&quot;Accipiter striatus&quot;, &quot;Setophaga caerulescens&quot;, &quot;Spinus tristis&quot;)
+base_data &lt;- occ(query = spnames, from = &quot;gbif&quot;, has_coords = TRUE)
+map_plot(base_data, cex = 1, pch = 10)
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-03-17-spocc/base_maps.png" alt="base_maps" /></p>
+
+<h2 id="what-s-next">What&rsquo;s next?</h2>
+
+<ul>
+<li>As soon as we have an updated <code>rvertnet</code> package, we&rsquo;ll add the ability to query VertNet data from spocc.</li>
+<li>We will add <code>rCharts</code> as an official import once the package is on CRAN (Eta end of March)</li>
+<li>We&rsquo;re helping on a new package rMaps to make interactive maps using various Javascript mapping libraries, which will give access to a variety of awesome interactive maps. We will integrate rMaps once it&rsquo;s on CRAN.</li>
+<li>We&rsquo;ll add a function to make interactive maps using RStudio&rsquo;s Shiny in a future version.</li>
+</ul>
+
+<p>As always, <a href="https://github.com/ropensci/spocc/issues?page=1&amp;state=open">issues</a> or <a href="https://github.com/ropensci/spocc/pulls">pull requests</a> are welcome directly on the <a href="http://ropensci.org/spocc">repo</a>.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/api"><span class="label">API</span></a>
+                
+                    <a href="/tags/biodiversity"><span class="label">biodiversity</span></a>
+                
+                    <a href="/tags/species"><span class="label">species</span></a>
+                
+                    <a href="/tags/occurrence"><span class="label">occurrence</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

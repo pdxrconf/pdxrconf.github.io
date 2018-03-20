@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Growth of open data in biology</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">Growth of open data in biology</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="/about/#team"> Scott Chamberlain </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">November 10, 2014</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<h2 id="why-open-data-growth">Why open data growth</h2>
+
+<p>At rOpenSci we try to make it easier for people to use open data and contribute open data to the community. The question often arises: How much open data do we have? Another angle on this topic is: How much is open data growing?</p>
+
+<p>We provide access to dozens of data respositories through our various packages. We asked many of them to share numbers on the amount of data they have, and if possible, growth of their data holdings through time. Many of our partners came through with some data. Note that the below is biased towards those data sources we were able to get data from, and those that we were able to get growth through time data. In addition, note that much of the data we use below was from fall of 2013 (last year) - so the below is based on somewhat old data, but surely the trends are likely still the same now.</p>
+
+<p>We collated data from the different sources, and made some pretty graphs using the data. Here&rsquo;s what we learned (see last section on how to reproduce this analysis):</p>
+
+<h2 id="size-of-open-data">Size of open data</h2>
+
+<p>Of the data sources we have data for, how much data is there? The expression of size of data is somewhat different for different sources, so the below is a bit heterogeous, but nonetheless coveys that there is a lot of open data.</p>
+
+<pre><code class="language-r">rbind(df1, df2) %&gt;%
+  mutate(
+    type = c('Phenology records','Phylogenetic trees','Taxonomic names','Checklist records','Observations','Taxonomic names','Source databases','Titles','Items','Names','Pages','Species occurrence records','Data publishers','Taxonomic names','Data records','Datasets','Articles','Data packages','SNPs','Users','Genotypes','Data records'),
+    source = c('NPN','Treebase','ITIS','eBird','eBird','COL','COL','BHL','BHL','BHL','BHL','GBIF','GBIF','Neotoma','Neotoma','Neotoma','PLOS','Dryad','OpenSNP','OpenSNP','OpenSNP','DataCite')
+  ) %&gt;%
+  arrange(type, desc(value)) %&gt;%
+  kable(format = &quot;html&quot;)
+</code></pre>
+
+<table class="table table-bordered table-striped">
+ <thead>
+  <tr>
+   <th style="text-align:left;"> source </th>
+   <th style="text-align:right;"> value </th>
+   <th style="text-align:right;"> type </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> PLOS </td>
+   <td style="text-align:right;"> 137358 </td>
+   <td style="text-align:right;"> Articles </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> eBird </td>
+   <td style="text-align:right;"> 205970 </td>
+   <td style="text-align:right;"> Checklist records </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Dryad </td>
+   <td style="text-align:right;"> 4186 </td>
+   <td style="text-align:right;"> Data packages </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> GBIF </td>
+   <td style="text-align:right;"> 578 </td>
+   <td style="text-align:right;"> Data publishers </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> DataCite </td>
+   <td style="text-align:right;"> 3618096 </td>
+   <td style="text-align:right;"> Data records </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Neotoma </td>
+   <td style="text-align:right;"> 2202656 </td>
+   <td style="text-align:right;"> Data records </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Neotoma </td>
+   <td style="text-align:right;"> 11617 </td>
+   <td style="text-align:right;"> Datasets </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> OpenSNP </td>
+   <td style="text-align:right;"> 589 </td>
+   <td style="text-align:right;"> Genotypes </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BHL </td>
+   <td style="text-align:right;"> 139561 </td>
+   <td style="text-align:right;"> Items </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BHL </td>
+   <td style="text-align:right;"> 155891133 </td>
+   <td style="text-align:right;"> Names </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> eBird </td>
+   <td style="text-align:right;"> 2923886 </td>
+   <td style="text-align:right;"> Observations </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BHL </td>
+   <td style="text-align:right;"> 43968949 </td>
+   <td style="text-align:right;"> Pages </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> NPN </td>
+   <td style="text-align:right;"> 2537095 </td>
+   <td style="text-align:right;"> Phenology records </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Treebase </td>
+   <td style="text-align:right;"> 1515 </td>
+   <td style="text-align:right;"> Phylogenetic trees </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> OpenSNP </td>
+   <td style="text-align:right;"> 2140939 </td>
+   <td style="text-align:right;"> SNPs </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> COL </td>
+   <td style="text-align:right;"> 132 </td>
+   <td style="text-align:right;"> Source databases </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> GBIF </td>
+   <td style="text-align:right;"> 420222471 </td>
+   <td style="text-align:right;"> Species occurrence records </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> COL </td>
+   <td style="text-align:right;"> 1352112 </td>
+   <td style="text-align:right;"> Taxonomic names </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> ITIS </td>
+   <td style="text-align:right;"> 624282 </td>
+   <td style="text-align:right;"> Taxonomic names </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> Neotoma </td>
+   <td style="text-align:right;"> 20152 </td>
+   <td style="text-align:right;"> Taxonomic names </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> BHL </td>
+   <td style="text-align:right;"> 77258 </td>
+   <td style="text-align:right;"> Titles </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> OpenSNP </td>
+   <td style="text-align:right;"> 1230 </td>
+   <td style="text-align:right;"> Users </td>
+  </tr>
+</tbody>
+</table>
+
+<h2 id="growth-in-open-data">Growth in open data</h2>
+
+<p>First, we have to convert all the date-like fields to proper date classes. The work is not shown - look at <a href="https://github.com/ropensci/dbgrowth">the code</a> if you want the details.</p>
+
+<h2 id="run-down-of-each-data-source">Run down of each data source</h2>
+
+<h3 id="dryad">Dryad</h3>
+
+<ul>
+<li>Website: <a href="http://datadryad.org/">http://datadryad.org/</a></li>
+<li>R package: <code>rdryad</code></li>
+</ul>
+
+<p>Dryad is a repository of datasets associated with published papers. We do have an R package on CRAN (<code>rdryad</code>), but it is waiting on an update for the new API services being built by the Dryad folks. We did recently add in access to their Solr endpoint - <a href="https://github.com/ropensci/rdryad/blob/master/R/dryad_solr.r#L8-L41">check it out</a>.</p>
+
+<pre><code class="language-r">dryad %&gt;% sort_count %&gt;% gp
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-11-10-open-data-growth/unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7" /></p>
+
+<h3 id="opensnp">OpenSNP</h3>
+
+<ul>
+<li>Website: <a href="https://opensnp.org/">https://opensnp.org/</a></li>
+<li>R package: <code>rsnps</code></li>
+</ul>
+
+<p>OpenSNP is a collator of SNP datasets that individuals donate to the site/database. They&rsquo;re an awesome group, and they even won the PLOS/Mendeley code contest a few years back.</p>
+
+<pre><code class="language-r">opensnp_genotypes &lt;- opensnp_genotypes %&gt;% mutate(type = &quot;genotyptes&quot;) %&gt;% sort_count
+opensnp_phenotypes &lt;- opensnp_phenotypes %&gt;% mutate(type = &quot;phenotyptes&quot;) %&gt;% sort_count
+opensnp_snps &lt;- opensnp_snps %&gt;% mutate(type = &quot;snps&quot;) %&gt;% sort_count
+opensnp_users &lt;- opensnp_users %&gt;% mutate(type = &quot;users&quot;) %&gt;% sort_count
+os_all &lt;- rbind(opensnp_genotypes, opensnp_phenotypes, opensnp_snps, opensnp_users)
+os_all %&gt;%
+  ggplot(aes(date, log10(count), color=type)) +
+    geom_line() +
+    theme_grey(base_size = 18) +
+    theme(legend.position = &quot;top&quot;)
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-11-10-open-data-growth/unnamed-chunk-8-1.png" alt="plot of chunk unnamed-chunk-8" /></p>
+
+<h3 id="datacite">Datacite</h3>
+
+<ul>
+<li>Website: <a href="https://www.datacite.org/">https://www.datacite.org/</a></li>
+<li>R package: <code>rdatacite</code></li>
+</ul>
+
+<p>DataCite mints DOIs for datasets, and holds metadata for those datasets provided by data publishers. They have</p>
+
+<pre><code class="language-r">dcite %&gt;% sort_count %&gt;% gp
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-11-10-open-data-growth/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9" /></p>
+
+<h3 id="us-national-phenology-network-usnpn-or-npn">US National Phenology Network (USNPN or NPN)</h3>
+
+<ul>
+<li>Website: <a href="https://www.usanpn.org/">https://www.usanpn.org/</a></li>
+<li>R package: <code>rnpn</code></li>
+</ul>
+
+<p>The US National Phenology Network is a project under the USGS. They collect phenology observations across both plants and animals.</p>
+
+<pre><code class="language-r">npn %&gt;% arrange(date) %&gt;% mutate(count = cumsum(Number_Records)) %&gt;% gp
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-11-10-open-data-growth/unnamed-chunk-10-1.png" alt="plot of chunk unnamed-chunk-10" /></p>
+
+<h3 id="treebase">TreeBASE</h3>
+
+<ul>
+<li>Website: <a href="http://treebase.org/">http://treebase.org/</a></li>
+<li>R package: <code>treebase</code></li>
+</ul>
+
+<p>TreeBASE is a database of phylogenetic trees, had a total of 1515 new trees added in 2013, and has been growing at a good pace. Note that these aren&rsquo;t numbers of total phylogenetic trees, but <em>new trees added each year</em> - we couldn&rsquo;t get our hands on total number of trees by year. The current number of total trees as of 2015-03-10 is 12,817.</p>
+
+<pre><code class="language-r">treebase %&gt;% arrange(date) %&gt;% rename(count = New.Trees.Added) %&gt;% gp
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-11-10-open-data-growth/unnamed-chunk-11-1.png" alt="plot of chunk unnamed-chunk-11" /></p>
+
+<h3 id="integrated-taxonomic-information-service-itis">Integrated Taxonomic Information Service (ITIS)</h3>
+
+<ul>
+<li>Website: <a href="http://www.itis.gov/">http://www.itis.gov/</a></li>
+<li>R package: <code>taxize</code></li>
+</ul>
+
+<p>The ITIS database is under the USGS, and holds taxonomic names for mostly North American species. This dataset is interesting, because data goes back to 1977, when they had 16000 names. As of Aug 2013 they had 624282 names.</p>
+
+<pre><code class="language-r">itis %&gt;% arrange(date) %&gt;% rename(count = total_names) %&gt;% gp
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-11-10-open-data-growth/unnamed-chunk-12-1.png" alt="plot of chunk unnamed-chunk-12" /></p>
+
+<h3 id="ebird">eBird</h3>
+
+<ul>
+<li>Website: <a href="http://www.catalogueoflife.org/">http://www.catalogueoflife.org/</a></li>
+<li>R package: <code>taxize</code></li>
+</ul>
+
+<p>eBird is a database of bird occurence records. They don&rsquo;t give access to all the data they have, but some recent data. Data growth goes up and down through time because we don&rsquo;t have access to all data on each data request, but the overall trend is increasing.</p>
+
+<pre><code class="language-r">ebird_observations %&gt;% arrange(date) %&gt;% mutate(count = cumsum(COUNT.OBS_ID.)) %&gt;% gp
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-11-10-open-data-growth/unnamed-chunk-13-1.png" alt="plot of chunk unnamed-chunk-13" /></p>
+
+<h3 id="catalogue-of-life-col">Catalogue of Life (COL)</h3>
+
+<ul>
+<li>Website: <a href="https://www.datacite.org/">https://www.datacite.org/</a></li>
+<li>R package: <code>rdatacite</code></li>
+</ul>
+
+<p>COL is a database of taxonomic names, similar to ITIS, uBio, or Tropicos. The number of species (1352112) has continually increased (the slight level off is because we got data in Oct last year before the year was over), but number of data sources (1352112) was still growing as of 2013.</p>
+
+<p><strong>Number of species</strong></p>
+
+<pre><code class="language-r">col %&gt;% arrange(date) %&gt;% rename(count = species) %&gt;% gp
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-11-10-open-data-growth/unnamed-chunk-14-1.png" alt="plot of chunk unnamed-chunk-14" /></p>
+
+<p><strong>Number of data sources</strong></p>
+
+<pre><code class="language-r">col %&gt;% arrange(date) %&gt;% rename(count = source_databases) %&gt;% gp
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-11-10-open-data-growth/unnamed-chunk-15-1.png" alt="plot of chunk unnamed-chunk-15" /></p>
+
+<h3 id="public-library-of-science-plos">Public Library of Science (PLOS)</h3>
+
+<ul>
+<li>Website: <a href="http://www.plos.org/">http://www.plos.org/</a></li>
+<li>R package: <code>rplos</code>, <code>fulltext</code></li>
+</ul>
+
+<p>PLOS has had tremendous growth, with a very steep hockey stick growth curve. This year (2014) is left out because the year is not over yet.</p>
+
+<pre><code class="language-r">plos_years %&gt;%
+  arrange(date) %&gt;%
+  filter(date &lt; as.Date(&quot;2014-01-01&quot;)) %&gt;%
+  mutate(count = cumsum(articles)) %&gt;%
+  gp
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-11-10-open-data-growth/unnamed-chunk-16-1.png" alt="plot of chunk unnamed-chunk-16" /></p>
+
+<h3 id="biodiversity-heritage-library-bhl">Biodiversity Heritage Library (BHL)</h3>
+
+<ul>
+<li>Website: <a href="http://www.biodiversitylibrary.org/">http://www.biodiversitylibrary.org/</a></li>
+<li>R package: <code>rbhl</code></li>
+</ul>
+
+<p>BHL has grown tremendously, with 155891133 names, 43650663 pages, 139003 items, and 77169 titles.</p>
+
+<pre><code class="language-r">bhl_titles &lt;- bhl_titles %&gt;% mutate(type = &quot;titles&quot;) %&gt;% arrange(date) %&gt;% mutate(count = cumsum(Titles))
+bhl_items &lt;- bhl_items %&gt;% mutate(type = &quot;items&quot;) %&gt;% arrange(date) %&gt;%  mutate(count = cumsum(Items))
+bhl_pages &lt;- bhl_pages %&gt;% mutate(type = &quot;pages&quot;) %&gt;% arrange(date) %&gt;%  mutate(count = cumsum(Pages))
+bhl_names &lt;- bhl_names %&gt;% mutate(type = &quot;names&quot;) %&gt;% arrange(date) %&gt;%  mutate(count = cumsum(Names))
+bhl_all &lt;- rbind(bhl_titles[,-c(1:4)], bhl_items[,-c(1:4)], bhl_pages[,-c(1:4)], bhl_names[,-c(1:4)])
+bhl_all %&gt;%
+  ggplot(aes(date, count)) +
+    geom_line(size=2.1) +
+    theme_grey(base_size = 18) +
+    facet_wrap(~ type, scales = &quot;free&quot;)
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-11-10-open-data-growth/unnamed-chunk-17-1.png" alt="plot of chunk unnamed-chunk-17" /></p>
+
+<h3 id="global-biodiversity-information-facility-gbif">Global Biodiversity Information Facility (GBIF)</h3>
+
+<ul>
+<li>Website: <a href="http://www.gbif.org/">http://www.gbif.org/</a></li>
+<li>R package: <code>rgbif</code>, <code>spocc</code></li>
+</ul>
+
+<p>GBIF is the largest warehouse of biodiversity occurrence records, pulling in data from 578, and 420 million occurrence records as of Oct. 2013. Growth through time has been dramatic.</p>
+
+<p><strong>Number of records</strong></p>
+
+<pre><code class="language-r">gbif_data %&gt;%
+  arrange(date) %&gt;%
+  rename(count = V2) %&gt;%
+  gp + labs(y=&quot;Millions of biodiversity records in GBIF&quot;)
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-11-10-open-data-growth/unnamed-chunk-18-1.png" alt="plot of chunk unnamed-chunk-18" /></p>
+
+<p><strong>Number of data publishers</strong></p>
+
+<pre><code class="language-r">gbif_publishers %&gt;%
+  arrange(date) %&gt;%
+  rename(count = V2) %&gt;%
+  gp + labs(y=&quot;Number of GBIF data publishers&quot;)
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-11-10-open-data-growth/unnamed-chunk-19-1.png" alt="plot of chunk unnamed-chunk-19" /></p>
+
+<h3 id="neotoma">Neotoma</h3>
+
+<ul>
+<li>Website: <a href="http://www.neotomadb.org/">http://www.neotomadb.org/</a></li>
+<li>R package: <code>neotoma</code></li>
+</ul>
+
+<p>The Neotoma database holds paleoecology records of various kinds, including pollen and fossil records. The R package <code>neotoma</code> allows access to data from Neotoma.  Data and datasets have grown rather dramatically, while number of taxa has flattened off recently.</p>
+
+<pre><code class="language-r">rbind(neotoma_data %&gt;% mutate(type = &quot;data&quot;) %&gt;% arrange(date),
+      neotoma_datasets %&gt;% mutate(type = &quot;datasets&quot;) %&gt;% arrange(date),
+      neotoma_taxa %&gt;% mutate(type = &quot;taxa&quot;) %&gt;% arrange(date)) %&gt;%
+  rename(count = RunningCount) %&gt;%
+  gp + facet_grid(type ~ ., scales=&quot;free&quot;)
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-11-10-open-data-growth/unnamed-chunk-20-1.png" alt="plot of chunk unnamed-chunk-20" /></p>
+
+<h2 id="so-what">So what?</h2>
+
+<p>Okay, so a lot of data isn&rsquo;t that meaningful in itself. But, this is open data that can be used to do science, which means there is an increasingly vast amount of open data as the basis for new research, to supplement field based research, etc. The killer feature of all this open data is that it&rsquo;s all available programatically through R packages produced in the rOpenSci community, meaning you can easily and quickly do reproducible science with this data.</p>
+
+<h2 id="reproduce-this-analysis">Reproduce this analysis</h2>
+
+<ul>
+<li>Option 1: If you are comfortable with git, simply clone the <a href="https://github.com/ropensci/dbgrowth">dbgrowth repository</a> to your machine, uncompress the compressed file, <code>cd</code> to the directory, and run <code>R</code>. Running R should enter <em>packrat mode</em>, which will install packages from within the directory, after which point you can reproduce what we have done above.</li>
+<li>Option 2: Install the <code>packrat</code> R package if you don&rsquo;t have it already. Download <a href="https://www.dropbox.com/s/226onvf8zw06r0f/dbgrowth-2014-11-10.tar.gz?dl=0">this compressed file</a> (a <em>packrat bundle</em>), then in R, run <code>packrat::unbundle(&quot;&lt;path to tar.gz&gt;&quot;, &quot;&lt;path to put the contents&gt;&quot;)</code>, which will uncompress the file, and install packages, and you&rsquo;re ready to go.</li>
+</ul>
+
+<p>Once you have the files, you should be able to run <code>knitr::knit(&quot;dbgrowth.Rmd&quot;)</code> to reproduce this post.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/data"><span class="label">data</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

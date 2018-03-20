@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | fauxpas - HTTP conditions package</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article class="blog-post">
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h1 style="text-align: center;">fauxpas - HTTP conditions package</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        &nbsp;
+                        
+                          <a href="/about/#team">Scott Chamberlain</a> 
+                        
+                        
+                        &nbsp; |
+                    
+                    <small style="color: #5B617A; margin-left: 10px;"> NOVEMBER 18, 2016</small>
+                </p>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+                
+
+<p>HTTP, or <a href="https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol">Hypertext Transfer Protocol</a> is a protocol by which most
+of us interact with the web. When we do requests to a website in a browser
+on desktop or mobile, or get some data from a server in R, all of that is
+using HTTP.</p>
+
+<p>HTTP has a rich suite of <a href="https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html">status codes</a> describing different HTTP
+conditions, ranging from <code>Success</code> to various client errors, to server errors.
+R has a few HTTP client libraries - <a href="https://cran.rstudio.com/web/packages/crul">crul</a>, <a href="https://cran.rstudio.com/web/packages/curl">curl</a>, <a href="https://cran.rstudio.com/web/packages/httr">httr</a>,
+and <a href="https://cran.rstudio.com/web/packages/RCurl">RCurl</a> - each of which is slightly different. I thought it would
+be nice if there was a single way to do HTTP exception handling across these
+libraries.</p>
+
+<p><code>fauxpas</code> is a package to handle HTTP conditions. Methods are included for
+general purpose HTTP error handling, as well as individual methods for every
+HTTP status code, both via status code numbers as well as their descriptive
+names. <code>fauxpas</code> allows flexibility to have stop, message or warning behavior.</p>
+
+<p>In addition, you can use custom <a href="https://cran.rstudio.com/web/packages/whisker">whisker</a> template to have any
+configuration of status code, short description, and verbose message.</p>
+
+<p><code>fauxpas</code> currently supports integration with <code>crul</code>, <code>curl</code>, and <code>httr</code>.</p>
+
+<p>It will be interesting to see how people use <code>fauxpas</code>. It may be that
+users really like being able to handle individual HTTP conditions separately,
+or it may be that most users simply want a general purpose handler.</p>
+
+<h2 id="installation">Installation</h2>
+
+<pre><code class="language-r">install.packages(&quot;fauxpas&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;fauxpas&quot;)
+</code></pre>
+
+<h2 id="generic-http-condition-handler">Generic http condition handler</h2>
+
+<p><code>Error()</code> is the most generic handler in <code>fuaxpas</code></p>
+
+<p>First, let&rsquo;s make an HTTP request, here with <code>crul</code>, using the wonderful
+<a href="https://httpbin.org">https://httpbin.org</a> site.</p>
+
+<pre><code class="language-r">library(&quot;crul&quot;)
+res &lt;- HttpClient$new(&quot;https://httpbin.org/status/418&quot;)$get()
+</code></pre>
+
+<p>Next, we&rsquo;ll constrct an error object</p>
+
+<pre><code class="language-r">(x &lt;- Error$new(behavior = &quot;stop&quot;))
+#&gt; &lt;HTTP Error&gt;
+#&gt;   behavior: stop
+#&gt;   message_template: {{reason}} (HTTP {{status}}).
+</code></pre>
+
+<p>The default behavior is <code>stop</code> - you can also choose <code>warning</code> or <code>message</code>.</p>
+
+<p>The object is of class <code>Error</code> and is an <code>R6</code> object. You can inspect parts
+of the object</p>
+
+<pre><code class="language-r">x$behavior
+#&gt; [1] &quot;stop&quot;
+x$behavior_type
+#&gt; [1] &quot;error&quot;
+x$call.
+#&gt; [1] FALSE
+x$message_template
+#&gt; [1] &quot;{{reason}} (HTTP {{status}}).&quot;
+</code></pre>
+
+<p>Check the response</p>
+
+<pre><code class="language-r">x$do(res)
+#&gt; Error: I'm a teapot (HTTP 418).
+</code></pre>
+
+<h2 id="http-r6-methods">HTTP* R6 methods</h2>
+
+<p>In addition to <code>Error()</code>, there&rsquo;s a method for every HTTP code - they start with
+<code>HTTP</code>, followed by the http code name. For example, <code>HTTPBadGateway</code> for
+the 502 code.</p>
+
+<p>These are R6 methods as well, but inherit from the <code>Error</code> class. So they implement
+<code>do()</code>, but also <code>do_verbose()</code> to include a verbose explanation of the http
+condition.</p>
+
+<p>Make an HTTP request:</p>
+
+<pre><code class="language-r">res &lt;- HttpClient$new(&quot;https://httpbin.org/status/414&quot;)$get()
+</code></pre>
+
+<pre><code class="language-r">x &lt;- HTTPRequestURITooLong$new()
+</code></pre>
+
+<pre><code class="language-r">x$do(res)
+#&gt; Error: Request-URI Too Long (HTTP 414).
+</code></pre>
+
+<pre><code class="language-r">x$do_verbose(res)
+#&gt; Error: Request-URI Too Long (HTTP 414).
+#&gt;  - The server is refusing to service the request because the Request-URI is longer 
+#&gt; than the server is willing to interpret. This rare condition is only likely to occur 
+#&gt; when a client has improperly converted a POST request to a GET request with long 
+#&gt; query information, when the client has descended into a URI 'black hole' of 
+#&gt; redirection (e.g., a redirected URI prefix that points to a suffix of itself), or 
+#&gt; when the server is under attack by a client attempting to exploit security holes 
+#&gt; present in some servers using fixed-length buffers for reading or manipulating
+#&gt; the Request-URI.
+</code></pre>
+
+<h2 id="http-methods">http* methods</h2>
+
+<p>There&rsquo;s a series of simpler to use functions for every http condition that wrap
+the above <code>HTTP*</code> methods that follow the form <code>http*</code>, where the <code>*</code> is the
+status code number. For example, <code>http404</code> for the 404 code.</p>
+
+<p>Make an HTTP request:</p>
+
+<pre><code class="language-r">library(&quot;crul&quot;)
+res &lt;- HttpClient$new(&quot;https://httpbin.org/status/418&quot;)$get()
+</code></pre>
+
+<p>Default behavior is to <code>stop()</code></p>
+
+<pre><code class="language-r">http(res)
+#&gt; Error: I'm a teapot (HTTP 418).
+</code></pre>
+
+<p>But you can easily do <code>warning()</code></p>
+
+<pre><code class="language-r">http(res, behavior = &quot;warning&quot;)
+#&gt; Warning message:
+#&gt; I'm a teapot (HTTP 418). 
+</code></pre>
+
+<p>Or <code>message()</code></p>
+
+<pre><code class="language-r">http(res, behavior = &quot;message&quot;)
+#&gt; I'm a teapot (HTTP 418).
+</code></pre>
+
+<h2 id="custom-templates">Custom templates</h2>
+
+<p>The default way that conditions are handled is with the template:</p>
+
+<p><code>&quot;{{reason}} (HTTP {{status}}).&quot;</code></p>
+
+<p>Named elements that are used for <code>do()</code> are:</p>
+
+<ul>
+<li><code>reason</code></li>
+<li><code>status</code></li>
+</ul>
+
+<p>Named elements that are used for <code>do_verbose()</code> are:</p>
+
+<ul>
+<li><code>reason</code></li>
+<li><code>status</code></li>
+<li><code>message</code></li>
+</ul>
+
+<p>All other named elements are ignored.</p>
+
+<p>First, make an HTTP request:</p>
+
+<pre><code class="language-r">library(&quot;crul&quot;)
+res &lt;- HttpClient$new(&quot;https://httpbin.org/status/418&quot;)$get()
+</code></pre>
+
+<p>Then, run a handler with a custom template:</p>
+
+<pre><code class="language-r">http418(res, message_template = &quot;{{status}}\n  --&gt; {{reason}}&quot;)
+#&gt; Error: 418
+#&gt;   --&gt; I'm a teapot
+</code></pre>
+
+<h2 id="future-work">Future work</h2>
+
+<h3 id="even-more-customizeable-messages">Even more customizeable messages</h3>
+
+<p>Right now, you can use a hack to customize the <code>do_verbose()</code> method to replace
+the <code>mssg</code> string (which holds the verbose explanation of the HTTP condition
+from the HTTP spec) with your own message. For example, servers often return custom
+messages explaining why a request failed (e.g., <em>page must be a number</em>). Ideally,
+you&rsquo;d want to return that message along with the HTTP code (presumably <code>400</code> or
+similar) and the HTTP name (<code>Bad Request</code>).</p>
+
+<p>I&rsquo;m going to make this easier, so you don&rsquo;t have to replace the verbose HTTP
+condition explanation, so you can still expose that if you want.</p>
+
+<h3 id="support-rcurl">Support RCurl</h3>
+
+<p>I hope to support <code>RCurl</code> at some point.</p>
+
+<h2 id="feedback">Feedback?</h2>
+
+<p>I&rsquo;d love to know what people think about this package.</p>
+
+<ul>
+<li>Does the package API make sense?<br /></li>
+<li>Any additional exported methods you&rsquo;d like?</li>
+</ul>
+
+<p>I know documentation can be better, e.g., there&rsquo;s no vignette yet (but adding
+that soon).</p>
+
+            </div>
+            <br>
+
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

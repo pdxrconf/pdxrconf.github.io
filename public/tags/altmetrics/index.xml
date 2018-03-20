@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Altmetrics on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/altmetrics/</link>
+    <description>Recent content in Altmetrics on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 15 Oct 2013 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/altmetrics/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Altmetrics workshop recap</title>
+      <link>https://ropensci.org/blog/2013/10/15/altmetrics-conf/</link>
+      <pubDate>Tue, 15 Oct 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/10/15/altmetrics-conf/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;I attended the recent &lt;a href=&#34;http://article-level-metrics.plos.org/alm-workshop-2013/&#34;&gt;ALM Workshop 2013&lt;/a&gt; and &lt;a href=&#34;http://almdatachallenge.eventbrite.com/&#34;&gt;data challenge&lt;/a&gt; hosted by Public Library of Science (PLOS) in San Francisco. The workshop covered various issues having to do with altmetrics, or article-level metrics (ALM). The same workshop last year definitely had a feeling of &lt;strong&gt;we don&amp;rsquo;t know x, y, and z&lt;/strong&gt;, while the workshop this year felt like we know a lot more. There were many great talks - you can see the list of speakers &lt;a href=&#34;http://article-level-metrics.plos.org/alm-workshop-2013-preliminary-program/&#34;&gt;here&lt;/a&gt;. I was there representing rOpenSci as altmetrics is one of the types of data for which we make R libraries (&lt;a href=&#34;https://github.com/ropensci/raltmetric&#34;&gt;rAltmetric&lt;/a&gt; for Altmetric.com data, and &lt;a href=&#34;https://github.com/ropensci/alm&#34;&gt;alm&lt;/a&gt; for the PLOS altmetrics data).&lt;/p&gt;
+
+&lt;h3 id=&#34;some-sad-and-good-news-about-open-source&#34;&gt;Some sad and good news about open source&lt;/h3&gt;
+
+&lt;p&gt;In a related meeting before the ALM Workshop, NISO held a 1 day meeting to talk about altmetrics standards - check out the talks and some video &lt;a href=&#34;http://www.niso.org/topics/tl/altmetrics_initiative/&#34;&gt;here&lt;/a&gt;. One of the points Cameron Neylon made was a sad one =&amp;gt; &amp;ldquo;&amp;hellip;basic principle of scholarly publishing industry: no one will use anything built by another publisher&amp;rdquo; (quote around 2:04:45). PLOS makes great open source software for collecting and providing altmetrics via an API (see the output [here] and the feely available code &lt;a href=&#34;https://github.com/articlemetrics/alm&#34;&gt;here&lt;/a&gt;), but no other publishers will use it. During &lt;a href=&#34;http://recology.info/posterstalks/plosalm13/#1&#34;&gt;my talk&lt;/a&gt; titled &lt;em&gt;Programmatic access for Altmetrics&lt;/em&gt;, I suggested that we can learn something from the open source community in that you can create a lot of value off of a common set of open source tools. The Public Knowledge Project (PKP) is using the PLOS created ALM app for publishers they interact with, which is promising. However, other publishers could leverage this software as well, providing easy access to altmetrics data to the publisher, and the community if they expose their API.&lt;/p&gt;
+
+&lt;h3 id=&#34;more-uptake-of-our-software&#34;&gt;More uptake of our software&lt;/h3&gt;
+
+&lt;p&gt;We have working on an R library (uncreatively named &lt;code&gt;alm&lt;/code&gt;) to interact with the PLOS ALM API. Get it &lt;a href=&#34;http://cran.r-project.org/web/packages/alm/index.html&#34;&gt;at CRAN&lt;/a&gt;, or from Github &lt;a href=&#34;https://github.com/ropensci/alm&#34;&gt;here&lt;/a&gt;. The awesome thing about anyone that uses the ALM software made by PLOS is that our package works out of the box for the new data source. All you have to do is change the base url in a function call. The url for the PLOS ALM API is &lt;a href=&#34;http://alm.plos.org/api/v3/articles&#34;&gt;http://alm.plos.org/api/v3/articles&lt;/a&gt; - changing that url is all that&amp;rsquo;s needed:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;alm(doi=&amp;lt;doi&amp;gt;, url=&amp;lt;theurl&amp;gt;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Juan Alperin of PKP had installed the ALM software for a set of journals they work with, and during the data challenge on Saturday was able to interact with his altmetrics data using the alm package by simply changing the base url.&lt;/p&gt;
+
+&lt;p&gt;Hopefully more publishers will start using the PLOS ALM open source software - and they can use our software off the shelf.&lt;/p&gt;
+
+&lt;h3 id=&#34;reproducible-altmetrics-research&#34;&gt;Reproducible altmetrics research&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://recology.info/posterstalks/plosalm13/#1&#34;&gt;My talk&lt;/a&gt; made the point that &lt;strong&gt;programmatic access&lt;/strong&gt; to &lt;strong&gt;OPEN&lt;/strong&gt; altmetrics data is important. Although most of the calls to get altmetrics data may come frome websites, it&amp;rsquo;s important to provide programmatic access to altmetrics data for researchers, journalists, and anyone else that doesn&amp;rsquo;t want to use the browser-excel-SAS-SigmaPlot-Word workflow. We don&amp;rsquo;t want altmetrics to end up like text-mining data, do we?&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Consuming article-level metrics</title>
+      <link>https://ropensci.org/blog/2013/08/01/altmetrics/</link>
+      <pubDate>Thu, 01 Aug 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/08/01/altmetrics/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;We recently had a paper come out in &lt;a href=&#34;http://www.niso.org/publications/isq/2013/v25no2&#34;&gt;a special issue&lt;/a&gt; on &lt;em&gt;article-level metrics&lt;/em&gt; in the journal Information Standards Quarterly. Our paper basically compared article-level metrics provided by different aggregators. The other papers covered various article-level metrics topics from folks at PLOS, Mendeley, and more. Get our paper &lt;a href=&#34;http://www.niso.org/publications/isq/2013/v25no2/chamberlain&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To get data from the &lt;em&gt;article-level metrics&lt;/em&gt; providers we used one R package we created to get DOIs for PLOS articles (&lt;a href=&#34;https://github.com/ropensci/rplos&#34;&gt;rplos&lt;/a&gt;) and three R packages we created to get metrics: &lt;a href=&#34;https://github.com/ropensci/alm&#34;&gt;alm&lt;/a&gt;, &lt;a href=&#34;https://github.com/ropensci/rimpactstory&#34;&gt;rImpactStory&lt;/a&gt;, and &lt;a href=&#34;https://github.com/ropensci/rAltmetric&#34;&gt;rAltmetric&lt;/a&gt;. Here, we will show how we produced visualizations in the paper. The code here is basically that used in the paper - but modified to make it useable by you hopefully.&lt;/p&gt;
+
+&lt;p&gt;Note that this entire workflow is in a Github gist &lt;a href=&#34;https://gist.github.com/sckott/6136591&#34;&gt;here&lt;/a&gt;. In addition, you will need to sign up for API keys for &lt;a href=&#34;http://impactstory.org/api-docs&#34;&gt;ImpactStory&lt;/a&gt; and &lt;a href=&#34;http://api.altmetric.com/index.html#keys&#34;&gt;Altmetric&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;first-let-s-get-some-data&#34;&gt;First, let&amp;rsquo;s get some data&lt;/h3&gt;
+
+&lt;p&gt;Install these packages if you don&amp;rsquo;t have them. Most packages are on CRAN, but install the following packages from Github: &lt;code&gt;rplos&lt;/code&gt;, &lt;code&gt;alm&lt;/code&gt;, &lt;code&gt;rImpactStory&lt;/code&gt;, and &lt;code&gt;rAltmetric&lt;/code&gt; by running &lt;code&gt;install_github(&amp;quot;PACKAGE_NAME&amp;quot;, &amp;quot;ropensci&amp;quot;)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(alm)
+library(rImpactStory)
+library(rAltmetric)
+library(ggplot2)
+library(rplos)
+library(reshape)
+library(reshape2)
+library(httr)
+library(lubridate)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;
+Define a function &lt;code&gt;parse_is&lt;/code&gt; to parse ImpactStory results&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;See &lt;a href=&#34;https://gist.github.com/sckott/6136591&#34;&gt;this gist&lt;/a&gt; for the function&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;
+Define a function &lt;code&gt;compare_altmet_prov&lt;/code&gt; to collect altmetrics from three providers&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;See &lt;a href=&#34;https://gist.github.com/sckott/6136591&#34;&gt;this gist&lt;/a&gt; for the function&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;
+Safe version in case of errors&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;compare_altmet_prov_safe &amp;lt;- plyr::failwith(NULL, compare_altmet_prov)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;
+Search for and get DOIs for 50 papers (we used more in the paper)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;res &amp;lt;- searchplos(terms = &amp;quot;*:*&amp;quot;, fields = &amp;quot;id&amp;quot;, toquery = list(&amp;quot;publication_date:[2011-06-30T00:00:00Z TO 2012-06-01T23:59:59Z] &amp;quot;, &amp;quot;doc_type:full&amp;quot;), start = 0, limit = 50)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;
+Get data from each provider&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dat &amp;lt;- llply(as.character(res[, 1]), compare_altmet_prov_safe, isaddifnot = TRUE, sleep = 1, .progress = &amp;quot;text&amp;quot;)
+dat &amp;lt;- ldply(dat)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;plot-differences&#34;&gt;Plot differences&lt;/h3&gt;
+
+&lt;p&gt;Great, we have data! Next, let&amp;rsquo;s make a plot of the difference between max and min value across the three providers for 7 article-level metrics.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;alldat &amp;lt;- sort_df(dat, &amp;quot;doi&amp;quot;)
+
+dat_split &amp;lt;- split(alldat, f = alldat$doi)
+dat_split &amp;lt;- dat_split[!sapply(dat_split, nrow) == 0]
+dat_split &amp;lt;- compact(lapply(dat_split, function(x) {
+    if (x$citeulike[2] == 999) {
+        NULL
+    } else (x)
+}))
+dat_split_df &amp;lt;- ldply(dat_split)[, -1]
+
+calcdiff &amp;lt;- function(x) {
+    max(na.omit(x)) - min(na.omit(x))
+}
+
+dat_split_df_1 &amp;lt;- ddply(dat_split_df, .(doi), numcolwise(calcdiff))
+dat_split_df_melt &amp;lt;- melt(dat_split_df_1)
+
+dat_split_df_melt &amp;lt;- dat_split_df_melt[!dat_split_df_melt$variable %in% &amp;quot;connotea&amp;quot;, ]
+
+ggplot(dat_split_df_melt, aes(x = log10(value), fill = variable)) +
+    theme_bw(base_size = 14) +
+    geom_bar() +
+    scale_fill_discrete(name = &amp;quot;Almetric&amp;quot;) +
+    facet_grid(variable ~ ., scales = &amp;quot;free&amp;quot;) +
+    labs(x = expression(log[10](Value)), y = &amp;quot;Count&amp;quot;) +
+    theme(strip.text.y = element_text(angle = 0),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.position = &amp;quot;none&amp;quot;,
+        panel.border = element_rect(size = 1))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2013-08-01-altmetrics/dataconst_plot1.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;different-collection-dates&#34;&gt;Different collection dates?&lt;/h3&gt;
+
+&lt;p&gt;Okay, so there are some inconsistencies in data from different providers. Perhaps the same metric (e.g., tweets) were collected on different days for each provider? Let&amp;rsquo;s take a look. We first define a function to get the difference in days between a vector of values, then apply that function over the data for each metric. We then reshape the data a bit using the &lt;code&gt;reshape2&lt;/code&gt; package, and make the plot.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;datediff &amp;lt;- function(x) {
+    datesorted &amp;lt;- sort(x)
+    round(as.numeric(difftime(datesorted[3], datesorted[1])), 0)
+}
+
+dat_split_df_1 &amp;lt;- ddply(dat_split_df, .(doi), numcolwise(calcdiff))
+dat_split_df_2 &amp;lt;- ddply(dat_split_df, .(doi), summarise, datediff = datediff(date_modified))
+dat_split_df_melt &amp;lt;- melt(dat_split_df_1)
+dat_split_df_ &amp;lt;- merge(dat_split_df_melt, dat_split_df_2, by = &amp;quot;doi&amp;quot;)
+dat_split_df_melt &amp;lt;- dat_split_df_[!dat_split_df_$variable %in% &amp;quot;connotea&amp;quot;, ]
+
+ggplot(dat_split_df_melt, aes(x = datediff, y = log10(value + 1), colour = variable)) +
+    theme_bw(base_size = 14) +
+    geom_point(size = 3, alpha = 0.6) +
+    scale_colour_brewer(&amp;quot;Source&amp;quot;, type = &amp;quot;qual&amp;quot;, palette = 3) +
+    theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.position = c(0.65, 0.9),
+        panel.border = element_rect(size = 1),
+        legend.key = element_blank(),
+        panel.background = element_rect(colour = &amp;quot;white&amp;quot;)) +
+    guides(col = guide_legend(nrow = 2, override.aes = list(size = 4))) +
+    labs(x = &amp;quot;\nDate difference (no. of days)&amp;quot;, y = &amp;quot;Value of difference between max and min\n&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2013-08-01-altmetrics/dataconst_plot2.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;diggin-in&#34;&gt;Diggin&amp;rsquo; in&lt;/h3&gt;
+
+&lt;p&gt;Let&amp;rsquo;s dig in to indivdual articles. Here, we reshape some data, selecting just 20 DOIs (i.e., papers), and plot the values of each metric for each DOI, coloring points by provider. Note that points are slightly offset horizontally to make them easier to see.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;alldat_m &amp;lt;- melt(dat_split_df[1:60,], id.vars=c(1,2,11))
+alldat_m &amp;lt;- alldat_m[!alldat_m$variable %in% &amp;quot;connotea&amp;quot;,]
+
+ggplot(na.omit(alldat_m[,-3]), aes(x=doi, y=value, colour=provider)) +
+  theme_bw(base_size = 14) +
+  geom_point(size=4, alpha=0.4, position=position_jitter(width=0.15)) +
+  scale_colour_manual(values = c(&#39;#FC1D00&#39;,&#39;#FD8A00&#39;,&#39;#0D71A5&#39;,&#39;#2CCC00&#39;)) +
+  facet_grid(variable~., scales=&#39;free&#39;) +
+  theme(axis.text.x=element_blank(),
+        strip.text.y=element_text(angle = 0),
+        legend.position=&amp;quot;top&amp;quot;,
+        legend.key = element_blank(),
+        panel.border = element_rect(size=1),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  guides(col = guide_legend(title=&amp;quot;&amp;quot;, override.aes=list(size=5), nrow = 1, byrow = TRUE))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2013-08-01-altmetrics/dataconst2.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

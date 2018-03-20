@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Survey on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/survey/</link>
+    <description>Recent content in Survey on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 07 Jan 2016 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/survey/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Help us prioritize what to build in 2016</title>
+      <link>https://ropensci.org/blog/2016/01/07/survey/</link>
+      <pubDate>Thu, 07 Jan 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2016/01/07/survey/</guid>
+      <description>
+        
+        &lt;p&gt;We&amp;rsquo;ve got a big year ahead of us as we work towards expanding our team and organizing various events and activities. We remain committed to supporting and expanding the landscape of open source tools that are available to researchers. While much of our focus has been around making it easier to access various data repositories, we are keen on improving other parts of the research pipeline, including data munging, documentation and sharing. To help us prioritize our development activities and better understand the needs of researchers, we would really appreciate 5-12 minutes of your time to complete a survey:&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;h3&gt;&lt;a href=&#34;http://ropensci.org/survey&#34;&gt;ropensci.org/survey&lt;/a&gt;&lt;/h3&gt;&lt;/center&gt;&lt;/p&gt;
+
+&lt;p&gt;We are keen on hearing from Python and Julia users as well and also folks that don&amp;rsquo;t use these widely used languages. Please encourage your colleagues to participate. We&amp;rsquo;ll summarize responses in a future post.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | rdpla tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>rdpla tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.2.0</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p><code>rdpla</code>: R client for Digital Public Library of America</p>
+
+<p><a href="https://dp.la">Digital Public Library of America</a> brings together metadata from libraries, archives,
+and museums in the US, and makes it freely available via their web portal as well as
+an API. DPLA&rsquo;s portal and API don&rsquo;t provide the items themselves from contributing
+institutions, but they provide links to make it easy to find things. The kinds of
+things DPLA holds metadata for include images of works held in museums, photographs
+from various photographic collections, texts, sounds, and moving images.</p>
+
+<p>DPLA has <a href="https://github.com/dpla/platform">a great API</a> with good documentation -
+a rare thing in this world. Further documentation on their API can be found on their <a href="https://dp.la/info/developers/codex/responses/field-reference/">search fields</a> and <a href="https://dp.la/info/developers/codex/requests/">examples of queries</a>.  Metadata schema information <a href="https://dp.la/info/wp-content/uploads/2013/04/DPLA-MAP-V3.1-2.pdf">here</a>.</p>
+
+<p>DPLA API has two main services (quoting from <a href="https://dp.la/info/developers/codex/requests/">their API docs</a>):</p>
+
+<ul>
+<li>items: A reference to the digital representation of a single piece of content indexed by
+the DPLA. The piece of content can be, for example, a book, a photograph, a video, etc. The
+content is digitized from its original, physical source and uploaded to an online repository.
+items are available in the <code>dpla_items()</code> function.</li>
+<li>collections: A collection is a little more abstract than an item. Where an item is a
+reference to the digital representation of a physical object, a collection is a
+representation of the grouping of a set of items. collections are available in the
+<code>dpla_collections()</code> function.</li>
+</ul>
+
+<p>Note that you can only run examples/vignette/tests if you have an API key. See below for an example of how
+to get an API key.</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>Stable version from CRAN</p>
+
+<pre><code class="language-r">install.packages(&quot;rdpla&quot;)
+</code></pre>
+
+<p>Development version from GitHub</p>
+
+<pre><code class="language-r">if (!require(&quot;devtools&quot;)) install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;ropensci/rdpla&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;rdpla&quot;)
+</code></pre>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="api-key">API key</h3>
+
+<p>If you already have a DPLA API key, make sure it&rsquo;s in your <code>.Renviron</code> or <code>.Rprofile</code> file.</p>
+
+<p>If you don&rsquo;t have a DPLA API key, use the <code>dpla_get_key()</code> function to get a key.
+You only need a valid email address to get a key, for example:</p>
+
+<pre><code class="language-r">dpla_get_key(email = &quot;foo@bar.com&quot;)
+#&gt; API key created and sent via email. Be sure to check your Spam folder, too.
+</code></pre>
+
+<h3 id="search-items">Search - items</h3>
+
+<blockquote>
+<p>Note: limiting fields returned for readme brevity.</p>
+</blockquote>
+
+<p>Basic search</p>
+
+<pre><code class="language-r">dpla_items(q=&quot;fruit&quot;, page_size=5, fields=c(&quot;provider&quot;,&quot;creator&quot;))
+#&gt; $meta
+#&gt; # A tibble: 1 x 3
+#&gt;   found start returned
+#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;
+#&gt; 1 42020     0        5
+#&gt;
+#&gt; $data
+#&gt; # A tibble: 5 x 2
+#&gt;                        provider    creator
+#&gt;                           &lt;chr&gt;      &lt;chr&gt;
+#&gt; 1 Mountain West Digital Library no content
+#&gt; 2 Mountain West Digital Library no content
+#&gt; 3 Mountain West Digital Library no content
+#&gt; 4 Mountain West Digital Library no content
+#&gt; 5 Mountain West Digital Library no content
+#&gt;
+#&gt; $facets
+#&gt; list()
+</code></pre>
+
+<p>Limit fields returned</p>
+
+<pre><code class="language-r">dpla_items(q=&quot;fruit&quot;, page_size = 10, fields=c(&quot;publisher&quot;,&quot;format&quot;))
+#&gt; $meta
+#&gt; # A tibble: 1 x 3
+#&gt;   found start returned
+#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;
+#&gt; 1 42020     0       10
+#&gt;
+#&gt; $data
+#&gt; # A tibble: 10 x 2
+#&gt;        format  publisher
+#&gt;         &lt;chr&gt;      &lt;chr&gt;
+#&gt;  1 no content no content
+#&gt;  2 no content no content
+#&gt;  3 no content no content
+#&gt;  4 no content no content
+#&gt;  5 no content no content
+#&gt;  6 no content no content
+#&gt;  7 no content no content
+#&gt;  8 no content no content
+#&gt;  9 no content no content
+#&gt; 10 no content no content
+#&gt;
+#&gt; $facets
+#&gt; list()
+</code></pre>
+
+<p>Limit records returned</p>
+
+<pre><code class="language-r">dpla_items(q=&quot;fruit&quot;, page_size=2, fields=c(&quot;provider&quot;,&quot;title&quot;))
+#&gt; $meta
+#&gt; # A tibble: 1 x 3
+#&gt;   found start returned
+#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;
+#&gt; 1 42020     0        2
+#&gt;
+#&gt; $data
+#&gt; # A tibble: 2 x 2
+#&gt;   title                      provider
+#&gt;   &lt;chr&gt;                         &lt;chr&gt;
+#&gt; 1 Fruit Mountain West Digital Library
+#&gt; 2 Fruit Mountain West Digital Library
+#&gt;
+#&gt; $facets
+#&gt; list()
+</code></pre>
+
+<p>Search by date</p>
+
+<pre><code class="language-r">dpla_items(q=&quot;science&quot;, date_before=1900, page_size=10, fields=c(&quot;id&quot;,&quot;date&quot;))
+#&gt; $meta
+#&gt; # A tibble: 1 x 3
+#&gt;   found start returned
+#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;
+#&gt; 1 57981     0       10
+#&gt;
+#&gt; $data
+#&gt; # A tibble: 10 x 2
+#&gt;                                  id  date
+#&gt;                               &lt;chr&gt; &lt;chr&gt;
+#&gt;  1 e0f460c6d710c125c7ba6d5186b076e4  1896
+#&gt;  2 fd0710105d8a7a49b87d956364289d7d  1891
+#&gt;  3 e3f11047a57f18f8a21baf5d6ff3c4dd  1886
+#&gt;  4 cf718498ee3b9886da35a43566a6a121  1887
+#&gt;  5 e8f0ed10dbdcd0ffd6f504e1892515da  1885
+#&gt;  6 db59f79180d11c22117cd49f728a1f19  1880
+#&gt;  7 d8421296829e9e8e041e2841118a4651  1890
+#&gt;  8 1ddac8df735b31b13f0032a7b8293abf  1890
+#&gt;  9 dd7e219e625ba0609d9062182029a78c  1880
+#&gt; 10 8177b82cc0542e1895fe92718e6c93da  1892
+#&gt;
+#&gt; $facets
+#&gt; list()
+</code></pre>
+
+<p>Search on specific fields</p>
+
+<pre><code class="language-r">dpla_items(description=&quot;obituaries&quot;, page_size=2, fields=&quot;description&quot;)
+#&gt; $meta
+#&gt; # A tibble: 1 x 3
+#&gt;   found start returned
+#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;
+#&gt; 1 51276     0        2
+#&gt;
+#&gt; $data
+#&gt; # A tibble: 2 x 1
+#&gt;                          description
+#&gt;                                &lt;chr&gt;
+#&gt; 1              Obituaries of members
+#&gt; 2 Pages from the complied obituaries
+#&gt;
+#&gt; $facets
+#&gt; list()
+</code></pre>
+
+<pre><code class="language-r">dpla_items(subject=&quot;yodeling&quot;, page_size=2, fields=&quot;subject&quot;)
+#&gt; $meta
+#&gt; # A tibble: 1 x 3
+#&gt;   found start returned
+#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;
+#&gt; 1    54     0        2
+#&gt;
+#&gt; $data
+#&gt; # A tibble: 2 x 1
+#&gt;                                                    subject
+#&gt;                                                      &lt;chr&gt;
+#&gt; 1 Yodeling--Austria;Musicians--Austria;Gamehouses--Austria
+#&gt; 2 Yodeling--Austria;Musicians--Austria;Gamehouses--Austria
+#&gt;
+#&gt; $facets
+#&gt; list()
+</code></pre>
+
+<pre><code class="language-r">dpla_items(provider=&quot;HathiTrust&quot;, page_size=2, fields=&quot;provider&quot;)
+#&gt; $meta
+#&gt; # A tibble: 1 x 3
+#&gt;     found start returned
+#&gt;     &lt;int&gt; &lt;int&gt;    &lt;int&gt;
+#&gt; 1 2673588     0        2
+#&gt;
+#&gt; $data
+#&gt; # A tibble: 2 x 1
+#&gt;     provider
+#&gt;        &lt;chr&gt;
+#&gt; 1 HathiTrust
+#&gt; 2 HathiTrust
+#&gt;
+#&gt; $facets
+#&gt; list()
+</code></pre>
+
+<p>Spatial search, across all spatial fields</p>
+
+<pre><code class="language-r">dpla_items(sp='Boston', page_size=2, fields=c(&quot;id&quot;,&quot;provider&quot;))
+#&gt; $meta
+#&gt; # A tibble: 1 x 3
+#&gt;   found start returned
+#&gt;   &lt;int&gt; &lt;int&gt;    &lt;int&gt;
+#&gt; 1 64121     0        2
+#&gt;
+#&gt; $data
+#&gt; # A tibble: 2 x 2
+#&gt;                                 id                provider
+#&gt;                              &lt;chr&gt;                   &lt;chr&gt;
+#&gt; 1 41aa36a38d69f5247529505a55528b5d Smithsonian Institution
+#&gt; 2 337556aaa3096bd77e462d898b70c9d7 Smithsonian Institution
+#&gt;
+#&gt; $facets
+#&gt; list()
+</code></pre>
+
+<p>Spatial search, by states</p>
+
+<pre><code class="language-r">dpla_items(sp_state='Massachusetts OR Hawaii', page_size=2, fields=c(&quot;id&quot;,&quot;provider&quot;))
+#&gt; $meta
+#&gt; # A tibble: 1 x 3
+#&gt;    found start returned
+#&gt;    &lt;int&gt; &lt;int&gt;    &lt;int&gt;
+#&gt; 1 203299     0        2
+#&gt;
+#&gt; $data
+#&gt; # A tibble: 2 x 2
+#&gt;                                 id
+#&gt;                              &lt;chr&gt;
+#&gt; 1 3d3fba16636ab5211a10ff0b0bf44ae6
+#&gt; 2 8e2e5f685b4dd0af109fb32fb3db7f1c
+#&gt; # ... with 1 more variables: provider &lt;chr&gt;
+#&gt;
+#&gt; $facets
+#&gt; list()
+</code></pre>
+
+<p>Faceted search</p>
+
+<pre><code class="language-r">dpla_items(facets=c(&quot;sourceResource.spatial.state&quot;,&quot;sourceResource.spatial.country&quot;),
+      page_size=0, facet_size=5)
+#&gt; $meta
+#&gt; # A tibble: 1 x 3
+#&gt;      found start returned
+#&gt;      &lt;int&gt; &lt;int&gt;    &lt;int&gt;
+#&gt; 1 17857065     0        0
+#&gt;
+#&gt; $data
+#&gt; # A tibble: 0 x 0
+#&gt;
+#&gt; $facets
+#&gt; $facets$sourceResource.spatial.state
+#&gt; $facets$sourceResource.spatial.state$meta
+#&gt; # A tibble: 1 x 4
+#&gt;    type   total  missing   other
+#&gt;   &lt;chr&gt;   &lt;int&gt;    &lt;int&gt;   &lt;int&gt;
+#&gt; 1 terms 6586777 12065850 3837491
+#&gt;
+#&gt; $facets$sourceResource.spatial.state$data
+#&gt; # A tibble: 5 x 2
+#&gt;         term  count
+#&gt;        &lt;chr&gt;  &lt;int&gt;
+#&gt; 1      Texas 900822
+#&gt; 2 California 652773
+#&gt; 3    Georgia 508989
+#&gt; 4   New York 486016
+#&gt; 5       Utah 200686
+#&gt;
+#&gt;
+#&gt; $facets$sourceResource.spatial.country
+#&gt; $facets$sourceResource.spatial.country$meta
+#&gt; # A tibble: 1 x 4
+#&gt;    type   total  missing   other
+#&gt;   &lt;chr&gt;   &lt;int&gt;    &lt;int&gt;   &lt;int&gt;
+#&gt; 1 terms 8248758 10554280 2095768
+#&gt;
+#&gt; $facets$sourceResource.spatial.country$data
+#&gt; # A tibble: 5 x 2
+#&gt;            term   count
+#&gt;           &lt;chr&gt;   &lt;int&gt;
+#&gt; 1 United States 5512055
+#&gt; 2        Russia  178623
+#&gt; 3        Mexico  171047
+#&gt; 4        France  147943
+#&gt; 5        Poland  143322
+</code></pre>
+
+<h3 id="search-collections">Search - collections</h3>
+
+<p>Search for collections with the words <em>university of texas</em></p>
+
+<pre><code class="language-r">dpla_collections(q=&quot;university of texas&quot;, page_size=2)
+#&gt; $meta
+#&gt; # A tibble: 1 x 2
+#&gt;   found returned
+#&gt;   &lt;int&gt;    &lt;int&gt;
+#&gt; 1    18        2
+#&gt;
+#&gt; $data
+#&gt; # A tibble: 2 x 14
+#&gt;                                `_rev`                  ingestDate
+#&gt;                                 &lt;chr&gt;                       &lt;chr&gt;
+#&gt; 1 14-bb5f3466c0a1e579974ef94d49a5cc85 2017-10-04T02:42:01.229088Z
+#&gt; 2 15-339f2d764716ad98af19a1f4e975e597 2017-10-04T02:41:52.940499Z
+#&gt; # ... with 12 more variables: `@context` &lt;chr&gt;, id &lt;chr&gt;, title &lt;chr&gt;,
+#&gt; #   `_id` &lt;chr&gt;, description &lt;chr&gt;, `@type` &lt;chr&gt;, ingestType &lt;chr&gt;,
+#&gt; #   `@id` &lt;chr&gt;, ingestionSequence &lt;int&gt;, score &lt;dbl&gt;,
+#&gt; #   validation_message &lt;lgl&gt;, valid_after_enrich &lt;lgl&gt;
+</code></pre>
+
+<p>You can also search in the <code>title</code> and <code>description</code> fields</p>
+
+<pre><code class="language-r">dpla_collections(description=&quot;east&quot;)
+#&gt; $meta
+#&gt; # A tibble: 1 x 2
+#&gt;   found returned
+#&gt;   &lt;int&gt;    &lt;int&gt;
+#&gt; 1     3       10
+#&gt;
+#&gt; $data
+#&gt; # A tibble: 3 x 14
+#&gt;                                `_rev`                  ingestDate
+#&gt;                                 &lt;chr&gt;                       &lt;chr&gt;
+#&gt; 1 10-3902841b19a1e2ff9f7d0f50e341b084 2017-08-22T23:08:25.766144Z
+#&gt; 2  5-9ca83dafb7bcf7087fd561c754e0a509 2017-10-06T20:16:03.681488Z
+#&gt; 3  5-48301bd7615558ed90013b3765ead2e5 2017-10-06T20:15:56.314996Z
+#&gt; # ... with 12 more variables: `@context` &lt;chr&gt;, id &lt;chr&gt;, title &lt;chr&gt;,
+#&gt; #   `_id` &lt;chr&gt;, description &lt;chr&gt;, `@type` &lt;chr&gt;, ingestType &lt;chr&gt;,
+#&gt; #   `@id` &lt;chr&gt;, ingestionSequence &lt;int&gt;, score &lt;dbl&gt;,
+#&gt; #   validation_message &lt;lgl&gt;, valid_after_enrich &lt;lgl&gt;
+</code></pre>
+
+<h3 id="visualize">Visualize</h3>
+
+<p>Visualize metadata from the DPLA - histogram of number of records per state (includes <strong>states</strong> outside the US)</p>
+
+<pre><code class="language-r">out &lt;- dpla_items(facets=&quot;sourceResource.spatial.state&quot;, page_size=0, facet_size=25)
+library(&quot;ggplot2&quot;)
+library(&quot;scales&quot;)
+ggplot(out$facets$sourceResource.spatial.state$data, aes(reorder(term, count), count)) +
+  geom_bar(stat=&quot;identity&quot;) +
+  coord_flip() +
+  theme_grey(base_size = 16) +
+  scale_y_continuous(labels = comma) +
+  labs(x=&quot;State&quot;, y=&quot;Records&quot;)
+</code></pre>
+
+<p><img src="/img/tutorial-images/rdpla/unnamed-chunk-18-1.png" alt="plot of chunk unnamed-chunk-18" /></p>
+
+<h3 id="citing">Citing</h3>
+
+<blockquote>
+<p>Scott Chamberlain (2017). rdpla: Client for the Digital Public
+  Library of America (&lsquo;DPLA&rsquo;). R package version 0.2.0.
+  <a href="https://CRAN.R-project.org/package=rdpla">https://CRAN.R-project.org/package=rdpla</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/rdpla/issues?state=open">our GitHub repo for rdpla</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

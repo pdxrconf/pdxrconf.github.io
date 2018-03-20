@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | rcrossref tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>rcrossref tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.7.0</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<h3 id="installation">Installation</h3>
+
+<pre><code class="language-r">install.packages(&quot;rcrossref&quot;)
+</code></pre>
+
+<p>Or development version from GitHub</p>
+
+<pre><code class="language-r">devtools::install_github(&quot;ropensci/rcrossref&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;rcrossref&quot;)
+</code></pre>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="citation-search">Citation search</h3>
+
+<p>CrossRef&rsquo;s <a href="http://www.crosscite.org/cn/">DOI Content Negotiation</a> service, where you can citations back in various formats, including <code>apa</code></p>
+
+<pre><code class="language-r">cr_cn(dois = &quot;10.1371/journal.pone.0112608&quot;, format = &quot;text&quot;, style = &quot;apa&quot;)
+#&gt; [1] &quot;Wang, Q., &amp; Taylor, J. E. (2014). Quantifying Human Mobility Perturbation and Resilience in Hurricane Sandy. PLoS ONE, 9(11), e112608. doi:10.1371/journal.pone.0112608&quot;
+</code></pre>
+
+<p>There are a lot more styles. We include a dataset as a character vector within the package, accessible via the <code>get_styles()</code> function, e.g.,</p>
+
+<pre><code class="language-r">get_styles()[1:5]
+#&gt; [1] &quot;academy-of-management-review&quot;                   
+#&gt; [2] &quot;accident-analysis-and-prevention&quot;               
+#&gt; [3] &quot;acm-sig-proceedings-long-author-list&quot;           
+#&gt; [4] &quot;acm-sig-proceedings&quot;                            
+#&gt; [5] &quot;acm-sigchi-proceedings-extended-abstract-format&quot;
+</code></pre>
+
+<p><code>bibtex</code></p>
+
+<pre><code class="language-r">cat(cr_cn(dois = &quot;10.1126/science.169.3946.635&quot;, format = &quot;bibtex&quot;))
+#&gt; @article{Frank_1970,
+#&gt; 	doi = {10.1126/science.169.3946.635},
+#&gt; 	url = {https://doi.org/10.1126%2Fscience.169.3946.635},
+#&gt; 	year = 1970,
+#&gt; 	month = {aug},
+#&gt; 	publisher = {American Association for the Advancement of Science ({AAAS})},
+#&gt; 	volume = {169},
+#&gt; 	number = {3946},
+#&gt; 	pages = {635--641},
+#&gt; 	author = {H. S. Frank},
+#&gt; 	title = {The Structure of Ordinary Water: New data and interpretations are yielding new insights into this fascinating substance},
+#&gt; 	journal = {Science}
+#&gt; }
+</code></pre>
+
+<p><code>bibentry</code></p>
+
+<pre><code class="language-r">cr_cn(dois = &quot;10.6084/m9.figshare.97218&quot;, format = &quot;bibentry&quot;)
+</code></pre>
+
+<h3 id="citation-count">Citation count</h3>
+
+<p>Citation count, using OpenURL</p>
+
+<pre><code class="language-r">cr_citation_count(doi=&quot;10.1371/journal.pone.0042793&quot;)
+#&gt; [1] 16
+</code></pre>
+
+<h3 id="search-crossref-metadata-api">Search Crossref metadata API</h3>
+
+<p>There are two functions that use an older Crossre API: <code>cr_search()</code> and <code>cr_search_free()</code>. You can of course use them, but the newer Crossref API available through various functions (<code>cr_agency()</code>, <code>cr_fundref()</code>, <code>cr_journals()</code>, <code>cr_licenses()</code>, <code>cr_members()</code>, <code>cr_prefixes()</code>, and <code>cr_works()</code>) is more powerful and will recieve more support going forward. The following functions (of the newer set just mentioend) all use the <a href="https://github.com/CrossRef/rest-api-doc/blob/master/rest_api.md">CrossRef API</a>.</p>
+
+<h4 id="funders">Funders</h4>
+
+<pre><code class="language-r">cr_funders(query=&quot;NSF&quot;)
+#&gt; $meta
+#&gt;   total_results search_terms start_index items_per_page
+#&gt; 1             9          NSF           0             20
+#&gt; 
+#&gt; $data
+#&gt; # A tibble: 9 x 6
+#&gt;             id      location
+#&gt;          &lt;chr&gt;         &lt;chr&gt;
+#&gt; 1    100006445 United States
+#&gt; 2    100003187 United States
+#&gt; 3 501100008982     Sri Lanka
+#&gt; 4    100008367       Denmark
+#&gt; 5 501100004190        Norway
+#&gt; 6    100000179 United States
+#&gt; 7 501100000930     Australia
+#&gt; 8    100000001 United States
+#&gt; 9 501100001809         China
+#&gt; # ... with 4 more variables: name &lt;chr&gt;, alt.names &lt;chr&gt;, uri &lt;chr&gt;,
+#&gt; #   tokens &lt;chr&gt;
+#&gt; 
+#&gt; $facets
+#&gt; NULL
+</code></pre>
+
+<h4 id="check-the-doi-minting-agency">Check the DOI minting agency</h4>
+
+<pre><code class="language-r">cr_agency(dois = '10.13039/100000001')
+#&gt; $DOI
+#&gt; [1] &quot;10.13039/100000001&quot;
+#&gt; 
+#&gt; $agency
+#&gt; $agency$id
+#&gt; [1] &quot;crossref&quot;
+#&gt; 
+#&gt; $agency$label
+#&gt; [1] &quot;Crossref&quot;
+</code></pre>
+
+<h4 id="search-works">Search works</h4>
+
+<pre><code class="language-r">cr_works(filter=c(has_orcid=TRUE, from_pub_date='2004-04-04'), limit=1)
+#&gt; $meta
+#&gt;   total_results search_terms start_index items_per_page
+#&gt; 1        984501           NA           0              1
+#&gt; 
+#&gt; $data
+#&gt; # A tibble: 1 x 32
+#&gt;   alternative.id                       container.title    created
+#&gt;            &lt;chr&gt;                                 &lt;chr&gt;      &lt;chr&gt;
+#&gt; 1                Tuberculosis and Respiratory Diseases 2009-04-09
+#&gt; # ... with 29 more variables: deposited &lt;chr&gt;, DOI &lt;chr&gt;, funder &lt;list&gt;,
+#&gt; #   indexed &lt;chr&gt;, ISBN &lt;chr&gt;, ISSN &lt;chr&gt;, issue &lt;chr&gt;, issued &lt;chr&gt;,
+#&gt; #   license_date &lt;chr&gt;, license_URL &lt;chr&gt;, license_delay.in.days &lt;chr&gt;,
+#&gt; #   license_content.version &lt;chr&gt;, link &lt;list&gt;, member &lt;chr&gt;, page &lt;chr&gt;,
+#&gt; #   prefix &lt;chr&gt;, publisher &lt;chr&gt;, reference.count &lt;chr&gt;, score &lt;chr&gt;,
+#&gt; #   source &lt;chr&gt;, subject &lt;chr&gt;, title &lt;chr&gt;, type &lt;chr&gt;,
+#&gt; #   update.policy &lt;chr&gt;, URL &lt;chr&gt;, volume &lt;chr&gt;, assertion &lt;list&gt;,
+#&gt; #   author &lt;list&gt;, `clinical-trial-number` &lt;list&gt;
+#&gt; 
+#&gt; $facets
+#&gt; NULL
+</code></pre>
+
+<h4 id="search-journals">Search journals</h4>
+
+<pre><code class="language-r">cr_journals(issn=c('1803-2427','2326-4225'))
+#&gt; $data
+#&gt; # A tibble: 2 x 16
+#&gt;   alternative.id container.title created deposited funder indexed  ISBN
+#&gt;            &lt;chr&gt;           &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt; &lt;list&gt;   &lt;chr&gt; &lt;chr&gt;
+#&gt; 1                                                  &lt;NULL&gt;              
+#&gt; 2                                                  &lt;NULL&gt;              
+#&gt; # ... with 9 more variables: ISSN &lt;chr&gt;, issued &lt;chr&gt;, link &lt;list&gt;,
+#&gt; #   publisher &lt;chr&gt;, subject &lt;chr&gt;, title &lt;chr&gt;, assertion &lt;list&gt;,
+#&gt; #   author &lt;list&gt;, `clinical-trial-number` &lt;list&gt;
+#&gt; 
+#&gt; $facets
+#&gt; NULL
+</code></pre>
+
+<h4 id="search-license-information">Search license information</h4>
+
+<pre><code class="language-r">cr_licenses(query = 'elsevier')
+#&gt; $meta
+#&gt;   total_results search_terms start_index items_per_page
+#&gt; 1            22     elsevier           0             20
+#&gt; 
+#&gt; $data
+#&gt; # A tibble: 22 x 2
+#&gt;                                                         URL work.count
+#&gt;                                                       &lt;chr&gt;      &lt;int&gt;
+#&gt;  1 http://aspb.org/publications/aspb-journals/open-articles          1
+#&gt;  2        http://creativecommons.org/licenses/by-nc-nd/3.0/         12
+#&gt;  3        http://creativecommons.org/licenses/by-nc-nd/4.0/          6
+#&gt;  4           http://creativecommons.org/licenses/by-nc/4.0/          1
+#&gt;  5              http://creativecommons.org/licenses/by/3.0/          1
+#&gt;  6               http://creativecommons.org/licenses/by/4.0          1
+#&gt;  7              http://creativecommons.org/licenses/by/4.0/          1
+#&gt;  8               http://doi.wiley.com/10.1002/tdm_license_1        157
+#&gt;  9             http://doi.wiley.com/10.1002/tdm_license_1.1       2163
+#&gt; 10   http://journals.iucr.org/services/copyrightpolicy.html         10
+#&gt; # ... with 12 more rows
+</code></pre>
+
+<h4 id="search-based-on-doi-prefixes">Search based on DOI prefixes</h4>
+
+<pre><code class="language-r">cr_prefixes(prefixes=c('10.1016','10.1371','10.1023','10.4176','10.1093'))
+#&gt; $meta
+#&gt; NULL
+#&gt; 
+#&gt; $data
+#&gt;                               member                             name
+#&gt; 1   http://id.crossref.org/member/78                      Elsevier BV
+#&gt; 2  http://id.crossref.org/member/340 Public Library of Science (PLoS)
+#&gt; 3  http://id.crossref.org/member/297                  Springer Nature
+#&gt; 4 http://id.crossref.org/member/1989             Co-Action Publishing
+#&gt; 5  http://id.crossref.org/member/286    Oxford University Press (OUP)
+#&gt;                                  prefix
+#&gt; 1 http://id.crossref.org/prefix/10.1016
+#&gt; 2 http://id.crossref.org/prefix/10.1371
+#&gt; 3 http://id.crossref.org/prefix/10.1023
+#&gt; 4 http://id.crossref.org/prefix/10.4176
+#&gt; 5 http://id.crossref.org/prefix/10.1093
+#&gt; 
+#&gt; $facets
+#&gt; list()
+</code></pre>
+
+<h4 id="search-crossref-members">Search CrossRef members</h4>
+
+<pre><code class="language-r">cr_members(query='ecology', limit = 5)
+#&gt; $meta
+#&gt;   total_results search_terms start_index items_per_page
+#&gt; 1            18      ecology           0              5
+#&gt; 
+#&gt; $data
+#&gt; # A tibble: 5 x 48
+#&gt;      id                            primary_name
+#&gt;   &lt;int&gt;                                   &lt;chr&gt;
+#&gt; 1   336   Japanese Society of Microbial Ecology
+#&gt; 2  1950               Journal of Vector Ecology
+#&gt; 3  2080   The Japan Society of Tropical Ecology
+#&gt; 4  2467          Ideas in Ecology and Evolution
+#&gt; 5  3732 Japan Association for Landscape Ecology
+#&gt; # ... with 46 more variables: location &lt;chr&gt;,
+#&gt; #   last_status_check_time &lt;date&gt;, total.dois &lt;chr&gt;, current.dois &lt;chr&gt;,
+#&gt; #   backfile.dois &lt;chr&gt;, prefixes &lt;chr&gt;,
+#&gt; #   coverge.affiliations.current &lt;chr&gt;, coverge.funders.backfile &lt;chr&gt;,
+#&gt; #   coverge.licenses.backfile &lt;chr&gt;, coverge.funders.current &lt;chr&gt;,
+#&gt; #   coverge.affiliations.backfile &lt;chr&gt;,
+#&gt; #   coverge.resource.links.backfile &lt;chr&gt;, coverge.orcids.backfile &lt;chr&gt;,
+#&gt; #   coverge.update.policies.current &lt;chr&gt;, coverge.orcids.current &lt;chr&gt;,
+#&gt; #   coverge.references.backfile &lt;chr&gt;,
+#&gt; #   coverge.award.numbers.backfile &lt;chr&gt;,
+#&gt; #   coverge.update.policies.backfile &lt;chr&gt;,
+#&gt; #   coverge.licenses.current &lt;chr&gt;, coverge.award.numbers.current &lt;chr&gt;,
+#&gt; #   coverge.abstracts.backfile &lt;chr&gt;,
+#&gt; #   coverge.resource.links.current &lt;chr&gt;, coverge.abstracts.current &lt;chr&gt;,
+#&gt; #   coverge.references.current &lt;chr&gt;,
+#&gt; #   flags.deposits.abstracts.current &lt;chr&gt;,
+#&gt; #   flags.deposits.orcids.current &lt;chr&gt;, flags.deposits &lt;chr&gt;,
+#&gt; #   flags.deposits.affiliations.backfile &lt;chr&gt;,
+#&gt; #   flags.deposits.update.policies.backfile &lt;chr&gt;,
+#&gt; #   flags.deposits.award.numbers.current &lt;chr&gt;,
+#&gt; #   flags.deposits.resource.links.current &lt;chr&gt;,
+#&gt; #   flags.deposits.articles &lt;chr&gt;,
+#&gt; #   flags.deposits.affiliations.current &lt;chr&gt;,
+#&gt; #   flags.deposits.funders.current &lt;chr&gt;,
+#&gt; #   flags.deposits.references.backfile &lt;chr&gt;,
+#&gt; #   flags.deposits.abstracts.backfile &lt;chr&gt;,
+#&gt; #   flags.deposits.licenses.backfile &lt;chr&gt;,
+#&gt; #   flags.deposits.award.numbers.backfile &lt;chr&gt;,
+#&gt; #   flags.deposits.references.current &lt;chr&gt;,
+#&gt; #   flags.deposits.resource.links.backfile &lt;chr&gt;,
+#&gt; #   flags.deposits.orcids.backfile &lt;chr&gt;,
+#&gt; #   flags.deposits.funders.backfile &lt;chr&gt;,
+#&gt; #   flags.deposits.update.policies.current &lt;chr&gt;,
+#&gt; #   flags.deposits.licenses.current &lt;chr&gt;, names &lt;chr&gt;, tokens &lt;chr&gt;
+#&gt; 
+#&gt; $facets
+#&gt; NULL
+</code></pre>
+
+<h4 id="get-n-random-dois">Get N random DOIs</h4>
+
+<p><code>cr_r()</code> uses the function <code>cr_works()</code> internally.</p>
+
+<pre><code class="language-r">cr_r()
+#&gt;  [1] &quot;10.1371/journal.pone.0065390.t001&quot;
+#&gt;  [2] &quot;10.5035/nishiseisai.53.101&quot;       
+#&gt;  [3] &quot;10.1136/ard.2010.149013.23&quot;       
+#&gt;  [4] &quot;10.1017/s0953756201219893&quot;        
+#&gt;  [5] &quot;10.4000/ccrh.2904&quot;                
+#&gt;  [6] &quot;10.1017/s0022046900029626&quot;        
+#&gt;  [7] &quot;10.1115/gt2015-42986&quot;             
+#&gt;  [8] &quot;10.1055/b-0034-100334&quot;            
+#&gt;  [9] &quot;10.2307/309547&quot;                   
+#&gt; [10] &quot;10.1016/0043-1354(94)90058-2&quot;
+</code></pre>
+
+<p>You can pass in the number of DOIs you want back (default is 10)</p>
+
+<pre><code class="language-r">cr_r(2)
+#&gt; [1] &quot;10.1163/2214-8264_dutchpamphlets-kb1-kb13238&quot;
+#&gt; [2] &quot;10.1051/0004-6361/200913389&quot;
+</code></pre>
+
+<h3 id="citing">Citing</h3>
+
+<p>To cite <code>rcrossref</code> in publications use:</p>
+
+<p><br></p>
+
+<blockquote>
+<p>Scott Chamberlain, Carl Boettiger, Ted Hart and Karthik Ram (2017).
+  rcrossref: Client for Various &lsquo;CrossRef&rsquo; &lsquo;APIs&rsquo;. R package version
+  0.7.0. <a href="https://CRAN.R-project.org/package=rcrossref">https://CRAN.R-project.org/package=rcrossref</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/rcrossref/issues?state=open">our Github repo for rcrossref</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

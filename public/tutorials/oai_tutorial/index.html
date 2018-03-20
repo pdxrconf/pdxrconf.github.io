@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | oai vignette</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>oai vignette</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.2.2</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p>A general purpose client to work with any &lsquo;OAI-PMH&rsquo; service. The &lsquo;OAI-PMH&rsquo; protocol is described at <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html">http://www.openarchives.org/OAI/openarchivesprotocol.html</a>. The main functions follow the OAI-PMH verbs:</p>
+
+<ul>
+<li><code>GetRecord</code></li>
+<li><code>Identify</code></li>
+<li><code>ListIdentifiers</code></li>
+<li><code>ListMetadataFormats</code></li>
+<li><code>ListRecords</code></li>
+<li><code>ListSets</code></li>
+</ul>
+
+<h3 id="installation">Installation</h3>
+
+<p>You can install from CRAN</p>
+
+<pre><code class="language-r">install.packages(&quot;oai&quot;)
+</code></pre>
+
+<p>Or the development version from GitHub</p>
+
+<pre><code class="language-r">install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;ropensci/oai&quot;)
+</code></pre>
+
+<h3 id="identify">Identify</h3>
+
+<pre><code class="language-r">id(&quot;http://oai.datacite.org/oai&quot;)
+</code></pre>
+
+<pre><code>#&gt;   repositoryName                     baseURL protocolVersion
+#&gt; 1   DataCite MDS http://oai.datacite.org/oai             2.0
+#&gt;           adminEmail    earliestDatestamp deletedRecord
+#&gt; 1 admin@datacite.org 2011-01-01T00:00:00Z    persistent
+#&gt;            granularity compression compression.1
+#&gt; 1 YYYY-MM-DDThh:mm:ssZ        gzip       deflate
+#&gt;                                      description
+#&gt; 1 oaioai.datacite.org:oai:oai.datacite.org:12425
+</code></pre>
+
+<h3 id="listidentifiers">ListIdentifiers</h3>
+
+<pre><code class="language-r">list_identifiers(from = '2011-05-01T', until = '2011-09-01T')
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 888 x 6
+#&gt;                    identifier            datestamp setSpec setSpec.1
+#&gt;                         &lt;chr&gt;                &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;
+#&gt;  1 oai:oai.datacite.org:32153 2011-06-08T08:57:11Z     TIB  TIB.WDCC
+#&gt;  2 oai:oai.datacite.org:32200 2011-06-20T08:12:41Z     TIB TIB.DAGST
+#&gt;  3 oai:oai.datacite.org:32220 2011-06-28T14:11:08Z     TIB TIB.DAGST
+#&gt;  4 oai:oai.datacite.org:32241 2011-06-30T13:24:45Z     TIB TIB.DAGST
+#&gt;  5 oai:oai.datacite.org:32255 2011-07-01T12:09:24Z     TIB TIB.DAGST
+#&gt;  6 oai:oai.datacite.org:32282 2011-07-05T09:08:10Z     TIB TIB.DAGST
+#&gt;  7 oai:oai.datacite.org:32309 2011-07-06T12:30:54Z     TIB TIB.DAGST
+#&gt;  8 oai:oai.datacite.org:32310 2011-07-06T12:42:32Z     TIB TIB.DAGST
+#&gt;  9 oai:oai.datacite.org:32325 2011-07-07T11:17:46Z     TIB TIB.DAGST
+#&gt; 10 oai:oai.datacite.org:32326 2011-07-07T11:18:47Z     TIB TIB.DAGST
+#&gt; # ... with 878 more rows, and 2 more variables: setSpec.2 &lt;chr&gt;,
+#&gt; #   setSpec.3 &lt;chr&gt;
+</code></pre>
+
+<h3 id="count-identifiers">Count Identifiers</h3>
+
+<pre><code class="language-r">count_identifiers()
+</code></pre>
+
+<pre><code>#&gt;                           url    count
+#&gt; 1 http://oai.datacite.org/oai 11163984
+</code></pre>
+
+<h3 id="listrecords">ListRecords</h3>
+
+<pre><code class="language-r">list_records(from = '2011-05-01T', until = '2011-08-15T')
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 109 x 44
+#&gt;                    identifier            datestamp setSpec setSpec.1
+#&gt;                         &lt;chr&gt;                &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;
+#&gt;  1 oai:oai.datacite.org:32153 2011-06-08T08:57:11Z     TIB  TIB.WDCC
+#&gt;  2 oai:oai.datacite.org:32200 2011-06-20T08:12:41Z     TIB TIB.DAGST
+#&gt;  3 oai:oai.datacite.org:32220 2011-06-28T14:11:08Z     TIB TIB.DAGST
+#&gt;  4 oai:oai.datacite.org:32241 2011-06-30T13:24:45Z     TIB TIB.DAGST
+#&gt;  5 oai:oai.datacite.org:32255 2011-07-01T12:09:24Z     TIB TIB.DAGST
+#&gt;  6 oai:oai.datacite.org:32282 2011-07-05T09:08:10Z     TIB TIB.DAGST
+#&gt;  7 oai:oai.datacite.org:32309 2011-07-06T12:30:54Z     TIB TIB.DAGST
+#&gt;  8 oai:oai.datacite.org:32310 2011-07-06T12:42:32Z     TIB TIB.DAGST
+#&gt;  9 oai:oai.datacite.org:32325 2011-07-07T11:17:46Z     TIB TIB.DAGST
+#&gt; 10 oai:oai.datacite.org:32326 2011-07-07T11:18:47Z     TIB TIB.DAGST
+#&gt; # ... with 99 more rows, and 40 more variables: title &lt;chr&gt;,
+#&gt; #   creator &lt;chr&gt;, creator.1 &lt;chr&gt;, creator.2 &lt;chr&gt;, creator.3 &lt;chr&gt;,
+#&gt; #   creator.4 &lt;chr&gt;, creator.5 &lt;chr&gt;, creator.6 &lt;chr&gt;, creator.7 &lt;chr&gt;,
+#&gt; #   publisher &lt;chr&gt;, date &lt;chr&gt;, identifier.2 &lt;chr&gt;, identifier.1 &lt;chr&gt;,
+#&gt; #   subject &lt;chr&gt;, description &lt;chr&gt;, description.1 &lt;chr&gt;,
+#&gt; #   contributor &lt;chr&gt;, language &lt;chr&gt;, type &lt;chr&gt;, type.1 &lt;chr&gt;,
+#&gt; #   format &lt;chr&gt;, format.1 &lt;chr&gt;, rights &lt;chr&gt;, subject.1 &lt;chr&gt;,
+#&gt; #   relation &lt;chr&gt;, subject.2 &lt;chr&gt;, subject.3 &lt;chr&gt;, subject.4 &lt;chr&gt;,
+#&gt; #   setSpec.2 &lt;chr&gt;, setSpec.3 &lt;chr&gt;, format.2 &lt;chr&gt;, subject.5 &lt;chr&gt;,
+#&gt; #   subject.6 &lt;chr&gt;, subject.7 &lt;chr&gt;, description.2 &lt;chr&gt;,
+#&gt; #   description.3 &lt;chr&gt;, description.4 &lt;chr&gt;, description.5 &lt;chr&gt;,
+#&gt; #   title.1 &lt;chr&gt;, contributor.1 &lt;chr&gt;
+</code></pre>
+
+<h3 id="getrecords">GetRecords</h3>
+
+<pre><code class="language-r">get_records(c(&quot;oai:oai.datacite.org:32255&quot;, &quot;oai:oai.datacite.org:32325&quot;))
+</code></pre>
+
+<pre><code>#&gt; $`oai:oai.datacite.org:32255`
+#&gt; $`oai:oai.datacite.org:32255`$header
+#&gt; # A tibble: 1 x 3
+#&gt;                   identifier            datestamp       setSpec
+#&gt;                        &lt;chr&gt;                &lt;chr&gt;         &lt;chr&gt;
+#&gt; 1 oai:oai.datacite.org:32255 2011-07-01T12:09:24Z TIB;TIB.DAGST
+#&gt; 
+#&gt; $`oai:oai.datacite.org:32255`$metadata
+#&gt; # A tibble: 1 x 12
+#&gt;                                                                         title
+#&gt;                                                                         &lt;chr&gt;
+#&gt; 1 Combinatorial and Algorithmic Aspects of Sequence Processing (Dagstuhl Semi
+#&gt; # ... with 11 more variables: creator &lt;chr&gt;, publisher &lt;chr&gt;, date &lt;chr&gt;,
+#&gt; #   identifier &lt;chr&gt;, subject &lt;chr&gt;, description &lt;chr&gt;, contributor &lt;chr&gt;,
+#&gt; #   language &lt;chr&gt;, type &lt;chr&gt;, format &lt;chr&gt;, rights &lt;chr&gt;
+#&gt; 
+#&gt; 
+#&gt; $`oai:oai.datacite.org:32325`
+#&gt; $`oai:oai.datacite.org:32325`$header
+#&gt; # A tibble: 1 x 3
+#&gt;                   identifier            datestamp       setSpec
+#&gt;                        &lt;chr&gt;                &lt;chr&gt;         &lt;chr&gt;
+#&gt; 1 oai:oai.datacite.org:32325 2011-07-07T11:17:46Z TIB;TIB.DAGST
+#&gt; 
+#&gt; $`oai:oai.datacite.org:32325`$metadata
+#&gt; # A tibble: 1 x 12
+#&gt;                                                              title
+#&gt;                                                              &lt;chr&gt;
+#&gt; 1 Frontmatter, Table of Contents, Preface, Conference Organization
+#&gt; # ... with 11 more variables: creator &lt;chr&gt;, publisher &lt;chr&gt;, date &lt;chr&gt;,
+#&gt; #   identifier &lt;chr&gt;, subject &lt;chr&gt;, description &lt;chr&gt;, contributor &lt;chr&gt;,
+#&gt; #   language &lt;chr&gt;, type &lt;chr&gt;, format &lt;chr&gt;, rights &lt;chr&gt;
+</code></pre>
+
+<h3 id="list-metadataformats">List MetadataFormats</h3>
+
+<pre><code class="language-r">list_metadataformats(id = &quot;oai:oai.datacite.org:32348&quot;)
+</code></pre>
+
+<pre><code>#&gt; $`oai:oai.datacite.org:32348`
+#&gt;   metadataPrefix
+#&gt; 1         oai_dc
+#&gt; 2   oai_datacite
+#&gt; 3       datacite
+#&gt;                                                        schema
+#&gt; 1              http://www.openarchives.org/OAI/2.0/oai_dc.xsd
+#&gt; 2              http://schema.datacite.org/oai/oai-1.0/oai.xsd
+#&gt; 3 http://schema.datacite.org/meta/nonexistant/nonexistant.xsd
+#&gt;                             metadataNamespace
+#&gt; 1 http://www.openarchives.org/OAI/2.0/oai_dc/
+#&gt; 2     http://schema.datacite.org/oai/oai-1.0/
+#&gt; 3      http://datacite.org/schema/nonexistant
+</code></pre>
+
+<h3 id="list-sets">List Sets</h3>
+
+<pre><code class="language-r">list_sets(&quot;http://oai.datacite.org/oai&quot;)
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 2,147 x 2
+#&gt;                 setSpec
+#&gt;                   &lt;chr&gt;
+#&gt;  1           REFQUALITY
+#&gt;  2                 ANDS
+#&gt;  3      ANDS.REFQUALITY
+#&gt;  4            ANDS.C113
+#&gt;  5 ANDS.C113.REFQUALITY
+#&gt;  6            ANDS.C122
+#&gt;  7 ANDS.C122.REFQUALITY
+#&gt;  8            ANDS.C139
+#&gt;  9 ANDS.C139.REFQUALITY
+#&gt; 10            ANDS.C145
+#&gt; # ... with 2,137 more rows, and 1 more variables: setName &lt;chr&gt;
+</code></pre>
+
+<h3 id="examples-of-other-oai-providers">Examples of other OAI providers</h3>
+
+<h4 id="global-biodiversity-information-facility">Global Biodiversity Information Facility</h4>
+
+<p>Identify</p>
+
+<pre><code class="language-r">id(&quot;http://api.gbif.org/v1/oai-pmh/registry&quot;)
+</code></pre>
+
+<pre><code>#&gt;   repositoryName                                 baseURL protocolVersion
+#&gt; 1  GBIF Registry http://api.gbif.org/v1/oai-pmh/registry             2.0
+#&gt;     adminEmail    earliestDatestamp deletedRecord          granularity
+#&gt; 1 dev@gbif.org 2007-01-01T00:00:01Z    persistent YYYY-MM-DDThh:mm:ssZ
+#&gt;                                                                                                                                                                                                                                                                                                                    description
+#&gt; 1 GBIF RegistryGlobal Biodiversity Information Facility Secretariat\n\t\tThe GBIF Registry — the entities that make up the GBIF network.\n\t\tThis OAI-PMH service exposes Datasets, organized into sets of country, installation and resource type.\n\t\tFor more information, see http://www.gbif.org/developer/registry\n\t
+</code></pre>
+
+<p>Get records</p>
+
+<pre><code class="language-r">get_records(c(&quot;816f4734-6b49-41ab-8a1d-1b21e6b5486d&quot;, &quot;95e3042f-f48d-4a04-8251-f755bebeced6&quot;),
+            url = &quot;http://api.gbif.org/v1/oai-pmh/registry&quot;)
+</code></pre>
+
+<pre><code>#&gt; $`816f4734-6b49-41ab-8a1d-1b21e6b5486d`
+#&gt; $`816f4734-6b49-41ab-8a1d-1b21e6b5486d`$header
+#&gt; # A tibble: 1 x 3
+#&gt;                             identifier            datestamp
+#&gt;                                  &lt;chr&gt;                &lt;chr&gt;
+#&gt; 1 816f4734-6b49-41ab-8a1d-1b21e6b5486d 2017-03-08T15:04:24Z
+#&gt; # ... with 1 more variables: setSpec &lt;chr&gt;
+#&gt; 
+#&gt; $`816f4734-6b49-41ab-8a1d-1b21e6b5486d`$metadata
+#&gt; # A tibble: 0 x 0
+#&gt; 
+#&gt; 
+#&gt; $`95e3042f-f48d-4a04-8251-f755bebeced6`
+#&gt; $`95e3042f-f48d-4a04-8251-f755bebeced6`$header
+#&gt; # A tibble: 1 x 3
+#&gt;                             identifier            datestamp
+#&gt;                                  &lt;chr&gt;                &lt;chr&gt;
+#&gt; 1 95e3042f-f48d-4a04-8251-f755bebeced6 2017-08-14T10:26:13Z
+#&gt; # ... with 1 more variables: setSpec &lt;chr&gt;
+#&gt; 
+#&gt; $`95e3042f-f48d-4a04-8251-f755bebeced6`$metadata
+#&gt; # A tibble: 1 x 12
+#&gt;                                                                       title
+#&gt;                                                                       &lt;chr&gt;
+#&gt; 1 WIWO (NL) - Monitoring and breeding ecology of arctic birds at Medusa Bay
+#&gt; # ... with 11 more variables: publisher &lt;chr&gt;, identifier &lt;chr&gt;,
+#&gt; #   subject &lt;chr&gt;, source &lt;chr&gt;, description &lt;chr&gt;, type &lt;chr&gt;,
+#&gt; #   creator &lt;chr&gt;, date &lt;chr&gt;, language &lt;chr&gt;, coverage &lt;chr&gt;,
+#&gt; #   format &lt;chr&gt;
+</code></pre>
+
+<h4 id="biodiversity-heritage-library">Biodiversity Heritage Library</h4>
+
+<p>Identify</p>
+
+<pre><code class="language-r">id(&quot;http://www.biodiversitylibrary.org/oai&quot;)
+</code></pre>
+
+<pre><code>#&gt;                                 repositoryName
+#&gt; 1 Biodiversity Heritage Library OAI Repository
+#&gt;                                   baseURL protocolVersion
+#&gt; 1 https://www.biodiversitylibrary.org/oai             2.0
+#&gt;                    adminEmail earliestDatestamp deletedRecord granularity
+#&gt; 1 oai@biodiversitylibrary.org        2006-01-01            no  YYYY-MM-DD
+#&gt;                                                        description
+#&gt; 1 oaibiodiversitylibrary.org:oai:biodiversitylibrary.org:item/1000
+</code></pre>
+
+<p>Get records</p>
+
+<pre><code class="language-r">get_records(c(&quot;oai:biodiversitylibrary.org:item/7&quot;, &quot;oai:biodiversitylibrary.org:item/9&quot;),
+            url = &quot;http://www.biodiversitylibrary.org/oai&quot;)
+</code></pre>
+
+<pre><code>#&gt; $`oai:biodiversitylibrary.org:item/7`
+#&gt; $`oai:biodiversitylibrary.org:item/7`$header
+#&gt; # A tibble: 1 x 3
+#&gt;                           identifier            datestamp setSpec
+#&gt;                                &lt;chr&gt;                &lt;chr&gt;   &lt;chr&gt;
+#&gt; 1 oai:biodiversitylibrary.org:item/7 2016-07-13T09:13:41Z    item
+#&gt; 
+#&gt; $`oai:biodiversitylibrary.org:item/7`$metadata
+#&gt; # A tibble: 1 x 11
+#&gt;                                                                    title
+#&gt;                                                                    &lt;chr&gt;
+#&gt; 1 Die Musci der Flora von Buitenzorg : zugleich Laubmoosflora von Java /
+#&gt; # ... with 10 more variables: creator &lt;chr&gt;, subject &lt;chr&gt;,
+#&gt; #   description &lt;chr&gt;, publisher &lt;chr&gt;, contributor &lt;chr&gt;, date &lt;chr&gt;,
+#&gt; #   type &lt;chr&gt;, identifier &lt;chr&gt;, language &lt;chr&gt;, rights &lt;chr&gt;
+#&gt; 
+#&gt; 
+#&gt; $`oai:biodiversitylibrary.org:item/9`
+#&gt; $`oai:biodiversitylibrary.org:item/9`$header
+#&gt; # A tibble: 1 x 3
+#&gt;                           identifier            datestamp setSpec
+#&gt;                                &lt;chr&gt;                &lt;chr&gt;   &lt;chr&gt;
+#&gt; 1 oai:biodiversitylibrary.org:item/9 2016-07-13T09:13:41Z    item
+#&gt; 
+#&gt; $`oai:biodiversitylibrary.org:item/9`$metadata
+#&gt; # A tibble: 1 x 11
+#&gt;                                                                    title
+#&gt;                                                                    &lt;chr&gt;
+#&gt; 1 Die Musci der Flora von Buitenzorg : zugleich Laubmoosflora von Java /
+#&gt; # ... with 10 more variables: creator &lt;chr&gt;, subject &lt;chr&gt;,
+#&gt; #   description &lt;chr&gt;, publisher &lt;chr&gt;, contributor &lt;chr&gt;, date &lt;chr&gt;,
+#&gt; #   type &lt;chr&gt;, identifier &lt;chr&gt;, language &lt;chr&gt;, rights &lt;chr&gt;
+</code></pre>
+
+<h3 id="citing">Citing</h3>
+
+<blockquote>
+<p>Scott Chamberlain and Michal Bojanowski (2016). oai: General Purpose &lsquo;Oai-PMH&rsquo; Services Client. R package
+  version 0.2.2. <a href="https://github.com/ropensci/oai">https://github.com/ropensci/oai</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/oai/issues?state=open">our GitHub repo for oai</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

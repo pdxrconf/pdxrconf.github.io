@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | elastic - Elasticsearch for R</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article class="blog-post">
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h1 style="text-align: center;">elastic - Elasticsearch for R</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        &nbsp;
+                        
+                          <a href="/about/#team">Scott Chamberlain</a> 
+                        
+                        
+                        &nbsp; |
+                    
+                    <small style="color: #5B617A; margin-left: 10px;"> AUGUST 2, 2017</small>
+                </p>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+                
+
+<p><strong>elastic</strong> is an R client for <a href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a></p>
+
+<p><code>elastic</code> has been around since 2013, with the first commit in <a href="https://github.com/ropensci/elastic/commit/f7b04589b2cb711a21223bb4f20b34bc9330ef8d">November, 2013</a>.</p>
+
+<blockquote>
+<p>sidebar - &lsquo;elastic&rsquo; was picked as a package named before the company now known as Elastic
+changed their name to Elastic.</p>
+</blockquote>
+
+<h3 id="what-is-elasticsearch">What is Elasticsearch?</h3>
+
+<p>If you aren&rsquo;t familiar with Elasticsearch, it is a distributed, RESTful search and analytics engine.
+It&rsquo;s similar to <a href="https://lucene.apache.org/solr/">Solr</a>. It falls in the NoSQL bin of databases, holding data in JSON documents, instead
+of rows and columns. Elasticsearch has a concept of <strong>index</strong>, similar to a database in SQL-land.
+You can hold many documents of similar type within a single index. There is powerful search
+capabilities, including lots of different types of queries that can be done separately
+or combined. And best of all it&rsquo;s super fast.</p>
+
+<h3 id="other-clients">Other clients</h3>
+
+<p>The Elastic company maintains some official clients, including the Python client
+<a href="http://elasticsearch-py.readthedocs.io/en/master/">elasticsearch-py</a>, and it&rsquo;s higher
+level DSL client <a href="https://elasticsearch-dsl.readthedocs.io/en/latest/">elasticsearch-dsl</a>.</p>
+
+<p>I won&rsquo;t talk much about it, but we have slowly been working on an R equivalent of the
+Python DSL client, called <a href="https://github.com/ropensci/elasticdsl">elasticdsl</a>, for
+a human friendly way to compose Elasticsearch queries.</p>
+
+<h3 id="vignettes">Vignettes</h3>
+
+<p>Check out the <a href="https://cran.rstudio.com/web/packages/elastic/vignettes/elastic_intro.html">elastic introduction vignette</a>
+and the <a href="https://cran.rstudio.com/web/packages/elastic/vignettes/search.html">search vignette</a> to get started.</p>
+
+<h3 id="noteable-features">Noteable features</h3>
+
+<ul>
+<li><code>elastic</code> has nearly complete coverage of the Elasticsearch HTTP API. If there&rsquo;s
+anything missing you need in this client, let us know! Check out the
+<a href="https://github.com/ropensci/elastic/issues?q=is%3Aissue+is%3Aopen+label%3Afeatures">features label</a>
+for features we plan to add to the package.</li>
+<li>We fail well. This is important to us. We allow the user to choose simple errors
+to just give e.g., 404 HTTP error, or complex errors, including full stack trace
+from Elasticsearch in addition to the HTTP errror. We strive to fail well when
+users give the wrong type of input, etc. as well. Let us know if <code>elastic</code> is not
+failing well!</li>
+<li>We strive to allow R centric ways of interacting with Elasticsearch. For example,
+in the function <code>docs_bulk</code>, our interface to the Elasticsearch <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docs-bulk.html">bulk API</a>
+we make it easy to create documents in your Elasticsearch instance from R lists,
+data.frame&rsquo;s and from bulk format files on disk.</li>
+<li><code>elastic</code> works with most versions of Elasticsearch. We run the test suite on 11
+versions of Elasticsearch, from <code>v1.0.0</code> up to <code>v5.5.0</code>. We strive to fail well
+with useful messages when there is a feature no longer available or one that is
+a new feature and not available in previous Elasticsearch versions.</li>
+<li>Search inputs are flexible: lists and JSON strings both work.</li>
+<li>Arguably, a noteable feature is that this client has been around nearly 4 years,
+so we&rsquo;ve surfaced and squashed many bugs.</li>
+</ul>
+
+<h3 id="getting-help">Getting help</h3>
+
+<ul>
+<li>If you have a bug or a feature request, post it in the repo at <a href="https://github.com/ropensci/elastic/issues">https://github.com/ropensci/elastic/issues</a></li>
+<li>Stackoverflow: Check out combination of the tags <code>[elasticsearch]</code> and <code>[r]</code> <a href="https://stackoverflow.com/questions/tagged/elasticsearch+r">https://stackoverflow.com/questions/tagged/elasticsearch+r</a></li>
+<li>Reach out to me on Twitter at <a href="https://twitter.com/sckottie">@sckottie</a></li>
+<li>Post question/problem in the <a href="https://discuss.ropensci.org/">rOpenSci discussion forum</a></li>
+<li>Email me <a href="mailto:myrmecocystus@gmail.com">directly</a></li>
+</ul>
+
+<h3 id="setup">Setup</h3>
+
+<p>Install <code>elastic</code></p>
+
+<pre><code class="language-r">install.packages(&quot;elastic&quot;)
+</code></pre>
+
+<p>Or get the development version:</p>
+
+<pre><code class="language-r">devtools::install_github(&quot;ropensci/elastic&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(elastic)
+</code></pre>
+
+<p>I&rsquo;m running Elasticsearch version:</p>
+
+<pre><code class="language-r">ping()$version$number
+#&gt; [1] &quot;5.4.0&quot;
+</code></pre>
+
+<h3 id="examples">Examples</h3>
+
+<h4 id="initialize-a-client">Initialize a client</h4>
+
+<p>Using <code>connect()</code></p>
+
+<pre><code class="language-r">elastic::connect()
+#&gt; transport:  http
+#&gt; host:       127.0.0.1
+#&gt; port:       9200
+#&gt; path:       NULL
+#&gt; username:   NULL
+#&gt; password:   &lt;secret&gt;
+#&gt; errors:     simple
+#&gt; headers (names):  NULL
+</code></pre>
+
+<p>By default, you connect to <code>localhost</code> and port <code>9200</code>. There&rsquo;s paramaters
+for setting transport schema, username, password, and base search path (e.g.,
+<code>_search</code> or something else).</p>
+
+<blockquote>
+<p>See bottom of post about possible changes in connections.</p>
+</blockquote>
+
+<h4 id="get-some-data">Get some data</h4>
+
+<p>Elasticsearch has a bulk load API to load data in fast. The format is pretty weird
+though. It&rsquo;s sort of JSON, but would pass no JSON linter. I include a few data
+sets in <code>elastic</code> so it&rsquo;s easy to get up and running, and so when you run examples
+in this package they&rsquo;ll actually run the same way (hopefully).</p>
+
+<h4 id="public-library-of-science-plos-data">Public Library of Science (PLOS) data</h4>
+
+<p>A dataset inluded in the <code>elastic</code> package is metadata for PLOS scholarly articles.
+Get the file path, then load:</p>
+
+<pre><code class="language-r">plosdat &lt;- system.file(&quot;examples&quot;, &quot;plos_data.json&quot;, package = &quot;elastic&quot;)
+invisible(docs_bulk(plosdat))
+</code></pre>
+
+<h4 id="search">Search</h4>
+
+<p>The main search function is <code>Search()</code>. Running it without any inputs searches
+across all indices - in this case only the <code>plos</code> index.</p>
+
+<pre><code class="language-r">Search()
+</code></pre>
+
+<pre><code>#&gt; $took
+#&gt; [1] 1
+#&gt;
+#&gt; $timed_out
+#&gt; [1] FALSE
+#&gt;
+#&gt; $`_shards`
+#&gt; $`_shards`$total
+#&gt; [1] 5
+#&gt;
+#&gt; $`_shards`$successful
+#&gt; [1] 5
+#&gt;
+#&gt; $`_shards`$failed
+#&gt; [1] 0
+...
+</code></pre>
+
+<p>Search just the <code>plos</code> index and only return 1 result</p>
+
+<pre><code class="language-r">Search(index = &quot;plos&quot;, size = 1)$hits$hits
+#&gt; [[1]]
+#&gt; [[1]]$`_index`
+#&gt; [1] &quot;plos&quot;
+#&gt;
+#&gt; [[1]]$`_type`
+#&gt; [1] &quot;article&quot;
+#&gt;
+#&gt; [[1]]$`_id`
+#&gt; [1] &quot;0&quot;
+#&gt;
+#&gt; [[1]]$`_score`
+#&gt; [1] 1
+#&gt;
+#&gt; [[1]]$`_source`
+#&gt; [[1]]$`_source`$id
+#&gt; [1] &quot;10.1371/journal.pone.0007737&quot;
+#&gt;
+#&gt; [[1]]$`_source`$title
+#&gt; [1] &quot;Phospholipase C-β4 Is Essential for the Progression of the Normal Sleep Sequence and Ultradian Body Temperature Rhythms in Mice&quot;
+</code></pre>
+
+<p>Search the <code>plos</code> index, and the <code>article</code> document type, sort by title, and query for <em>antibody</em>, limit to 1 result.</p>
+
+<p>First, with Elasticsearch <code>v5</code> and greater, we need to set <code>fielddata = true</code> if we want to search on or sort on a text field.</p>
+
+<pre><code class="language-r">mapping_create(&quot;plos&quot;, &quot;article&quot;, update_all_types = TRUE, body = '{
+   &quot;properties&quot;: {
+     &quot;title&quot;: {
+     &quot;type&quot;:     &quot;text&quot;,
+     &quot;fielddata&quot;: true
+   }
+ }
+}')
+#&gt; $acknowledged
+#&gt; [1] TRUE
+Search(index = &quot;plos&quot;, type = &quot;article&quot;, sort = &quot;title&quot;, q = &quot;antibody&quot;, size = 1)$hits$hits
+#&gt; [[1]]
+#&gt; [[1]]$`_index`
+#&gt; [1] &quot;plos&quot;
+#&gt;
+#&gt; [[1]]$`_type`
+#&gt; [1] &quot;article&quot;
+#&gt;
+#&gt; [[1]]$`_id`
+#&gt; [1] &quot;568&quot;
+#&gt;
+#&gt; [[1]]$`_score`
+#&gt; NULL
+#&gt;
+#&gt; [[1]]$`_source`
+#&gt; [[1]]$`_source`$id
+#&gt; [1] &quot;10.1371/journal.pone.0085002&quot;
+#&gt;
+#&gt; [[1]]$`_source`$title
+#&gt; [1] &quot;Evaluation of 131I-Anti-Angiotensin II Type 1 Receptor Monoclonal Antibody as a Reporter for Hepatocellular Carcinoma&quot;
+#&gt;
+#&gt;
+#&gt; [[1]]$sort
+#&gt; [[1]]$sort[[1]]
+#&gt; [1] &quot;1&quot;
+</code></pre>
+
+<h4 id="get-documents">Get documents</h4>
+
+<p>Get document with <code>id=1</code></p>
+
+<pre><code class="language-r">docs_get(index = 'plos', type = 'article', id = 1)
+#&gt; $`_index`
+#&gt; [1] &quot;plos&quot;
+#&gt;
+#&gt; $`_type`
+#&gt; [1] &quot;article&quot;
+#&gt;
+#&gt; $`_id`
+#&gt; [1] &quot;1&quot;
+#&gt;
+#&gt; $`_version`
+#&gt; [1] 1
+#&gt;
+#&gt; $found
+#&gt; [1] TRUE
+#&gt;
+#&gt; $`_source`
+#&gt; $`_source`$id
+#&gt; [1] &quot;10.1371/journal.pone.0098602&quot;
+#&gt;
+#&gt; $`_source`$title
+#&gt; [1] &quot;Population Genetic Structure of a Sandstone Specialist and a Generalist Heath Species at Two Levels of Sandstone Patchiness across the Strait of Gibraltar&quot;
+</code></pre>
+
+<p>Get certain fields</p>
+
+<pre><code class="language-r">docs_get(index = 'plos', type = 'article', id = 1, fields = 'id')
+#&gt; $`_index`
+#&gt; [1] &quot;plos&quot;
+#&gt;
+#&gt; $`_type`
+#&gt; [1] &quot;article&quot;
+#&gt;
+#&gt; $`_id`
+#&gt; [1] &quot;1&quot;
+#&gt;
+#&gt; $`_version`
+#&gt; [1] 1
+#&gt;
+#&gt; $found
+#&gt; [1] TRUE
+</code></pre>
+
+<h4 id="raw-json-data">Raw JSON data</h4>
+
+<p>You can optionally get back raw JSON from many functions by setting parameter <code>raw=TRUE</code>.</p>
+
+<p>For example, get raw JSON, then parse with <code>jsonlite</code></p>
+
+<pre><code class="language-r">(out &lt;- docs_mget(index = &quot;plos&quot;, type = &quot;article&quot;, id = 5:6, raw = TRUE))
+#&gt; [1] &quot;{\&quot;docs\&quot;:[{\&quot;_index\&quot;:\&quot;plos\&quot;,\&quot;_type\&quot;:\&quot;article\&quot;,\&quot;_id\&quot;:\&quot;5\&quot;,\&quot;_version\&quot;:1,\&quot;found\&quot;:true,\&quot;_source\&quot;:{\&quot;id\&quot;:\&quot;10.1371/journal.pone.0085123\&quot;,\&quot;title\&quot;:\&quot;MiR-21 Is under Control of STAT5 but Is Dispensable for Mammary Development and Lactation\&quot;}},{\&quot;_index\&quot;:\&quot;plos\&quot;,\&quot;_type\&quot;:\&quot;article\&quot;,\&quot;_id\&quot;:\&quot;6\&quot;,\&quot;_version\&quot;:1,\&quot;found\&quot;:true,\&quot;_source\&quot;:{\&quot;id\&quot;:\&quot;10.1371/journal.pone.0098600\&quot;,\&quot;title\&quot;:\&quot;Correction: Designing Mixed Species Tree Plantations for the Tropics: Balancing Ecological Attributes of Species with Landholder Preferences in the Philippines\&quot;}}]}&quot;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;elastic_mget&quot;
+jsonlite::fromJSON(out)
+#&gt; $docs
+#&gt;   _index   _type _id _version found                   _source.id
+#&gt; 1   plos article   5        1  TRUE 10.1371/journal.pone.0085123
+#&gt; 2   plos article   6        1  TRUE 10.1371/journal.pone.0098600
+#&gt;                                                                                                                                                     _source.title
+#&gt; 1                                                                       MiR-21 Is under Control of STAT5 but Is Dispensable for Mammary Development and Lactation
+#&gt; 2 Correction: Designing Mixed Species Tree Plantations for the Tropics: Balancing Ecological Attributes of Species with Landholder Preferences in the Philippines
+</code></pre>
+
+<h4 id="aggregation-search">Aggregation search</h4>
+
+<p>Here, we&rsquo;ll use another dataset that comes with the package on Shakespeare plays.</p>
+
+<pre><code class="language-r">gbifdat &lt;- system.file(&quot;examples&quot;, &quot;gbif_data.json&quot;, package = &quot;elastic&quot;)
+invisible(docs_bulk(gbifdat))
+</code></pre>
+
+<p>Define an aggregation query:</p>
+
+<pre><code class="language-r">aggs &lt;- '{
+    &quot;aggs&quot;: {
+        &quot;latbuckets&quot; : {
+           &quot;histogram&quot; : {
+               &quot;field&quot; : &quot;decimalLatitude&quot;,
+               &quot;interval&quot; : 5
+           }
+        }
+    }
+}'
+</code></pre>
+
+<p>Search the <code>gbif</code> index</p>
+
+<pre><code class="language-r">res &lt;- Search(index = &quot;gbif&quot;, body = aggs, size = 0)$aggregations$latbuckets$buckets
+do.call(&quot;rbind.data.frame&quot;, res)
+#&gt;    key doc_count
+#&gt; 2  -35         1
+#&gt; 22 -30         0
+#&gt; 3  -25         0
+#&gt; 4  -20         0
+#&gt; 5  -15         0
+#&gt; 6  -10         0
+#&gt; 7   -5         1
+#&gt; 8    0         0
+#&gt; 9    5         0
+#&gt; 10  10         0
+#&gt; 11  15         0
+#&gt; 12  20         0
+#&gt; 13  25         4
+#&gt; 14  30         2
+#&gt; 15  35         3
+#&gt; 16  40         2
+#&gt; 17  45        66
+#&gt; 18  50       183
+#&gt; 19  55       487
+#&gt; 20  60       130
+#&gt; 21  65        20
+</code></pre>
+
+<h4 id="scrolling-search-instead-of-paging">Scrolling search - instead of paging</h4>
+
+<p>When you want all the documents, your best bet is likely to be <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/search-request-scroll.html">scrolling search</a>.</p>
+
+<p>Here&rsquo;s an example. First, use <code>Search()</code>, setting a value for the <code>scroll</code> parameter.</p>
+
+<pre><code class="language-r">res1 &lt;- Search(index = 'shakespeare', scroll = &quot;1m&quot;)
+</code></pre>
+
+<p>You get a scroll ID back when setting the <code>scroll</code> parameter</p>
+
+<pre><code class="language-r">res1$`_scroll_id`
+#&gt; [1] &quot;DnF1ZXJ5VGhlbkZldGNoBQAAAAAAAAElFnZ2X3FJVWEyUU1HQjl2cFpWUFl0cXcAAAAAAAABJBZ2dl9xSVVhMlFNR0I5dnBaVlBZdHF3AAAAAAAAAScWdnZfcUlVYTJRTUdCOXZwWlZQWXRxdwAAAAAAAAEmFnZ2X3FJVWEyUU1HQjl2cFpWUFl0cXcAAAAAAAABIxZ2dl9xSVVhMlFNR0I5dnBaVlBZdHF3&quot;
+</code></pre>
+
+<p>Use a while loop to get all results</p>
+
+<pre><code class="language-r">out1 &lt;- list()
+hits &lt;- 1
+while (hits != 0) {
+  tmp1 &lt;- scroll(scroll_id = res1$`_scroll_id`)
+  hits &lt;- length(tmp1$hits$hits)
+  if (hits &gt; 0) {
+   out1 &lt;- c(out1, tmp1$hits$hits)
+  }
+}
+</code></pre>
+
+<p>Woohoo! Collected all 1 documents in very little time.</p>
+
+<p>Now, get <code>_source</code> from each document:</p>
+
+<pre><code class="language-r">docs &lt;- lapply(out1, &quot;[[&quot;, &quot;_source&quot;)
+length(docs)
+#&gt; [1] 4988
+vapply(docs[1:10], &quot;[[&quot;, &quot;&quot;, &quot;text_entry&quot;)
+#&gt;  [1] &quot;Without much shame retold or spoken of.&quot;
+#&gt;  [2] &quot;For more uneven and unwelcome news&quot;
+#&gt;  [3] &quot;And shape of likelihood, the news was told;&quot;
+#&gt;  [4] &quot;Mordake the Earl of Fife, and eldest son&quot;
+#&gt;  [5] &quot;It is a conquest for a prince to boast of.&quot;
+#&gt;  [6] &quot;Amongst a grove, the very straightest plant;&quot;
+#&gt;  [7] &quot;That some night-tripping fairy had exchanged&quot;
+#&gt;  [8] &quot;Then would I have his Harry, and he mine.&quot;
+#&gt;  [9] &quot;This is his uncles teaching; this is Worcester,&quot;
+#&gt; [10] &quot;Malevolent to you in all aspects;&quot;
+</code></pre>
+
+<h4 id="bulk-documents">Bulk documents</h4>
+
+<p>You&rsquo;ve already seen the bulk docs API in action above. Above though, we were
+using <code>docs_bulk.character</code> - where the input is a character string that&rsquo;s a
+file path.</p>
+
+<p>Here, I&rsquo;ll describe briefly how you can insert any data.frame as documents in your
+Elasticsearch instance. We&rsquo;ll use the diamonds dataset from the ~54K row <code>ggplot2</code>
+package.</p>
+
+<pre><code>#&gt; $acknowledged
+#&gt; [1] TRUE
+</code></pre>
+
+<pre><code class="language-r">library(ggplot2)
+invisible(docs_bulk(diamonds, &quot;diam&quot;))
+#&gt; |==================================| 100%
+</code></pre>
+
+<pre><code class="language-r">Search(&quot;diam&quot;)$hits$total
+#&gt; [1] 47375
+</code></pre>
+
+<p>That&rsquo;s pretty easy! This function is used a lot, particularly with data.frame&rsquo;s - so
+we get many questions/feedback on this so it will just keep getting better/faster.</p>
+
+<h3 id="to-do">TO DO</h3>
+
+<h4 id="connections">Connections</h4>
+
+<p>We&rsquo;re planning to roll out changes in how you connect to Elasticsearch from <code>elastic</code>.
+Right now, you can only connect to one Elasticsearch instance per R session -
+your details are set and then recalled internally in each function. We plan to change
+this to instantiate a client and then you either call functions on the client
+(e.g., using <code>R6</code>) or pass the client object onto functions.</p>
+
+<p>Checkout <a href="https://github.com/ropensci/elastic/issues/87">issue #87</a> to follow
+progress or discuss.</p>
+
+<p><br></p>
+
+<h4 id="move-to-using-crul-for-http">Move to using crul for http</h4>
+
+<p><code>crul</code> is a relatively new R http client - and has async baked in - as well as mocking.
+Development should be easier with it as I can mock requests for test suites, and
+allow users to toggle async more easily.</p>
+
+<h3 id="call-to-action">Call to action</h3>
+
+<p>We can use your help! Elasticsearch development moves pretty fast - we&rsquo;d love this client to
+work with every single Elasticsearch version to the extent possible - and we&rsquo;d love to
+squash every bug and solve every feature request fast.</p>
+
+<p>If you need to use Elasticsearch from R, please try out <code>elastic</code>!</p>
+
+<ul>
+<li>Report bugs!</li>
+<li>File feature requests!</li>
+<li>Send PR&rsquo;s!</li>
+</ul>
+
+            </div>
+            <br>
+
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+                <div id='discourse-comments'></div>
+                <script type="text/javascript">
+                DiscourseEmbed = { discourseUrl: 'https://discuss.ropensci.org/',
+                                   topicId:  803  };
+                (function() {
+                  var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+                  d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+                })();
+                </script>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Community conversations and a new package for full text</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">Community conversations and a new package for full text</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="/about/#team"> Scott Chamberlain </a>&nbsp;
+                        
+                    
+                        
+                          <a href="/about/#team"> Karthik Ram </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">August 8, 2014</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p><strong>UPDATE:</strong> Use the new discussion forum at <a href="http://discuss.ropensci.org/">http://discuss.ropensci.org/</a></p>
+
+<h2 id="community">Community</h2>
+
+<p>Community is at the heart of rOpenSci. We couldn&rsquo;t have accomplished most of our work without help from various <a href="http://ropensci.org/community/#community">contributors and users</a>.</p>
+
+<p>Most of our discussions with the broader community over the past year have been through twitter or one-on-one conversations. However, we would like to foster more open ended and deeper discussions with our community. To this end, we are resurrecting our <a href="https://groups.google.com/forum/#!forum/ropensci-discuss">public Google group list</a>. We encourage you to sign up and post ideas for packages, solicit feedback on new ideas, and most importantly find other collaborators who share your domain interests. We also plan to use the list to solicit feedback on some of the bigger rOpenSci projects early on in the development phase allowing our community to shape future direction and also collaborate where appropriate.</p>
+
+<p>The mailing list would be appropriate for a broad array of discussions, including:</p>
+
+<ul>
+<li>Questions about any of our R packages, including questions like &ldquo;How do I make this function do XYZ&hellip;&rdquo; to &ldquo;I&rsquo;m getting an error with this package or function&hellip;&rdquo;. However, we will likely direct more basic R questions back to StackOverflow.</li>
+<li>Announcements of what you&rsquo;ve done with our software or any papers where you might have used them. Sharing your new use cases or publications (even pre publications) is a great way to get others involved.</li>
+<li>Questions or thoughts about the future of rOpenSci. Do you want to see a package do XYZ in the future? Do you want a new package to do ABC in the future?</li>
+</ul>
+
+<p>Sign up for our mailing list, ask questions, and help make this a strong community. The mailing list: <a href="https://groups.google.com/forum/#!forum/ropensci-discuss">https://groups.google.com/forum/#!forum/ropensci-discuss</a></p>
+
+<h2 id="text">Text</h2>
+
+<p>Through time we have been attempting to unify our R packages that interact with individual data sources into single packages that handle one use case. For example, <a href="https://github.com/ropensci/spocc">spocc</a> aims to create a single entry point to many different sources (currently 6) of species occurrence data, including <a href="http://www.gbif.org/">GBIF</a>, <a href="http://www.antweb.org/">AntWeb</a>, and others.</p>
+
+<p>Another area we hope to simplify is acquiring text data, specifically text from scholarly journal articles. We call this R package <code>fulltext</code>. The goal of <code>fulltext</code> is to allow a single user interface to searching for and retrieving full text data from scholarly journal articles. Rather than learning a different interface for each data source, you can learn one interface, making your work easier. <code>fulltext</code> will likely only get you data, and make it easy to browse that data, and use it downstream for manipulation, analysis, and vizualization.</p>
+
+<p>We currently have R packages for a number of sources of scholarly article text, including for <a href="https://github.com/ropensci/rplos">Public Library of Science (PLOS)</a>, <a href="https://github.com/ropensci/bmc">Biomed Central (BMC)</a>, and <a href="https://github.com/ropensci/elife"> eLife</a> - which could all be included in <code>fulltext</code>. We can add more sources as they become available.</p>
+
+<p>Instead of us rOpenSci core members planning out the whole package, we&rsquo;d love to get the community involved at the beginning.</p>
+
+<ul>
+<li>What <em>use cases</em> should we include in this package?</li>
+<li>What data sources should/can be included?</li>
+<li>What are packages that you&rsquo;d use after getting data with <code>fulltext</code>? We can try to make it easy to use data from <code>fulltext</code> in your favorite packages for analysis/visualization.</li>
+<li>Any other thoughts are welcome.</li>
+</ul>
+
+<p>This is where we tie in the mailing list above: Please do use the mailing list to let us know what you think. We can then elevate items to the <a href="https://github.com/ropensci/fulltext/issues">issue tracker for the package</a> on Github as needed.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/community"><span class="label">community</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

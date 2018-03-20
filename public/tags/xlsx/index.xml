@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Xlsx on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/xlsx/</link>
+    <description>Recent content in Xlsx on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 08 Sep 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/xlsx/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The writexl package: zero dependency xlsx writer for R</title>
+      <link>https://ropensci.org/technotes/2017/09/08/writexl-release/</link>
+      <pubDate>Fri, 08 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/technotes/2017/09/08/writexl-release/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;We have started working on a new rOpenSci package called &lt;a href=&#34;https://github.com/ropensci/writexl#readme&#34;&gt;writexl&lt;/a&gt;. This package wraps the very powerful &lt;a href=&#34;https://libxlsxwriter.github.io/&#34;&gt;libxlsxwriter&lt;/a&gt; library which allows for exporting data to Microsoft Excel format.&lt;/p&gt;
+
+&lt;p&gt;The major benefit of writexl over other packages is that it is completely written in C and has absolutely zero dependencies. No Java, Perl or Rtools are required.&lt;/p&gt;
+
+&lt;h2 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h2&gt;
+
+&lt;p&gt;The &lt;code&gt;write_xlsx&lt;/code&gt; function writes a data frame to an xlsx file. You can test that data roundtrips properly by reading it back using the readxl package. Columns containing dates and factors get automatically coerced to character strings.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(writexl)
+library(readxl)
+write_xlsx(iris, &amp;quot;iris.xlsx&amp;quot;)
+
+# read it back
+out &amp;lt;- read_xlsx(&amp;quot;iris.xlsx&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can also give it a named list of data frames, in which case each data frame becomes a sheet in the xlsx file:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;write_xlsx(list(iris = iris, cars = cars, mtcars = mtcars), &amp;quot;mydata.xlsx&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Performance is good too; in our benchmarks writexl is about twice as fast as openxlsx:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(microbenchmark)
+library(nycflights13)
+microbenchmark(
+  writexl = writexl::write_xlsx(flights, tempfile()),
+  openxlsx = openxlsx::write.xlsx(flights, tempfile()),
+  times = 5
+)
+### Unit: seconds
+###      expr       min        lq      mean    median        uq       max neval
+###   writexl  8.884712  8.904431  9.103419  8.965643  9.041565  9.720743     5
+###  openxlsx 17.166818 18.072527 19.171003 18.669805 18.756661 23.189206     5
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;roadmap&#34;&gt;Roadmap&lt;/h2&gt;
+
+&lt;p&gt;The initial version of writexl implements the most important functionality for R users: exporting data frames. However the underlying &lt;a href=&#34;https://libxlsxwriter.github.io/&#34;&gt;libxlsxwriter&lt;/a&gt; library actually provides far more sophisticated functionality such as custom formatting, writing complex objects, formulas, etc.&lt;/p&gt;
+
+&lt;p&gt;Most of this probably won&amp;rsquo;t be useful to R users. But if you have a well defined use case for exposing some specific features from the library in writexl, &lt;a href=&#34;https://github.com/ropensci/writexl/issues&#34;&gt;open an issue&lt;/a&gt; on Github and we&amp;rsquo;ll look into it!&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

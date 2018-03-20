@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ggplot2 on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/ggplot2/</link>
+    <description>Recent content in Ggplot2 on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 17 Apr 2014 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/ggplot2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Make your ggplots shareable, collaborative, and with D3</title>
+      <link>https://ropensci.org/blog/2014/04/17/plotly/</link>
+      <pubDate>Thu, 17 Apr 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2014/04/17/plotly/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;&lt;em&gt;Editor&amp;rsquo;s note: This is a guest post by Matt Sundquist from &lt;a href=&#34;https://plot.ly/&#34;&gt;Plot.ly&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;You can access the source code for this post at &lt;a href=&#34;https://gist.github.com/sckott/10991885&#34;&gt;https://gist.github.com/sckott/10991885&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/ropensci/plotly&#34;&gt;Ggplotly&lt;/a&gt; and &lt;a href=&#34;https://plot.ly/api/r&#34;&gt;Plotly&amp;rsquo;s R API&lt;/a&gt; let you make ggplot2 plots, add &lt;code&gt;py$ggplotly()&lt;/code&gt;, and make your plots interactive, online, and drawn with D3. Let&amp;rsquo;s make some.&lt;/p&gt;
+
+&lt;h2 id=&#34;1-getting-started-and-examples&#34;&gt;1. Getting Started and Examples&lt;/h2&gt;
+
+&lt;p&gt;Here is Fisher&amp;rsquo;s iris data.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;ggplot2&amp;quot;)
+ggiris &amp;lt;- qplot(Petal.Width, Sepal.Length, data = iris, color = Species)
+print(ggiris)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2014-04-17-plotly/unnamed-chunk-2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s make it in Plotly. Install:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;devtools&amp;quot;)
+library(&amp;quot;devtools&amp;quot;)
+install_github(&amp;quot;plotly&amp;quot;, &amp;quot;ropensci&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Load.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;plotly&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Loading required package: RCurl
+## Loading required package: bitops
+## Loading required package: RJSONIO
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Sign up &lt;a href=&#34;https://plot.ly&#34;&gt;online&lt;/a&gt;, use our public keys below, or sign up like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;signup(&amp;quot;new_username&amp;quot;, &amp;quot;your_email@domain.com&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That should have responded with your new key. Use that to create a plotly interface object, or use ours:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;py &amp;lt;- plotly(&amp;quot;RgraphingAPI&amp;quot;, &amp;quot;ektgzomjbx&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It just works.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;py$ggplotly(ggiris)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;iframe height=&#34;600&#34; id=&#34;igraph&#34; scrolling=&#34;no&#34; seamless=&#34;seamless&#34;
+                src=&#34;https://plot.ly/~RgraphingAPI/554&#34; width=&#34;600&#34; frameBorder=&#34;0&#34;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;The call opens a browser tab. Or in an &lt;code&gt;.Rmd&lt;/code&gt; document, the plot is embedded if you specify the &lt;code&gt;plotly=TRUE&lt;/code&gt; chunk option (see &lt;a href=&#34;https://gist.github.com/sckott/10991885&#34;&gt;source&lt;/a&gt;). If you&amp;rsquo;re running this from the source, it makes all the graphs at once in your browser. Reaction my first time: here be dragons.&lt;/p&gt;
+
+&lt;p&gt;If you click the &lt;em&gt;data and graph&lt;/em&gt; link in the embed, it takes you to Plotly&amp;rsquo;s GUI, where you can edit the graph, see the data, and share your plot with collaborators.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;1-2-maps&#34;&gt;1.2 Maps&lt;/h3&gt;
+
+&lt;p&gt;Next: Maps!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;data(canada.cities, package=&amp;quot;maps&amp;quot;)
+viz &amp;lt;- ggplot(canada.cities, aes(long, lat)) +
+  borders(regions=&amp;quot;canada&amp;quot;, name=&amp;quot;borders&amp;quot;) +
+  coord_equal() +
+  geom_point(aes(text=name, size=pop), colour=&amp;quot;red&amp;quot;, alpha=1/2, name=&amp;quot;cities&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Call Plotly.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;py$ggplotly(viz)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;iframe height=&#34;600&#34; id=&#34;igraph&#34; scrolling=&#34;no&#34; seamless=&#34;seamless&#34;
+                src=&#34;https://plot.ly/~RgraphingAPI/555&#34; width=&#34;600&#34; frameBorder=&#34;0&#34;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;1-3-scatter&#34;&gt;1.3 Scatter&lt;/h3&gt;
+
+&lt;p&gt;Want to make a scatter and add a &lt;a href=&#34;http://docs.ggplot2.org/current/geom_smooth.html&#34;&gt;smoothed conditional mean&lt;/a&gt;? Here&amp;rsquo;s how to do it in Plotly. For the rest of the plots, we&amp;rsquo;ll just print the Plotly version to save space. You can hover on text to get data, or click and drag across a section to zoom in.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;model &amp;lt;- lm(mpg ~ wt + factor(cyl), data=mtcars)
+grid &amp;lt;- with(mtcars, expand.grid(
+  wt = seq(min(wt), max(wt), length = 20),
+  cyl = levels(factor(cyl))
+))
+
+grid$mpg &amp;lt;- stats::predict(model, newdata=grid)
+
+viz2 &amp;lt;- qplot(wt, mpg, data=mtcars, colour=factor(cyl)) + geom_line(data=grid)
+py$ggplotly(viz2)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;iframe height=&#34;600&#34; id=&#34;igraph&#34; scrolling=&#34;no&#34; seamless=&#34;seamless&#34;
+                src=&#34;https://plot.ly/~RgraphingAPI/556&#34; width=&#34;600&#34; frameBorder=&#34;0&#34;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;1-4-lines&#34;&gt;1.4 Lines&lt;/h3&gt;
+
+&lt;p&gt;Or, take &lt;code&gt;ggplotly&lt;/code&gt; for a spin with the orange dataset:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;orange &amp;lt;- qplot(age, circumference, data = Orange, colour = Tree, geom = &amp;quot;line&amp;quot;)
+py$ggplotly(orange)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;iframe height=&#34;600&#34; id=&#34;igraph&#34; scrolling=&#34;no&#34; seamless=&#34;seamless&#34;
+                src=&#34;https://plot.ly/~RgraphingAPI/557&#34; width=&#34;600&#34; frameBorder=&#34;0&#34;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;1-5-alpha-blend&#34;&gt;1.5 Alpha blend&lt;/h3&gt;
+
+&lt;p&gt;Or, make plots &lt;a href=&#34;http://mandymejia.wordpress.com/2013/11/13/10-reasons-to-switch-to-ggplot-7/&#34;&gt;beautiful&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;prettyPlot &amp;lt;- ggplot(data=diamonds, aes(x=carat, y=price, colour=clarity))
+prettyPlot &amp;lt;- prettyPlot + geom_point(alpha = 1/10)
+py$ggplotly(prettyPlot)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;iframe height=&#34;600&#34; id=&#34;igraph&#34; scrolling=&#34;no&#34; seamless=&#34;seamless&#34;
+                src=&#34;https://plot.ly/~RgraphingAPI/558&#34; width=&#34;600&#34; frameBorder=&#34;0&#34;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;1-6-functions&#34;&gt;1.6 Functions&lt;/h3&gt;
+
+&lt;p&gt;Want to &lt;a href=&#34;http://stackoverflow.com/questions/1853703/plotting-functions-in-r&#34;&gt;draw functions&lt;/a&gt; with a &lt;code&gt;curve&lt;/code&gt;?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;eq &amp;lt;- function(x) {x*x}
+tmp &amp;lt;- data.frame(x=1:50, y=eq(1:50))
+
+# Make plot object
+p &amp;lt;- qplot(x, y, data=tmp, xlab=&amp;quot;X-axis&amp;quot;, ylab=&amp;quot;Y-axis&amp;quot;)
+c &amp;lt;- stat_function(fun=eq)
+
+py$ggplotly(p + c)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;iframe height=&#34;600&#34; id=&#34;igraph&#34; scrolling=&#34;no&#34; seamless=&#34;seamless&#34;
+                src=&#34;https://plot.ly/~RgraphingAPI/559&#34; width=&#34;600&#34; frameBorder=&#34;0&#34;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;2-a-github-for-data-and-graphs&#34;&gt;2. A GitHub for data and graphs&lt;/h2&gt;
+
+&lt;p&gt;Like we might work together on code on GitHub or a project in a Google Doc, we can edit graphs and data together on Plotly. Here&amp;rsquo;s how it works:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Your URL is shareable.&lt;/li&gt;
+&lt;li&gt;Public use is free.&lt;/li&gt;
+&lt;li&gt;You can set &lt;a href=&#34;http://plot.ly/api/r/docs/privacy&#34;&gt;the privacy&lt;/a&gt; of your graph.&lt;/li&gt;
+&lt;li&gt;You can edit and add to plots from our GUI or with R or &lt;a href=&#34;https://plot.ly/api&#34;&gt;APIs&lt;/a&gt; for Python, MATLA, Julia, Perl, Arduino, Raspberry Pi, and REST.&lt;/li&gt;
+&lt;li&gt;You get a profile of graphs, like &lt;a href=&#34;https://plot.ly/~RhettAllain/&#34;&gt;Rhett Allain&lt;/a&gt; from Wired Science.&lt;/li&gt;
+&lt;li&gt;You can &lt;a href=&#34;http://plot.ly/api/r/docs/iframes&#34;&gt;embed interactive graphs in iframes&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;2-1-inspiration-and-team&#34;&gt;2.1 Inspiration and team&lt;/h3&gt;
+
+&lt;p&gt;Plotly&amp;rsquo;s API is part of &lt;code&gt;rOpenSci&lt;/code&gt; and being developed by the brilliant &lt;a href=&#34;http://cbio.ensmp.fr/~thocking/&#34;&gt;Toby Hocking&lt;/a&gt; and Plotly&amp;rsquo;s own &lt;a href=&#34;https://github.com/chriddyp&#34;&gt;Chris Parmer&lt;/a&gt;. You can find it on &lt;a href=&#34;https://github.com/ropensci/plotly&#34;&gt;GitHub&lt;/a&gt;. Your thoughts, issues, and pull requests are welcome. Right now, you can make scatter and line plots; let us know what you&amp;rsquo;d like to see next.&lt;/p&gt;
+
+&lt;p&gt;The project was inspired by &lt;a href=&#34;https://github.com/hadley/&#34;&gt;Hadley Wickham&lt;/a&gt; and the elegance and precision of &lt;a href=&#34;http://ggplot2.org/&#34;&gt;&lt;code&gt;ggplot2&lt;/code&gt;&lt;/a&gt;. Thanks to &lt;a href=&#34;http://scottchamberlain.info/&#34;&gt;Scott Chamberlain&lt;/a&gt;, &lt;a href=&#34;https://github.com/jcheng5&#34;&gt;Joe Cheng&lt;/a&gt;, and &lt;a href=&#34;https://twitter.com/efvmw&#34;&gt;Elizabeth Morrison-Wells&lt;/a&gt; for their help.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;3-ggthemes-and-plotly&#34;&gt;3. ggthemes and Plotly&lt;/h2&gt;
+
+&lt;p&gt;Using &lt;a href=&#34;https://github.com/jrnold/ggthemes&#34;&gt;&lt;code&gt;ggthemes&lt;/code&gt;&lt;/a&gt; opens up another set of custom graph filters for styling your graphs. To get started, you&amp;rsquo;ll want to install &lt;code&gt;ggthemes&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;devtools&amp;quot;)
+install_github(&amp;quot;ggthemes&amp;quot;, &amp;quot;jrnold&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and load your data.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;ggplot2&amp;quot;)
+library(&amp;quot;ggthemes&amp;quot;)
+dsamp &amp;lt;- diamonds[sample(nrow(diamonds), 1000), ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;
+Inverse gray.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;gray &amp;lt;- (qplot(carat, price, data = dsamp, colour = cut) +
+           theme_igray())
+py$ggplotly(gray)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;iframe height=&#34;600&#34; id=&#34;igraph&#34; scrolling=&#34;no&#34; seamless=&#34;seamless&#34;
+                src=&#34;https://plot.ly/~RgraphingAPI/560&#34; width=&#34;600&#34; frameBorder=&#34;0&#34;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;
+The Tableau scale.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;tableau &amp;lt;- (qplot(carat, price, data = dsamp, colour = cut) +
+              theme_igray() +
+              scale_colour_tableau())
+py$ggplotly(tableau)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;iframe height=&#34;600&#34; id=&#34;igraph&#34; scrolling=&#34;no&#34; seamless=&#34;seamless&#34;
+                src=&#34;https://plot.ly/~RgraphingAPI/561&#34; width=&#34;600&#34; frameBorder=&#34;0&#34;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;
+&lt;a href=&#34;http://www.perceptualedge.com/articles/visual_business_intelligence/rules_for_using_color.pdf&#34;&gt;Stephen Few&amp;rsquo;s&lt;/a&gt; scale.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;few &amp;lt;- (qplot(carat, price, data = dsamp, colour = cut) +
+          theme_few() +
+          scale_colour_few())
+py$ggplotly(few)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;iframe height=&#34;600&#34; id=&#34;igraph&#34; scrolling=&#34;no&#34; seamless=&#34;seamless&#34;
+                src=&#34;https://plot.ly/~RgraphingAPI/562&#34; width=&#34;600&#34; frameBorder=&#34;0&#34;&gt;&lt;/iframe&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

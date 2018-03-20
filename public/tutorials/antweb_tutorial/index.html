@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | AntWeb tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>AntWeb tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.7.0</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p><a href="http://www.antweb.org/">AntWeb</a> is a repository that boasts a wealth of natural history data, digital images, and specimen records on ant species from a large community of museum curators.</p>
+
+<h3 id="installation">Installation</h3>
+
+<pre><code class="language-r">install.packages(&quot;AntWeb&quot;)
+</code></pre>
+
+<p>or you can install the latest development version.</p>
+
+<pre><code class="language-r">library(&quot;devtools&quot;)
+install_github(&quot;ropensci/AntWeb&quot;)
+</code></pre>
+
+<h3 id="usage">Usage</h3>
+
+<h4 id="searching-through-the-database">Searching through the database</h4>
+
+<p>As with most of our packages, there are several ways to search through an API. In the case of AntWeb, you can search by a genus or full species name or by other taxonomic ranks like sub-phylum.</p>
+
+<p>To obtain data on any taxonomic group, you can make a request using the <code>aw_data()</code> function. It&rsquo;s possible to search easily by a taxonomic rank (e.g. a genus) or by passing a complete scientific name.</p>
+
+<p><strong>Searching by Genus</strong></p>
+
+<p>To get data on an ant genus found widely through Central and South America</p>
+
+<pre><code class="language-r">library(&quot;AntWeb&quot;)
+leaf_cutter_ants  &lt;- aw_data(genus = &quot;acromyrmex&quot;)
+leaf_cutter_ants$count
+</code></pre>
+
+<pre><code>#&gt; [1] 964
+</code></pre>
+
+<p><strong>Searching by species</strong></p>
+
+<p>You can request data on any particular species</p>
+
+<pre><code class="language-r">(acanthognathus_df &lt;- aw_data(scientific_name = &quot;acanthognathus brevicornis&quot;))
+</code></pre>
+
+<pre><code>#&gt; [Total results on the server]: 4
+#&gt; [Args]:
+#&gt; genus = acanthognathus
+#&gt; species = brevicornis
+#&gt; [Dataset]: [4 x 16]
+#&gt; [Data preview] :
+#&gt;                                                               url
+#&gt; 1 http://antweb.org/api/v2/?occurrenceId=CAS:ANTWEB:casent0280684
+#&gt; 2 http://antweb.org/api/v2/?occurrenceId=CAS:ANTWEB:casent0637708
+#&gt;   catalogNumber     family  subfamily          genus specificEpithet
+#&gt; 1 casent0280684 formicidae myrmicinae Acanthognathus     brevicornis
+#&gt; 2 casent0637708 formicidae myrmicinae Acanthognathus     brevicornis
+#&gt;              scientific_name typeStatus stateProvince  country
+#&gt; 1 acanthognathus brevicornis                          Colombia
+#&gt; 2 acanthognathus brevicornis            Madre de Dios     Peru
+#&gt;   dateIdentified                             habitat
+#&gt; 1
+#&gt; 2     2013-09-12 Bamboo forest ex sifted leaf litter
+#&gt;   minimumElevationInMeters geojson.type decimal_latitude decimal_longitude
+#&gt; 1                       NA         &lt;NA&gt;             &lt;NA&gt;              &lt;NA&gt;
+#&gt; 2                      252        point        -13.14142           -69.623
+</code></pre>
+
+<p>You can also limit queries to observation records that have been geoferenced</p>
+
+<pre><code class="language-r">(acanthognathus_df_geo &lt;- aw_data(genus = &quot;acanthognathus&quot;, species = &quot;brevicornis&quot;, georeferenced = TRUE))
+</code></pre>
+
+<pre><code>#&gt; [Total results on the server]: 3
+#&gt; [Args]:
+#&gt; genus = acanthognathus
+#&gt; species = brevicornis
+#&gt; georeferenced = TRUE
+#&gt; [Dataset]: [3 x 16]
+#&gt; [Data preview] :
+#&gt;                                                               url
+#&gt; 1 http://antweb.org/api/v2/?occurrenceId=CAS:ANTWEB:casent0637708
+#&gt; 2 http://antweb.org/api/v2/?occurrenceId=CAS:ANTWEB:casent0914659
+#&gt;   catalogNumber     family  subfamily          genus specificEpithet
+#&gt; 1 casent0637708 formicidae myrmicinae Acanthognathus     brevicornis
+#&gt; 2 casent0914659 formicidae myrmicinae Acanthognathus     brevicornis
+#&gt;              scientific_name typeStatus stateProvince country
+#&gt; 1 acanthognathus brevicornis            Madre de Dios    Peru
+#&gt; 2 acanthognathus brevicornis                   Darien  Panama
+#&gt;   dateIdentified                             habitat
+#&gt; 1     2013-09-12 Bamboo forest ex sifted leaf litter
+#&gt; 2
+#&gt;   minimumElevationInMeters geojson.type decimal_latitude decimal_longitude
+#&gt; 1                      252        point        -13.14142           -69.623
+#&gt; 2                      500        point          7.71667             -77.7
+</code></pre>
+
+<p>It&rsquo;s also possible to search for records around any location by specifying a search radius.</p>
+
+<p>This will search for data on a 2 km radius around that latitude/longitude</p>
+
+<pre><code class="language-r">data_by_loc &lt;- aw_coords(coord = &quot;37.76,-122.45&quot;, r = 2)
+</code></pre>
+
+<h4 id="mapping-ant-specimen-data">Mapping ant specimen data</h4>
+
+<p>As with the previous ecoengine package, you can also visualize location data for any set of species. Adding <code>georeferenced = TRUE</code> to a data retrieval call will filter out any data points without location information. Once retrieved the data are mapped with the open source <a href="http://leafletjs.com/">Leaflet.js</a> and pushed to your default browser. Maps and associated <code>geoJSON</code> files are also saved to a location specified (or defaults to your <code>/tmp</code> folder). This feature is only available on the development version on GitHub (<code>0.5.2</code> or greater; see above on how to install) and will be available from CRAN in version <code>0.6</code></p>
+
+<pre><code class="language-r">acd &lt;- aw_data(genus = &quot;acanthognathus&quot;)
+aw_map(acd)
+</code></pre>
+
+<p><img src="/img/tutorial-images/antweb/leafletmap.png" alt="" /></p>
+
+<h3 id="citing">Citing</h3>
+
+<p>To cite <code>AntWeb</code> in publications use:</p>
+
+<blockquote>
+<p>&lsquo;Karthik Ram&rsquo; (2014). AntWeb: programmatic interface to the AntWeb. R package version 0.6.1. <a href="http://CRAN.R-project.org/package=AntWeb">http://CRAN.R-project.org/package=AntWeb</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://creativecommons.org/choose/zero/">CC0</a></li>
+<li>Report bugs at <a href="https://github.com/AntWeb/issues?state=open">our Github repo for AntWeb</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

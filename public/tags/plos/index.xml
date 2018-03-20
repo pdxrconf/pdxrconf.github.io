@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Plos on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/plos/</link>
+    <description>Recent content in Plos on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 02 Dec 2013 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/plos/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Highlighting text in text mining</title>
+      <link>https://ropensci.org/blog/2013/12/02/rplos-highlights/</link>
+      <pubDate>Mon, 02 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/12/02/rplos-highlights/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;&lt;code&gt;rplos&lt;/code&gt; is an R package to facilitate easy search and full-text retrieval from all Public Library of Science (PLOS) articles, and we have a little feature which aren&amp;rsquo;t sure if is useful or not. I don&amp;rsquo;t actually do any text-mining for my research, so perhaps text-mining folks can give some feedback.&lt;/p&gt;
+
+&lt;p&gt;You can quickly get a lot of results back using &lt;code&gt;rplos&lt;/code&gt;, so perhaps it is useful to quickly browse what you got. What better tool than a browser to browse? Enter &lt;code&gt;highplos&lt;/code&gt; and &lt;code&gt;highbrow&lt;/code&gt;. &lt;code&gt;highplos&lt;/code&gt; uses the &lt;a href=&#34;http://lucene.apache.org/solr/&#34;&gt;Solr&lt;/a&gt; capabilities of the PLOS search API, and lets you get back a string with the term you searched for highlighted (by default with &lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt; tag for italics).&lt;/p&gt;
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;devtools&amp;quot;)
+library(devtools)
+install_github(&amp;quot;rplos&amp;quot;, &amp;quot;ropensci&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(rplos)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;search-plos-articles&#34;&gt;Search PLOS articles&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;out &amp;lt;- highplos(q = &amp;quot;alcohol&amp;quot;, hl.fl = &amp;quot;abstract&amp;quot;, hl.snippets = 5, rows = 10)
+out[[1]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## $abstract
+## [1] &amp;quot;Background: &amp;lt;em&amp;gt;Alcohol&amp;lt;/em&amp;gt; consumption causes an estimated 4% of the global disease burden, prompting&amp;quot;
+## [2] &amp;quot; goverments to impose regulations to mitigate the adverse effects of &amp;lt;em&amp;gt;alcohol&amp;lt;/em&amp;gt;. To assist public health leaders&amp;quot;
+## [3] &amp;quot; and policymakers, the authors developed a composite indicator—the &amp;lt;em&amp;gt;Alcohol&amp;lt;/em&amp;gt; Policy Index—to gauge the strength&amp;quot;
+## [4] &amp;quot; of a country&#39;s &amp;lt;em&amp;gt;alcohol&amp;lt;/em&amp;gt; control policies. Methods and Findings: The Index generates a score based on policies&amp;quot;
+## [5] &amp;quot; from five regulatory domains—physical availability of &amp;lt;em&amp;gt;alcohol&amp;lt;/em&amp;gt;, drinking context, &amp;lt;em&amp;gt;alcohol&amp;lt;/em&amp;gt; prices&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;preview-results-in-your-browser&#34;&gt;Preview results in your browser&lt;/h2&gt;
+
+&lt;p&gt;The new function &lt;code&gt;highbrow&lt;/code&gt; (&lt;em&gt;snickers quietly&lt;/em&gt;) automagically creates an easy to digest html page, and opens in your default browser.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;highbrow(out)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here&amp;rsquo;s a screenshot similar to what you should see after the last command&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/rplos_highlights.png&#34;&gt;&lt;/img&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;highbrow&lt;/code&gt; uses the &lt;code&gt;whisker&lt;/code&gt; package to fill in a template for a bootstrap html page to make a somewhat pleasing interface to look at your data. In addition, the DOIs are wrapped in a &lt;code&gt;&amp;lt;a&amp;gt;&lt;/code&gt; tag with a &lt;a href=&#34;http://doi.org/&#34;&gt;http://dx.doi.org/&lt;/a&gt; prefix so that you can go directly to the paper if you are so inclined. Also note that the &lt;code&gt;&amp;lt;em&amp;gt;&lt;/code&gt; tags (italicized) are replaced with &lt;code&gt;&amp;lt;strong&amp;gt;&lt;/code&gt; tags (bold) to make the search term pop out from the screen more.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Let us know what you think.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Consuming article-level metrics</title>
+      <link>https://ropensci.org/blog/2013/08/01/altmetrics/</link>
+      <pubDate>Thu, 01 Aug 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/08/01/altmetrics/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;We recently had a paper come out in &lt;a href=&#34;http://www.niso.org/publications/isq/2013/v25no2&#34;&gt;a special issue&lt;/a&gt; on &lt;em&gt;article-level metrics&lt;/em&gt; in the journal Information Standards Quarterly. Our paper basically compared article-level metrics provided by different aggregators. The other papers covered various article-level metrics topics from folks at PLOS, Mendeley, and more. Get our paper &lt;a href=&#34;http://www.niso.org/publications/isq/2013/v25no2/chamberlain&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To get data from the &lt;em&gt;article-level metrics&lt;/em&gt; providers we used one R package we created to get DOIs for PLOS articles (&lt;a href=&#34;https://github.com/ropensci/rplos&#34;&gt;rplos&lt;/a&gt;) and three R packages we created to get metrics: &lt;a href=&#34;https://github.com/ropensci/alm&#34;&gt;alm&lt;/a&gt;, &lt;a href=&#34;https://github.com/ropensci/rimpactstory&#34;&gt;rImpactStory&lt;/a&gt;, and &lt;a href=&#34;https://github.com/ropensci/rAltmetric&#34;&gt;rAltmetric&lt;/a&gt;. Here, we will show how we produced visualizations in the paper. The code here is basically that used in the paper - but modified to make it useable by you hopefully.&lt;/p&gt;
+
+&lt;p&gt;Note that this entire workflow is in a Github gist &lt;a href=&#34;https://gist.github.com/sckott/6136591&#34;&gt;here&lt;/a&gt;. In addition, you will need to sign up for API keys for &lt;a href=&#34;http://impactstory.org/api-docs&#34;&gt;ImpactStory&lt;/a&gt; and &lt;a href=&#34;http://api.altmetric.com/index.html#keys&#34;&gt;Altmetric&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;first-let-s-get-some-data&#34;&gt;First, let&amp;rsquo;s get some data&lt;/h3&gt;
+
+&lt;p&gt;Install these packages if you don&amp;rsquo;t have them. Most packages are on CRAN, but install the following packages from Github: &lt;code&gt;rplos&lt;/code&gt;, &lt;code&gt;alm&lt;/code&gt;, &lt;code&gt;rImpactStory&lt;/code&gt;, and &lt;code&gt;rAltmetric&lt;/code&gt; by running &lt;code&gt;install_github(&amp;quot;PACKAGE_NAME&amp;quot;, &amp;quot;ropensci&amp;quot;)&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(alm)
+library(rImpactStory)
+library(rAltmetric)
+library(ggplot2)
+library(rplos)
+library(reshape)
+library(reshape2)
+library(httr)
+library(lubridate)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;
+Define a function &lt;code&gt;parse_is&lt;/code&gt; to parse ImpactStory results&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;See &lt;a href=&#34;https://gist.github.com/sckott/6136591&#34;&gt;this gist&lt;/a&gt; for the function&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;
+Define a function &lt;code&gt;compare_altmet_prov&lt;/code&gt; to collect altmetrics from three providers&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;See &lt;a href=&#34;https://gist.github.com/sckott/6136591&#34;&gt;this gist&lt;/a&gt; for the function&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;
+Safe version in case of errors&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;compare_altmet_prov_safe &amp;lt;- plyr::failwith(NULL, compare_altmet_prov)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;
+Search for and get DOIs for 50 papers (we used more in the paper)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;res &amp;lt;- searchplos(terms = &amp;quot;*:*&amp;quot;, fields = &amp;quot;id&amp;quot;, toquery = list(&amp;quot;publication_date:[2011-06-30T00:00:00Z TO 2012-06-01T23:59:59Z] &amp;quot;, &amp;quot;doc_type:full&amp;quot;), start = 0, limit = 50)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;
+Get data from each provider&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dat &amp;lt;- llply(as.character(res[, 1]), compare_altmet_prov_safe, isaddifnot = TRUE, sleep = 1, .progress = &amp;quot;text&amp;quot;)
+dat &amp;lt;- ldply(dat)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;plot-differences&#34;&gt;Plot differences&lt;/h3&gt;
+
+&lt;p&gt;Great, we have data! Next, let&amp;rsquo;s make a plot of the difference between max and min value across the three providers for 7 article-level metrics.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;alldat &amp;lt;- sort_df(dat, &amp;quot;doi&amp;quot;)
+
+dat_split &amp;lt;- split(alldat, f = alldat$doi)
+dat_split &amp;lt;- dat_split[!sapply(dat_split, nrow) == 0]
+dat_split &amp;lt;- compact(lapply(dat_split, function(x) {
+    if (x$citeulike[2] == 999) {
+        NULL
+    } else (x)
+}))
+dat_split_df &amp;lt;- ldply(dat_split)[, -1]
+
+calcdiff &amp;lt;- function(x) {
+    max(na.omit(x)) - min(na.omit(x))
+}
+
+dat_split_df_1 &amp;lt;- ddply(dat_split_df, .(doi), numcolwise(calcdiff))
+dat_split_df_melt &amp;lt;- melt(dat_split_df_1)
+
+dat_split_df_melt &amp;lt;- dat_split_df_melt[!dat_split_df_melt$variable %in% &amp;quot;connotea&amp;quot;, ]
+
+ggplot(dat_split_df_melt, aes(x = log10(value), fill = variable)) +
+    theme_bw(base_size = 14) +
+    geom_bar() +
+    scale_fill_discrete(name = &amp;quot;Almetric&amp;quot;) +
+    facet_grid(variable ~ ., scales = &amp;quot;free&amp;quot;) +
+    labs(x = expression(log[10](Value)), y = &amp;quot;Count&amp;quot;) +
+    theme(strip.text.y = element_text(angle = 0),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.position = &amp;quot;none&amp;quot;,
+        panel.border = element_rect(size = 1))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2013-08-01-altmetrics/dataconst_plot1.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;different-collection-dates&#34;&gt;Different collection dates?&lt;/h3&gt;
+
+&lt;p&gt;Okay, so there are some inconsistencies in data from different providers. Perhaps the same metric (e.g., tweets) were collected on different days for each provider? Let&amp;rsquo;s take a look. We first define a function to get the difference in days between a vector of values, then apply that function over the data for each metric. We then reshape the data a bit using the &lt;code&gt;reshape2&lt;/code&gt; package, and make the plot.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;datediff &amp;lt;- function(x) {
+    datesorted &amp;lt;- sort(x)
+    round(as.numeric(difftime(datesorted[3], datesorted[1])), 0)
+}
+
+dat_split_df_1 &amp;lt;- ddply(dat_split_df, .(doi), numcolwise(calcdiff))
+dat_split_df_2 &amp;lt;- ddply(dat_split_df, .(doi), summarise, datediff = datediff(date_modified))
+dat_split_df_melt &amp;lt;- melt(dat_split_df_1)
+dat_split_df_ &amp;lt;- merge(dat_split_df_melt, dat_split_df_2, by = &amp;quot;doi&amp;quot;)
+dat_split_df_melt &amp;lt;- dat_split_df_[!dat_split_df_$variable %in% &amp;quot;connotea&amp;quot;, ]
+
+ggplot(dat_split_df_melt, aes(x = datediff, y = log10(value + 1), colour = variable)) +
+    theme_bw(base_size = 14) +
+    geom_point(size = 3, alpha = 0.6) +
+    scale_colour_brewer(&amp;quot;Source&amp;quot;, type = &amp;quot;qual&amp;quot;, palette = 3) +
+    theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.position = c(0.65, 0.9),
+        panel.border = element_rect(size = 1),
+        legend.key = element_blank(),
+        panel.background = element_rect(colour = &amp;quot;white&amp;quot;)) +
+    guides(col = guide_legend(nrow = 2, override.aes = list(size = 4))) +
+    labs(x = &amp;quot;\nDate difference (no. of days)&amp;quot;, y = &amp;quot;Value of difference between max and min\n&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2013-08-01-altmetrics/dataconst_plot2.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;diggin-in&#34;&gt;Diggin&amp;rsquo; in&lt;/h3&gt;
+
+&lt;p&gt;Let&amp;rsquo;s dig in to indivdual articles. Here, we reshape some data, selecting just 20 DOIs (i.e., papers), and plot the values of each metric for each DOI, coloring points by provider. Note that points are slightly offset horizontally to make them easier to see.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;alldat_m &amp;lt;- melt(dat_split_df[1:60,], id.vars=c(1,2,11))
+alldat_m &amp;lt;- alldat_m[!alldat_m$variable %in% &amp;quot;connotea&amp;quot;,]
+
+ggplot(na.omit(alldat_m[,-3]), aes(x=doi, y=value, colour=provider)) +
+  theme_bw(base_size = 14) +
+  geom_point(size=4, alpha=0.4, position=position_jitter(width=0.15)) +
+  scale_colour_manual(values = c(&#39;#FC1D00&#39;,&#39;#FD8A00&#39;,&#39;#0D71A5&#39;,&#39;#2CCC00&#39;)) +
+  facet_grid(variable~., scales=&#39;free&#39;) +
+  theme(axis.text.x=element_blank(),
+        strip.text.y=element_text(angle = 0),
+        legend.position=&amp;quot;top&amp;quot;,
+        legend.key = element_blank(),
+        panel.border = element_rect(size=1),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  guides(col = guide_legend(title=&amp;quot;&amp;quot;, override.aes=list(size=5), nrow = 1, byrow = TRUE))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2013-08-01-altmetrics/dataconst2.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

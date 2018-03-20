@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Specimen records across cities</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            <div class="row centered">
+
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>Specimen records across cities</h1>
+                    <br>
+                    <h4><small style="color:grey">rOpenSci package: <a href="https://github.com/ropensci/rgbif">rgbif</a></small></h4>
+                    <br><br>
+                    <article>
+                    
+
+<h3 id="specimen-records-across-cities">Specimen records across cities</h3>
+
+<p>In this example, we collect specimen records across different cities
+using GBIF data from the <code>rgbif</code> package.</p>
+
+<p>This example can be done using BISON data as well with our rbison
+package.</p>
+
+<h3 id="load-libraries">Load libraries</h3>
+
+<pre><code class="language-r">library(&quot;rgbif&quot;)
+library(&quot;ggplot2&quot;)
+library(&quot;plyr&quot;)
+library(&quot;RCurl&quot;)
+library(&quot;RColorBrewer&quot;)
+</code></pre>
+
+<h3 id="get-bounding-boxes-for-some-cites">Get bounding boxes for some cites</h3>
+
+<pre><code class="language-r">rawdat &lt;- getURL(&quot;https://raw.githubusercontent.com/amyxzhang/boundingbox-cities/master/boundbox.txt&quot;)
+dat &lt;- read.table(text = rawdat, header = FALSE, sep = &quot;\t&quot;, col.names = c(&quot;city&quot;,
+    &quot;minlat&quot;, &quot;maxlon&quot;, &quot;maxlat&quot;, &quot;minlon&quot;))
+dat &lt;- data.frame(city = dat$city, minlon = dat$minlon, minlat = dat$minlat,
+    maxlon = dat$maxlon, maxlat = dat$maxlat)
+</code></pre>
+
+<pre><code class="language-r">getdata &lt;- function(x) {
+    coords &lt;- as.numeric(x[c(&quot;minlon&quot;, &quot;minlat&quot;, &quot;maxlon&quot;, &quot;maxlat&quot;)])
+    num &lt;- occ_search(geometry = coords)$meta$count
+    data.frame(city = x[&quot;city&quot;], richness = num, stringsAsFactors = FALSE)
+}
+</code></pre>
+
+<pre><code class="language-r">out &lt;- apply(dat, 1, getdata)
+</code></pre>
+
+<p>Merge to original table</p>
+
+<pre><code class="language-r">out &lt;- merge(dat, ldply(out), by = &quot;city&quot;)
+</code></pre>
+
+<p>Add centroids from bounding boxes</p>
+
+<pre><code class="language-r">out &lt;- transform(out, lat = (minlat + maxlat)/2, lon = (minlon + maxlon)/2)
+</code></pre>
+
+<h3 id="plot-data">Plot data</h3>
+
+<pre><code class="language-r">mapp &lt;- map_data(&quot;world&quot;)
+ggplot(mapp, aes(long, lat)) + geom_polygon(aes(group = group), fill = &quot;white&quot;,
+    alpha = 0, color = &quot;black&quot;, size = 0.4) + geom_point(data = out, aes(lon,
+    lat, color = richness), size = 5, alpha = 0.8) + scale_color_continuous(low = &quot;#60E1EE&quot;,
+    high = &quot;#0404C8&quot;) + labs(x = &quot;&quot;, y = &quot;&quot;) + theme_grey(base_size = 14) +
+    theme(legend.position = &quot;bottom&quot;, legend.key = element_blank()) + guides(color = guide_legend(keywidth = 2))
+</code></pre>
+
+<p><img src="/img/usecases-images/rgbif_biodivcomp_plot.png" alt="plot" /></p>
+
+<h3 id="notes">Notes</h3>
+
+<p>Bounding lat/long data from
+<a href="https://raw.github.com/amyxzhang/boundingbox-cities/master/boundbox.txt">here</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

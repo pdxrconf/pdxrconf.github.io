@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data Visualisation on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/data-visualisation/</link>
+    <description>Recent content in Data Visualisation on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 22 Aug 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/data-visualisation/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Onboarding visdat, a tool for preliminary visualisation of whole dataframes</title>
+      <link>https://ropensci.org/blog/2017/08/22/visdat/</link>
+      <pubDate>Tue, 22 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/08/22/visdat/</guid>
+      <description>
+        
+        
+
+&lt;blockquote&gt;
+&lt;p&gt;Take a look at the data&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;This is a phrase that comes up when you first get a dataset.&lt;/p&gt;
+
+&lt;p&gt;It is also ambiguous. Does it mean to do some exploratory modelling? Or make some histograms, scatterplots, and boxplots? Is it both?&lt;/p&gt;
+
+&lt;p&gt;Starting down either path, you often encounter the non-trivial growing pains of working with a new dataset. The mix ups of data types - height in cm coded as a factor, categories are numerics with decimals, strings are datetimes, and somehow datetime is one long number. And let&amp;rsquo;s not forget everyone&amp;rsquo;s favourite: missing data.&lt;/p&gt;
+
+&lt;p&gt;These growing pains often get in the way of your basic modelling or graphical exploration. So, sometimes you can&amp;rsquo;t even start to take a look at the data, and that is frustrating.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&#34;https://github.com/ropensci/visdat&#34;&gt;&lt;code&gt;visdat&lt;/code&gt;&lt;/a&gt; package aims to make this preliminary part of analysis easier. It focuses on creating visualisations of whole dataframes, to make it easy and fun for you to &amp;ldquo;get a look at the data&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;Making &lt;code&gt;visdat&lt;/code&gt; was fun, and it was easy to use. But I couldn&amp;rsquo;t help but think that maybe &lt;code&gt;visdat&lt;/code&gt; could be more.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;I felt like the code was a little sloppy, and that it could be better.&lt;/li&gt;
+&lt;li&gt;I wanted to know whether others found it useful.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;What I needed was someone to sit down and read over it, and tell me what they thought. And hey, a publication out of this would certainly be great.&lt;/p&gt;
+
+&lt;p&gt;Too much to ask, perhaps? No. Turns out, not at all. This is what the rOpenSci &lt;a href=&#34;https://github.com/ropensci/onboarding&#34;&gt;onboarding process&lt;/a&gt; provides.&lt;/p&gt;
+
+&lt;h3 id=&#34;ropensci-onboarding-basics&#34;&gt;rOpenSci onboarding basics&lt;/h3&gt;
+
+&lt;p&gt;Onboarding a package onto rOpenSci is an open peer review of an R package. If successful, the package is migrated to rOpenSci, with the option of putting it through an accelerated publication with &lt;a href=&#34;http://joss.theoj.org/&#34;&gt;JOSS&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What&amp;rsquo;s in it for the author?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Feedback on your package&lt;/li&gt;
+&lt;li&gt;Support from rOpenSci members&lt;/li&gt;
+&lt;li&gt;Maintain ownership of your package&lt;/li&gt;
+&lt;li&gt;Publicity from it being under rOpenSci&lt;/li&gt;
+&lt;li&gt;Contribute something to rOpenSci&lt;/li&gt;
+&lt;li&gt;Potentially a publication&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;What can rOpenSci do that CRAN cannot?&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The rOpenSci onboarding process provides a stamp of quality on a package that you do not necessarily get when a package is on CRAN &lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:3&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:3&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. Here&amp;rsquo;s what rOpenSci does that CRAN cannot:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Assess documentation readability / usability&lt;/li&gt;
+&lt;li&gt;Provide a code review to find weak points / points of improvement&lt;/li&gt;
+&lt;li&gt;Determine whether a package is overlapping with another.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So I submitted &lt;code&gt;visdat&lt;/code&gt; to the onboarding process. For me, I did this for three reasons.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;So &lt;code&gt;visdat&lt;/code&gt; could become a better package&lt;/li&gt;
+&lt;li&gt;Pending acceptance, I would get a publication in JOSS&lt;/li&gt;
+&lt;li&gt;I get to contribute back to rOpenSci&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Submitting the package was actually quite easy - you go to &lt;a href=&#34;https://github.com/ropensci/onboarding/issues/new&#34;&gt;submit an issue&lt;/a&gt; on the onboarding page on GitHub, and it provides a magical template for you to fill out &lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;, with no submission gotchas - this could be the future &lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:2&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;. Within 2 days of submitting the issue, I had a response from the editor, &lt;a href=&#34;https://github.com/noamross&#34;&gt;Noam Ross&lt;/a&gt;, and two reviewers assigned, &lt;a href=&#34;https://github.com/batpigandme&#34;&gt;Mara Averick&lt;/a&gt;, and &lt;a href=&#34;https://github.com/seaaan&#34;&gt;Sean Hughes&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I &lt;a href=&#34;https://github.com/ropensci/onboarding/issues/87&#34;&gt;submitted &lt;strong&gt;visdat&lt;/strong&gt;&lt;/a&gt; and waited, somewhat apprehensively. &lt;em&gt;What would the reviewers think?&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;In fact, Mara Averick wrote a post: &lt;a href=&#34;https://ropensci.org/blog/blog/2017/08/22/first-package-review&#34;&gt;&amp;ldquo;So you (don&amp;rsquo;t) think you can review a package&amp;rdquo;&lt;/a&gt; about her experience evaluating &lt;code&gt;visdat&lt;/code&gt; as a first-time reviewer.&lt;/p&gt;
+
+&lt;h3 id=&#34;getting-feedback&#34;&gt;Getting feedback&lt;/h3&gt;
+
+&lt;h4 id=&#34;unexpected-extras-from-the-review&#34;&gt;Unexpected extras from the review&lt;/h4&gt;
+
+&lt;p&gt;Even before the review started officially, I got some great concrete feedback from Noam Ross, the editor for the &lt;code&gt;visdat&lt;/code&gt; submission.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Noam used the &lt;a href=&#34;https://github.com/MangoTheCat/goodpractice&#34;&gt;goodpractice&lt;/a&gt; package, to identify bad code patterns and other places to immediately improve upon in a concrete way. This resulted in me:
+
+&lt;ul&gt;
+&lt;li&gt;Fixing error prone code such as using &lt;code&gt;1:length(...)&lt;/code&gt;, or &lt;code&gt;1:nrow(...)&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Improving testing using the visualisation testing software &lt;a href=&#34;https://github.com/lionel-/vdiffr&#34;&gt;&lt;code&gt;vdiffr&lt;/code&gt;&lt;/a&gt;)&lt;/li&gt;
+&lt;li&gt;Reducing long code lines to improve readability&lt;/li&gt;
+&lt;li&gt;Defining global variables to avoid a NOTE (&amp;ldquo;no visible binding for global variable&amp;rdquo;)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;So before the review even started, &lt;code&gt;visdat&lt;/code&gt; is in better shape, with 99% test coverage, and clearance from &lt;code&gt;goodpractice&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&#34;the-feedback-from-reviewers&#34;&gt;The feedback from reviewers&lt;/h4&gt;
+
+&lt;p&gt;I received prompt replies from the reviewers, and I got to hear really nice things like  &amp;ldquo;I think &lt;code&gt;visdat&lt;/code&gt; is a very worthwhile project and have already started using it in my own work.&amp;ldquo;, and &amp;ldquo;Having now put it to use in a few of my own projects, I can confidently say that it is an incredibly useful early step in the data analysis workflow. &lt;code&gt;vis_miss()&lt;/code&gt;, in particular, is helpful for scoping the task at hand &amp;hellip;&amp;ldquo;. In addition to these nice things, there was also great critical feedback from Sean and Mara.&lt;/p&gt;
+
+&lt;p&gt;A common thread in both reviews was that the way I initially had &lt;code&gt;visdat&lt;/code&gt; set up was to have the first row of the dataset at the bottom left, and the variable names at the bottom. However, this doesn&amp;rsquo;t reflect what a dataframe typically looks like - with the names of the variables at the top, and the first row also at the top. There was also suggestions to add the percentage of missing data in each column.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-08-22-visdat/blog-vis-dat-compare-1.png&#34; width=&#34;50%&#34; /&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-08-22-visdat/blog-vis-dat-compare-2.png&#34; width=&#34;50%&#34; /&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-08-22-visdat/blog-vis-dat-compare-3.png&#34; width=&#34;50%&#34; /&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-08-22-visdat/blog-vis-dat-compare-4.png&#34; width=&#34;50%&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;On the left are the old &lt;code&gt;visdat&lt;/code&gt; and vismiss plots, and on the right are the new &lt;code&gt;visdat&lt;/code&gt; and vismiss plots.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Changing this makes the plots make a lot more sense, and read better.&lt;/p&gt;
+
+&lt;p&gt;Mara made me aware of the warning and error messages that I had let crop up in the package. This was something I had grown to accept - the plot worked, right? But Mara pointed out that from a user perspective, seeing these warnings and messages can be a negative experience for the user, and something that might stop them from using it - how do they know if their plot is accurate with all these warnings? Are they using it wrong?&lt;/p&gt;
+
+&lt;p&gt;Sean gave practical advice on reducing code duplication, explaining how to write general construction method to prepare the data for the plots. Sean also explained how to write C++ code to improve the speed of &lt;code&gt;vis_guess()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;From both reviewers I got nitty gritty feedback about my writing - places where documentation that was just a bunch of notes I made, or where I had reversed the order of a statement.&lt;/p&gt;
+
+&lt;h3 id=&#34;what-did-i-think&#34;&gt;What did I think?&lt;/h3&gt;
+
+&lt;p&gt;I think that getting feedback in general on your own work can be a bit hard to take sometimes. We get attached to our ideas, we&amp;rsquo;ve seen them grow from little thought bubbles all the way to &amp;ldquo;all growed up&amp;rdquo; R packages. I was apprehensive about getting feedback on &lt;code&gt;visdat&lt;/code&gt;. But the feedback process from rOpenSci was, as Tina Turner put it, &lt;a href=&#34;https://www.youtube.com/watch?v=mNU3aIJs88g&#34;&gt;&amp;ldquo;simply the best&amp;rdquo;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Boiling down the onboarding review process down to a few key points, I would say it is &lt;strong&gt;transparent&lt;/strong&gt;, &lt;strong&gt;friendly&lt;/strong&gt;, and &lt;strong&gt;thorough&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Having the entire review process on GitHub means that everyone is accountable for what they say, and means that you can track exactly what everyone said about it &lt;em&gt;in one place&lt;/em&gt;. No email chain hell with (mis)attached documents, accidental reply-alls or single replies. The whole internet is cc&amp;rsquo;d in on this discussion.&lt;/p&gt;
+
+&lt;p&gt;Being an rOpenSci initiative, the process is incredibly &lt;strong&gt;friendly&lt;/strong&gt; and respectful of everyone involved. Comments are upbeat, but are also, importantly &lt;strong&gt;thorough&lt;/strong&gt;, providing constructive feedback.&lt;/p&gt;
+
+&lt;h3 id=&#34;so-what-does-visdat-look-like&#34;&gt;So what does &lt;code&gt;visdat&lt;/code&gt; look like?&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(visdat)
+
+vis_dat(airquality)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-08-22-visdat/blog-vis-dat-example-1.png&#34; alt=&#34;visdat-example&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This shows us a visual analogue of our data, the variable names are shown on the top, and the class of each variable is shown, along with where missing data.&lt;/p&gt;
+
+&lt;p&gt;You can focus in on missing data with &lt;code&gt;vis_miss()&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;vis_miss(airquality)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-08-22-visdat/blog-vis-miss-aq-1.png&#34; alt=&#34;vis-miss-example&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This shows only missing and present information in the data. In addition to &lt;code&gt;vis_dat()&lt;/code&gt; it shows the percentage of missing data for each variable and also the overall amount of missing data. &lt;code&gt;vis_miss()&lt;/code&gt; will also indicate when a dataset has no missing data at all, or a very small percentage.&lt;/p&gt;
+
+&lt;h3 id=&#34;the-future-of-visdat&#34;&gt;The future of &lt;code&gt;visdat&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;There are some really exciting changes coming up for &lt;code&gt;visdat&lt;/code&gt;. The first is making a plotly version of all of the figures that provides useful tooltips and interactivity. The second and third changes to bring in later down the track are to include the idea of visualising expectations, where the user can search their data for particular things, such as particular characters like &amp;ldquo;~&amp;rdquo; or values like -99, or -0, or conditions &amp;ldquo;x &amp;gt; 101&amp;rdquo;, and visualise them. Another final idea is to make it easy to visually compare two dataframes of differing size. We also want to work on providing consistent palettes for particular datatypes. For example, character, numerics, integers, and datetime would all have different (and consistently different) colours.&lt;/p&gt;
+
+&lt;p&gt;I am very interested to hear how people use &lt;code&gt;visdat&lt;/code&gt; in their work, so if you have suggestions or feedback I would love to hear from you! The best way to leave feedback is by &lt;a href=&#34;https://github.com/ropensci/visdat/issues/new&#34;&gt;filing an issue&lt;/a&gt;, or perhaps sending me an email at nicholas [dot] tierney [at] gmail [dot] com.&lt;/p&gt;
+
+&lt;h3 id=&#34;the-future-of-your-r-package&#34;&gt;The future of your R package?&lt;/h3&gt;
+
+&lt;p&gt;If you have an R package you should give some serious thought about submitting it to the rOpenSci through their onboarding process. There are very clear guidelines on their &lt;a href=&#34;https://github.com/ropensci/onboarding&#34;&gt;onboarding GitHub page&lt;/a&gt;. If you aren&amp;rsquo;t sure about &lt;a href=&#34;https://github.com/ropensci/onboarding/blob/master/policies.md&#34;&gt;package fit&lt;/a&gt;, you can submit a &lt;a href=&#34;https://github.com/ropensci/onboarding/issues?q=is%3Aissue+label%3A0%2Fpresubmission&#34;&gt;pre-submission enquiry&lt;/a&gt; - the editors are nice and friendly, and a positive experience awaits you!&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:3&#34;&gt;CRAN is an essential part of what makes the r-project successful and certainly without CRAN R simply would not be the language that it is today. The tasks provided by the rOpenSci onboarding require human hours, and there just isn&amp;rsquo;t enough spare time and energy amongst CRAN managers.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:3&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:1&#34;&gt;Never used GitHub? Don&amp;rsquo;t worry, creating an account is easy, and the template is all there for you. You provide very straightforward information, and it&amp;rsquo;s all there at once.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;With some journals, the submission process means you aren&amp;rsquo;t always clear what information you need ahead of time. Gotchas include things like &amp;ldquo;what is the residential address of every co-author&amp;rdquo;, or getting everyone to sign a copyright notice.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

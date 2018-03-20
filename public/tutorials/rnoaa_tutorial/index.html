@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | rnoaa tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>rnoaa tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.7.0</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<h3 id="installation">Installation</h3>
+
+<p>Install and load <code>rnoaa</code> into the R session. Stable version from CRAN</p>
+
+<pre><code class="language-r">install.packages(&quot;rnoaa&quot;)
+</code></pre>
+
+<p>Or development version from Github:</p>
+
+<pre><code class="language-r">install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;ropensci/rnoaa&quot;)
+</code></pre>
+
+<pre><code class="language-r">library('plyr')
+library('rnoaa')
+</code></pre>
+
+<h3 id="national-climatic-data-center-ncdc-data">National Climatic Data Center (NCDC) data</h3>
+
+<h4 id="get-info-on-a-station-by-specifying-a-datasetid-locationid-and-stationid">Get info on a station by specifying a datasetid, locationid, and stationid</h4>
+
+<pre><code class="language-r">ncdc_stations(datasetid='GHCND', locationid='FIPS:12017', stationid='GHCND:USC00084289')
+</code></pre>
+
+<pre><code>#&gt; $meta
+#&gt; NULL
+#&gt;
+#&gt; $data
+#&gt;   elevation    mindate    maxdate latitude                  name
+#&gt; 1      12.2 1899-02-01 2017-10-13  28.8029 INVERNESS 3 SE, FL US
+#&gt;   datacoverage                id elevationUnit longitude
+#&gt; 1            1 GHCND:USC00084289        METERS  -82.3126
+#&gt;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;ncdc_stations&quot;
+</code></pre>
+
+<h4 id="search-for-data-and-get-a-data-frame">Search for data and get a data.frame</h4>
+
+<pre><code class="language-r">out &lt;- ncdc(datasetid='NORMAL_DLY', datatypeid='dly-tmax-normal', startdate = '2010-05-01', enddate = '2010-05-10')
+</code></pre>
+
+<p>See a data.frame</p>
+
+<pre><code class="language-r">out$data
+</code></pre>
+
+<pre><code>#&gt;                   date        datatype           station value fl_c
+#&gt; 1  2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:AQW00061705   869    C
+#&gt; 2  2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:CAW00064757   607    Q
+#&gt; 3  2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:CQC00914080   840    R
+#&gt; 4  2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:CQC00914801   858    R
+#&gt; 5  2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:FMC00914395   876    P
+#&gt; 6  2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:FMC00914419   885    P
+#&gt; 7  2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:FMC00914446   885    P
+#&gt; 8  2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:FMC00914482   868    R
+#&gt; 9  2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:FMC00914720   899    R
+#&gt; 10 2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:FMC00914761   897    P
+#&gt; 11 2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:FMC00914831   870    P
+#&gt; 12 2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:FMC00914892   883    P
+#&gt; 13 2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:FMC00914898   875    P
+#&gt; 14 2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:FMC00914911   885    P
+#&gt; 15 2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:FMW00040308   888    S
+#&gt; 16 2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:FMW00040504   879    C
+#&gt; 17 2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:FMW00040505   867    S
+#&gt; 18 2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:GQC00914025   852    P
+#&gt; 19 2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:GQW00041415   877    C
+#&gt; 20 2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:JQW00021603   852    P
+#&gt; 21 2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:PSC00914519   883    P
+#&gt; 22 2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:PSC00914712   840    P
+#&gt; 23 2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:PSW00040309   879    S
+#&gt; 24 2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:RMW00040604   867    S
+#&gt; 25 2010-05-01T00:00:00 DLY-TMAX-NORMAL GHCND:RMW00040710   863    C
+</code></pre>
+
+<h4 id="plot-data-super-simple-but-it-s-a-start">Plot data, super simple, but it&rsquo;s a start</h4>
+
+<pre><code class="language-r">out &lt;- ncdc(datasetid='NORMAL_DLY', stationid='GHCND:USW00014895', datatypeid='dly-tmax-normal', startdate = '2010-01-01', enddate = '2010-12-10', limit = 300)
+ncdc_plot(out)
+</code></pre>
+
+<p><img src="/img/tutorial-images/rnoaa/six-1.png" alt="plot of chunk six" /></p>
+
+<p>Note that the x-axis tick text is not readable, but see futher down in tutorial for how to adjust that.</p>
+
+<h4 id="more-on-plotting">More on plotting</h4>
+
+<h5 id="example-1">Example 1</h5>
+
+<p>Search for data first, then plot</p>
+
+<pre><code class="language-r">out &lt;- ncdc(datasetid='GHCND', stationid='GHCND:USW00014895', datatypeid='PRCP', startdate = '2010-05-01', enddate = '2010-10-31', limit=500)
+</code></pre>
+
+<p>Default plot</p>
+
+<pre><code class="language-r">ncdc_plot(out)
+</code></pre>
+
+<p><img src="/img/tutorial-images/rnoaa/unnamed-chunk-5-1.png" alt="plot of chunk unnamed-chunk-5" /></p>
+
+<p>Create 14 day breaks</p>
+
+<pre><code class="language-r">ncdc_plot(out, breaks=&quot;14 days&quot;)
+</code></pre>
+
+<p><img src="/img/tutorial-images/rnoaa/unnamed-chunk-6-1.png" alt="plot of chunk unnamed-chunk-6" /></p>
+
+<p>One month breaks</p>
+
+<pre><code class="language-r">ncdc_plot(out, breaks=&quot;1 month&quot;, dateformat=&quot;%d/%m&quot;)
+</code></pre>
+
+<p><img src="/img/tutorial-images/rnoaa/unnamed-chunk-7-1.png" alt="plot of chunk unnamed-chunk-7" /></p>
+
+<h5 id="example-2">Example 2</h5>
+
+<p>Search for data</p>
+
+<pre><code class="language-r">out2 &lt;- ncdc(datasetid='GHCND', stationid='GHCND:USW00014895', datatypeid='PRCP', startdate = '2010-05-01', enddate = '2010-10-31', limit=500)
+</code></pre>
+
+<p>Make a plot, with 6 hour breaks, and date format with only hour</p>
+
+<pre><code class="language-r">ncdc_plot(out2, breaks = &quot;1 month&quot;, dateformat = &quot;%d/%m&quot;)
+</code></pre>
+
+<p><img src="/img/tutorial-images/rnoaa/unnamed-chunk-9-1.png" alt="plot of chunk unnamed-chunk-9" /></p>
+
+<h4 id="combine-many-calls-to-noaa-function">Combine many calls to noaa function</h4>
+
+<p>Search for two sets of data</p>
+
+<pre><code class="language-r">out1 &lt;- ncdc(datasetid='GHCND', stationid='GHCND:USW00014895', datatypeid='PRCP', startdate = '2010-03-01', enddate = '2010-05-31', limit=500)
+
+out2 &lt;- ncdc(datasetid='GHCND', stationid='GHCND:USW00014895', datatypeid='PRCP', startdate = '2010-09-01', enddate = '2010-10-31', limit=500)
+</code></pre>
+
+<p>Then combine with a call to <code>ncdc_combine</code></p>
+
+<pre><code class="language-r">df &lt;- ncdc_combine(out1, out2)
+head(df[[1]]); tail(df[[1]])
+</code></pre>
+
+<pre><code>#&gt;                  date datatype           station value fl_m fl_q fl_so
+#&gt; 1 2010-03-01T00:00:00     PRCP GHCND:USW00014895     0    T          0
+#&gt; 2 2010-03-02T00:00:00     PRCP GHCND:USW00014895     0    T          0
+#&gt; 3 2010-03-03T00:00:00     PRCP GHCND:USW00014895     0    T          0
+#&gt; 4 2010-03-04T00:00:00     PRCP GHCND:USW00014895     0               0
+#&gt; 5 2010-03-05T00:00:00     PRCP GHCND:USW00014895     0               0
+#&gt; 6 2010-03-06T00:00:00     PRCP GHCND:USW00014895     0               0
+#&gt;   fl_t
+#&gt; 1 2400
+#&gt; 2 2400
+#&gt; 3 2400
+#&gt; 4 2400
+#&gt; 5 2400
+#&gt; 6 2400
+</code></pre>
+
+<pre><code>#&gt;                    date datatype           station value fl_m fl_q fl_so
+#&gt; 148 2010-10-26T00:00:00     PRCP GHCND:USW00014895   221               0
+#&gt; 149 2010-10-27T00:00:00     PRCP GHCND:USW00014895     0               0
+#&gt; 150 2010-10-28T00:00:00     PRCP GHCND:USW00014895     0    T          0
+#&gt; 151 2010-10-29T00:00:00     PRCP GHCND:USW00014895     0    T          0
+#&gt; 152 2010-10-30T00:00:00     PRCP GHCND:USW00014895     0               0
+#&gt; 153 2010-10-31T00:00:00     PRCP GHCND:USW00014895     0               0
+#&gt;     fl_t
+#&gt; 148 2400
+#&gt; 149 2400
+#&gt; 150 2400
+#&gt; 151 2400
+#&gt; 152 2400
+#&gt; 153 2400
+</code></pre>
+
+<p>Then plot - the default passing in the combined plot plots the data together. In this case it looks kind of weird since a straight line combines two distant dates.</p>
+
+<pre><code class="language-r">ncdc_plot(df)
+</code></pre>
+
+<p><img src="/img/tutorial-images/rnoaa/unnamed-chunk-12-1.png" alt="plot of chunk unnamed-chunk-12" /></p>
+
+<p>But we can pass in each separately, which uses <code>facet_wrap</code> in <code>ggplot2</code> to plot each set of data in its own panel.</p>
+
+<pre><code class="language-r">ncdc_plot(out1, out2, breaks=&quot;45 days&quot;)
+</code></pre>
+
+<p><img src="/img/tutorial-images/rnoaa/unnamed-chunk-13-1.png" alt="plot of chunk unnamed-chunk-13" /></p>
+
+<h3 id="erddap-data">ERDDAP data</h3>
+
+<blockquote>
+<p>ERDDAP data is now avialable through the <code>rerddap</code> package</p>
+</blockquote>
+
+<h3 id="severe-weather-data-inventory-swdi-data">Severe Weather Data Inventory (SWDI) data</h3>
+
+<h4 id="search-for-nx3tvs-data-from-5-may-2006-to-6-may-2006">Search for nx3tvs data from 5 May 2006 to 6 May 2006</h4>
+
+<pre><code class="language-r">swdi(dataset='nx3tvs', startdate='20060505', enddate='20060506')
+</code></pre>
+
+<pre><code>#&gt; $meta
+#&gt; $meta$totalCount
+#&gt; numeric(0)
+#&gt;
+#&gt; $meta$totalTimeInSeconds
+#&gt; [1] 0.012
+#&gt;
+#&gt;
+#&gt; $data
+#&gt;                   ztime wsr_id cell_id cell_type range azimuth max_shear
+#&gt; 1  2006-05-05T00:05:50Z   KBMX      Q0       TVS     7     217       403
+#&gt; 2  2006-05-05T00:10:02Z   KBMX      Q0       TVS     5     208       421
+#&gt; 3  2006-05-05T00:12:34Z   KSJT      P2       TVS    49     106        17
+#&gt; 4  2006-05-05T00:17:31Z   KSJT      B4       TVS    40     297        25
+#&gt; 5  2006-05-05T00:29:13Z   KMAF      H4       TVS    53     333        34
+#&gt; 6  2006-05-05T00:31:25Z   KLBB      N0       TVS    51     241        24
+#&gt; 7  2006-05-05T00:33:25Z   KMAF      H4       TVS    52     334        46
+#&gt; 8  2006-05-05T00:37:37Z   KMAF      H4       TVS    50     334        34
+#&gt; 9  2006-05-05T00:41:51Z   KMAF      H4       TVS    51     335        29
+#&gt; 10 2006-05-05T00:44:33Z   KLBB      N0       TVS    46     245        35
+#&gt; 11 2006-05-05T00:46:03Z   KMAF      H4       TVS    49     335        41
+#&gt; 12 2006-05-05T00:48:55Z   KLBB      N0       TVS    44     246        44
+#&gt; 13 2006-05-05T00:50:16Z   KMAF      H4       TVS    49     337        33
+#&gt; 14 2006-05-05T00:54:29Z   KMAF      H4       TVS    47     337        42
+#&gt; 15 2006-05-05T00:57:42Z   KLBB      N0       TVS    41     251        46
+#&gt; 16 2006-05-05T00:58:41Z   KMAF      H4       TVS    46     340        29
+#&gt; 17 2006-05-05T01:02:04Z   KLBB      N0       TVS    39     251        42
+#&gt; 18 2006-05-05T01:02:53Z   KMAF      H4       TVS    46     339        35
+#&gt; 19 2006-05-05T01:02:53Z   KMAF      H4       TVS    50     338        27
+#&gt; 20 2006-05-05T01:06:26Z   KLBB      N0       TVS    36     251        31
+#&gt; 21 2006-05-05T01:07:06Z   KMAF      F5       TVS    45     342        44
+#&gt; 22 2006-05-05T01:10:48Z   KLBB      N0       TVS    36     256        37
+#&gt; 23 2006-05-05T01:11:18Z   KMAF      F5       TVS    45     343        39
+#&gt; 24 2006-05-05T01:15:30Z   KMAF      F5       TVS    44     344        30
+#&gt; 25 2006-05-05T01:15:30Z   KMAF      H4       TVS    49     341        26
+#&gt;    mxdv
+#&gt; 1   116
+#&gt; 2   120
+#&gt; 3    52
+#&gt; 4    62
+#&gt; 5   111
+#&gt; 6    78
+#&gt; 7   145
+#&gt; 8   107
+#&gt; 9    91
+#&gt; 10  100
+#&gt; 11  127
+#&gt; 12  121
+#&gt; 13   98
+#&gt; 14  126
+#&gt; 15  117
+#&gt; 16   85
+#&gt; 17  102
+#&gt; 18  101
+#&gt; 19   84
+#&gt; 20   70
+#&gt; 21  120
+#&gt; 22   83
+#&gt; 23  108
+#&gt; 24   78
+#&gt; 25   81
+#&gt;
+#&gt; $shape
+#&gt;                                         shape
+#&gt; 1  POINT (-86.8535716274277 33.0786326913943)
+#&gt; 2  POINT (-86.8165772540846 33.0982820681588)
+#&gt; 3  POINT (-99.5771091971025 31.1421609654838)
+#&gt; 4   POINT (-101.188161700093 31.672392833416)
+#&gt; 5  POINT (-102.664426480293 32.7306917937698)
+#&gt; 6   POINT (-102.70047613441 33.2380072329615)
+#&gt; 7    POINT (-102.6393683028 32.7226656893341)
+#&gt; 8  POINT (-102.621904684258 32.6927081076156)
+#&gt; 9   POINT (-102.614794815627 32.714139844846)
+#&gt; 10 POINT (-102.643380529494 33.3266446067682)
+#&gt; 11 POINT (-102.597961935071 32.6839260102062)
+#&gt; 12 POINT (-102.613894688178 33.3526192273658)
+#&gt; 13 POINT (-102.567153417051 32.6956373348052)
+#&gt; 14  POINT (-102.551596970251 32.664939580306)
+#&gt; 15 POINT (-102.586119971014 33.4287323151248)
+#&gt; 16 POINT (-102.499638479193 32.6644438090742)
+#&gt; 17   POINT (-102.5485490063 33.4398330734778)
+#&gt; 18  POINT (-102.51446954228 32.6597119240996)
+#&gt; 19 POINT (-102.559031583693 32.7166090376869)
+#&gt; 20 POINT (-102.492174522228 33.4564626989719)
+#&gt; 21 POINT (-102.463540844324 32.6573739036181)
+#&gt; 22 POINT (-102.510349454162 33.5066366303981)
+#&gt; 23 POINT (-102.448763863447 32.6613484943994)
+#&gt; 24   POINT (-102.42842159557 32.649061124799)
+#&gt; 25 POINT (-102.504158884526 32.7162751126854)
+#&gt;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;swdi&quot;
+</code></pre>
+
+<h4 id="use-an-id">Use an id</h4>
+
+<pre><code class="language-r">out &lt;- swdi(dataset='warn', startdate='20060506', enddate='20060507', id=533623)
+list(out$meta, head(out$data), head(out$shape))
+</code></pre>
+
+<pre><code>#&gt; [[1]]
+#&gt; [[1]]$totalCount
+#&gt; numeric(0)
+#&gt;
+#&gt; [[1]]$totalTimeInSeconds
+#&gt; [1] 0.051
+#&gt;
+#&gt;
+#&gt; [[2]]
+#&gt;            ztime_start            ztime_end     id         warningtype
+#&gt; 1 2006-05-05T22:53:00Z 2006-05-06T00:00:00Z 397428 SEVERE THUNDERSTORM
+#&gt; 2 2006-05-05T22:55:00Z 2006-05-06T00:00:00Z 397429 SEVERE THUNDERSTORM
+#&gt; 3 2006-05-05T22:55:00Z 2006-05-06T00:00:00Z 397430 SEVERE THUNDERSTORM
+#&gt; 4 2006-05-05T22:57:00Z 2006-05-06T00:00:00Z 397431 SEVERE THUNDERSTORM
+#&gt; 5 2006-05-05T23:03:00Z 2006-05-06T00:00:00Z 397434 SEVERE THUNDERSTORM
+#&gt; 6 2006-05-05T23:14:00Z 2006-05-06T00:15:00Z 397437 SEVERE THUNDERSTORM
+#&gt;   issuewfo messageid
+#&gt; 1     KLCH    052252
+#&gt; 2     KLUB    052256
+#&gt; 3     KLUB    052256
+#&gt; 4     KMAF    052258
+#&gt; 5     KMAF    052305
+#&gt; 6     KLUB    052315
+#&gt;
+#&gt; [[3]]
+#&gt;                                                                                                                                                          shape
+#&gt; 1                                                                             POLYGON ((-93.27 30.38, -93.29 30.18, -93.02 30.18, -93.04 30.37, -93.27 30.38))
+#&gt; 2                                                                        POLYGON ((-101.93 34.74, -101.96 34.35, -101.48 34.42, -101.49 34.74, -101.93 34.74))
+#&gt; 3                POLYGON ((-100.36 33.03, -99.99 33.3, -99.99 33.39, -100.28 33.39, -100.5 33.18, -100.51 33.02, -100.45 32.97, -100.37 33.03, -100.36 33.03))
+#&gt; 4                                            POLYGON ((-102.8 30.74, -102.78 30.57, -102.15 30.61, -102.15 30.66, -101.92 30.68, -102.07 30.83, -102.8 30.74))
+#&gt; 5                                                                        POLYGON ((-103.02 32.94, -103.03 32.66, -102.21 32.53, -102.22 32.95, -103.02 32.94))
+#&gt; 6 POLYGON ((-101.6 33.32, -101.57 33.31, -101.57 33.51, -101.65 33.51, -101.66 33.5, -101.75 33.5, -101.77 33.49, -101.84 33.49, -101.84 33.32, -101.6 33.32))
+</code></pre>
+
+<h4 id="get-all-plsr-within-the-bounding-box-91-30-90-31">Get all &lsquo;plsr&rsquo; within the bounding box (-91,30,-90,31)</h4>
+
+<pre><code class="language-r">swdi(dataset='plsr', startdate='20060505', enddate='20060510', bbox=c(-91,30,-90,31))
+</code></pre>
+
+<pre><code>#&gt; $meta
+#&gt; $meta$totalCount
+#&gt; numeric(0)
+#&gt;
+#&gt; $meta$totalTimeInSeconds
+#&gt; [1] 0
+#&gt;
+#&gt;
+#&gt; $data
+#&gt;                  ztime     id        event magnitude            city
+#&gt; 1 2006-05-09T02:20:00Z 427540         HAIL         1    5 E KENTWOOD
+#&gt; 2 2006-05-09T02:40:00Z 427536         HAIL         1    MOUNT HERMAN
+#&gt; 3 2006-05-09T02:40:00Z 427537 TSTM WND DMG     -9999    MOUNT HERMAN
+#&gt; 4 2006-05-09T03:00:00Z 427199         HAIL         0     FRANKLINTON
+#&gt; 5 2006-05-09T03:17:00Z 427200      TORNADO     -9999 5 S FRANKLINTON
+#&gt;       county state          source
+#&gt; 1 TANGIPAHOA    LA TRAINED SPOTTER
+#&gt; 2 WASHINGTON    LA TRAINED SPOTTER
+#&gt; 3 WASHINGTON    LA TRAINED SPOTTER
+#&gt; 4 WASHINGTON    LA   AMATEUR RADIO
+#&gt; 5 WASHINGTON    LA LAW ENFORCEMENT
+#&gt;
+#&gt; $shape
+#&gt;                  shape
+#&gt; 1 POINT (-90.43 30.93)
+#&gt; 2  POINT (-90.3 30.96)
+#&gt; 3  POINT (-90.3 30.96)
+#&gt; 4 POINT (-90.14 30.85)
+#&gt; 5 POINT (-90.14 30.78)
+#&gt;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;swdi&quot;
+</code></pre>
+
+<h3 id="sea-ice-data">Sea ice data</h3>
+
+<h4 id="map-all-years-for-april-only-for-north-pole">Map all years for April only for North pole</h4>
+
+<pre><code class="language-r">urls &lt;- seaiceeurls(mo='Apr', pole='N')[1:10]
+out &lt;- lapply(urls, seaice)
+names(out) &lt;- seq(1979,1988,1)
+df &lt;- ldply(out)
+library('ggplot2')
+ggplot(df, aes(long, lat, group=group)) +
+  geom_polygon(fill=&quot;steelblue&quot;) +
+  theme_ice() +
+  facet_wrap(~ .id)
+</code></pre>
+
+<p><img src="../assets/tutorial-images/rnoaa/seaice.png" alt="seaice" /></p>
+
+<h3 id="ibtracs-storm-data">IBTrACS storm data</h3>
+
+<p>Get NOAA wind storm tabular data, metadata, or shp files from International Best Track Archive for Climate Stewardship (IBTrACS). See <a href="http://www.ncdc.noaa.gov/ibtracs/index.php?name=numbering">http://www.ncdc.noaa.gov/ibtracs/index.php?name=numbering</a> for more.</p>
+
+<h4 id="metadata">Metadata</h4>
+
+<p>There are two datasets stored in the package. By default <code>storm_meta()</code> gives metadata describing columns of the datasets returned.</p>
+
+<pre><code class="language-r">head( storm_meta() )
+</code></pre>
+
+<pre><code>#&gt;   Column_number Column_name units Shapefile_pt_flag
+#&gt; 1             1  Serial_Num   N/A                 1
+#&gt; 2             2      Season  Year                 1
+#&gt; 3             3         Num     #                 1
+#&gt; 4             4       Basin    BB                 1
+#&gt; 5             5   Sub_basin    BB                 1
+#&gt; 6             6        Name   N/A                 1
+#&gt;   Shapefile_pt_attribute_name shapefile_att_type shapefile_att_len
+#&gt; 1                  Serial_Num                  7                13
+#&gt; 2                      Season                  3                 4
+#&gt; 3                         Num                  3                 5
+#&gt; 4                       Basin                  7                 3
+#&gt; 5                   Sub_basin                  7                 3
+#&gt; 6                        Name                  7                57
+#&gt;   shapefile_att_prc
+#&gt; 1                 0
+#&gt; 2                 0
+#&gt; 3                 0
+#&gt; 4                 0
+#&gt; 5                 0
+#&gt; 6                 0
+</code></pre>
+
+<p>Or you can get back a dataset of storm names, including storm ids and their names.</p>
+
+<pre><code class="language-r">head( storm_meta(&quot;storm_names&quot;) )
+</code></pre>
+
+<pre><code>#&gt;              id                name
+#&gt; 1 1842298N11080   NOT NAMED(td9636)
+#&gt; 2 1845336N10074   NOT NAMED(td9636)
+#&gt; 3 1848011S09079   NOT NAMED(td9636)
+#&gt; 4 1848011S09080 XXXX848003(reunion)
+#&gt; 5 1848011S15057 XXXX848002(reunion)
+#&gt; 6 1848011S16057   NOT NAMED(td9636)
+</code></pre>
+
+<h4 id="tabular-data">Tabular data</h4>
+
+<p>You can get tabular data for basins, storms, or years, (or all data). <code>storm_data()</code> and the next function <code>storm_shp()</code> figure out what files to get, and gets them from an ftp server, and saves them to your machine. Do let us know if you have any problems with paths on your machine, and we&rsquo;ll fix &lsquo;em. The result from <code>storm_data()</code> is a <code>dplyr</code>-like data.frame with a easy summary that makes large datasets easy to view.</p>
+
+<p>First, by basin (one of EP, NA, NI, SA, SI, SP, or WP)</p>
+
+<pre><code class="language-r">storm_data(year=1941)
+#&gt; &lt;path&gt;~/.rnoaa/storms/year/Year.1941.ibtracs_all.v03r06.csv
+#&gt;
+#&gt; &lt;NOAA Storm Data&gt;
+#&gt; Size: 1766 X 195
+#&gt;
+#&gt;       serial_num season num basin sub_basin      name            iso_time nature latitude
+#&gt; 1  1940215S18149   1941   1    SP        EA NOT NAMED 1940-08-01 12:00:00     NR     -999
+#&gt; 2  1940215S18149   1941   1    SP        EA NOT NAMED 1940-08-01 18:00:00     NR     -999
+#&gt; 3  1940215S18149   1941   1    SP        EA NOT NAMED 1940-08-02 00:00:00     NR     -999
+#&gt; 4  1940215S18149   1941   1    SP        EA NOT NAMED 1940-08-02 06:00:00     NR     -999
+#&gt; 5  1940215S18149   1941   1    SP        EA NOT NAMED 1940-08-02 12:00:00     NR     -999
+#&gt; 6  1940215S18149   1941   1    SP        EA NOT NAMED 1940-08-02 18:00:00     NR     -999
+#&gt; 7  1940215S18149   1941   1    SP        EA NOT NAMED 1940-08-03 00:00:00     NR     -999
+#&gt; 8  1940215S18149   1941   1    SP        EA NOT NAMED 1940-08-03 06:00:00     NR     -999
+#&gt; 9  1940215S18149   1941   1    SP        EA NOT NAMED 1940-08-03 12:00:00     NR     -999
+#&gt; 10 1940215S18149   1941   1    SP        EA NOT NAMED 1940-08-03 18:00:00     NR     -999
+#&gt; ..           ...    ... ...   ...       ...       ...                 ...    ...      ...
+#&gt; Variables not shown: longitude (dbl), wind.wmo. (dbl), pres.wmo. (dbl), center (chr),
+#&gt;      wind.wmo..percentile (dbl), pres.wmo..percentile (dbl), track_type (chr),
+#&gt;      latitude_for_mapping (dbl), longitude_for_mapping (dbl), current.basin (chr), hurdat_atl_lat
+#&gt;      (dbl), hurdat_atl_lon (dbl), hurdat_atl_grade (dbl), hurdat_atl_wind (dbl), hurdat_atl_pres
+#&gt;      (dbl), td9636_lat (dbl), td9636_lon (dbl), td9636_grade (dbl), td9636_wind (dbl),
+</code></pre>
+
+<h3 id="buoy-data">Buoy data</h3>
+
+<h4 id="find-out-what-buoys-are-available-in-a-dataset">Find out what buoys are available in a dataset</h4>
+
+<pre><code class="language-r">head(buoys(dataset = &quot;cwind&quot;))
+</code></pre>
+
+<pre><code>#&gt;      id
+#&gt; 1 41001
+#&gt; 2 41002
+#&gt; 3 41004
+#&gt; 4 41006
+#&gt; 5 41008
+#&gt; 6 41009
+#&gt;                                                                       url
+#&gt; 1 http://dods.ndbc.noaa.gov/thredds/catalog/data/cwind/41001/catalog.html
+#&gt; 2 http://dods.ndbc.noaa.gov/thredds/catalog/data/cwind/41002/catalog.html
+#&gt; 3 http://dods.ndbc.noaa.gov/thredds/catalog/data/cwind/41004/catalog.html
+#&gt; 4 http://dods.ndbc.noaa.gov/thredds/catalog/data/cwind/41006/catalog.html
+#&gt; 5 http://dods.ndbc.noaa.gov/thredds/catalog/data/cwind/41008/catalog.html
+#&gt; 6 http://dods.ndbc.noaa.gov/thredds/catalog/data/cwind/41009/catalog.html
+</code></pre>
+
+<h4 id="get-buoy-data">Get buoy data</h4>
+
+<p>With <code>buoy</code> you can get data for a particular dataset, buoy id, year, and datatype.</p>
+
+<p>Get data for a buoy, specifying year and datatype</p>
+
+<pre><code class="language-r">buoy(dataset = 'cwind', buoyid = 41001, year = 2008, datatype = &quot;cc&quot;)
+</code></pre>
+
+<pre><code>#&gt; Dimensions (rows/cols): [1585 X 5]
+#&gt; 2 variables: [wind_dir, wind_spd]
+#&gt;
+#&gt;                    time    lat     lon wind_dir wind_spd
+#&gt; 1  2008-05-28T16:00:00Z 34.704 -72.734      230      8.6
+#&gt; 2  2008-05-28T16:10:00Z 34.704 -72.734      230      8.7
+#&gt; 3  2008-05-28T16:20:00Z 34.704 -72.734      229      8.5
+#&gt; 4  2008-05-28T16:30:00Z 34.704 -72.734      231      8.8
+#&gt; 5  2008-05-28T16:40:00Z 34.704 -72.734      236      8.5
+#&gt; 6  2008-05-28T16:50:00Z 34.704 -72.734      235      8.9
+#&gt; 7  2008-05-28T17:00:00Z 34.704 -72.734      233      8.2
+#&gt; 8  2008-05-28T17:10:00Z 34.704 -72.734      233      8.2
+#&gt; 9  2008-05-28T17:20:00Z 34.704 -72.734      231      8.3
+#&gt; 10 2008-05-28T17:30:00Z 34.704 -72.734      232      7.8
+#&gt; ..                  ...    ...     ...      ...      ...
+</code></pre>
+
+<h3 id="citing">Citing</h3>
+
+<p>To cite <code>rnoaa</code> in publications use:</p>
+
+<p><br></p>
+
+<blockquote>
+<p>Scott Chamberlain (2017). rnoaa: &lsquo;NOAA&rsquo; Weather Data from R. R
+  package version 0.7.0. <a href="https://CRAN.R-project.org/package=rnoaa">https://CRAN.R-project.org/package=rnoaa</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/rnoaa/issues?state=open">our Github repo for rnoaa</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

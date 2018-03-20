@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | taxize tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>taxize tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.9.0</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p><code>taxize</code> is a taxonomic toolbelt for R. <code>taxize</code> wraps APIs for a large suite of taxonomic databases availab on the web.</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>First, install and load <code>taxize</code> into the R session.</p>
+
+<pre><code class="language-r">install.packages(&quot;taxize&quot;)
+</code></pre>
+
+<p>Or, install development version from GitHub</p>
+
+<pre><code class="language-r">if (!require(&quot;devtools&quot;)) install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;ropensci/taxize&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;taxize&quot;)
+</code></pre>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="resolve-taxonomic-name">Resolve taxonomic name</h3>
+
+<p>This is a common task in biology. We often have a list of species names and we want to know a) if we have the most up to date names, b) if our names are spelled correctly, and c) the scientific name for a common name. One way to resolve names is via the Global Names Resolver (GNR) service provided by the <a href="http://eol.org/">Encyclopedia of Life</a>. Here, we are searching for two misspelled names:</p>
+
+<pre><code class="language-r">temp &lt;- gnr_resolve(names = c(&quot;Helianthos annus&quot;, &quot;Homo saapiens&quot;))
+head(temp)
+</code></pre>
+
+<pre><code>#&gt;   user_supplied_name   submitted_name         matched_name
+#&gt; 1   Helianthos annus Helianthos annus     Helianthus annus
+#&gt; 2   Helianthos annus Helianthos annus  Helianthus annus L.
+#&gt; 3   Helianthos annus Helianthos annus     Helianthus annus
+#&gt; 4   Helianthos annus Helianthos annus     Helianthus annus
+#&gt; 5   Helianthos annus Helianthos annus Helianthus annuus L.
+#&gt; 6   Helianthos annus Helianthos annus Helianthus annuus L.
+#&gt;                      data_source_title score
+#&gt; 1                                  EOL  0.75
+#&gt; 2                                  EOL  0.75
+#&gt; 3                        uBio NameBank  0.75
+#&gt; 4 Open Tree of Life Reference Taxonomy  0.75
+#&gt; 5                    Catalogue of Life  0.75
+#&gt; 6                                 ITIS  0.75
+</code></pre>
+
+<p>The correct spellings are <em>Helianthus annuus</em> and <em>Homo sapiens</em>.</p>
+
+<p>Another common use case is when there are many synonyms for a species. In this example, we have three synonyms of the currently accepted name for a species.</p>
+
+<pre><code class="language-r">mynames &lt;- c(&quot;Helianthus annuus ssp. jaegeri&quot;, &quot;Helianthus annuus ssp. lenticularis&quot;, &quot;Helianthus annuus ssp. texanus&quot;)
+(tsn &lt;- get_tsn(mynames, accepted = FALSE))
+</code></pre>
+
+<pre><code>[1] &quot;525928&quot; &quot;525929&quot; &quot;525930&quot;
+attr(,&quot;match&quot;)
+[1] &quot;found&quot; &quot;found&quot; &quot;found&quot;
+attr(,&quot;multiple_matches&quot;)
+[1] FALSE FALSE FALSE
+attr(,&quot;pattern_match&quot;)
+[1] FALSE FALSE FALSE
+attr(,&quot;uri&quot;)
+[1] &quot;http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&amp;search_value=525928&quot;
+[2] &quot;http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&amp;search_value=525929&quot;
+[3] &quot;http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&amp;search_value=525930&quot;
+attr(,&quot;class&quot;)
+[1] &quot;tsn&quot;
+</code></pre>
+
+<pre><code class="language-r">lapply(tsn, itis_acceptname)
+</code></pre>
+
+<pre><code>[[1]]
+  submittedtsn      acceptedname acceptedtsn author
+1       525928 Helianthus annuus       36616     L.
+
+[[2]]
+  submittedtsn      acceptedname acceptedtsn author
+1       525929 Helianthus annuus       36616     L.
+
+[[3]]
+  submittedtsn      acceptedname acceptedtsn author
+1       525930 Helianthus annuus       36616     L.
+</code></pre>
+
+<h3 id="retrieve-higher-taxonomic-names">Retrieve higher taxonomic names</h3>
+
+<p>Another task biologists often face is getting higher taxonomic names for a taxa list. Having the higher taxonomy allows you to put into context the relationships of your species list. For example, you may find out that species A and species B are in Family C, which may lead to some interesting insight, as opposed to not knowing that Species A and B are closely related. This also makes it easy to aggregate/standardize data to a specific taxonomic level (e.g., family level) or to match data to other databases with different taxonomic resolution (e.g., trait databases).</p>
+
+<p>A number of data sources in taxize provide the capability to retrieve higher taxonomic names, but we will highlight two of the more useful ones: <a href="http://www.itis.gov/">Integrated Taxonomic Information System (ITIS)</a> and <a href="http://www.ncbi.nlm.nih.gov/">National Center for Biotechnology Information (NCBI)</a>. First, we&rsquo;ll search for two species, *Abies procera} and <em>Pinus contorta</em> within ITIS.</p>
+
+<pre><code class="language-r">specieslist &lt;- c(&quot;Abies procera&quot;,&quot;Pinus contorta&quot;)
+classification(specieslist, db = 'itis')
+</code></pre>
+
+<pre><code>#&gt;      tsn                        target
+#&gt; 1 183327                Pinus contorta
+#&gt; 2 183332 Pinus contorta ssp. bolanderi
+#&gt; 3 822698  Pinus contorta ssp. contorta
+#&gt; 4 183329 Pinus contorta ssp. latifolia
+#&gt; 5 183330 Pinus contorta ssp. murrayana
+#&gt; 6 529672 Pinus contorta var. bolanderi
+#&gt; 7 183328  Pinus contorta var. contorta
+#&gt; 8 529673 Pinus contorta var. latifolia
+#&gt; 9 529674 Pinus contorta var. murrayana
+#&gt;                                                        commonNames
+#&gt; 1               scrub pine,shore pine,tamarack pine,lodgepole pine
+#&gt; 2                                            Bolander's beach pine
+#&gt; 3                                                               NA
+#&gt; 4                         black pine,Rocky Mountain lodgepole pine
+#&gt; 5                              tamarack pine,Sierra lodgepole pine
+#&gt; 6                                              Bolander beach pine
+#&gt; 7                  coast pine,lodgepole pine,beach pine,shore pine
+#&gt; 8 tall lodgepole pine,lodgepole pine,Rocky Mountain lodgepole pine
+#&gt; 9      Murray's lodgepole pine,Sierra lodgepole pine,tamarack pine
+#&gt;      nameUsage
+#&gt; 1     accepted
+#&gt; 2 not accepted
+#&gt; 3 not accepted
+#&gt; 4 not accepted
+#&gt; 5 not accepted
+#&gt; 6     accepted
+#&gt; 7     accepted
+#&gt; 8     accepted
+#&gt; 9     accepted
+</code></pre>
+
+<pre><code>#&gt; $`Abies procera`
+#&gt;               name          rank     id
+#&gt; 1          Plantae       kingdom 202422
+#&gt; 2    Viridiplantae    subkingdom 954898
+#&gt; 3     Streptophyta  infrakingdom 846494
+#&gt; 4      Embryophyta superdivision 954900
+#&gt; 5     Tracheophyta      division 846496
+#&gt; 6  Spermatophytina   subdivision 846504
+#&gt; 7        Pinopsida         class 500009
+#&gt; 8          Pinidae      subclass 954916
+#&gt; 9          Pinales         order 500028
+#&gt; 10        Pinaceae        family  18030
+#&gt; 11           Abies         genus  18031
+#&gt; 12   Abies procera       species 181835
+#&gt;
+#&gt; $`Pinus contorta`
+#&gt;               name          rank     id
+#&gt; 1          Plantae       kingdom 202422
+#&gt; 2    Viridiplantae    subkingdom 954898
+#&gt; 3     Streptophyta  infrakingdom 846494
+#&gt; 4      Embryophyta superdivision 954900
+#&gt; 5     Tracheophyta      division 846496
+#&gt; 6  Spermatophytina   subdivision 846504
+#&gt; 7        Pinopsida         class 500009
+#&gt; 8          Pinidae      subclass 954916
+#&gt; 9          Pinales         order 500028
+#&gt; 10        Pinaceae        family  18030
+#&gt; 11           Pinus         genus  18035
+#&gt; 12  Pinus contorta       species 183327
+#&gt;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;classification&quot;
+#&gt; attr(,&quot;db&quot;)
+#&gt; [1] &quot;itis&quot;
+</code></pre>
+
+<p>It turns out both species are in the family Pinaceae. You can also get this type of information from the NCBI by doing <code>classification(specieslist, db = 'ncbi')</code>.</p>
+
+<p>Instead of a full classification, you may only want a single name, say a family name for your species of interest. The function *tax_name} is built just for this purpose. As with the <code>classification</code> function you can specify the data source with the <code>db</code> argument, either ITIS or NCBI.</p>
+
+<pre><code class="language-r">tax_name(query = &quot;Helianthus annuus&quot;, get = &quot;family&quot;, db = &quot;ncbi&quot;)
+</code></pre>
+
+<pre><code>#&gt;     db             query     family
+#&gt; 1 ncbi Helianthus annuus Asteraceae
+</code></pre>
+
+<p>I may happen that a data source does not provide information on the queried species, than one could take the result from another source and union the results from the different sources.</p>
+
+<h3 id="interactive-name-selection">Interactive name selection</h3>
+
+<p>As mentioned most databases use a numeric code to reference a species. A general workflow in taxize is: Retrieve Code for the queried species and then use this code to query more data/information.</p>
+
+<p>Below are a few examples. When you run these examples in R, you are presented with a command prompt asking for the row that contains the name you would like back; that output is not printed below for brevity. In this example, the search term has many matches. The function returns a data frame of the matches, and asks for the user to input what row number to accept.</p>
+
+<pre><code class="language-r">get_uid(sciname = &quot;Pinus&quot;)
+</code></pre>
+
+<pre><code>#&gt;   status     rank    division scientificname commonname    uid genus
+#&gt; 1 active subgenus seed plants          Pinus hard pines 139271
+#&gt; 2 active    genus seed plants          Pinus              3337
+#&gt;   species subsp modificationdate
+#&gt; 1               2015/09/16 00:00
+#&gt; 2               2004/09/10 00:00
+</code></pre>
+
+<pre><code>#&gt; [1] &quot;139271&quot;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;uid&quot;
+#&gt; attr(,&quot;match&quot;)
+#&gt; [1] &quot;found&quot;
+#&gt; attr(,&quot;multiple_matches&quot;)
+#&gt; [1] TRUE
+#&gt; attr(,&quot;pattern_match&quot;)
+#&gt; [1] FALSE
+#&gt; attr(,&quot;uri&quot;)
+#&gt; [1] &quot;https://www.ncbi.nlm.nih.gov/taxonomy/139271&quot;
+</code></pre>
+
+<p>In another example, you can pass in a long character vector of taxonomic names (although this one is rather short for demo purposes):</p>
+
+<pre><code class="language-r">splist &lt;- c(&quot;annona cherimola&quot;, 'annona muricata', &quot;quercus robur&quot;)
+get_tsn(searchterm = splist, searchtype = &quot;scientific&quot;)
+</code></pre>
+
+<pre><code>#&gt;      tsn                      target commonNames    nameUsage
+#&gt; 1  19405               Quercus robur English oak     accepted
+#&gt; 2 845209 Quercus robur f. fastigiata          NA not accepted
+</code></pre>
+
+<pre><code>#&gt; [1] &quot;506198&quot; &quot;18098&quot;  &quot;19405&quot;
+#&gt; attr(,&quot;match&quot;)
+#&gt; [1] &quot;found&quot; &quot;found&quot; &quot;found&quot;
+#&gt; attr(,&quot;multiple_matches&quot;)
+#&gt; [1] FALSE FALSE  TRUE
+#&gt; attr(,&quot;pattern_match&quot;)
+#&gt; [1] FALSE FALSE FALSE
+#&gt; attr(,&quot;uri&quot;)
+#&gt; [1] &quot;http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&amp;search_value=506198&quot;
+#&gt; [2] &quot;http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&amp;search_value=18098&quot;
+#&gt; [3] &quot;http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&amp;search_value=19405&quot;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;tsn&quot;
+</code></pre>
+
+<p>There are functions for many other sources</p>
+
+<ul>
+<li><code>get_boldid()</code></li>
+<li><code>get_colid()</code></li>
+<li><code>get_eolid()</code></li>
+<li><code>get_gbifid()</code></li>
+<li><code>get_nbnid()</code></li>
+<li><code>get_tpsid()</code></li>
+</ul>
+
+<p>Sometimes with these functions you get a lot of data back. In these cases you may want to limit your choices. Soon we will incorporate the ability to filter using <code>regex</code> to limit matches, but for now, we have a new parameter, <code>rows</code>, which lets you select certain rows. For example, you can select the first row of each given name, which means there is no interactive component:</p>
+
+<pre><code class="language-r">get_nbnid(c(&quot;Zootoca vivipara&quot;,&quot;Pinus contorta&quot;), rows = 1)
+</code></pre>
+
+<pre><code>#&gt; [1] &quot;NHMSYS0001706186&quot; &quot;NBNSYS0000004786&quot;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;nbnid&quot;
+#&gt; attr(,&quot;match&quot;)
+#&gt; [1] &quot;found&quot; &quot;found&quot;
+#&gt; attr(,&quot;multiple_matches&quot;)
+#&gt; [1] TRUE TRUE
+#&gt; attr(,&quot;pattern_match&quot;)
+#&gt; [1] FALSE FALSE
+#&gt; attr(,&quot;uri&quot;)
+#&gt; [1] &quot;https://species.nbnatlas.org/species/NHMSYS0001706186&quot;
+#&gt; [2] &quot;https://species.nbnatlas.org/species/NBNSYS0000004786&quot;
+</code></pre>
+
+<p>Or you can select a range of rows</p>
+
+<pre><code class="language-r">get_nbnid(c(&quot;Zootoca vivipara&quot;,&quot;Pinus contorta&quot;), rows = 1:3)
+</code></pre>
+
+<pre><code>#&gt;              nbnid                    scientificName       rank
+#&gt; 1 NHMSYS0001706186                  Zootoca vivipara    species
+#&gt; 2 NHMSYS0020784960 Zootoca vivipara subsp. pannonica subspecies
+#&gt; 3 NHMSYS0020233881               Chaetozone vivipara    species
+#&gt;   taxonomicStatus
+#&gt; 1        accepted
+#&gt; 2        accepted
+#&gt; 3        accepted
+#&gt;              nbnid                scientificName    rank taxonomicStatus
+#&gt; 1 NBNSYS0000004786                Pinus contorta species        accepted
+#&gt; 2 NHMSYS0000494858 Pinus contorta var. murrayana variety        accepted
+#&gt; 3 NHMSYS0000494848  Pinus contorta var. contorta variety        accepted
+</code></pre>
+
+<pre><code>#&gt; [1] &quot;NHMSYS0001706186&quot; &quot;NBNSYS0000004786&quot;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;nbnid&quot;
+#&gt; attr(,&quot;match&quot;)
+#&gt; [1] &quot;found&quot; &quot;found&quot;
+#&gt; attr(,&quot;multiple_matches&quot;)
+#&gt; [1] TRUE TRUE
+#&gt; attr(,&quot;pattern_match&quot;)
+#&gt; [1] FALSE FALSE
+#&gt; attr(,&quot;uri&quot;)
+#&gt; [1] &quot;https://species.nbnatlas.org/species/NHMSYS0001706186&quot;
+#&gt; [2] &quot;https://species.nbnatlas.org/species/NBNSYS0000004786&quot;
+</code></pre>
+
+<p>In addition, in case you don&rsquo;t want to do interactive name selection in the case where there are a lot of names, you can get all data back with functions of the form, e.g., <code>get_tsn_()</code>, and likewise for other data sources. For example:</p>
+
+<pre><code class="language-r">out &lt;- get_nbnid_(&quot;Poa annua&quot;)
+NROW(out$`Poa annua`)
+</code></pre>
+
+<pre><code>#&gt; [1] 25
+</code></pre>
+
+<p>That&rsquo;s a lot of data, so we can get only certain rows back</p>
+
+<pre><code class="language-r">get_nbnid_(&quot;Poa annua&quot;, rows = 1:10)
+</code></pre>
+
+<pre><code>#&gt; $`Poa annua`
+#&gt;                guid    scientificName    rank taxonomicStatus
+#&gt; 1  NBNSYS0000002544         Poa annua species        accepted
+#&gt; 2  NBNSYS0200003392  Triumfetta annua species        accepted
+#&gt; 3  NBNSYS0000002918     Lunaria annua species        accepted
+#&gt; 4  NBNSYS0200001901      Bellis annua species        accepted
+#&gt; 5  NBNSYS0000033325   Artemisia annua species        accepted
+#&gt; 6  NHMSYS0000456951 Carrichtera annua species        accepted
+#&gt; 7  NBNSYS0200002555       Lonas annua species        accepted
+#&gt; 8  NBNSYS0200002917         Poa ampla species        accepted
+#&gt; 9  NBNSYS0200002926  Poa schimperiana species        accepted
+#&gt; 10 NBNSYS0200002923    Poa leptoclada species        accepted
+</code></pre>
+
+<h3 id="coerce-numerics-alphanumerics-to-taxon-ids">Coerce numerics/alphanumerics to taxon IDs</h3>
+
+<p>We&rsquo;ve also introduced in <code>v0.5</code> the ability to coerce numerics and alphanumerics to taxonomic ID classes that are usually only retrieved via <code>get_*()</code> functions.</p>
+
+<p>For example, adfafd</p>
+
+<pre><code class="language-r">as.gbifid(get_gbifid(&quot;Poa annua&quot;)) # already a uid, returns the same
+</code></pre>
+
+<pre><code>#&gt;    gbifid             scientificname    rank   status matchtype
+#&gt; 1 2704179               Poa annua L. species ACCEPTED     EXACT
+#&gt; 2 8422205 Poa annua Cham. &amp; Schltdl. species  SYNONYM     EXACT
+#&gt; 3 7730008           Poa annua Steud. species DOUBTFUL     EXACT
+</code></pre>
+
+<pre><code>#&gt; [1] &quot;2704179&quot;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;gbifid&quot;
+#&gt; attr(,&quot;match&quot;)
+#&gt; [1] &quot;found&quot;
+#&gt; attr(,&quot;multiple_matches&quot;)
+#&gt; [1] TRUE
+#&gt; attr(,&quot;pattern_match&quot;)
+#&gt; [1] FALSE
+#&gt; attr(,&quot;uri&quot;)
+#&gt; [1] &quot;http://www.gbif.org/species/2704179&quot;
+</code></pre>
+
+<pre><code class="language-r">as.gbifid(2704179) # numeric
+</code></pre>
+
+<pre><code>#&gt; [1] &quot;2704179&quot;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;gbifid&quot;
+#&gt; attr(,&quot;match&quot;)
+#&gt; [1] &quot;found&quot;
+#&gt; attr(,&quot;multiple_matches&quot;)
+#&gt; [1] FALSE
+#&gt; attr(,&quot;pattern_match&quot;)
+#&gt; [1] FALSE
+#&gt; attr(,&quot;uri&quot;)
+#&gt; [1] &quot;http://www.gbif.org/species/2704179&quot;
+</code></pre>
+
+<pre><code class="language-r">as.gbifid(&quot;2704179&quot;) # character
+</code></pre>
+
+<pre><code>#&gt; [1] &quot;2704179&quot;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;gbifid&quot;
+#&gt; attr(,&quot;match&quot;)
+#&gt; [1] &quot;found&quot;
+#&gt; attr(,&quot;multiple_matches&quot;)
+#&gt; [1] FALSE
+#&gt; attr(,&quot;pattern_match&quot;)
+#&gt; [1] FALSE
+#&gt; attr(,&quot;uri&quot;)
+#&gt; [1] &quot;http://www.gbif.org/species/2704179&quot;
+</code></pre>
+
+<pre><code class="language-r">as.gbifid(list(&quot;2704179&quot;,&quot;2435099&quot;,&quot;3171445&quot;)) # list, either numeric or character
+</code></pre>
+
+<pre><code>#&gt; [1] &quot;2704179&quot; &quot;2435099&quot; &quot;3171445&quot;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;gbifid&quot;
+#&gt; attr(,&quot;match&quot;)
+#&gt; [1] &quot;found&quot; &quot;found&quot; &quot;found&quot;
+#&gt; attr(,&quot;multiple_matches&quot;)
+#&gt; [1] FALSE FALSE FALSE
+#&gt; attr(,&quot;pattern_match&quot;)
+#&gt; [1] FALSE FALSE FALSE
+#&gt; attr(,&quot;uri&quot;)
+#&gt; [1] &quot;http://www.gbif.org/species/2704179&quot;
+#&gt; [2] &quot;http://www.gbif.org/species/2435099&quot;
+#&gt; [3] &quot;http://www.gbif.org/species/3171445&quot;
+</code></pre>
+
+<p>These <code>as.*()</code> functions do a quick check of the web resource to make sure it&rsquo;s a real ID. However, you can turn this check off, making this coercion much faster:</p>
+
+<pre><code class="language-r">system.time( replicate(3, as.gbifid(c(&quot;2704179&quot;,&quot;2435099&quot;,&quot;3171445&quot;), check=TRUE)) )
+</code></pre>
+
+<pre><code>#&gt;    user  system elapsed
+#&gt;   0.081   0.002   1.776
+</code></pre>
+
+<pre><code class="language-r">system.time( replicate(3, as.gbifid(c(&quot;2704179&quot;,&quot;2435099&quot;,&quot;3171445&quot;), check=FALSE)) )
+</code></pre>
+
+<pre><code>#&gt;    user  system elapsed
+#&gt;   0.004   0.000   0.003
+</code></pre>
+
+<h3 id="what-taxa-are-downstream-of-my-taxon-of-interest">What taxa are downstream of my taxon of interest?</h3>
+
+<p>If someone is not a taxonomic specialist on a particular taxon he likely does not know what children taxa are within a family, or within a genus. This task becomes especially unwieldy when there are a large number of taxa downstream. You can of course go to a website like <a href="http://species.wikimedia.org/wiki/Main_Page">Wikispecies</a> or <a href="http://eol.org/">Encyclopedia of Life</a> to get downstream names. However, taxize provides an easy way to programatically search for downstream taxa, both for the <a href="http://www.catalogueoflife.org/">Catalogue of Life (CoL)</a> and the <a href="http://www.itis.gov/">Integrated Taxonomic Information System</a>. Here is a short example using the CoL in which we want to find all the species within the genus <em>Apis</em> (honey bees).</p>
+
+<pre><code class="language-r">downstream(&quot;Apis&quot;, downto = &quot;Species&quot;, db = &quot;col&quot;)
+</code></pre>
+
+<pre><code>#&gt;                     name    rank                            colid
+#&gt; 1                   Apis   genus 015be25f6b061ba517f495394b80f108
+#&gt; 2      Actinomadura apis species 1182a102a18b40aa19385bf5f1f53367
+#&gt; 3    Anisocentropus apis species 8891d18874dde14e44df52e931c44206
+#&gt; 4     Apis andreniformis species 7a4a38c5095963949d6d6ec917d471de
+#&gt; 5            Apis cerana species 39610a4ceff7e5244e334a3fbc5e47e5
+#&gt; 6           Apis dorsata species e1d4cbf3872c6c310b7a1c17ddd00ebc
+#&gt; 7            Apis florea species 92dca82a063fedd1da94b3f3972d7b22
+#&gt; 8     Apis koschevnikovi species 4bbc06b9dfbde0b72c619810b564c6e6
+#&gt; 9         Apis mellifera species 67cbbcf92cd60748759e58e802d98518
+#&gt; 10      Apis nigrocincta species 213668a26ba6d2aad9575218f10d422f
+#&gt;          name_status  kingdom              family              acc_name
+#&gt; 1      accepted name Animalia              Apidae                  &lt;NA&gt;
+#&gt; 2      accepted name Bacteria Thermomonosporaceae                  &lt;NA&gt;
+#&gt; 3      accepted name Animalia     Calamoceratidae                  &lt;NA&gt;
+#&gt; 4      accepted name Animalia              Apidae                  &lt;NA&gt;
+#&gt; 5      accepted name Animalia              Apidae                  &lt;NA&gt;
+#&gt; 6      accepted name Animalia              Apidae                  &lt;NA&gt;
+#&gt; 7      accepted name Animalia              Apidae                  &lt;NA&gt;
+#&gt; 8      accepted name Animalia              Apidae                  &lt;NA&gt;
+#&gt; 9      accepted name Animalia              Apidae                  &lt;NA&gt;
+#&gt; 10     accepted name Animalia              Apidae                  &lt;NA&gt;
+...
+</code></pre>
+
+<pre><code>#&gt; $Apis
+#&gt;                       childtaxa_id     childtaxa_name childtaxa_rank
+#&gt; 1 7a4a38c5095963949d6d6ec917d471de Apis andreniformis        species
+#&gt; 2 39610a4ceff7e5244e334a3fbc5e47e5        Apis cerana        species
+#&gt; 3 e1d4cbf3872c6c310b7a1c17ddd00ebc       Apis dorsata        species
+#&gt; 4 92dca82a063fedd1da94b3f3972d7b22        Apis florea        species
+#&gt; 5 4bbc06b9dfbde0b72c619810b564c6e6 Apis koschevnikovi        species
+#&gt; 6 67cbbcf92cd60748759e58e802d98518     Apis mellifera        species
+#&gt; 7 213668a26ba6d2aad9575218f10d422f   Apis nigrocincta        species
+#&gt;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;downstream&quot;
+#&gt; attr(,&quot;db&quot;)
+#&gt; [1] &quot;col&quot;
+</code></pre>
+
+<p>We can also request data from ITIS</p>
+
+<pre><code class="language-r">downstream(&quot;Apis&quot;, downto = &quot;Species&quot;, db = &quot;itis&quot;)
+</code></pre>
+
+<pre><code>#&gt;         tsn                                    target
+#&gt; 1    592329                 Acanthagrion latapistylum
+#&gt; 2    606339                      Acritoptila capistra
+#&gt; 3    958884                         Actinomadura apis
+#&gt; 4    633997                                 Aglaoapis
+#&gt; 5    756292                           Aglaoapis alata
+#&gt; 6    756293                     Aglaoapis brevipennis
+#&gt; 7    756294                      Aglaoapis tridentata
+#&gt; 8    166914                              Amblyapistus
+#&gt; 9    166915                     Amblyapistus binotata
+#&gt; 10   166916                 Amblyapistus macracanthus
+#&gt;                                                          commonNames
+#&gt; 1                                                                 NA
+#&gt; 2                                                                 NA
+#&gt; 3                                                                 NA
+#&gt; 4                                                                 NA
+#&gt; 5                                                                 NA
+#&gt; 6                                                                 NA
+#&gt; 7                                                                 NA
+#&gt; 8                                                                 NA
+#&gt; 9                                                       redskin fish
+#&gt; 10                                                    cockscomb fish
+#&gt;        nameUsage
+#&gt; 1          valid
+#&gt; 2          valid
+#&gt; 3          valid
+#&gt; 4          valid
+#&gt; 5          valid
+#&gt; 6          valid
+#&gt; 7          valid
+#&gt; 8        invalid
+#&gt; 9        invalid
+#&gt; 10       invalid
+</code></pre>
+
+<pre><code>#&gt; $Apis
+#&gt;       tsn parentname parenttsn taxonname  rankid rankname
+#&gt; 1 No data    No data   No data   No data No data  no data
+#&gt;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;downstream&quot;
+#&gt; attr(,&quot;db&quot;)
+#&gt; [1] &quot;itis&quot;
+</code></pre>
+
+<h3 id="direct-children">Direct children</h3>
+
+<p>You may sometimes only want the direct children. We got you covered on that front, with methods for ITIS, NCBI, and Catalogue of Life. For example, let&rsquo;s get direct children (species in this case) of the bee genus <em>Apis</em> using COL data:</p>
+
+<pre><code class="language-r">children(get_colid(&quot;Apis&quot;))
+</code></pre>
+
+<pre><code>#&gt;                     name    rank                            colid
+#&gt; 1                   Apis   genus 015be25f6b061ba517f495394b80f108
+#&gt; 2      Actinomadura apis species 1182a102a18b40aa19385bf5f1f53367
+#&gt; 3    Anisocentropus apis species 8891d18874dde14e44df52e931c44206
+#&gt; 4     Apis andreniformis species 7a4a38c5095963949d6d6ec917d471de
+#&gt; 5            Apis cerana species 39610a4ceff7e5244e334a3fbc5e47e5
+#&gt; 6           Apis dorsata species e1d4cbf3872c6c310b7a1c17ddd00ebc
+#&gt; 7            Apis florea species 92dca82a063fedd1da94b3f3972d7b22
+#&gt; 8     Apis koschevnikovi species 4bbc06b9dfbde0b72c619810b564c6e6
+#&gt; 9         Apis mellifera species 67cbbcf92cd60748759e58e802d98518
+#&gt; 10      Apis nigrocincta species 213668a26ba6d2aad9575218f10d422f
+#&gt; 11      Ascosphaera apis species 088549f2fb602367e84d5ffdb8c1d4fc
+#&gt; 12          Candida apis species 3219a9635d3438e8b76a645cecf87287
+#&gt; 13        Eristalis apis species 16d7c8023308d38f6bb831ed5fa82002
+#&gt; 14           Hister apis species d2d7483acf488b5ed932f49b0aa51d19
+#&gt; 15        Ifephylus apis species 9b4d00e009b58bbfc003b51bd3d0c6f0
+#&gt; 16  Impatiens nidus-apis species 6aecf448e6aa0cb46387066db94426d1
+#&gt; 17      Kirkaldykra apis species 70a68f13454abd937aabf56746f4a6ad
+#&gt; 18          Mallota apis species 10c3c3921d2ea9f9425ef9fd41914520
+#&gt; 19 Melanosella mors-apis species 4ac238f1597847dbc7998d97b8d45a0e
+#&gt; 20         Microdon apis species 9be92242562eb923e711dc24b7bbab9a
+#&gt; 21           Nosema apis species 5b2838dfd0ec15844fc6f659f7580322
+#&gt; 22       Scutirodes apis species 164ab3ac910547bc945cdbb994be1ee5
+#&gt; 23      Spiroplasma apis species 789f91571ce55de4df9821f2d05efab0
+#&gt; 24   Trichomonascus apis species 17dc4d840323e2c5b87e67a952f6dff3
+#&gt; 25       Pericystis apis species 088549f2fb602367e84d5ffdb8c1d4fc
+#&gt; 26       Pericystis apis species 088549f2fb602367e84d5ffdb8c1d4fc
+#&gt; 27       Torulopsis apis species 3219a9635d3438e8b76a645cecf87287
+#&gt; 28       Torulopsis apis species 3219a9635d3438e8b76a645cecf87287
+#&gt; 29         Apis aestuans species a517bc572c3c2697fe3bbfabc46a1493
+#&gt; 30           Apis alpina species f2781627115e4212ddab5979cdd425d2
+#&gt; 31         Apis bicornis species e67e82d00faae69da173bb31f9914056
+#&gt; 32        Apis canescens species d6b8850db971d65d6079e3a22f35e10e
+#&gt; 33         Apis clypeata species 706060924801130f6c3abf454087c100
+#&gt; 34      Apis cunicularia species ebc3c5166ce2cabf419c4c6dc332cf3b
+#&gt; 35          Apis etrusca species 6d27fd39a1d8b10050ba4e331987f3c9
+#&gt; 36          Apis globosa species 254c8e847ca4ff128bba57fe94deb98d
+#&gt; 37        Apis hispanica species e8d2057a3efeb2cfdaebe27ea8191cd5
+#&gt; 38         Apis hypnorum species dfb743f54f50b9b9dbee378473542821
+#&gt; 39      Apis ichneumonea species 13c35287e20ab9373fa445dbc44981ea
+#&gt; 40        Apis lapidaria species f8da5667af3562ebc0f6a83e1ec408f0
+#&gt; 41         Apis muscorum species 5bbfe59da5ce7fe59eb9ca3a7a45916c
+#&gt; 42         Apis mystacea species fba8e4752a7fa5939a7eae293ba633ec
+#&gt; 43         Apis obsoleta species da42bcb6cc0267903fb175f8a215aecb
+#&gt; 44         Apis rostrata species e155a4277b66d1114182cafd875afbe3
+#&gt; 45         Apis rostrata species e155a4277b66d1114182cafd875afbe3
+#&gt; 46             Apis rufa species e67e82d00faae69da173bb31f9914056
+#&gt; 47          Apis signata species 551f101ad3b9bc17b24575585b2500c1
+#&gt; 48       Apis smaragdula species 4bc5c886b061e17e9aecb537a04c616d
+#&gt; 49        Apis spinulosa species 56e7e9f854c9ed31ea6d0a06567607d0
+#&gt; 50      Apis subterranea species 3d2adff364a87bf7dd30524aa8071807
+#&gt;          name_status  kingdom              family              acc_name
+#&gt; 1      accepted name Animalia              Apidae                  &lt;NA&gt;
+#&gt; 2      accepted name Bacteria Thermomonosporaceae                  &lt;NA&gt;
+#&gt; 3      accepted name Animalia     Calamoceratidae                  &lt;NA&gt;
+#&gt; 4      accepted name Animalia              Apidae                  &lt;NA&gt;
+#&gt; 5      accepted name Animalia              Apidae                  &lt;NA&gt;
+#&gt; 6      accepted name Animalia              Apidae                  &lt;NA&gt;
+#&gt; 7      accepted name Animalia              Apidae                  &lt;NA&gt;
+#&gt; 8      accepted name Animalia              Apidae                  &lt;NA&gt;
+#&gt; 9      accepted name Animalia              Apidae                  &lt;NA&gt;
+#&gt; 10     accepted name Animalia              Apidae                  &lt;NA&gt;
+#&gt; 11     accepted name    Fungi     Ascosphaeraceae                  &lt;NA&gt;
+#&gt; 12     accepted name    Fungi        Not assigned                  &lt;NA&gt;
+#&gt; 13     accepted name Animalia           Syrphidae                  &lt;NA&gt;
+#&gt; 14     accepted name Animalia          Histeridae                  &lt;NA&gt;
+#&gt; 15     accepted name Animalia             Miridae                  &lt;NA&gt;
+#&gt; 16     accepted name  Plantae       Balsaminaceae                  &lt;NA&gt;
+#&gt; 17     accepted name Animalia        Cicadellidae                  &lt;NA&gt;
+#&gt; 18     accepted name Animalia           Syrphidae                  &lt;NA&gt;
+#&gt; 19     accepted name    Fungi        Not assigned                  &lt;NA&gt;
+#&gt; 20     accepted name Animalia           Syrphidae                  &lt;NA&gt;
+#&gt; 21     accepted name Protozoa         Nosematidae                  &lt;NA&gt;
+#&gt; 22     accepted name Animalia           Noctuidae                  &lt;NA&gt;
+#&gt; 23     accepted name Bacteria   Spiroplasmataceae                  &lt;NA&gt;
+#&gt; 24     accepted name    Fungi   Trichomonascaceae                  &lt;NA&gt;
+#&gt; 25 ambiguous synonym     &lt;NA&gt;                &lt;NA&gt;      Ascosphaera apis
+#&gt; 26 ambiguous synonym     &lt;NA&gt;                &lt;NA&gt;      Ascosphaera apis
+#&gt; 27 ambiguous synonym     &lt;NA&gt;                &lt;NA&gt;          Candida apis
+#&gt; 28 ambiguous synonym     &lt;NA&gt;                &lt;NA&gt;          Candida apis
+#&gt; 29           synonym     &lt;NA&gt;                &lt;NA&gt;     Xylocopa aestuans
+#&gt; 30           synonym     &lt;NA&gt;                &lt;NA&gt;        Bombus alpinus
+#&gt; 31           synonym     &lt;NA&gt;                &lt;NA&gt;            Osmia rufa
+#&gt; 32           synonym     &lt;NA&gt;                &lt;NA&gt;      Bembix canescens
+#&gt; 33           synonym     &lt;NA&gt;                &lt;NA&gt;      Lestica clypeata
+#&gt; 34           synonym     &lt;NA&gt;                &lt;NA&gt; Colletes cunicularius
+#&gt; 35           synonym     &lt;NA&gt;                &lt;NA&gt;     Tachytes etruscus
+#&gt; 36           synonym     &lt;NA&gt;                &lt;NA&gt;   Exomalopsis similis
+#&gt; 37           synonym     &lt;NA&gt;                &lt;NA&gt; Tachytes freygessneri
+#&gt; 38           synonym     &lt;NA&gt;                &lt;NA&gt;       Bombus hypnorum
+#&gt; 39           synonym     &lt;NA&gt;                &lt;NA&gt;    Sphex ichneumoneus
+#&gt; 40           synonym     &lt;NA&gt;                &lt;NA&gt;     Bombus lapidarius
+#&gt; 41           synonym     &lt;NA&gt;                &lt;NA&gt;       Bombus muscorum
+#&gt; 42           synonym     &lt;NA&gt;                &lt;NA&gt; Argogorytes mystaceus
+#&gt; 43           synonym     &lt;NA&gt;                &lt;NA&gt;    Tachytes obsoletus
+#&gt; 44           synonym     &lt;NA&gt;                &lt;NA&gt;       Bembix rostrata
+#&gt; 45           synonym     &lt;NA&gt;                &lt;NA&gt;       Bembix rostrata
+#&gt; 46           synonym     &lt;NA&gt;                &lt;NA&gt;            Osmia rufa
+#&gt; 47           synonym     &lt;NA&gt;                &lt;NA&gt;       Stictia signata
+#&gt; 48           synonym     &lt;NA&gt;                &lt;NA&gt;   Ceratina smaragdula
+#&gt; 49           synonym     &lt;NA&gt;                &lt;NA&gt;   Hoplosmia spinulosa
+#&gt; 50           synonym     &lt;NA&gt;                &lt;NA&gt;   Bombus subterraneus
+</code></pre>
+
+<pre><code>#&gt; $`015be25f6b061ba517f495394b80f108`
+#&gt;                       childtaxa_id     childtaxa_name childtaxa_rank
+#&gt; 1 7a4a38c5095963949d6d6ec917d471de Apis andreniformis        species
+#&gt; 2 39610a4ceff7e5244e334a3fbc5e47e5        Apis cerana        species
+#&gt; 3 e1d4cbf3872c6c310b7a1c17ddd00ebc       Apis dorsata        species
+#&gt; 4 92dca82a063fedd1da94b3f3972d7b22        Apis florea        species
+#&gt; 5 4bbc06b9dfbde0b72c619810b564c6e6 Apis koschevnikovi        species
+#&gt; 6 67cbbcf92cd60748759e58e802d98518     Apis mellifera        species
+#&gt; 7 213668a26ba6d2aad9575218f10d422f   Apis nigrocincta        species
+#&gt;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;children&quot;
+#&gt; attr(,&quot;db&quot;)
+#&gt; [1] &quot;col&quot;
+</code></pre>
+
+<p>The direct children (genera in this case) of <em>Pinaceae</em> using NCBI data:</p>
+
+<pre><code class="language-r">children(&quot;Pinaceae&quot;, db = &quot;ncbi&quot;)
+</code></pre>
+
+<pre><code>#&gt; $Pinaceae
+#&gt;    childtaxa_id childtaxa_name childtaxa_rank
+#&gt; 1        123600     Nothotsuga          genus
+#&gt; 2         64685        Cathaya          genus
+#&gt; 3          3358          Tsuga          genus
+#&gt; 4          3356    Pseudotsuga          genus
+#&gt; 5          3354    Pseudolarix          genus
+#&gt; 6          3337          Pinus          genus
+#&gt; 7          3328          Picea          genus
+#&gt; 8          3325          Larix          genus
+#&gt; 9          3323     Keteleeria          genus
+#&gt; 10         3321         Cedrus          genus
+#&gt; 11         3319          Abies          genus
+#&gt;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;children&quot;
+#&gt; attr(,&quot;db&quot;)
+#&gt; [1] &quot;ncbi&quot;
+</code></pre>
+
+<h3 id="get-ncbi-id-from-genbank-ids">Get NCBI ID from GenBank Ids</h3>
+
+<p>With accession numbers</p>
+
+<pre><code class="language-r">genbank2uid(id = 'AJ748748')
+</code></pre>
+
+<pre><code>#&gt; [1] &quot;282199&quot;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;uid&quot;
+#&gt; attr(,&quot;match&quot;)
+#&gt; [1] &quot;found&quot;
+#&gt; attr(,&quot;multiple_matches&quot;)
+#&gt; [1] FALSE
+#&gt; attr(,&quot;pattern_match&quot;)
+#&gt; [1] FALSE
+#&gt; attr(,&quot;uri&quot;)
+#&gt; [1] &quot;http://www.ncbi.nlm.nih.gov/taxonomy/282199&quot;
+</code></pre>
+
+<p>With gi numbers</p>
+
+<pre><code class="language-r">genbank2uid(id = 62689767)
+</code></pre>
+
+<pre><code>#&gt; [1] &quot;282199&quot;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;uid&quot;
+#&gt; attr(,&quot;match&quot;)
+#&gt; [1] &quot;found&quot;
+#&gt; attr(,&quot;multiple_matches&quot;)
+#&gt; [1] FALSE
+#&gt; attr(,&quot;pattern_match&quot;)
+#&gt; [1] FALSE
+#&gt; attr(,&quot;uri&quot;)
+#&gt; [1] &quot;http://www.ncbi.nlm.nih.gov/taxonomy/282199&quot;
+</code></pre>
+
+<h3 id="citing">Citing</h3>
+
+<p>To cite <code>taxize</code> in publications use:</p>
+
+<p><br></p>
+
+<blockquote>
+<p>Scott Chamberlain and Eduard Szocs (2013). taxize - taxonomic search and retrieval in R. F1000Research, 2:191. URL: <a href="http://f1000research.com/articles/2-191/v2">http://f1000research.com/articles/2-191/v2</a>.</p>
+
+<p>Scott Chamberlain, Eduard Szocs, Carl Boettiger, Karthik Ram, Ignasi
+  Bartomeus, John Baumgartner, Zachary Foster, James O&rsquo;Donnell, and
+  Jari Oksanen (2017). taxize: Taxonomic information from around the web. R package
+  version 0.9.0. <a href="https://github.com/ropensci/taxize">https://github.com/ropensci/taxize</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/taxize/issues?state=open">our Github repo for taxize</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

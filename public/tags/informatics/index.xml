@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Informatics on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/informatics/</link>
+    <description>Recent content in Informatics on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 18 Feb 2014 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/informatics/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>AntWeb - programmatic interface to ant biodiversity data</title>
+      <link>https://ropensci.org/blog/2014/02/18/antweb/</link>
+      <pubDate>Tue, 18 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2014/02/18/antweb/</guid>
+      <description>
+        
+        
+
+&lt;!-- &lt;div class=&#34;alert alert-info&#34; role=&#34;alert&#34;&gt;
+This post was updated on August 20, 2014, with &lt;code&gt;AntWeb&lt;/code&gt; version &lt;code&gt;0.7.2.99&lt;/code&gt;. Please install an updated version to make sure the code works.
+&lt;/div&gt; --&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;This post was updated on August 20, 2014, with &lt;code&gt;AntWeb&lt;/code&gt; version &lt;code&gt;0.7.2.99&lt;/code&gt;. Please install an updated version to make sure the code works.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2014-02-18-antweb/casent0003205_h_1_high.jpg&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Data on more than &lt;code&gt;10,000&lt;/code&gt; species of ants recorded worldwide are available through from &lt;a href=&#34;http://www.calacademy.org/&#34;&gt;California Academy of Sciences&lt;/a&gt;&amp;rsquo; &lt;a href=&#34;http://www.antweb.org/&#34;&gt;AntWeb&lt;/a&gt;, a repository that boasts a wealth of natural history data, digital images, and specimen records on ant species from a large community of museum curators.&lt;/p&gt;
+
+&lt;p&gt;Digging through some of the earliest announcements of AntWeb, I came across a Nature News piece titled &lt;strong&gt;&amp;ldquo;Mashups mix data into global service&amp;rdquo;&lt;/strong&gt; from January 2006. The article contains this great quote from &lt;a href=&#34;http://en.wikipedia.org/wiki/Roderic_D.M._Page&#34;&gt;Roderic Page&lt;/a&gt; &lt;em&gt;&amp;ldquo;If you could pool data from every museum or lab in the world, you could do amazing things&amp;rdquo;&lt;/em&gt;. The article also says &lt;em&gt;&amp;ldquo;So far, only researchers with advanced programming skills, working in fields organized enough to have data online and tagged appropriately, have been able to do this.&amp;rdquo;&lt;/em&gt;  In many ways this really is motivation for why we develop interfaces to these rich data repositories. Our express intent is to facilitate researchers explore amazing opportunities that lie within such data by lowering techinical barriers to use. Right on the heels of our most recent package (&lt;a href=&#34;http://ropensci.org/blog/2014/01/30/ecoengine/&#34;&gt;&lt;code&gt;ecoengine&lt;/code&gt;&lt;/a&gt;), we are now happy to first release of an interface to  &lt;a href=&#34;http://www.antweb.org/&#34;&gt;AntWeb&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;A stable version of our R package &lt;a href=&#34;http://ropensci.org/AntWeb.html&#34;&gt;AntWeb&lt;/a&gt; is now available from CRAN. The API currently does not require a key for access  but larger requests will be throttled on the server side. It is worth noting that much of these same data are also ported through the Global Biodiversity Information Facility and accessible through our &lt;a href=&#34;http://ropensci.org/rgbif.html&#34;&gt;&lt;code&gt;gbif&lt;/code&gt;&lt;/a&gt; package. This package provides a more direct interface to more of the ant specific natural history data.&lt;/p&gt;
+
+&lt;h2 id=&#34;installing-the-package&#34;&gt;Installing the package&lt;/h2&gt;
+
+&lt;p&gt;A stable version of the package (&lt;code&gt;0.7&lt;/code&gt;) is now available on CRAN.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;AntWeb&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or you can install the latest development version (the master branch is also always stable &amp;amp; deployable and most up-to-date. Current version is &lt;code&gt;0.5.3&lt;/code&gt; at the time of this writing).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(devtools)
+install_github(&amp;quot;ropensci/AntWeb&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;searching-through-the-database&#34;&gt;Searching through the database&lt;/h2&gt;
+
+&lt;p&gt;As with most of our packages, there are several ways to search through an API. In the case of AntWeb, you can search by a genus or full species name or by other taxonomic ranks like sub-phylum.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Data on ants&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;To obtain data on any taxonomic group, you can make a request using the &lt;code&gt;aw_data()&lt;/code&gt; function. It&amp;rsquo;s possible to search easily by a taxonomic rank (e.g. a genus) or by passing a complete scientific name.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Searching by Genus&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(AntWeb)
+# To get data on an ant genus found widely through Central and South America
+data_genus_only &amp;lt;- aw_data(genus = &amp;quot;acanthognathus&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  430 results available for query.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;leaf_cutter_ants  &amp;lt;- aw_data(genus = &amp;quot;acromyrmex&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  713 results available for query.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;unique(leaf_cutter_ants$data$scientific_name)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;   [1] &amp;quot;acromyrmex versicolor&amp;quot;   &amp;quot;acromyrmex striatus&amp;quot;
+   [3] &amp;quot;acromyrmex balzani&amp;quot;      &amp;quot;acromyrmex coronatus&amp;quot;
+   [5] &amp;quot;acromyrmex crassispinus&amp;quot; &amp;quot;acromyrmex heyeri&amp;quot;
+   [7] &amp;quot;acromyrmex lundii&amp;quot;       &amp;quot;acromyrmex fracticornis&amp;quot;
+   [9] &amp;quot;acromyrmex niger&amp;quot;        &amp;quot;acromyrmex nigrosetosus&amp;quot;
+  [11] &amp;quot;acromyrmex rugosus&amp;quot;      &amp;quot;acromyrmex subterraneus&amp;quot;
+  [13] &amp;quot;acromyrmex alw01&amp;quot;        &amp;quot;acromyrmex alw02&amp;quot;
+  [15] &amp;quot;acromyrmex alw03&amp;quot;        &amp;quot;acromyrmex alw04&amp;quot;
+  [17] &amp;quot;acromyrmex octospinosus&amp;quot; &amp;quot;acromyrmex lobicornis&amp;quot;
+  [19] &amp;quot;acromyrmex silvestrii&amp;quot;   &amp;quot;acromyrmex landolti&amp;quot;
+  [21] &amp;quot;acromyrmex ambiguus&amp;quot;     &amp;quot;acromyrmex hystrix&amp;quot;
+  [23] &amp;quot;acromyrmex laticeps&amp;quot;     &amp;quot;acromyrmex indet&amp;quot;
+  [25] &amp;quot;acromyrmex echinatior&amp;quot;   &amp;quot;acromyrmex volcanus&amp;quot;
+  [27] &amp;quot;acromyrmex disciger&amp;quot;     &amp;quot;acromyrmex aspersus&amp;quot;
+  [29] &amp;quot;acromyrmex pubescens&amp;quot;    &amp;quot;acromyrmex moelleri&amp;quot;
+  [31] &amp;quot;acromyrmex evenkul&amp;quot;      &amp;quot;acromyrmex hispidus&amp;quot;
+  [33] &amp;quot;acromyrmex nobilis&amp;quot;      &amp;quot;acromyrmex pulvereus&amp;quot;
+  [35] &amp;quot;acromyrmex lundi&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Searching by species&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# You can request data on any particular species
+acanthognathus_df &amp;lt;- aw_data(scientific_name = &amp;quot;acanthognathus brevicornis&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  2 results available for query.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(acanthognathus_df)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  $count
+  [1] 2
+
+  $call
+  $call$genus
+  [1] &amp;quot;acanthognathus&amp;quot;
+
+  $call$species
+  [1] &amp;quot;brevicornis&amp;quot;
+
+
+  $data
+                                                                url
+  1 http://antweb.org/api/v2/?occurrenceId=CAS:ANTWEB:casent0280684
+  2 http://antweb.org/api/v2/?occurrenceId=CAS:ANTWEB:casent0637708
+    catalogNumber     family  subfamily          genus specificEpithet
+  1 casent0280684 formicidae myrmicinae Acanthognathus     brevicornis
+  2 casent0637708 formicidae myrmicinae Acanthognathus     brevicornis
+               scientific_name typeStatus stateProvince  country
+  1 acanthognathus brevicornis                          Colombia
+  2 acanthognathus brevicornis
+    dateIdentified habitat minimumElevationInMeters
+  1                                              NA
+  2     2013-09-12                               NA
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# You can also limit queries to observation records that have been geoferenced
+acanthognathus_df_geo &amp;lt;- aw_data(genus = &amp;quot;acanthognathus&amp;quot;, species = &amp;quot;brevicornis&amp;quot;, georeferenced = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It&amp;rsquo;s also possible to search for records around any location by specifying a search radius.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;data_by_loc &amp;lt;- aw_coords(coord = &amp;quot;37.76,-122.45&amp;quot;, r = 2)
+# This will search for data on a 2 km radius around that latitude/longitude
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Image data&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Most specimens in the database have images associated with them. These include high, medium, and low resolution version of the head, dorsal side, full profile, and the specimen label. For example we can retrieve data on a specimen of &lt;em&gt;Ecitoninaeeciton burchellii&lt;/em&gt; with the following call:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Data and images for Ecitoninaeeciton burchellii
+eb &amp;lt;- aw_code(occurrenceid =&amp;quot;CAS:ANTWEB:casent0003205&amp;quot;)
+eb$image_data$high[[2]]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  NULL
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you&amp;rsquo;re primarily interested in ant images and would like to keep up with recent additions to the database, you can also use the &lt;code&gt;aw_images&lt;/code&gt; function. This function takes two arguments: &lt;code&gt;since&lt;/code&gt;, the number of days to search backward, and a &lt;code&gt;type&lt;/code&gt;. Possible options for type are &lt;code&gt;h&lt;/code&gt; for head, &lt;code&gt;d&lt;/code&gt; for dorsal, &lt;code&gt;p&lt;/code&gt; for profile, and &lt;code&gt;l&lt;/code&gt; for label. If a type is not specified, all available images are retrieved.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Retrieve only dorsal images for the last five days
+head(aw_images(since = 5, img_type = &amp;quot;d&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;                                                                     high
+  1 http://www.antweb.org/images/casent0914000/casent0914000_d_1_high.jpg
+  2 http://www.antweb.org/images/antweb1008677/antweb1008677_d_1_high.jpg
+  3 http://www.antweb.org/images/casent0906977/casent0906977_d_1_high.jpg
+  4 http://www.antweb.org/images/casent0914012/casent0914012_d_1_high.jpg
+  5 http://www.antweb.org/images/antweb1008691/antweb1008691_d_1_high.jpg
+  6 http://www.antweb.org/images/casent0906997/casent0906997_d_1_high.jpg
+                                                                     med
+  1 http://www.antweb.org/images/casent0914000/casent0914000_d_1_low.jpg
+  2 http://www.antweb.org/images/antweb1008677/antweb1008677_d_1_low.jpg
+  3 http://www.antweb.org/images/casent0906977/casent0906977_d_1_low.jpg
+  4 http://www.antweb.org/images/casent0914012/casent0914012_d_1_low.jpg
+  5 http://www.antweb.org/images/antweb1008691/antweb1008691_d_1_low.jpg
+  6 http://www.antweb.org/images/casent0906997/casent0906997_d_1_low.jpg
+                                                                     low
+  1 http://www.antweb.org/images/casent0914000/casent0914000_d_1_med.jpg
+  2 http://www.antweb.org/images/antweb1008677/antweb1008677_d_1_med.jpg
+  3 http://www.antweb.org/images/casent0906977/casent0906977_d_1_med.jpg
+  4 http://www.antweb.org/images/casent0914012/casent0914012_d_1_med.jpg
+  5 http://www.antweb.org/images/antweb1008691/antweb1008691_d_1_med.jpg
+  6 http://www.antweb.org/images/casent0906997/casent0906997_d_1_med.jpg
+                                                                     thumbnail
+  1 http://www.antweb.org/images/casent0914000/casent0914000_d_1_thumbview.jpg
+  2 http://www.antweb.org/images/antweb1008677/antweb1008677_d_1_thumbview.jpg
+  3 http://www.antweb.org/images/casent0906977/casent0906977_d_1_thumbview.jpg
+  4 http://www.antweb.org/images/casent0914012/casent0914012_d_1_thumbview.jpg
+  5 http://www.antweb.org/images/antweb1008691/antweb1008691_d_1_thumbview.jpg
+  6 http://www.antweb.org/images/casent0906997/casent0906997_d_1_thumbview.jpg
+    img_type                                                catalog_id
+  1        d http://www.antweb.org/api/v2/?catalogNumber=casent0914000
+  2        d http://www.antweb.org/api/v2/?catalogNumber=antweb1008677
+  3        d http://www.antweb.org/api/v2/?catalogNumber=casent0906977
+  4        d http://www.antweb.org/api/v2/?catalogNumber=casent0914012
+  5        d http://www.antweb.org/api/v2/?catalogNumber=antweb1008691
+  6        d http://www.antweb.org/api/v2/?catalogNumber=casent0906997
+            upload_date
+  1 2014-08-15 15:11:14
+  2 2014-08-20 13:52:13
+  3 2014-08-15 15:11:14
+  4 2014-08-15 15:11:15
+  5 2014-08-20 13:52:13
+  6 2014-08-15 15:11:15
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;It&amp;rsquo;s also possible to retrieve unique lists of any taxonomic rank using the &lt;code&gt;aw_unique&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;subfamily_list &amp;lt;- aw_distinct(rank = &amp;quot;subfamily&amp;quot;)
+subfamily_list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  [Total results on the server]: 67
+  [Args]:
+  rank = subfamily
+  limit = 1000
+  [Dataset]: [67 x 1]
+  [Data preview] :
+  [1] apidae     bethylidae
+  67 Levels: aenictinae agroecomyrmecinae amblyoponinae ... xylocopinae
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;genus_list &amp;lt;- aw_distinct(rank = &amp;quot;genus&amp;quot;)
+genus_list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  [Total results on the server]: 490
+  [Args]:
+  rank = genus
+  limit = 1000
+  [Dataset]: [490 x 1]
+  [Data preview] :
+  [1] Aenictinae    Amblyoponinae
+  490 Levels: Acanthognathus Acanthomyrmex Acanthoponera ... Zigrasimecia
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;species_list &amp;lt;- aw_distinct(rank = &amp;quot;species&amp;quot;)
+species_list
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  [Total results on the server]: 10547
+  [Args]:
+  rank = species
+  limit = 1000
+  [Dataset]: [1000 x 1]
+  [Data preview] :
+  [1] basicerotini indet
+  1000 Levels: a abbreviata abdelazizi abdera abdita abditivata ... orizabanum_complex
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you work with existing specimens, you can also query directly by a specimen ID.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;(data_by_code &amp;lt;- aw_code(catalogNumber=&amp;quot;inb0003695883&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  [Total results on the server]: 1
+  [Args]:
+  catalogNumber = inb0003695883
+  [Dataset]: [1 x 16]
+  [Data preview] :
+                                                       specimens.url
+  1  http://antweb.org/api/v2/?occurrenceId=CAS:ANTWEB:inb0003695883
+  NA                                                            &amp;lt;NA&amp;gt;
+     specimens.catalogNumber specimens.family specimens.subfamily
+  1            inb0003695883       formicidae          myrmicinae
+  NA                    &amp;lt;NA&amp;gt;             &amp;lt;NA&amp;gt;                &amp;lt;NA&amp;gt;
+     specimens.genus specimens.specificEpithet specimens.scientific_name
+  1   Acanthognathus                teledectus acanthognathus teledectus
+  NA            &amp;lt;NA&amp;gt;                      &amp;lt;NA&amp;gt;                      &amp;lt;NA&amp;gt;
+     specimens.typeStatus specimens.stateProvince specimens.country
+  1                                       Heredia        Costa Rica
+  NA                 &amp;lt;NA&amp;gt;                    &amp;lt;NA&amp;gt;              &amp;lt;NA&amp;gt;
+     specimens.dateIdentified                       specimens.habitat
+  1                2006-11-02 mature wet forest ex sifted leaf litter
+  NA                     &amp;lt;NA&amp;gt;                                    &amp;lt;NA&amp;gt;
+     specimens.minimumElevationInMeters specimens.geojson.type
+  1                                  50                  point
+  NA                               &amp;lt;NA&amp;gt;                   &amp;lt;NA&amp;gt;
+     decimal_latitude decimal_longitude
+  1         10.413477        -84.023636
+  NA             &amp;lt;NA&amp;gt;              &amp;lt;NA&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# This will return a list with a metadata data.frame and a image data.frame
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you have a multiple specimen IDs, as is often the case when working with research data, you can get data on all of them at the same time. The function automatically retuns &lt;code&gt;NULL&lt;/code&gt; values when no data are found and you can have these removed using &lt;code&gt;plyr::compact&lt;/code&gt; (this happens automatically when you use a function call like &lt;code&gt;ldply&lt;/code&gt;.)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;specimens &amp;lt;- c(&amp;quot;casent0908629&amp;quot;, &amp;quot;casent0908650&amp;quot;, &amp;quot;casent0908637&amp;quot;)
+results &amp;lt;- lapply(specimens, function(x) aw_code(x))
+names(results) &amp;lt;- specimens
+length(results)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;  [1] 3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;mapping-ant-specimen-data&#34;&gt;Mapping ant specimen data&lt;/h2&gt;
+
+&lt;p&gt;As with the previous ecoengine package, you can also visualize location data for any set of species. Adding &lt;code&gt;georeferenced = TRUE&lt;/code&gt; to a data retrieval call will filter out any data points without location information. Once retrieved the data are mapped with the open source &lt;a href=&#34;http://leafletjs.com/&#34;&gt;Leaflet.js&lt;/a&gt; and pushed to your default browser. Maps and associated &lt;code&gt;geoJSON&lt;/code&gt; files are also saved to a location specified (or defaults to your &lt;code&gt;/tmp&lt;/code&gt; folder). This feature is only available on the development version on GitHub (&lt;code&gt;0.5.2&lt;/code&gt; or greater; see above on how to install) and will be available from CRAN in version &lt;code&gt;0.6&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;acd &amp;lt;- aw_data(genus = &amp;quot;acanthognathus&amp;quot;)
+aw_map(acd)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2014-02-18-antweb/antweb_map.png&#34; alt=&#34;Distribution of long trap-jaw ants in Central and South America&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;integration-with-the-rest-of-our-biodiversity-suite&#34;&gt;Integration with the rest of our biodiversity suite&lt;/h2&gt;
+
+&lt;p&gt;Our newest package on CRAN, &lt;a href=&#34;https://github.com/ropensci/spocc&#34;&gt;&lt;code&gt;spocc&lt;/code&gt;&lt;/a&gt; (Species Occurrence Data), currently in review at CRAN, integrates &lt;code&gt;AntWeb&lt;/code&gt; among other sources. More details on &lt;code&gt;spocc&lt;/code&gt; in our next blog post.&lt;/p&gt;
+
+&lt;p&gt;As always please send &lt;a href=&#34;https://github.com/ropensci/AntWeb/issues/new&#34;&gt;suggestions, bug reports, and ideas&lt;/a&gt; related to the AntWeb R package directly to our repo.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Introducing the ecoengine package</title>
+      <link>https://ropensci.org/blog/2014/01/30/ecoengine/</link>
+      <pubDate>Thu, 30 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2014/01/30/ecoengine/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Natural history museums have long been valuable repositories of data on species diversity. These data have been critical for fostering and shaping the development of fields such as  biogeography and systematics. The importance of these data repositories is becoming increasingly important, especially in the context of climate change, where a strong understanding of how species responded to past climate is key to understanding their responses in the future. Leading the way in opening up such valuable data is a new effort by the &lt;a href=&#34;http://globalchange.berkeley.edu/ecoinformatics-engine&#34;&gt; Berkeley Initiative in Global Change Biology&lt;/a&gt; called the &lt;a href=&#34;http://ecoengine.berkeley.edu/&#34;&gt;Ecoengine&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The engine is a &lt;a href=&#34;http://ecoengine.berkeley.edu/&#34;&gt;fast and open API&lt;/a&gt; that provides access to over 3 million specimens and vegetation data from surveys. Many of these specimens have already been georeferenced opening up several use cases for such data. In addition, the engine also provides access to species checklists and sensor data from the Keck Hydrowatch project from the Eel river field station. Our newest package, &lt;code&gt;ecoengine&lt;/code&gt;, provides an easy interface to these data.&lt;/p&gt;
+
+&lt;h3 id=&#34;installing-the-package&#34;&gt;Installing the package&lt;/h3&gt;
+
+&lt;p&gt;A stable version of the package (&lt;code&gt;1.1&lt;/code&gt;) is now &lt;a href=&#34;http://cran.r-project.org/web/packages/ecoengine/index.html&#34;&gt;available on CRAN&lt;/a&gt;. To install:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;ecoengine&amp;quot;)
+# A small bug with factors (to be resolved in a couple of days in 1.1.2) requires strings as factors to be FALSE
+options(stringsAsFactors = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can also install a development version of the package that has additional features (more below), with several new updates that will appear on the next CRAN version (ETA mid-March). To install the development version:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(devtools)
+install_github(&amp;quot;ropensci/ecoengine&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Observation data&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The workhorse function of the package is &lt;code&gt;ee_observations()&lt;/code&gt; which provides a way to query any taxonomic field. Searches for any field are automatically fuzzy but one can request exact searches by adding &lt;code&gt;__exact&lt;/code&gt; (note the two underscores) to any field being searched. So for example, if you are interested in data on the genus lynx, one can query those data like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(ecoengine)
+lynx_data &amp;lt;- ee_observations(genus = &amp;quot;lynx&amp;quot;, progress = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Search contains 795 observations (downloading 1 of 1 pages)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;lynx_data
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [Total results]: 795
+## [Args]:
+## country = United States
+## genus = lynx
+## georeferenced = FALSE
+## page_size = 25
+## page = 1
+## [Type]: observations
+## [Number of results]: 25
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All ecoengine queries are returned as &lt;code&gt;S3&lt;/code&gt; objects of class &lt;code&gt;ecoengine&lt;/code&gt;. The object includes a total number of results available, the arguments used (so someone else can reconstruct the same query), the type of data returned (&lt;code&gt;photos&lt;/code&gt;, &lt;code&gt;observations&lt;/code&gt;, &lt;code&gt;checklists&lt;/code&gt;, &lt;code&gt;sensor&lt;/code&gt;), and the actual data itself. The results are paginated to prevent large requests from hanging part way. Each call returns 25 observations (can be overridden) and one can request more data by passing a page argument (e.g. &lt;code&gt;page = 1&lt;/code&gt;). Pages can also be ranges, or &amp;ldquo;all&amp;rdquo; to request all available data for a query. The pagination method allows calls to be parallelized and reassembled easily, especially when requests may return tens of thousand of records. In this case there are only &lt;code&gt;795&lt;/code&gt; records so we can request everything in one go.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(ecoengine)
+lynx_data &amp;lt;- ee_observations(genus = &amp;quot;lynx&amp;quot;, progress = FALSE, page = &amp;quot;all&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Search contains 795 observations (downloading 32 of 32 pages)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# The progress bar is useful on the command line but tends to clutter up
+# documentation which is why it’s been turned off here. Messages can also be
+# turned off with quiet = TRUE
+lynx_data
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [Total results]: 795
+## [Args]:
+## country = United States
+## genus = lynx
+## georeferenced = FALSE
+## page_size = 25
+## page = all
+## [Type]: observations
+## [Number of results]: 795
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Other fields (all documented and available from &lt;code&gt;?ee_observations&lt;/code&gt;) include kingdom, phylum, clss (intentionally misspelled to avoid conflict with a sql keyword), genus and scientific_name. Any of these fields can also be searched exactly by adding &lt;code&gt;__exact&lt;/code&gt; at the end.&lt;/p&gt;
+
+&lt;p&gt;We can request georeferenced data only for visualization purposes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;lynx_data &amp;lt;- ee_observations(genus = &amp;quot;lynx&amp;quot;, progress = FALSE, page = &amp;quot;all&amp;quot;,
+    georeferenced = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Search contains 714 observations (downloading 29 of 29 pages)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and it’s easy to examine these data as an interactive map using the &lt;code&gt;ee_map&lt;/code&gt; function (the function is currently only available in the dev version).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ee_map(lynx_data)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This generates an interactive Leaflet JS map and renders to your default browser. You can easily embed such maps into talks using iFrames and &lt;a href=&#34;http://slidify.org/&#34;&gt;Slidify&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2014-01-30-ecoengine/ecoengine_map.png&#34; alt=&#34;Map of Lynx observations across North America&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The search possibilities are endless and the data can be supplemented by many other sources in our site (e.g. taxize). Here are a few example queries.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;pinus &amp;lt;- ee_observations(scientific_name = &amp;quot;Pinus&amp;quot;)
+lynx_data &amp;lt;- ee_observations(genus = &amp;quot;Lynx&amp;quot;)
+# Georeferenced data only
+lynx_data &amp;lt;- ee_observations(genus = &amp;quot;Lynx&amp;quot;, georeferenced = TRUE)
+animalia &amp;lt;- ee_observations(kingdom = &amp;quot;Animalia&amp;quot;)
+Artemisia &amp;lt;- ee_observations(scientific_name = &amp;quot;Artemisia douglasiana&amp;quot;)
+asteraceae &amp;lt;- ee_observationss(family = &amp;quot;asteraceae&amp;quot;)
+vulpes &amp;lt;- ee_observations(genus = &amp;quot;vulpes&amp;quot;)
+Anas &amp;lt;- ee_observations(scientific_name = &amp;quot;Anas cyanoptera&amp;quot;, page = &amp;quot;all&amp;quot;)
+loons &amp;lt;- ee_observations(scientific_name = &amp;quot;Gavia immer&amp;quot;, page = &amp;quot;all&amp;quot;)
+plantae &amp;lt;- ee_observations(kingdom = &amp;quot;plantae&amp;quot;)
+chordata &amp;lt;- ee_observations(phylum = &amp;quot;chordata&amp;quot;)
+# Class is clss since the former is a reserved keyword in SQL.
+aves &amp;lt;- ee_observations(clss = &amp;quot;aves&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Checklist data&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The museum contains checklists of species spanning a long time scale. To query checklists, use &lt;code&gt;ee_checklists()&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;all_lists &amp;lt;- ee_checklists()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Returning 57 checklists
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(all_lists[, c(&amp;quot;footprint&amp;quot;, &amp;quot;subject&amp;quot;)])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##                                                        footprint
+## 1   http://ecoengine.berkeley.edu/api/footprints/angelo-reserve/
+## 2   http://ecoengine.berkeley.edu/api/footprints/angelo-reserve/
+## 3   http://ecoengine.berkeley.edu/api/footprints/angelo-reserve/
+## 4 http://ecoengine.berkeley.edu/api/footprints/hastings-reserve/
+## 5   http://ecoengine.berkeley.edu/api/footprints/angelo-reserve/
+## 6 http://ecoengine.berkeley.edu/api/footprints/hastings-reserve/
+##      subject
+## 1    Mammals
+## 2     Mosses
+## 3    Beetles
+## 4    Spiders
+## 5 Amphibians
+## 6       Ants
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Currently there are 57 lists available. We can drill deeper into any list to get all the available data. We can also narrow our checklist search to groups of interest (see &lt;code&gt;unique(all_lists$subject)&lt;/code&gt;). For example, to get the list of Spiders:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;spiders &amp;lt;- ee_checklists(subject = &amp;quot;Spiders&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Returning 2 checklists
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;spiders
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##                  record
+## 4  bigcb:specieslist:15
+## 10 bigcb:specieslist:20
+##                                                         footprint
+## 4  http://ecoengine.berkeley.edu/api/footprints/hastings-reserve/
+## 10   http://ecoengine.berkeley.edu/api/footprints/angelo-reserve/
+##                                                                       url
+## 4  http://ecoengine.berkeley.edu/api/checklists/bigcb%3Aspecieslist%3A15/
+## 10 http://ecoengine.berkeley.edu/api/checklists/bigcb%3Aspecieslist%3A20/
+##                                           source subject
+## 4  http://ecoengine.berkeley.edu/api/sources/18/ Spiders
+## 10 http://ecoengine.berkeley.edu/api/sources/18/ Spiders
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we can drill deep into each list. For this tutorial I&amp;rsquo;ll just retrieve data from the the two lists returned above.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(plyr)
+spider_details &amp;lt;- ldply(spiders$url, checklist_details)
+names(spider_details)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;url&amp;quot;                              &amp;quot;observation_type&amp;quot;
+##  [3] &amp;quot;scientific_name&amp;quot;                  &amp;quot;collection_code&amp;quot;
+##  [5] &amp;quot;institution_code&amp;quot;                 &amp;quot;country&amp;quot;
+##  [7] &amp;quot;state_province&amp;quot;                   &amp;quot;county&amp;quot;
+##  [9] &amp;quot;locality&amp;quot;                         &amp;quot;coordinate_uncertainty_in_meters&amp;quot;
+## [11] &amp;quot;begin_date&amp;quot;                       &amp;quot;end_date&amp;quot;
+## [13] &amp;quot;kingdom&amp;quot;                          &amp;quot;phylum&amp;quot;
+## [15] &amp;quot;clss&amp;quot;                             &amp;quot;order&amp;quot;
+## [17] &amp;quot;family&amp;quot;                           &amp;quot;genus&amp;quot;
+## [19] &amp;quot;specific_epithet&amp;quot;                 &amp;quot;infraspecific_epithet&amp;quot;
+## [21] &amp;quot;source&amp;quot;                           &amp;quot;remote_resource&amp;quot;
+## [23] &amp;quot;earliest_period_or_lowest_system&amp;quot; &amp;quot;latest_period_or_highest_system&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;unique(spider_details$scientific_name)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;holocnemus pluchei&amp;quot;        &amp;quot;oecobius navus&amp;quot;
+##  [3] &amp;quot;uloborus diversus&amp;quot;         &amp;quot;neriene litigiosa&amp;quot;
+##  [5] &amp;quot;theridion sp. A&amp;quot;           &amp;quot;tidarren sp.&amp;quot;
+##  [7] &amp;quot;dictyna sp. A&amp;quot;             &amp;quot;dictyna sp. B&amp;quot;
+##  [9] &amp;quot;mallos sp.&amp;quot;                &amp;quot;yorima sp.&amp;quot;
+## [11] &amp;quot;hahnia sanjuanensis&amp;quot;       &amp;quot;cybaeus sp.&amp;quot;
+## [13] &amp;quot;zanomys sp.&amp;quot;               &amp;quot;anachemmis sp.&amp;quot;
+## [15] &amp;quot;titiotus sp.&amp;quot;              &amp;quot;oxyopes scalaris&amp;quot;
+## [17] &amp;quot;zora hespera&amp;quot;              &amp;quot;drassinella sp.&amp;quot;
+## [19] &amp;quot;phrurotimpus mateonus&amp;quot;     &amp;quot;scotinella sp.&amp;quot;
+## [21] &amp;quot;castianeira luctifera&amp;quot;     &amp;quot;meriola californica&amp;quot;
+## [23] &amp;quot;drassyllus insularis&amp;quot;      &amp;quot;herpyllus propinquus&amp;quot;
+## [25] &amp;quot;micaria utahna&amp;quot;            &amp;quot;trachyzelotes lyonneti&amp;quot;
+## [27] &amp;quot;ebo evansae&amp;quot;               &amp;quot;habronattus oregonensis&amp;quot;
+## [29] &amp;quot;metaphidippus sp.&amp;quot;         &amp;quot;platycryptus californicus&amp;quot;
+## [31] &amp;quot;calymmaria sp.&amp;quot;            &amp;quot;frontinella communis&amp;quot;
+## [33] &amp;quot;undetermined sp.&amp;quot;          &amp;quot;latrodectus hesperus&amp;quot;
+## [35] &amp;quot;theridion sp. B&amp;quot;           &amp;quot;agelenopsis oregonensis&amp;quot;
+## [37] &amp;quot;pardosa spp.&amp;quot;              &amp;quot;schizocosa mccooki&amp;quot;
+## [39] &amp;quot;hololena sp.&amp;quot;              &amp;quot;callobius sp.&amp;quot;
+## [41] &amp;quot;pimus sp.&amp;quot;                 &amp;quot;aliatypus sp.&amp;quot;
+## [43] &amp;quot;antrodiaetus sp.&amp;quot;          &amp;quot;antrodiaetus riversi&amp;quot;
+## [45] &amp;quot;anyphaena californica&amp;quot;     &amp;quot;aculepeira packardi&amp;quot;
+## [47] &amp;quot;araneus bispinosus&amp;quot;        &amp;quot;araniella displicata&amp;quot;
+## [49] &amp;quot;cyclosa conica&amp;quot;            &amp;quot;cyclosa turbinata&amp;quot;
+## [51] &amp;quot;brommella sp.&amp;quot;             &amp;quot;cicurina sp.&amp;quot;
+## [53] &amp;quot;dictyna sp.&amp;quot;               &amp;quot;emblyna oregona&amp;quot;
+## [55] &amp;quot;orodrassus sp.&amp;quot;            &amp;quot;sergiolus sp.&amp;quot;
+## [57] &amp;quot;erigone sp.&amp;quot;               &amp;quot;pityohyphantes sp.&amp;quot;
+## [59] &amp;quot;tachygyna sp.&amp;quot;             &amp;quot;alopecosa kochi&amp;quot;
+## [61] &amp;quot;oxyopes salticus&amp;quot;          &amp;quot;philodromus sp.&amp;quot;
+## [63] &amp;quot;tibellus oblongus&amp;quot;         &amp;quot;pimoa sp.&amp;quot;
+## [65] &amp;quot;undetermined spp.&amp;quot;         &amp;quot;metaphidippus manni&amp;quot;
+## [67] &amp;quot;thiodina sp.&amp;quot;              &amp;quot;diaea livens&amp;quot;
+## [69] &amp;quot;metellina sp.&amp;quot;             &amp;quot;cobanus cambridgei&amp;quot;
+## [71] &amp;quot;tetragnatha sp.&amp;quot;           &amp;quot;tetragnatha versicolor&amp;quot;
+## [73] &amp;quot;dipoena sp.&amp;quot;               &amp;quot;theridion spp.&amp;quot;
+## [75] &amp;quot;misumena vatia&amp;quot;            &amp;quot;misumenops sp.&amp;quot;
+## [77] &amp;quot;tmarus angulatus&amp;quot;          &amp;quot;xysticus sp.&amp;quot;
+## [79] &amp;quot;hyptiotes gertschi&amp;quot;        &amp;quot;mexigonus morosus&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Photo data&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The ecoengine also contains a large number of photos from various sources. It&amp;rsquo;s easy to query the photo database using similar arguments as above. One can search by taxa, location, source, collection and much more. To get all pictures of the California condor from the database:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;condor &amp;lt;- ee_photos(scientific_name = &amp;quot;Gymnogyps californianus&amp;quot;, quiet = TRUE, progress = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;condor
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [Total results]: 8
+## [Args]:
+## page_size = 25
+## scientific_name = Gymnogyps californianus
+## georeferenced = FALSE
+## page = 1
+## [Type]: photos
+## [Number of results]: 8
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The package also provides functionality to quickly browse photos in the default browser. By calling &lt;code&gt;view_photos()&lt;/code&gt; on any &lt;code&gt;ecoengine&lt;/code&gt; object of type &lt;code&gt;photos&lt;/code&gt;, R will render a static html page with thumbnails and metadata and launch a default browser with additional links.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;view_photos(ee_photos(scientific_name = &amp;quot;Gymnogyps californianus&amp;quot;, quiet = TRUE))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2014-01-30-ecoengine/ecoengine_photo_viewer.png&#34; alt=&#34;Ecoengine photo viewer&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Sensor data&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Sensor data come from the &lt;a href=&#34;http://nrs.ucop.edu/research/special_projects/Keck_HydroWatchl.htm&#34;&gt;Keck HydroWatch Center&lt;/a&gt;. Retrieving the data are simple. Three functions provides all the necessary functionality.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ee_list_sensors()&lt;/code&gt;  - provides a list of sensors and the data they provide.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ee_sensor_data()&lt;/code&gt; - retrieves data for any of these sensors (ids obtained by the previous function) and a date window.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ee_sensor_agg&lt;/code&gt; - provides aggregated data that can be requested in any interval (minutes, days, weeks, months, years).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;searching-the-engine&#34;&gt;Searching the engine&lt;/h3&gt;
+
+&lt;p&gt;The search is &lt;a href=&#34;http://www.elasticsearch.org/&#34;&gt;elastic&lt;/a&gt; by default. One can search for any field in &lt;code&gt;ee_observations()&lt;/code&gt; across all available resources. For example,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# The search function runs an automatic elastic search across all resources
+# available through the engine.
+lynx_results &amp;lt;- ee_search(query = &amp;quot;genus:Lynx&amp;quot;)
+lynx_results[, -3]
+# This gives you a breakdown of what&#39;s available allowing you dig deeper.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Upcoming features&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;In the next CRAN update we will add methods to retrieve all the vegetation data, the interactive maps, searching the data directly from the map (for example by drawing bounding boxes) and having a formatted query returned back to your R prompt for inclusion in a script.&lt;/p&gt;
+
+&lt;p&gt;As with all of our packages we welcome contributions to the &lt;a href=&#34;https://github.com/ropensci/ecoengine&#34;&gt;GitHub repository&lt;/a&gt; as &lt;a href=&#34;https://github.com/ropensci/ecoengine/issues?page=1&amp;amp;state=open&#34;&gt;issues&lt;/a&gt; or &lt;a href=&#34;https://github.com/ropensci/ecoengine/pulls&#34;&gt;pull requests&lt;/a&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

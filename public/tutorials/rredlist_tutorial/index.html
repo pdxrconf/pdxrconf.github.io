@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | rredlist tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>rredlist tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.4.0</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p><code>rredlist</code> is a <a href="http://apiv3.iucnredlist.org/api/v3/docs">IUCN Red List</a> R client. The IUCN Red List is a global list of threatened and endangered species.</p>
+
+<h2 id="authentication">Authentication</h2>
+
+<p>IUCN requires you to get your own API key, an alphanumeric string that you
+need to send in every request. Get it at
+<a href="http://apiv3.iucnredlist.org/api/v3/token">http://apiv3.iucnredlist.org/api/v3/token</a>.
+Keep this key private. You can pass the key in to each function via the
+<code>key</code> parameter, but it&rsquo;s better to store the key either as a environment
+variable (<code>IUCN_REDLIST_KEY</code>) or an R option (<code>iucn_redlist_key</code>) - we
+suggest using the former option.</p>
+
+<h2 id="high-vs-low-level-package-apis">High vs. Low level package APIs</h2>
+
+<p><strong>High level API</strong></p>
+
+<p>High level functions do the HTTP request and parse data to a data.frame for
+ease of downstream use. The high level functions have no underscore on the end
+of the function name, e.g., <code>rl_search</code></p>
+
+<p><strong>Low level API</strong></p>
+
+<p>The parsing to data.frame in the high level API does take extra time. The low
+level API only does the HTTP request, and gives back JSON without doing any
+more parsing. The low level functions DO have an underscore on the end
+of the function name, e.g., <code>rl_search_</code></p>
+
+<h3 id="installation">Installation</h3>
+
+<p>Stable <code>rredlist</code> version from CRAN</p>
+
+<pre><code class="language-r">install.packages(&quot;rredlist&quot;)
+</code></pre>
+
+<p>Or, the development version from Github</p>
+
+<pre><code class="language-r">devtools::install_github(&quot;ropenscilabs/rredlist&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;rredlist&quot;)
+</code></pre>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="citing-iucn-api">Citing IUCN API</h3>
+
+<p>use the function <code>rl_citation()</code></p>
+
+<pre><code class="language-r">rl_citation()
+#&gt; [1] &quot;IUCN 2015. IUCN Red List of Threatened Species. Version 2017-2 &lt;www.iucnredlist.org&gt;&quot;
+</code></pre>
+
+<h3 id="high-level-api">High level API</h3>
+
+<p>High level functions do the HTTP request and parse to data to a data.frame for ease
+of downstream use.</p>
+
+<pre><code class="language-r">rl_search('Fratercula arctica')
+#&gt; $name
+#&gt; [1] &quot;Fratercula arctica&quot;
+#&gt; 
+#&gt; $result
+#&gt;    taxonid    scientific_name  kingdom   phylum class           order
+#&gt; 1 22694927 Fratercula arctica ANIMALIA CHORDATA  AVES CHARADRIIFORMES
+#&gt;    family      genus main_common_name        authority published_year
+#&gt; 1 ALCIDAE Fratercula  Atlantic Puffin (Linnaeus, 1758)           2017
+#&gt;   category criteria marine_system freshwater_system terrestrial_system
+#&gt; 1       VU  A4abcde          TRUE             FALSE               TRUE
+#&gt;                 assessor                 reviewer aoo_km2  eoo_km2
+#&gt; 1 BirdLife International Butchart, S. &amp; Symes, A.      NA 20800000
+#&gt;   elevation_upper elevation_lower depth_upper depth_lower errata_flag
+#&gt; 1              NA              NA          NA          NA          NA
+#&gt;   errata_reason amended_flag amended_reason
+#&gt; 1            NA         TRUE   Map revised.
+</code></pre>
+
+<p>Likely a bit faster is to parse to a list only, and not take the extra data.frame parsing time</p>
+
+<pre><code class="language-r">rl_search('Fratercula arctica', parse = FALSE)
+#&gt; $name
+#&gt; [1] &quot;Fratercula arctica&quot;
+#&gt; 
+#&gt; $result
+#&gt; $result[[1]]
+#&gt; $result[[1]]$taxonid
+#&gt; [1] 22694927
+#&gt; 
+#&gt; $result[[1]]$scientific_name
+#&gt; [1] &quot;Fratercula arctica&quot;
+#&gt; 
+#&gt; $result[[1]]$kingdom
+#&gt; [1] &quot;ANIMALIA&quot;
+#&gt; 
+#&gt; $result[[1]]$phylum
+#&gt; [1] &quot;CHORDATA&quot;
+#&gt; 
+#&gt; $result[[1]]$class
+#&gt; [1] &quot;AVES&quot;
+#&gt; 
+#&gt; $result[[1]]$order
+#&gt; [1] &quot;CHARADRIIFORMES&quot;
+#&gt; 
+#&gt; $result[[1]]$family
+#&gt; [1] &quot;ALCIDAE&quot;
+#&gt; 
+#&gt; $result[[1]]$genus
+#&gt; [1] &quot;Fratercula&quot;
+#&gt; 
+#&gt; $result[[1]]$main_common_name
+#&gt; [1] &quot;Atlantic Puffin&quot;
+#&gt; 
+#&gt; $result[[1]]$authority
+#&gt; [1] &quot;(Linnaeus, 1758)&quot;
+#&gt; 
+#&gt; $result[[1]]$published_year
+#&gt; [1] 2017
+#&gt; 
+#&gt; $result[[1]]$category
+#&gt; [1] &quot;VU&quot;
+#&gt; 
+#&gt; $result[[1]]$criteria
+#&gt; [1] &quot;A4abcde&quot;
+#&gt; 
+#&gt; $result[[1]]$marine_system
+#&gt; [1] TRUE
+#&gt; 
+#&gt; $result[[1]]$freshwater_system
+#&gt; [1] FALSE
+#&gt; 
+#&gt; $result[[1]]$terrestrial_system
+#&gt; [1] TRUE
+#&gt; 
+#&gt; $result[[1]]$assessor
+#&gt; [1] &quot;BirdLife International&quot;
+#&gt; 
+#&gt; $result[[1]]$reviewer
+#&gt; [1] &quot;Butchart, S. &amp; Symes, A.&quot;
+#&gt; 
+#&gt; $result[[1]]$aoo_km2
+#&gt; NULL
+#&gt; 
+#&gt; $result[[1]]$eoo_km2
+#&gt; [1] &quot;20800000&quot;
+#&gt; 
+#&gt; $result[[1]]$elevation_upper
+#&gt; NULL
+#&gt; 
+#&gt; $result[[1]]$elevation_lower
+#&gt; NULL
+#&gt; 
+#&gt; $result[[1]]$depth_upper
+#&gt; NULL
+#&gt; 
+#&gt; $result[[1]]$depth_lower
+#&gt; NULL
+#&gt; 
+#&gt; $result[[1]]$errata_flag
+#&gt; NULL
+#&gt; 
+#&gt; $result[[1]]$errata_reason
+#&gt; NULL
+#&gt; 
+#&gt; $result[[1]]$amended_flag
+#&gt; [1] TRUE
+#&gt; 
+#&gt; $result[[1]]$amended_reason
+#&gt; [1] &quot;Map revised.&quot;
+</code></pre>
+
+<h3 id="low-level-api">Low level API</h3>
+
+<p>The parsing to data.frame in the high level API does take extra time. The low level API
+only does the HTTP request, and gives back JSON without doing any more parsing</p>
+
+<pre><code class="language-r">rl_search_('Fratercula arctica')
+#&gt; [1] &quot;{\&quot;name\&quot;:\&quot;Fratercula arctica\&quot;,\&quot;result\&quot;:[{\&quot;taxonid\&quot;:22694927,\&quot;scientific_name\&quot;:\&quot;Fratercula arctica\&quot;,\&quot;kingdom\&quot;:\&quot;ANIMALIA\&quot;,\&quot;phylum\&quot;:\&quot;CHORDATA\&quot;,\&quot;class\&quot;:\&quot;AVES\&quot;,\&quot;order\&quot;:\&quot;CHARADRIIFORMES\&quot;,\&quot;family\&quot;:\&quot;ALCIDAE\&quot;,\&quot;genus\&quot;:\&quot;Fratercula\&quot;,\&quot;main_common_name\&quot;:\&quot;Atlantic Puffin\&quot;,\&quot;authority\&quot;:\&quot;(Linnaeus, 1758)\&quot;,\&quot;published_year\&quot;:2017,\&quot;category\&quot;:\&quot;VU\&quot;,\&quot;criteria\&quot;:\&quot;A4abcde\&quot;,\&quot;marine_system\&quot;:true,\&quot;freshwater_system\&quot;:false,\&quot;terrestrial_system\&quot;:true,\&quot;assessor\&quot;:\&quot;BirdLife International\&quot;,\&quot;reviewer\&quot;:\&quot;Butchart, S. &amp; Symes, A.\&quot;,\&quot;aoo_km2\&quot;:null,\&quot;eoo_km2\&quot;:\&quot;20800000\&quot;,\&quot;elevation_upper\&quot;:null,\&quot;elevation_lower\&quot;:null,\&quot;depth_upper\&quot;:null,\&quot;depth_lower\&quot;:null,\&quot;errata_flag\&quot;:null,\&quot;errata_reason\&quot;:null,\&quot;amended_flag\&quot;:true,\&quot;amended_reason\&quot;:\&quot;Map revised.\&quot;}]}&quot;
+</code></pre>
+
+<p>To consume this JSON, you can use <code>jsonlite</code></p>
+
+<pre><code class="language-r">library(&quot;jsonlite&quot;)
+jsonlite::fromJSON(rl_search_('Fratercula arctica'))
+#&gt; $name
+#&gt; [1] &quot;Fratercula arctica&quot;
+#&gt; 
+#&gt; $result
+#&gt;    taxonid    scientific_name  kingdom   phylum class           order
+#&gt; 1 22694927 Fratercula arctica ANIMALIA CHORDATA  AVES CHARADRIIFORMES
+#&gt;    family      genus main_common_name        authority published_year
+#&gt; 1 ALCIDAE Fratercula  Atlantic Puffin (Linnaeus, 1758)           2017
+#&gt;   category criteria marine_system freshwater_system terrestrial_system
+#&gt; 1       VU  A4abcde          TRUE             FALSE               TRUE
+#&gt;                 assessor                 reviewer aoo_km2  eoo_km2
+#&gt; 1 BirdLife International Butchart, S. &amp; Symes, A.      NA 20800000
+#&gt;   elevation_upper elevation_lower depth_upper depth_lower errata_flag
+#&gt; 1              NA              NA          NA          NA          NA
+#&gt;   errata_reason amended_flag amended_reason
+#&gt; 1            NA         TRUE   Map revised.
+</code></pre>
+
+<p>Or other tools, e.g., <code>jq</code> via the <code>jqr</code> R client</p>
+
+<pre><code class="language-r"># devtools::install_github(&quot;ropensci/jqr&quot;)
+library(&quot;jqr&quot;)
+rl_search_('Fratercula arctica') %&gt;% dot()
+#&gt; {
+#&gt;     &quot;name&quot;: &quot;Fratercula arctica&quot;,
+#&gt;     &quot;result&quot;: [
+#&gt;         {
+#&gt;             &quot;taxonid&quot;: 22694927,
+#&gt;             &quot;scientific_name&quot;: &quot;Fratercula arctica&quot;,
+#&gt;             &quot;kingdom&quot;: &quot;ANIMALIA&quot;,
+#&gt;             &quot;phylum&quot;: &quot;CHORDATA&quot;,
+#&gt;             &quot;class&quot;: &quot;AVES&quot;,
+#&gt;             &quot;order&quot;: &quot;CHARADRIIFORMES&quot;,
+#&gt;             &quot;family&quot;: &quot;ALCIDAE&quot;,
+#&gt;             &quot;genus&quot;: &quot;Fratercula&quot;,
+#&gt;             &quot;main_common_name&quot;: &quot;Atlantic Puffin&quot;,
+#&gt;             &quot;authority&quot;: &quot;(Linnaeus, 1758)&quot;,
+#&gt;             &quot;published_year&quot;: 2017,
+#&gt;             &quot;category&quot;: &quot;VU&quot;,
+#&gt;             &quot;criteria&quot;: &quot;A4abcde&quot;,
+#&gt;             &quot;marine_system&quot;: true,
+#&gt;             &quot;freshwater_system&quot;: false,
+#&gt;             &quot;terrestrial_system&quot;: true,
+#&gt;             &quot;assessor&quot;: &quot;BirdLife International&quot;,
+#&gt;             &quot;reviewer&quot;: &quot;Butchart, S. &amp; Symes, A.&quot;,
+#&gt;             &quot;aoo_km2&quot;: null,
+#&gt;             &quot;eoo_km2&quot;: &quot;20800000&quot;,
+#&gt;             &quot;elevation_upper&quot;: null,
+#&gt;             &quot;elevation_lower&quot;: null,
+#&gt;             &quot;depth_upper&quot;: null,
+#&gt;             &quot;depth_lower&quot;: null,
+#&gt;             &quot;errata_flag&quot;: null,
+#&gt;             &quot;errata_reason&quot;: null,
+#&gt;             &quot;amended_flag&quot;: true,
+#&gt;             &quot;amended_reason&quot;: &quot;Map revised.&quot;
+#&gt;         }
+#&gt;     ]
+#&gt; }
+</code></pre>
+
+<h3 id="citing">Citing</h3>
+
+<p>To cite <code>rredlist</code> in publications use:</p>
+
+<p><br></p>
+
+<blockquote>
+<p>Scott Chamberlain (2017). rredlist: &lsquo;IUCN&rsquo; Red List Client. R package
+  version 0.4.0. <a href="https://CRAN.R-project.org/package=rredlist">https://CRAN.R-project.org/package=rredlist</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropenscilabs/rredlist/issues?state=open">our Github repo for rredlist</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

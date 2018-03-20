@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | AntWeb - programmatic interface to ant biodiversity data</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">AntWeb - programmatic interface to ant biodiversity data</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="/about/#team"> Karthik Ram </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">February 18, 2014</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<!-- <div class="alert alert-info" role="alert">
+This post was updated on August 20, 2014, with <code>AntWeb</code> version <code>0.7.2.99</code>. Please install an updated version to make sure the code works.
+</div> -->
+
+<blockquote>
+<p>This post was updated on August 20, 2014, with <code>AntWeb</code> version <code>0.7.2.99</code>. Please install an updated version to make sure the code works.</p>
+</blockquote>
+
+<p><img src="/assets/blog-images/2014-02-18-antweb/casent0003205_h_1_high.jpg" alt="" /></p>
+
+<p>Data on more than <code>10,000</code> species of ants recorded worldwide are available through from <a href="http://www.calacademy.org/">California Academy of Sciences</a>&rsquo; <a href="http://www.antweb.org/">AntWeb</a>, a repository that boasts a wealth of natural history data, digital images, and specimen records on ant species from a large community of museum curators.</p>
+
+<p>Digging through some of the earliest announcements of AntWeb, I came across a Nature News piece titled <strong>&ldquo;Mashups mix data into global service&rdquo;</strong> from January 2006. The article contains this great quote from <a href="http://en.wikipedia.org/wiki/Roderic_D.M._Page">Roderic Page</a> <em>&ldquo;If you could pool data from every museum or lab in the world, you could do amazing things&rdquo;</em>. The article also says <em>&ldquo;So far, only researchers with advanced programming skills, working in fields organized enough to have data online and tagged appropriately, have been able to do this.&rdquo;</em>  In many ways this really is motivation for why we develop interfaces to these rich data repositories. Our express intent is to facilitate researchers explore amazing opportunities that lie within such data by lowering techinical barriers to use. Right on the heels of our most recent package (<a href="http://ropensci.org/blog/2014/01/30/ecoengine/"><code>ecoengine</code></a>), we are now happy to first release of an interface to  <a href="http://www.antweb.org/">AntWeb</a>.</p>
+
+<p>A stable version of our R package <a href="http://ropensci.org/AntWeb.html">AntWeb</a> is now available from CRAN. The API currently does not require a key for access  but larger requests will be throttled on the server side. It is worth noting that much of these same data are also ported through the Global Biodiversity Information Facility and accessible through our <a href="http://ropensci.org/rgbif.html"><code>gbif</code></a> package. This package provides a more direct interface to more of the ant specific natural history data.</p>
+
+<h2 id="installing-the-package">Installing the package</h2>
+
+<p>A stable version of the package (<code>0.7</code>) is now available on CRAN.</p>
+
+<pre><code class="language-r">install.packages(&quot;AntWeb&quot;)
+</code></pre>
+
+<p>or you can install the latest development version (the master branch is also always stable &amp; deployable and most up-to-date. Current version is <code>0.5.3</code> at the time of this writing).</p>
+
+<pre><code class="language-r">library(devtools)
+install_github(&quot;ropensci/AntWeb&quot;)
+</code></pre>
+
+<h2 id="searching-through-the-database">Searching through the database</h2>
+
+<p>As with most of our packages, there are several ways to search through an API. In the case of AntWeb, you can search by a genus or full species name or by other taxonomic ranks like sub-phylum.</p>
+
+<p><strong>Data on ants</strong></p>
+
+<p>To obtain data on any taxonomic group, you can make a request using the <code>aw_data()</code> function. It&rsquo;s possible to search easily by a taxonomic rank (e.g. a genus) or by passing a complete scientific name.</p>
+
+<p><strong>Searching by Genus</strong></p>
+
+<pre><code class="language-r">library(AntWeb)
+# To get data on an ant genus found widely through Central and South America
+data_genus_only &lt;- aw_data(genus = &quot;acanthognathus&quot;)
+</code></pre>
+
+<pre><code>  430 results available for query.
+</code></pre>
+
+<pre><code class="language-r">leaf_cutter_ants  &lt;- aw_data(genus = &quot;acromyrmex&quot;)
+</code></pre>
+
+<pre><code>  713 results available for query.
+</code></pre>
+
+<pre><code class="language-r">unique(leaf_cutter_ants$data$scientific_name)
+</code></pre>
+
+<pre><code>   [1] &quot;acromyrmex versicolor&quot;   &quot;acromyrmex striatus&quot;
+   [3] &quot;acromyrmex balzani&quot;      &quot;acromyrmex coronatus&quot;
+   [5] &quot;acromyrmex crassispinus&quot; &quot;acromyrmex heyeri&quot;
+   [7] &quot;acromyrmex lundii&quot;       &quot;acromyrmex fracticornis&quot;
+   [9] &quot;acromyrmex niger&quot;        &quot;acromyrmex nigrosetosus&quot;
+  [11] &quot;acromyrmex rugosus&quot;      &quot;acromyrmex subterraneus&quot;
+  [13] &quot;acromyrmex alw01&quot;        &quot;acromyrmex alw02&quot;
+  [15] &quot;acromyrmex alw03&quot;        &quot;acromyrmex alw04&quot;
+  [17] &quot;acromyrmex octospinosus&quot; &quot;acromyrmex lobicornis&quot;
+  [19] &quot;acromyrmex silvestrii&quot;   &quot;acromyrmex landolti&quot;
+  [21] &quot;acromyrmex ambiguus&quot;     &quot;acromyrmex hystrix&quot;
+  [23] &quot;acromyrmex laticeps&quot;     &quot;acromyrmex indet&quot;
+  [25] &quot;acromyrmex echinatior&quot;   &quot;acromyrmex volcanus&quot;
+  [27] &quot;acromyrmex disciger&quot;     &quot;acromyrmex aspersus&quot;
+  [29] &quot;acromyrmex pubescens&quot;    &quot;acromyrmex moelleri&quot;
+  [31] &quot;acromyrmex evenkul&quot;      &quot;acromyrmex hispidus&quot;
+  [33] &quot;acromyrmex nobilis&quot;      &quot;acromyrmex pulvereus&quot;
+  [35] &quot;acromyrmex lundi&quot;
+</code></pre>
+
+<p><strong>Searching by species</strong></p>
+
+<pre><code class="language-r"># You can request data on any particular species
+acanthognathus_df &lt;- aw_data(scientific_name = &quot;acanthognathus brevicornis&quot;)
+</code></pre>
+
+<pre><code>  2 results available for query.
+</code></pre>
+
+<pre><code class="language-r">head(acanthognathus_df)
+</code></pre>
+
+<pre><code>  $count
+  [1] 2
+
+  $call
+  $call$genus
+  [1] &quot;acanthognathus&quot;
+
+  $call$species
+  [1] &quot;brevicornis&quot;
+
+
+  $data
+                                                                url
+  1 http://antweb.org/api/v2/?occurrenceId=CAS:ANTWEB:casent0280684
+  2 http://antweb.org/api/v2/?occurrenceId=CAS:ANTWEB:casent0637708
+    catalogNumber     family  subfamily          genus specificEpithet
+  1 casent0280684 formicidae myrmicinae Acanthognathus     brevicornis
+  2 casent0637708 formicidae myrmicinae Acanthognathus     brevicornis
+               scientific_name typeStatus stateProvince  country
+  1 acanthognathus brevicornis                          Colombia
+  2 acanthognathus brevicornis
+    dateIdentified habitat minimumElevationInMeters
+  1                                              NA
+  2     2013-09-12                               NA
+</code></pre>
+
+<pre><code class="language-r"># You can also limit queries to observation records that have been geoferenced
+acanthognathus_df_geo &lt;- aw_data(genus = &quot;acanthognathus&quot;, species = &quot;brevicornis&quot;, georeferenced = TRUE)
+</code></pre>
+
+<p>It&rsquo;s also possible to search for records around any location by specifying a search radius.</p>
+
+<pre><code class="language-r">data_by_loc &lt;- aw_coords(coord = &quot;37.76,-122.45&quot;, r = 2)
+# This will search for data on a 2 km radius around that latitude/longitude
+</code></pre>
+
+<p><strong>Image data</strong></p>
+
+<p>Most specimens in the database have images associated with them. These include high, medium, and low resolution version of the head, dorsal side, full profile, and the specimen label. For example we can retrieve data on a specimen of <em>Ecitoninaeeciton burchellii</em> with the following call:</p>
+
+<pre><code class="language-r"># Data and images for Ecitoninaeeciton burchellii
+eb &lt;- aw_code(occurrenceid =&quot;CAS:ANTWEB:casent0003205&quot;)
+eb$image_data$high[[2]]
+</code></pre>
+
+<pre><code>  NULL
+</code></pre>
+
+<p>If you&rsquo;re primarily interested in ant images and would like to keep up with recent additions to the database, you can also use the <code>aw_images</code> function. This function takes two arguments: <code>since</code>, the number of days to search backward, and a <code>type</code>. Possible options for type are <code>h</code> for head, <code>d</code> for dorsal, <code>p</code> for profile, and <code>l</code> for label. If a type is not specified, all available images are retrieved.</p>
+
+<pre><code class="language-r"># Retrieve only dorsal images for the last five days
+head(aw_images(since = 5, img_type = &quot;d&quot;))
+</code></pre>
+
+<pre><code>                                                                     high
+  1 http://www.antweb.org/images/casent0914000/casent0914000_d_1_high.jpg
+  2 http://www.antweb.org/images/antweb1008677/antweb1008677_d_1_high.jpg
+  3 http://www.antweb.org/images/casent0906977/casent0906977_d_1_high.jpg
+  4 http://www.antweb.org/images/casent0914012/casent0914012_d_1_high.jpg
+  5 http://www.antweb.org/images/antweb1008691/antweb1008691_d_1_high.jpg
+  6 http://www.antweb.org/images/casent0906997/casent0906997_d_1_high.jpg
+                                                                     med
+  1 http://www.antweb.org/images/casent0914000/casent0914000_d_1_low.jpg
+  2 http://www.antweb.org/images/antweb1008677/antweb1008677_d_1_low.jpg
+  3 http://www.antweb.org/images/casent0906977/casent0906977_d_1_low.jpg
+  4 http://www.antweb.org/images/casent0914012/casent0914012_d_1_low.jpg
+  5 http://www.antweb.org/images/antweb1008691/antweb1008691_d_1_low.jpg
+  6 http://www.antweb.org/images/casent0906997/casent0906997_d_1_low.jpg
+                                                                     low
+  1 http://www.antweb.org/images/casent0914000/casent0914000_d_1_med.jpg
+  2 http://www.antweb.org/images/antweb1008677/antweb1008677_d_1_med.jpg
+  3 http://www.antweb.org/images/casent0906977/casent0906977_d_1_med.jpg
+  4 http://www.antweb.org/images/casent0914012/casent0914012_d_1_med.jpg
+  5 http://www.antweb.org/images/antweb1008691/antweb1008691_d_1_med.jpg
+  6 http://www.antweb.org/images/casent0906997/casent0906997_d_1_med.jpg
+                                                                     thumbnail
+  1 http://www.antweb.org/images/casent0914000/casent0914000_d_1_thumbview.jpg
+  2 http://www.antweb.org/images/antweb1008677/antweb1008677_d_1_thumbview.jpg
+  3 http://www.antweb.org/images/casent0906977/casent0906977_d_1_thumbview.jpg
+  4 http://www.antweb.org/images/casent0914012/casent0914012_d_1_thumbview.jpg
+  5 http://www.antweb.org/images/antweb1008691/antweb1008691_d_1_thumbview.jpg
+  6 http://www.antweb.org/images/casent0906997/casent0906997_d_1_thumbview.jpg
+    img_type                                                catalog_id
+  1        d http://www.antweb.org/api/v2/?catalogNumber=casent0914000
+  2        d http://www.antweb.org/api/v2/?catalogNumber=antweb1008677
+  3        d http://www.antweb.org/api/v2/?catalogNumber=casent0906977
+  4        d http://www.antweb.org/api/v2/?catalogNumber=casent0914012
+  5        d http://www.antweb.org/api/v2/?catalogNumber=antweb1008691
+  6        d http://www.antweb.org/api/v2/?catalogNumber=casent0906997
+            upload_date
+  1 2014-08-15 15:11:14
+  2 2014-08-20 13:52:13
+  3 2014-08-15 15:11:14
+  4 2014-08-15 15:11:15
+  5 2014-08-20 13:52:13
+  6 2014-08-15 15:11:15
+</code></pre>
+
+<p>It&rsquo;s also possible to retrieve unique lists of any taxonomic rank using the <code>aw_unique</code> function.</p>
+
+<pre><code class="language-r">subfamily_list &lt;- aw_distinct(rank = &quot;subfamily&quot;)
+subfamily_list
+</code></pre>
+
+<pre><code>  [Total results on the server]: 67
+  [Args]:
+  rank = subfamily
+  limit = 1000
+  [Dataset]: [67 x 1]
+  [Data preview] :
+  [1] apidae     bethylidae
+  67 Levels: aenictinae agroecomyrmecinae amblyoponinae ... xylocopinae
+</code></pre>
+
+<pre><code class="language-r">genus_list &lt;- aw_distinct(rank = &quot;genus&quot;)
+genus_list
+</code></pre>
+
+<pre><code>  [Total results on the server]: 490
+  [Args]:
+  rank = genus
+  limit = 1000
+  [Dataset]: [490 x 1]
+  [Data preview] :
+  [1] Aenictinae    Amblyoponinae
+  490 Levels: Acanthognathus Acanthomyrmex Acanthoponera ... Zigrasimecia
+</code></pre>
+
+<pre><code class="language-r">species_list &lt;- aw_distinct(rank = &quot;species&quot;)
+species_list
+</code></pre>
+
+<pre><code>  [Total results on the server]: 10547
+  [Args]:
+  rank = species
+  limit = 1000
+  [Dataset]: [1000 x 1]
+  [Data preview] :
+  [1] basicerotini indet
+  1000 Levels: a abbreviata abdelazizi abdera abdita abditivata ... orizabanum_complex
+</code></pre>
+
+<p>If you work with existing specimens, you can also query directly by a specimen ID.</p>
+
+<pre><code class="language-r">(data_by_code &lt;- aw_code(catalogNumber=&quot;inb0003695883&quot;))
+</code></pre>
+
+<pre><code>  [Total results on the server]: 1
+  [Args]:
+  catalogNumber = inb0003695883
+  [Dataset]: [1 x 16]
+  [Data preview] :
+                                                       specimens.url
+  1  http://antweb.org/api/v2/?occurrenceId=CAS:ANTWEB:inb0003695883
+  NA                                                            &lt;NA&gt;
+     specimens.catalogNumber specimens.family specimens.subfamily
+  1            inb0003695883       formicidae          myrmicinae
+  NA                    &lt;NA&gt;             &lt;NA&gt;                &lt;NA&gt;
+     specimens.genus specimens.specificEpithet specimens.scientific_name
+  1   Acanthognathus                teledectus acanthognathus teledectus
+  NA            &lt;NA&gt;                      &lt;NA&gt;                      &lt;NA&gt;
+     specimens.typeStatus specimens.stateProvince specimens.country
+  1                                       Heredia        Costa Rica
+  NA                 &lt;NA&gt;                    &lt;NA&gt;              &lt;NA&gt;
+     specimens.dateIdentified                       specimens.habitat
+  1                2006-11-02 mature wet forest ex sifted leaf litter
+  NA                     &lt;NA&gt;                                    &lt;NA&gt;
+     specimens.minimumElevationInMeters specimens.geojson.type
+  1                                  50                  point
+  NA                               &lt;NA&gt;                   &lt;NA&gt;
+     decimal_latitude decimal_longitude
+  1         10.413477        -84.023636
+  NA             &lt;NA&gt;              &lt;NA&gt;
+</code></pre>
+
+<pre><code class="language-r"># This will return a list with a metadata data.frame and a image data.frame
+</code></pre>
+
+<p>If you have a multiple specimen IDs, as is often the case when working with research data, you can get data on all of them at the same time. The function automatically retuns <code>NULL</code> values when no data are found and you can have these removed using <code>plyr::compact</code> (this happens automatically when you use a function call like <code>ldply</code>.)</p>
+
+<pre><code class="language-r">specimens &lt;- c(&quot;casent0908629&quot;, &quot;casent0908650&quot;, &quot;casent0908637&quot;)
+results &lt;- lapply(specimens, function(x) aw_code(x))
+names(results) &lt;- specimens
+length(results)
+</code></pre>
+
+<pre><code>  [1] 3
+</code></pre>
+
+<h2 id="mapping-ant-specimen-data">Mapping ant specimen data</h2>
+
+<p>As with the previous ecoengine package, you can also visualize location data for any set of species. Adding <code>georeferenced = TRUE</code> to a data retrieval call will filter out any data points without location information. Once retrieved the data are mapped with the open source <a href="http://leafletjs.com/">Leaflet.js</a> and pushed to your default browser. Maps and associated <code>geoJSON</code> files are also saved to a location specified (or defaults to your <code>/tmp</code> folder). This feature is only available on the development version on GitHub (<code>0.5.2</code> or greater; see above on how to install) and will be available from CRAN in version <code>0.6</code></p>
+
+<pre><code class="language-r">acd &lt;- aw_data(genus = &quot;acanthognathus&quot;)
+aw_map(acd)
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-02-18-antweb/antweb_map.png" alt="Distribution of long trap-jaw ants in Central and South America" /></p>
+
+<h2 id="integration-with-the-rest-of-our-biodiversity-suite">Integration with the rest of our biodiversity suite</h2>
+
+<p>Our newest package on CRAN, <a href="https://github.com/ropensci/spocc"><code>spocc</code></a> (Species Occurrence Data), currently in review at CRAN, integrates <code>AntWeb</code> among other sources. More details on <code>spocc</code> in our next blog post.</p>
+
+<p>As always please send <a href="https://github.com/ropensci/AntWeb/issues/new">suggestions, bug reports, and ideas</a> related to the AntWeb R package directly to our repo.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/taxonomy"><span class="label">taxonomy</span></a>
+                
+                    <a href="/tags/biodiversity"><span class="label">biodiversity</span></a>
+                
+                    <a href="/tags/informatics"><span class="label">informatics</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

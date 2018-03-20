@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Image Convolution in R using Magick</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article class="blog-post">
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h1 style="text-align: center;">Image Convolution in R using Magick</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        &nbsp;
+                        
+                          <a href="/about/#team">Jeroen Ooms</a>
+                        
+                        
+                        &nbsp; |
+                    
+                        &nbsp;
+                        
+                          <a href="https://www.data-imaginist.com/" target="_blank">Thomas Lin Pedersen</a>
+                        
+                        
+                        &nbsp; |
+                    
+                    <small style="color: #5B617A; margin-left: 10px;"> NOVEMBER 2, 2017</small>
+                </p>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+                
+
+<p>Release 1.4 of the <a href="https://cran.r-project.org/web/packages/magick/vignettes/intro.html">magick package</a> introduces
+a new feature called <a href="https://en.wikipedia.org/wiki/Kernel_(image_processing)#Convolution">image convolution</a> that
+was requested by Thomas L. Pedersen. In this post we explain what this is all about.</p>
+
+<h2 id="kernel-matrix">Kernel Matrix</h2>
+
+<p>The new <code>image_convolve()</code> function applies a <a href="https://en.wikipedia.org/wiki/Kernel_(image_processing)">kernel</a> over the image. Kernel convolution means that each pixel value is recalculated using the <em>weighted neighborhood sum</em> defined in the kernel matrix. For example lets look at this simple kernel:</p>
+
+<pre><code class="language-r">library(magick)
+
+kern &lt;- matrix(0, ncol = 3, nrow = 3)
+kern[1, 2] &lt;- 0.25
+kern[2, c(1, 3)] &lt;- 0.25
+kern[3, 2] &lt;- 0.25
+kern
+##      [,1] [,2] [,3]
+## [1,] 0.00 0.25 0.00
+## [2,] 0.25 0.00 0.25
+## [3,] 0.00 0.25 0.00
+</code></pre>
+
+<p>This kernel changes each pixel to the mean of its horizontal and vertical neighboring pixels, which results in a slight blurring effect in the right-hand image below:</p>
+
+<pre><code class="language-r">img &lt;- image_read('logo:')
+img_blurred &lt;- image_convolve(img, kern)
+image_append(c(img, img_blurred))
+</code></pre>
+
+<p><img src="https://i.imgur.com/Y6xByUL.gif" alt="image_appended" /></p>
+
+<h2 id="standard-kernels">Standard Kernels</h2>
+
+<p>Many operations in <code>magick</code>  such as blurring, sharpening, and edge detection are
+actually special cases of image convolution. The benefit of explicitly using
+<code>image_convolve()</code> is more control. For example, we can blur an image and then blend
+it together with the original image in one step by mixing a blurring kernel with the
+unit kernel:</p>
+
+<pre><code class="language-r">img %&gt;% image_convolve('Gaussian:0x5', scaling = '60,40%')
+</code></pre>
+
+<p><img src="https://i.imgur.com/6Vf6c2hl.gif" alt="mixed" /></p>
+
+<p>The above requires a bit of explanation. ImageMagick defines several common
+<a href="http://www.imagemagick.org/Usage/convolve/">standard kernels</a> such as the
+gaussian kernel. Most of the standard kernels take one or more parameters,
+e.g. the example above used a gaussian kernel with 0 <em>radius</em> and 5 <em>sigma</em>.</p>
+
+<p>In addition, <code>scaling</code> argument defines the magnitude of the kernel, and possibly
+how much of the original picture should be mixed in. Here we mix 60% of the
+blurring with 40% of the original picture in order to get a diffused lightning effect.</p>
+
+<h2 id="edge-detection">Edge Detection</h2>
+
+<p>Another area where kernels are of use is in edge detection. A simple example of
+a direction-aware edge detection kernel is the <a href="https://en.wikipedia.org/wiki/Sobel_operator"><em>Sobel</em></a> kernel.
+As can be seen below, vertical edges are detected while horizontals are not.</p>
+
+<pre><code class="language-r">img %&gt;% image_convolve('Sobel') %&gt;% image_negate()
+</code></pre>
+
+<p><img src="https://i.imgur.com/i8ndfCu.gif" alt="edges" /></p>
+
+<p>Something less apparent is that the result of the edge detection is truncated.
+Edge detection kernels can result in negative color values which get truncated to zero.
+To combat this it is possible to add a <code>bias</code> to the result. Often you&rsquo;ll end up with
+scaling the kernel to 50% and adding 50% bias to move the midpoint of the result to 50%
+grey:</p>
+
+<pre><code class="language-r">img %&gt;% image_convolve('Sobel', scaling = '50%', bias = '50%')
+</code></pre>
+
+<p><img src="https://i.imgur.com/llUawrg.gif" alt="50pct" /></p>
+
+<h2 id="sharpening">Sharpening</h2>
+
+<p>ImageMagick has many more edge detection kernels, some of which are insensitive to
+the direction of the edge. To emulate a classic high-pass filter from photoshop use
+<a href="https://en.wikipedia.org/wiki/Difference_of_Gaussians">difference of gaussians</a> kernel:</p>
+
+<pre><code class="language-r">img %&gt;% image_convolve('DoG:0,0,2') %&gt;% image_negate()
+</code></pre>
+
+<p><img src="https://i.imgur.com/o5kODpc.gif" alt="dog" /></p>
+
+<p>As with the blurring, the original image can be blended in with the transformed one, effectively sharpening the image along edges.</p>
+
+<pre><code class="language-r">img %&gt;% image_convolve('DoG:0,0,2', scaling = '100, 100%')
+</code></pre>
+
+<p><img src="https://i.imgur.com/MtcMSn7.gif" alt="combination" /></p>
+
+<p>The <a href="http://www.imagemagick.org/Usage/convolve/">ImageMagick documentation</a> has more examples of convolve with various avaiable kernels.</p>
+
+            </div>
+            <br>
+
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+                <div id='discourse-comments'></div>
+                <script type="text/javascript">
+                DiscourseEmbed = { discourseUrl: 'https://discuss.ropensci.org/',
+                                   topicId:  941  };
+                (function() {
+                  var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+                  d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+                })();
+                </script>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

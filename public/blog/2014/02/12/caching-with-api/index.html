@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Caching Encyclopedia of Life API calls</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">Caching Encyclopedia of Life API calls</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="/about/#team"> Scott Chamberlain </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">February 12, 2014</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                <p>In <a href="http://ropensci.org/blog/2014/02/03/caching-offline/">a recent blog post</a> we discussed caching calls to the web offline, on your own computer. Just like you can cache data on your own computer, a data provider can do the same thing. Most of the data providers we work with do not provide caching. However, at least one does: <a href="http://eol.org/">EOL</a>, or Encyclopedia of Life. EOL allows you to set the amount of time (in seconds) that the call is cached, within which time you can make the same call and get the data back faster. We have a number of functions to interface with EOL in our <code>taxize</code> package.</p>
+
+<p>Install and load <code>taxize</code> and <code>ggplot2</code>.</p>
+
+<pre><code class="language-r">install.packages(c(&quot;taxize&quot;, &quot;ggplot2&quot;))
+</code></pre>
+
+<pre><code class="language-r">library(taxize)
+library(ggplot2)
+</code></pre>
+
+<p>To easily visualize the benefit of using EOL&rsquo;s caching, let&rsquo;s define a function to:</p>
+
+<ul>
+<li>Make a call to the EOL API search service (via the <code>eol_search</code> function in <code>taxize</code>) with caching set to X seconds (which means the cached result will be available for X seconds). This first call caches the query on their servers. Note that in the <code>eol_search</code> function below, we are using the <code>cache_ttl</code> parameter to set the number of seconds to cache the request.</li>
+<li>The second call is done before X seconds pass, so should be faster as the first one was cached.</li>
+<li>Sleep for a period, a bit longer than the amount of time the call is cached.</li>
+<li>The third call occurs after the cached call should be gone on the EOL servers.</li>
+<li>Plot the times each request took.</li>
+</ul>
+
+<pre><code class="language-r">testcache &lt;- function(terms, cache){
+  first &lt;- system.time( eol_search(terms=terms, cache_ttl = cache) )
+  second &lt;- system.time( eol_search(terms=terms, cache_ttl = cache) )
+  Sys.sleep(cache+2)
+  third &lt;- system.time( eol_search(terms=terms, cache_ttl = cache) )
+
+  df &lt;- data.frame(labs=c('nocache','withcache','cachetimedout'),
+                   vals=c(first[[3]], second[[3]], third[[3]]))
+  df$labs &lt;- factor(df$labs, levels = c('nocache','withcache','cachetimedout'))
+  ggplot(df, aes(labs, vals)) +
+    geom_bar(stat='identity') +
+    theme_grey(base_size = 20) +
+    ggtitle(sprintf(&quot;search term: '%s'\n&quot;, terms)) +
+    labs(y='Time to get data\n', x='')
+}
+</code></pre>
+
+<p>Search for the term <em>lion</em></p>
+
+<pre><code class="language-r">testcache(terms = &quot;lion&quot;, cache = 5)
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-02-12-caching-with-api/unnamed-chunk-4.png" alt="" /></p>
+
+<p>Search for the term <em>beetle</em></p>
+
+<pre><code class="language-r">testcache(terms = &quot;beetle&quot;, cache = 10)
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-02-12-caching-with-api/unnamed-chunk-5.png" alt="" /></p>
+
+<p>Caching works the same way with the <code>eol_pages</code> function. No other API services and associated functions in <code>taxize</code> support caching on the server side by the data provider. Of course you can do your own caching using <code>knitr</code> or other methods - some of which we discussed in <a href="http://ropensci.org/blog/2014/02/03/caching-offline/">an earlier post</a>.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/api"><span class="label">API</span></a>
+                
+                    <a href="/tags/eol"><span class="label">EOL</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

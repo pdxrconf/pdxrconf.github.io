@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | 2017 rOpenSci ozunconf :: Reflections and the realtime Package</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">2017 rOpenSci ozunconf :: Reflections and the realtime Package</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="https://jcarroll.com.au/" target="_blank"> Jonathan Carroll </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">November 14, 2017</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>This year&rsquo;s <a href="https://ozunconf17.ropensci.org/">rOpenSci ozunconf</a> was held in Melbourne, bringing together over 45 R enthusiasts from around the country and beyond. As is customary, ideas for projects were discussed in <a href="https://github.com/ropensci/ozunconf17/issues">GitHub Issues</a> (41 of them by the time the unconf rolled around!) and there was no shortage of enthusiasm, interesting concepts, and varied experience.</p>
+
+<p>I&rsquo;ve been to a few unconfs now and I treasure the time I get to spend with new people, new ideas, new backgrounds, new approaches, and new insights. That&rsquo;s not to take away from the time I get to spend with people I met at previous unconfs; I&rsquo;ve gained great friendships and started collaborations on side projects with these wonderful people.</p>
+
+<p>When the call for nominations came around this year it was an easy decision. I don&rsquo;t have employer support to attend these things so I take time off work and pay my own way. This is my networking time, my development time, and my skill-building time. I wasn&rsquo;t sure what sort of project I&rsquo;d be interested in but I had no doubts something would come up that sounded interesting.</p>
+
+<p>As it happened, I had been playing around with a bit of code, purely out of interest and hoping to learn how <a href="https://www.htmlwidgets.org/"><code>htmlwidgets</code></a> work. The idea I had was to make a classic graphic equaliser visualisation like this</p>
+
+<p><img src="/img/blog-images/2017-11-14-realtime/graphiceq.gif" alt="" /></p>
+
+<p>using R.</p>
+
+<p>This presents several challenges; how can I get live audio into R, and how fast can I plot the signal? I had doubts about both parts, partly because of the way that R calls tie up the session (<a href="https://appsilondatascience.com/blog/rstats/2017/11/01/r-promises-hands-on.html">for now&hellip;</a>) and partly because constructing a <code>ggplot2</code> object is somewhat slow (in terms of raw audio speeds). I&rsquo;d heard about <code>htmlwidgets</code> and thought there must be a way to leverage that towards my goal.</p>
+
+<p>I searched for a graphic equaliser javascript library to work with and didn&rsquo;t find much that aligned with what I had in my head. Eventually I stumbled on <a href="https://p5js.org/"><code>p5.js</code></a> and its examples page which has an <a href="https://p5js.org/examples/sound-frequency-spectrum.html">audio-input plot with a live demo</a>. It&rsquo;s a frequency spectrum, but I figured that&rsquo;s just a bit of binning away from what I need. Running the example there looks like</p>
+
+<p><img src="/img/blog-images/2017-11-14-realtime/p5sound_optimised.gif" alt="" /></p>
+
+<p>This seemed to be worth a go. I managed to follow enough of <a href="https://www.htmlwidgets.org/develop_intro.html">this tutorial</a> to have the library called from R. I modified the javascript canvas code to look a little more familiar, and the first iteration of <code>geom_realtime()</code> was born</p>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/3mdiCUbgxi0" frameborder="0" gesture="media" allowfullscreen></iframe>
+
+<p>This seemed like enough of an idea that I proposed it in the GitHub Issues for the unconf. It got a bit of attention, which was worrying, because I had no idea what to do with this next. <a href="https://github.com/petehaitch">Peter Hickey</a> pointed out that <a href="https://github.com/seankross">Sean Kross</a> had <a href="https://seankross.com/2017/08/11/Beyond-Axes-Simulating-Systems-with-Interactive-Graphics.html">already wrapped some of the <code>p5.js</code> calls into R calls</a> with his <code>p5</code> package, so this seemed like a great place to start. It&rsquo;s quite a clever way of doing it too; it involves re-writing the <code>javascript</code> which <code>htmlwidgets</code> calls on each time you want to do something.</p>
+
+<p>Fast forward to the unconf and a decent number of people gathered around a little slip of paper with <code>geom_realtime()</code> written on it. I had to admit to everyone that the <code>ggplot2</code> aspect of my demo was a sham (it&rsquo;s surprisingly easy to draw a canvas in just the right shade of grey with white gridlines), but people stayed, and we got to work seeing what else we could do with the idea. We came up with some suggestions for input sources, some different plot types we might like to support, and set about trying to understand what Sean&rsquo;s package actually did.</p>
+
+<p>As it tends to work out, we had a great mix of people with different experience levels in different aspects of the project; some who knew how to make a package, some who knew how to work with <code>javascript</code>, some who knew how to work with <code>websockets</code>, some who knew about realtime data sources, and some who knew about nearly none of these things (✋ that would be me). If everyone knew every aspect about how to go about an unconf project I suspect the endeavor would be a bit boring. I love these events because I get to learn so much about so many different topics.</p>
+
+<p>I shared my demo script and we deconstructed the pieces. We dug into the inner workings of the <code>p5</code> package and started determining which parts we could siphon off to meet our own needs. One of the aspects that we wanted to figure out was how to simulate realtime data. This could be useful both for testing, and also in the situation where one might want to &rsquo;re-cast&rsquo; some time-coded data. We were thankful that <a href="https://github.com/kcf-jackson">Jackson Kwok</a> had gone deep-dive into <code>websockets</code> and pretty soon (surprisingly soon, perhaps; within the first day) we had examples of (albeit, constructed) real-time (every 100ms) data streaming from a server and being plotted at-speed</p>
+
+<p><img src="/img/blog-images/2017-11-14-realtime/realtime_runif_optimised.gif" alt="" /></p>
+
+<p>Best of all, running the plot code didn&rsquo;t tie up the session; it uses a listener written into the <code>javascript</code> so it just waits for input on a particular port.</p>
+
+<p>With the core goal well underway, people started branching out into aspects they found most interesting. We had some people work on finding and connecting actual data sources, such as the bitcoin exchange rate</p>
+
+<p><img src="/img/blog-images/2017-11-14-realtime/realtime_btc_optimised.gif" alt="" /></p>
+
+<p>and a live-stream of binary-encoded data from the <a href="http://qrng.anu.edu.au/index.php">Australian National University (ANU) Quantum Random Numbers Server</a></p>
+
+<p><img src="/img/blog-images/2017-11-14-realtime/realtime_bin_optimised.gif" alt="" /></p>
+
+<p>Others formalised the code so that it can be piped into different &lsquo;themes&rsquo;, and retain the <code>p5</code> structure for adding more components</p>
+
+<p><img src="/img/blog-images/2017-11-14-realtime/realtime_bw.png" alt="" /></p>
+
+<p>These were still toy examples of course, but they highlight what&rsquo;s possible. They were each constructed using an offshoot of the <code>p5</code> package whereby the <code>javascript</code> is re-written to include various features each time the plot is generated.</p>
+
+<p>Another route we took is to use the direct <code>javascript</code> binding API with factory functions. This had less flexibility in terms of adding modular components, but meant that the <code>javascript</code> could be modified without worrying about how it needed to interact with <code>p5</code> so much. This resulted in some outstanding features such as side-scrolling and date-time stamps. We also managed to pipe the data off to another thread for additional processing (in R) before being sent to the plot.</p>
+
+<p>The example we ended up with reads the live-feed of Twitter posts under a given hashtag, computes a sentiment analysis on the words with R, and live-plots the result:</p>
+
+<p><img src="/img/blog-images/2017-11-14-realtime/auspol.gif" alt="" /></p>
+
+<p>Overall I was amazed at the progress we made over just two days. Starting from a silly idea/demo, we built a package which can plot realtime data, and can even serve up some data to be plotted. I have no expectations that this will be the way of the future, but it&rsquo;s been a fantastic learning experience for me (and hopefully others too). It&rsquo;s highlighted that there&rsquo;s ways to achieve realtime plots, even if we&rsquo;ve used a library built for drawing rather than one built for plotting per se.</p>
+
+<p>It&rsquo;s even inspired offshoots in the form of some R packages;  <a href="https://github.com/ropenscilabs/tRainspotting"><code>tRainspotting</code></a> which shows realtime data on New South Wales public transport using <code>leaflet</code> as the canvas</p>
+
+<p><img src="/img/blog-images/2017-11-14-realtime/tRainspotting.png" alt="" /></p>
+
+<p>and <a href="https://github.com/kcf-jackson/jsReact/"><code>jsReact</code></a> which explores the interaction between R and Javascript</p>
+
+<p><img src="https://github.com/kcf-jackson/jsReact/raw/master/inst/example_5.gif" alt="" /></p>
+
+<p><img src="https://github.com/kcf-jackson/jsReact/raw/master/inst/example_6.gif" alt="" /></p>
+
+<p>The possibilities are truly astounding. My list of &lsquo;things to learn&rsquo; has grown significantly since the unconf, and projects are still starting up/continuing to develop. The <a href="https://github.com/jonocarroll/ggeasy"><code>ggeasy</code></a> package isn&rsquo;t related, but it was spawned from another unconf Github Issue idea. Again; ideas and collaborations starting and developing.</p>
+
+<p>I had a great time at the unconf, and I can&rsquo;t wait until the next one. My hand will be going up to help out, attend, and help start something new.</p>
+
+<p>My thanks and congratulations go out to each of the <a href="https://github.com/ropenscilabs/realtime"><code>realtime</code></a> developers: <a href="https://github.com/richardbeare">Richard Beare</a>, <a href="https://github.com/jonocarroll">Jonathan Carroll</a>, <a href="https://github.com/kimnewzealand">Kim Fitter</a>, <a href="https://github.com/softloud">Charles Gray</a>, <a href="https://github.com/jeffreyhanson">Jeffrey O Hanson</a>, <a href="https://github.com/holtzy">Yan Holtz</a>, <a href="https://github.com/kcf-jackson">Jackson Kwok</a>, <a href="https://github.com/MilesMcBain">Miles McBain</a> and the entire cohort of <a href="https://ozunconf17.ropensci.org">2017 rOpenSci ozunconf attendees</a>. In particular, my thanks go to the organisers of such a wonderful event; <a href="https://github.com/njtierney">Nick Tierney</a>, <a href="https://github.com/robjhyndman">Rob Hyndman</a>, <a href="https://github.com/dicook">Di Cook</a>, and <a href="https://github.com/MilesMcBain">Miles McBain</a>.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/community"><span class="label">community</span></a>
+                
+                    <a href="/tags/ropensci"><span class="label">ropensci</span></a>
+                
+                    <a href="/tags/meetings"><span class="label">meetings</span></a>
+                
+                    <a href="/tags/unconf"><span class="label">unconf</span></a>
+                
+                    <a href="/tags/australia"><span class="label">australia</span></a>
+                
+                    <a href="/tags/r"><span class="label">r</span></a>
+                
+                    <a href="/tags/plot"><span class="label">plot</span></a>
+                
+                    <a href="/tags/realtime"><span class="label">realtime</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+                <div id='discourse-comments'></div>
+                <script type="text/javascript">
+                DiscourseEmbed = { discourseUrl: 'https://discuss.ropensci.org/',
+                                   topicId:  960  };
+                (function() {
+                  var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+                  d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+                })();
+                </script>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

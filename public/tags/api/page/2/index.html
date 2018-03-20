@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Blog</title>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://use.fontawesome.com/3d3fe91f65.js"></script>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <article>
+        <div class="container">
+            <div class="row">
+                <div class="col-8 col-offset-2 top-10 bottom-10 maintext">
+
+                
+
+               
+                    <div class="excerpt">
+                        <a href="/blog/2014/12/18/curl-options/"><h2>Curling - exploring web request options</h2></a>
+                        
+                        <p class="authors">
+                            
+                                &nbsp;
+                                
+                                  <a href="/about/#team">Scott Chamberlain</a>
+                                
+                                &nbsp; |
+                            
+
+                            <small style="color: #5B617A; margin-left: 10px;"> DECEMBER 18, 2014</small>
+                        </p>
+                        <div class="lighter" style="font-style: italic; text-align: justify;">
+                            <p>rOpenSci specializes in creating R libraries for accessing data resources on the web from R. Most times you request data from the web in R with our packages, you should have no problem. However, you evenutally will run into problems. In addition, there are advanced things you can do modifying requests to web resources that fall in the advanced stuff category.
+Underlying almost all of our packages are requests to web resources served over the http protocol via curl.</p>
+                        </div>
+                        <div class="labels">
+                            
+                                <a href="/tags/r"><span class="label">R</span></a>
+                            
+                                <a href="/tags/api"><span class="label">API</span></a>
+                            
+                                <a href="/tags/curl"><span class="label">curl</span></a>
+                            
+                        </div>
+                    </div>
+                
+                    <div class="excerpt">
+                        <a href="/blog/2014/07/21/rnoaa_v02/"><h2>Changes in rnoaa v0.2.0</h2></a>
+                        
+                        <p class="authors">
+                            
+                                &nbsp;
+                                
+                                  <a href="/about/#team">Scott Chamberlain</a>
+                                
+                                &nbsp; |
+                            
+
+                            <small style="color: #5B617A; margin-left: 10px;"> JULY 21, 2014</small>
+                        </p>
+                        <div class="lighter" style="font-style: italic; text-align: justify;">
+                            <p>We just released v0.2 of rnoaa. For details on the update, see the release notes. What follows are some notes on the more important changes.
+Updating to v0.2 Install rnoaa from CRAN
+install.packages(&quot;rnoaa&quot;)  or Github
+devtools::install_github(&quot;ropensci/rnoaa&quot;)  Then load rnoaa
+library(&quot;rnoaa&quot;)  UI changes We changed almost all function names to have a more intuitive programmatic user interface (or UI).
+ We changed all noaa*() functions to ncdc*() - these work only with NOAA National Climatic Data Center (NCDC) data, so the ncdc name makes sense.</p>
+                        </div>
+                        <div class="labels">
+                            
+                                <a href="/tags/r"><span class="label">R</span></a>
+                            
+                                <a href="/tags/api"><span class="label">API</span></a>
+                            
+                        </div>
+                    </div>
+                
+                    <div class="excerpt">
+                        <a href="/blog/2014/05/20/taxize_v03/"><h2>taxize v0.3.0 update - a new data source, taxonomy in writing, and uBio examples</h2></a>
+                        
+                        <p class="authors">
+                            
+                                &nbsp;
+                                
+                                  <a href="/about/#team">Scott Chamberlain</a>
+                                
+                                &nbsp; |
+                            
+
+                            <small style="color: #5B617A; margin-left: 10px;"> MAY 20, 2014</small>
+                        </p>
+                        <div class="lighter" style="font-style: italic; text-align: justify;">
+                            <p>We just released v0.3 of taxize. For details on the update, see the release notes.
+Some new features  New function iplant_resolve() to do name resolution using the iPlant name resolution service. Note, this is different from http://taxosaurus.org/ that is wrapped in the tnrs() function. New function ipni_search() to search for names in the International Plant Names Index (IPNI). See below for more. New function resolve() that unifies name resolution services from iPlant&rsquo;s name resolution service (via iplant_resolve()), Taxosaurus&rsquo; TNRS (via tnrs()), and GNR&rsquo;s name resolution service (via gnr_resolve()).</p>
+                        </div>
+                        <div class="labels">
+                            
+                                <a href="/tags/r"><span class="label">R</span></a>
+                            
+                                <a href="/tags/taxonomy"><span class="label">taxonomy</span></a>
+                            
+                                <a href="/tags/api"><span class="label">API</span></a>
+                            
+                                <a href="/tags/taxize"><span class="label">taxize</span></a>
+                            
+                        </div>
+                    </div>
+                
+                    <div class="excerpt">
+                        <a href="/blog/2014/04/22/rwbclimate-sp/"><h2>Overlaying species occurrence data with climate data</h2></a>
+                        
+                        <p class="authors">
+                            
+                                &nbsp;
+                                
+                                  <a href="/about/#team">Ted Hart</a>
+                                
+                                &nbsp; |
+                            
+
+                            <small style="color: #5B617A; margin-left: 10px;"> APRIL 22, 2014</small>
+                        </p>
+                        <div class="lighter" style="font-style: italic; text-align: justify;">
+                            <p>One of the goals of the rOpenSci is to facilitate interoperability between different data sources around web with our tools. We can achieve this by providing functionality within our packages that converts data coming down via web APIs in one format (often a provider specific schema) into a standard format. The new version of rWBclimate that we just posted to CRAN does just that. In an earlier post I wrote about how users could combine data from both rgbif and rWBclimate.</p>
+                        </div>
+                        <div class="labels">
+                            
+                                <a href="/tags/r"><span class="label">R</span></a>
+                            
+                                <a href="/tags/api"><span class="label">API</span></a>
+                            
+                                <a href="/tags/species"><span class="label">species</span></a>
+                            
+                                <a href="/tags/occurrence"><span class="label">occurrence</span></a>
+                            
+                                <a href="/tags/climate-change"><span class="label">climate change</span></a>
+                            
+                                <a href="/tags/climate"><span class="label">climate</span></a>
+                            
+                        </div>
+                    </div>
+                
+                    <div class="excerpt">
+                        <a href="/blog/2014/04/17/plotly/"><h2>Make your ggplots shareable, collaborative, and with D3</h2></a>
+                        
+                        <p class="authors">
+                            
+                                &nbsp;
+                                
+                                  <a href="https://plot.ly/company/team/" target="_blank">Matt Sundquist</a>
+                                
+                                &nbsp; |
+                            
+
+                            <small style="color: #5B617A; margin-left: 10px;"> APRIL 17, 2014</small>
+                        </p>
+                        <div class="lighter" style="font-style: italic; text-align: justify;">
+                            <p>Editor&rsquo;s note: This is a guest post by Matt Sundquist from Plot.ly.
+You can access the source code for this post at https://gist.github.com/sckott/10991885
+
+Ggplotly and Plotly&rsquo;s R API let you make ggplot2 plots, add py$ggplotly(), and make your plots interactive, online, and drawn with D3. Let&rsquo;s make some.
+1. Getting Started and Examples Here is Fisher&rsquo;s iris data.
+library(&quot;ggplot2&quot;) ggiris &lt;- qplot(Petal.Width, Sepal.Length, data = iris, color = Species) print(ggiris)  Let&rsquo;s make it in Plotly.</p>
+                        </div>
+                        <div class="labels">
+                            
+                                <a href="/tags/r"><span class="label">R</span></a>
+                            
+                                <a href="/tags/api"><span class="label">API</span></a>
+                            
+                                <a href="/tags/plotly"><span class="label">plotly</span></a>
+                            
+                                <a href="/tags/ggplot2"><span class="label">ggplot2</span></a>
+                            
+                                <a href="/tags/data"><span class="label">data</span></a>
+                            
+                                <a href="/tags/maps"><span class="label">maps</span></a>
+                            
+                        </div>
+                    </div>
+                
+                </div>
+
+            </div>
+        </div>
+    </article>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                
+                <span class="label pull-left"><a href="/tags/api/"><i class="fa fa-chevron-left" aria-hidden="true"></i> Previous</a></span>
+                
+            </div>
+            <div class="col">
+                <center><p>Page 2 of 8</p></center>
+            </div>
+
+            <div class="col">
+                
+                <span class="label pull-right"><a href="/tags/api/page/3/">Next&nbsp;&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i></a></span>
+                
+            </div>
+        </div>
+    </div>
+    <br><br>
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

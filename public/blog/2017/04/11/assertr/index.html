@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Data validation with the assertr package</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">Data validation with the assertr package</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="http://www.onthelambda.com/" target="_blank"> Tony Fischetti </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">April 11, 2017</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<div class="alert alert-info" role="alert">
+This is cross-posted from Tony's blog <a href="http://www.onthelambda.com/2017/03/20/data-validation-with-the-assertr-package/" target="_blank">onthelambda.com</a>
+</div>
+
+<p><small><em>Version 2.0 of my data set validation package <code>assertr</code> hit CRAN just this weekend. It has some pretty great improvements over version 1. For those new to the package, what follows is a short and new introduction. For those who are already using <code>assertr</code>, the text below will point out the improvements.</em></small></p>
+
+<p>I can (and have) go on and on about the treachery of messy/bad datasets. Though its substantially less exciting than… pretty much everything else, I believe (proportional to the heartache and stress it causes) we don’t spend enough time talking about it or building solutions around it. No matter how new and fancy your ML algorithm is, it’s success is predicated upon a properly sanitized dataset. If you are using bad data, your approach will fail—either flagrantly (best case), or unnoticeably (considerably more probable and considerably more pernicious).</p>
+
+<p><code>assertr</code> is a R package to help you identify common dataset errors. More specifically, it helps you easily spell out your assumptions about how the data should look and alert you of any deviation from those assumptions.</p>
+
+<p>I’ll return to this point later in the post when we have more background, but I want to be up front about the goals of the package; <code>assertr</code> is not (and can never be) a “one-stop shop” for all of your data validation needs. The specific kind of checks individuals or teams have to perform any particular dataset are often far too idiosyncratic to ever be exhaustively addressed by a single package (although, the <code>assertive</code> meta-package may come very close!) But all of these checks will reuse motifs and follow the same patterns. So, instead, I’m trying to sell <code>assertr</code> as a way of thinking about dataset validations—a set of common dataset validation <em>actions</em>. If we think of these actions as <em>verbs</em>, you could say that <code>assertr</code> attempts to impose a grammar of error checking for datasets.</p>
+
+<p>In my experience, the overwhelming majority of data validation tasks fall into only five different patterns:</p>
+
+<ul>
+<li><em>For every element in a column</em>, you want to make sure it fits certain criteria. Examples of this strain of error checking would be to make sure every element is a valid credit card number, or fits a certain regex pattern, or represents a date between two other dates. <code>assertr</code> calls this verb <code>assert</code>.</li>
+<li><em>For every element in a column</em>, you want to make sure certain criteria are met <strong>but the criteria can be decided only <em>after</em> looking at the entire column as a whole</strong>. For example, testing whether each element is within <em>n</em> standard deviations of the mean of the elements requires computation on the elements prior to inform the criteria to check for. <code>assertr</code> calls this verb <code>insist</code>.</li>
+<li><em>For every row of a dataset</em>, you want to make sure certain assumptions hold. Examples include ensuring that no row has more than <em>n</em> number of missing values, or that a group of columns are jointly unique and never duplicated. <code>assertr</code> calls this verb <code>assert_rows</code>.</li>
+<li><em>For every row of a dataset</em>, you want to make sure certain assumptions hold <strong>but the criteria can be decided only <em>after</em> looking at the entire column as a whole</strong>. This closely mirrors the distinction between <code>assert</code> and <code>insist</code>, but for entire rows (not individual elements). An example of using this would be checking to make sure that the <a href="https://en.wikipedia.org/wiki/Mahalanobis_distance">Mahalanobis distance</a> between each row and all other rows are within <em>n</em> number of standard deviations of the mean distance. <code>assertr</code> calls this verb <code>insist_rows</code>.</li>
+<li>You want to check some property of the dataset as a whole object. Examples include making sure the dataset has more than <em>n</em> columns, making sure the dataset has some specified column names, etc… <code>assertr</code> calls this last verb <code>verify</code>.</li>
+</ul>
+
+<p>Some of this might sound a little complicated, but I promise this is a worthwhile way to look at dataset validation. Now we can begin with an example of what can be achieved with these verbs. The following example is borrowed from the package vignette and README…</p>
+
+<p>Pretend that, before finding the average miles per gallon for each number of engine cylinders in the <code>mtcars</code> dataset, we wanted to confirm the following dataset assumptions…
+<small></p>
+
+<ul>
+<li>that it has the columns <code>mpg</code>, <code>vs</code>, and <code>am</code></li>
+<li>that the dataset contains more than 10 observations</li>
+<li>that the column for &lsquo;miles per gallon&rsquo; (mpg) is a positive number</li>
+<li>that the column for ‘miles per gallon’ (mpg) does not contain a datum that is outside 4 standard deviations from its mean</li>
+<li>that the <code>am</code> and <code>vs</code> columns (automatic/manual and v/straight engine, respectively) contain 0s and 1s only</li>
+<li>each row contains at most 2 NAs</li>
+<li>each row is unique jointly between the <code>mpg</code>, <code>am</code>, and <code>wt</code> columns</li>
+<li>each row&rsquo;s mahalanobis distance is within 10 median absolute deviations of all the distances (for outlier detection)</li>
+</ul>
+
+<p></small></p>
+
+<pre><code class="language-r results='hide', warning=FALSE, comment=FALSE, warning=FALSE, message=FALSE">library(assertr)
+library(magrittr)
+library(dplyr)
+
+mtcars %&gt;%
+  verify(has_all_names(&quot;mpg&quot;, &quot;vs&quot;, &quot;am&quot;, &quot;wt&quot;)) %&gt;%
+  verify(nrow(.) &gt; 10) %&gt;%
+  verify(mpg &gt; 0) %&gt;%
+  insist(within_n_sds(4), mpg) %&gt;%
+  assert(in_set(0,1), am, vs) %&gt;%
+  assert_rows(num_row_NAs, within_bounds(0,2), everything()) %&gt;%
+  assert_rows(col_concat, is_uniq, mpg, am, wt) %&gt;%
+  insist_rows(maha_dist, within_n_mads(10), everything()) %&gt;%
+  group_by(cyl) %&gt;%
+  summarise(avg.mpg=mean(mpg))
+</code></pre>
+
+<p>Before <code>assertr</code> version 2, the pipeline would immediately terminate at the first failure. Sometimes this is a good thing. However, sometimes we’d like to run a dataset through our entire suite of checks and record all failures. The latest version includes the <code>chain_start</code> and <code>chain_end</code> functions; all assumptions within a chain (below a call to <code>chain_start</code> and above <code>chain_end</code>) will run from beginning to end and accumulate errors along the way. At the end of the chain, a specific action can be taken but the default is to halt execution and display a comprehensive report of what failed including line numbers and the offending datum, where applicable.</p>
+
+<p>Another major improvement since the last version of <code>assertr</code> on CRAN is that <code>assertr</code> errors are now S3 classes (instead of dumb strings). Additionally, the behavior of each assertion statement on success (no error) and failure can now be flexibly customized. For example, you can now tell <code>assertr</code> to just return TRUE and FALSE instead of returning the data passed in or halting execution, respectively. Alternatively, you can instruct <code>assertr</code> to just give a warning instead of throwing a fatal error. For more information on this, see <code>help(&quot;success_and_error_functions&quot;)</code></p>
+
+<h3 id="beyond-these-examples">Beyond these examples</h3>
+
+<p>Since the package was initially published on CRAN (almost exactly two years ago) many people have asked me how they should go about using <code>assertr</code> to test a particular assumption (and I’m very happy to help if you have one of your own, dear reader!) In every single one of these cases, I’ve been able to express it as an incantation using one of these 5 verbs. It also underscored, to me, that creating specialized functions for every need is a pipe dream. There is, however, two good pieces of news.</p>
+
+<p>The first is that there is another package, <a href="https://CRAN.R-project.org/package=assertive">assertive</a> that greatly enhances the <code>assertr</code> experience. The predicates (functions that start with <code>is_</code>) from this (meta)package can be used in <code>assertr</code> pipelines just as easily as <code>assertr</code>’s own predicates. And <code>assertive</code> has an enormous amount of them! Some specialized and exciting examples include <code>is_hex_color</code>, <code>is_ip_address</code>, and <code>is_isbn_code</code>!</p>
+
+<p>The second is if <code>assertive</code> doesn’t have what you’re looking for, with just a little bit of studying the <code>assertr</code> grammar, you can whip up your own predicates with relative ease. Using some these basic constructs and a little effort, I’m confident that the grammar is expressive enough to completely adapt to your needs.</p>
+
+<p><em>If this package interests you, I urge you to read the most recent package vignette <a href="https://cran.rstudio.com/web/packages/assertr/vignettes/assertr.html">here</a>. If you&rsquo;re an <code>assertr</code> old-timer, I point you to <a href="https://cran.rstudio.com/web/packages/assertr/NEWS">this NEWS file</a> that list the changes from the previous version.</em></p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/reproducibility"><span class="label">reproducibility</span></a>
+                
+                    <a href="/tags/community"><span class="label">community</span></a>
+                
+                    <a href="/tags/software"><span class="label">software</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+                <div id='discourse-comments'></div>
+                <script type="text/javascript">
+                DiscourseEmbed = { discourseUrl: 'https://discuss.ropensci.org/',
+                                   topicId:  658  };
+                (function() {
+                  var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+                  d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+                })();
+                </script>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

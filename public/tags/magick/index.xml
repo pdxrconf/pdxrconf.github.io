@@ -1,0 +1,1294 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Magick on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/magick/</link>
+    <description>Recent content in Magick on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 05 Dec 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/magick/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Magick 1.6: clipping, geometries, fonts, fuzz, and a bit of history</title>
+      <link>https://ropensci.org/technotes/2017/12/05/magick-16/</link>
+      <pubDate>Tue, 05 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/technotes/2017/12/05/magick-16/</guid>
+      <description>
+        
+        &lt;img src=&quot;https://i.imgur.com/tTFk7ig.jpg&quot; alt=&quot;cover image&quot;&gt;
+        
+        
+
+&lt;p&gt;This week &lt;a href=&#34;https://cran.r-project.org/web/packages/magick/vignettes/intro.html&#34;&gt;magick&lt;/a&gt; 1.6 appeared on CRAN. This release is a big all-round maintenance update with lots of tweaks and improvements across the package.&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&#34;https://cran.r-project.org/web/packages/magick/NEWS&#34;&gt;NEWS&lt;/a&gt; file gives an overview of changes in this version. In this post we highlight some changes.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(magick)
+stopifnot(packageVersion(&#39;magick&#39;) &amp;gt;= 1.6)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you are new to magick, check out the &lt;a href=&#34;https://cran.r-project.org/web/packages/magick/vignettes/intro.html&#34;&gt;vignette&lt;/a&gt; for a quick introduction.&lt;/p&gt;
+
+&lt;h2 id=&#34;perfect-graphics-rendering&#34;&gt;Perfect Graphics Rendering&lt;/h2&gt;
+
+&lt;p&gt;I have fixed a few small rendering imperfections in the graphics device. The native magick graphics device &lt;code&gt;image_graph()&lt;/code&gt; now renders identical or better quality images as the R-base bitmap devices &lt;code&gt;png&lt;/code&gt;, &lt;code&gt;jpeg&lt;/code&gt;, etc.&lt;/p&gt;
+
+&lt;p&gt;One issue was that sometimes magick graphics would show a 1px black border around the image. It turned out this is caused by rounding of clipping coordinates.&lt;/p&gt;
+
+&lt;p&gt;When R calculates clipping area it often ends up at non-whole values. It is then up to the graphics device to decide what to do with the pixel that is partially clipped. Let&amp;rsquo;s show clipping in action:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;testplot &amp;lt;- function(title = &amp;quot;&amp;quot;){
+  plot(1, main = title)
+  abline(0, 1, col = &amp;quot;blue&amp;quot;, lwd = 2, lty = &amp;quot;solid&amp;quot;)
+  abline(0.1, 1, col = &amp;quot;red&amp;quot;, lwd = 3, lty = &amp;quot;dotted&amp;quot;)
+  abline(0.2, 1, col = &amp;quot;green&amp;quot;, lwd = 4, lty = &amp;quot;twodash&amp;quot;)
+  abline(0.3, 1, col = &amp;quot;black&amp;quot;, lwd = 5, lty = &amp;quot;dotdash&amp;quot;)
+  abline(0.4, 1, col = &amp;quot;purple&amp;quot;, lwd = 6, lty = &amp;quot;dashed&amp;quot;)
+  abline(0.5, 1, col = &amp;quot;yellow&amp;quot;, lwd = 7, lty = &amp;quot;longdash&amp;quot;)
+  abline(-0.1, 1, col = &amp;quot;blue&amp;quot;, lwd = 10, lend = &amp;quot;round&amp;quot;, lty = &amp;quot;dashed&amp;quot;)
+  abline(-0.2, 1, col = &amp;quot;blue&amp;quot;, lwd = 10, lend = &amp;quot;butt&amp;quot;, lty = &amp;quot;dashed&amp;quot;)
+  abline(-0.3, 1, col = &amp;quot;blue&amp;quot;, lwd = 10, lend = &amp;quot;square&amp;quot;, lty = &amp;quot;dashed&amp;quot;)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we run it with and without clipping:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;img2 &amp;lt;- magick::image_graph(clip = FALSE)
+testplot(&amp;quot;Without clipping&amp;quot;)
+dev.off()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/TtpjlLq.png&#34; alt=&#34;noclip.png&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;img1 &amp;lt;- magick::image_graph(clip = TRUE)
+testplot(&amp;quot;With clipping&amp;quot;)
+dev.off()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/JbWMElL.png&#34; alt=&#34;clip.png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As we can see the latter image is now perfectly clipped. The colored lines are truncated exactly at the pixel where the axis starts. This is not always the case in base R ;)&lt;/p&gt;
+
+&lt;h2 id=&#34;font-families&#34;&gt;Font Families&lt;/h2&gt;
+
+&lt;p&gt;In magick there are two ways to render text on an image. You can either open the image or graphic in the magick graphics device and then use base R &lt;code&gt;text()&lt;/code&gt; function to print text. Alternatively there is &lt;code&gt;image_annotate()&lt;/code&gt; which is a simpler version to print some text on an image.&lt;/p&gt;
+
+&lt;p&gt;Wherever text rendering is involved, two major headache arise: encoding and fonts. The latter is tricky because different operating systems have different fonts with different names. In addition a font can be specified as a name, or family name, or alias.&lt;/p&gt;
+
+&lt;p&gt;Below is a simple test that I use to quickly inspect if fonts are working on different systems:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;img &amp;lt;- image_graph(width = 800, height = 500, pointsize = 20, res = 96)
+graphics::plot.new()
+graphics::par(mar = c(0,0,3,0))
+graphics::plot.window(xlim = c(0, 20), ylim = c(-.5, 8))
+title(expression(Gamma %prop% sum(x[alpha], i==1, n) * sqrt(mu)), expression(hat(x)))
+
+# Standard families as supported by other devices
+text(0.95, 7, &amp;quot;abcdefg  - Helvetica&amp;quot;, pos = 4, family = &amp;quot;helvetica&amp;quot;)
+text(0.95, 6, &amp;quot;abcdefg  - Sans (Arial)&amp;quot;, pos = 4, family = &amp;quot;sans&amp;quot;)
+text(0.95, 5, &amp;quot;abcdefg - Serif (Times)&amp;quot;, pos = 4, family = &amp;quot;serif&amp;quot;)
+text(0.95, 4, &amp;quot;abcdefg - Monospace (Courier New)&amp;quot;, pos = 4, family = &amp;quot;mono&amp;quot;)
+text(0.95, 3, &amp;quot;abcdefg - Symbol Face&amp;quot;, pos = 4, font = 5)
+text(0.95, 2, &amp;quot;abcdefg  - Comic Sans&amp;quot;, pos = 4, family = &amp;quot;Comic Sans&amp;quot;)
+text(0.95, 1, &amp;quot;abcdefg - Georgia Serif&amp;quot;, pos = 4, family = &amp;quot;Georgia&amp;quot;)
+text(0.95, 0, &amp;quot;abcdefg - Courier&amp;quot;, pos = 4, family = &amp;quot;Courier&amp;quot;)
+dev.off()
+img &amp;lt;- image_border(img, &#39;red&#39;, geometry = &#39;2x2&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/tzIktip.png&#34; alt=&#34;families&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;R requires that a graphics device supports at least 4 font types: &lt;code&gt;serif&lt;/code&gt;, &lt;code&gt;sans&lt;/code&gt;, &lt;code&gt;mono&lt;/code&gt; and &lt;code&gt;symbol&lt;/code&gt;. The latter is a special 8bit font with some Greek letters and other characters needed for rendering math. This set of fonts corresponds to the original &lt;strong&gt;13 base fonts&lt;/strong&gt; from the &lt;a href=&#34;https://en.wikipedia.org/wiki/PostScript_fonts#Core_Font_Set&#34;&gt;1984 postscript standard&lt;/a&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;4x Courier (Regular, Oblique, Bold, Bold Oblique)&lt;/li&gt;
+&lt;li&gt;4x Helvetica (Regular, Oblique, Bold, Bold Oblique)&lt;/li&gt;
+&lt;li&gt;4x Times (Roman, Italic, Bold, Bold Italic)&lt;/li&gt;
+&lt;li&gt;Symbol&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Below a photo of the 1985 &lt;a href=&#34;https://en.wikipedia.org/wiki/LaserWriter&#34;&gt;Apple Laser Writer&lt;/a&gt; which was &lt;a href=&#34;https://en.wikipedia.org/wiki/PostScript_fonts#History&#34;&gt;the first laser printer&lt;/a&gt; to use the PostScript language and support all these fonts! Not much later PostScript graphics devices were adopted by R&amp;rsquo;s predecessor &lt;a href=&#34;https://en.wikipedia.org/wiki/S_(programming_language)#.22New_S.22&#34;&gt;&amp;ldquo;The New S&amp;rdquo;&lt;/a&gt; (The New S Language, 1988).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://theappletimeline.com/images/color1000.jpg&#34; alt=&#34;printers&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;geometry-helpers&#34;&gt;Geometry Helpers&lt;/h2&gt;
+
+&lt;p&gt;Another major improvement in this release is the introduction of helper functions for geometry and option strings. Many functions in magick require a special geometry syntax to specify a size, area, or point. For example to resize an image you need to specify a size:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;image_resize(img, &amp;quot;50%&amp;quot;)
+image_resize(img, &amp;quot;300x300&amp;quot;)
+image_resize(img, &amp;quot;300x300!&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or to crop you need to specify an area which consists of a size and offset:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;image_crop(img, &amp;quot;300x300+100+100&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We added a few handy &lt;code&gt;?geometry&lt;/code&gt; helper functions to generate proper geometry syntax&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/2jivLxi.png&#34; alt=&#34;geometries&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;magick-options&#34;&gt;Magick Options&lt;/h2&gt;
+
+&lt;p&gt;A lot of the power in ImageMagick is contained in the hundreds of built-in filters, colorspaces, compose operators, disposal types, convolution kernels, noise types and what not. These are specified simply as a string in the function.&lt;/p&gt;
+
+&lt;p&gt;For example in our previous &lt;a href=&#34;https://ropensci.org/technotes/2017/11/02/image-convolve/&#34;&gt;post about Image Convolution&lt;/a&gt; we discussed a few kernel types:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Gaussian Kernel
+img %&amp;gt;% image_convolve(&#39;Gaussian:0x5&#39;, scaling = &#39;60,40%&#39;)
+
+# Sobel Kernel
+img %&amp;gt;% image_convolve(&#39;Sobel&#39;)
+
+# Difference of Gaussians
+img %&amp;gt;% image_convolve(&#39;DoG:0,0,2&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Supported values for each option are described in the online ImageMagick documentation. We now have added functions in the magick package that list all values for each option. This should make it a easier to see what is supported and harness the full power of built-in ImageMagick algorithms.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/cid6JqU.png&#34; alt=&#34;options&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;So we can now easily list e.g. supported kernel types:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;&amp;gt; kernel_types()
+ [1] &amp;quot;Undefined&amp;quot;     &amp;quot;Unity&amp;quot;         &amp;quot;Gaussian&amp;quot;      &amp;quot;DoG&amp;quot;          
+ [5] &amp;quot;LoG&amp;quot;           &amp;quot;Blur&amp;quot;          &amp;quot;Comet&amp;quot;         &amp;quot;Binomial&amp;quot;     
+ [9] &amp;quot;Laplacian&amp;quot;     &amp;quot;Sobel&amp;quot;         &amp;quot;FreiChen&amp;quot;      &amp;quot;Roberts&amp;quot;      
+[13] &amp;quot;Prewitt&amp;quot;       &amp;quot;Compass&amp;quot;       &amp;quot;Kirsch&amp;quot;        &amp;quot;Diamond&amp;quot;      
+[17] &amp;quot;Square&amp;quot;        &amp;quot;Rectangle&amp;quot;     &amp;quot;Disk&amp;quot;          &amp;quot;Octagon&amp;quot;      
+[21] &amp;quot;Plus&amp;quot;          &amp;quot;Cross&amp;quot;         &amp;quot;Ring&amp;quot;          &amp;quot;Peaks&amp;quot;        
+[25] &amp;quot;Edges&amp;quot;         &amp;quot;Corners&amp;quot;       &amp;quot;Diagonals&amp;quot;     &amp;quot;ThinDiagonals&amp;quot;
+[29] &amp;quot;LineEnds&amp;quot;      &amp;quot;LineJunctions&amp;quot; &amp;quot;Ridges&amp;quot;        &amp;quot;ConvexHull&amp;quot;   
+[33] &amp;quot;ThinSe&amp;quot;        &amp;quot;Skeleton&amp;quot;      &amp;quot;Chebyshev&amp;quot;     &amp;quot;Manhattan&amp;quot;    
+[37] &amp;quot;Octagonal&amp;quot;     &amp;quot;Euclidean&amp;quot;     &amp;quot;User Defined&amp;quot; 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That&amp;rsquo;s a lot of kernels.&lt;/p&gt;
+
+&lt;h2 id=&#34;fuzz-scaling&#34;&gt;Fuzz Scaling&lt;/h2&gt;
+
+&lt;p&gt;Finally one more (breaking) change: several functions in magick use a &lt;code&gt;fuzz&lt;/code&gt; parameter to specify the max distance between two colors to be considered similar.&lt;/p&gt;
+
+&lt;p&gt;For example the flood fill algorithm (the paint-bucket button in ms-paint) changes the color of a given starting pixel, and then recursively all adjacent pixels that have the same color. However sometimes neighboring pixels are not precisely the same color, but nearly the same. The &lt;code&gt;fuzz&lt;/code&gt; parameter allows the fill to continue when pixels are not the same but similar color.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Paint the shirt orange
+frink &amp;lt;- image_read(&amp;quot;https://jeroen.github.io/images/frink.png&amp;quot;) %&amp;gt;%
+  image_fill(&amp;quot;orange&amp;quot;, point = &amp;quot;+100+200&amp;quot;, fuzz = 25)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/VwlqYWy.png&#34; alt=&#34;frink&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;What has changed in this version is that &lt;code&gt;fuzz&lt;/code&gt; parameter been rescaled to a percentage. Hence you should always provide a value between 0 and 100. Previously it was the absolute distance between colors, but this depends on the type and color depth of the image at hand, which was very confusing.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Using Magick with RMarkdown and Shiny</title>
+      <link>https://ropensci.org/technotes/2017/11/07/magick-knitr/</link>
+      <pubDate>Tue, 07 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/technotes/2017/11/07/magick-knitr/</guid>
+      <description>
+        
+        &lt;img src=&quot;https://i.imgur.com/tTFk7ig.jpg&quot; alt=&quot;cover image&quot;&gt;
+        
+        
+
+&lt;p&gt;This week &lt;a href=&#34;https://cran.r-project.org/web/packages/magick/vignettes/intro.html&#34;&gt;magick&lt;/a&gt; 1.5 appeared on CRAN. The latest update adds support for using images in knitr documents and shiny apps. In this post we show how this nicely ties together a reproducible image workflow in R, from source image or plot directly into your report or application.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(magick)
+stopifnot(packageVersion(&#39;magick&#39;) &amp;gt;= 1.5)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Also the magick &lt;a href=&#34;https://cran.r-project.org/web/packages/magick/vignettes/intro.html&#34;&gt;intro vignette&lt;/a&gt; has been updated in this version to cover the latest features available in the package.&lt;/p&gt;
+
+&lt;h2 id=&#34;magick-in-knitr-rmarkdown-documents&#34;&gt;Magick in Knitr / RMarkdown Documents&lt;/h2&gt;
+
+&lt;p&gt;Magick 1.5 is now fully compatible with knitr. To embed magick images in your rmarkdown report, simply use standard code chunk syntax in your &lt;code&gt;Rmd&lt;/code&gt; file. No special options or packages are required; the image automatically appears in your documents when printed!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Example from our post last week
+image_read(&#39;logo:&#39;) %&amp;gt;%
+  image_convolve(&#39;DoG:0,0,2&#39;) %&amp;gt;%
+  image_negate() %&amp;gt;%
+  image_resize(&amp;quot;400x400&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/PhwCJ4k.gif&#34; alt=&#34;fig1&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You can also combine this with the magick graphics device to post process or animate your plots and figures directly in knitr. Again no special packages or system dependencies are required.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Produce graphic
+fig &amp;lt;- image_graph(width = 800, height = 600, res = 96)
+ggplot2::qplot(factor(cyl), data = mtcars, fill = factor(gear))
+invisible(dev.off())
+
+print(fig)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/zFLcHws.png&#34; alt=&#34;fig2&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;
+# Some post-processing
+frink &amp;lt;- image_read(&amp;quot;https://jeroen.github.io/images/frink.png&amp;quot;)
+
+fig %&amp;gt;%
+  image_rotate(10) %&amp;gt;%
+  image_implode(.6) %&amp;gt;%
+  image_composite(frink, offset = &amp;quot;+140+70&amp;quot;) %&amp;gt;%
+  image_annotate(&amp;quot;Very usefull stuff&amp;quot;, size = 40, location = &amp;quot;+300+100&amp;quot;, color = &amp;quot;navy&amp;quot;, boxcolor = &amp;quot;pink&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/0E5cqaz.png&#34; alt=&#34;fig3&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Same works for animation with &lt;code&gt;image_animate()&lt;/code&gt;; the figure shows automatically up in the report as a gif image:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;image_read(&amp;quot;https://jeroen.github.io/images/banana.gif&amp;quot;) %&amp;gt;%
+  image_apply( function(banana){
+    image_composite(fig, banana, offset = &amp;quot;+200+200&amp;quot;)
+  }) %&amp;gt;%
+  image_resize(&amp;quot;50%&amp;quot;) %&amp;gt;%
+  image_animate()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/mi67gjt.gif&#34; alt=&#34;fig4&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The magick vignette &lt;a href=&#34;https://raw.githubusercontent.com/ropensci/magick/master/vignettes/intro.Rmd&#34;&gt;source code&lt;/a&gt; is itself written in Rmarkdown, so it&amp;rsquo;s great example to see this in action. Try rendering it in RStudio to see how easy it is!&lt;/p&gt;
+
+&lt;h2 id=&#34;magick-in-shiny-apps&#34;&gt;Magick in Shiny Apps&lt;/h2&gt;
+
+&lt;p&gt;While we&amp;rsquo;re at it, several people had asked how to use magick images in shiny apps. The easiest way is to write the image to a &lt;code&gt;tempfile()&lt;/code&gt; within the &lt;code&gt;renderImage()&lt;/code&gt; callback function. For example the server part could look like this:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;output$img &amp;lt;- renderImage({
+    tmpfile &amp;lt;- image %&amp;gt;%
+      image_resize(input$size) %&amp;gt;%
+      image_implode(input$implode) %&amp;gt;%
+      image_blur(input$blur, input$blur) %&amp;gt;%
+      image_rotate(input$rotation) %&amp;gt;%
+      image_write(tempfile(fileext=&#39;jpg&#39;), format = &#39;jpg&#39;)
+
+  # Return a list
+  list(src = tmpfile, contentType = &amp;quot;image/jpeg&amp;quot;)
+})
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Below is a simple shiny app that demonstrates this. Have a look at the &lt;a href=&#34;https://github.com/jeroen/shinymagick/blob/master/app.R&#34;&gt;source code&lt;/a&gt; or just run it in R:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(shiny)
+library(magick)
+runGitHub(&amp;quot;jeroen/shinymagick&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://jeroen.shinyapps.io/shinymagick&#34;&gt;&lt;img src=&#34;https://i.imgur.com/tTFk7ig.jpg&#34; alt=&#34;tigrou&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Perhaps there&amp;rsquo;s an even better way to make this work by wrapping magick images into an htmlwidget but I have not figured this out yet.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Image Convolution in R using Magick</title>
+      <link>https://ropensci.org/technotes/2017/11/02/image-convolve/</link>
+      <pubDate>Thu, 02 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/technotes/2017/11/02/image-convolve/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Release 1.4 of the &lt;a href=&#34;https://cran.r-project.org/web/packages/magick/vignettes/intro.html&#34;&gt;magick package&lt;/a&gt; introduces
+a new feature called &lt;a href=&#34;https://en.wikipedia.org/wiki/Kernel_(image_processing)#Convolution&#34;&gt;image convolution&lt;/a&gt; that
+was requested by Thomas L. Pedersen. In this post we explain what this is all about.&lt;/p&gt;
+
+&lt;h2 id=&#34;kernel-matrix&#34;&gt;Kernel Matrix&lt;/h2&gt;
+
+&lt;p&gt;The new &lt;code&gt;image_convolve()&lt;/code&gt; function applies a &lt;a href=&#34;https://en.wikipedia.org/wiki/Kernel_(image_processing)&#34;&gt;kernel&lt;/a&gt; over the image. Kernel convolution means that each pixel value is recalculated using the &lt;em&gt;weighted neighborhood sum&lt;/em&gt; defined in the kernel matrix. For example lets look at this simple kernel:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(magick)
+
+kern &amp;lt;- matrix(0, ncol = 3, nrow = 3)
+kern[1, 2] &amp;lt;- 0.25
+kern[2, c(1, 3)] &amp;lt;- 0.25
+kern[3, 2] &amp;lt;- 0.25
+kern
+##      [,1] [,2] [,3]
+## [1,] 0.00 0.25 0.00
+## [2,] 0.25 0.00 0.25
+## [3,] 0.00 0.25 0.00
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This kernel changes each pixel to the mean of its horizontal and vertical neighboring pixels, which results in a slight blurring effect in the right-hand image below:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;img &amp;lt;- image_read(&#39;logo:&#39;)
+img_blurred &amp;lt;- image_convolve(img, kern)
+image_append(c(img, img_blurred))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/Y6xByUL.gif&#34; alt=&#34;image_appended&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;standard-kernels&#34;&gt;Standard Kernels&lt;/h2&gt;
+
+&lt;p&gt;Many operations in &lt;code&gt;magick&lt;/code&gt;  such as blurring, sharpening, and edge detection are
+actually special cases of image convolution. The benefit of explicitly using
+&lt;code&gt;image_convolve()&lt;/code&gt; is more control. For example, we can blur an image and then blend
+it together with the original image in one step by mixing a blurring kernel with the
+unit kernel:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;img %&amp;gt;% image_convolve(&#39;Gaussian:0x5&#39;, scaling = &#39;60,40%&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/6Vf6c2hl.gif&#34; alt=&#34;mixed&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The above requires a bit of explanation. ImageMagick defines several common
+&lt;a href=&#34;http://www.imagemagick.org/Usage/convolve/&#34;&gt;standard kernels&lt;/a&gt; such as the
+gaussian kernel. Most of the standard kernels take one or more parameters,
+e.g. the example above used a gaussian kernel with 0 &lt;em&gt;radius&lt;/em&gt; and 5 &lt;em&gt;sigma&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;In addition, &lt;code&gt;scaling&lt;/code&gt; argument defines the magnitude of the kernel, and possibly
+how much of the original picture should be mixed in. Here we mix 60% of the
+blurring with 40% of the original picture in order to get a diffused lightning effect.&lt;/p&gt;
+
+&lt;h2 id=&#34;edge-detection&#34;&gt;Edge Detection&lt;/h2&gt;
+
+&lt;p&gt;Another area where kernels are of use is in edge detection. A simple example of
+a direction-aware edge detection kernel is the &lt;a href=&#34;https://en.wikipedia.org/wiki/Sobel_operator&#34;&gt;&lt;em&gt;Sobel&lt;/em&gt;&lt;/a&gt; kernel.
+As can be seen below, vertical edges are detected while horizontals are not.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;img %&amp;gt;% image_convolve(&#39;Sobel&#39;) %&amp;gt;% image_negate()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/i8ndfCu.gif&#34; alt=&#34;edges&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Something less apparent is that the result of the edge detection is truncated.
+Edge detection kernels can result in negative color values which get truncated to zero.
+To combat this it is possible to add a &lt;code&gt;bias&lt;/code&gt; to the result. Often you&amp;rsquo;ll end up with
+scaling the kernel to 50% and adding 50% bias to move the midpoint of the result to 50%
+grey:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;img %&amp;gt;% image_convolve(&#39;Sobel&#39;, scaling = &#39;50%&#39;, bias = &#39;50%&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/llUawrg.gif&#34; alt=&#34;50pct&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;sharpening&#34;&gt;Sharpening&lt;/h2&gt;
+
+&lt;p&gt;ImageMagick has many more edge detection kernels, some of which are insensitive to
+the direction of the edge. To emulate a classic high-pass filter from photoshop use
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Difference_of_Gaussians&#34;&gt;difference of gaussians&lt;/a&gt; kernel:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;img %&amp;gt;% image_convolve(&#39;DoG:0,0,2&#39;) %&amp;gt;% image_negate()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/o5kODpc.gif&#34; alt=&#34;dog&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As with the blurring, the original image can be blended in with the transformed one, effectively sharpening the image along edges.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;img %&amp;gt;% image_convolve(&#39;DoG:0,0,2&#39;, scaling = &#39;100, 100%&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/MtcMSn7.gif&#34; alt=&#34;combination&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The &lt;a href=&#34;http://www.imagemagick.org/Usage/convolve/&#34;&gt;ImageMagick documentation&lt;/a&gt; has more examples of convolve with various avaiable kernels.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Magick 1.0: 🎩 ✨🐇 Advanced Graphics and Image Processing in R </title>
+      <link>https://ropensci.org/blog/2017/08/15/magick-10/</link>
+      <pubDate>Tue, 15 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/08/15/magick-10/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Last week, version 1.0 of the &lt;a href=&#34;https://cran.r-project.org/web/packages/magick/index.html&#34;&gt;magick&lt;/a&gt; package appeared on CRAN: an ambitious effort to modernize and simplify high quality image processing in R. This R package builds upon the &lt;a href=&#34;https://www.imagemagick.org/Magick++/STL.html&#34;&gt;Magick++ STL&lt;/a&gt; which exposes a powerful C++ API to the famous ImageMagick library.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jeroen.github.io/images/magick.png&#34; alt=&#34;RStudio Screenshot&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The best place to start learning about magick is the &lt;a href=&#34;https://cran.r-project.org/web/packages/magick/vignettes/intro.html&#34;&gt;vignette&lt;/a&gt; which gives a brief overview of the overwhelming amount of functionality in this package.&lt;/p&gt;
+
+&lt;h3 id=&#34;towards-release-1-0&#34;&gt;Towards Release 1.0&lt;/h3&gt;
+
+&lt;p&gt;Last year around this time rOpenSci &lt;a href=&#34;https://ropensci.org/blog/blog/2016/08/23/z-magick-release&#34;&gt;announced&lt;/a&gt; the first release of the magick package: a new powerful toolkit for image reading, writing, converting, editing, transformation, annotation, and animation in R. Since the initial release there have been several updates with additional functionality, and many useRs have started to discover the power of this package to take visualization in R to the next level.&lt;/p&gt;
+
+&lt;p&gt;For example &lt;a href=&#34;https://twitter.com/hrbrmstr/status/758304420224466944&#34;&gt;Bob Rudis&lt;/a&gt; uses magick to visualize California drought data from the U.S. Drought Monitor (click on the image to go find out more):&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://rud.is/b/2016/07/27/u-s-drought-animations-with-the-witchs-brew-purrr-broom-magick/&#34;&gt;&lt;img src=&#34;https://jeroen.github.io/images/drought.gif&#34; alt=&#34;drought&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;R-ladies &lt;a href=&#34;http://www.lucymcgowan.com/&#34;&gt;Lucy D&amp;rsquo;Agostino McGowan&lt;/a&gt; and &lt;a href=&#34;http://www.masalmon.eu/&#34;&gt;Maëlle Salmon&lt;/a&gt; demonstrate how to make a beautiful collage:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://livefreeordichotomize.com/2017/07/18/the-making-of-we-r-ladies/&#34;&gt;&lt;img src=&#34;http://livefreeordichotomize.com/images/we-r-ladies.jpeg&#34; alt=&#34;collage&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;And &lt;a href=&#34;https://twitter.com/danielphadley/status/884845188979359744&#34;&gt;Daniel P. Hadley&lt;/a&gt; lets Vincent Vega explains Cars:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://danielphadley.com/ggplot-Logo/&#34;&gt;&lt;img src=&#34;http://danielphadley.com/images/Cars_Travolta.gif&#34; alt=&#34;travolta&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Now, 1 year later, the 1.0 release marks an important milestone: the addition of a new native graphics device (which serves as a hybrid between a magick image object and an R plot) bridges the gap between graphics and image processing in R.&lt;/p&gt;
+
+&lt;p&gt;This blog post explains how the magick device allows you to seamlessly combine graphing with image processing in R. You can either use it to post-process your R graphics, or draw on imported images using the native R plotting machinery. We hope that this unified interface will make it easier to produce beautiful, reproducible images with R.&lt;/p&gt;
+
+&lt;h3 id=&#34;native-magick-graphics&#34;&gt;Native Magick Graphics&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;image_graph()&lt;/code&gt; function opens a new graphics device similar to e.g. &lt;code&gt;png()&lt;/code&gt; or &lt;code&gt;x11()&lt;/code&gt;. It returns an image object to which the plot(s) will be written. Each page in the plotting device will become a frame (layer) in the image object.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Produce image using graphics device
+fig &amp;lt;- image_graph(res = 96)
+ggplot2::qplot(mpg, wt, data = mtcars, colour = cyl)
+dev.off()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;fig&lt;/code&gt; object now contains the image that we can easily post-process. For example we can overlay another image:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;logo &amp;lt;- image_read(&amp;quot;https://www.r-project.org/logo/Rlogo.png&amp;quot;)
+out &amp;lt;- image_composite(fig, image_scale(logo, &amp;quot;x150&amp;quot;), offset = &amp;quot;+80+380&amp;quot;)
+
+# Show preview
+image_browse(out)
+
+# Write to file
+image_write(out, &amp;quot;myplot.png&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-08-15-magick-10/out.png&#34; alt=&#34;out&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;drawing-device&#34;&gt;Drawing Device&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;image_draw()&lt;/code&gt; function opens a graphics device to draw on top of an existing image using pixel coordinates.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Open a file
+library(magick)
+frink &amp;lt;- image_read(&amp;quot;https://jeroen.github.io/images/frink.png&amp;quot;)
+drawing &amp;lt;- image_draw(frink)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://jeroen.github.io/images/frink.png&#34; alt=&#34;frink&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We can now use R&amp;rsquo;s native low-level graphics functions for drawing on top of the image:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;rect(20, 20, 200, 100, border = &amp;quot;red&amp;quot;, lty = &amp;quot;dashed&amp;quot;, lwd = 5)
+abline(h = 300, col = &#39;blue&#39;, lwd = &#39;10&#39;, lty = &amp;quot;dotted&amp;quot;)
+text(10, 250, &amp;quot;Hoiven-Glaven&amp;quot;, family = &amp;quot;courier&amp;quot;, cex = 4, srt = 90)
+palette(rainbow(11, end = 0.9))
+symbols(rep(200, 11), seq(0, 400, 40), circles = runif(11, 5, 35),
+  bg = 1:11, inches = FALSE, add = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;At any point you can inspect the current result:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;image_browse(drawing)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-08-15-magick-10/drawing.png&#34; alt=&#34;drawing&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Once you are done you can close the device and save the result.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dev.off()
+image_write(drawing, &#39;drawing.png&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;By default &lt;code&gt;image_draw()&lt;/code&gt; sets all margins to 0 and uses graphics coordinates to match image size in pixels (width x height) where (0,0) is the top left corner. Note that this means the y axis increases from top to bottom which is the opposite of typical graphics coordinates. You can override all this by passing custom &lt;code&gt;xlim&lt;/code&gt;, &lt;code&gt;ylim&lt;/code&gt; or &lt;code&gt;mar&lt;/code&gt; values to &lt;code&gt;image_draw()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;animated-graphics&#34;&gt;Animated Graphics&lt;/h3&gt;
+
+&lt;p&gt;The graphics device supports multiple frames which makes it easy to create animated graphics. The example below shows how you would implement the example from the very cool &lt;a href=&#34;https://github.com/dgrtwo/gganimate&#34;&gt;gganimate&lt;/a&gt; package using the magick.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(gapminder)
+library(ggplot2)
+library(magick)
+img &amp;lt;- image_graph(res = 96)
+datalist &amp;lt;- split(gapminder, gapminder$year)
+out &amp;lt;- lapply(datalist, function(data){
+  p &amp;lt;- ggplot(data, aes(gdpPercap, lifeExp, size = pop, color = continent)) +
+    scale_size(&amp;quot;population&amp;quot;, limits = range(gapminder$pop)) +
+    scale_x_log10(limits = range(gapminder$gdpPercap)) +
+    geom_point() + ylim(20, 90) +  ggtitle(data$year) + theme_classic()
+  print(p)
+})
+dev.off()
+animation &amp;lt;- image_animate(img, fps = 2)
+image_write(animation, &amp;quot;animation.gif&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-08-15-magick-10/animation.gif&#34; alt=&#34;animation&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We hope that the magick package can provide a more robust back-end for packages like gganimate to produce interactive graphics in R without requiring the user to manually install external image editing software.&lt;/p&gt;
+
+&lt;h3 id=&#34;porting-imagemagick-commands-to-r&#34;&gt;Porting ImageMagick Commands to R&lt;/h3&gt;
+
+&lt;p&gt;The magick 1.0 release now has the core image processing functionality that you expect from an image processing package. But there is still a lot of room for improvement to make magick &lt;em&gt;the&lt;/em&gt; image processing package in R.&lt;/p&gt;
+
+&lt;p&gt;A lot of R users and packages currently shell out to ImageMagick command line tools for performing image manipulations. The goal is to support all these operations in the magick package, so that the images can be produced (and reproduced!) on any platform without requiring the user to install additional software.&lt;/p&gt;
+
+&lt;p&gt;Note that ImageMagick library is over 26 years old and has accumulated an enormous number of features in those years. Porting all of this to R is quite a bit of work, for which feedback from users is important. If there is an imagemagick operation that you like to do in R but you can&amp;rsquo;t figure out how, please &lt;a href=&#34;https://github.com/ropensci/magick/issues&#34;&gt;open an issue&lt;/a&gt; on GitHub. If the functionality is currently not supported yet, we will try to add it to the next version.&lt;/p&gt;
+
+&lt;h3 id=&#34;image-analysis&#34;&gt;Image Analysis&lt;/h3&gt;
+
+&lt;p&gt;Currently magick is focused on generating and editing images. There is yet another entirely different set of features which we like to support related to analyzing images. Image analysis can involve anything from calculating color distributions to more sophisticated feature extraction and vision tools. I am not very familiar with this field, so again we could use suggestions from users and experts.&lt;/p&gt;
+
+&lt;p&gt;One feature that is already available is the &lt;code&gt;image_ocr()&lt;/code&gt; function which extracts text from the image using the rOpenSci &lt;a href=&#34;https://ropensci.org/blog/blog/2016/11/16/tesseract&#34;&gt;tesseract&lt;/a&gt; package. Another cool example of using image analysis is the &lt;a href=&#34;https://github.com/ThinkRstat/collage&#34;&gt;collage&lt;/a&gt; package which calculates &lt;a href=&#34;https://github.com/ThinkRstat/collage#histograms&#34;&gt;color histograms&lt;/a&gt; to select appropriate tile images for creating a collage.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/ThinkRstat/collage#histograms&#34;&gt;&lt;img src=&#34;https://github.com/ThinkRstat/collage/raw/master/README-histograms-2.png&#34; alt=&#34;histogram&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;As part of supporting supporting analysis tools we plan to extract the bitmap (raster) classes into a separate package. This will enable package authors to write R extensions to analyze and manipulate on the raw image data, without necessarily depending on magick. Yet the user can always rely on magick as a powerful toolkit to import/export images and graphics into such low level bitmaps.&lt;/p&gt;
+
+&lt;div class=&#34;col-sm-11 col-sm-offset-1&#34;&gt;
+&lt;blockquote class=&#34;twitter-tweet&#34; data-lang=&#34;en&#34;&gt;
+&lt;a href=&#34;https://twitter.com/grbails/status/885543687559811073&#34;&gt;&lt;/a&gt;
+&lt;/blockquote&gt;
+&lt;script async src=&#34;//platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;
+&lt;/div&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>ropenaq, a breath of fresh air/R</title>
+      <link>https://ropensci.org/blog/2017/02/21/ropenaq/</link>
+      <pubDate>Tue, 21 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/02/21/ropenaq/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Do you fancy open data, R, and breathing? Then you might be interested in &lt;code&gt;ropenaq&lt;/code&gt; which provides access to open air quality data via OpenAQ! Also note that in French, R and air are homophones, therefore we French speakers can make puns like the one in the title. Please re-read it with a French accent and don&amp;rsquo;t judge me.&lt;/p&gt;
+
+&lt;p&gt;In this post I&amp;rsquo;ll motivate the existence of the package, then show you the basics of its use, and finally show off with some pretty figures. You can skip any part but if I were you I wouldn&amp;rsquo;t!&lt;/p&gt;
+
+&lt;h2 id=&#34;discovering-openaq-and-ropensci&#34;&gt;Discovering OpenAQ and rOpenSci&lt;/h2&gt;
+
+&lt;p&gt;I work as a data manager and statistician for an epidemiology project called &lt;a href=&#34;http://www.chaiproject.org/&#34;&gt;CHAI&lt;/a&gt; for &lt;em&gt;Cardio-vascular health effects of air pollution in Telangana, India&lt;/em&gt;. We have generated quite a lot of data of our own, including ambient air quality monitoring at three fixed sites in rural Telangana for one year. Being able to compare these numbers with longer-term measures in the closest city, Hyderabad, was something that probably would be useful at some point, so besides data cleaning, I had a look at other data sources.&lt;/p&gt;
+
+&lt;p&gt;However, in that part of the world, you don&amp;rsquo;t get much air quality data, and even less open and easily accessible air quality data. One pretty easily gets data from the US consulate in Hyderabad (well, easily thanks to &lt;a href=&#34;https://github.com/ropensci/tabulizer&#34;&gt;&lt;code&gt;tabulizer&lt;/code&gt;&lt;/a&gt;, since parts of the data are pdf!). But going on the website of the Indian Central Pollution Control Board I embarked on a kind of scavenger hunt clicking around which felt quite frustrating. This also happens with websites from other countries, with a different scavenger hunt for each website. Sure you learn about &lt;code&gt;tabulizer&lt;/code&gt;, &lt;a href=&#34;https://github.com/ropensci/rselenium&#34;&gt;&lt;code&gt;rSelenium&lt;/code&gt;&lt;/a&gt;, &lt;a href=&#34;https://github.com/johndharrison/seleniumPipes&#34;&gt;&lt;code&gt;seleniumPipes&lt;/code&gt;&lt;/a&gt; and other awesome &amp;ndash; often rOpenSci-branded &amp;ndash; packages along the way but it just doesn&amp;rsquo;t feel right to have to spend so much time doing this!&lt;/p&gt;
+
+&lt;p&gt;At the end of 2015, during a symposium about the future of environmental epidemiology, &lt;a href=&#34;https://twitter.com/cathryn_tonne&#34;&gt;my boss&lt;/a&gt; mentioned OpenAQ, a platform aggregating and sharing open air quality data from official sources around the world. A bit after that, I found myself looking at the API documentation and got really excited. I contacted OpenAQ founders and asked them whether a R package already existed, and Christa Hasenkopf told me I could open an issue about it which I had zero intention of doing, I wanted to make it happen &lt;em&gt;right now&lt;/em&gt;! So I started writing the package.&lt;/p&gt;
+
+&lt;p&gt;At the same period of my life, a bit earlier, on one week-end I had been googling ways to download scientific literature metadata in R because of a discussion I&amp;rsquo;d had with my husband. Doing that I had discovered the website of rOpenSci (see all the literature access packages &lt;a href=&#34;https://ropensci.org/packages/#literature&#34;&gt;here&lt;/a&gt;) and had really thought it looked like an awesome project, I even saw there was an onboarding system where you could submit your package and make it part of the suite&amp;hellip; I had more urgent things to do on that week-end, like finishing to write my PhD thesis, but the idea stuck with me.&lt;/p&gt;
+
+&lt;p&gt;So really soon after writing the first version of &lt;code&gt;ropenaq&lt;/code&gt;, I submitted my package to rOpenSci! I was a bit scared, I had to google parts of the words of the guidelines, like &amp;ldquo;continuous integration&amp;rdquo;, but there are many resources out there and from all rOpenSci reviews I&amp;rsquo;ve read you can ask for help at any point of the process.&lt;/p&gt;
+
+&lt;p&gt;I received the reviews of &lt;a href=&#34;https://twitter.com/andyteucher&#34;&gt;Andy Teucher&lt;/a&gt; and &lt;a href=&#34;https://twitter.com/polesasunder&#34;&gt;Andrew MacDonald&lt;/a&gt; a few weeks later. Their comments were as nice as they were useful! You can read the review &lt;a href=&#34;https://github.com/ropensci/onboarding/issues/24&#34;&gt;here&lt;/a&gt; and see what I mean by nice and useful! I improved &lt;code&gt;ropenaq&lt;/code&gt; and really dug the rOpenSci review process. Not only did my package get better, but my R skills and knowledge of best practice also improved, which is useful every day of my life as a data manager and statistician. And I became a contributor of both OpenAQ and rOpenSci, two projects whose goals resonated with me!&lt;/p&gt;
+
+&lt;p&gt;So end of the story, now let&amp;rsquo;s move to the more interesting stuff, what can you do with &lt;code&gt;ropenaq&lt;/code&gt;? Download all the data from OpenAQ! Well not all the data in one go, if you really wanted to do that you should look at their &lt;a href=&#34;http://openaq-data.s3.amazonaws.com/index.html&#34;&gt;daily data dumps&lt;/a&gt; or contact them, but here&amp;rsquo;s how you would deal with the query &amp;ldquo;How are PM2.5 values in Hyderabad?&amp;rdquo;. OpenAQ has data for 7 pollutants: PM2.5 (particles smaller than 2.5μm), PM10 (particles smaller than 10μm), &lt;em&gt;SO&lt;/em&gt;&lt;sub&gt;2&lt;/sub&gt; (sulfur dioxide), &lt;em&gt;NO&lt;/em&gt;&lt;sub&gt;2&lt;/sub&gt; (nitrogen dioxide), &lt;em&gt;O&lt;/em&gt;&lt;sub&gt;3&lt;/sub&gt; (ozone), CO (carbon monoxide), BC (black carbon). All of them are bad for human health with effects than can be revealed in the short or long term. In the whole post I&amp;rsquo;ll only show examples with PM2.5, but other pollutants can be as interesting.&lt;/p&gt;
+
+&lt;h2 id=&#34;getting-data-via-ropenaq&#34;&gt;Getting data via &lt;code&gt;ropenaq&lt;/code&gt;&lt;/h2&gt;
+
+&lt;h3 id=&#34;install-the-package&#34;&gt;Install the package&lt;/h3&gt;
+
+&lt;p&gt;Install the package with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;ropenaq&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or install the development version using devtools with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;devtools&amp;quot;)
+install_github(&amp;quot;ropensci/ropenaq&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Currently the development version, 1.0.4 implements OpenAQ new limit per API call of 10,000, while the CRAN version, 1.0.3, only allows to return 1,000 lines per API call. The development version should soon be submitted to CRAN.&lt;/p&gt;
+
+&lt;h2 id=&#34;find-the-air-quality-stations-with-available-data&#34;&gt;Find the air quality stations with available data&lt;/h2&gt;
+
+&lt;p&gt;The package contains three functions that are useful to find the stations at which there is data: &lt;code&gt;aq_countries&lt;/code&gt;, &lt;code&gt;aq_cities&lt;/code&gt; and &lt;code&gt;aq_locations&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;So say I&amp;rsquo;m looking for Indian data, I could choose to first check there&amp;rsquo;s data for India.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;ropenaq&amp;quot;)
+library(&amp;quot;dplyr&amp;quot;)
+import::from(dplyr, filter)
+countries &amp;lt;- aq_countries()
+filter(countries, name == &amp;quot;India&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1 × 5
+##    name  code cities locations   count
+##   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;  &amp;lt;int&amp;gt;     &amp;lt;int&amp;gt;   &amp;lt;int&amp;gt;
+## 1 India    IN     93        93 2766369
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the other functions of &lt;code&gt;ropenaq&lt;/code&gt;, what you&amp;rsquo;ll need to use for saying you want data for India is the country code, &lt;code&gt;IN&lt;/code&gt;. By the way if you ever need to convert country names and codes, have a look at the &lt;a href=&#34;https://github.com/vincentarelbundock/countrycode&#34;&gt;&lt;code&gt;countrycode&lt;/code&gt; package&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now we could look for cities for which there is data in India.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;in_cities &amp;lt;- aq_cities(country = &amp;quot;IN&amp;quot;)
+filter(in_cities, city == &amp;quot;Hyderabad&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## # A tibble: 1 × 5
+##        city country locations  count   cityURL
+##       &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;     &amp;lt;int&amp;gt;  &amp;lt;int&amp;gt;     &amp;lt;chr&amp;gt;
+## 1 Hyderabad      IN        10 159191 Hyderabad
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In &lt;code&gt;ropenaq&lt;/code&gt; other functions, what you&amp;rsquo;ll use for the city is its &lt;code&gt;cityURL&lt;/code&gt;. Now we can have a look at all stations for Hyderabad.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;aq_locations(city = &amp;quot;Hyderabad&amp;quot;) %&amp;gt;%
+  knitr::kable()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;table class=&#34;table&#34;&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt; location &lt;/th&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt; pm25 &lt;/th&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt; pm10 &lt;/th&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt; no2 &lt;/th&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt; so2 &lt;/th&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt; o3 &lt;/th&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt; co &lt;/th&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt; bc &lt;/th&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt; lastUpdated &lt;/th&gt;
+   &lt;th style=&#34;text-align:left;&#34;&gt; firstUpdated &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Bollaram Industrial Area &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2017-02-17 05:15:00 &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2017-02-16 07:15:00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Bollaram Industrial Area, Hyderabad - TSPCB &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2017-02-20 19:45:00 &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2017-02-17 05:45:00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; ICRISAT Patancheru &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2017-02-17 05:30:00 &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2017-02-15 18:30:00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; ICRISAT Patancheru, Hyderabad - TSPCB &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2017-02-20 19:30:00 &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2017-02-17 05:30:00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; IDA Pashamylaram,Hyderabad &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2016-09-20 09:45:00 &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2016-09-20 04:45:00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; IDA Pashamylaram, Hyderabad - TSPCB &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2017-02-20 19:30:00 &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2016-09-20 10:15:00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; Sanathnagar - Hyderabad - TSPCB &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2017-02-20 19:30:00 &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2016-03-22 09:50:00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TSPCBPashamylaram &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2016-09-20 04:45:00 &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2016-09-18 18:30:00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; US Diplomatic Post: Hyderabad &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2017-02-20 19:30:00 &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2015-12-11 21:30:00 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; ZooPark &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; TRUE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; FALSE &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2017-02-20 19:15:00 &lt;/td&gt;
+   &lt;td style=&#34;text-align:left;&#34;&gt; 2016-03-21 18:30:00 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;In this table you see the parameters available for each station, and the dates for which you can get data. One could also directly filter stations with, say, PM2.5 information:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;aq_locations(city = &amp;quot;Hyderabad&amp;quot;, parameter = &amp;quot;pm25&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## # A tibble: 10 × 19
+##                                       location      city country count
+##                                          &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt; &amp;lt;int&amp;gt;
+## 1                     Bollaram Industrial Area Hyderabad      IN     5
+## 2  Bollaram Industrial Area, Hyderabad - TSPCB Hyderabad      IN   151
+## 3                           ICRISAT Patancheru Hyderabad      IN    38
+## 4        ICRISAT Patancheru, Hyderabad - TSPCB Hyderabad      IN   151
+## 5                   IDA Pashamylaram,Hyderabad Hyderabad      IN    11
+## 6          IDA Pashamylaram, Hyderabad - TSPCB Hyderabad      IN  6694
+## 7              Sanathnagar - Hyderabad - TSPCB Hyderabad      IN    74
+## 8                            TSPCBPashamylaram Hyderabad      IN    35
+## 9                US Diplomatic Post: Hyderabad Hyderabad      IN 10305
+## 10                                     ZooPark Hyderabad      IN 13674
+## # ... with 15 more variables: sourceNames &amp;lt;list&amp;gt;, lastUpdated &amp;lt;dttm&amp;gt;,
+## #   firstUpdated &amp;lt;dttm&amp;gt;, sourceName &amp;lt;chr&amp;gt;, latitude &amp;lt;dbl&amp;gt;,
+## #   longitude &amp;lt;dbl&amp;gt;, pm25 &amp;lt;lgl&amp;gt;, pm10 &amp;lt;lgl&amp;gt;, no2 &amp;lt;lgl&amp;gt;, so2 &amp;lt;lgl&amp;gt;,
+## #   o3 &amp;lt;lgl&amp;gt;, co &amp;lt;lgl&amp;gt;, bc &amp;lt;lgl&amp;gt;, cityURL &amp;lt;chr&amp;gt;, locationURL &amp;lt;chr&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I do agree that the workflow that I&amp;rsquo;ve just presented is a bit tedious, but I really wanted you to know these three functions and to see how many countries/cities are represented. But actually things can be easier! The &lt;code&gt;aq_measurements&lt;/code&gt; function I&amp;rsquo;m about to present you has a &lt;code&gt;longitude&lt;/code&gt;, &lt;code&gt;latitude&lt;/code&gt; and &lt;code&gt;radius&lt;/code&gt; arguments allowing you to make a query directly inside a circle of your choice on the Earth&amp;rsquo;s surface! So if you have, for instance, names of cities in German, you don&amp;rsquo;t need to worry about their English names, just use your favorite geocoding package (may I suggest &lt;a href=&#34;https://github.com/ropensci/opencage&#34;&gt;&lt;code&gt;opencage&lt;/code&gt;&lt;/a&gt;?) and you&amp;rsquo;ll be good to go.&lt;/p&gt;
+
+&lt;h3 id=&#34;get-air-quality-data&#34;&gt;Get air quality data!&lt;/h3&gt;
+
+&lt;p&gt;For getting measurements themselves, you can either use &lt;code&gt;aq_latest&lt;/code&gt; or &lt;code&gt;aq_measurements&lt;/code&gt;. &lt;code&gt;aq_latest&lt;/code&gt; only gives you the latest measurements for a given place, &lt;code&gt;aq_measurements&lt;/code&gt; gives all the measurements for a given place, and time period if you indicate one, this up to 10,000 data points per page. So if you make a query for a station with loads of data, you&amp;rsquo;ll have to loop or more elegantly/modernly map over pages. Don&amp;rsquo;t worry, &lt;code&gt;ropenaq&lt;/code&gt; helps you know just how many pages there are. Say I want all PM2.5 data for Hyderabad&amp;hellip;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# find how many measurements there are
+first_test &amp;lt;- aq_measurements(city = &amp;quot;Hyderabad&amp;quot;,
+                              date_from = &amp;quot;2016-01-01&amp;quot;,
+                              date_to = &amp;quot;2016-12-31&amp;quot;,
+                              parameter = &amp;quot;pm25&amp;quot;)
+count &amp;lt;- attr(first_test, &amp;quot;meta&amp;quot;)$found
+print(count)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] 24685
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;purrr&amp;quot;)
+
+# map queries over all pages
+allthedata &amp;lt;- (1:ceiling(count/10000)) %&amp;gt;%
+  purrr::map(function(page){
+    aq_measurements(city = &amp;quot;Hyderabad&amp;quot;,
+                   date_from = &amp;quot;2016-01-01&amp;quot;,
+                   date_to = &amp;quot;2016-12-31&amp;quot;,
+                   parameter = &amp;quot;pm25&amp;quot;,
+                   page = page,
+                   limit = 10000)
+    }) %&amp;gt;%
+  bind_rows()
+
+allthedata
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## # A tibble: 24,685 × 12
+##                               location parameter value  unit country
+##                                  &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;
+## 1  IDA Pashamylaram, Hyderabad - TSPCB      pm25  56.0 µg/m³      IN
+## 2                              ZooPark      pm25  56.0 µg/m³      IN
+## 3        US Diplomatic Post: Hyderabad      pm25 158.6 µg/m³      IN
+## 4  IDA Pashamylaram, Hyderabad - TSPCB      pm25  56.0 µg/m³      IN
+## 5                              ZooPark      pm25  56.0 µg/m³      IN
+## 6  IDA Pashamylaram, Hyderabad - TSPCB      pm25  56.0 µg/m³      IN
+## 7                              ZooPark      pm25  56.0 µg/m³      IN
+## 8  IDA Pashamylaram, Hyderabad - TSPCB      pm25  56.0 µg/m³      IN
+## 9        US Diplomatic Post: Hyderabad      pm25 148.8 µg/m³      IN
+## 10                             ZooPark      pm25  56.0 µg/m³      IN
+## # ... with 24,675 more rows, and 7 more variables: city &amp;lt;chr&amp;gt;,
+## #   dateUTC &amp;lt;dttm&amp;gt;, dateLocal &amp;lt;dttm&amp;gt;, latitude &amp;lt;dbl&amp;gt;, longitude &amp;lt;dbl&amp;gt;,
+## #   cityURL &amp;lt;chr&amp;gt;, locationURL &amp;lt;chr&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Yeah! We got the data! And now we can make a plot! Since all &lt;code&gt;ropenaq&lt;/code&gt; functions return tidy &lt;code&gt;data.frame&lt;/code&gt;s, you can use them with any of your favourite plotting libraries. Mine are &lt;code&gt;ggplot2&lt;/code&gt; coupled with &lt;code&gt;viridis&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ll filter out the negative values, which are actually invalid values, because the original data source returns &amp;ldquo;-999&amp;rdquo; instead of NA and OpenAQ doesn&amp;rsquo;t make any change to the original data.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;ggplot2&amp;quot;)
+library(&amp;quot;viridis&amp;quot;)
+allthedata %&amp;gt;%
+  filter(value != - 999) %&amp;gt;%
+  group_by(day = as.Date(dateLocal), location) %&amp;gt;%
+  filter(n() &amp;gt; 0) %&amp;gt;%
+  summarize(average = mean(value)) %&amp;gt;%
+ggplot() +
+  geom_line(aes(x = day, y = average, col = location)) +
+  facet_grid(location ~ .) +
+  geom_hline(yintercept = 25) +
+  scale_color_viridis(discrete = TRUE) +
+  theme(legend.position = &amp;quot;none&amp;quot;,
+        strip.text.y = element_text(angle=0))+
+  ylab(expression(paste(&amp;quot;Average daily PM2.5 concentration (&amp;quot;, mu, &amp;quot;g/&amp;quot;,m^3,&amp;quot;)&amp;quot;))) +
+  xlab(&amp;quot;Time (days)&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-02-21-ropenaq/unnamed-chunk-6-1.png&#34; alt=&#34;plot of chunk unnamed-chunk-6&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;What can we conclude from looking at this graph? One point is that the WHO daily limit of 25μg/m3, indicated by the black horizontal line on the plot, is very often exceeded. Another point is that some stations produce so little data that we don&amp;rsquo;t even get a curve for them (note that in some cases gap in the data can be due to an OpenAQ issue rather than a provider issue). Both points can be interesting for fighting air pollution: having proof that the air is unhealthy might help trigger action against air pollution; and knowing the devices for measuring it were broken or that data wasn&amp;rsquo;t communicated is something one can complain about to official authorities.&lt;/p&gt;
+
+&lt;p&gt;Currently OpenAQ doesn&amp;rsquo;t have all the data sources available in the world, nor all the existing historical data. But the number of sources is constantly increasing thanks to volunteers building new adapters between sources and OpenAQ, or uploading their data. Yes, you can be such a &lt;a href=&#34;https://github.com/openaq/openaq-info/blob/master/FAQ.md&#34;&gt;volunteer&lt;/a&gt;!&lt;/p&gt;
+
+&lt;p&gt;And with the current data available on OpenAQ, you&amp;rsquo;d already get much more data for the same efforts than on, say, the Indian Central Pollution Control Board website. So the existence of OpenAQ and of &lt;code&gt;ropenaq&lt;/code&gt; are already really good news. For instance as an epidemiologist planning a study about the link between PM2.5 concentration and a disease. For choosing a sample size which would allow you to detect the assumed effect, you need to have a rough idea of the exposure of your study population to PM2.5. Maybe you got data from a collaborator for a rural area and you want to also recruit people in a more exposed, say urban area. With OpenAQ you could already use the average concentration of the last year in e.g. Delhi for your calculations.&lt;/p&gt;
+
+&lt;h2 id=&#34;some-animated-plots-of-openaq-data&#34;&gt;Some animated plots of OpenAQ data&lt;/h2&gt;
+
+&lt;p&gt;I promised I would show off cool plots&amp;hellip; Let&amp;rsquo;s say that in general plotting air quality numbers that kill people isn&amp;rsquo;t that cool, but one can also have fun with air quality data.&lt;/p&gt;
+
+&lt;h3 id=&#34;data-surfing&#34;&gt;Data surfing&lt;/h3&gt;
+
+&lt;p&gt;One day I was testing out &lt;code&gt;gganimate&lt;/code&gt; for decorating a very simple air quality time series and while discussing options with &lt;a href=&#34;https://twitter.com/sciencerely&#34;&gt;Christa Hasenkopf&lt;/a&gt; and &lt;a href=&#34;https://twitter.com/dirk_sch&#34;&gt;Dirk Schumacher&lt;/a&gt;&amp;hellip; the data surfer was born! In the meantime I started using &lt;a href=&#34;https://github.com/ropensci/magick&#34;&gt;&lt;code&gt;magick&lt;/code&gt;&lt;/a&gt; instead of &lt;code&gt;gganimate&lt;/code&gt;, probably because of the elegance of &lt;a href=&#34;https://rud.is/b/2016/07/27/u-s-drought-animations-with-the-witchs-brew-purrr-broom-magick/&#34;&gt;this post&lt;/a&gt;. Also, &lt;code&gt;magick&lt;/code&gt; is an rOpenSci package and this is the rOpenSci blog!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;emojifont&amp;quot;)
+library(&amp;quot;magick&amp;quot;)
+library(&amp;quot;ggthemes&amp;quot;)
+
+load.emojifont(&#39;OpenSansEmoji.ttf&#39;)
+
+lima &amp;lt;- aq_measurements(country = &amp;quot;PE&amp;quot;, limit = 1000)
+lima &amp;lt;- filter(lima, location == &amp;quot;US Diplomatic Post: Lima&amp;quot;)
+lima &amp;lt;- mutate(lima, label = emoji(&amp;quot;surfer&amp;quot;))
+
+figure_onetime &amp;lt;- function(now, lima){
+
+  p &amp;lt;- ggplot(lima)+
+  geom_area(aes(x = dateLocal,
+                 y = value),
+             size = 2, fill = &amp;quot;navyblue&amp;quot;)+
+  geom_text(aes(x = dateLocal,
+                y = value+1,
+                label = label),
+                col = &amp;quot;goldenrod&amp;quot;,
+            family=&amp;quot;OpenSansEmoji&amp;quot;, size=20,
+            data = filter_(lima, ~dateLocal == now))+
+  ylab(expression(paste(&amp;quot;PM2.5 concentration (&amp;quot;, mu, &amp;quot;g/&amp;quot;,m^3,&amp;quot;)&amp;quot;)))+
+  xlab(&#39;Local date and time, Lima, Peru&#39;)+
+  ylim(0, 50)+
+  ggtitle(as.character(now))+
+  theme_hc(bgcolor = &amp;quot;darkunica&amp;quot;) +
+  scale_colour_hc(&amp;quot;darkunica&amp;quot;)+
+  theme(text = element_text(size=40)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  theme(plot.title=element_text(family=&amp;quot;OpenSansEmoji&amp;quot;,
+                                face=&amp;quot;bold&amp;quot;))+
+  theme(axis.title.x=element_blank(),
+        axis.text.x=element_blank(),
+        axis.ticks.x=element_blank())
+  outfil &amp;lt;- gsub(&amp;quot;-&amp;quot;, &amp;quot;&amp;quot;, now)
+  outfil &amp;lt;- gsub(&amp;quot; &amp;quot;, &amp;quot;&amp;quot;, outfil)
+  outfil &amp;lt;- gsub(&amp;quot;[:punct:]&amp;quot;, &amp;quot;&amp;quot;, outfil)
+  outfil &amp;lt;- paste0(outfil, &amp;quot;.png&amp;quot;)
+  ggsave(outfil, p, width=8, height=5)
+
+  outfil
+}
+
+sort(unique(lima$dateLocal)) %&amp;gt;%
+  map(figure_onetime, lima = lima)  %&amp;gt;%
+  map(image_read) %&amp;gt;%
+  image_join() %&amp;gt;%
+  image_animate(fps=2) %&amp;gt;%
+  image_write(&amp;quot;surf.gif&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-02-21-ropenaq/surf.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The use of such a plot might be to illustrate a very serious talk about the need for open air quality data. I promise you&amp;rsquo;ll get attention from the audience.&lt;/p&gt;
+
+&lt;h3 id=&#34;fireworks-across-the-us-on-the-4th-of-july&#34;&gt;Fireworks across the US on the 4th of July&lt;/h3&gt;
+
+&lt;p&gt;When looking at the time series of PM2.5 over years in say Delhi, one can see peaks corresponding to fireworks for celebrating Diwali. Last summer I decided to explore PM2.5 values on the 4th of July in the US.&lt;/p&gt;
+
+&lt;p&gt;First I got the necessary data.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# find how many measurements there are
+first_test &amp;lt;- aq_measurements(country = &amp;quot;US&amp;quot;,
+                              has_geo = TRUE,
+                              parameter = &amp;quot;pm25&amp;quot;,
+                              limit = 10000,
+                              date_from = &amp;quot;2016-07-04&amp;quot;,
+                              date_to = &amp;quot;2016-07-06&amp;quot;,
+                              value_from = 0)
+count &amp;lt;- attr(first_test, &amp;quot;meta&amp;quot;)$found
+print(count)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] 25446
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;purrr&amp;quot;)
+
+# map queries over all pages
+usdata &amp;lt;- (1:ceiling(count/10000)) %&amp;gt;%
+  purrr::map(function(page){
+    aq_measurements(country = &amp;quot;US&amp;quot;,
+                    has_geo = TRUE,
+                    parameter = &amp;quot;pm25&amp;quot;,
+                    limit = 10000,
+                    date_from = &amp;quot;2016-07-04&amp;quot;,
+                    date_to = &amp;quot;2016-07-06&amp;quot;,
+                    value_from = 0,
+                    page = page)
+    }) %&amp;gt;%
+  bind_rows()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I then summarize it for having one value by hour only and replace values over 80 by 80, because otherwise it&amp;rsquo;s hard to find a good colour scale for the graph later.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;usdata &amp;lt;- usdata %&amp;gt;%
+  group_by(hour = update(dateUTC, minute = 0),
+           location, longitude, latitude, dateUTC) %&amp;gt;%
+  summarize(value = mean(value))
+
+usdata &amp;lt;- usdata %&amp;gt;%
+  ungroup() %&amp;gt;%
+  mutate(hour = update(hour, hour = lubridate::hour(hour) - 5)) %&amp;gt;%
+  mutate(value = ifelse(value &amp;gt; 80, 80, value))
+save(usdata, file = &amp;quot;data/4th_july.RData&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is how I make the visualization itself, using once again &lt;code&gt;magick&lt;/code&gt;, and also &lt;a href=&#34;https://github.com/hrbrmstr/albersusa&#34;&gt;&lt;code&gt;albersusa&lt;/code&gt;&lt;/a&gt;. The package has to be installed from Github: &lt;code&gt;devtools::install_github(&amp;quot;hrbrmstr/albersusa&amp;quot;)&lt;/code&gt;. Note that I don&amp;rsquo;t show Alaska and Hawaii.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;load( &amp;quot;data/4th_july.RData&amp;quot;)
+
+mintime &amp;lt;- lubridate::ymd_hms(&amp;quot;2016 07 04 17 00 00&amp;quot;)
+maxtime &amp;lt;- lubridate::ymd_hms(&amp;quot;2016 07 05 07 00 00&amp;quot;)
+
+usdata &amp;lt;- filter(usdata, hour &amp;gt;= mintime)
+usdata &amp;lt;- filter(usdata, hour &amp;lt;= maxtime)
+
+library(&amp;quot;albersusa&amp;quot;)
+us &amp;lt;- usa_composite()
+us_map &amp;lt;- fortify(us, region=&amp;quot;name&amp;quot;)
+us_map &amp;lt;- filter(us_map, !id %in% c(&amp;quot;Alaska&amp;quot;, &amp;quot;Hawaii&amp;quot;))
+gg &amp;lt;- ggplot()
+gg &amp;lt;- gg + geom_map(data=us_map, map=us_map,
+                    aes(x=long, y=lat, map_id=id),
+                    color=&amp;quot;white&amp;quot;, size=0.1, fill=&amp;quot;black&amp;quot;)
+gg &amp;lt;- gg + theme_map(base_size = 40)
+gg &amp;lt;- gg + theme(plot.title = element_text(color=&amp;quot;white&amp;quot;))
+gg &amp;lt;- gg + theme(legend.position = &amp;quot;bottom&amp;quot;)
+gg &amp;lt;- gg + theme(panel.background = element_rect(fill = &amp;quot;black&amp;quot;))
+gg &amp;lt;- gg + theme(plot.background=element_rect(fill=&amp;quot;black&amp;quot;))
+gg &amp;lt;- gg + theme(legend.background= element_rect(fill=&amp;quot;black&amp;quot;, colour= NA))
+gg &amp;lt;- gg + theme(legend.text = element_text(colour=&amp;quot;white&amp;quot;))
+gg &amp;lt;- gg + theme(legend.title = element_text(colour=&amp;quot;white&amp;quot;))
+
+# find the maximal number of data points for the period
+lala &amp;lt;- group_by(usdata, location, latitude) %&amp;gt;% summarize(n = n())
+# and keep only stations with data for each hour
+usdata &amp;lt;- group_by(usdata, location, latitude) %&amp;gt;%
+  filter(n() == max(lala$n),
+         latitude &amp;lt; 50, longitude &amp;gt; - 130) %&amp;gt;%
+  ungroup()
+
+firework_onehour &amp;lt;- function(now, gg, usdata){
+  p &amp;lt;- gg+
+  geom_point(data = filter_(usdata, ~ hour == now),
+             aes(x=longitude,
+                  y =latitude,
+                  colour = value,
+                  size = value))+
+    ggtitle(as.character(now)) +
+  coord_map()+
+  viridis::scale_color_viridis(expression(paste(&amp;quot;PM2.5 concentration (&amp;quot;, mu, &amp;quot;g/&amp;quot;,m^3,&amp;quot;)Set to 80 if &amp;gt;80&amp;quot;)),
+                               option = &amp;quot;inferno&amp;quot;,
+                               limits = c(min(usdata$value),
+                                          max(usdata$value))) +
+    scale_size(limits = c(min(usdata$value),
+                                          max(usdata$value)))
+outfil &amp;lt;- gsub(&amp;quot;-&amp;quot;, &amp;quot;&amp;quot;, now)
+  outfil &amp;lt;- gsub(&amp;quot; &amp;quot;, &amp;quot;&amp;quot;, outfil)
+  outfil &amp;lt;- gsub(&amp;quot;[:punct:]&amp;quot;, &amp;quot;&amp;quot;, outfil)
+  outfil &amp;lt;- paste0(outfil, &amp;quot;_fireworks.png&amp;quot;)
+  ggsave(outfil, p, width=12, height=6)
+
+  outfil
+}
+
+sort(unique(usdata$hour)) %&amp;gt;%
+  map(firework_onehour, gg = gg, usdata = usdata)  %&amp;gt;%
+  map(image_read) %&amp;gt;%
+  image_join() %&amp;gt;%
+  image_animate(fps=1) %&amp;gt;%
+  image_write(&amp;quot;fireworks.gif&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-02-21-ropenaq/fireworks.gif&#34; width=&#34;600&#34;&gt;&lt;/p&gt;
+
+&lt;p&gt;On this gif, where the title indicates the time in New York City, one sees the East to West wave of PM2.5 peaks due to fireworks as soon as it gets dark in each city, which happens at different times across the US. I think it&amp;rsquo;s an interesting way of looking at this holiday. Holidays and fireworks are one thing, but one could also imagine coupling &lt;code&gt;ropenaq&lt;/code&gt; data with data about fires, or weather, for which rOpenSci got you covered with &lt;code&gt;rnoaa&lt;/code&gt; (&lt;a href=&#34;https://github.com/ropensci/rnoaa&#34;&gt;https://github.com/ropensci/rnoaa&lt;/a&gt;) and &lt;code&gt;riem&lt;/code&gt; (&lt;a href=&#34;https://github.com/ropensci/riem&#34;&gt;https://github.com/ropensci/riem&lt;/a&gt;). Or for parts of the world with a high density of locations, why not compare air quality with land-use information from Openstreetmap via &lt;a href=&#34;https://github.com/osmdatar/osmdata&#34;&gt;&lt;code&gt;osmdata&lt;/code&gt;&lt;/a&gt; and with transit information processed via &lt;a href=&#34;https://github.com/ropenscilabs/gtfsr&#34;&gt;&lt;code&gt;gtfsr&lt;/code&gt;&lt;/a&gt;?&lt;/p&gt;
+
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+
+&lt;h3 id=&#34;what-can-you-do&#34;&gt;What can YOU do?&lt;/h3&gt;
+
+&lt;p&gt;I&amp;rsquo;d strongly encourage you to get involved with the open-source projects you think are useful and cool, and in particular with rOpenSci and OpenAQ since I know these are friendly places, which is even made official by &lt;a href=&#34;https://ropensci.org/blog/blog/2016/10/31/comm-call-v12&#34;&gt;Codes&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/ropenaq/blob/master/CONDUCT.md&#34;&gt;of&lt;/a&gt; &lt;a href=&#34;https://github.com/openaq/openaq-info/blob/master/CODE-OF-CONDUCT.md&#34;&gt;conduct&lt;/a&gt;. Tweet at both organizations, look at their website, you&amp;rsquo;ll meet people who&amp;rsquo;ll be more than happy to include you and your contributions. All OpenAQ &lt;a href=&#34;https://github.com/openaq/&#34;&gt;Github repos&lt;/a&gt; have contributing guides.&lt;/p&gt;
+
+&lt;p&gt;If you want to get involved with &lt;code&gt;ropenaq&lt;/code&gt; itself, you&amp;rsquo;re welcome to do so! I&amp;rsquo;ve opened &lt;a href=&#34;https://github.com/ropensci/ropenaq/issues&#34;&gt;issues&lt;/a&gt; of possible enhancements of the package. Currently, two of them are I think more geared towards new-ish users of R that have an air quality background, one of them is more technical. And don&amp;rsquo;t hesitate to open an issue if you notice a bug or think of a new functionality! Also, I like to collect use cases of the package, feel free to share your &lt;code&gt;ropenaq&lt;/code&gt; examples.&lt;/p&gt;
+
+&lt;h3 id=&#34;a-few-concluding-words&#34;&gt;A few concluding words&lt;/h3&gt;
+
+&lt;p&gt;Note that &lt;code&gt;ropenaq&lt;/code&gt; isn&amp;rsquo;t the only R package providing access to open air quality data, you can have a look at:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The &lt;a href=&#34;https://github.com/ropensci/rdefra&#34;&gt;&lt;code&gt;rdefra&lt;/code&gt; package&lt;/a&gt;, also part of the rOpenSci project,
+allows to  to interact with the UK AIR pollution database from DEFRA, including historical measures. I actually reviewed this package for rOpenSci, see &lt;a href=&#34;https://github.com/ropensci/onboarding/issues/68&#34;&gt;the review here&lt;/a&gt;. I tried to be as nice and helpful as Andy and Andrew and think Claudia did an awesome work with her package!&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The &lt;a href=&#34;https://github.com/davidcarslaw/openair&#34;&gt;&lt;code&gt;openair&lt;/code&gt; package&lt;/a&gt;, on top of the plotting tools appreciated by air quality folks, gives access to the same data as &lt;code&gt;rdefra&lt;/code&gt; but relies on a local and compressed copy of the data on servers at King&amp;rsquo;s College (UK), periodically updated.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The &lt;a href=&#34;https://github.com/masalmon/usaqmindia&#34;&gt;&lt;code&gt;usaqmindia&lt;/code&gt; package&lt;/a&gt; provides data from the US air quality monitoring program in India for Delhi, Mumbai, Chennai, Hyderabad and Kolkata from 2013. I packaged it up for ease of use, the data is included in the package.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Thanks for reading until here! I also thank Stefanie Butland, Scott Chamberlain and Karthik Ram for their support during the preparation of this post.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>New in Magick 0.3</title>
+      <link>https://ropensci.org/technotes/2016/09/08/magick-release-03/</link>
+      <pubDate>Thu, 08 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/technotes/2016/09/08/magick-release-03/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;A new version of the ropensci &lt;a href=&#34;https://cran.r-project.org/package=magick&#34;&gt;magick&lt;/a&gt; package has been released to CRAN. Magick is a package for Advanced Image-Processing in R. It wraps the ImageMagick STL which is perhaps the most comprehensive open-source image processing library available today. Our &lt;a href=&#34;https://ropensci.org/blog/2016/08/23/z-magick-release&#34;&gt;original announcement&lt;/a&gt; has more details.&lt;/p&gt;
+
+&lt;h2 id=&#34;new-features&#34;&gt;New features&lt;/h2&gt;
+
+&lt;p&gt;This new version now includes a beautiful &lt;a href=&#34;https://cloud.r-project.org/web/packages/magick/vignettes/intro.html&#34;&gt;vignette&lt;/a&gt; which gives an overview of the main functionality to get you started! It lists the various formats, transformations, effects, operations and much more.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://cloud.r-project.org/web/packages/magick/vignettes/intro.html&#34;&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/magick-vignette.png&#34; alt=&#34;RStudio Screenshot&#34; /&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The vignette also explains how to use magick with &lt;a href=&#34;https://cloud.r-project.org/web/packages/magick/vignettes/intro.html#raster_graphics&#34;&gt;raster graphics&lt;/a&gt;. This new functionality makes it possible to overlay images on R&amp;rsquo;s graphics device.&lt;/p&gt;
+
+&lt;h2 id=&#34;installing-and-updating&#34;&gt;Installing and Updating&lt;/h2&gt;
+
+&lt;p&gt;The package is most easily installed from CRAN:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;magick&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When installing from source make sure the Magick++ library is available on your system.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Advanced Image-Processing in R with Magick, Part I</title>
+      <link>https://ropensci.org/blog/2016/08/23/z-magick-release/</link>
+      <pubDate>Tue, 23 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2016/08/23/z-magick-release/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;The new &lt;a href=&#34;https://cran.r-project.org/web/packages/magick/index.html&#34;&gt;magick&lt;/a&gt; package is an ambitious effort to modernize and simplify high-quality image processing in R. It wraps the &lt;a href=&#34;https://www.imagemagick.org/Magick++/STL.html&#34;&gt;ImageMagick STL&lt;/a&gt; which is perhaps the most comprehensive open-source image processing library available today.&lt;/p&gt;
+
+&lt;p&gt;The ImageMagick library has an overwhelming amount of functionality. The current version of Magick exposes a decent chunk of it, but being a first release, documentation is still sparse. This post briefly introduces the most important concepts to get started. There will also be an &lt;a href=&#34;https://github.com/ropensci/commcalls/issues/11&#34;&gt;rOpenSci community call&lt;/a&gt; on Wednesday in which we demonstrate basic functionality.&lt;/p&gt;
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;p&gt;On Windows or OS-X the package is most easily installed via CRAN.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;magick&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;On Linux you need to install the ImageMagick++ library: on Debian/Ubuntu this is called &lt;a href=&#34;https://packages.debian.org/testing/libmagick++-dev&#34;&gt;libmagick++-dev&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo apt-get install libmagick++-dev
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;On Fedora or CentOS/RHEL we need &lt;a href=&#34;https://apps.fedoraproject.org/packages/ImageMagick-c++-devel&#34;&gt;ImageMagick-c++-devel&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo yum install ImageMagick-c++-devel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To install from source on OS-X you need &lt;code&gt;imagemagick&lt;/code&gt; from homebrew.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;brew install imagemagick --with-fontconfig --with-librsvg --with-fftw
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The default imagemagick configuration on homebrew disables a bunch of features. I recommend you install &lt;code&gt;--with-fontconfig&lt;/code&gt; and &lt;code&gt;--with-librsvg&lt;/code&gt; to get high quality font / svg rendering (the CRAN OSX binary package enables these as well).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(magick)
+magick_config()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Use &lt;code&gt;magick_config&lt;/code&gt; to see which features and formats are supported by your version of ImageMagick.&lt;/p&gt;
+
+&lt;h2 id=&#34;reading-and-writing&#34;&gt;Reading and writing&lt;/h2&gt;
+
+&lt;p&gt;Images can be read directly from a file path, URL, or raw vector with image data. Similarly we can write images back to disk, or in memory by setting &lt;code&gt;path=NULL&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Render svg to png
+tiger &amp;lt;- image_read(&#39;https://upload.wikimedia.org/wikipedia/commons/f/fd/Ghostscript_Tiger.svg&#39;)
+image_write(tiger, path = &amp;quot;tiger.png&amp;quot;, format = &amp;quot;png&amp;quot;)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;IDE&amp;rsquo;s with a built-in web browser (such as RStudio) automatically display magick images in the viewer. This results in a neat interactive image editing environment.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/magick-rstudio.png&#34; alt=&#34;RStudio Screenshot&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Alternatively, on Linux you can use &lt;code&gt;image_display&lt;/code&gt; to preview the image in an X11 window. Finally &lt;code&gt;image_browse&lt;/code&gt; opens the image in your system&amp;rsquo;s default application for a given type.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# X11 only
+image_display(tiger)
+
+# System dependent
+image_browse(tiger)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is some functionality to convert images to R raster graphics and plot it on R&amp;rsquo;s graphics display, but this doesn&amp;rsquo;t always work too well yet.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;frink &amp;lt;- image_read(&amp;quot;https://jeroen.github.io/images/frink.png&amp;quot;)
+raster &amp;lt;- as.raster(frink)
+plot(raster)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Also the R graphics device is relatively slow for displaying bitmap images.&lt;/p&gt;
+
+&lt;h2 id=&#34;transformations-and-effects&#34;&gt;Transformations and effects&lt;/h2&gt;
+
+&lt;p&gt;The best way to get a sense of available transformations is walk through the examples in the &lt;code&gt;?transformations&lt;/code&gt; help page in RStudio. Below a few examples to get a sense of what is possible.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Example image
+frink &amp;lt;- image_read(&amp;quot;https://jeroen.github.io/images/frink.png&amp;quot;)
+
+# Trim margins
+image_trim(frink)
+
+# Passport pica
+image_crop(frink, &amp;quot;100x150+50&amp;quot;)
+
+# Resize
+image_scale(frink, &amp;quot;200x&amp;quot;) # width: 200px
+image_scale(frink, &amp;quot;x200&amp;quot;) # height: 200px
+
+# Rotate or mirror
+image_rotate(frink, 45)
+image_flip(frink)
+image_flop(frink)
+
+# Set a background color
+image_background(frink, &amp;quot;pink&amp;quot;, flatten = TRUE)
+
+# World-cup outfit (Flood fill)
+image_fill(frink, &amp;quot;orange&amp;quot;, &amp;quot;+100+200&amp;quot;, 30000)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ImageMagick also has a bunch of standard effects that are worth checking out.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Add randomness
+image_blur(frink, 10, 5)
+image_noise(frink)
+
+# Silly filters
+image_charcoal(frink)
+image_oilpaint(frink)
+image_emboss(frink)
+image_edge(frink)
+image_negate(frink)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally it can be useful to print some text on top of images:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Add some text
+image_annotate(frink, &amp;quot;I like R!&amp;quot;, size = 50)
+
+# Customize text
+image_annotate(frink, &amp;quot;CONFIDENTIAL&amp;quot;, size = 30, color = &amp;quot;red&amp;quot;, boxcolor = &amp;quot;pink&amp;quot;,
+  degrees = 60, location = &amp;quot;+50+100&amp;quot;)
+
+# Only works if ImageMagick has fontconfig
+image_annotate(frink, &amp;quot;The quick brown fox&amp;quot;, font = &#39;times-new-roman&#39;, size = 30)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Maybe this is enough to get started.&lt;/p&gt;
+
+&lt;h2 id=&#34;layers-and-animation&#34;&gt;Layers and animation&lt;/h2&gt;
+
+&lt;p&gt;The examples above concern single images. However all functions in magick have been vectorized to support working with layers, compositions or animation.&lt;/p&gt;
+
+&lt;p&gt;The standard base vector methods &lt;code&gt;[&lt;/code&gt; &lt;code&gt;[[&lt;/code&gt;, &lt;code&gt;$&lt;/code&gt;, &lt;code&gt;c()&lt;/code&gt; and &lt;code&gt;length()&lt;/code&gt; are used to manipulate sets of images which can then be treated as layers or frames. This system is actually so extensive that we will do a separate blog post about it later.&lt;/p&gt;
+
+&lt;p&gt;For now here is an example on how to generate the instant classic dancing banana on R logo (which is probably why you are here):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Background image
+logo &amp;lt;- image_read(&amp;quot;https://www.r-project.org/logo/Rlogo.png&amp;quot;)
+background &amp;lt;- image_scale(logo, &amp;quot;400&amp;quot;)
+
+# Foreground image
+banana &amp;lt;- image_read(system.file(&amp;quot;banana.gif&amp;quot;, package = &amp;quot;magick&amp;quot;))
+front &amp;lt;- image_scale(banana, &amp;quot;300&amp;quot;)
+
+# Combine and flatten frames
+frames &amp;lt;- lapply(as.list(front), function(x) image_flatten(c(background, x)))
+
+# Turn frames into animation
+animation &amp;lt;- image_animate(image_join(frames))
+print(animation)
+
+# Save as GIF
+image_write(animation, &amp;quot;Rlogo-banana.gif&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If time permits we will demonstrate more examples during our &lt;a href=&#34;https://github.com/ropensci/commcalls/issues/11&#34;&gt;community call&lt;/a&gt; on Wednesday!&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

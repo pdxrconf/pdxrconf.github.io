@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | rvertnet tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>rvertnet tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.6.2</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p><code>rvertnet</code> is a client for interacting with <a href="http://vertnet.org/">VertNet.org</a>. VertNet is a online database of vertebrate specimens/observations. They have a really nice web interface at <a href="http://portal.vertnet.org/search">http://portal.vertnet.org/search</a>, but of course to do reproducible research you may want to use this package.</p>
+
+<p>This package retrieves data, makes maps, and summarizes data from VertNet, with functions for searching by many parameters, including taxonomic names, places, dates, and more. In addition, there is an interface for conducting spatially delimited searches, and another for requesting large datasets via email.</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>You can install the stable version from CRAN:</p>
+
+<pre><code class="language-r">install.packages(&quot;rvertnet&quot;)
+</code></pre>
+
+<p>Or the development version from GitHub using the <code>devtools</code> package:</p>
+
+<pre><code class="language-r">if (!require(&quot;devtools&quot;)) install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;ropensci/rvertnet&quot;)
+</code></pre>
+
+<pre><code class="language-r">library('rvertnet')
+</code></pre>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="search-by-term">Search by term</h3>
+
+<p>Search for <em>Aves</em> in the state of <em>California</em>, limit to 10 records</p>
+
+<pre><code class="language-r">res &lt;- searchbyterm(class = &quot;Aves&quot;, state = &quot;California&quot;, limit = 10, verbose = FALSE)
+</code></pre>
+
+<p>All major functions (<code>searchbyterm()</code>, <code>spatialsearch()</code>, <code>vertsearch()</code>) give back a <code>meta</code> (for metadata, in a list) and <code>data</code> (for data, in a data.frame) slot. The metadata:</p>
+
+<pre><code class="language-r">res$meta
+</code></pre>
+
+<pre><code>#&gt; $request_date
+#&gt; [1] &quot;2017-10-17T19:54:47.475780&quot;
+#&gt;
+#&gt; $response_records
+#&gt; [1] 10
+#&gt;
+#&gt; $submitted_query
+#&gt; [1] &quot;class:Aves stateprovince:California&quot;
+#&gt;
+#&gt; $request_origin
+#&gt; [1] &quot;45.523452,-122.676207&quot;
+#&gt;
+#&gt; $limit
+#&gt; [1] 10
+#&gt;
+#&gt; $last_cursor
+#&gt; [1] &quot;False:Cu4GCskECpwE9wAAABn_____jIGJmo2LkZqL0o-QjYuek96WkZuah9LNz87M0s_H0s_H_wAA_3RtoKCZi4ygoP8AAP9dno-PmpGYlpGa_wAA_3N0bZaRm5qH_wAA_12biJz_AAD_c3Rtm5CcoJab_wAA_12cipKJ0J2WjZvSjI-anJaSmpGM0JeLi4_Sno2ci5CM0puei56dnoya0pKKjJqKktKYipab0pyKkonSnZaNm9LLy87JydKMmpab0s3Mz8zMxsj_AAD_c3-cipKJ0J2WjZvSjI-anJaSmpGM0JeLi4_Sno2ci5CM0puei56dnoya0pKKjJqKktKYipab0pyKkonSnZaNm9LLy87JydKMmpab0s3Mz8zMxsj_AAD__wD-__6MgYmajYuRmovSj5CNi56T3paRm5qH0s3PzszSz8fSz8f_AHRtoKCZi4ygoP8AXZ6Pj5qRmJaRmv8Ac3RtlpGbmof_AF2biJz_AHN0bZuQnKCWm_8AXZyKkonQnZaNm9KMj5qclpKakYzQl4uLj9KejZyLkIzSm56Lnp2ejJrSkoqMmoqS0piKlpvSnIqSidKdlo2b0svLzsnJ0oyalpvSzczPzMzGyP8Ac3-cipKJ0J2WjZvSjI-anJaSmpGM0JeLi4_Sno2ci5CM0puei56dnoya0pKKjJqKktKYipab0pyKkonSnZaNm9LLy87JydKMmpab0s3Mz8zMxsj_AP_-EAohBN0EkB08Gxk5AAAAAOb___9IClAAWgsJ4h5N-19FzJ8QAmDjpfACEg1Eb2N1bWVudEluZGV4Gu4BKEFORCAoSVMgImN1c3RvbWVyX25hbWUiICJhcHBlbmdpbmUiKSAoSVMgImdyb3VwX25hbWUiICJzfnZlcnRuZXQtcG9ydGFsIikgKElTICJuYW1lc3BhY2UiICJpbmRleC0yMDEzLTA4LTA4IikgKElTICJpbmRleF9uYW1lIiAiZHdjIikgKEFORCAoT1IgKFFUICJBdmVzIiAicnRleHRfY2xhc3MiKSAoSVMgInJhdG9tX2NsYXNzIiAiYXZlcyIpKSAoUVQgIkNhbGlmb3JuaWEiICJydGV4dF9zdGF0ZXByb3ZpbmNlIikpKToZCgwoTiBvcmRlcl9pZCkQARkAAAAAAADw_0oFCABA6Ac&quot;
+#&gt;
+#&gt; $query_version
+#&gt; [1] &quot;search.py 2016-08-15T16:43+02:00&quot;
+#&gt;
+#&gt; $matching_records
+#&gt; [1] &quot;&gt;10000&quot;
+#&gt;
+#&gt; $api_version
+#&gt; [1] &quot;api.py 2017-01-12T20:08-03:00&quot;
+</code></pre>
+
+<p>The data</p>
+
+<pre><code class="language-r">res$data
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 10 x 70
+#&gt;                                                         higherclassification
+#&gt;                                                                        &lt;chr&gt;
+#&gt;  1                              Animalia | Chordata |  |  | Strigidae | Otus
+#&gt;  2                              Animalia | Chordata |  |  | Laridae | Sterna
+#&gt;  3                 Animalia | Chordata |  |  | Recurvirostridae | Himantopus
+#&gt;  4                     Animalia; Chordata; Aves; Passeriformes; Emberizidae;
+#&gt;  5      Animalia; Chordata; Aves; Passeriformes; Emberizidae;  Ridgway, 1876
+#&gt;  6      Animalia; Chordata; Aves; Passeriformes; Emberizidae;  Ridgway, 1876
+#&gt;  7 Animalia; Chordata; Aves; Anseriformes; Anatidae; Amazonetta brasiliensis
+#&gt;  8                       Animalia; Chordata; Aves; Apodiformes; Trochilidae;
+#&gt;  9        Animalia; Chordata; Aves; Passeriformes; Emberizidae; Emberizinae;
+#&gt; 10        Animalia; Chordata; Aves; Passeriformes; Emberizidae; Emberizinae;
+#&gt; # ... with 69 more variables: stateprovince &lt;chr&gt;, basisofrecord &lt;chr&gt;,
+#&gt; #   month &lt;chr&gt;, decimallongitude &lt;chr&gt;, phylum &lt;chr&gt;, references &lt;chr&gt;,
+#&gt; #   year &lt;chr&gt;, startdayofyear &lt;chr&gt;, taxonrank &lt;chr&gt;,
+#&gt; #   specificepithet &lt;chr&gt;, bibliographiccitation &lt;chr&gt;, family &lt;chr&gt;,
+#&gt; #   countrycode &lt;chr&gt;, geodeticdatum &lt;chr&gt;,
+#&gt; #   coordinateuncertaintyinmeters &lt;chr&gt;, highergeography &lt;chr&gt;,
+#&gt; #   continent &lt;chr&gt;, verbatimlocality &lt;chr&gt;, day &lt;chr&gt;, kingdom &lt;chr&gt;,
+#&gt; #   collectioncode &lt;chr&gt;, occurrencestatus &lt;chr&gt;,
+#&gt; #   coordinateprecision &lt;chr&gt;, institutioncode &lt;chr&gt;,
+#&gt; #   scientificname &lt;chr&gt;, locality &lt;chr&gt;, class &lt;chr&gt;,
+#&gt; #   vernacularname &lt;chr&gt;, county &lt;chr&gt;, decimallatitude &lt;chr&gt;,
+#&gt; #   occurrenceid &lt;chr&gt;, language &lt;chr&gt;, license &lt;chr&gt;, country &lt;chr&gt;,
+#&gt; #   georeferenceverificationstatus &lt;chr&gt;, modified &lt;chr&gt;, eventdate &lt;chr&gt;,
+#&gt; #   nomenclaturalcode &lt;chr&gt;, verbatimeventdate &lt;chr&gt;, genus &lt;chr&gt;,
+#&gt; #   order &lt;chr&gt;, catalognumber &lt;chr&gt;, enddayofyear &lt;chr&gt;,
+#&gt; #   locationremarks &lt;chr&gt;, infraspecificepithet &lt;chr&gt;, accessrights &lt;chr&gt;,
+#&gt; #   identificationverificationstatus &lt;chr&gt;, identificationqualifier &lt;chr&gt;,
+#&gt; #   occurrenceremarks &lt;chr&gt;, institutionid &lt;chr&gt;,
+#&gt; #   georeferenceprotocol &lt;chr&gt;, georeferenceddate &lt;chr&gt;,
+#&gt; #   georeferencedby &lt;chr&gt;, organismid &lt;chr&gt;, preparations &lt;chr&gt;,
+#&gt; #   recordedby &lt;chr&gt;, individualcount &lt;chr&gt;, georeferencesources &lt;chr&gt;,
+#&gt; #   dateidentified &lt;chr&gt;, previousidentifications &lt;chr&gt;,
+#&gt; #   locationaccordingto &lt;chr&gt;, othercatalognumbers &lt;chr&gt;,
+#&gt; #   identifiedby &lt;chr&gt;, associatedmedia &lt;chr&gt;, sex &lt;chr&gt;,
+#&gt; #   dynamicproperties &lt;chr&gt;, verbatimcoordinatesystem &lt;chr&gt;,
+#&gt; #   samplingprotocol &lt;chr&gt;, verbatimcoordinates &lt;chr&gt;
+</code></pre>
+
+<p>Search for <em>Mustela nigripes</em> in the states of <em>Wyoming</em> or <em>South Dakota</em>, limit to 20 records</p>
+
+<pre><code class="language-r">res &lt;- searchbyterm(specificepithet = &quot;nigripes&quot;, genus = &quot;Mustela&quot;, state = &quot;(wyoming OR south dakota)&quot;, limit = 20, verbose = FALSE)
+res$data
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 19 x 73
+#&gt;    month decimallongitude startdayofyear
+#&gt;    &lt;chr&gt;            &lt;chr&gt;          &lt;chr&gt;
+#&gt;  1    12  -100.8276541162            336
+#&gt;  2    03        -100.9827             64
+#&gt;  3     1      -100.759483              1
+#&gt;  4     3          -100.73             67
+#&gt;  5    11             &lt;NA&gt;            305
+#&gt;  6    10             &lt;NA&gt;            282
+#&gt;  7     8             &lt;NA&gt;            234
+#&gt;  8    12             &lt;NA&gt;            342
+#&gt;  9    12             &lt;NA&gt;            358
+#&gt; 10     1             &lt;NA&gt;              1
+#&gt; 11    11             &lt;NA&gt;            313
+#&gt; 12     9             &lt;NA&gt;            272
+#&gt; 13    12             &lt;NA&gt;            335
+#&gt; 14     9             &lt;NA&gt;            259
+#&gt; 15    10             &lt;NA&gt;            297
+#&gt; 16    12             &lt;NA&gt;            339
+#&gt; 17    11             &lt;NA&gt;            305
+#&gt; 18    11             &lt;NA&gt;            315
+#&gt; 19  &lt;NA&gt;             &lt;NA&gt;           &lt;NA&gt;
+#&gt; # ... with 70 more variables: accessrights &lt;chr&gt;, kingdom &lt;chr&gt;,
+#&gt; #   verbatimcoordinatesystem &lt;chr&gt;, day &lt;chr&gt;,
+#&gt; #   identificationverificationstatus &lt;chr&gt;, occurrenceid &lt;chr&gt;,
+#&gt; #   identificationqualifier &lt;chr&gt;, phylum &lt;chr&gt;, verbatimeventdate &lt;chr&gt;,
+#&gt; #   coordinateuncertaintyinmeters &lt;chr&gt;, higherclassification &lt;chr&gt;,
+#&gt; #   sex &lt;chr&gt;, year &lt;chr&gt;, specificepithet &lt;chr&gt;, basisofrecord &lt;chr&gt;,
+#&gt; #   geodeticdatum &lt;chr&gt;, occurrenceremarks &lt;chr&gt;, highergeography &lt;chr&gt;,
+#&gt; #   continent &lt;chr&gt;, scientificname &lt;chr&gt;, language &lt;chr&gt;,
+#&gt; #   institutionid &lt;chr&gt;, country &lt;chr&gt;, genus &lt;chr&gt;,
+#&gt; #   georeferenceprotocol &lt;chr&gt;, family &lt;chr&gt;, stateprovince &lt;chr&gt;,
+#&gt; #   county &lt;chr&gt;, georeferenceddate &lt;chr&gt;, references &lt;chr&gt;,
+#&gt; #   georeferencedby &lt;chr&gt;, verbatimlocality &lt;chr&gt;, institutioncode &lt;chr&gt;,
+#&gt; #   organismid &lt;chr&gt;, eventtime &lt;chr&gt;, preparations &lt;chr&gt;,
+#&gt; #   recordedby &lt;chr&gt;, license &lt;chr&gt;, dynamicproperties &lt;chr&gt;,
+#&gt; #   georeferenceverificationstatus &lt;chr&gt;, modified &lt;chr&gt;, eventdate &lt;chr&gt;,
+#&gt; #   individualcount &lt;chr&gt;, bibliographiccitation &lt;chr&gt;,
+#&gt; #   verbatimcoordinates &lt;chr&gt;, georeferencesources &lt;chr&gt;,
+#&gt; #   catalognumber &lt;chr&gt;, locationaccordingto &lt;chr&gt;, collectioncode &lt;chr&gt;,
+#&gt; #   class &lt;chr&gt;, previousidentifications &lt;chr&gt;, decimallatitude &lt;chr&gt;,
+#&gt; #   locality &lt;chr&gt;, othercatalognumbers &lt;chr&gt;, identifiedby &lt;chr&gt;,
+#&gt; #   nomenclaturalcode &lt;chr&gt;, order &lt;chr&gt;, enddayofyear &lt;chr&gt;,
+#&gt; #   minimumelevationinmeters &lt;chr&gt;, maximumelevationinmeters &lt;chr&gt;,
+#&gt; #   samplingprotocol &lt;chr&gt;, dateidentified &lt;chr&gt;, eventremarks &lt;chr&gt;,
+#&gt; #   datasetname &lt;chr&gt;, locationremarks &lt;chr&gt;, taxonrank &lt;chr&gt;,
+#&gt; #   countrycode &lt;chr&gt;, occurrencestatus &lt;chr&gt;, vernacularname &lt;chr&gt;,
+#&gt; #   recordnumber &lt;chr&gt;
+</code></pre>
+
+<p>Search for class <em>Aves</em>, in the state of <em>Nevada</em>, with a coordinate uncertainty range (in meters) of less than 25 meters</p>
+
+<pre><code class="language-r">res &lt;- searchbyterm(class = &quot;Aves&quot;, stateprovince = &quot;Nevada&quot;, error = &quot;&lt;25&quot;, verbose = FALSE)
+res$data
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 8 x 70
+#&gt;   month decimallongitude startdayofyear minimumelevationinmeters
+#&gt;   &lt;chr&gt;            &lt;chr&gt;          &lt;chr&gt;                    &lt;chr&gt;
+#&gt; 1    10         -119.582            288                     1780
+#&gt; 2    10         -119.582            288                     1780
+#&gt; 3    10         -119.582            288                     1780
+#&gt; 4    10         -119.582            288                     1780
+#&gt; 5    10         -119.582            288                     1780
+#&gt; 6    10         -119.582            288                     1780
+#&gt; 7    06       -114.09658            165                  2072.64
+#&gt; 8    09       -118.57885            248                 1786.128
+#&gt; # ... with 66 more variables: accessrights &lt;chr&gt;, kingdom &lt;chr&gt;,
+#&gt; #   verbatimcoordinatesystem &lt;chr&gt;, day &lt;chr&gt;,
+#&gt; #   identificationverificationstatus &lt;chr&gt;, occurrenceid &lt;chr&gt;,
+#&gt; #   identificationqualifier &lt;chr&gt;, phylum &lt;chr&gt;, verbatimeventdate &lt;chr&gt;,
+#&gt; #   coordinateuncertaintyinmeters &lt;chr&gt;, higherclassification &lt;chr&gt;,
+#&gt; #   lifestage &lt;chr&gt;, modified &lt;chr&gt;, year &lt;chr&gt;, specificepithet &lt;chr&gt;,
+#&gt; #   basisofrecord &lt;chr&gt;, geodeticdatum &lt;chr&gt;, highergeography &lt;chr&gt;,
+#&gt; #   continent &lt;chr&gt;, scientificname &lt;chr&gt;, catalognumber &lt;chr&gt;,
+#&gt; #   language &lt;chr&gt;, institutionid &lt;chr&gt;, country &lt;chr&gt;, genus &lt;chr&gt;,
+#&gt; #   georeferenceprotocol &lt;chr&gt;, family &lt;chr&gt;, stateprovince &lt;chr&gt;,
+#&gt; #   county &lt;chr&gt;, georeferenceddate &lt;chr&gt;, references &lt;chr&gt;,
+#&gt; #   georeferencedby &lt;chr&gt;, verbatimlocality &lt;chr&gt;, habitat &lt;chr&gt;,
+#&gt; #   institutioncode &lt;chr&gt;, organismid &lt;chr&gt;,
+#&gt; #   maximumelevationinmeters &lt;chr&gt;, preparations &lt;chr&gt;, recordedby &lt;chr&gt;,
+#&gt; #   sex &lt;chr&gt;, dynamicproperties &lt;chr&gt;,
+#&gt; #   georeferenceverificationstatus &lt;chr&gt;, infraspecificepithet &lt;chr&gt;,
+#&gt; #   samplingprotocol &lt;chr&gt;, eventdate &lt;chr&gt;, individualcount &lt;chr&gt;,
+#&gt; #   bibliographiccitation &lt;chr&gt;, verbatimcoordinates &lt;chr&gt;,
+#&gt; #   georeferencesources &lt;chr&gt;, dateidentified &lt;chr&gt;,
+#&gt; #   locationaccordingto &lt;chr&gt;, collectioncode &lt;chr&gt;, class &lt;chr&gt;,
+#&gt; #   previousidentifications &lt;chr&gt;, decimallatitude &lt;chr&gt;, locality &lt;chr&gt;,
+#&gt; #   othercatalognumbers &lt;chr&gt;, identifiedby &lt;chr&gt;,
+#&gt; #   nomenclaturalcode &lt;chr&gt;, order &lt;chr&gt;, enddayofyear &lt;chr&gt;,
+#&gt; #   license &lt;chr&gt;, associatedmedia &lt;chr&gt;, occurrenceremarks &lt;chr&gt;,
+#&gt; #   recordnumber &lt;chr&gt;, collectionid &lt;chr&gt;
+</code></pre>
+
+<h3 id="spatial-search">Spatial search</h3>
+
+<p>Spatial search service allows only to search on a point defined by latitude and longitude pair, with a radius (meters) from that point. All three parameters are required.</p>
+
+<pre><code class="language-r">res &lt;- spatialsearch(lat = 33.529, lon = -105.694, radius = 2000, limit = 10, verbose = FALSE)
+res$data
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 10 x 60
+#&gt;    month decimallongitude startdayofyear minimumelevationinmeters
+#&gt;    &lt;chr&gt;            &lt;chr&gt;          &lt;chr&gt;                    &lt;chr&gt;
+#&gt;  1    07       -105.68633            193                 2182.368
+#&gt;  2    07      -105.705479            196                 2023.872
+#&gt;  3    07      -105.705479            196                 2023.872
+#&gt;  4    07      -105.705479            196                 2023.872
+#&gt;  5    07      -105.705479            196                 2023.872
+#&gt;  6    07      -105.705479            196                 2023.872
+#&gt;  7    07      -105.705479            196                 2023.872
+#&gt;  8    07      -105.705479            196                 2023.872
+#&gt;  9    07      -105.705479            196                 2023.872
+#&gt; 10    07      -105.705479            196                 2023.872
+#&gt; # ... with 56 more variables: accessrights &lt;chr&gt;, kingdom &lt;chr&gt;,
+#&gt; #   day &lt;chr&gt;, identificationverificationstatus &lt;chr&gt;, occurrenceid &lt;chr&gt;,
+#&gt; #   identificationqualifier &lt;chr&gt;, phylum &lt;chr&gt;, verbatimeventdate &lt;chr&gt;,
+#&gt; #   coordinateuncertaintyinmeters &lt;chr&gt;, higherclassification &lt;chr&gt;,
+#&gt; #   sex &lt;chr&gt;, year &lt;chr&gt;, specificepithet &lt;chr&gt;, basisofrecord &lt;chr&gt;,
+#&gt; #   geodeticdatum &lt;chr&gt;, occurrenceremarks &lt;chr&gt;, highergeography &lt;chr&gt;,
+#&gt; #   continent &lt;chr&gt;, scientificname &lt;chr&gt;, language &lt;chr&gt;,
+#&gt; #   institutionid &lt;chr&gt;, country &lt;chr&gt;, genus &lt;chr&gt;,
+#&gt; #   georeferenceprotocol &lt;chr&gt;, family &lt;chr&gt;, stateprovince &lt;chr&gt;,
+#&gt; #   county &lt;chr&gt;, georeferenceddate &lt;chr&gt;, references &lt;chr&gt;,
+#&gt; #   georeferencedby &lt;chr&gt;, verbatimlocality &lt;chr&gt;, institutioncode &lt;chr&gt;,
+#&gt; #   organismid &lt;chr&gt;, maximumelevationinmeters &lt;chr&gt;, preparations &lt;chr&gt;,
+#&gt; #   recordedby &lt;chr&gt;, dynamicproperties &lt;chr&gt;,
+#&gt; #   georeferenceverificationstatus &lt;chr&gt;, modified &lt;chr&gt;, eventdate &lt;chr&gt;,
+#&gt; #   individualcount &lt;chr&gt;, bibliographiccitation &lt;chr&gt;,
+#&gt; #   georeferencesources &lt;chr&gt;, catalognumber &lt;chr&gt;,
+#&gt; #   locationaccordingto &lt;chr&gt;, recordnumber &lt;chr&gt;, class &lt;chr&gt;,
+#&gt; #   previousidentifications &lt;chr&gt;, decimallatitude &lt;chr&gt;, locality &lt;chr&gt;,
+#&gt; #   othercatalognumbers &lt;chr&gt;, identifiedby &lt;chr&gt;,
+#&gt; #   nomenclaturalcode &lt;chr&gt;, enddayofyear &lt;chr&gt;, order &lt;chr&gt;,
+#&gt; #   collectioncode &lt;chr&gt;
+</code></pre>
+
+<h3 id="global-full-text-search">Global full text search</h3>
+
+<p><code>vertsearch()</code> provides a simple full text search against all fields. For more info see <a href="https://github.com/VertNet/webapp/wiki/The-API-search-function#global-full-text-search">the docs</a>. An example:</p>
+
+<pre><code class="language-r">res &lt;- vertsearch(taxon = &quot;aves&quot;, state = &quot;california&quot;, limit = 10)
+res$data
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 10 x 60
+#&gt;                                         higherclassification stateprovince
+#&gt;                                                        &lt;chr&gt;         &lt;chr&gt;
+#&gt;  1              Animalia | Chordata |  |  | Strigidae | Otus    California
+#&gt;  2              Animalia | Chordata |  |  | Laridae | Sterna    California
+#&gt;  3 Animalia | Chordata |  |  | Recurvirostridae | Himantopus    California
+#&gt;  4                       Aves | Galliformes | Odontophoridae    Washington
+#&gt;  5                       Aves | Galliformes | Odontophoridae    Washington
+#&gt;  6                       Aves | Galliformes | Odontophoridae    Washington
+#&gt;  7                       Aves | Galliformes | Odontophoridae    Washington
+#&gt;  8                          Aves | Charadriiformes | Laridae    Washington
+#&gt;  9                          Aves | Charadriiformes | Laridae    Washington
+#&gt; 10                          Aves | Charadriiformes | Laridae    Washington
+#&gt; # ... with 58 more variables: basisofrecord &lt;chr&gt;, month &lt;chr&gt;,
+#&gt; #   decimallongitude &lt;chr&gt;, phylum &lt;chr&gt;, references &lt;chr&gt;, year &lt;chr&gt;,
+#&gt; #   startdayofyear &lt;chr&gt;, taxonrank &lt;chr&gt;, specificepithet &lt;chr&gt;,
+#&gt; #   bibliographiccitation &lt;chr&gt;, family &lt;chr&gt;, countrycode &lt;chr&gt;,
+#&gt; #   geodeticdatum &lt;chr&gt;, coordinateuncertaintyinmeters &lt;chr&gt;,
+#&gt; #   highergeography &lt;chr&gt;, continent &lt;chr&gt;, verbatimlocality &lt;chr&gt;,
+#&gt; #   day &lt;chr&gt;, kingdom &lt;chr&gt;, collectioncode &lt;chr&gt;,
+#&gt; #   occurrencestatus &lt;chr&gt;, coordinateprecision &lt;chr&gt;,
+#&gt; #   institutioncode &lt;chr&gt;, scientificname &lt;chr&gt;, locality &lt;chr&gt;,
+#&gt; #   class &lt;chr&gt;, vernacularname &lt;chr&gt;, county &lt;chr&gt;,
+#&gt; #   decimallatitude &lt;chr&gt;, occurrenceid &lt;chr&gt;, language &lt;chr&gt;,
+#&gt; #   license &lt;chr&gt;, country &lt;chr&gt;, georeferenceverificationstatus &lt;chr&gt;,
+#&gt; #   modified &lt;chr&gt;, eventdate &lt;chr&gt;, nomenclaturalcode &lt;chr&gt;,
+#&gt; #   verbatimeventdate &lt;chr&gt;, genus &lt;chr&gt;, order &lt;chr&gt;,
+#&gt; #   catalognumber &lt;chr&gt;, enddayofyear &lt;chr&gt;, locationremarks &lt;chr&gt;,
+#&gt; #   infraspecificepithet &lt;chr&gt;, accessrights &lt;chr&gt;, sex &lt;chr&gt;,
+#&gt; #   institutionid &lt;chr&gt;, georeferenceprotocol &lt;chr&gt;,
+#&gt; #   georeferenceddate &lt;chr&gt;, georeferencedby &lt;chr&gt;, preparations &lt;chr&gt;,
+#&gt; #   recordedby &lt;chr&gt;, georeferenceremarks &lt;chr&gt;, dynamicproperties &lt;chr&gt;,
+#&gt; #   georeferencesources &lt;chr&gt;, othercatalognumbers &lt;chr&gt;,
+#&gt; #   occurrenceremarks &lt;chr&gt;, lifestage &lt;chr&gt;
+</code></pre>
+
+<p>Limit the number of records returned (under 1000)</p>
+
+<pre><code class="language-r">res &lt;- vertsearch(&quot;(kansas state OR KSU)&quot;, limit = 200)
+res$data
+</code></pre>
+
+<pre><code>#&gt; # A tibble: 200 x 78
+#&gt;    individualcount              georeferenceprotocol
+#&gt;              &lt;chr&gt;                             &lt;chr&gt;
+#&gt;  1               8     GEOLocate (Rios &amp; Bart, 2010)
+#&gt;  2              11     GEOLocate (Rios &amp; Bart, 2010)
+#&gt;  3               3     GEOLocate (Rios &amp; Bart, 2010)
+#&gt;  4            &lt;NA&gt;                              &lt;NA&gt;
+#&gt;  5            &lt;NA&gt;                              &lt;NA&gt;
+#&gt;  6            &lt;NA&gt;                              &lt;NA&gt;
+#&gt;  7               1 VertNet Georeferencing Guidelines
+#&gt;  8               1 VertNet Georeferencing Guidelines
+#&gt;  9               1 VertNet Georeferencing Guidelines
+#&gt; 10               1 VertNet Georeferencing Guidelines
+#&gt; # ... with 190 more rows, and 76 more variables: recordedby &lt;chr&gt;,
+#&gt; #   bibliographiccitation &lt;chr&gt;, stateprovince &lt;chr&gt;, basisofrecord &lt;chr&gt;,
+#&gt; #   month &lt;chr&gt;, decimallongitude &lt;chr&gt;, phylum &lt;chr&gt;, references &lt;chr&gt;,
+#&gt; #   georeferencedby &lt;chr&gt;, year &lt;chr&gt;, taxonrank &lt;chr&gt;,
+#&gt; #   specificepithet &lt;chr&gt;, family &lt;chr&gt;, countrycode &lt;chr&gt;,
+#&gt; #   locality &lt;chr&gt;, geodeticdatum &lt;chr&gt;,
+#&gt; #   coordinateuncertaintyinmeters &lt;chr&gt;, highergeography &lt;chr&gt;,
+#&gt; #   continent &lt;chr&gt;, day &lt;chr&gt;, kingdom &lt;chr&gt;, georeferenceddate &lt;chr&gt;,
+#&gt; #   footprintwkt &lt;chr&gt;, institutioncode &lt;chr&gt;, scientificname &lt;chr&gt;,
+#&gt; #   preparations &lt;chr&gt;, disposition &lt;chr&gt;, class &lt;chr&gt;,
+#&gt; #   identificationremarks &lt;chr&gt;, county &lt;chr&gt;, decimallatitude &lt;chr&gt;,
+#&gt; #   occurrenceid &lt;chr&gt;, language &lt;chr&gt;, license &lt;chr&gt;, country &lt;chr&gt;,
+#&gt; #   georeferenceverificationstatus &lt;chr&gt;, othercatalognumbers &lt;chr&gt;,
+#&gt; #   infraspecificepithet &lt;chr&gt;, eventdate &lt;chr&gt;, identifiedby &lt;chr&gt;,
+#&gt; #   nomenclaturalcode &lt;chr&gt;, fieldnumber &lt;chr&gt;, verbatimeventdate &lt;chr&gt;,
+#&gt; #   genus &lt;chr&gt;, order &lt;chr&gt;, catalognumber &lt;chr&gt;, collectioncode &lt;chr&gt;,
+#&gt; #   higherclassification &lt;chr&gt;, lifestage &lt;chr&gt;, startdayofyear &lt;chr&gt;,
+#&gt; #   occurrenceremarks &lt;chr&gt;, verbatimlocality &lt;chr&gt;,
+#&gt; #   georeferencesources &lt;chr&gt;, verbatimcoordinatesystem &lt;chr&gt;,
+#&gt; #   institutionid &lt;chr&gt;, modified &lt;chr&gt;, dateidentified &lt;chr&gt;,
+#&gt; #   enddayofyear &lt;chr&gt;, georeferenceremarks &lt;chr&gt;, accessrights &lt;chr&gt;,
+#&gt; #   occurrencestatus &lt;chr&gt;, sex &lt;chr&gt;, establishmentmeans &lt;chr&gt;,
+#&gt; #   identificationverificationstatus &lt;chr&gt;, identificationqualifier &lt;chr&gt;,
+#&gt; #   organismid &lt;chr&gt;, dynamicproperties &lt;chr&gt;, verbatimcoordinates &lt;chr&gt;,
+#&gt; #   locationaccordingto &lt;chr&gt;, recordnumber &lt;chr&gt;,
+#&gt; #   previousidentifications &lt;chr&gt;, samplingprotocol &lt;chr&gt;,
+#&gt; #   minimumelevationinmeters &lt;chr&gt;, maximumelevationinmeters &lt;chr&gt;,
+#&gt; #   datasetname &lt;chr&gt;, collectionid &lt;chr&gt;
+</code></pre>
+
+<p>Pass output of <code>vertsearch()</code> to a map</p>
+
+<pre><code class="language-r">out &lt;- vertsearch(tax = &quot;(mustela nivalis OR mustela erminea)&quot;)
+vertmap(out)
+</code></pre>
+
+<p><img src="/img/tutorial-images/rvertnet/unnamed-chunk-13-1.png" alt="plot of chunk unnamed-chunk-13" /></p>
+
+<h3 id="lots-of-data">Lots of data</h3>
+
+<p>For <code>searchbyterm()</code>, <code>spatialsearch()</code>, and <code>vertsearch()</code>, you can request more than 1000 records. VertNet limits each request to 1000 records, but internally in this package, if you request more than 1000 records, we&rsquo;ll continue to send requests to get all the records you want. See the <a href="https://github.com/VertNet/webapp/wiki/The-API-search-function#retrieving-large-result-sets">VertNet docs</a> for more information on this.</p>
+
+<h3 id="email-dump-of-data">Email dump of data</h3>
+
+<p><code>bigsearch()</code> specifies a termwise search (like <code>searchbyterm()</code>), but requests that all available records be made available for download as a tab-delimited text file.</p>
+
+<pre><code class="language-r">bigsearch(genus = &quot;ochotona&quot;, rfile = &quot;mydata&quot;, email = &quot;you@gmail.com&quot;)
+#&gt; Processing request...
+#&gt;
+#&gt; Download of records file 'mydata' requested for 'you@gmail.com'
+#&gt;
+#&gt; Query/URL: &quot;http://api.vertnet-portal.appspot.com/api/download?q=%7B%22q%22:%22genus:ochotona%22,%22n%22:%22mydata%22,%22e%22:%22you@gmail.com%22%7D&quot;
+#&gt;
+#&gt; Thank you! Download instructions will be sent by email.
+</code></pre>
+
+<h3 id="messages">Messages</h3>
+
+<p>In the previous examples, we&rsquo;ve suppressed messages for more concise output, but you can set <code>verbose=TRUE</code> to get helpful messages - <code>verbose=TRUE</code> is also the default setting so if you don&rsquo;t specify that parameter messages will be printed to the console.</p>
+
+<pre><code class="language-r">res &lt;- searchbyterm(class = &quot;Aves&quot;, state = &quot;California&quot;, limit = 10, verbose = TRUE)
+</code></pre>
+
+<h3 id="citing">Citing</h3>
+
+<p>To cite <code>rvertnet</code> in publications use:</p>
+
+<p><br></p>
+
+<blockquote>
+<p>Scott Chamberlain, Chris Ray and Vijay Barve (2017). rvertnet: Search
+  &lsquo;Vertnet&rsquo;, a &lsquo;Database&rsquo; of Vertebrate Specimen Records. R package
+  version 0.6.2. <a href="https://CRAN.R-project.org/package=rvertnet">https://CRAN.R-project.org/package=rvertnet</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/rvertnet/issues?state=open">our Github repo for rvertnet</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

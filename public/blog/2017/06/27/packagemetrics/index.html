@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | packagemetrics - Helping you choose a package since runconf17</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">packagemetrics - Helping you choose a package since runconf17</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="http://twitter.com/bzkrouse" target="_blank"> Becca Krouse </a>&nbsp;
+                        
+                    
+                        
+                          <a href="http://twitter.com/astroeringrand" target="_blank"> Erin Grand </a>&nbsp;
+                        
+                    
+                        
+                          <a href="http://twitter.com/hfcfrick" target="_blank"> Hannah Frick </a>&nbsp;
+                        
+                    
+                        
+                          <a href="http://twitter.com/lshep712" target="_blank"> Lori Shepherd </a>&nbsp;
+                        
+                    
+                        
+                          <a href="http://twitter.com/samfirke" target="_blank"> Sam Firke </a>&nbsp;
+                        
+                    
+                        
+                          <a href="" target="_blank"> William Ampeh </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">June 27, 2017</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>Before everybody made their way to the unconf via <a href="https://twitter.com/sckottie/status/867211430914736128">LAX</a> and <a href="https://twitter.com/sctyner/status/867505241234604033">Lyft</a>, attendees <a href="https://github.com/ropensci/unconf17/issues">discussed</a> potential project ideas online. The <strong>packagemetrics</strong> package was our answer to two related issues.</p>
+
+<p>The first <a href="https://github.com/ropensci/unconf17/issues/69">proposal</a> centered on creating and formatting tables in a reproducible workflow. After many different package suggestions started pouring in, we were left with a classic R user conundrum: &ldquo;Which package do I choose?&rdquo;</p>
+
+<p>With over 10,000 packages on CRAN - and thousands more on GitHub and Bioconductor - a useR needs a way to navigate this wealth of options. There are many existing tools to categorize and facilitate searching of R packages such as <a href="https://cran.r-project.org/web/views/">CRAN TaskViews</a>, <a href="http://rseek.org/">RSeek</a>, <a href="https://www.rdocumentation.org/">Rdocumentation</a>, <a href="http://crantastic.org/">Crantastic!</a>, <a href="http://www.r-pkg.org/">METACRAN</a> and <a href="http://dirk.eddelbuettel.com/cranberries/">CRANberries</a>. GitHub also provides lots of great metrics for individual packages developed there.</p>
+
+<p>However, these resources mostly aggregate information at the individual-package level, or compare static sets of packages that may not reflect recent breakthroughs.  To find a suitable option, users must sift through and compare individual packages, which can be a tedious and time-intensive process - particularly for someone new to R.</p>
+
+<p>The plethora of packages to create reproducible tables was an example of a second, broader issue: <a href="https://github.com/ropensci/unconf17/issues/78">&ldquo;Avoiding redundant / overlapping packages&rdquo;</a>.  That conversation turned to the process of reviewing packages. Combining the two issues, we set out to to create a guide that could help users navigate package selection, using the case of reproducible tables as a case study.</p>
+
+<h2 id="brainstorming">Brainstorming</h2>
+
+<p>Making use of the unique opportunity of the unconf, we asked other participants &ndash; all experienced R users/developers &ndash; how they discover and choose the packages they use. Some questions we pondered included:</p>
+
+<ul>
+<li>How do you find packages relevant for a task at hand?</li>
+<li>What do you look for in R packages?</li>
+<li>How do you determine a package&rsquo;s quality?</li>
+<li>How could we deal with a set of related and potentially-overlapping packages covering the same topic?</li>
+<li>How could we identify gaps in existing packages?</li>
+<li>How can we leverage the R community to capture user experience?</li>
+<li>What is the etiquette for creating a new package that potentially overlaps with another existing one?</li>
+</ul>
+
+<p>In addition to the package catalog resources listed above, unconf participants also rely on personal networks or social media such as Twitter to learn about new packages. A typical workflow for choosing a package looks like:</p>
+
+<ol>
+<li>Gathering a list of packages which seem to offer suitable functionality,</li>
+<li>narrowing down that list to a handful of packages, and then</li>
+<li>trying those out to select the best one.</li>
+</ol>
+
+<p>While there was wide variation in how users gathered their initial lists of packages, they relied on common indicators to narrow their lists, including, &ldquo;Is the package actively maintained?&rdquo; and &ldquo;Is it being tested? If so, how?&rdquo;. The last step often brought out personal preferences (&ldquo;I pick the one whose API I like best&rdquo;).</p>
+
+<p>Through these discussions, it became evident that while there are resources for <em>finding</em> packages, tools for <em>comparing</em> packages would be helpful additions. Two possible approaches to comparing packages are:</p>
+
+<ul>
+<li><strong>Standardized data collection:</strong> Collecting metrics on criteria that unconf participants use to appraise packages. This can be applied uniformly across packages and hence is closer to an objective comparison. Additionally, metric collection can be wrapped in a package itself which makes it easier to collect these metrics at scale.</li>
+<li><strong>Expert user review:</strong> In-depth exploration and review of similar packages - think <a href="http://thewirecutter.com/">&ldquo;The Wirecutter&rdquo;</a> but for R tasks. Reviews and recommendations are more subjective and require time and expertise - but user experience and feedback are important measures of the quality and potential of an R package. There is much insight that can be gained by installing a package and exploring it yourself.</li>
+</ul>
+
+<p>As the workflow indicates, these two approaches are best used together, rather than relying on a single one.</p>
+
+<h2 id="goals-for-unconf">Goals for unconf</h2>
+
+<p>At the unconf, we focused solely on the task of package assessment, leaving aside ideas for community involvement, discussion on how to identify gaps in existing packages and, related, when to create your own package.  It was already a big problem to tackle in just two days!</p>
+
+<p>Acknowledging the importance of both types of assessment &ndash; metric comparison and human exploration &ndash; we set out to create a package which could a) be used to collect data about R packages and b) contain an example for a more in-depth exploration of a set of packages (for creating reproducible tables) in form of a vignette.</p>
+
+<h3 id="metrics">Metrics</h3>
+
+<p>By making use of information from CRAN, GitHub, and StackOverflow, we collected metrics to answer some of the following questions:</p>
+
+<ul>
+<li>Does the package have a public repository?</li>
+<li>Does it have an issue tracker?</li>
+<li>What are the package’s dependencies? Is it build on a solid stack?</li>
+<li>Does it have reverse dependencies?  <em>i.e., do others trust it enough to build on it?</em></li>
+<li>Is the package  actively maintained?
+
+<ul>
+<li>How many people contribute to the package?</li>
+<li>Are there regular updates?</li>
+<li>Are there regular releases?</li>
+<li>What is happening in the issue tracker, e.g., when was the most recent issue closed?</li>
+</ul></li>
+<li>Does the package have unit tests?  What kind?</li>
+<li>Does it use continuous integration (CI)?</li>
+<li>Does it have a vignette?</li>
+<li>Does the documentation include examples?</li>
+<li>Is the package discussed on StackOverflow?
+
+<ul>
+<li>How often is it mentioned in questions?</li>
+<li>In answers?</li>
+<li>What packages are commonly co-mentioned with it?</li>
+</ul></li>
+</ul>
+
+<h3 id="user-package-review">User package review</h3>
+
+<p>Our discussions informed a list of things people commonly look for when they install a package and explore it manually:</p>
+
+<ul>
+<li>Is it easy to use?</li>
+<li>Is it modular?</li>
+<li>Is it “tidy”?</li>
+<li>Does it have clean syntax?</li>
+<li>Does it have a coherent theory?</li>
+<li>Is it not trying to do too much - but doing its small thing well?</li>
+<li>Does it have clear, concise documentation?</li>
+</ul>
+
+<p>With that, we got to work!</p>
+
+<p><img src="https://pbs.twimg.com/media/DA7g9BZVwAAsPL2.jpg" alt="" /></p>
+
+<h2 id="introducing-packagemetrics">Introducing: packagemetrics</h2>
+
+<p>With Erin collecting information from CRAN, Becca and Sam from GitHub, Lori and Hannah from StackOverflow and William diving into table-making packages, we managed to produce an R package. Working title: <a href="https://github.com/ropenscilabs/packagemetrics"><strong>packagemetrics</strong></a>.</p>
+
+<p>Our package can be installed from GitHub:</p>
+
+<pre><code>devtools::install_github(&quot;ropenscilabs/packagemetrics&quot;)
+</code></pre>
+
+<p>Since our case study is table-making packages, we provide a collection of those package names in a vector named <code>table_packages</code>. With that we can collect metrics for each package using <code>package_list_metrics()</code>:</p>
+
+<pre><code>library(packagemetrics)
+pkg_df &lt;- package_list_metrics(table_packages)
+str(pkg_df)
+</code></pre>
+
+<p>This yields a data.frame with all the metrics:</p>
+
+<pre><code>'data.frame':	27 obs. of  18 variables:
+ $ package           : chr  &quot;arsenal&quot; &quot;ascii&quot; &quot;compareGroups&quot; &quot;condformat&quot; ...
+ $ published         : chr  &quot;2017-03-10&quot; &quot;2011-09-29&quot; &quot;2017-03-14&quot; &quot;2017-05-18&quot; ...
+ $ title             : chr  &quot;An Arsenal of 'R' Functions for Large-Scale Statistical\nSummaries&quot; &quot;Export R objects to several markup languages&quot; &quot;Descriptive Analysis by Groups&quot; &quot;Conditional Formatting in Data Frames&quot; ...
+ $ depends_count     : int  2 3 5 NA 1 NA 3 1 1 1 ...
+ $ suggests_count    : int  10 6 7 4 3 4 1 3 4 5 ...
+ $ tidyverse_happy   : logi  TRUE NA FALSE TRUE TRUE TRUE ...
+ $ has_vignette_build: logi  FALSE TRUE FALSE FALSE FALSE FALSE ...
+ $ has_tests         : logi  TRUE FALSE FALSE TRUE FALSE FALSE ...
+ $ reverse_count     : num  0 1 0 0 0 31 0 0 2 7 ...
+ $ dl_last_month     : num  236 1806 929 1252 494 ...
+ $ ci                : chr  &quot;Not on GitHub&quot; &quot;NONE&quot; &quot;Not on GitHub&quot; &quot;Travis&quot; ...
+ $ test_coverage     : chr  &quot;Not on GitHub&quot; &quot;NONE&quot; &quot;Not on GitHub&quot; &quot;CodeCov&quot; ...
+ $ forks             : num  NA 4 NA 2 2 74 1 6 41 NA ...
+ $ stars             : num  NA 19 NA 4 26 206 7 30 299 NA ...
+ $ watchers          : num  NA 3 NA 4 4 45 2 2 37 NA ...
+ $ last_commit       : num  NA NA NA 0.567 0.767 ...
+ $ last_issue_closed : num  NA 64.8 NA 0.567 0.767 ...
+ $ contributors      : num  NA 0 NA 1 2 6 3 0 6 NA ...
+</code></pre>
+
+<p>This data about table-related packages can be turned tranformed with the <strong>formattable</strong> package (<em>so meta!</em>) into a beautiful table of package metrics:</p>
+
+<p><img src="https://i.imgur.com/reQfEOo.png" alt="" /></p>
+
+<p>As to the case study in expert user review: the start of a review of a selection of table-making packages can be found <a href="http://htmlpreview.github.io/?https://github.com/ropenscilabs/packagemetrics/blob/master/inst/doc/tableGallery.html">here</a>.</p>
+
+<h2 id="a-small-step-on-a-long-journey">A small step on a long journey</h2>
+
+<p>At this stage of a project, there&rsquo;s always a list of fixes and enhancements to make.  This project is no different, especially given that this is such a broad topic!</p>
+
+<p>The metrics currently reflect a first stab at priorities for us and other unconf participants - there is room for improvement. For instance, we&rsquo;d like to gather more metrics to shape a comprehensive snapshot of various categories (e.g., level of engagement, newness, influence, &hellip;). Another idea discussed prior to the unconf was that of attempting to capture (<em>an indication of</em>) the functionality offered by a package via keyword search through the package&rsquo;s DESCRIPTION, vignettes and help pages.</p>
+
+<p>We welcome suggestions and inputs via the <a href="https://github.com/ropenscilabs/packagemetrics/issues">issue tracker</a>! This goes both for the calculated metrics and the package review process illustrated in the vignette.</p>
+
+<p>Based on ideas generated at the unconf, the packagemetrics approach may have the potential to be useful in various places:</p>
+
+<ul>
+<li>Noam Ross <a href="https://github.com/ropenscilabs/packagemetrics/issues/18">suggested</a> using packagemetrics as part of the required review of related packages during <a href="https://github.com/ropensci/onboarding">rOpenSci&rsquo;s onboarding process</a> for new packages.</li>
+<li>CRAN&rsquo;s TaskViews are currently very broad.  E.g., there are dozens of packages for working on tables in R, but table creation constitutes only a small aspect of the <a href="https://cran.r-project.org/web/views/ReproducibleResearch.html">Reproducible Research Task View</a> on CRAN. Guidance on how to do package reviews might be useful in this context.</li>
+</ul>
+
+<p>As to the broader problem of deciding what package to use: it remains both unsolved and worthy of future attention.  Those interested in this challenge should follow along at useR! 2017 in Brussels later this summer, where the session <a href="https://user2017.brussels/news/2017/navigating-the-r-package-universe">&ldquo;Navigating the R Package Universe&rdquo;</a> looks particularly relevant.</p>
+
+<p>We look forward to community discussion on this, be it at useR! or elsewhere.  Thank you to rOpenSci and everyone involved for making #runconf17 such a wonderful event!</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/community"><span class="label">community</span></a>
+                
+                    <a href="/tags/software"><span class="label">software</span></a>
+                
+                    <a href="/tags/unconf"><span class="label">unconf</span></a>
+                
+                    <a href="/tags/meetings"><span class="label">meetings</span></a>
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+                <div id='discourse-comments'></div>
+                <script type="text/javascript">
+                DiscourseEmbed = { discourseUrl: 'https://discuss.ropensci.org/',
+                                   topicId:  759  };
+                (function() {
+                  var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+                  d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+                })();
+                </script>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bikedata on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/bikedata/</link>
+    <description>Recent content in Bikedata on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 17 Oct 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/bikedata/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Data from Public Bicycle Hire Systems</title>
+      <link>https://ropensci.org/blog/2017/10/17/bikedata/</link>
+      <pubDate>Tue, 17 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/10/17/bikedata/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;A new rOpenSci package provides access to data to which users may already have directly contributed, and for which contribution is fun, keeps you fit, and &lt;a href=&#34;http://www.bmj.com/content/357/bmj.j1456&#34;&gt;helps make the world a better place&lt;/a&gt;. The data come from using public bicycle hire schemes, and the package is called &lt;a href=&#34;https://github.com/ropensci/bikedata&#34;&gt;&lt;code&gt;bikedata&lt;/code&gt;&lt;/a&gt;. Public bicycle hire systems operate in many cities throughout the world, and most systems collect (generally anonymous) data, minimally consisting of the times and locations at which every single bicycle trip starts and ends. The &lt;a href=&#34;https://github.com/ropensci/bikedata&#34;&gt;&lt;code&gt;bikedata&lt;/code&gt;&lt;/a&gt; package provides access to data from all cities which openly publish these data, currently including &lt;a href=&#34;https://tfl.gov.uk/modes/cycling/santander-cycles&#34;&gt;London, U.K.&lt;/a&gt;, and in the U.S.A., &lt;a href=&#34;https://www.citibikenyc.com&#34;&gt;New York&lt;/a&gt;, &lt;a href=&#34;https://bikeshare.metro.net&#34;&gt;Los Angeles&lt;/a&gt;, &lt;a href=&#34;https://www.rideindego.com&#34;&gt;Philadelphia&lt;/a&gt;, &lt;a href=&#34;https://www.divvybikes.com&#34;&gt;Chicago&lt;/a&gt;, &lt;a href=&#34;https://www.thehubway.com&#34;&gt;Boston&lt;/a&gt;, and &lt;a href=&#34;https://www.capitalbikeshare.com&#34;&gt;Washington DC&lt;/a&gt;. The package will expand as more cities openly publish their data (with the newly enormously expanded San Francisco system &lt;a href=&#34;https://github.com/ropensci/bikedata/issues/2&#34;&gt;next on the list&lt;/a&gt;).&lt;/p&gt;
+
+&lt;h3 id=&#34;why-bikedata&#34;&gt;Why bikedata?&lt;/h3&gt;
+
+&lt;p&gt;The short answer to that question is that the package provides access to what is arguably one of the most spatially and temporally detailed databases of finely-scaled human movement throughout several of the world&amp;rsquo;s most important cities. Such data are likely to prove invaluable in the increasingly active and well-funded attempt to develop a science of cities. Such a science does not yet exist in any way comparable to most other well-established scientific disciplines, but the importance of developing a science of cities is indisputable, and reflected in such enterprises as the NYU-based &lt;a href=&#34;http://cusp.nyu.edu&#34;&gt;Center for Urban Science and Progress&lt;/a&gt;, or the UCL-based &lt;a href=&#34;https://www.ucl.ac.uk/bartlett/casa/&#34;&gt;Centre for Advanced Spatial Analysis&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;People move through cities, yet at present anyone faced with the seemingly fundamental question of how, when, and where people do so would likely have to draw on some form of private data (typically operators of transport systems or mobile phone providers). There are very few open, public data providing insight into this question. The &lt;a href=&#34;https://github.com/ropensci/bikedata&#34;&gt;&lt;code&gt;bikedata&lt;/code&gt;&lt;/a&gt; package aims to be one contribution towards filling this gap. The data accessed by the package are entirely open, and are constantly updated, typically on a monthly basis. The package thus provides ongoing insight into the dynamic changes and reconfigurations of these cities. Data currently available via the package amounts to several tens of Gigabytes, and will expand rapidly both with time, and with the inclusion of more cities.&lt;/p&gt;
+
+&lt;h3 id=&#34;why-are-these-data-published&#34;&gt;Why are these data published?&lt;/h3&gt;
+
+&lt;p&gt;In answer to that question, all credit must rightfully go to &lt;a href=&#34;http://www.theregister.co.uk/2011/01/11/transport_for_london_foi/&#34;&gt;Adrian Short&lt;/a&gt;, who submitted a Freedom of Information request in 2011 to Transport for London for usage statistics from the relatively new, and largely publicly-funded, bicycle scheme. This request from one individual ultimately resulted in the data being openly published on an ongoing basis. All U.S. systems included in &lt;a href=&#34;https://github.com/ropensci/bikedata&#34;&gt;&lt;code&gt;bikedata&lt;/code&gt;&lt;/a&gt; commenced operation subsequent to that point in time, and many of them have openly published their data from the very beginning. The majority of the world&amp;rsquo;s public bicycle hire systems (&lt;a href=&#34;https://en.wikipedia.org/wiki/List_of_bicycle-sharing_systems&#34;&gt;see list here&lt;/a&gt;) nevertheless do not openly publish data, notably including very large systems in China, France, and Spain. One important aspiration of the &lt;a href=&#34;https://github.com/ropensci/bikedata&#34;&gt;&lt;code&gt;bikedata&lt;/code&gt;&lt;/a&gt; package is to demonstrate the positive benefit for the cities themselves of openly and easily facilitating complex analyses of usage data, which brings us to &amp;hellip;&lt;/p&gt;
+
+&lt;h3 id=&#34;what-s-important-about-these-data&#34;&gt;What&amp;rsquo;s important about these data?&lt;/h3&gt;
+
+&lt;p&gt;As mentioned, the data really do provide uniquely valuable insights into the movement patterns and behaviour of people within some of the world&amp;rsquo;s major cities. While the more detailed explorations below demonstrate the kinds of things that can be done with the package, the variety of insights these data facilitate is best demonstrated through considering the work of other people, exemplified by &lt;a href=&#34;http://toddwschneider.com/posts/a-tale-of-twenty-two-million-citi-bikes-analyzing-the-nyc-bike-share-system/&#34;&gt;Todd Schneider&amp;rsquo;s high-profile blog piece&lt;/a&gt; on the New York City system. Todd&amp;rsquo;s analyses clearly demonstrate how these data can provide insight into where and when people move, into inter-relationships between various forms of transport, and into relationships with broader environmental factors such as weather. As cities evolve, and public bicycle hire schemes along with them, data from these systems can play a vital role in informing and guiding the ongoing processes of urban development. The &lt;a href=&#34;https://github.com/ropensci/bikedata&#34;&gt;&lt;code&gt;bikedata&lt;/code&gt;&lt;/a&gt; package greatly facilitates analysing such processes, not only through making data access and aggregation enormously easier, but through enabling analyses from any one system to be immediately applied to, and compared with, any other systems.&lt;/p&gt;
+
+&lt;h3 id=&#34;how-it-works&#34;&gt;How it works&lt;/h3&gt;
+
+&lt;p&gt;The package currently focusses on the data alone, and provides functionality for downloading, storage, and aggregation. The data are stored in an &lt;code&gt;SQLite3&lt;/code&gt; database, enabling newly published data to be continually added, generally with one simple line of code. It&amp;rsquo;s as easy as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;store_bikedata (city = &amp;quot;chicago&amp;quot;, bikedb = &amp;quot;bikedb&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If the nominated database (&lt;code&gt;bikedb&lt;/code&gt;) already holds data for Chicago, only new data will be added, otherwise all historical data will be downloaded and added. All bicycle hire systems accessed by &lt;code&gt;bikedata&lt;/code&gt; have fixed docking stations, and the primary means of aggregation is in terms of &amp;ldquo;trip matrices&amp;rdquo;, which are square matrices of numbers of trips between all pairs of stations, extracted with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;trips &amp;lt;- bike_tripmat (bikedb = &amp;quot;bikedb&amp;quot;, city = &amp;quot;chi&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that most parameters are highly flexible in terms of formatting, so pretty much anything starting with &lt;code&gt;&amp;quot;ch&amp;quot;&lt;/code&gt; will be recognised as Chicago. Of course, if the database only contains data for Chicago, the &lt;code&gt;city&lt;/code&gt; parameter may be omitted entirely. Trip matrices may be filtered by time, through combinations of year, month, day, hour, minute, or even second, as well as by demographic characteristics such as gender or date of birth for those systems which provide such data. (These latter data are freely provided by users of the systems, and there can be no guarantee of their accuracy.) These can all be combined in calls like the following, which further demonstrates the highly flexible ways of specifying the various parameters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;trips &amp;lt;- bike_tripmat (&amp;quot;bikedb&amp;quot;, city = &amp;quot;london, innit&amp;quot;,
+                       start_date = 20160101, end_date = &amp;quot;16,02,28&amp;quot;,
+                       start_time = 6, end_time = 24,
+                       birth_year = 1980:1990, gender = &amp;quot;f&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The second mode of aggregation is as daily time series, via the &lt;code&gt;bike_daily_trips()&lt;/code&gt; function. See &lt;a href=&#34;https://ropensci.github.io/bikedata/articles/bikedata.html&#34;&gt;the vignette&lt;/a&gt; for further details.&lt;/p&gt;
+
+&lt;h3 id=&#34;what-can-be-done-with-these-data&#34;&gt;What can be done with these data?&lt;/h3&gt;
+
+&lt;p&gt;Lots of things. How about examining how far people ride. This requires getting the distances between all pairs of docking stations as routed through the street network, to yield a distance matrix corresponding to the trip matrix. The latest version of &lt;a href=&#34;https://github.com/ropensci/bikedata&#34;&gt;&lt;code&gt;bikedata&lt;/code&gt;&lt;/a&gt; has a brand new function to perform exactly that task, so it&amp;rsquo;s as easy as&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;devtools::install_github (&amp;quot;ropensci/bikedata&amp;quot;) # to install latest version
+dists &amp;lt;- bike_distmat (bikedb = bikedb, city = &amp;quot;chicago&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;These are distances as routed through the underlying street network, with street types prioritised for bicycle travel. The network is extracted from OpenStreetMap using the &lt;a href=&#34;https://github.com/ropensci/osmdata&#34;&gt;rOpenSci &lt;code&gt;osmdata&lt;/code&gt; package&lt;/a&gt;, and the distances are calculated using a brand new package called &lt;a href=&#34;https://cran.r-project.org/package=dodgr&#34;&gt;&lt;code&gt;dodgr&lt;/code&gt;&lt;/a&gt; (Distances on Directed Graphs). (Disclaimer: It&amp;rsquo;s my package, and this is a shameless plug for it - please use it!)&lt;/p&gt;
+
+&lt;p&gt;The distance matrix extracted with &lt;code&gt;bike_distmat&lt;/code&gt; is between all stations listed for a given system, which &lt;code&gt;bike_tripmat&lt;/code&gt; will return trip matrices only between those stations in operation over a specified time period. Because systems expand over time, the two matrices will generally not be directly comparable, so it is necessary to submit both to the &lt;code&gt;bikedata&lt;/code&gt; function &lt;code&gt;match_matrices()&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dim (trips); dim (dists)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] 581 581
+
+## [1] 636 636
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;mats &amp;lt;- match_matrices (trips, dists)
+trips &amp;lt;- mats$trip
+dists &amp;lt;- mats$dist
+dim (trips); dim (dists)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] 581 581
+
+## [1] 581 581
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;identical (rownames (trips), rownames (dists))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] TRUE
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Distances can then be visually related to trip numbers to reveal their distributional form. These matrices contain too many values to plot directly, so the &lt;code&gt;hexbin&lt;/code&gt; package is used here to aggregate in a &lt;code&gt;ggplot&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library (hexbin)
+library (ggplot2)
+dat &amp;lt;- data.frame (distance = as.vector (dmat),
+                   number = as.vector (trips))
+ggplot (dat, aes (x = distance, y = number)) +
+    stat_binhex(aes(fill = log (..count..))) +
+    scale_x_log10 (breaks = c (0.1, 0.5, 1, 2, 5, 10, 20),
+                   labels = c (&amp;quot;0.1&amp;quot;, &amp;quot;0.5&amp;quot;, &amp;quot;1&amp;quot;, &amp;quot;2&amp;quot;, &amp;quot;5&amp;quot;, &amp;quot;10&amp;quot;, &amp;quot;20&amp;quot;)) +
+    scale_y_log10 (breaks = c (10, 100, 1000)) +
+    scale_fill_gradientn(colours = c(&amp;quot;seagreen&amp;quot;,&amp;quot;goldenrod1&amp;quot;),
+                         name = &amp;quot;Frequency&amp;quot;, na.value = NA) +
+    guides (fill = FALSE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-10-17-bikedata/chicago.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The central region of the graph (yellow hexagons) reveals that numbers of trips generally decrease roughly exponentially with increasing distance (noting that scales are logarithmic), with most trip distances lying below 5km. What is the &amp;ldquo;average&amp;rdquo; distance travelled in Chicago? The easiest way to calculate this is as a weighted mean,&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sum (as.vector (dmat) * as.vector (trips) / sum (trips), na.rm = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] 2.510285
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;giving a value of just over 2.5 kilometres. We could also compare differences in mean distances between cyclists who are registered with a system and causal users. These two categories may be loosely considered to reflect &amp;ldquo;residents&amp;rdquo; and &amp;ldquo;non-residents&amp;rdquo;. Let&amp;rsquo;s wrap this in a function so we can use it for even cooler stuff in a moment.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dmean &amp;lt;- function (bikedb = &amp;quot;bikedb&amp;quot;, city = &amp;quot;chicago&amp;quot;)
+{
+    tm &amp;lt;- bike_tripmat (bikedb = bikedb, city = city)
+    tm_memb &amp;lt;- bike_tripmat (bikedb = bikedb, city = city, member = TRUE)
+    tm_nomemb &amp;lt;- bike_tripmat (bikedb = bikedb, city = city, member = FALSE)
+    stns &amp;lt;- bike_stations (bikedb = bikedb, city = city)
+    dists &amp;lt;- bike_distmat (bikedb = bikedb, city = city)
+    mats &amp;lt;- match_mats (dists, tm_memb)
+    tm_memb &amp;lt;- mats$trip
+    mats &amp;lt;- match_mats (dists, tm_nomemb)
+    tm_nomemb &amp;lt;- mats$trip
+    mats &amp;lt;- match_mats (dists, tm)
+    tm &amp;lt;- mats$trip
+    dists &amp;lt;- mats$dists
+
+    d0 &amp;lt;- sum (as.vector (dists) * as.vector (tm) / sum (tm), na.rm = TRUE)
+    dmemb &amp;lt;- sum (as.vector (dists) * as.vector (tmemb) / sum (t_memb), na.rm = TRUE)
+    dnomemb &amp;lt;- sum (as.vector (dists) * as.vector (tm_nomemb) / sum (tm_nomemb), na.rm = TRUE)
+    res &amp;lt;- c (d0, dmemb / dnomemb)
+    names (res) &amp;lt;- c (&amp;quot;dmean&amp;quot;, &amp;quot;ratio_memb_non&amp;quot;)
+    return (res)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Differences in distances ridden between &amp;ldquo;resident&amp;rdquo; and &amp;ldquo;non-resident&amp;rdquo; cyclists can then be calculated with&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;dmean (bikedb = bikedb, city = &amp;quot;ch&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##          dmean ratio_memb_non
+##       2.510698       1.023225
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And system members cycle slightly longer distances than non-members. (Do not at this point ask about statistical tests - these comparisons are made between millions&amp;ndash;often tens of millions&amp;ndash;of points, and statistical significance may always be assumed to be negligibly small.) Whatever the reason for this difference between &amp;ldquo;residents&amp;rdquo; and others, we can use this exact same code to compare equivalent distances for all cities which record whether users are members or not (which is all cities except London and Washington DC).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;cities &amp;lt;- c (&amp;quot;ny&amp;quot;, &amp;quot;ch&amp;quot;, &amp;quot;bo&amp;quot;, &amp;quot;la&amp;quot;, &amp;quot;ph&amp;quot;) # NYC, Chicago, Boston, LA, Philadelphia
+sapply (cities, function (i) dmean (bikedb = bikedb, city = i))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##                       ny       ch       bo       la       ph
+## dmean          2.8519131 2.510285 2.153918 2.156919 1.702372
+## ratio_memb_non 0.9833729 1.023385 1.000635 1.360099 1.130929
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And we thus discover that Boston manifests the greatest equality in terms of distances cycled between residents and non-residents, while LA manifests the greatest difference. New York City is the only one of these five in which non-members of the system actually cycle further than members. (And note that these two measures can&amp;rsquo;t be statistically compared in any direct way, because mean distances are also affected by relative numbers of member to non-member trips.) These results likely reflect a host of (scientifically) interesting cultural and geo-spatial differences between these cities, and demonstrate how the &lt;a href=&#34;https://github.com/ropensci/bikedata&#34;&gt;&lt;code&gt;bikedata&lt;/code&gt;&lt;/a&gt; package (combined with &lt;a href=&#34;https://github.com/gmost/dodgr&#34;&gt;&lt;code&gt;dodgr&lt;/code&gt;&lt;/a&gt; and &lt;a href=&#34;https://github.com/ropensci/osmdata&#34;&gt;&lt;code&gt;osmdata&lt;/code&gt;&lt;/a&gt;) can provide unique insight into differences in human behaviour between some of the most important cities in the U.S.&lt;/p&gt;
+
+&lt;h3 id=&#34;visualisation&#34;&gt;Visualisation&lt;/h3&gt;
+
+&lt;p&gt;Many users are likely to want to visualise how people use a given bicycle system, and in particular are likely to want to produce maps. This is also readily done with the &lt;a href=&#34;https://github.com/gmost/dodgr&#34;&gt;&lt;code&gt;dodgr&lt;/code&gt; package&lt;/a&gt;, which can route and aggregate transit flows for a particular mode of transport throughout a street network. Let&amp;rsquo;s plot bicycle flows for the Indego System of Philadelphia PA. First get the trip matrix, along with the coordinates of all bicycle stations.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;devtools::install_github (&amp;quot;gmost/dodgr&amp;quot;) # to install latest version
+city &amp;lt;- &amp;quot;ph&amp;quot;
+# store_bikedata (bikedb = bikedb, city = city) # if not already done
+trips &amp;lt;- bike_tripmat (bikedb = bikedb, city = city)
+stns &amp;lt;- bike_stations (bikedb = bikedb, city = city)
+xy &amp;lt;- stns [, which (names (stns) %in% c (&amp;quot;longitude&amp;quot;, &amp;quot;latitude&amp;quot;))]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Flows of cyclists are calculated between those &lt;code&gt;xy&lt;/code&gt;points, so the &lt;code&gt;trips&lt;/code&gt; table has to match the &lt;code&gt;stns&lt;/code&gt; table:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;indx &amp;lt;- match (stns$stn_id, rownames (trips))
+trips &amp;lt;- trips [indx, indx]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;a href=&#34;https://github.com/gmost/dodgr&#34;&gt;&lt;code&gt;dodgr&lt;/code&gt; package&lt;/a&gt; can be used to extract the underlying street network surrounding those &lt;code&gt;xy&lt;/code&gt; points (expanded here by 50%):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;net &amp;lt;- dodgr_streetnet (pts = xy, expand = 0.5) %&amp;gt;%
+    weight_streetnet (wt_profile = &amp;quot;bicycle&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We then need to align the bicycle station coordinates in &lt;code&gt;xy&lt;/code&gt; to the nearest points (or &amp;ldquo;vertices&amp;rdquo;) in the street network:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;verts &amp;lt;- dodgr_vertices (net)
+pts &amp;lt;- verts$id [match_pts_to_graph (verts, xy)]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Flows between these points can then be mapped onto the underlying street network with:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;flow &amp;lt;- dodgr_flows (net, from = pts, to = pts, flow = trips) %&amp;gt;%
+    merge_directed_flows ()
+net &amp;lt;- net [flow$edge_id, ]
+net$flow &amp;lt;- flow$flow
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;See the &lt;a href=&#34;https://github.com/gmost/dodgr&#34;&gt;&lt;code&gt;dodgr&lt;/code&gt; documentation&lt;/a&gt; for further details of how this works. We&amp;rsquo;re now ready to plot those flows, but before we do, let&amp;rsquo;s overlay them on top of the rivers of Philadelphia, extracted with rOpenSci&amp;rsquo;s &lt;a href=&#34;https://github.com/ropensci/osmdata&#34;&gt;&lt;code&gt;osmdata&lt;/code&gt; package&lt;/a&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;q &amp;lt;- opq (&amp;quot;Philadelphia pa&amp;quot;)
+rivers1 &amp;lt;- q %&amp;gt;%
+    add_osm_feature (key = &amp;quot;waterway&amp;quot;, value = &amp;quot;river&amp;quot;, value_exact = FALSE) %&amp;gt;%
+    osmdata_sf (quiet = FALSE)
+rivers2 &amp;lt;- q %&amp;gt;%
+    add_osm_feature (key = &amp;quot;natural&amp;quot;, value = &amp;quot;water&amp;quot;) %&amp;gt;%
+    osmdata_sf (quiet = FALSE)
+rivers &amp;lt;- c (rivers1, rivers2)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And finally plot the map, using rOpenSci&amp;rsquo;s &lt;a href=&#34;https://github.com/ropensci/osmplotr&#34;&gt;&lt;code&gt;osmplotr&lt;/code&gt; package&lt;/a&gt; to prepare a base map with the underlying rivers, and the &lt;code&gt;ggplot2::geom_segment()&lt;/code&gt; function to add the line segments with colours and widths weighted by bicycle flows.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;#gtlibrary (osmplotr)
+require (ggplot2)
+bb &amp;lt;- get_bbox (c (-75.22, 39.91, -75.10, 39.98))
+cols &amp;lt;- colorRampPalette (c (&amp;quot;lawngreen&amp;quot;, &amp;quot;red&amp;quot;)) (30)
+map &amp;lt;- osm_basemap (bb, bg = &amp;quot;gray10&amp;quot;) %&amp;gt;%
+    add_osm_objects (rivers$osm_multipolygons, col = &amp;quot;gray20&amp;quot;) %&amp;gt;%
+    add_osm_objects (rivers$osm_lines, col = &amp;quot;gray20&amp;quot;) %&amp;gt;%
+    add_colourbar (zlims = range (net$flow / 1000), col = cols)
+map &amp;lt;- map + geom_segment (data = net, size = net$flow / 50000,
+                           aes (x = from_lon, y = from_lat, xend = to_lon, yend = to_lat,
+                                colour = flow, size = flow)) +
+    scale_colour_gradient (low = &amp;quot;lawngreen&amp;quot;, high = &amp;quot;red&amp;quot;, guide = &amp;quot;none&amp;quot;)
+print_osm_map (map)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-10-17-bikedata/ph.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The colour bar on the right shows thousands of trips, with the map revealing the relatively enormous numbers crossing the South Street Bridge over the Schuylkill River, leaving most other flows coloured in the lower range of green or yellows. This map thus reveals that anyone wanting to see Philadelphia&amp;rsquo;s Indego bikes in action without braving the saddle themselves would be best advised to head straight for the South Street Bridge.&lt;/p&gt;
+
+&lt;h3 id=&#34;future-plans&#34;&gt;Future plans&lt;/h3&gt;
+
+&lt;p&gt;Although the &lt;a href=&#34;https://github.com/gmost/dodgr&#34;&gt;&lt;code&gt;dodgr&lt;/code&gt; package&lt;/a&gt; greatly facilitates the production of such maps, the code is nevertheless rather protracted, and it would probably be very useful to convert much of the code in the preceding section to an internal &lt;a href=&#34;https://github.com/ropensci/bikedata&#34;&gt;&lt;code&gt;bikedata&lt;/code&gt;&lt;/a&gt; function to map trips between pairs of stations onto corresponding flows through the underlying street networks.&lt;/p&gt;
+
+&lt;p&gt;Beyond that point, and the list of currently open issues awaiting development on the &lt;a href=&#34;https://github.com/ropensci/bikedata/issues&#34;&gt;github repository&lt;/a&gt;, future development is likely to depend very much on how users use the package, and on what extra features people might want. How can you help? A great place to start might be the official &lt;a href=&#34;https://ropensci.org/blog/blog/2017/10/02/hacktoberfest&#34;&gt;Hacktoberfest issue&lt;/a&gt;, helping to import the next lot of data from &lt;a href=&#34;https://github.com/ropensci/bikedata/issues/34&#34;&gt;San Francisco&lt;/a&gt;. Or just use the package, and open up a new issue in response to any ideas that might pop up, no matter how minor they might seem. See the &lt;a href=&#34;https://github.com/ropensci/bikedata/blob/master/CONTRIBUTING.md&#34;&gt;contributing guidelines&lt;/a&gt; for general advice.&lt;/p&gt;
+
+&lt;h3 id=&#34;acknowledgements&#34;&gt;Acknowledgements&lt;/h3&gt;
+
+&lt;p&gt;Finally, this package wouldn&amp;rsquo;t be what it is without my co-author &lt;a href=&#34;https://github.com/richardellison&#34;&gt;Richard Ellison&lt;/a&gt;, who greatly accelerated development through encouraging C rather than C++ code for the SQL interfaces. &lt;a href=&#34;https://github.com/maelle&#34;&gt;Maëlle Salmon&lt;/a&gt; majestically guided the entire review process, and made the transformation of the package to its current polished form a joy and a pleasure. I remain indebted to both &lt;a href=&#34;https://github.com/chucheria&#34;&gt;Bea Hernández&lt;/a&gt; and &lt;a href=&#34;https://github.com/eamcvey&#34;&gt;Elaine McVey&lt;/a&gt; for offering their time to extensively test and &lt;a href=&#34;https://github.com/ropensci/onboarding/issues/116&#34;&gt;review the package&lt;/a&gt; as part of rOpenSci&amp;rsquo;s onboarding process. The review process has made the package what it is, and for that I am grateful to all involved!&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Discover hydrological data using the hddtools R package</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">Discover hydrological data using the hddtools R package</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="http://www.claudiavitolo.com/" target="_blank"> Claudia Vitolo </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">March 7, 2017</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>I&rsquo;ve worked for over 12 years in hydrology and natural hazard modelling and one of the things that still fascinates me is the variety of factors that come into play in trying to predict phenomena such as river floods. From local observations of meteorological and hydrological variables and their spatio-temporal patterns to the type and condition of soils and vegetation/land use as well as the geometry and state of river channels and engineering structures affecting the flow.</p>
+
+<p>This large number of well known predictors directly translates in the need to collect a wide variety of information such as in-situ sensor observations, river survey data, satellite imagery and, more recently, social media information (reporting in real-time the evolution of on-going events). In this field, data collection is challenging on many levels: data are available from different providers under a variety of licences, in various data types and formats that need to be handled and homogenised.</p>
+
+<p>On the one side, not much can be done to overcome licensing issues and the learning curve to become an expert hydrologist is rather steep. On the other side, the R community is working hard to provide tools to make data standards more user-friendly and the convenience of data APIs available to everyone, not only web developers. Here is where <code>hddtools</code> comes into play! This R package is a proof of concept that hydrological data can be made more accessible and consists of a collection of functions to retrieve and homogenise hydrological information. Let me walk you through the main functionalities!</p>
+
+<h2 id="the-r-package-hddtools">The R package <code>hddtools</code></h2>
+
+<p>The name <code>hddtools</code> stands for <strong>H</strong>ydrological <strong>D</strong>ata <strong>D</strong>iscovery <strong>Tools</strong>. This is an open source project designed to facilitate access to on-line data sources. This typically implies the download of a metadata catalogue, selection of information needed, formal request for dataset(s), de-compression, conversion, manual filtering and parsing. All those operation are made more efficient by re-usable functions.</p>
+
+<p>Depending on the data license, functions can provide offline and/or on-line modes. When redistribution is allowed, for instance, a copy of the dataset is cached within the package and updated twice a year. This is the fastest option and also allows offline use of functions. When re-distribution is not allowed, only on-line mode is provided.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>The <code>hddtools</code> package and the examples in this blog depend on other CRAN packages. Before attempting to install <code>hddtools</code>, solve any missing dependencies using the commands below:</p>
+
+<pre><code class="language-r">packs &lt;- c(&quot;zoo&quot;, &quot;sp&quot;, &quot;RCurl&quot;, &quot;XML&quot;, &quot;rnrfa&quot;, &quot;Hmisc&quot;, &quot;raster&quot;,
+           &quot;stringr&quot;, &quot;devtools&quot;, &quot;leaflet&quot;)
+new_packages &lt;- packs[!(packs %in% installed.packages()[,&quot;Package&quot;])]
+if(length(new_packages)) install.packages(new_packages)
+</code></pre>
+
+<p>The package is available from the Comprehensive R Archive Network (<a href="https://cran.r-project.org/index.html">CRAN</a>):</p>
+
+<pre><code class="language-r">install.packages(&quot;hddtools&quot;)
+</code></pre>
+
+<p>However, the development of this package is very dynamic. Data sources become often unavailable or migrate to new systems. URLs change and, as a consequence, functions may stop working. For this reason, I always suggest to use the development version of this package, which is available from github using <a href="https://github.com/hadley/devtools">devtools</a>:</p>
+
+<pre><code class="language-r">devtools::install_github(&quot;ropensci/hddtools&quot;)
+</code></pre>
+
+<p>Load the <code>hddtools</code> package:</p>
+
+<pre><code class="language-r">library(&quot;hddtools&quot;)
+</code></pre>
+
+<h2 id="data-sources-and-functions">Data sources and Functions</h2>
+
+<p>In my quest for hydrological data I found that there are tons of open datasets available but the problem is that <strong>you need to know where to look!</strong></p>
+
+<p>Here is the list of data sources available within the <code>hddtools</code> package:</p>
+
+<ul>
+<li>The Koppen Climate Classification map</li>
+<li>The Global Runoff Data Centre</li>
+<li>NASA&rsquo;s Tropical Rainfall Measuring Mission</li>
+<li>The Top-Down modelling Working Group:
+
+<ul>
+<li>Data60UK</li>
+<li>MOPEX
+-SEPA river level data</li>
+</ul></li>
+</ul>
+
+<p>For each source, functions are available to obtain and/or filter relevant data. Their usage is described below.</p>
+
+<h3 id="the-koppen-climate-classification-map">The Koppen Climate Classification map</h3>
+
+<p>The Koppen Climate Classification is the most widely used system for classifying the world&rsquo;s climates. Its categories are based on the annual and monthly averages of temperature and precipitation. This climate classification is used, in hydrological studies, to explain the continental-scale variability in
+annual runoff. The <code>hddtools</code> package contains a function to identify the updated Koppen-Greiger climate zone, given a bounding box. In the example below I&rsquo;m getting the climate class for my beautiful home town in Italy: Pompeii.
+Country borders are retrieved using the <code>getData()</code> function from the raster package, which retrieves global administrative areas from the following website: <a href="http://www.gadm.org/">http://www.gadm.org/</a>.</p>
+
+<pre><code class="language-r"># Plot Pompeii on a map
+library(raster)
+Italy &lt;- getData(&quot;GADM&quot;, country = &quot;IT&quot;, level = 0)
+Pompeii &lt;- SpatialPoints(coords = data.frame(x = 14.4870, y = 40.7510))
+plot(Italy, col = NA, border = &quot;darkgrey&quot;)
+plot(Pompeii, add = TRUE, col = &quot;red&quot;)
+
+# Define and plot a bounding box centred in Pompeii (Italy)
+areaBox &lt;- raster::extent(Pompeii@coords[[1]] - 0.5, Pompeii@coords[[1]] + 0.5,
+                          Pompeii@coords[[2]] - 0.5, Pompeii@coords[[2]] + 0.5)
+plot(areaBox, add = TRUE, col = &quot;red&quot;)
+</code></pre>
+
+<p><img src="/assets/blog-images/2013-03-07-hddtools/unnamed-chunk-5-1.png" alt="" /></p>
+
+<pre><code class="language-r"># Extract climate zones from Kottek's map:
+KGClimateClass(areaBox = areaBox, updatedBy = &quot;Kottek&quot;)
+</code></pre>
+
+<pre><code>##   ID Class Frequency
+## 1 34   Csa       131
+</code></pre>
+
+<p>From the column <code>Class</code> in the above table, it can be derived that the area falls in a warm temperate climate &copy; with dry (s) and hot summers (a). A description of the retrieved class and related criterion can be printed setting the argument <code>verbose = TRUE</code> in the function <code>KGClimateClass()</code>.</p>
+
+<h3 id="the-global-runoff-data-centre">The Global Runoff Data Centre</h3>
+
+<p>The Global Runoff Data Centre (GRDC) is an international archive hosted by the Federal Institute of Hydrology in Koblenz, Germany. The Centre operates under the auspices of the World Meteorological Organisation and retains services and datasets for all the major rivers in the world. The data catalogue, kml files and the Long-Term Mean Monthly Discharges are open data and accessible via <code>hddtools</code>.</p>
+
+<p>Information on all the GRDC stations can be retrieved using the function <code>catalogueGRDC</code> with no input arguments, as in the example below:</p>
+
+<pre><code class="language-r"># GRDC full catalogue
+GRDC_catalogue_all &lt;- catalogueGRDC()
+</code></pre>
+
+<p>However, there are a number of options to filter the catalogue and return only a subset of stations. For instance, the catalogue can be filtered based on a geographical bounding box as in the function <code>KGClimateClass()</code>. It might also be interesting to subset only stations in a given country, e.g. Italy. As the 8th column in the catalogue lists the country codes, the catalogue can be filtered passing two input arguments to the <code>catalogueGRDC()</code> function: <code>columnName = &quot;country_code&quot;</code> and <code>columnValue  = &quot;IT&quot;</code>, as in the example below.</p>
+
+<pre><code class="language-r"># Filter GRDC catalogue based on a country code
+GRDC_IT &lt;- catalogueGRDC(columnName = &quot;country_code&quot;, columnValue = &quot;IT&quot;)
+
+# Convert the table to a SpatialPointsDataFrame
+hydro &lt;- SpatialPointsDataFrame(coords = GRDC_IT[, c(&quot;long&quot;, &quot;lat&quot;)],
+                                data = GRDC_IT)
+
+# Plot the stations on the map
+plot(Italy, col = NA, border = &quot;darkgrey&quot;)
+plot(hydro, add = TRUE, col = &quot;blue&quot;, pch = 1)
+</code></pre>
+
+<p><img src="/assets/blog-images/2013-03-07-hddtools/unnamed-chunk-7-1.png" alt="" /></p>
+
+<p>The arguments <code>columnName</code> and <code>columnValue</code> can be used to filter over other columns. For instance, the example below shows how to subset stations along the Tanaro River which source in the Ligurian Alps.</p>
+
+<pre><code class="language-r"># Filter GRDC catalogue based on rivername, search is not case sensitive!
+Tanaro &lt;- catalogueGRDC(columnName = &quot;river&quot;, columnValue = &quot;Tanaro&quot;)
+
+# Convert the table to a SpatialPointsDataFrame
+TanaroSP &lt;- SpatialPointsDataFrame(coords = Tanaro[, c(&quot;long&quot;, &quot;lat&quot;)],
+                                   data = Tanaro)
+
+# Highight in red the stations on the Tanaro River
+plot(Italy, col = NA, border = &quot;darkgrey&quot;)
+plot(hydro, add = TRUE, col = &quot;blue&quot;, pch = 1)
+plot(TanaroSP, add = TRUE, col = &quot;red&quot;, pch = 1)
+</code></pre>
+
+<p><img src="/assets/blog-images/2013-03-07-hddtools/unnamed-chunk-8-1.png" alt="" /></p>
+
+<p>If <code>columnName</code> refers to a numeric field, in the <code>columnValue</code> other terms of comparison can be specified. For example, it is straightforward to find out that the country with the most longstanding monitoring stations is Germany (with 11 out of 15 stations with more than 150 years of recordings).</p>
+
+<pre><code class="language-r"># Filter GRDC stations with more than 150 years of recordings
+GRDC150 &lt;- catalogueGRDC(columnName = &quot;d_yrs&quot;, columnValue = &quot;&gt;150&quot;)
+
+# Which country has the most longstanding monitoring stations?
+table(GRDC150$country_code)
+</code></pre>
+
+<pre><code>##
+## DE FI LT RO SE
+## 11  1  1  1  1
+</code></pre>
+
+<pre><code class="language-r"># Where is the oldest station?
+oldest &lt;- GRDC150[which(GRDC150$d_yrs == max(GRDC150$d_yrs)),
+                  c(&quot;grdc_no&quot;, &quot;river&quot;, &quot;station&quot;, &quot;d_yrs&quot;)]
+oldest
+</code></pre>
+
+<pre><code>## # A tibble: 1 × 4
+##   grdc_no      river station d_yrs
+##     &lt;chr&gt;      &lt;chr&gt;   &lt;chr&gt; &lt;dbl&gt;
+## 1 6340120 ELBE RIVER DRESDEN   208
+</code></pre>
+
+<p>The oldest stastion is in Dresden on the Elbe River. Let&rsquo;s now find out whether monthly data is available. For this we need the GRDC identification number (this is stored in the column grdc_no of the catalogue) and the function <code>tsGRDC()</code>.</p>
+
+<pre><code class="language-r"># Monthly data extraction
+DresdenStation &lt;- tsGRDC(stationID = oldest$grdc_no, plotOption = TRUE)
+</code></pre>
+
+<p><img src="/assets/blog-images/2013-03-07-hddtools/unnamed-chunk-10-1.png" alt="" /></p>
+
+<p>The plot above, shows the time on the x-axis and the flow (in m<sup>3</sup>/s) on the y-axis. The river flow has had huge oscillations over time, is this an effect of anthropogenic changes and/or climate change? This is well out of the scope of this blog post, I leave the reader to look at trends from the mean monthly values <code>DresdenStation$mddPerYear</code>.</p>
+
+<h3 id="nasa-s-tropical-rainfall-measuring-mission">NASA&rsquo;s Tropical Rainfall Measuring Mission</h3>
+
+<p>The Tropical Rainfall Measuring Mission (TRMM) is a joint mission between NASA and the Japan Aerospace Exploration Agency (JAXA) that uses a research satellite to measure precipitation within the tropics in order to improve our understanding of climate and its variability.</p>
+
+<p>The TRMM satellite records global historical rainfall estimation in a gridded format since 1998 with a daily temporal resolution and a spatial resolution of 0.25 degrees (spatial extent goes from -50 to +50 degrees latitude). This information is openly available for educational purposes and downloadable from an FTP server. The <code>hddtools</code> provides a function, called TRMM(), to download and convert a selected portion of the TRMM dataset into a raster-brick that can be opened in any GIS software.</p>
+
+<p>As an example, I&rsquo;m going to download precipitation maps for three months in 2016 using the <code>areabox</code> defined previously to locate Pompeii and surrounding areas. But remember, values become less reliable moving away from the tropics!</p>
+
+<pre><code class="language-r"># Define a temporal extent
+twindow &lt;- seq(as.Date(&quot;2016-01-01&quot;), as.Date(&quot;2016-03-31&quot;), by = &quot;months&quot;)
+
+# Retrieve mean monthly precipitations based on a bounding box and time extent
+TRMMfile &lt;- TRMM(twindow = twindow, areaBox = areaBox)
+
+plot(TRMMfile)
+</code></pre>
+
+<p><img src="/assets/blog-images/2013-03-07-hddtools/unnamed-chunk-11-1.png" alt="" /></p>
+
+<p>Each of the above plots shows the average precipitation over Pompeii during January (top left), February (top right) and March (bottom left) 2016. Precipitation seems generally more abundant in the south (coastal areas) where the plots show prevalence of green, especially during January and February.</p>
+
+<h3 id="top-down-modelling-working-group">Top-Down modelling Working Group</h3>
+
+<p>The Top-Down modelling Working Group (TDWG) for the Prediction in Ungauged Basins (PUB) Decade (2003-2012) is an initiative of the International Association of Hydrological Sciences (IAHS) which collected datasets for hydrological modelling free-of-charge, available <a href="http://tdwg.catchment.org/datasets.html">here</a>. This package provides a common interface to retrieve, browse and filter two datasets: Data60UK and MOPEX.</p>
+
+<h4 id="the-data60uk-dataset">The Data60UK dataset</h4>
+
+<p>The Data60UK initiative collated datasets of areal precipitation and streamflow discharge across 61 gauging sites in England and Wales (UK). The database was prepared from source databases for research purposes, with the intention to make it re-usable. This is now available in the public domain free of charge.</p>
+
+<p>The <code>hddtools</code> contain two functions to interact with this database: one to retrieve the catalogue and another to retrieve time series of areal precipitation and streamflow discharge.</p>
+
+<pre><code class="language-r">UK &lt;- getData(&quot;GADM&quot;, country = &quot;GBR&quot;, level = 0)
+plot(UK, col = NA, border = &quot;darkgrey&quot;)
+
+# Data60UK full catalogue
+allData60UK &lt;- catalogueData60UK()
+hydroALL &lt;- SpatialPointsDataFrame(coords = allData60UK[, c(&quot;Longitude&quot;,
+                                                         &quot;Latitude&quot;)],
+                                data = allData60UK)
+plot(hydroALL, add = TRUE, col = &quot;blue&quot;, pch = 1)
+</code></pre>
+
+<p><img src="/assets/blog-images/2013-03-07-hddtools/unnamed-chunk-12-1.png" alt="" /></p>
+
+<pre><code class="language-r">head(allData60UK)
+</code></pre>
+
+<pre><code>##   stationID        River          Location gridReference Latitude
+## 1     22001       Coquet           Morwick      NU234044 55.33310
+## 2     22006        Blyth   Hartford Bridge      NZ242800 55.11381
+## 3     23006   South Tyne      Featherstone      NY672610 54.94257
+## 4     24004 Bedburn Beck           Bedburn      NZ117321 54.68382
+## 5     25005        Leven      Leven Bridge      NZ444120 54.50139
+## 6     25006        Greta Rutherford Bridge      NZ033122 54.50511
+##   Longitude
+## 1 -1.632691
+## 2 -1.622163
+## 3 -2.513539
+## 4 -1.820046
+## 5 -1.315911
+## 6 -1.950550
+</code></pre>
+
+<p>Given the station identification number (in the column stationID), time series of areal precipitation and streamflow discharge can be downloaded using the function <code>tsData60UK()</code>. In the example below I show how to get the time series for the first station in the table, for a given temporal window.</p>
+
+<pre><code class="language-r"># Extract time series for the first station
+stationID &lt;- catalogueData60UK()$stationID[1]
+
+# Extract time series for a specified temporal window
+twindow &lt;- seq(as.Date(&quot;1988-01-01&quot;), as.Date(&quot;1989-12-31&quot;), by = &quot;days&quot;)
+MorwickTSplot &lt;- tsData60UK(stationID = stationID,
+                            plotOption = TRUE,
+                            twindow = twindow)
+</code></pre>
+
+<p><img src="/assets/blog-images/2013-03-07-hddtools/unnamed-chunk-13-1.png" alt="" /></p>
+
+<p>The above figure is divided into two plots: precipitation over time (top) and river flow over time (bottom). High flows and related precipitation events seem to be clearly identifiable. The baseflow is around 10 m<sup>3</sup>/s, but during the most important events the flow reached 120 m<sup>3</sup>/s. The shape of the hydrograph, however, suggests that the flow was contained by the embankments and did not cause floods.</p>
+
+<h4 id="mopex">MOPEX</h4>
+
+<p>This source contains historical hydrometeorological data and river basin characteristics for hundreds of river basins and from a range of climates in the US. As with the previous dataset, <code>hddtools</code> contains functions to download the catalogue and time series. The example below shows how to download the MOPEX catalogue and the time series for the first station in the catalogue.</p>
+
+<pre><code class="language-r"># MOPEX full catalogue
+allMOPEX &lt;- catalogueMOPEX()
+
+# Extract time series
+BroadRiver &lt;- tsMOPEX(stationID = allMOPEX$stationID[1],
+                      plotOption = TRUE)
+</code></pre>
+
+<p><img src="/assets/blog-images/2013-03-07-hddtools/unnamed-chunk-14-1.png" alt="" /></p>
+
+<p>In the plots above P stands for precipitation, E for potential evapotranspiration, Q for river flow, T<sub>min</sub> for minimum temperature and T<sub>max</sub> for maximum temperature.</p>
+
+<h3 id="sepa-river-level-data">SEPA river level data</h3>
+
+<p>The Scottish Environment Protection Agency (SEPA) manages river level data for hundreds of gauging stations in the UK. The catalogue of stations was derived from this <a href="http://pennine.ddns.me.uk/riverlevels/ConciseList.html">list</a>. The time series of the last few days is available from the SEPA website and can be downloaded using the following function <code>tsSEPA()</code>, as in the example below. Plese note that this data is updated every 15 minutes and the code will always generate different plots.</p>
+
+<pre><code class="language-r"># SEPA unofficial catalogue
+allSEPA &lt;- catalogueSEPA()
+
+# Single time series extraction
+Kilphedir &lt;- tsSEPA(stationID = catalogueSEPA()$stationId[1],
+                    plotOption = TRUE)
+</code></pre>
+
+<p><img src="/assets/blog-images/2013-03-07-hddtools/unnamed-chunk-15-1.png" alt="" /></p>
+
+<h2 id="example-applications">Example applications</h2>
+
+<p>There are a number of possible research applications for the <code>hddtools</code>
+package. Retrieved precipitation and streamflow data could, for
+instance, be used to draw spatial trends, as done by (Vitolo et al.,
+2016b) using the <code>rnrfa</code> package but over larger areas. The package
+could also be used to compare hydrological behaviours in different areas
+of the world, to run and calibrate hydrological models such as fuse
+(Clark et al., 2008, Vitolo et al. 2016a) as well as to undertake
+regionalisation studies.</p>
+
+<h2 id="future-developments">Future developments</h2>
+
+<p>If you have suggestions, please add them to the <a href="https://github.com/ropensci/hddtools/issues">issue
+tracker</a> on github. Also,
+feel free to contribute to the package sending a <a href="https://github.com/ropensci/hddtools/pulls">pull
+request</a>, that would be
+greatly appreciated!</p>
+
+<h3 id="acknowledgments">Acknowledgments</h3>
+
+<p>I&rsquo;m very grateful to <a href="https://github.com/ledell">Erin Le Dell</a> and
+<a href="https://github.com/mdsumner">Michael Sumner</a> who reviewed, on behalf of
+rOpenSci, the <code>hddtools</code> package and the related paper published in the
+Journal of Open Source Software (Vitolo, 2017). Both reviewers provided
+very constructive suggestions that grately improved this package. I&rsquo;d
+like to also thank <a href="http://ropensci.org/about/#staff">Stefanie
+Butland</a> and <a href="https://github.com/sckott">Scott
+Chamberlain</a> for providing invaluable advice
+when reviewing this post.</p>
+
+<h3 id="references">References</h3>
+
+<p>Clark, M. P., Slater, A. G., Rupp, D. E., Woods, R. A., Vrugt, J. A.,
+Gupta, H. V., Wagener, T. and Hay, L. E.: Framework for understanding
+structural errors (fuse): A modular framework to diagnose differences
+between hydrological models, Water Resources Research, 44(12), n/a–n/a,
+doi:<a href="https://doi.org/10.1029/2007WR006735">10.1029/2007WR006735</a>, 2008.</p>
+
+<p>Vitolo, C.: Hddtools: Hydrological data discovery tools, The Journal of
+Open Source Software, 2(9),
+doi:<a href="https://doi.org/10.21105/joss.00056">10.21105/joss.00056</a>, 2017.</p>
+
+<p>Vitolo, C., Wells, P., Dobias, M. and Buytaert, W.: fuse: An R package
+for ensemble Hydrological Modelling, The Journal of Open Source
+Software, 1(8),
+doi:<a href="https://doi.org/10.21105/joss.00052">10.21105/joss.00052</a>, 2016a.</p>
+
+<p>Vitolo, C., Fry, M. and Buytaert, W.: rnrfa: An R package to Retrieve,
+Filter and Visualize Data from the UK National River Flow Archive, The R
+Journal, 8(2) [online] Available from:
+<a href="https://journal.r-project.org/archive/2016-2/vitolo-fry-buytaert.pdf">https://journal.r-project.org/archive/2016-2/vitolo-fry-buytaert.pdf</a>,
+2016b.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">r</span></a>
+                
+                    <a href="/tags/community"><span class="label">community</span></a>
+                
+                    <a href="/tags/software"><span class="label">software</span></a>
+                
+                    <a href="/tags/opendata"><span class="label">opendata</span></a>
+                
+                    <a href="/tags/hydrology"><span class="label">hydrology</span></a>
+                
+                    <a href="/tags/rnrfa"><span class="label">rnrfa</span></a>
+                
+                    <a href="/tags/earth-science"><span class="label">earth-science</span></a>
+                
+                    <a href="/tags/data-access"><span class="label">data-access</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

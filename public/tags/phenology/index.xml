@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Phenology on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/phenology/</link>
+    <description>Recent content in Phenology on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 18 Aug 2013 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/phenology/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Working with climate data from the web in R</title>
+      <link>https://ropensci.org/blog/2013/08/18/sciordata/</link>
+      <pubDate>Sun, 18 Aug 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/08/18/sciordata/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;I recently attended &lt;a href=&#34;http://scioclimate.wikispaces.com&#34;&gt;ScienceOnline Climate&lt;/a&gt;, a conference in Washington, D.C. at AAAS. You may have heard of the &lt;a href=&#34;https://twitter.com/#sciox&#34;&gt;ScienceOnline annual meeting in North Carolina&lt;/a&gt; - this was one of their topical meetings focused on Climate Change. I moderated a session on &lt;a href=&#34;http://scioclimate.wikispaces.com/3W.+Working+With+Science+Data+From+Around+The+Web&#34;&gt;working with data from the web in R&lt;/a&gt;, focusing on climate data. Search Twitter for #scioClimate for tweets from the conference, and #sciordata for tweets from the session I ran. The following is an abbreviated demo of what I did in the workshop showing some of what you can do with climate data in R using our packages.&lt;/p&gt;
+
+&lt;p&gt;Before digging in, why would you want to get climate data programatically vs. via pushing buttons in a browser? Learning a programming language can take some time - we all already know how to use browsers. So why?!  First, getting data programatically, especially in R (or Python), allows you to then easily do other stuff, like manipulate data, visualize, and analyze data. Second, if you do your work programatically, &lt;strong&gt;you&lt;/strong&gt; and &lt;em&gt;others&lt;/em&gt; can reproduce, and extend, the work you did with little extra effort. Third, programatically getting data makes tasks that are repetitive and slow, fast and easy - you can&amp;rsquo;t easily automate button clicks in a browser. Fourth, you can combine code with writing to make your entire workflow reproducible, whether it&amp;rsquo;s notes, a blog post, or even a research article.&lt;/p&gt;
+
+&lt;h2 id=&#34;interactive-visualizations-in-r&#34;&gt;Interactive visualizations in R&lt;/h2&gt;
+
+&lt;p&gt;Let&amp;rsquo;s start off with something shiny. The majority of time I make static visualizations, which are great for me to look at during analyses, and for publications of research findings in PDFs. However, static visualizations don&amp;rsquo;t take advantage of the interactive nature of the web. Ramnath Vaidyanathan has developed an R package, &lt;a href=&#34;https://github.com/ramnathv/rCharts&#34;&gt;rCharts&lt;/a&gt;, to generate dynamic Javascript visualizations directly from R that can be used interactively in a browser. Here is an example visualizing a dataset that comes with R.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(devtools)
+install_github(&amp;quot;rCharts&amp;quot;, &amp;quot;ramnathv&amp;quot;)
+library(rCharts)
+
+# Load a data set
+hair_eye_male &amp;lt;- subset(as.data.frame(HairEyeColor), Sex == &amp;quot;Male&amp;quot;)
+
+# Make a javascript plot object
+n1 &amp;lt;- nPlot(Freq ~ Hair, group = &amp;quot;Eye&amp;quot;, data = hair_eye_male, type = &amp;quot;multiBarChart&amp;quot;)
+
+# Visualize
+n1$show(cdn = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Check out the output &lt;a href=&#34;http://sckott.github.io/vis/nvd3_eg.html&#34;&gt;here&lt;/a&gt;. If you like you can take the source code from the visualization (right click on select &lt;em&gt;View Page Source&lt;/em&gt;) and put it in your html files, and you&amp;rsquo;re good to go (as long as you have dependencies, etc.) - quicker than learning &lt;a href=&#34;http://d3js.org/&#34;&gt;d3&lt;/a&gt; and company from scratch, eh. This is a super simple example, but you can imagine the possibilities.&lt;/p&gt;
+
+&lt;h2 id=&#34;the-data-itself&#34;&gt;The data itself&lt;/h2&gt;
+
+&lt;h3 id=&#34;first-install-some-packages-these-are-all-just-on-github-so-you-need-to-have-devtools-installed&#34;&gt;First, install some packages - these are all just on Github, so you need to have devtools installed&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(devtools)
+install_github(&amp;quot;govdat&amp;quot;, &amp;quot;sckott&amp;quot;)
+install_github(&amp;quot;rnoaa&amp;quot;, &amp;quot;ropensci&amp;quot;)
+install_github(&amp;quot;rWBclimate&amp;quot;, &amp;quot;ropensci&amp;quot;)
+install_github(&amp;quot;rnpn&amp;quot;, &amp;quot;ropensci&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;politicians-talk-sunlight-foundation-listens&#34;&gt;Politicians talk - Sunlight Foundation listens&lt;/h3&gt;
+
+&lt;h4 id=&#34;look-at-mentions-of-the-phrase-climate-change-in-congress-using-the-govdat-package&#34;&gt;Look at mentions of the phrase &amp;ldquo;climate change&amp;rdquo; in congress, using the govdat package&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(govdat)
+library(ggplot2)
+
+# Get mentions of climate change from Democrats
+dat_d &amp;lt;- sll_cw_timeseries(phrase = &amp;quot;climate change&amp;quot;, party = &amp;quot;D&amp;quot;)
+
+# Add a column that says this is data from deomcrats
+dat_d$party &amp;lt;- rep(&amp;quot;D&amp;quot;, nrow(dat_d))
+
+# Get mentions of climate change from Democrats
+dat_r &amp;lt;- sll_cw_timeseries(phrase = &amp;quot;climate change&amp;quot;, party = &amp;quot;R&amp;quot;)
+
+# Add a column that says this is data from republicans
+dat_r$party &amp;lt;- rep(&amp;quot;R&amp;quot;, nrow(dat_r))
+
+# Put two tables together
+dat_both &amp;lt;- rbind(dat_d, dat_r)
+
+# Plot data
+ggplot(dat_both, aes(day, count, colour = party)) + theme_grey(base_size = 20) +
+    geom_line() + scale_colour_manual(values = c(&amp;quot;blue&amp;quot;, &amp;quot;red&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2013-08-17-sciordata/govdat.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;noaa-climate-data-using-the-rnoaa-package&#34;&gt;NOAA climate data, using the rnoaa package&lt;/h3&gt;
+
+&lt;h4 id=&#34;map-sea-ice-for-12-years-for-april-only-for-the-north-pole&#34;&gt;Map sea ice for 12 years, for April only, for the North pole&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(rnoaa)
+library(scales)
+library(ggplot2)
+library(doMC)
+library(plyr)
+
+# Get URLs for data
+urls &amp;lt;- seaiceeurls(mo = &amp;quot;Apr&amp;quot;, pole = &amp;quot;N&amp;quot;)[1:12]
+
+# Download sea ice data
+registerDoMC(cores = 4)
+out &amp;lt;- llply(urls, noaa_seaice, storepath = &amp;quot;~/seaicedata&amp;quot;, .parallel = TRUE)
+
+# Name elements of list
+names(out) &amp;lt;- seq(1979, 1990, 1)
+
+# Make a data.frame
+df &amp;lt;- ldply(out)
+
+# Plot data
+ggplot(df, aes(long, lat, group = group)) + geom_polygon(fill = &amp;quot;steelblue&amp;quot;) +
+    theme_ice() + facet_wrap(~.id)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2013-08-17-sciordata/seaice2.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;world-bank-climate-data-using-the-rwbclimate-package&#34;&gt;World Bank climate data, using the rWBclimate package&lt;/h3&gt;
+
+&lt;h4 id=&#34;plotting-annual-data-for-different-countries&#34;&gt;Plotting annual data for different countries&lt;/h4&gt;
+
+&lt;p&gt;Data can be extracted from countries or basins submitted as vectors. Here we will plot the expected temperature anomaly for each 20 year period over a baseline control period of 1961-2000. These countries chosen span the north to south pole. It&amp;rsquo;s clear from the plot that the northern most countries (US and Canada) have the biggest anomaly, and Belize, the most equatorial country, has the smallest anomaly.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(rWBclimate)
+
+# Search for data
+country.list &amp;lt;- c(&amp;quot;CAN&amp;quot;, &amp;quot;USA&amp;quot;, &amp;quot;MEX&amp;quot;, &amp;quot;BLZ&amp;quot;, &amp;quot;ARG&amp;quot;)
+country.dat &amp;lt;- get_model_temp(country.list, &amp;quot;annualanom&amp;quot;, 2010, 2100)
+
+# Subset data to one specific model
+country.dat.bcc &amp;lt;- country.dat[country.dat$gcm == &amp;quot;bccr_bcm2_0&amp;quot;, ]
+
+# Exclude A2 scenario
+country.dat.bcc &amp;lt;- subset(country.dat.bcc, country.dat.bcc$scenario != &amp;quot;a2&amp;quot;)
+
+# Plot data
+ggplot(country.dat.bcc, aes(x = fromYear, y = data, group = locator, colour = locator)) +
+    geom_point() + geom_path() + ylab(&amp;quot;Temperature anomaly over baseline&amp;quot;) +
+    theme_bw(base_size = 20)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2013-08-17-sciordata/unnamed-chunk-1.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;phenology-data-from-the-usa-national-phenology-network-using-rnpn&#34;&gt;Phenology data from the USA National Phenology Network, using rnpn&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(rnpn)
+
+# Lookup names
+temp &amp;lt;- lookup_names(name = &amp;quot;bird&amp;quot;, type = &amp;quot;common&amp;quot;)
+comnames &amp;lt;- temp[temp$species_id %in% c(357, 359, 1108), &amp;quot;common_name&amp;quot;]
+
+# Get some data
+out &amp;lt;- getobsspbyday(speciesid = c(357, 359, 1108), startdate = &amp;quot;2010-04-01&amp;quot;,
+    enddate = &amp;quot;2013-09-31&amp;quot;)
+names(out) &amp;lt;- comnames
+df &amp;lt;- ldply(out)
+df$date &amp;lt;- as.Date(df$date)
+
+# Visualize data
+library(ggplot2)
+ggplot(df, aes(date, count)) + geom_line() + theme_grey(base_size = 20) + facet_grid(.id ~
+    .)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2013-08-17-sciordata/rnpn.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;feedback-and-new-climate-data-sources&#34;&gt;Feedback and new climate data sources&lt;/h3&gt;
+
+&lt;p&gt;Do use the above pacakges (&lt;a href=&#34;https://github.com/sckott/govdat&#34;&gt;govdat&lt;/a&gt;, &lt;a href=&#34;https://github.com/ropensci/rnoaa&#34;&gt;rnoaa&lt;/a&gt;, &lt;a href=&#34;https://github.com/ropensci/rWBclimate&#34;&gt;rWBclimate&lt;/a&gt;, and &lt;a href=&#34;https://github.com/ropensci/rnpn&#34;&gt;rnpn&lt;/a&gt;) to get climate data, and get in touch with bug reports, and feature requests.&lt;/p&gt;
+
+&lt;p&gt;Surely there are other sources of climate data out there that you want to use in R, right? Let us know what else you want to use. Better yet, if you can sling some R code, start writing your own package to interact with a source of climate data on the web - we can lend a hand.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

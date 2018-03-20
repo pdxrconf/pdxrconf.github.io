@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Consuming article-level metrics</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">Consuming article-level metrics</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="/about/#team"> Scott Chamberlain </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">August 1, 2013</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>We recently had a paper come out in <a href="http://www.niso.org/publications/isq/2013/v25no2">a special issue</a> on <em>article-level metrics</em> in the journal Information Standards Quarterly. Our paper basically compared article-level metrics provided by different aggregators. The other papers covered various article-level metrics topics from folks at PLOS, Mendeley, and more. Get our paper <a href="http://www.niso.org/publications/isq/2013/v25no2/chamberlain">here</a>.</p>
+
+<p>To get data from the <em>article-level metrics</em> providers we used one R package we created to get DOIs for PLOS articles (<a href="https://github.com/ropensci/rplos">rplos</a>) and three R packages we created to get metrics: <a href="https://github.com/ropensci/alm">alm</a>, <a href="https://github.com/ropensci/rimpactstory">rImpactStory</a>, and <a href="https://github.com/ropensci/rAltmetric">rAltmetric</a>. Here, we will show how we produced visualizations in the paper. The code here is basically that used in the paper - but modified to make it useable by you hopefully.</p>
+
+<p>Note that this entire workflow is in a Github gist <a href="https://gist.github.com/sckott/6136591">here</a>. In addition, you will need to sign up for API keys for <a href="http://impactstory.org/api-docs">ImpactStory</a> and <a href="http://api.altmetric.com/index.html#keys">Altmetric</a>.</p>
+
+<h3 id="first-let-s-get-some-data">First, let&rsquo;s get some data</h3>
+
+<p>Install these packages if you don&rsquo;t have them. Most packages are on CRAN, but install the following packages from Github: <code>rplos</code>, <code>alm</code>, <code>rImpactStory</code>, and <code>rAltmetric</code> by running <code>install_github(&quot;PACKAGE_NAME&quot;, &quot;ropensci&quot;)</code>.</p>
+
+<pre><code class="language-r">library(alm)
+library(rImpactStory)
+library(rAltmetric)
+library(ggplot2)
+library(rplos)
+library(reshape)
+library(reshape2)
+library(httr)
+library(lubridate)
+</code></pre>
+
+<p><br>
+Define a function <code>parse_is</code> to parse ImpactStory results</p>
+
+<p><em>See <a href="https://gist.github.com/sckott/6136591">this gist</a> for the function</em></p>
+
+<p><br>
+Define a function <code>compare_altmet_prov</code> to collect altmetrics from three providers</p>
+
+<p><em>See <a href="https://gist.github.com/sckott/6136591">this gist</a> for the function</em></p>
+
+<p><br>
+Safe version in case of errors</p>
+
+<pre><code class="language-r">compare_altmet_prov_safe &lt;- plyr::failwith(NULL, compare_altmet_prov)
+</code></pre>
+
+<p><br>
+Search for and get DOIs for 50 papers (we used more in the paper)</p>
+
+<pre><code class="language-r">res &lt;- searchplos(terms = &quot;*:*&quot;, fields = &quot;id&quot;, toquery = list(&quot;publication_date:[2011-06-30T00:00:00Z TO 2012-06-01T23:59:59Z] &quot;, &quot;doc_type:full&quot;), start = 0, limit = 50)
+</code></pre>
+
+<p><br>
+Get data from each provider</p>
+
+<pre><code class="language-r">dat &lt;- llply(as.character(res[, 1]), compare_altmet_prov_safe, isaddifnot = TRUE, sleep = 1, .progress = &quot;text&quot;)
+dat &lt;- ldply(dat)
+</code></pre>
+
+<p><br><br></p>
+
+<h3 id="plot-differences">Plot differences</h3>
+
+<p>Great, we have data! Next, let&rsquo;s make a plot of the difference between max and min value across the three providers for 7 article-level metrics.</p>
+
+<pre><code class="language-r">alldat &lt;- sort_df(dat, &quot;doi&quot;)
+
+dat_split &lt;- split(alldat, f = alldat$doi)
+dat_split &lt;- dat_split[!sapply(dat_split, nrow) == 0]
+dat_split &lt;- compact(lapply(dat_split, function(x) {
+    if (x$citeulike[2] == 999) {
+        NULL
+    } else (x)
+}))
+dat_split_df &lt;- ldply(dat_split)[, -1]
+
+calcdiff &lt;- function(x) {
+    max(na.omit(x)) - min(na.omit(x))
+}
+
+dat_split_df_1 &lt;- ddply(dat_split_df, .(doi), numcolwise(calcdiff))
+dat_split_df_melt &lt;- melt(dat_split_df_1)
+
+dat_split_df_melt &lt;- dat_split_df_melt[!dat_split_df_melt$variable %in% &quot;connotea&quot;, ]
+
+ggplot(dat_split_df_melt, aes(x = log10(value), fill = variable)) +
+    theme_bw(base_size = 14) +
+    geom_bar() +
+    scale_fill_discrete(name = &quot;Almetric&quot;) +
+    facet_grid(variable ~ ., scales = &quot;free&quot;) +
+    labs(x = expression(log[10](Value)), y = &quot;Count&quot;) +
+    theme(strip.text.y = element_text(angle = 0),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.position = &quot;none&quot;,
+        panel.border = element_rect(size = 1))
+</code></pre>
+
+<p><img src="/assets/blog-images/2013-08-01-altmetrics/dataconst_plot1.png" alt="center" /></p>
+
+<p><br><br></p>
+
+<h3 id="different-collection-dates">Different collection dates?</h3>
+
+<p>Okay, so there are some inconsistencies in data from different providers. Perhaps the same metric (e.g., tweets) were collected on different days for each provider? Let&rsquo;s take a look. We first define a function to get the difference in days between a vector of values, then apply that function over the data for each metric. We then reshape the data a bit using the <code>reshape2</code> package, and make the plot.</p>
+
+<pre><code class="language-r">datediff &lt;- function(x) {
+    datesorted &lt;- sort(x)
+    round(as.numeric(difftime(datesorted[3], datesorted[1])), 0)
+}
+
+dat_split_df_1 &lt;- ddply(dat_split_df, .(doi), numcolwise(calcdiff))
+dat_split_df_2 &lt;- ddply(dat_split_df, .(doi), summarise, datediff = datediff(date_modified))
+dat_split_df_melt &lt;- melt(dat_split_df_1)
+dat_split_df_ &lt;- merge(dat_split_df_melt, dat_split_df_2, by = &quot;doi&quot;)
+dat_split_df_melt &lt;- dat_split_df_[!dat_split_df_$variable %in% &quot;connotea&quot;, ]
+
+ggplot(dat_split_df_melt, aes(x = datediff, y = log10(value + 1), colour = variable)) +
+    theme_bw(base_size = 14) +
+    geom_point(size = 3, alpha = 0.6) +
+    scale_colour_brewer(&quot;Source&quot;, type = &quot;qual&quot;, palette = 3) +
+    theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.position = c(0.65, 0.9),
+        panel.border = element_rect(size = 1),
+        legend.key = element_blank(),
+        panel.background = element_rect(colour = &quot;white&quot;)) +
+    guides(col = guide_legend(nrow = 2, override.aes = list(size = 4))) +
+    labs(x = &quot;\nDate difference (no. of days)&quot;, y = &quot;Value of difference between max and min\n&quot;)
+</code></pre>
+
+<p><img src="/assets/blog-images/2013-08-01-altmetrics/dataconst_plot2.png" alt="center" /></p>
+
+<p><br><br></p>
+
+<h3 id="diggin-in">Diggin&rsquo; in</h3>
+
+<p>Let&rsquo;s dig in to indivdual articles. Here, we reshape some data, selecting just 20 DOIs (i.e., papers), and plot the values of each metric for each DOI, coloring points by provider. Note that points are slightly offset horizontally to make them easier to see.</p>
+
+<pre><code class="language-r">alldat_m &lt;- melt(dat_split_df[1:60,], id.vars=c(1,2,11))
+alldat_m &lt;- alldat_m[!alldat_m$variable %in% &quot;connotea&quot;,]
+
+ggplot(na.omit(alldat_m[,-3]), aes(x=doi, y=value, colour=provider)) +
+  theme_bw(base_size = 14) +
+  geom_point(size=4, alpha=0.4, position=position_jitter(width=0.15)) +
+  scale_colour_manual(values = c('#FC1D00','#FD8A00','#0D71A5','#2CCC00')) +
+  facet_grid(variable~., scales='free') +
+  theme(axis.text.x=element_blank(),
+        strip.text.y=element_text(angle = 0),
+        legend.position=&quot;top&quot;,
+        legend.key = element_blank(),
+        panel.border = element_rect(size=1),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank()) +
+  guides(col = guide_legend(title=&quot;&quot;, override.aes=list(size=5), nrow = 1, byrow = TRUE))
+</code></pre>
+
+<p><img src="/assets/blog-images/2013-08-01-altmetrics/dataconst2.png" alt="center" /></p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/ropensci"><span class="label">ropensci</span></a>
+                
+                    <a href="/tags/altmetrics"><span class="label">altmetrics</span></a>
+                
+                    <a href="/tags/plos"><span class="label">PLOS</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

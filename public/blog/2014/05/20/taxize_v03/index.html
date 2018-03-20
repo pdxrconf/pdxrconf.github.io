@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | taxize v0.3.0 update - a new data source, taxonomy in writing, and uBio examples</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">taxize v0.3.0 update - a new data source, taxonomy in writing, and uBio examples</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="/about/#team"> Scott Chamberlain </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">May 20, 2014</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>We just released <code>v0.3</code> of <code>taxize</code>. For details on the update, see the <a href="https://github.com/ropensci/taxize/releases/tag/v0.3.0">release notes</a>.</p>
+
+<h2 id="some-new-features">Some new features</h2>
+
+<ul>
+<li>New function <code>iplant_resolve()</code> to do name resolution using the iPlant name resolution service. Note, this is different from <a href="http://taxosaurus.org/">http://taxosaurus.org/</a> that is wrapped in the <code>tnrs()</code> function.</li>
+<li>New function <code>ipni_search()</code> to search for names in the International Plant Names Index (IPNI). See below for more.</li>
+<li>New function <code>resolve()</code> that unifies name resolution services from iPlant&rsquo;s name resolution service (via <code>iplant_resolve()</code>), Taxosaurus&rsquo; TNRS (via <code>tnrs()</code>), and GNR&rsquo;s name resolution service (via <code>gnr_resolve()</code>).</li>
+<li>All <code>get_</code> functions now returning a new <em>uri</em> attribute that is a link to the taxon on the web. If NA is given back (e.g. nothing found), the uri attribute is blank. You can go directly to the uri in your default browser by doing, for example: <code>browseURL(attr(result, &quot;uri&quot;))</code>.</li>
+</ul>
+
+<h2 id="updating-to-v0-3">Updating to v0.3</h2>
+
+<p>Since <code>taxize</code> is not updated to <code>v0.3</code> on CRAN yet at the time of writing this, install <code>taxize</code> from GitHub:</p>
+
+<pre><code class="language-r">devtools::install_github(&quot;ropensci/taxize&quot;)
+</code></pre>
+
+<p>Then load <code>taxize</code></p>
+
+<pre><code class="language-r">library(&quot;taxize&quot;)
+</code></pre>
+
+<h2 id="international-plant-names-index-ipni">International Plant Names Index (IPNI)</h2>
+
+<p>We added the IPNI as a new data source in <code>taxize</code> in <code>v0.3</code>. Currently, there is only one function to interact with IPNI: <code>ipni_search()</code>. What follows are a few examples of how you can use <code>ipni_search()</code>.</p>
+
+<p>Search for the genus <em>Brintonia</em></p>
+
+<pre><code class="language-r">ipni_search(genus='Brintonia')[,c(1:3)]
+</code></pre>
+
+<pre><code>##         id version     family
+## 1   7996-1     1.3 Asteraceae
+## 2 296073-2     1.3 Asteraceae
+## 3  36551-2     1.3 Asteraceae
+## 4 186337-1     1.3 Asteraceae
+</code></pre>
+
+<p>Search for the species <em>Pinus contorta</em></p>
+
+<pre><code class="language-r">head(ipni_search(genus='Pinus', species='contorta')[,c(1:3)])
+</code></pre>
+
+<pre><code>##           id     version   family
+## 1   262873-1 1.1.2.1.1.2 Pinaceae
+## 2   262872-1 1.2.2.1.1.1 Pinaceae
+## 3 30000492-2     1.1.2.1 Pinaceae
+## 4   196950-2         1.4 Pinaceae
+## 5   921291-1         1.4 Pinaceae
+## 6   196949-2         1.5 Pinaceae
+</code></pre>
+
+<p>Different output formats (the default is <em>minimal</em>)</p>
+
+<pre><code class="language-r">head(ipni_search(genus='Ceanothus')[,c(1:3)])
+</code></pre>
+
+<pre><code>##           id     version     family
+## 1    55268-3         1.1 Rhamnaceae
+## 2 30006383-2 1.1.2.1.1.3 Rhamnaceae
+## 3    55269-3         1.1 Rhamnaceae
+## 4    33421-1         1.5 Rhamnaceae
+## 5 60461578-2         1.1 Rhamnaceae
+## 6   331948-2         1.4 Rhamnaceae
+</code></pre>
+
+<pre><code class="language-r">head(ipni_search(genus='Ceanothus', output='extended'))[,c(1:3)]
+</code></pre>
+
+<pre><code>##           id     version     family
+## 1    55269-3         1.1 Rhamnaceae
+## 2    33421-1         1.5 Rhamnaceae
+## 3    55268-3         1.1 Rhamnaceae
+## 4 30006383-2 1.1.2.1.1.3 Rhamnaceae
+## 5 60461578-2         1.1 Rhamnaceae
+## 6   331948-2         1.4 Rhamnaceae
+</code></pre>
+
+<p>If you do something wrong, you get a message, and the actual output is <code>NA</code></p>
+
+<pre><code class="language-r">ipni_search(genus='Brintoniaasasf')
+</code></pre>
+
+<pre><code>## Warning: No data found
+</code></pre>
+
+<pre><code>## [1] NA
+</code></pre>
+
+<h2 id="ubio-examples">uBio examples</h2>
+
+<p>Until now, we have had functions to interact with uBio&rsquo;s API, but it probably hasn&rsquo;t been too clear how to use them, and they were a little buggy for sure. We have squashed many bugs in ubio functions. Here is an example workflow of how to use ubio functions.</p>
+
+<h3 id="ubio-search">ubio_search</h3>
+
+<p>Search uBio by taxonomic name. This is sort of the entry point for uBio where you can search by taxonomic name, from which  you can get namebankID&rsquo;s that can be passed to the <code>ubio_classification_search</code> and <code>ubio_namebankID</code> functions</p>
+
+<pre><code class="language-r">lapply(ubio_search(searchName = 'elephant'), head)
+</code></pre>
+
+<pre><code>## $scientific
+##   namebankid       namestring   fullnamestring packageid packagename
+## 1    6938660 Cerylon elephant Cerylon elephant        80 Cerylonidae
+##   basionymunit rankid rankname
+## 1      6938660     24  species
+##
+## $vernacular
+##   namebankid    namestring languagecode    languagename packageid
+## 1    8118711 Elephant fish          115 Creole, English         3
+## 2    8118714 Elephant fish          115 Creole, English         3
+## 3    8118726 Elephant fish          115 Creole, English         3
+## 4    8115700 Elephant fish          115 Creole, English         3
+## 5    8115663 Elephant fish          115 Creole, English         3
+## 6    8114377 Elephant fish          115 Creole, English      2463
+##   packagename namebankidlink   namestringlink
+## 1      Pisces         132263 Mormyrus tapirus
+## 2      Pisces         132258 Mormyrus tapirus
+## 3      Pisces         181174 Mormyrus tapirus
+## 4      Pisces         128971 Mormyrus tapirus
+## 5      Pisces         128972 Mormyrus tapirus
+## 6  Mormyridae        2299821 Mormyrus tapirus
+##                  fullnamestringlink
+## 1 Mormyrus tapirus Pappenheim, 1905
+## 2 Mormyrus tapirus Pappenheim, 1905
+## 3 Mormyrus tapirus Pappenheim, 1905
+## 4 Mormyrus tapirus Pappenheim, 1905
+## 5 Mormyrus tapirus Pappenheim, 1905
+## 6 Mormyrus tapirus Pappenheim, 1905
+</code></pre>
+
+<pre><code class="language-r">id &lt;- ubio_search(searchName = 'elephant')$scientific$namebankid[1]
+</code></pre>
+
+<pre><code>## Error: CHAR() can only be applied to a 'CHARSXP', not a 'NULL'
+</code></pre>
+
+<h3 id="ubio-id">ubio_id</h3>
+
+<p>Get data on a specific uBio <code>namebankID</code>. Use the id from the previous code block</p>
+
+<pre><code class="language-r">ubio_id(namebankID = id)
+</code></pre>
+
+<pre><code>## $data
+##   namebankid       namestring   fullnamestring packageid packagename
+## 1    6938660 Cerylon elephant Cerylon elephant        80 Cerylonidae
+##   basionymunit rankid rankname
+## 1      6938660     24  Species
+##
+## $synonyms
+## NULL
+##
+## $vernaculars
+## NULL
+##
+## $cites
+## NULL
+##
+## $mappings
+## NULL
+</code></pre>
+
+<h3 id="ubio-classification-search">ubio_classification_search</h3>
+
+<p>Return <code>hierarchiesID</code> that refer to the given <code>namebankID</code></p>
+
+<pre><code class="language-r">ubio_classification_search(namebankID = 3070378)
+</code></pre>
+
+<pre><code>##   hierarchiesid classificationtitleid              classificationtitle
+## 1       2477072                    84                    NCBI Taxonomy
+## 2      11166818                   100                    NCBI Taxonomy
+## 3      17950600                   104 uBiota 2008-03-20T10:36:50-04:00
+</code></pre>
+
+<h3 id="ubio-classification">ubio_classification</h3>
+
+<p>Return all ClassificationBank data pertaining to a particular <code>hierarchiesID</code></p>
+
+<pre><code class="language-r">ubio_classification(hierarchiesID = 2483153)
+</code></pre>
+
+<pre><code>## Error: XML content does not seem to be XML: ''
+</code></pre>
+
+<h3 id="ubio-synonyms">ubio_synonyms</h3>
+
+<p>Search for taxonomic synonyms by <code>hierarchiesID</code></p>
+
+<pre><code class="language-r">ubio_synonyms(hierarchiesID = 4091702)
+</code></pre>
+
+<pre><code>## Error: invalid subscript type 'list'
+</code></pre>
+
+<h2 id="examples-of-using-taxize-in-writing">Examples of using taxize in writing</h2>
+
+<p>Let&rsquo;s say one is writing a paragraph in which you are using taxonomic or common names, and perhaps you want to have the number of taxa in a particular group. You can write a paragaph like:</p>
+
+<pre><code class="language-r">I studied the common weed species _Tragopogon dubius_ (`r sci2comm('Tragopogon dubius', db='itis')[[1]][1]`; `r tax_name(query = &quot;Tragopogon dubius&quot;, get = &quot;family&quot;, db = &quot;ncbi&quot;)[[1]]`) and _Cirsium arvense_ (`r sci2comm('Cirsium arvense', db='itis')[[1]][1]`; `r tax_name(query = &quot;Cirsium arvense&quot;, get = &quot;family&quot;, db = &quot;ncbi&quot;)[[1]]`).
+</code></pre>
+
+<p>Which renders to:</p>
+
+<p>I studied the common weed species <em>Tragopogon dubius</em> (yellow salsify; Asteraceae) and <em>Cirsium arvense</em> (Canada thistle; Asteraceae).</p>
+
+<p>Notice how inside backticks you can execute code by starting with an <em>r</em>, then doing something like searching for common names for a taxon.</p>
+
+<h3 id="another-example">Another example:</h3>
+
+<pre><code class="language-r">We found that `r sci2comm('Tragopogon dubius', db='itis')[[1]][1]` was very invasive.
+</code></pre>
+
+<p>Renders to:</p>
+
+<p>We found that yellow salsify was very invasive.</p>
+
+<h3 id="another-example-1">Another example:</h3>
+
+<pre><code class="language-r">There are `r nrow(downstream('Tragopogon', db = &quot;col&quot;, downto = &quot;Species&quot;)$Tragopogon)` species (source: Catalogue of Life) in the _Tragopogon_ genus, meaning there is much more to study :)
+</code></pre>
+
+<p>Renders to:</p>
+
+<p>There are 142 species (source: Catalogue of Life) in the <em>Tragopogon</em> genus, meaning there is much more to study :)</p>
+
+<h2 id="el-fin">el fin</h2>
+
+<p>Please do update to <code>v0.3</code>, try it out, report bugs, and get back to us with any questions!</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/taxonomy"><span class="label">taxonomy</span></a>
+                
+                    <a href="/tags/api"><span class="label">API</span></a>
+                
+                    <a href="/tags/taxize"><span class="label">taxize</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

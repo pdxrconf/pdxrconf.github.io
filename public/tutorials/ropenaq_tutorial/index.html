@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | ropenaq tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>ropenaq tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.2.2</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p>This R package is aimed at accessing the openaq API. OpenAQ is a community of scientists, software developers, and lovers of open environmental data who are building an open, real-time database that provides programmatic and historical access to air quality data. See their website at <a href="https://openaq.org/">https://openaq.org/</a> and see the API documentation at <a href="https://docs.openaq.org/">https://docs.openaq.org/</a>. The package contains 5 functions that correspond to the 5 different types of query offered by the openaq API: cities, countries, latest, locations and measurements. The package uses the <code>dplyr</code> package: all output tables are data.frame (dplyr &ldquo;tbl_df&rdquo;) objects, that can be further processed and analysed.</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>Stable version from CRAN</p>
+
+<pre><code class="language-r">install.packages(&quot;ropenaq&quot;)
+</code></pre>
+
+<p>Development version from GitHub</p>
+
+<pre><code class="language-r">if (!require(&quot;devtools&quot;)) install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;ropenscilabs/ropenaq&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;ropenaq&quot;)
+</code></pre>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="finding-measurements-availability">Finding measurements availability</h3>
+
+<p>Three functions of the package allow to get lists of available information. Measurements are obtained from <em>locations</em> that are in <em>cities</em> that are in <em>countries</em>.</p>
+
+<h4 id="the-aq-countries-function">The <code>aq_countries</code> function</h4>
+
+<p>The <code>aq_countries</code> function allows to see for which countries information is available within the platform. It is the easiest function because it does not have any argument. The code for each country is its ISO 3166-1 alpha-2 code.</p>
+
+<pre><code class="language-r">(countriesTable &lt;- aq_countries())
+#&gt; # A tibble: 62 x 5
+#&gt;                      name  code cities locations   count
+#&gt;                     &lt;chr&gt; &lt;chr&gt;  &lt;int&gt;     &lt;int&gt;   &lt;int&gt;
+#&gt;  1                Andorra    AD      2         3    4375
+#&gt;  2              Argentina    AR      1         4   14760
+#&gt;  3              Australia    AU     17        91 2619991
+#&gt;  4                Austria    AT     16       306 1521351
+#&gt;  5                Bahrain    BH      1         1   10963
+#&gt;  6             Bangladesh    BD      1         2   14710
+#&gt;  7                Belgium    BE     14       191 1048350
+#&gt;  8 Bosnia and Herzegovina    BA      8        17  568544
+#&gt;  9                 Brazil    BR     72       119 2773831
+#&gt; 10                 Canada    CA     11       165 2026256
+#&gt; # ... with 52 more rows
+</code></pre>
+
+<h4 id="the-aq-cities-function">The <code>aq_cities</code> function</h4>
+
+<p>Using the <code>aq_cities</code> functions one can get all cities for which information is available within the platform. For each city, one gets the number of locations and the count of measures for the city, the URL encoded string, and the country it is in.</p>
+
+<pre><code class="language-r">(citiesTable &lt;- aq_cities())
+#&gt; # A tibble: 1,929 x 5
+#&gt;                                              city country locations  count
+#&gt;                                             &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;  &lt;int&gt;
+#&gt;  1                             Escaldes-Engordany      AD         2   4061
+#&gt;  2                                         unused      AD         1    314
+#&gt;  3                                   Buenos Aires      AR         4  14760
+#&gt;  4               Gemeinde Wien, MA22 Umweltschutz      AT        21 130328
+#&gt;  5   Amt der Ober�sterreichischen Landesregierung      AT        16 154329
+#&gt;  6 Amt der Nieder�sterreichischen Landesregierung      AT        39 322499
+#&gt;  7           Umweltinstitut des Landes Vorarlberg      AT         9  36108
+#&gt;  8             Amt der Salzburger Landesregierung      AT        12  94197
+#&gt;  9       Amt der Steiermärkischen Landesregierung      AT         4   1891
+#&gt; 10                                        Austria      AT       174 121987
+#&gt; # ... with 1,919 more rows, and 1 more variables: cityURL &lt;chr&gt;
+</code></pre>
+
+<p>The optional <code>country</code> argument allows to do this for a given country instead of the whole world.</p>
+
+<pre><code class="language-r">(citiesTableIndia &lt;- aq_cities(country=&quot;IN&quot;))
+#&gt; # A tibble: 51 x 5
+#&gt;         city country locations  count   cityURL
+#&gt;        &lt;chr&gt;   &lt;chr&gt;     &lt;int&gt;  &lt;int&gt;     &lt;chr&gt;
+#&gt;  1   Lucknow      IN         4 209783   Lucknow
+#&gt;  2    Nagpur      IN         5  61709    Nagpur
+#&gt;  3     Delhi      IN        24 942302     Delhi
+#&gt;  4   Kolkata      IN         5 165606   Kolkata
+#&gt;  5   Jodhpur      IN         1 131476   Jodhpur
+#&gt;  6 Hyderabad      IN        15 372531 Hyderabad
+#&gt;  7  Amritsar      IN         1  56712  Amritsar
+#&gt;  8 Bengaluru      IN         5 316486 Bengaluru
+#&gt;  9    Howrah      IN         1  46252    Howrah
+#&gt; 10  Durgapur      IN         1  64301  Durgapur
+#&gt; # ... with 41 more rows
+</code></pre>
+
+<p>If one inputs a country that is not in the platform (or misspells a code), then an error message is thrown.</p>
+
+<pre><code class="language-r">aq_cities(country=&quot;PANEM&quot;)
+#&gt; Error: This country is not available within the platform. See ?countries
+</code></pre>
+
+<h4 id="the-locations-function">The <code>locations</code> function</h4>
+
+<p>The <code>aq_locations</code> function has far more arguments than the first two functions. On can filter locations in a given country, city, location, for a given parameter (valid values are &ldquo;pm25&rdquo;, &ldquo;pm10&rdquo;, &ldquo;so2&rdquo;, &ldquo;no2&rdquo;, &ldquo;o3&rdquo;, &ldquo;co&rdquo; and &ldquo;bc&rdquo;), from a given date and/or up to a given date, for values between a minimum and a maximum, for a given circle outside a central point by the use of the <code>latitude</code>, <code>longitude</code> and <code>radius</code> arguments. In the output table one also gets URL encoded strings for the city and the location. Below are several examples.</p>
+
+<p>Here we only look for locations with PM2.5 information in India.</p>
+
+<pre><code class="language-r">(locationsIndia &lt;- aq_locations(country=&quot;IN&quot;, parameter=&quot;pm25&quot;))
+#&gt; # A tibble: 99 x 19
+#&gt;                               location              city country count
+#&gt;                                  &lt;chr&gt;             &lt;chr&gt;   &lt;chr&gt; &lt;int&gt;
+#&gt;  1               AAQMS Karve Road Pune              Pune      IN 29703
+#&gt;  2                         AP Tirumala          Chittoor      IN   493
+#&gt;  3           APIIC Kancharapalem-APPCB     Visakhapatnam      IN  7072
+#&gt;  4         Adarsh Nagar, Jaipur- RSPCB            Jaipur      IN    31
+#&gt;  5                   Alandur Bus Depot           Chennai      IN  9298
+#&gt;  6 Anam Kala Kendram,Rajamahendravaram Rajamahendravaram      IN  1435
+#&gt;  7                         Anand Vihar             Delhi      IN 22388
+#&gt;  8                       Ardhali Bazar          Varanasi      IN 30675
+#&gt;  9              Aya Nagar, Delhi - IMD             Delhi      IN  1140
+#&gt; 10                          BTM Layout         Bengaluru      IN 12403
+#&gt; # ... with 89 more rows, and 15 more variables: sourceNames &lt;list&gt;,
+#&gt; #   lastUpdated &lt;dttm&gt;, firstUpdated &lt;dttm&gt;, sourceName &lt;chr&gt;,
+#&gt; #   latitude &lt;dbl&gt;, longitude &lt;dbl&gt;, pm25 &lt;lgl&gt;, pm10 &lt;lgl&gt;, no2 &lt;lgl&gt;,
+#&gt; #   so2 &lt;lgl&gt;, o3 &lt;lgl&gt;, co &lt;lgl&gt;, bc &lt;lgl&gt;, cityURL &lt;chr&gt;,
+#&gt; #   locationURL &lt;chr&gt;
+</code></pre>
+
+<h3 id="getting-measurements">Getting measurements</h3>
+
+<p>Two functions allow to get data: <code>aq_measurement</code> and <code>aq_latest</code>. In both of them the arguments city and location needs to be given as URL encoded strings.</p>
+
+<h4 id="the-aq-measurements-function">The <code>aq_measurements</code> function</h4>
+
+<p>The <code>aq_measurements</code> function has many arguments for getting a query specific to, say, a given parameter in a given location or for a given circle outside a central point by the use of the <code>latitude</code>, <code>longitude</code> and <code>radius</code> arguments. Below we get the PM2.5 measures for Anand Vihar in Delhi in India.</p>
+
+<pre><code class="language-r">(tableResults &lt;- aq_measurements(country=&quot;IN&quot;, city=&quot;Delhi&quot;, location=&quot;Anand+Vihar&quot;, parameter=&quot;pm25&quot;))
+#&gt; # A tibble: 23,229 x 12
+#&gt;       location parameter value  unit country  city latitude longitude
+#&gt;          &lt;chr&gt;     &lt;chr&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+#&gt;  1 Anand Vihar      pm25   263 µg/m³      IN Delhi  28.6508   77.3152
+#&gt;  2 Anand Vihar      pm25   349 µg/m³      IN Delhi  28.6508   77.3152
+#&gt;  3 Anand Vihar      pm25   303 µg/m³      IN Delhi  28.6508   77.3152
+#&gt;  4 Anand Vihar      pm25   303 µg/m³      IN Delhi  28.6508   77.3152
+#&gt;  5 Anand Vihar      pm25   303 µg/m³      IN Delhi  28.6508   77.3152
+#&gt;  6 Anand Vihar      pm25     0 µg/m³      IN Delhi  28.6508   77.3152
+#&gt;  7 Anand Vihar      pm25   343 µg/m³      IN Delhi  28.6508   77.3152
+#&gt;  8 Anand Vihar      pm25   292 µg/m³      IN Delhi  28.6508   77.3152
+#&gt;  9 Anand Vihar      pm25   292 µg/m³      IN Delhi  28.6508   77.3152
+#&gt; 10 Anand Vihar      pm25   292 µg/m³      IN Delhi  28.6508   77.3152
+#&gt; # ... with 23,219 more rows, and 4 more variables: dateUTC &lt;dttm&gt;,
+#&gt; #   dateLocal &lt;dttm&gt;, cityURL &lt;chr&gt;, locationURL &lt;chr&gt;
+</code></pre>
+
+<p>One could also get all possible parameters in the same table.</p>
+
+<h4 id="the-aq-latest-function">The <code>aq_latest</code> function</h4>
+
+<p>This function gives a table with all newest measures for the locations that are chosen by the arguments. If all arguments are <code>NULL</code>, it gives all the newest measures for all locations.</p>
+
+<pre><code class="language-r">(tableLatest &lt;- aq_latest())
+</code></pre>
+
+<p>Below are the latest values for Anand Vihar at the time this vignette was compiled (cache=FALSE).</p>
+
+<pre><code class="language-r">(tableLatest &lt;- aq_latest(country=&quot;IN&quot;, city=&quot;Delhi&quot;, location=&quot;Anand+Vihar&quot;))
+</code></pre>
+
+<h3 id="citing">Citing</h3>
+
+<blockquote>
+<p>Maëlle Salmon (2017). ropenaq: Accesses Air Quality Data from the
+  Open Data Platform OpenAQ. R package version 0.2.2.
+  <a href="https://CRAN.R-project.org/package=ropenaq">https://CRAN.R-project.org/package=ropenaq</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="https://opensource.org/licenses/GPL-2.0">GPL-2</a></li>
+<li>Report bugs at <a href="https://github.com/ropenscilabs/ropenaq/issues?state=open">our GitHub repo for ropenaq</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

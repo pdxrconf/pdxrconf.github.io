@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ncbi on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/ncbi/</link>
+    <description>Recent content in Ncbi on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 24 Sep 2015 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/ncbi/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Rentrez 1_0 released</title>
+      <link>https://ropensci.org/blog/2015/09/24/rentrez-1_0-release/</link>
+      <pubDate>Thu, 24 Sep 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2015/09/24/rentrez-1_0-release/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;A new version of &lt;code&gt;rentrez&lt;/code&gt;, our package for the NCBI&amp;rsquo;s EUtils API, is making
+it&amp;rsquo;s way around the CRAN mirrors. This release represents a substantial
+improvement to &lt;code&gt;rentrez&lt;/code&gt;, including a &lt;a href=&#34;https://cran.r-project.org/web/packages/rentrez/vignettes/rentrez_tutorial.html&#34;&gt;new vignette&lt;/a&gt;
+that documents the whole package.&lt;/p&gt;
+
+&lt;p&gt;This posts describes some of the new things in &lt;code&gt;rentrez&lt;/code&gt;, and gives us a chance
+to thank some of the people that have contributed to this package&amp;rsquo;s development.&lt;/p&gt;
+
+&lt;h2 id=&#34;thanks&#34;&gt;Thanks&lt;/h2&gt;
+
+&lt;p&gt;Thanks to everyone who has filed and issue or written us an email about &lt;code&gt;rentrez&lt;/code&gt;,
+your contributions have been an important part of the package&amp;rsquo;s development. In particular, we welcome
+&lt;a href=&#34;http://ewrebio.me&#34;&gt;Han Guangchun&lt;/a&gt; as a new contributor to &lt;code&gt;rentrez&lt;/code&gt; and thank
+&lt;a href=&#34;http://docking.org/~momeara/&#34;&gt;Matthew O&amp;rsquo;Meara&lt;/a&gt; for posting
+an issue that brought the &lt;code&gt;by_id&lt;/code&gt; mode for &lt;code&gt;entrez_link&lt;/code&gt;  (discussed below) to our
+attention.&lt;/p&gt;
+
+&lt;p&gt;##The New Stuff&lt;/p&gt;
+
+&lt;p&gt;###Extract elements from the results of &lt;code&gt;entrez_summary()&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;The NCBI&amp;rsquo;s &amp;ldquo;summary records&amp;rdquo; are very useful &amp;ndash; they provide the most important
+information about a given record in a relatively small and simple file. &lt;code&gt;rentrez&lt;/code&gt;
+provides the function &lt;code&gt;entrez_summary()&lt;/code&gt; to retrieve these records. When more
+than one unique ID is passed to &lt;code&gt;entrez_summary&lt;/code&gt; the function returns a list of
+esummary objects. For instance, you could find all the genetic variants associated
+with asthma by finding links between the &lt;a href=&#34;http://www.omim.org/entry/600807&#34;&gt;OMIM record for asthma&lt;/a&gt; and records in the database dbSNP:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;snps &amp;lt;- entrez_link(dbfrom=&amp;quot;omim&amp;quot;, db=&amp;quot;snp&amp;quot;, id= 600807)
+snp_summs &amp;lt;- entrez_summary(db=&amp;quot;snp&amp;quot;, id=snps$links$omim_snp)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A very common use-case for &lt;code&gt;entrez_summary()&lt;/code&gt; is to extract a subset of the
+elements from each record in that list. This release includes the function
+&lt;code&gt;extract_from_esummary&lt;/code&gt; to make this as straightforward as possible. It works with
+a single element to extract:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;extract_from_esummary(snp_summs, &amp;quot;chr&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## 11079657  2786098  1031772  1031771   545659
+##     &amp;quot;17&amp;quot;      &amp;quot;1&amp;quot;      &amp;quot;2&amp;quot;      &amp;quot;2&amp;quot;     &amp;quot;11&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or with multiple elements&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;summary_table &amp;lt;- extract_from_esummary(snp_summs, c(&amp;quot;chr&amp;quot;, &amp;quot;global_maf&amp;quot;, &amp;quot;fxn_class&amp;quot;))
+t(summary_table)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##          chr  global_maf      fxn_class
+## 11079657 &amp;quot;17&amp;quot; &amp;quot;A=0.4295/2151&amp;quot; &amp;quot;intron-variant&amp;quot;
+## 2786098  &amp;quot;1&amp;quot;  &amp;quot;T=0.1569/786&amp;quot;  &amp;quot;intron-variant&amp;quot;
+## 1031772  &amp;quot;2&amp;quot;  &amp;quot;G=0.2131/1067&amp;quot; &amp;quot;downstream-variant-500B&amp;quot;
+## 1031771  &amp;quot;2&amp;quot;  &amp;quot;T=0.2582/1293&amp;quot; &amp;quot;&amp;quot;
+## 545659   &amp;quot;11&amp;quot; &amp;quot;C=0.3419/1712&amp;quot; &amp;quot;utr-variant-3-prime&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;###&lt;code&gt;entrez_link&lt;/code&gt; can find external links&lt;/p&gt;
+
+&lt;p&gt;In addition to discovering links between records in NCBI databases, the function
+&lt;code&gt;entrez_link&lt;/code&gt; now provides support for finding external links (&amp;lsquo;linkouts&amp;rsquo; in
+NCBI terminology). Perhaps the most interesting example is finding links for the
+full text of articles in PubMed.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s try and find the full text of the paper describing &lt;a href=&#34;https://github.com/ropensci/taxize&#34;&gt;taxize&lt;/a&gt; (using that article&amp;rsquo;s PMID). To
+override the functions default behaviour (finding links within NCBI databases)
+we set the &lt;code&gt;cmd&lt;/code&gt; argument to &lt;code&gt;llinks&lt;/code&gt; (short for library links):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;taxize_links &amp;lt;- entrez_link(dbfrom=&amp;quot;pubmed&amp;quot;, id= 24555091, cmd=&amp;quot;llinks&amp;quot;)
+taxize_links
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## elink object with contents:
+##  $linkouts: links to external websites
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The print function for this object tells you were the links live.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;taxize_links$linkouts
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## $ID_24555091
+## $ID_24555091[[1]]
+## Linkout from F1000 Research Ltd
+##  $Url: http://f1000research.com/a ...
+##
+## $ID_24555091[[2]]
+## Linkout from Europe PubMed Central
+##  $Url: http://europepmc.org/abstr ...
+##
+## $ID_24555091[[3]]
+## Linkout from PubMed Central
+##  $Url: http://www.ncbi.nlm.nih.go ...
+##
+## $ID_24555091[[4]]
+## Linkout from PubMed Central Canada
+##  $Url: http://pubmedcentralcanada ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Each of those elements has a lot of information, but the URLs for each object
+are probably the most important. For this reason, &lt;code&gt;rentrez&lt;/code&gt; provides a function
+to get just the URLs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;linkout_urls(taxize_links)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## $ID_24555091
+## [1] &amp;quot;http://f1000research.com/articles/10.12688/f1000research.2-191.v2/doi&amp;quot;
+## [2] &amp;quot;http://europepmc.org/abstract/MED/24555091&amp;quot;
+## [3] &amp;quot;http://www.ncbi.nlm.nih.gov/pmc/articles/pmid/24555091/&amp;quot;
+## [4] &amp;quot;http://pubmedcentralcanada.ca/pmcc/articles/pmid/24555091&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;###Web History features are easier to use&lt;/p&gt;
+
+&lt;p&gt;The NCBI provides a &amp;ldquo;Web History&amp;rdquo; feature to let users store the results of their
+searches on the NCBI&amp;rsquo;s severs and refer to those results without having to
+pass unique ID&amp;rsquo;s back and forth between computers. These features have always been
+supported by &lt;code&gt;rentrez&lt;/code&gt; but this release makes them easier to use.&lt;/p&gt;
+
+&lt;p&gt;Specifically, when the new optional argument &lt;code&gt;use_history&lt;/code&gt; is set to &lt;code&gt;TRUE&lt;/code&gt;
+functions will return a &lt;code&gt;web_history&lt;/code&gt; object which can be used in the place of unique
+IDs in calls to &lt;code&gt;entrez_fetch&lt;/code&gt;, &lt;code&gt;entrez_summary&lt;/code&gt; or &lt;code&gt;entrez_link&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To demonstrate, let&amp;rsquo;s search for PubMed articles about the ciliate genus
+&lt;em&gt;Tetrahymena&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;Tet_papers &amp;lt;- entrez_search(db=&amp;quot;pubmed&amp;quot;, term=&amp;quot;Tetrahymena[ORGN]&amp;quot;, use_history=TRUE)
+Tet_papers
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Entrez search result with 6599 hits (object contains 20 IDs and a web_history object)
+##  Search term (as translated):  &amp;quot;tetrahymena&amp;quot;[MeSH Terms] OR &amp;quot;tetrahymena&amp;quot;[All Fie ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now that we have a web_history object, we can use that to retrieve XML representations
+of the first 10 records:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;recs &amp;lt;- entrez_fetch(db=&amp;quot;pubmed&amp;quot;,
+                     web_history=Tet_papers$web_history,
+                     retmax=10, rettype=&amp;quot;xml&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;###It&amp;rsquo;s easier to keep track of which records are linked to other records&lt;/p&gt;
+
+&lt;p&gt;By default, when &lt;code&gt;entrez_link&lt;/code&gt; gets a vector of more than one unique ID, it
+returns sets of linked-IDs that match &lt;em&gt;any&lt;/em&gt; of the IDs in the original call.
+That means the user loses track of the mapping between the original IDs and those
+from the linked database.&lt;/p&gt;
+
+&lt;p&gt;As of this release, &lt;code&gt;rentrez&lt;/code&gt; supports the NCBI&amp;rsquo;s &lt;code&gt;by_id&lt;/code&gt; mode, which solves this problem.
+Setting the new argument &lt;code&gt;by_id&lt;/code&gt; to &lt;code&gt;TRUE&lt;/code&gt; returns a list, with each element of
+that list containing links for only one ID. To demonstrate, let&amp;rsquo;s find protein
+sequences associated with specific genes in the NCBI &lt;code&gt;gene&lt;/code&gt; database:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;all_links  &amp;lt;- entrez_link(db=&amp;quot;protein&amp;quot;,
+                          dbfrom=&amp;quot;gene&amp;quot;,
+                          id=c(93100, 223646),
+                          by_id=TRUE)
+
+all_links
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## List of 2 elink objects,each containing
+##   $links: IDs for linked records from NCBI
+##
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, printing the returned object let&amp;rsquo;s you know what each element
+contains, and you can extract the specific links you are looking for easily:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;lapply(all_links, function(x) x$links$gene_protein)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [[1]]
+##  [1] &amp;quot;768043930&amp;quot; &amp;quot;767953815&amp;quot; &amp;quot;558472750&amp;quot; &amp;quot;194394158&amp;quot; &amp;quot;166221824&amp;quot;
+##  [6] &amp;quot;154936864&amp;quot; &amp;quot;119602646&amp;quot; &amp;quot;119602645&amp;quot; &amp;quot;119602644&amp;quot; &amp;quot;119602643&amp;quot;
+## [11] &amp;quot;119602642&amp;quot; &amp;quot;37787309&amp;quot;  &amp;quot;37787307&amp;quot;  &amp;quot;37787305&amp;quot;  &amp;quot;33991172&amp;quot;
+## [16] &amp;quot;21619615&amp;quot;  &amp;quot;10834676&amp;quot;
+##
+## [[2]]
+##  [1] &amp;quot;148697547&amp;quot; &amp;quot;148697546&amp;quot; &amp;quot;81899807&amp;quot;  &amp;quot;74215266&amp;quot;  &amp;quot;74186774&amp;quot;
+##  [6] &amp;quot;37787317&amp;quot;  &amp;quot;37589273&amp;quot;  &amp;quot;31982089&amp;quot;  &amp;quot;26339824&amp;quot;  &amp;quot;26329351&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;the-rest&#34;&gt;The rest&lt;/h2&gt;
+
+&lt;p&gt;There are also numerous small changes that improve &lt;code&gt;rentrez&lt;/code&gt;, fix bugs and
+extend the package&amp;rsquo;s documentation. We hope you find this new release helpful,
+and as always we welcome bug reports via the &lt;a href=&#34;https://github.com/ropensci/rentrez/issues&#34;&gt;package&amp;rsquo;s github repository&lt;/a&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

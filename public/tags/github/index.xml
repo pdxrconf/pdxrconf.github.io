@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Github on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/github/</link>
+    <description>Recent content in Github on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 25 Jul 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/github/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>notary - Signing &amp; Verification of R Packages</title>
+      <link>https://ropensci.org/blog/2017/07/25/notary/</link>
+      <pubDate>Tue, 25 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/07/25/notary/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Most of us who work in R just want to Get Stuff Done&amp;trade;. We want a minimum amount of friction between ourselves and the data we need to wrangle, analyze, and visualize. We&amp;rsquo;re focused on solving a problem or gaining insights into a new area of research. We rely on a rich, community-driven ecosystem of packages to help get our work done and likely make an unconscious assumption that there is a safety net out there, protecting us from harm.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, I get to be &amp;ldquo;that guy&amp;rdquo; who comes along and shatters such assumptions. It&amp;rsquo;s time to put our hard hats on, get our clipboards out, and take a safety inspection tour of R. Along the way, we&amp;rsquo;ll introduce features and design concepts of our rOpenSci #runconf17 project &amp;mdash; the &lt;a href=&#34;https://github.com/ropenscilabs/notary&#34;&gt;&lt;code&gt;notary&lt;/code&gt; package&lt;/a&gt; &amp;mdash; that are aimed at making working in R a bit safer and more secure.&lt;/p&gt;
+
+&lt;h2 id=&#34;meet-the-team&#34;&gt;Meet The Team&lt;/h2&gt;
+
+&lt;p&gt;Since we say &amp;ldquo;we&amp;rdquo; quite a bit in this post, here are the folks that are represented by those two letters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/richfitz&#34;&gt;Rich FitzJohn&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/ironholds&#34;&gt;Oliver Keyes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/stephlocke&#34;&gt;Stephanie Locke&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/jeroen&#34;&gt;Jeroen Ooms&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/hrbrmstr/&#34;&gt;Bob Rudis&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;(Since &amp;ldquo;Bob&amp;rdquo; typed out the post, I get to insert what a privilege it was to work with those four folks. They&amp;rsquo;re incredibly talented individuals doing really great work for the R community.)&lt;/p&gt;
+
+&lt;h2 id=&#34;cran-trust-needs-verification&#34;&gt;CRAN : Trust Needs Verification&lt;/h2&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;img src=&#34;https://raw.githubusercontent.com/ropenscilabs/notary/master/img/trust.jpg&#34;/&gt;&lt;/center&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;p&gt;Before we go into the concept of package trust, we&amp;rsquo;d like you to put one finger on this blog post (to hold the page) and switch over to your R console and verify what CRAN mirror you are using. Since you&amp;rsquo;re down to one hand you can copy and paste this snippet: &lt;code&gt;options(&amp;quot;repos&amp;quot;)&lt;/code&gt; and review the results.&lt;/p&gt;
+
+&lt;p&gt;If any URL in that list doesn&amp;rsquo;t start with &lt;code&gt;https://&lt;/code&gt; replace it with one from &lt;a href=&#34;https://cran.rstudio.com/mirrors.html&#34;&gt;this official mirror list&lt;/a&gt; that does (you will likely need to use both hands for that, so make sure you leave the browser tab open). If you don&amp;rsquo;t use a crytographically secure method of installing packages, then everyone from your ISP, to your employer, to the government (depending on where you reside) can see what packages you&amp;rsquo;re downloading and installing. Furthermore, using plain ol&amp;rsquo; &lt;code&gt;http://&lt;/code&gt; means it&amp;rsquo;s far easier for those who would seek to do you harm to intercept and switch out the contents of what you&amp;rsquo;re retrieving.&lt;/p&gt;
+
+&lt;p&gt;Now, that you&amp;rsquo;re sure you&amp;rsquo;re using &lt;code&gt;https://&lt;/code&gt;, consider how much you know about the CRAN mirror you just picked. Are you &lt;em&gt;sure&lt;/em&gt; that you can either trust the site or at least trust that the site is maintained sufficiently to deter attackers who would seek to do you (or the community) harm? Running a secure site is non-trivial and, like it or not, &amp;ldquo;data science&amp;rdquo; is one of the fastest growth areas in virtually every modern organization (commercial or academic). Such a condition is a natural attractor for attackers and while the R package ecosystem may not be in the top ten most sinister threat scenarios (for now), it will be easy to take advantage of in its current state.&lt;/p&gt;
+
+&lt;p&gt;To that end, the team came up with the concept of &lt;em&gt;signing&lt;/em&gt; packages (hence the &lt;code&gt;notary&lt;/code&gt; name). Without taking you down a deep dive into &lt;a href=&#34;https://en.wikipedia.org/wiki/Digital_signature&#34;&gt;digital signatures&lt;/a&gt;, you&amp;rsquo;re already familiar with this concept if you use something like an iOS-based device (i.e. iPhone or iPad) and have downloaded an app from the Apple app store. A developer applies for a developer account with Apple. They get a key. They make an app. They digitally sign the app with the key they received. Apple reviews the app and (usually)eventually approves it. The signed app goes into the store and your iOS device (if you haven&amp;rsquo;t &amp;ldquo;rooted&amp;rdquo; it) is configured to only run signed and approved apps.&lt;/p&gt;
+
+&lt;p&gt;There are three functions in &lt;code&gt;notary&lt;/code&gt; to help facilitate a more secure package ecosystem &amp;mdash; &lt;code&gt;install_packages()&lt;/code&gt;, &lt;code&gt;download_packages()&lt;/code&gt; &amp;amp; &lt;code&gt;available_packages()&lt;/code&gt; &amp;mdash; each of which is a thin wrapper around their base, dotted counterparts which ultimately will require modifications to CRAN mirrors to house digital signatures for packages and CRAN mirror sites themselves.&lt;/p&gt;
+
+&lt;p&gt;Why all this extra infrastructure and scaffolding? If we think of the R Core/CRAN team as the R equivalent of the Apple app store guardians, then when they review and approve a package that version becomes the gold standard. But, there&amp;rsquo;s no current, easy, complete way to know for sure that what&amp;rsquo;s on &lt;code&gt;cran.r-project.org&lt;/code&gt; is also what&amp;rsquo;s on one of the mirror sites.&lt;/p&gt;
+
+&lt;p&gt;By having a similar set of signing and validation idioms, it will be possible to ensure that what you think you&amp;rsquo;re getting from a CRAN repository is what was approved by the CRAN team. We still need to get one &amp;ldquo;secure&amp;rdquo; mirror setup to enable a proof-of-concept, so stay tuned for advancements in this area.&lt;/p&gt;
+
+&lt;h2 id=&#34;a-sheriff-for-the-wild-wild-west-i-e-making-github-safer&#34;&gt;A Sheriff for the Wild, Wild West (i.e. Making GitHub Safer)&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://raw.githubusercontent.com/ropenscilabs/notary/master/img/badge.png&#34; align=&#34;right&#34;/&gt; While the CRAN distribution model is not perfect, it&amp;rsquo;s Fort Knox compared to GitHub.&lt;/p&gt;
+
+&lt;p&gt;Oh, but before we go into that, you should check out some extremely cutting edge functionality &lt;a href=&#34;https://github.com/hadley&#34;&gt;Hadley&lt;/a&gt; and others are putting into &lt;code&gt;purrr&lt;/code&gt;. Just do a quick &lt;code&gt;devtools::install_github(&amp;quot;hadlley/purrr&amp;quot;)&lt;/code&gt; bring up the help for the new &lt;em&gt;threaded&lt;/em&gt; parallel execution of &lt;code&gt;map()&lt;/code&gt;: &lt;code&gt;map_t()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now, you know this is a post about security &amp;amp; R so hopefully your Spidey-sense was triggered and you knew enough not to even try that or you caught the &lt;code&gt;ll&lt;/code&gt; before you did the copy/paste. If you did end up doing the install attempt, be a &lt;em&gt;teensy&lt;/em&gt; bit thankful that I deleted the &lt;code&gt;hadlley&lt;/code&gt; account before I wrote the post.&lt;/p&gt;
+
+&lt;p&gt;GitHub (and other public code repositories) are wonderful places where folks can collaborate and share creations. They are also fraught with peril. This is easily demonstrated by this proof-of-concept R package &lt;a href=&#34;https://github.com/hrbrmstr/rpwnd&#34;&gt;&lt;code&gt;rpwnd&lt;/code&gt;&lt;/a&gt;. Since GitHub is the most popular public R package development area, we&amp;rsquo;ll focus on it for the remainder of this section.&lt;/p&gt;
+
+&lt;p&gt;One way to begin to mitigate the threat of GitHub package distribution is to impose some rules and provide a means to ensure some level of authenticity at the author and release level. To that end, we have two core functions: &lt;code&gt;install_release()&lt;/code&gt; and &lt;code&gt;validate_release()&lt;/code&gt; that rely on a setting that most of you likely do not have enabled in GitHub - &lt;a href=&#34;https://github.com/settings/keys&#34;&gt;PGP keys&lt;/a&gt;. You can read up on &lt;a href=&#34;https://help.github.com/articles/signing-commits-with-gpg/&#34;&gt;GitHub &amp;amp; PGP&lt;/a&gt; but you should really keep one finger on this page (again) and go check out &lt;a href=&#34;https://mikegerwitz.com/papers/git-horror-story.html&#34;&gt;&lt;em&gt;A Git Horror Story: Repository Integrity With Signed Commits&lt;/em&gt;&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Back? Good. Let&amp;rsquo;s continue.&lt;/p&gt;
+
+&lt;p&gt;The premise is simple: only install actual releases (which is a good idea anyway) and only, then, install &lt;em&gt;signed&lt;/em&gt; releases. &lt;em&gt;This is not a panacea&lt;/em&gt; and does not fix all the security &amp;amp; integrity problems associated with the GitHub distribution model, but if combined with some manual inspection of the repository and repo owner profile it will help ensure that you&amp;rsquo;re somewhat closer to getting benign code.&lt;/p&gt;
+
+&lt;p&gt;This functionality is available today. So go setup your own PGP keys, add them to your owner profile and start generating signed releases.&lt;/p&gt;
+
+&lt;h2 id=&#34;source-sources-safely-with-signatures&#34;&gt;Source Sources Safely With Signatures&lt;/h2&gt;
+
+&lt;p&gt;Rounding out the feature set are two functions &lt;code&gt;source_safe_sign()&lt;/code&gt; and &lt;code&gt;sys_source_safe_sign()&lt;/code&gt; which are more secure (well, at least safer) wrappers for their dotted base siblings.&lt;/p&gt;
+
+&lt;p&gt;I literally break down into tears when I see a &lt;code&gt;source()&lt;/code&gt; suggestion posted anywhere, especially to non-&lt;code&gt;https://&lt;/code&gt; URLs. Why? Even if you did a manual inspection at one point in time that the code is not malicious, how do you know that it hasn&amp;rsquo;t been modified since then? Their &lt;code&gt;devtools&lt;/code&gt; counterparts (&lt;code&gt;source_gist()&lt;/code&gt;/&lt;code&gt;source_url()&lt;/code&gt;) are a tad better, provided they you use &lt;code&gt;sha1&lt;/code&gt; parameter to ensure that what you think you are sourcing hasn&amp;rsquo;t changed.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;notary&lt;/code&gt; sourcers go one step further and use a &lt;a href=&#34;https://github.com/jeroen/sodium&#34;&gt;&lt;code&gt;sodium&lt;/code&gt;&lt;/a&gt;-based signature to verify the integrity of the source code you so desperately want to use via this methodology. These functions need some kinder, gentler companion functions to make it easier for all users to sign scripts, so you&amp;rsquo;ll have to check back for those as we continue to poke at the project.&lt;/p&gt;
+
+&lt;p&gt;&lt;center&gt;&lt;img src=&#34;https://raw.githubusercontent.com/ropenscilabs/notary/master/img/reliable.png&#34;&gt;&lt;/center&gt;&lt;br/&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;collaborating-for-community-safety&#34;&gt;Collaborating for Community Safety&lt;/h2&gt;
+
+&lt;p&gt;While we have a great start at building a foundation of safer and more secure R package and code delivery, the best part of building the &lt;code&gt;notary&lt;/code&gt; package was working with a team who genuinely wants to help ensure that the R community can operate as safely as possible without garish, creativity-crushing impediments. Rich, Oliver, Stephanie and Jeroen all had clever ideas for tough problems and we&amp;rsquo;ll hopefully be able to continue to make small steps towards progress.&lt;/p&gt;
+
+&lt;h2 id=&#34;jump-on-the-crazy-train-with-us&#34;&gt;Jump on the Crazy Train With Us!&lt;/h2&gt;
+
+&lt;p&gt;Hopefully we&amp;rsquo;ve helped folks understand some of the dangers that are out there and further demonstrated that we&amp;rsquo;ve begun to address some of them with the &lt;code&gt;notary&lt;/code&gt; package. If the idea of helping find ways to keep data science folks safer has piqued your interest, please do not hesitate to contact any of the team. We&amp;rsquo;d love to engage with more of the community on &lt;code&gt;notary&lt;/code&gt;, and would love feedback on usability and ideas for new or improved functionality.&lt;/p&gt;
+
+&lt;p&gt;Thank you, again, to rOpenSci for the opportunity to come together and collaborate on this project.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Introducing a Wishlist for Scientific R Packages</title>
+      <link>https://ropensci.org/blog/2015/03/10/introducing-wishlist/</link>
+      <pubDate>Tue, 10 Mar 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2015/03/10/introducing-wishlist/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;There are two things that make R such a wonderful programming environment - the vast number of packages to access, process and interpret
+data, and the enthusiastic individuals and subcommunities (of which rOpenSci is a great example). One, of course, flows from the other:
+R programmers write R packages to provide language users with more features, which makes everyone&amp;rsquo;s jobs easier and (hopefully!)
+attracts more users and more contributions.&lt;/p&gt;
+
+&lt;p&gt;But what if you have an idea, or a need, but not the time or confidence to write a package for it? I can&amp;rsquo;t speak for this blog&amp;rsquo;s
+readers, but I&amp;rsquo;ve been writing R for about two years and it took a good long while before I felt comfortable contributing upstream
+to CRAN. Or, what if you do have the time, and do have the confidence, but want to spend that time well, on things that you know
+other people will find useful, and don&amp;rsquo;t know what that is?&lt;/p&gt;
+
+&lt;p&gt;After a conversation on Twitter (where all the best R things happen) we&amp;rsquo;ve decided to create a dedicated repository to serve as
+a wishlist of scientific R packages - appropriately named &lt;a href=&#34;https://github.com/ropensci/wishlist&#34;&gt;&amp;ldquo;wishlist&amp;rdquo;&lt;/a&gt;. We&amp;rsquo;re still getting the
+&amp;ldquo;meta&amp;rdquo; documentation together, but it&amp;rsquo;s open and accepting ideas!&lt;/p&gt;
+
+&lt;h2 id=&#34;how-to-contribute&#34;&gt;How to contribute&lt;/h2&gt;
+
+&lt;p&gt;If you&amp;rsquo;ve got an idea for a package, but are looking for collaborators, &lt;a href=&#34;https://github.com/ropensci/wishlist/issues&#34;&gt;open an issue&lt;/a&gt;! Explain what the package does, what its necessary features are, and what the use cases are. What sort of help are you looking for - someone to write the entire thing? Someone to work on integrating a particularly thorny piece of C++? A statistics expert to check the
+implementation of an algorithm? Are there any C or C++ libraries we could integrate? Are there libraries in other, less-easily-integrated
+languages which we could use as a template for what the package should do?&lt;/p&gt;
+
+&lt;p&gt;Once an idea is accepted, &lt;a href=&#34;https://github.com/ropensci/wishlist/wiki&#34;&gt;it lives on the wiki&lt;/a&gt;. If you&amp;rsquo;ve got the time to work on a project,
+head over there and see if anything strikes your fancy. If it does, contact the original authors and the other volunteers, start a
+repository somewhere, and have fun! Just make sure to note &amp;ldquo;on&amp;rdquo; the wiki that you&amp;rsquo;re working on it, and where you&amp;rsquo;re doing so,
+for the sake of future readers :).&lt;/p&gt;
+
+&lt;h2 id=&#34;what-to-contribute&#34;&gt;What to contribute&lt;/h2&gt;
+
+&lt;p&gt;The only criteria for an idea&amp;rsquo;s inclusion is that the package serve a clear scientific use (as an example:
+&amp;ldquo;wouldn&amp;rsquo;t it be nice if we had an API client for this data repository?&amp;rdquo; qualifies. &lt;a href=&#34;http://cran.r-project.org/web/packages/rfoaas/index.html&#34;&gt;rfoaas&lt;/a&gt; probably wouldn&amp;rsquo;t). A good heuristic would be: if you can explain how this package would benefit scientists or
+researchers in a way that&amp;rsquo;s convincing to you, propose it!&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Visualizing rOpenSci collaboration</title>
+      <link>https://ropensci.org/blog/2013/03/08/ropensci-collaboration/</link>
+      <pubDate>Fri, 08 Mar 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/03/08/ropensci-collaboration/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;We have been writing code for R packages for a couple years, so it is time to take a look back at the data. What data you ask? The commits data from GitHub ~ data that records who did what and when.&lt;/p&gt;
+
+&lt;p&gt;Using the &lt;a href=&#34;http://developer.github.com/v3/repos/commits/&#34;&gt;Github commits API&lt;/a&gt; we can gather data on who commited code to a Github repository, and when they did it. Then we can visualize this hitorical record.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;install-some-functions-for-interacting-with-the-github-api-via-r&#34;&gt;Install some functions for interacting with the Github API via R&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;
+install_github(&#39;sandbox&#39;, &#39;ropensci&#39;)
+
+library(sandbox)
+library(httr)
+library(ggplot2)
+library(scales)
+library(reshape2)
+library(bipartite)
+library(doMC)
+library(plyr)
+library(ggthemes)
+library(picante)
+
+# And authenticate - pops open a page in your default browser, then tells
+# you authentication was successful
+github_auth()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;get-all-repos-for-an-organization-here-ropensci-of-course&#34;&gt;Get all repos for an organization, here ropensci of course&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ropensci_repos &amp;lt;- github_allrepos(userorg = &amp;quot;ropensci&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;get-commits-broken-down-in-to-additions-and-deletions-though-below-we-just-collapse-them-to-all-commits&#34;&gt;Get commits broken down in to additions and deletions, though below we just collapse them to all commits&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;registerDoMC(cores = 4)
+github_commits_safe &amp;lt;- plyr::failwith(NULL, github_commits)
+out &amp;lt;- llply(ropensci_repos, function(x) github_commits_safe(&amp;quot;ropensci&amp;quot;, x,
+    since = &amp;quot;2009-01-01T&amp;quot;, limit = 500), .parallel = TRUE)
+names(out) &amp;lt;- ropensci_repos
+out2 &amp;lt;- compact(out)
+outdf &amp;lt;- ldply(out2)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;plot-commits-by-date-and-repo&#34;&gt;Plot commits by date and repo&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;outdf_subset &amp;lt;- outdf[!outdf$.id %in% c(&amp;quot;citeulike&amp;quot;, &amp;quot;challenge&amp;quot;, &amp;quot;docs&amp;quot;, &amp;quot;ropensci-book&amp;quot;,
+    &amp;quot;usecases&amp;quot;, &amp;quot;textmine&amp;quot;, &amp;quot;usgs&amp;quot;, &amp;quot;ropenscitoolkit&amp;quot;, &amp;quot;neotoma&amp;quot;, &amp;quot;rEWDB&amp;quot;, &amp;quot;rgauges&amp;quot;,
+    &amp;quot;rodash&amp;quot;, &amp;quot;ropensci.github.com&amp;quot;, &amp;quot;ROAuth&amp;quot;), ]
+outdf_subset$.id &amp;lt;- tolower(outdf_subset$.id)
+outdf_subset &amp;lt;- ddply(outdf_subset, .(.id, date), summarise, value = sum(value))
+
+mindates &amp;lt;- llply(unique(outdf_subset$.id), function(x) min(outdf_subset[outdf_subset$.id ==
+    x, &amp;quot;date&amp;quot;]))
+names(mindates) &amp;lt;- unique(outdf_subset$.id)
+mindates &amp;lt;- sort(do.call(c, mindates))
+outdf_subset$.id &amp;lt;- factor(outdf_subset$.id, levels = names(mindates))
+
+ggplot(outdf_subset, aes(date, value, fill = .id)) +
+    geom_bar(stat = &amp;quot;identity&amp;quot;, width = 0.5) +
+    geom_rangeframe(sides = &amp;quot;b&amp;quot;, colour = &amp;quot;grey&amp;quot;) +
+    theme_bw(base_size = 9) +
+    scale_x_date(labels = date_format(&amp;quot;%Y&amp;quot;), breaks = date_breaks(&amp;quot;year&amp;quot;)) +
+    scale_y_log10() +
+    facet_grid(.id ~ .) +
+    labs(x = &amp;quot;&amp;quot;, y = &amp;quot;&amp;quot;) +
+    theme(axis.text.y = element_blank(),
+        axis.text.x = element_text(colour = &amp;quot;black&amp;quot;),
+        axis.ticks.y = element_blank(),
+        strip.text.y = element_text(angle = 0, size = 8, ),
+        strip.background = element_rect(size = 0),
+        panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(),
+        legend.text = element_text(size = 8),
+        legend.position = &amp;quot;none&amp;quot;,
+        panel.border = element_blank())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/commitsbydate.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The plot above plots the sum of additions+deletions, and is sorted by the first commit date of reach repo, with the first being &lt;a href=&#34;https://github.com/ropensci/treeBASE&#34;&gt;treebase&lt;/a&gt;, which wraps the &lt;a href=&#34;http://treebase.org/treebase-web/urlAPI.html&#34;&gt;Treebase API&lt;/a&gt;, and the most recent being &lt;a href=&#34;https://github.com/ropensci/rWBclimate&#34;&gt;rwbclimate&lt;/a&gt;, which wraps the &lt;a href=&#34;http://data.worldbank.org/developers/climate-data-api&#34;&gt;World Blank climate data API&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can see that some repos have recieved commits more or less consistently over their life time, while others have seen a little development here and there.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&#34;in-addition-there-are-quite-a-few-people-that-have-committed-code-now-to-ropensci-repos-calling-for-a-network-vizualization-of-course&#34;&gt;In addition, there are quite a few people that have committed code now to rOpenSci repos, calling for a network vizualization of course.&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;outdf_network &amp;lt;- droplevels(outdf[!outdf$.id %in% c(&amp;quot;citeulike&amp;quot;, &amp;quot;challenge&amp;quot;,
+    &amp;quot;docs&amp;quot;, &amp;quot;ropensci-book&amp;quot;, &amp;quot;usecases&amp;quot;, &amp;quot;textmine&amp;quot;, &amp;quot;usgs&amp;quot;, &amp;quot;ropenscitoolkit&amp;quot;,
+    &amp;quot;retriever&amp;quot;, &amp;quot;rodash&amp;quot;, &amp;quot;ropensci.github.com&amp;quot;, &amp;quot;ROAuth&amp;quot;, &amp;quot;rgauges&amp;quot;, &amp;quot;sandbox&amp;quot;,
+    &amp;quot;rfna&amp;quot;, &amp;quot;rmetadata&amp;quot;, &amp;quot;rhindawi&amp;quot;, &amp;quot;rpmc&amp;quot;, &amp;quot;rpensoft&amp;quot;, &amp;quot;ritis&amp;quot;), ])
+casted &amp;lt;- dcast(outdf_network, .id + date + name ~ variable, fun.aggregate = length,
+    value.var = &amp;quot;value&amp;quot;)
+names(casted)[1] &amp;lt;- &amp;quot;repo&amp;quot;
+casted2 &amp;lt;- ddply(casted, .(repo, name), summarise, commits = sum(additions))
+casted2 &amp;lt;- data.frame(repo = casted2$repo, weight = casted2$commits, name = casted2$name)
+mat &amp;lt;- sample2matrix(casted2)
+plotweb(sortweb(mat, sort.order = &amp;quot;dec&amp;quot;), method = &amp;quot;normal&amp;quot;, text.rot = 90,
+    adj.high = c(-0.3, 0), adj.low = c(1, -0.3), y.width.low = 0.05, y.width.high = 0.05,
+    ybig = 0.09, labsize = 0.7)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/collabnetwork.png&#34; alt=&#34;center&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The plot above shows repos on one side and contributors on the other. Some folks (the core rOpenSci team: cboettig, karthikram, emhart, and sckott) have committed quite a lot to many packages. We also have many awesome contributors to our packages (some contributors and repos have been removed for clarity).&lt;/p&gt;
+
+&lt;p&gt;rOpenSci is truly a collaborative effort to develop tools for open science, so thanks to all our contributors - keep on forking, pull requesting, and commiting.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

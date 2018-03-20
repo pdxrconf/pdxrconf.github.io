@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | So you (don&#39;t) think you can review a package</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">So you (don&#39;t) think you can review a package</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="http://maraaverick.rbind.io" target="_blank"> Mara Averick </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">August 22, 2017</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>Contributing to an open-source community <em>without</em> contributing code is an oft-vaunted idea that can seem nebulous. Luckily, putting vague ideas into action is one of the strengths of the <a href="https://ropensci.org/community/">rOpenSci Community</a>, and their package onboarding system offers a chance to do just that.</p>
+
+<p>This was my first time reviewing a package, and, as with so many things in life, I went into it worried that I&rsquo;d somehow ruin the package-reviewing process— not just the package itself, but the actual onboarding infrastructure&hellip;maybe even rOpenSci on the whole.</p>
+
+<p>Barring the destruction of someone else&rsquo;s hard work and/or an entire organization, I was fairly confident that I&rsquo;d have little to offer in the way of useful advice. <em>What if I have absolutely nothing to say other than, yes, this is, in fact, a package?!</em></p>
+
+<p><img src="http://i.imgur.com/np59m8Z.png" alt="rOpenSci package review: what I imagined" /></p>
+
+<p>So, step one (for me) was: confess my inadequacies and seek advice. It turns out that much of the advice vis-à-vis <em>how to review a package</em> is baked right into the documents. The <a href="https://github.com/ropensci/onboarding/blob/master/reviewer_template.md">reviewer template</a> is a great trail map, the utility of which is fleshed out in the <a href="https://github.com/ropensci/onboarding/blob/master/reviewing_guide.md">rOpenSci Package Reviewing Guide</a>. Giving these a thorough read, and perusing a recommended review or two (links in the reviewing guide) will probably have you raring to go. But, if you&rsquo;re feeling particularly neurotic (as I almost always am), the rOpenSci <a href="https://github.com/ropensci/onboarding#-editors-and-reviewers">onboarding editors</a> and larger community are endless founts of wisdom and resources.</p>
+
+<h3 id="visdat"><code>visdat</code> 📦👀</h3>
+
+<p>I knew nothing about <a href="https://github.com/njtierney">Nicholas Tierney</a>&rsquo;s <a href="http://visdat.njtierney.com/"><code>visdat</code></a> package prior to receiving my <a href="https://github.com/ropensci/onboarding/issues/87#issuecomment-270428584">invitation to review</a> it. So the first (coding-y) thing I did was play around with it in the same way I do for other cool R packages I encounter. This is a totally unstructured mish-mash of running examples, putting my own data in, and seeing what happens. In addition to being amusing, it&rsquo;s a good way to sort of &ldquo;ground-truth&rdquo; the package&rsquo;s mission, and make sure there isn&rsquo;t some super helpful feature that&rsquo;s going unsung.</p>
+
+<p>If you&rsquo;re <em>not</em> familiar with <code>visdat</code>, it &ldquo;provides a quick way for the user to visually examine the structure of their data set, and, more specifically, where and what kinds of data are missing.&rdquo;<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup> With early-stage EDA (exploratory data analysis), you&rsquo;re really trying to get a <em>feel</em> of your data. So, knowing that I couldn&rsquo;t be much help in the <em>&ldquo;here&rsquo;s how you could make this faster with C++&rdquo;</em> department, I decided to fully embrace my role as <em>&ldquo;naïve user&rdquo;</em>.<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup></p>
+
+<h4 id="questions-i-kept-in-mind-as-del-myself-del-resident-naïf">Questions I kept in mind as <del>myself</del>  resident naïf:</h4>
+
+<ul>
+<li>What did I think this thing would do? Did it do it?</li>
+<li>What are things that scare me off?</li>
+</ul>
+
+<p>The latter question is key, and, while I don&rsquo;t have data to back this up, can be a sort of &ldquo;silent&rdquo; usability failure when left unexamined. Someone who tinkers with a package, but finds it confusing doesn&rsquo;t necessarily stop to give feedback. There&rsquo;s also a pseudo <em>curse-of-knowledge</em> component. While messages and warnings are easily parsed, suppressed, dealt with, and/or dismissed by the veteran R user/programmer, unexpected, brightly-coloured text can easily scream <em>Oh my gosh you broke it all!!</em> to those with less experience.</p>
+
+<h3 id="myriad-lessons-learned">Myriad lessons learned 💡</h3>
+
+<p>I can&rsquo;t speak for Nick per the utility or lack thereof of my review (you can see <a href="https://ropensci.org/blog/blog/2017/08/22/visdat">his take here</a>, but I <em>can</em> vouch for the package-reviewing experience as a means of methodically inspecting the innards of an R package. Methodical is really the operative word here. Though <em>&ldquo;read the docs,&rdquo;</em> or <em>&ldquo;look at the code&rdquo;</em> sounds straight-forward enough, it&rsquo;s not always easy to coax oneself into going through the task piece-by-piece without an end goal in mind. While a desire to contribute to open-source software is noble enough (and is how I <em>personaly</em> ended up involved in this process&ndash; with some help/coaxing from <a href="https://twitter.com/noamross">Noam Ross</a>), it&rsquo;s also an abstraction that can leave one feeling overwhelmed, and not knowing where to begin.<sup class="footnote-ref" id="fnref:3"><a rel="footnote" href="#fn:3">3</a></sup></p>
+
+<p>There are also <a href="https://github.com/ropensci/onboarding#why-review-packages-for-ropensci">self-serving bonus points</a> that one simply can&rsquo;t avoid, should you go the rOpenSci-package-reviewing route&ndash; especially if package development is new to you.<sup class="footnote-ref" id="fnref:4"><a rel="footnote" href="#fn:4">4</a></sup> Heck, the <a href="https://github.com/ropensci/onboarding/blob/master/reviewing_guide.md">package reviewing guide</a> alone was illuminating.</p>
+
+<p>Furthermore, the wise-sage 🦉 <a href="https://github.com/ropensci/onboarding#associate-editors">rOpenSci onboarding editors</a><sup class="footnote-ref" id="fnref:5"><a rel="footnote" href="#fn:5">5</a></sup> are excellent matchmakers, and ensure that you&rsquo;re actually reviewing a package authored by someone who <em>wants</em> their package to be reviewed. This sounds simple enough, but it&rsquo;s a comforting thought to know that your feedback isn&rsquo;t totally unsolicited.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">Yes, I&rsquo;m quoting my own review.
+ <a class="footnote-return" href="#fnref:1">↩</a></li>
+<li id="fn:2">So, basically just playing myself&hellip; Also I knew that, if nothing more, I can proofread and copy edit.
+ <a class="footnote-return" href="#fnref:2">↩</a></li>
+<li id="fn:3">There <em>are</em> lots of good resources out there re. overcoming this obstacle, though (e.g. <a href="http://www.firsttimersonly.com/">First Timers Only</a>; or <a href="https://twitter.com/cvwickham">Charlotte Wickham</a>&rsquo;s <a href="http://cwick.co.nz/talks/collab-code-user17/#/">Collaborative Coding</a> from useR!2017 is esp. 👍 for the R-user).
+ <a class="footnote-return" href="#fnref:3">↩</a></li>
+<li id="fn:4">OK, so I don&rsquo;t have a parallel world wherein a very experienced package-developer version of me is running around getting <em>less</em> out of the process, <em>but</em> if you already deeply understand package structure, you&rsquo;re unlikely to stumble upon quite so many basic &ldquo;a-ha&rdquo; moments.
+ <a class="footnote-return" href="#fnref:4">↩</a></li>
+<li id="fn:5">👋 <a href="https://github.com/noamross">Noam Ross</a>, <a href="https://github.com/sckott">Scott Chamberlain</a>, <a href="https://github.com/karthik">Karthik Ram</a>, &amp; <a href="https://github.com/maelle">Maëlle Salmon</a>
+ <a class="footnote-return" href="#fnref:5">↩</a></li>
+</ol>
+</div>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/review"><span class="label">review</span></a>
+                
+                    <a href="/tags/visdat"><span class="label">visdat</span></a>
+                
+                    <a href="/tags/community"><span class="label">community</span></a>
+                
+                    <a href="/tags/package"><span class="label">package</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+                <div id='discourse-comments'></div>
+                <script type="text/javascript">
+                DiscourseEmbed = { discourseUrl: 'https://discuss.ropensci.org/',
+                                   topicId:  838  };
+                (function() {
+                  var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+                  d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+                })();
+                </script>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

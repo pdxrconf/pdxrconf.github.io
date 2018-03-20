@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Overlaying species occurrence data with climate data</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">Overlaying species occurrence data with climate data</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="/about/#team"> Ted Hart </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">April 22, 2014</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                <p>One of the goals of the rOpenSci is to facilitate interoperability between different data sources around web with our tools.  We can achieve this by providing functionality within our packages that converts data coming down via web APIs in one format (often a provider specific schema) into a standard format.  The new version of <a href="http://github.com/ropensci/rwbclimate">rWBclimate</a> that we just posted to <a href="http://cran.r-project.org/web/packages/rWBclimate/index.html">CRAN</a> does just that.  In an <a href="http://www.ropensci.org/blog/2013/07/29/rWBclimate-rgbif/">earlier post</a> I wrote about how users could combine data from both <a href="http://github.com/ropensci/rgbif">rgbif</a> and <code>rWBclimate</code>. Back then I just thought it was pretty cool that you could overlay the points on a nice climate map.  Now we&rsquo;ve come a long way, with the development of an easier to use and more comprehensive package for accessing species occurrence data, <a href="http://github.com/ropensci/spocc">spocc</a>, and added conversion functions to create spatial objects out of both climate data maps, and species occurrence data.  The result is that you can grab data from both sources, and then extract climate information about your species occurrence data.</p>
+
+<p>In the example below I&rsquo;m going to download climate data at the basin level for the US and Mexico, and then species occurrences for eight different tree species.  I&rsquo;ll then extract the temperature from each point data with an spatial overlay and look at the distribution of temperatures for each species.  Furthermore the conversion to spatial objects functions will allow you to use our data with any <a href="http://en.wikipedia.org/wiki/Shapefile">shape files</a> you might have.</p>
+
+<p>The first step is to grab the <a href="https://developers.google.com/kml/documentation/">KML</a> files for each river basin making up the US and Mexico, which we <a href="http://data.worldbank.org/sites/default/files/climate_data_api_basins.pdf">identify with an integer</a>.</p>
+
+<pre><code class="language-r">
+library(&quot;rWBclimate&quot;)
+# Install spocc from our GitHub repo
+# devtools::install_github(&quot;spocc&quot;, &quot;ropensci&quot;)
+library(&quot;spocc&quot;)
+library(&quot;taxize&quot;)
+library(&quot;plyr&quot;)
+library(&quot;sp&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(spocc)
+### Create path to store kml's
+dir.create(&quot;~/kmltmp&quot;)
+</code></pre>
+
+<pre><code class="language-r">options(kmlpath = &quot;~/kmltmp&quot;)
+options(stringsAsFactors = FALSE)
+
+usmex &lt;- c(273:284, 328:365)
+### Download KML's and read them in.
+usmex.basin &lt;- create_map_df(usmex)
+</code></pre>
+
+<pre><code class="language-r">
+
+## Download temperature data
+temp.dat &lt;- get_historical_temp(usmex, &quot;decade&quot;)
+temp.dat &lt;- subset(temp.dat, temp.dat$year == 2000)
+
+
+# Bind temperature data to map data frame
+
+usmex.map.df &lt;- climate_map(usmex.basin, temp.dat, return_map = F)
+</code></pre>
+
+<p>Now we have created a map of the US and Mexico, downloaded the average temperature in each basin between 1990 and 2000, and bound them together.  Next let&rsquo;s grab occurrence data using <code>spocc</code> for our eight tree species (<em>Note:  <code>rgbif</code> &gt; 0.6.0 needs to be installed to work properly</em>)</p>
+
+<pre><code class="language-r">
+## Grab some species occurrence data for the 8 tree species.
+
+splist &lt;- c(&quot;Acer saccharum&quot;, &quot;Abies balsamea&quot;, &quot;Arbutus xalapensis&quot;, &quot;Betula alleghaniensis&quot;, &quot;Chilopsis linearis&quot;, &quot;Conocarpus erectus&quot;, &quot;Populus tremuloides&quot;, &quot;Larix laricina&quot;)
+
+## get data from bison and gbif
+splist &lt;- sort(splist)
+out &lt;- occ(query = splist, from = c(&quot;bison&quot;, &quot;gbif&quot;), limit = 100)
+
+## scrub names
+out &lt;- fixnames(out, how = &quot;query&quot;)
+
+## Create a data frame of all data.
+
+out_df &lt;- occ2df(out)
+</code></pre>
+
+<p>Now we&rsquo;ve downloaded the data using their latin names, we might want to know the common names.  Luckily the <code>taxize</code> package is great for that, and we can grab them with just a couple of lines of code.</p>
+
+<pre><code class="language-r">
+### grab common names
+cname &lt;- ldply(sci2comm(get_tsn(splist), db = &quot;itis&quot;, simplify = TRUE), function(x) { return(x[1]) })[, 2]
+</code></pre>
+
+<pre><code class="language-r">### Now let's create a vector of common names for easy plotting But first
+### order on names so we can just add the names
+out_df &lt;- out_df[order(out_df$name), ]
+### strip NA values and 0 values of coordinates
+out_df &lt;- out_df[!is.na(out_df$lat), ]
+out_df &lt;- out_df[out_df$lat &gt; 0, ]
+out_df$common &lt;- rep(cname, table(out_df$name))
+
+</code></pre>
+
+<p>Now we have all the components we need, species data and spatial polygons with temperature data bound to them.  Before we do the spatial over lay, let&rsquo;s have do a quick visualization.</p>
+
+<pre><code class="language-r">
+## Now just create the base temperature map
+usmex.map &lt;- ggplot() +
+  geom_polygon(data = usmex.map.df, aes(x = long, y = lat, group = group, fill = data, alpha = 0.9)) +
+  scale_fill_continuous(&quot;Average annual \n temp: 1990-2000&quot;, low = &quot;yellow&quot;, high = &quot;red&quot;) +
+  guides(alpha = F) +
+  theme_bw(10)
+
+## And overlay of gbif data
+usmex.map &lt;- usmex.map +
+  geom_point(data = out_df, aes(y = latitude, x = longitude, group = common, colour = common)) +
+  xlim(-125, -59) +
+  ylim(5, 55)
+
+print(usmex.map)
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-04-22-rwbclimate-sp/mapping_2.png" alt="plot of chunk mapping" /></p>
+
+<p>Now the question is, what&rsquo;s the temperature at each point for each tree species?  We can convert our species data to spatial points with <code>occ_to_sp</code>, and our data from <code>rWBclimate</code> can be converted to spatial polygons with <code>kml_to_sp</code>.  Next we can loop through each grouping of species, and call the <code>over</code> function to get the temperature at each point.</p>
+
+<pre><code class="language-r">## Create a spatial polygon dataframe binding kml polygons to temperature
+## data
+temp_sdf &lt;- kml_to_sp(usmex.basin, df = temp.dat)
+### Now we can change the points to a spatial polygon:
+sp_points &lt;- occ_to_sp(out)
+
+tdat &lt;- vector()
+### Get averages
+for (i in 1:length(splist)) {
+    tmp_sp &lt;- sp_points[which(sp_points$name == splist[i]), ]
+    tmp_t &lt;- over(tmp_sp, temp_sdf)$data
+    tdat &lt;- c(tdat, tmp_t)
+}
+</code></pre>
+
+<p>The last step is to create a new data frame with our data.  Unfortunately the size of our old data frame <code>out_df</code> won&rsquo;t be the same size due to some invalid lat/long&rsquo;s that came down with our data so the entire data frame will be reassembled.  After we assemble the data frame we can summarize our it with plyr, getting the mean temperature and latitude for each species.</p>
+
+<pre><code class="language-r">
+### Assemble new dataframe
+spDF &lt;- data.frame(matrix(nrow = dim(sp_points)[1], ncol = 0))
+spDF$species &lt;- sp_points$name
+spDF &lt;- cbind(coordinates(sp_points), spDF)
+
+### This is important, be sure to order all the points alphebetically as we
+### did earlier
+spDF &lt;- spDF[order(spDF$species), ]
+
+spDF$cname &lt;- rep(cname, table(sp_points$name))
+spDF$temp &lt;- tdat
+### Strip NA's
+spDF &lt;- spDF[!is.na(spDF$temp), ]
+
+## Create summary
+summary_data &lt;- ddply(spDF, .(cname), summarise, mlat = mean(latitude), mtemp = mean(temp),
+    sdlat = sd(latitude), sdtemp = sd(temp))
+</code></pre>
+
+<p>First let&rsquo;s look at a plot of mean temperature vs latititude, and to identify the points we&rsquo;ll plot their common names.</p>
+
+<pre><code class="language-r">ggplot(summary_data, aes(x = mlat, y = mtemp, label = cname)) +
+  geom_text() +
+  xlab(&quot;Mean Latitude&quot;) +
+  ylab(&quot;Mean Temperature (C)&quot;) +
+  theme_bw() +
+  xlim(10, 50)
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-04-22-rwbclimate-sp/means.png" alt="plot of chunk means" /></p>
+
+<p>This gives us a sense about how the means of each value are related, but we can also look at the distribution of temperatures with boxplots.</p>
+
+<pre><code class="language-r">ggplot(spDF, aes(as.factor(cname), temp)) +
+  geom_boxplot() +
+  theme_bw(13) +
+  ylab(&quot;Temperature&quot;) +
+  xlab(&quot;Common Name&quot;) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 0.5, vjust = 0.5))
+</code></pre>
+
+<p><img src="/assets/blog-images/2014-04-22-rwbclimate-sp/boxplots.png" alt="plot of chunk boxplots" /></p>
+
+<p>This gives a sense of how wide the temperature distributions are, as well as looking at some of the outliers.  The distributions look pretty skewed, and this probably reflects the large spatial granularity of our temperature data compared to the occurrence data.  However this example shows how you can easily combine data from multiple rOpenSci packages.  We will continue to work towards enhancing the interoperability of heterogeneous data streams via our tools.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/api"><span class="label">API</span></a>
+                
+                    <a href="/tags/species"><span class="label">species</span></a>
+                
+                    <a href="/tags/occurrence"><span class="label">occurrence</span></a>
+                
+                    <a href="/tags/climate-change"><span class="label">climate change</span></a>
+                
+                    <a href="/tags/climate"><span class="label">climate</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

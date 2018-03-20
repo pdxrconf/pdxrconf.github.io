@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Unconf projects 1: skimr, emldown, testrmd, webrockets</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">Unconf projects 1: skimr, emldown, testrmd, webrockets</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="/about/#team"> Karthik Ram </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">June 5, 2017</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>Following up on Stefanie&rsquo;s recap of <a href="https://ropensci.org/blog/blog/2017/06/02/unconf2017">unconf 17</a>, we are following up this entire week with summaries of projects developed at the event. We plan to highlight 4-5 projects each day, with detailed posts from a handful of teams to follow.</p>
+
+<h2 id="skimr"><code>skimr</code></h2>
+
+<p><strong>Summary:</strong>  <code>skimr</code>, a package inspired by Hadley Wickham&rsquo;s <a href="https://github.com/hadley/precis">precis package</a>, aims to provide summary statistics iteratively and interactively as part of a pipeline. The package provides easily skimmable summary statistics to help you better understand your data and see what is missing.</p>
+
+<p><img src="https://i.imgur.com/abwJOHh.png" alt="" /></p>
+
+<p><strong>Team:</strong>
+Amelia McNamara, Eduardo Arino de la Rubia, Hao Zhu, Julia Lowndes, Shannon Ellis, Elin Waring, Michael Quinn, Hope McLeod</p>
+
+<p><img src="https://i.imgur.com/cqPh8pk.png" alt="" /></p>
+
+<p><strong>Github:</strong> <a href="https://github.com/ropenscilabs/skimr">https://github.com/ropenscilabs/skimr</a></p>
+
+<h2 id="emldown"><code>emldown</code></h2>
+
+<p><strong>Summary:</strong> <code>emldown</code> is a package for creating a helpful website based on EML metadata. Ecological Metadata Language (EML) is a metadata specification developed by the ecology discipline and for the ecology discipline. EML is implemented as a series of XML document types that can by used in a modular and extensible manner to document ecological data.</p>
+
+<p><strong>Team:</strong> Maëlle Salmon, Kara Woo, Andrew McDonald, Carl Boettiger</p>
+
+<p><strong>Github:</strong> <a href="https://github.com/ropenscilabs/emldown">https://github.com/ropenscilabs/emldown</a></p>
+
+<h2 id="testrmd"><code>testrmd</code></h2>
+
+<p><strong>Summary:</strong>  <code>testrmd</code> provides facilities to enable testing of and reporting on tested R Markdown chunks. When running R Markdown documents as part of a workflow where the data are likely to change with each render, <code>testrmd</code> ensures that each chunk will alert the reader to any problems that may arise as a result of such subtle changes in data.</p>
+
+<p><img src="https://github.com/ropenscilabs/testrmd/raw/master/testrmd.gif" alt="testRmd" /></p>
+
+<p><strong>Team:</strong> Mara Averick, Christopher Tull, Joe Cheng, Robert Flight</p>
+
+<p><strong>Github:</strong> <a href="https://github.com/ropenscilabs/testrmd">https://github.com/ropenscilabs/testrmd</a></p>
+
+<h2 id="webrockets"><code>webrockets</code></h2>
+
+<p><strong>Summary:</strong>  The <code>webrockets</code> package implements a basic websocket listener in R. The implementation draws heavily on <a href="https://twitter.com/hrbrmstr">@hrbrmstr&rsquo;s</a> wrapper of <code>easywsclient</code> in <a href="https://github.com/ropenscilabs/decapitated">https://github.com/ropenscilabs/decapitated</a>.</p>
+
+<p><strong>Team:</strong></p>
+
+<p>Miles McBain, Alicia Schep, Carl Ganz, Bob Rudis, Henrik Bengtsson, Joe Cheng</p>
+
+<p><strong>Github:</strong> <a href="https://github.com/ropenscilabs/webrockets">https://github.com/ropenscilabs/webrockets</a></p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/community"><span class="label">community</span></a>
+                
+                    <a href="/tags/ropensci"><span class="label">ropensci</span></a>
+                
+                    <a href="/tags/meetings"><span class="label">meetings</span></a>
+                
+                    <a href="/tags/unconf"><span class="label">unconf</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+                <div id='discourse-comments'></div>
+                <script type="text/javascript">
+                DiscourseEmbed = { discourseUrl: 'https://discuss.ropensci.org/',
+                                   topicId:  740  };
+                (function() {
+                  var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+                  d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+                })();
+                </script>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

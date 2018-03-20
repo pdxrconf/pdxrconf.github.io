@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Cartodb on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/cartodb/</link>
+    <description>Recent content in Cartodb on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Mon, 04 Nov 2013 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/cartodb/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Species occurrence data to CartoDB</title>
+      <link>https://ropensci.org/blog/2013/11/04/data-to-cartodb/</link>
+      <pubDate>Mon, 04 Nov 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2013/11/04/data-to-cartodb/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;We have previously written about creating interactive maps on the web from R, with the interactive maps on Github. See &lt;a href=&#34;http://ropensci.org/blog/2013/10/23/style-geojson-polygon/&#34;&gt;here&lt;/a&gt;, &lt;a href=&#34;http://ropensci.org/blog/2013/07/17/style-geojson/&#34;&gt;here&lt;/a&gt;, &lt;a href=&#34;http://ropensci.org/blog/2013/07/04/rbison-geoson/&#34;&gt;here&lt;/a&gt;, and &lt;a href=&#34;http://recology.info/2013/06/geojson/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;A different approach is to use &lt;a href=&#34;http://cartodb.com/&#34;&gt;CartoDB&lt;/a&gt;, &lt;a href=&#34;http://cartodb.com/pricing/&#34;&gt;a freemium service&lt;/a&gt; with sql interface to your data tables that provides a map to visualize data in those tables. They released an R interace to their sql API &lt;a href=&#34;https://github.com/Vizzuality/cartodb-r&#34;&gt;on Github here&lt;/a&gt; - which we can use to make an interactive map from R.&lt;/p&gt;
+
+&lt;p&gt;We&amp;rsquo;ll first get some data from GBIF, ~500 occurrences of &lt;em&gt;Puma concolor&lt;/em&gt; in the US, then push that data to a CartoDB table. There are a couple more non-programmatic steps in this workflow than with pushing geojson file to Github as outlined in the previous linked above (i.e., going to the CartoDB site and making a visualization, and making it public).&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;install-packages&#34;&gt;Install packages&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;devtools&amp;quot;)
+library(devtools)
+install_github(&amp;quot;rgbif&amp;quot;, &amp;quot;ropensci&amp;quot;, ref = &amp;quot;newapi&amp;quot;)
+install_github(&amp;quot;cartodb-r&amp;quot;, &amp;quot;Vizzuality&amp;quot;, subdir = &amp;quot;CartoDB&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;load-em&#34;&gt;Load em&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(rgbif)
+library(CartoDB)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;get-some-data-from-gbif&#34;&gt;Get some data from GBIF&lt;/h2&gt;
+
+&lt;p&gt;Here, we&amp;rsquo;ll get data for Puma concolor, the &lt;em&gt;hello, world&lt;/em&gt; for biodiversity data.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;key &amp;lt;- gbif_lookup(name = &amp;quot;Puma concolor&amp;quot;, kingdom = &amp;quot;animals&amp;quot;)$speciesKey
+data &amp;lt;- occ_search(taxonKey = key, limit = 500, georeferenced = TRUE, country = &amp;quot;US&amp;quot;,
+    return = &amp;quot;data&amp;quot;)
+head(data)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##                             name longitude latitude
+## 1 Puma concolor (Linnaeus, 1771)    -108.9    32.70
+## 2 Puma concolor (Linnaeus, 1771)    -108.0    32.88
+## 3 Puma concolor (Linnaeus, 1771)    -105.5    32.95
+## 4 Puma concolor (Linnaeus, 1771)    -107.8    33.61
+## 5 Puma concolor (Linnaeus, 1771)    -107.5    33.00
+## 6 Puma concolor (Linnaeus, 1771)    -106.5    36.69
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;str(data)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## &#39;data.frame&#39;:	500 obs. of  3 variables:
+##  $ name     : Factor w/ 7 levels &amp;quot;Animalia&amp;quot;,&amp;quot;Carnivora&amp;quot;,..: 7 7 7 7 7 7 7 7 7 7 ...
+##  $ longitude: num  -109 -108 -105 -108 -107 ...
+##  $ latitude : num  32.7 32.9 33 33.6 33 ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Great, we have some data. Now let&amp;rsquo;s make a map.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;push-data-up-to-cartodb&#34;&gt;Push data up to CartoDB&lt;/h2&gt;
+
+&lt;p&gt;I frist crated a table in my CartoDB account named &lt;code&gt;pumamap&lt;/code&gt;. Then, I need to initialize the connection with CartoDB with my account name and API key. Note that I am pulling up my key from my .Rprofile file on my machine for ease and so it&amp;rsquo;s not revealed to you :)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;key = getOption(&amp;quot;mycartodbkey&amp;quot;)
+cartodb(&amp;quot;recology&amp;quot;, api.key = key)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we need to push data to our &lt;code&gt;pumamap&lt;/code&gt; table using the function &lt;code&gt;cartodb.row.insert&lt;/code&gt;. It accepts one row of data, so we&amp;rsquo;ll pass each row of data with an &lt;code&gt;lapply&lt;/code&gt; call.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;rows &amp;lt;- apply(data, 1, as.list)
+lapply(rows, function(x) cartodb.row.insert(name = &amp;quot;pumamap&amp;quot;, columns = list(&amp;quot;name&amp;quot;,
+    &amp;quot;longitude&amp;quot;, &amp;quot;latitude&amp;quot;), values = x))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;After the upload is finished, I had to make sure the table was georeferenced, and played with settings to suit my style. And then I made a visualization from the &lt;code&gt;pumamap&lt;/code&gt; dataset and made it public. And that&amp;rsquo;s it!  You can find the map &lt;a href=&#34;http://cdb.io/1fbvgCG&#34;&gt;here&lt;/a&gt;, and it can be embedded:&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;iframe width=&#39;100%&#39; height=&#39;400&#39; frameborder=&#39;0&#39; src=&#39;http://recology.cartodb.com/viz/76a5598e-444b-11e3-8a8c-5404a6a69006/embed_map?title=false&amp;description=false&amp;search=false&amp;shareable=false&amp;cartodb_logo=true&amp;layer_selector=false&amp;legends=false&amp;scrollwheel=true&amp;sublayer_options=1&amp;sql=&amp;zoom=3&amp;center_lat=37.61423141542417&amp;center_lon=-100.72265625&#39;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;And we can examine a row from the table in our CartoDB account with a single line of code&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;cartodb.row.get(name = &amp;quot;pumamap&amp;quot;, cartodb_id = 10)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##   cartodb_id                           name description
+## 1          1 Puma concolor (Linnaeus, 1771)        NULL
+##                 created_at               updated_at
+## 1 2013-11-03T06:40:12+0100 2013-11-03T06:46:55+0100
+##                                             the_geom the_geom_webmercator
+## 1 0101000020E610000089247A19C5365BC08C15359886594040                 NULL
+##   latitude longitude
+## 1     32.7    -108.9
+&lt;/code&gt;&lt;/pre&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

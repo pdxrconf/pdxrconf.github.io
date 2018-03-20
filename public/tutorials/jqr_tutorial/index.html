@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | jqr tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>jqr tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v1.0.0</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p><a href="https://stedolan.github.io/jq/">jq</a> is a <em>lightweight and flexible command-line JSON processor</em>, written in C. It&rsquo;s super fast, and very flexible. <code>jq</code> gives you the ability to index into, parse, and do calculations on JSON data. You can cut up and filter JSON data. You can change JSON key names and values. <code>jq</code> lets you do conditionals and comparisons, and write your own custom functions to operate on JSON data.</p>
+
+<p>You can convert JSON into an R list or other R data structure, and proceed with data parsing, but why not do your JSON parsing on the actual JSON if it&rsquo;s easy enough?  That&rsquo;s where <code>jq</code> comes in. Doing your data manipulations on the actual JSON makes it easy to pass data to downstream processes that expect JSON.</p>
+
+<p>If you already familiar with <code>jq</code> by using it on the command line you can use the exact same commands with <code>jqr</code>. If you&rsquo;ve never used <code>jq</code>, <code>jqr</code> makes <code>jq</code> easy to learn with a domain specific language - and you can learn the actual <code>jq</code> syntax as you go and apply it on the command line outside of R.</p>
+
+<p><strong>NSE vs. SE</strong></p>
+
+<p>Many functions in <code>jqr</code> have NSE (non-standard evaluation) as well as SE (standard evaluation) versions, where the NSE version for sorting an array is <code>sortj()</code> whereas the SE version is <code>sortj_()</code>. Some functions only have one version, and behave under SE rules.</p>
+
+<p>When you pass JSON into a function as the first parameter (like <code>ad('[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]')</code>) rather than piping it in (like <code>'[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]' %&gt;% ad</code>), <code>jq()</code> is not executed. Rather you get back an object of class <code>jqr</code> that holds the data you passed in and the query. To execute the query on the data, run <code>jq()</code>, e.g., like <code>jq(ad('[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]'))</code> or <code>ad('[&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]') %&gt;% jq()</code>.</p>
+
+<p>When piping JSON to DSL functions <code>jq()</code> is executed on the last DSL function used.</p>
+
+<p><strong>jqr API</strong></p>
+
+<p>There&rsquo;s low and high level (or DSL [domain specific language]) interfaces in <code>jqr</code>.</p>
+
+<p><strong>jqr low level interface</strong></p>
+
+<p>The low level and high level interfaces are unified via the function <code>jq()</code>. You can access the low leve interface by using <code>jq()</code> directly, passing a JSON string as the first parameter, the program (query) as the second, and <a href="https://stedolan.github.io/jq/manual/#Invokingjq">the flags</a> as the third (by default no flags are passed).</p>
+
+<p>For example, a JSON string could be <code>'{&quot;a&quot;: 7, &quot;b&quot;: 4}'</code>, and the program could be <code>.</code>, resulting in</p>
+
+<pre><code>{
+    &quot;a&quot;: 7,
+    &quot;b&quot;: 4
+}
+</code></pre>
+
+<p>The program passed is exactly the same as you&rsquo;d pass on the command line. Because this is a  simple replication of the command line in R, there is a higher level interface, or DSL, to make it easier to use <code>jq</code>. Nonetheless, the low level interface is important as some <code>jq</code> veterans may not want to deal with a DSL, and you may need to drop down to the low level interface if the DSL doesn&rsquo;t work for some reason.</p>
+
+<p><strong>jqr DSL</strong></p>
+
+<p>The <code>jqr</code> DSL uses a suite of functions to construct queries that are executed internally with <code>jq()</code> after the last piped command. We use some logic to determine whether the function call is the last in a series of pipes, and if so, we run <code>jq()</code> on the JSON string and program/query passed.</p>
+
+<p>You don&rsquo;t have to use pipes - they are optional. Though they do make things easier in that you can build up queries easily, just as you would with <code>jq</code>, or any other tools, on the command line.</p>
+
+<ul>
+<li>Execute jq
+
+<ul>
+<li><code>jq</code> - execute jq</li>
+</ul></li>
+<li>Utility functions
+
+<ul>
+<li><code>peek</code> - peek at query, without running it</li>
+<li><code>string</code> - give back character string</li>
+<li><code>combine</code> - combine pieces into proper JSON</li>
+</ul></li>
+<li>Identity functions
+
+<ul>
+<li><code>dot</code> - takes its input and produces it unchanged as output.</li>
+<li><code>dotstr</code> - produces value at the key &lsquo;foo&rsquo;</li>
+<li><code>index</code> - index to all elements, or elements by name or number</li>
+<li><code>indexif</code> - same as above, but shouldn&rsquo;t fail when not found</li>
+</ul></li>
+<li>Operations on keys, or by keys
+
+<ul>
+<li><code>keys</code> - takes no input, and retrieves keys</li>
+<li><code>haskey</code> - checks if a json string has a key or keys</li>
+<li><code>del</code> - deletes provided keys</li>
+</ul></li>
+<li>Maths
+
+<ul>
+<li><code>do</code> - arbitrary math operations</li>
+<li><code>lengthj</code> - length</li>
+<li><code>sqrtj</code> - square root</li>
+<li><code>floorj</code> - returns the floor of its numeric input</li>
+<li><code>minj</code> - minimum element of input</li>
+<li><code>maxj</code> - maximum element of input</li>
+<li><code>add</code> - adds strings or numbers together</li>
+<li><code>map</code> - for any filter X, run X for each element of input array</li>
+</ul></li>
+<li>Manipulation operations
+
+<ul>
+<li><code>join</code> - join strings on given separator</li>
+<li><code>splitj</code> - split string on separator argument</li>
+<li><code>ltrimstr</code> - remove given prefix string, if it starts with it</li>
+<li><code>rtrimstr</code> - remove given suffix string, if it starts with it</li>
+<li><code>startswith</code> - logical output, test if input start with foo</li>
+<li><code>endswith</code> - logical output, test if input ends with foo</li>
+<li><code>indices</code> - array with numeric indices where foo occurs in inputs</li>
+<li><code>tojson</code> - dump values to JSON</li>
+<li><code>fromjson</code> - parse JSON into values</li>
+<li><code>tostring</code> - convert to string</li>
+<li><code>tonumber</code> - convert to number</li>
+<li><code>contains</code> - logical output, determine if foo is in the input</li>
+<li><code>uniquej</code> - output unique set</li>
+<li><code>group</code> - groups the elements having the same .foo field into separate arrays</li>
+</ul></li>
+<li>Sort
+
+<ul>
+<li><code>sortj</code> - sort an array</li>
+<li><code>reverse</code> - reverse sort an array</li>
+</ul></li>
+<li>Types
+
+<ul>
+<li><code>type</code> - select elements by type</li>
+<li><code>types</code> - get type for each element</li>
+</ul></li>
+<li>Functions
+
+<ul>
+<li><code>funs</code> - Define and use functions</li>
+</ul></li>
+<li>Variables
+
+<ul>
+<li><code>vars</code> - Define variables to use later</li>
+</ul></li>
+<li>Recursion
+
+<ul>
+<li><code>recurse</code> - Search through a recursive structure - extract data from all levels</li>
+</ul></li>
+<li>Paths
+
+<ul>
+<li><code>paths</code> - Outputs paths to all the elements in its input</li>
+</ul></li>
+<li>Range
+
+<ul>
+<li><code>rangej</code> - Produce range of numbers</li>
+</ul></li>
+<li>Format strings
+
+<ul>
+<li><code>at</code> - Format strings and escaping</li>
+</ul></li>
+</ul>
+
+<h3 id="installation">Installation</h3>
+
+<p>stable version</p>
+
+<pre><code class="language-r">install.packages(&quot;jqr&quot;)
+</code></pre>
+
+<p>dev version</p>
+
+<pre><code class="language-r">devtools::install_github(&quot;ropensci/jqr&quot;)
+</code></pre>
+
+<p>Load <code>jqr</code></p>
+
+<pre><code class="language-r">library(&quot;jqr&quot;)
+</code></pre>
+
+<h2 id="usage">Usage</h2>
+
+<p><strong>Utility functions</strong></p>
+
+<p><br></p>
+
+<p>Peek</p>
+
+<pre><code class="language-r">'{&quot;a&quot;: 7}' %&gt;% do(.a + 1) %&gt;% peek
+#&gt; &lt;jq query&gt;
+#&gt;   query: .a + 1
+'[8,3,null,6]' %&gt;% sortj %&gt;% peek
+#&gt; &lt;jq query&gt;
+#&gt;   query: sort
+</code></pre>
+
+<p>String</p>
+
+<pre><code class="language-r">'{&quot;a&quot;: 7}' %&gt;% do(.a + 1) %&gt;% string
+#&gt; [1] &quot;{\&quot;a\&quot;: 7}&quot;
+'[8,3,null,6]' %&gt;% sortj %&gt;% string
+#&gt; [1] &quot;[8,3,null,6]&quot;
+</code></pre>
+
+<p>Combine</p>
+
+<pre><code class="language-r">x &lt;- '{&quot;foo&quot;: 5, &quot;bar&quot;: 7}' %&gt;% select(a = .foo)
+combine(x)
+#&gt; {
+#&gt;     &quot;a&quot;: 5
+#&gt; }
+</code></pre>
+
+<p><strong>index</strong></p>
+
+<pre><code class="language-r">x &lt;- '[{&quot;message&quot;: &quot;hello&quot;, &quot;name&quot;: &quot;jenn&quot;}, {&quot;message&quot;: &quot;world&quot;, &quot;name&quot;: &quot;beth&quot;}]'
+x %&gt;% index()
+#&gt; [
+#&gt;     {
+#&gt;         &quot;message&quot;: &quot;hello&quot;,
+#&gt;         &quot;name&quot;: &quot;jenn&quot;
+#&gt;     },
+#&gt;     {
+#&gt;         &quot;message&quot;: &quot;world&quot;,
+#&gt;         &quot;name&quot;: &quot;beth&quot;
+#&gt;     }
+#&gt; ]
+</code></pre>
+
+<p><strong>sort</strong></p>
+
+<p>Note the function name is <code>sortj</code> to avoid collision with <code>base::sort</code>. In addition, a
+number of other functions in this package that conflict with base R functions have a
+<code>j</code> on the end.</p>
+
+<pre><code class="language-r">'[8,3,null,6]' %&gt;% sortj
+#&gt; [
+#&gt;     null,
+#&gt;     3,
+#&gt;     6,
+#&gt;     8
+#&gt; ]
+</code></pre>
+
+<p>sort in reverse order</p>
+
+<pre><code class="language-r">'[1,2,3,4]' %&gt;% reverse
+#&gt; [
+#&gt;     4,
+#&gt;     3,
+#&gt;     2,
+#&gt;     1
+#&gt; ]
+</code></pre>
+
+<p><strong>join</strong></p>
+
+<pre><code class="language-r">'[&quot;a&quot;,&quot;b,c,d&quot;,&quot;e&quot;]' %&gt;% join
+#&gt; &quot;a, b,c,d, e&quot;
+'[&quot;a&quot;,&quot;b,c,d&quot;,&quot;e&quot;]' %&gt;% join(`;`)
+#&gt; &quot;a; b,c,d; e&quot;
+</code></pre>
+
+<p><strong>starts- and ends-with</strong></p>
+
+<pre><code class="language-r">'[&quot;fo&quot;, &quot;foo&quot;, &quot;barfoo&quot;, &quot;foobar&quot;, &quot;barfoob&quot;]' %&gt;% index %&gt;% endswith(foo)
+#&gt; [
+#&gt;     false,
+#&gt;     true,
+#&gt;     true,
+#&gt;     false,
+#&gt;     false
+#&gt; ]
+</code></pre>
+
+<pre><code class="language-r">'[&quot;fo&quot;, &quot;foo&quot;, &quot;barfoo&quot;, &quot;foobar&quot;, &quot;barfoob&quot;]' %&gt;% index %&gt;% startswith(foo)
+#&gt; [
+#&gt;     false,
+#&gt;     true,
+#&gt;     false,
+#&gt;     true,
+#&gt;     false
+#&gt; ]
+</code></pre>
+
+<p><strong>contains</strong></p>
+
+<pre><code class="language-r">'&quot;foobar&quot;' %&gt;% contains(&quot;bar&quot;)
+#&gt; true
+</code></pre>
+
+<p><strong>unique</strong></p>
+
+<pre><code class="language-r">'[1,2,5,3,5,3,1,3]' %&gt;% uniquej
+#&gt; [
+#&gt;     1,
+#&gt;     2,
+#&gt;     3,
+#&gt;     5
+#&gt; ]
+</code></pre>
+
+<p><strong>data types</strong></p>
+
+<p>Get type information for each element</p>
+
+<pre><code class="language-r">'[0, false, [], {}, null, &quot;hello&quot;]' %&gt;% types
+#&gt; [
+#&gt;     &quot;number&quot;,
+#&gt;     &quot;boolean&quot;,
+#&gt;     &quot;array&quot;,
+#&gt;     &quot;object&quot;,
+#&gt;     &quot;null&quot;,
+#&gt;     &quot;string&quot;
+#&gt; ]
+'[0, false, [], {}, null, &quot;hello&quot;, true, [1,2,3]]' %&gt;% types
+#&gt; [
+#&gt;     &quot;number&quot;,
+#&gt;     &quot;boolean&quot;,
+#&gt;     &quot;array&quot;,
+#&gt;     &quot;object&quot;,
+#&gt;     &quot;null&quot;,
+#&gt;     &quot;string&quot;,
+#&gt;     &quot;boolean&quot;,
+#&gt;     &quot;array&quot;
+#&gt; ]
+</code></pre>
+
+<p>Select elements by type</p>
+
+<pre><code class="language-r">'[0, false, [], {}, null, &quot;hello&quot;]' %&gt;% index() %&gt;% type(booleans)
+#&gt; false
+</code></pre>
+
+<p><strong>keys</strong></p>
+
+<p>Get keys</p>
+
+<pre><code class="language-r">str &lt;- '{&quot;foo&quot;: 5, &quot;bar&quot;: 7}'
+str %&gt;% keys()
+#&gt; [
+#&gt;     &quot;bar&quot;,
+#&gt;     &quot;foo&quot;
+#&gt; ]
+</code></pre>
+
+<p>Delete by key name</p>
+
+<pre><code class="language-r">str %&gt;% del(bar)
+#&gt; {
+#&gt;     &quot;foo&quot;: 5
+#&gt; }
+str %&gt;% del(foo)
+#&gt; {
+#&gt;     &quot;bar&quot;: 7
+#&gt; }
+</code></pre>
+
+<p>Check for key existence</p>
+
+<pre><code class="language-r">str3 &lt;- '[[0,1], [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;]]'
+str3 %&gt;% haskey(2)
+#&gt; [
+#&gt;     false,
+#&gt;     true
+#&gt; ]
+str3 %&gt;% haskey(1,2)
+#&gt; [
+#&gt;     true,
+#&gt;     false,
+#&gt;     true,
+#&gt;     true
+#&gt; ]
+</code></pre>
+
+<p><strong>select</strong></p>
+
+<p>Select variables by name, and rename</p>
+
+<pre><code class="language-r">'{&quot;foo&quot;: 5, &quot;bar&quot;: 7}' %&gt;% select(a = .foo)
+#&gt; {
+#&gt;     &quot;a&quot;: 5
+#&gt; }
+</code></pre>
+
+<p>More complicated <code>select()</code>, using the included dataset <code>githubcommits</code></p>
+
+<pre><code class="language-r">githubcommits %&gt;%
+  index() %&gt;%
+  select(sha = .sha, name = .commit.committer.name)
+#&gt; Error in eval(lhs, parent, parent): object 'githubcommits' not found
+</code></pre>
+
+<p><strong>maths</strong></p>
+
+<p>Maths comparisons</p>
+
+<pre><code class="language-r">'[5,4,2,7]' %&gt;% index() %&gt;% do(. &lt; 4)
+#&gt; [
+#&gt;     false,
+#&gt;     false,
+#&gt;     true,
+#&gt;     false
+#&gt; ]
+'[5,4,2,7]' %&gt;% index() %&gt;% do(. &gt; 4)
+#&gt; [
+#&gt;     true,
+#&gt;     false,
+#&gt;     false,
+#&gt;     true
+#&gt; ]
+'[5,4,2,7]' %&gt;% index() %&gt;% do(. &lt;= 4)
+#&gt; [
+#&gt;     false,
+#&gt;     true,
+#&gt;     true,
+#&gt;     false
+#&gt; ]
+'[5,4,2,7]' %&gt;% index() %&gt;% do(. &gt;= 4)
+#&gt; [
+#&gt;     true,
+#&gt;     true,
+#&gt;     false,
+#&gt;     true
+#&gt; ]
+'[5,4,2,7]' %&gt;% index() %&gt;% do(. == 4)
+#&gt; [
+#&gt;     false,
+#&gt;     true,
+#&gt;     false,
+#&gt;     false
+#&gt; ]
+'[5,4,2,7]' %&gt;% index() %&gt;% do(. != 4)
+#&gt; [
+#&gt;     true,
+#&gt;     false,
+#&gt;     true,
+#&gt;     true
+#&gt; ]
+</code></pre>
+
+<p><strong>sqrt</strong></p>
+
+<pre><code class="language-r">'9' %&gt;% sqrtj
+#&gt; 3
+</code></pre>
+
+<p><strong>floor</strong></p>
+
+<pre><code class="language-r">'3.14159' %&gt;% floorj
+#&gt; 3
+</code></pre>
+
+<p><strong>find minimum</strong></p>
+
+<pre><code class="language-r">'[5,4,2,7]' %&gt;% minj
+#&gt; 2
+'[{&quot;foo&quot;:1, &quot;bar&quot;:14}, {&quot;foo&quot;:2, &quot;bar&quot;:3}]' %&gt;% minj
+#&gt; {
+#&gt;     &quot;foo&quot;: 2,
+#&gt;     &quot;bar&quot;: 3
+#&gt; }
+'[{&quot;foo&quot;:1, &quot;bar&quot;:14}, {&quot;foo&quot;:2, &quot;bar&quot;:3}]' %&gt;% minj(foo)
+#&gt; {
+#&gt;     &quot;foo&quot;: 1,
+#&gt;     &quot;bar&quot;: 14
+#&gt; }
+'[{&quot;foo&quot;:1, &quot;bar&quot;:14}, {&quot;foo&quot;:2, &quot;bar&quot;:3}]' %&gt;% minj(bar)
+#&gt; {
+#&gt;     &quot;foo&quot;: 2,
+#&gt;     &quot;bar&quot;: 3
+#&gt; }
+</code></pre>
+
+<p><strong>find maximum</strong></p>
+
+<pre><code class="language-r">'[5,4,2,7]' %&gt;% maxj
+#&gt; 7
+'[{&quot;foo&quot;:1, &quot;bar&quot;:14}, {&quot;foo&quot;:2, &quot;bar&quot;:3}]' %&gt;% maxj
+#&gt; {
+#&gt;     &quot;foo&quot;: 1,
+#&gt;     &quot;bar&quot;: 14
+#&gt; }
+'[{&quot;foo&quot;:1, &quot;bar&quot;:14}, {&quot;foo&quot;:2, &quot;bar&quot;:3}]' %&gt;% maxj(foo)
+#&gt; {
+#&gt;     &quot;foo&quot;: 2,
+#&gt;     &quot;bar&quot;: 3
+#&gt; }
+'[{&quot;foo&quot;:1, &quot;bar&quot;:14}, {&quot;foo&quot;:2, &quot;bar&quot;:3}]' %&gt;% maxj(bar)
+#&gt; {
+#&gt;     &quot;foo&quot;: 1,
+#&gt;     &quot;bar&quot;: 14
+#&gt; }
+</code></pre>
+
+<h3 id="citing">Citing</h3>
+
+<p>To cite <code>jqr</code> in publications use:</p>
+
+<p><br></p>
+
+<blockquote>
+<p>Rich FitzJohn, Jeroen Ooms, Scott Chamberlain and Stefan Milton Bache
+  (2017). jqr: Client for &lsquo;jq&rsquo;, a &lsquo;JSON&rsquo; Processor. R package version
+  1.0.0. <a href="https://CRAN.R-project.org/package=jqr">https://CRAN.R-project.org/package=jqr</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/jqr/issues?state=open">our Github repo for jqr</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

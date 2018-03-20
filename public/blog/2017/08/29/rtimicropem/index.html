@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | rtimicropem: Using an *R* package as platform for harmonized cleaning of data from RTI MicroPEM air quality sensors</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">rtimicropem: Using an *R* package as platform for harmonized cleaning of data from RTI MicroPEM air quality sensors</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="http://www.masalmon.eu/" target="_blank"> Maëlle Salmon </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">August 29, 2017</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>As you might remember from <a href="https://ropensci.org/blog/blog/2017/02/21/ropenaq">my blog post about <code>ropenaq</code></a>, I work as a data manager and statistician for an <a href="http://www.chaiproject.org/">epidemiology project called CHAI</a> for Cardio-vascular health effects of air pollution in Telangana, India. One of our interests in CHAI is determining exposure, and sources of exposure, to PM2.5 which are very small particles in the air that have diverse adverse health effects. You can find more details about CHAI <a href="https://www.ncbi.nlm.nih.gov/pubmed/28606699">in our recently published protocol paper</a>. In this blog post that partly corresponds to the content of <a href="http://sched.co/AxrS">my useR! 2017 lightning talk</a>, I&rsquo;ll present a package we wrote for dealing with the output of a scientific device, which might remind you of similar issues in your experimental work.</p>
+
+<h3 id="why-write-the-rtimicropem-package">Why write the rtimicropem package?</h3>
+
+<p><img src="/assets/blog-images/2017-08-29-rtimicropem/Allequipment_Frontview_cropped.jpg" alt="" /></p>
+
+<p>Part of the CHAI project is a panel study involving about 40 people wearing several devices, as you see above. The devices include a GPS, an accelerometer, a wearable camera, and a PM2.5 monitor outputting time-resolved data (the grey box on the left). Basically, with this device, the RTI MicroPEM, we get one PM2.5 exposure value every 10 seconds. This is quite exciting, right? Except that we have two main issues with it&hellip;</p>
+
+<p><img src="/assets/blog-images/2017-08-29-rtimicropem/screenshot_output2.png" alt="" /></p>
+
+<p>First of all, the output of the device, a file with a &ldquo;.csv&rdquo; extension corresponding to a session of measurements, in our case 24 hours of measurements, is not really a csv. The header contains information about settings of the device for that session, and then comes the actual table with measurements.</p>
+
+<p>Second, since the RTI MicroPEMs are nice devices but also a work-in-progress, we had some problems with the data, such as negative relative humidity. Because of these issues, we decided to write an R package whose three goals were to:</p>
+
+<ul>
+<li>Transform the output of the device into something more usable.</li>
+<li>Allow the exploration of individual files after a day in the field.</li>
+<li>Document our data cleaning process.</li>
+</ul>
+
+<p>We chose R because everything else in our project, well data processing, documentation and analysis, was to be implemented in R, and because we wanted other teams to be able to use our package.</p>
+
+<h3 id="features-of-rtimicropem-transform-explore-and-learn-about-data-cleaning">Features of <code>rtimicropem</code>: transform, explore and learn about data cleaning</h3>
+
+<p>First things first, our package lives <a href="https://github.com/ropensci/rtimicropem">here</a> and is <a href="https://cran.r-project.org/web/packages/rtimicropem/index.html">on CRAN</a>. It has a <a href="http://ropensci.github.io/rtimicropem/">nice documentation website</a> thanks to <a href="https://github.com/hadley/pkgdown"><code>pkgdown</code></a>.</p>
+
+<h3 id="transform-and-explore-single-files">Transform and explore single files</h3>
+
+<p>In <code>rtimicropem</code> after the use of the <code>convert_output</code> function, one gets an object of the R6 class <code>micropem</code> class. Its fields include the settings and measurements as two <code>data.frames</code>, and it has methods such as <code>summary</code> and <code>plot</code> for which you see the static output below (no unit on this exploratory plot).</p>
+
+<p><img src="/assets/blog-images/2017-08-29-rtimicropem/plotexample.png" alt="" /></p>
+
+<p>The plot method can also outputs an interactive graph thanks to <a href="http://hafen.github.io/rbokeh/"><code>rbokeh</code></a>.</p>
+
+<p>While these methods can be quite helpful to explore single files as an R user, they don&rsquo;t help non R users a lot. Because we wanted members of our team working in the field to be able to explore and check files with no R knowledge, we created a Shiny app that allows to upload individual files and then look at different tabs, including one with a plot, one with the summary of measurements, etc. This way, it was easy to spot a device failure for instance, and to plan a new measurement session with the corresponding participant.</p>
+
+<h3 id="transform-a-bunch-of-files">Transform a bunch of files</h3>
+
+<p>At the end of the CHAI data collection, we had more than 250 MicroPEM files. In order to prepare them for further processing we wrote the <code>batch_convert</code> function that saves the content of any number of MicroPEM files as two (real!) csv, one with the measurements, one with the settings.</p>
+
+<h3 id="learn-about-data-cleaning">Learn about data cleaning</h3>
+
+<p>As mentioned previously, we experienced issues with MicroPEM data quality. Although we had heard other teams complain of similar problems, in the literature there were very few details about data cleaning. We decided to gather information from other teams and the manufacturer and to document our own decisions, e.g. remove entire files based on some criteria, in a <a href="http://ropensci.github.io/rtimicropem/articles/chai_data_cleaning.html">vignette of the package</a>. This is our transparent answer to the question &ldquo;What was your experience with MicroPEMs?&rdquo; which we get often enough from other scientists interested in PM2.5 exposure.</p>
+
+<h3 id="place-of-rtimicropem-in-the-r-package-ecosystem">Place of rtimicropem in the R package ecosystem</h3>
+
+<p>When preparing <code>rtimicropem</code> submission to rOpenSci, I started wondering whether one would like to have one R package for each scientific device out there. In our case, having the weird output to deal with, and the lack of a central data issues documentation place, were enough of a motivation. But maybe one could hope that manufacturers of scientific devices would focus a bit more on making the output format analysis-friendly, and that the open documentation of data issues would be language-agnostic and managed by the manufacturers themselves. In the meantime, we&rsquo;re quite proud to have taken the time to create and share our experience with <code>rtimicropem</code>, and have already heard back from a few users, including one who found the package via googling &ldquo;RTI MicroPEM data&rdquo;! Another argument I in particular have to write R packages for dealing with scientific data is that it might motivate people to learn R, but this is maybe a bit evil.</p>
+
+<p>What about the place of <code>rtimicropem</code> in the rOpenSci package collection? After <a href="https://github.com/ropensci/onboarding/issues/126">very useful reviews</a> by <a href="https://github.com/LucyMcGowan">Lucy D&rsquo;Agostino McGowan</a> and <a href="https://github.com/karawoo">Kara Woo</a> our package got onboarded which we were really thankful for and happy about. Another package I can think off the top of my head to deal with the output of a scientific tool is <a href="https://ropensci.org/blog/blog/2017/02/06/plater-blog-post"><code>plater</code></a>. Let me switch roles from CHAI team member to rOpenSci onboarding co-editor here and do some advertisement&hellip; Such packages are unlikely to become the new <code>ggplot2</code> but their specialization doesn&rsquo;t make them less useful and they fit very well in the &ldquo;data extraction&rdquo; of the <a href="https://github.com/ropensci/onboarding/blob/master/policies.md">onboarding categories</a>. So if you have written such a package, please consider submitting it! It&rsquo;ll get better thanks to review and might get more publicity as part of a larger software ecosystem. For the <code>rtimicropem</code> submission we took advantage of the joint submission process of rOpenSci and the Journal of Open Source Software, JOSS, so now our piece of software has <a href="http://joss.theoj.org/papers/7ead5e9a445da3e885d99247c5d6e58e">its JOSS paper with a DOI</a>. And hopefully, having more submissions of packages for scientific hardware might inspire R users to package up the code they wrote to use the output of their scientific tools!</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/community"><span class="label">community</span></a>
+                
+                    <a href="/tags/software"><span class="label">software</span></a>
+                
+                    <a href="/tags/review"><span class="label">review</span></a>
+                
+                    <a href="/tags/hardware"><span class="label">hardware</span></a>
+                
+                    <a href="/tags/ropenaq"><span class="label">ropenaq</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

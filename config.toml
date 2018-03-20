@@ -1,0 +1,38 @@
+baseURL = "https://cascadiarconf.com/"
+languageCode = "en-us"
+title = "CascadiaRConf"
+theme = "kube"
+description = "An R Conference"
+Paginate = 4
+[Params]
+  RSSLink = "/index.xml"
+  author = "CascadiaRConf" # add your company name
+  github = "pdxrlang" # add your github profile name
+  twitter = "cascadiarconf" # add your twitter profile
+  email = "cascadiarconf@gmail.com"
+
+[[menu.main]]
+    name = "About"
+    weight = -100
+    url = "/about/"
+[[menu.main]]
+    name = "Agenda"
+    weight = -100
+    url = "/agenda/"
+[[menu.main]]
+    name = "COC"
+    weight = -100
+    url = "/coc/"
+[[menu.main]]
+    name = "Sponsors"
+    weight = -100
+    url = "/sponsors/"
+[[menu.main]]
+    name = "Faq"
+    weight = -100
+    url = "/faq/"
+[[menu.main]]
+    name = "Years"
+    weight = -100
+    url = "/years/"
+

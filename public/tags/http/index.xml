@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Http on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/http/</link>
+    <description>Recent content in Http on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Fri, 18 Nov 2016 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/http/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>fauxpas - HTTP conditions package</title>
+      <link>https://ropensci.org/technotes/2016/11/18/fauxpas-release/</link>
+      <pubDate>Fri, 18 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/technotes/2016/11/18/fauxpas-release/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;HTTP, or &lt;a href=&#34;https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol&#34;&gt;Hypertext Transfer Protocol&lt;/a&gt; is a protocol by which most
+of us interact with the web. When we do requests to a website in a browser
+on desktop or mobile, or get some data from a server in R, all of that is
+using HTTP.&lt;/p&gt;
+
+&lt;p&gt;HTTP has a rich suite of &lt;a href=&#34;https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html&#34;&gt;status codes&lt;/a&gt; describing different HTTP
+conditions, ranging from &lt;code&gt;Success&lt;/code&gt; to various client errors, to server errors.
+R has a few HTTP client libraries - &lt;a href=&#34;https://cran.rstudio.com/web/packages/crul&#34;&gt;crul&lt;/a&gt;, &lt;a href=&#34;https://cran.rstudio.com/web/packages/curl&#34;&gt;curl&lt;/a&gt;, &lt;a href=&#34;https://cran.rstudio.com/web/packages/httr&#34;&gt;httr&lt;/a&gt;,
+and &lt;a href=&#34;https://cran.rstudio.com/web/packages/RCurl&#34;&gt;RCurl&lt;/a&gt; - each of which is slightly different. I thought it would
+be nice if there was a single way to do HTTP exception handling across these
+libraries.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;fauxpas&lt;/code&gt; is a package to handle HTTP conditions. Methods are included for
+general purpose HTTP error handling, as well as individual methods for every
+HTTP status code, both via status code numbers as well as their descriptive
+names. &lt;code&gt;fauxpas&lt;/code&gt; allows flexibility to have stop, message or warning behavior.&lt;/p&gt;
+
+&lt;p&gt;In addition, you can use custom &lt;a href=&#34;https://cran.rstudio.com/web/packages/whisker&#34;&gt;whisker&lt;/a&gt; template to have any
+configuration of status code, short description, and verbose message.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;fauxpas&lt;/code&gt; currently supports integration with &lt;code&gt;crul&lt;/code&gt;, &lt;code&gt;curl&lt;/code&gt;, and &lt;code&gt;httr&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;It will be interesting to see how people use &lt;code&gt;fauxpas&lt;/code&gt;. It may be that
+users really like being able to handle individual HTTP conditions separately,
+or it may be that most users simply want a general purpose handler.&lt;/p&gt;
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;fauxpas&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;fauxpas&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;generic-http-condition-handler&#34;&gt;Generic http condition handler&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;Error()&lt;/code&gt; is the most generic handler in &lt;code&gt;fuaxpas&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;First, let&amp;rsquo;s make an HTTP request, here with &lt;code&gt;crul&lt;/code&gt;, using the wonderful
+&lt;a href=&#34;https://httpbin.org&#34;&gt;https://httpbin.org&lt;/a&gt; site.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;crul&amp;quot;)
+res &amp;lt;- HttpClient$new(&amp;quot;https://httpbin.org/status/418&amp;quot;)$get()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next, we&amp;rsquo;ll constrct an error object&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;(x &amp;lt;- Error$new(behavior = &amp;quot;stop&amp;quot;))
+#&amp;gt; &amp;lt;HTTP Error&amp;gt;
+#&amp;gt;   behavior: stop
+#&amp;gt;   message_template: {{reason}} (HTTP {{status}}).
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The default behavior is &lt;code&gt;stop&lt;/code&gt; - you can also choose &lt;code&gt;warning&lt;/code&gt; or &lt;code&gt;message&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The object is of class &lt;code&gt;Error&lt;/code&gt; and is an &lt;code&gt;R6&lt;/code&gt; object. You can inspect parts
+of the object&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;x$behavior
+#&amp;gt; [1] &amp;quot;stop&amp;quot;
+x$behavior_type
+#&amp;gt; [1] &amp;quot;error&amp;quot;
+x$call.
+#&amp;gt; [1] FALSE
+x$message_template
+#&amp;gt; [1] &amp;quot;{{reason}} (HTTP {{status}}).&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Check the response&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;x$do(res)
+#&amp;gt; Error: I&#39;m a teapot (HTTP 418).
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;http-r6-methods&#34;&gt;HTTP* R6 methods&lt;/h2&gt;
+
+&lt;p&gt;In addition to &lt;code&gt;Error()&lt;/code&gt;, there&amp;rsquo;s a method for every HTTP code - they start with
+&lt;code&gt;HTTP&lt;/code&gt;, followed by the http code name. For example, &lt;code&gt;HTTPBadGateway&lt;/code&gt; for
+the 502 code.&lt;/p&gt;
+
+&lt;p&gt;These are R6 methods as well, but inherit from the &lt;code&gt;Error&lt;/code&gt; class. So they implement
+&lt;code&gt;do()&lt;/code&gt;, but also &lt;code&gt;do_verbose()&lt;/code&gt; to include a verbose explanation of the http
+condition.&lt;/p&gt;
+
+&lt;p&gt;Make an HTTP request:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;res &amp;lt;- HttpClient$new(&amp;quot;https://httpbin.org/status/414&amp;quot;)$get()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;x &amp;lt;- HTTPRequestURITooLong$new()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;x$do(res)
+#&amp;gt; Error: Request-URI Too Long (HTTP 414).
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;x$do_verbose(res)
+#&amp;gt; Error: Request-URI Too Long (HTTP 414).
+#&amp;gt;  - The server is refusing to service the request because the Request-URI is longer 
+#&amp;gt; than the server is willing to interpret. This rare condition is only likely to occur 
+#&amp;gt; when a client has improperly converted a POST request to a GET request with long 
+#&amp;gt; query information, when the client has descended into a URI &#39;black hole&#39; of 
+#&amp;gt; redirection (e.g., a redirected URI prefix that points to a suffix of itself), or 
+#&amp;gt; when the server is under attack by a client attempting to exploit security holes 
+#&amp;gt; present in some servers using fixed-length buffers for reading or manipulating
+#&amp;gt; the Request-URI.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;http-methods&#34;&gt;http* methods&lt;/h2&gt;
+
+&lt;p&gt;There&amp;rsquo;s a series of simpler to use functions for every http condition that wrap
+the above &lt;code&gt;HTTP*&lt;/code&gt; methods that follow the form &lt;code&gt;http*&lt;/code&gt;, where the &lt;code&gt;*&lt;/code&gt; is the
+status code number. For example, &lt;code&gt;http404&lt;/code&gt; for the 404 code.&lt;/p&gt;
+
+&lt;p&gt;Make an HTTP request:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;crul&amp;quot;)
+res &amp;lt;- HttpClient$new(&amp;quot;https://httpbin.org/status/418&amp;quot;)$get()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Default behavior is to &lt;code&gt;stop()&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;http(res)
+#&amp;gt; Error: I&#39;m a teapot (HTTP 418).
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But you can easily do &lt;code&gt;warning()&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;http(res, behavior = &amp;quot;warning&amp;quot;)
+#&amp;gt; Warning message:
+#&amp;gt; I&#39;m a teapot (HTTP 418). 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or &lt;code&gt;message()&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;http(res, behavior = &amp;quot;message&amp;quot;)
+#&amp;gt; I&#39;m a teapot (HTTP 418).
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;custom-templates&#34;&gt;Custom templates&lt;/h2&gt;
+
+&lt;p&gt;The default way that conditions are handled is with the template:&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;&amp;quot;{{reason}} (HTTP {{status}}).&amp;quot;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Named elements that are used for &lt;code&gt;do()&lt;/code&gt; are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;reason&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;status&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Named elements that are used for &lt;code&gt;do_verbose()&lt;/code&gt; are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;reason&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;status&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;message&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;All other named elements are ignored.&lt;/p&gt;
+
+&lt;p&gt;First, make an HTTP request:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;crul&amp;quot;)
+res &amp;lt;- HttpClient$new(&amp;quot;https://httpbin.org/status/418&amp;quot;)$get()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then, run a handler with a custom template:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;http418(res, message_template = &amp;quot;{{status}}\n  --&amp;gt; {{reason}}&amp;quot;)
+#&amp;gt; Error: 418
+#&amp;gt;   --&amp;gt; I&#39;m a teapot
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;future-work&#34;&gt;Future work&lt;/h2&gt;
+
+&lt;h3 id=&#34;even-more-customizeable-messages&#34;&gt;Even more customizeable messages&lt;/h3&gt;
+
+&lt;p&gt;Right now, you can use a hack to customize the &lt;code&gt;do_verbose()&lt;/code&gt; method to replace
+the &lt;code&gt;mssg&lt;/code&gt; string (which holds the verbose explanation of the HTTP condition
+from the HTTP spec) with your own message. For example, servers often return custom
+messages explaining why a request failed (e.g., &lt;em&gt;page must be a number&lt;/em&gt;). Ideally,
+you&amp;rsquo;d want to return that message along with the HTTP code (presumably &lt;code&gt;400&lt;/code&gt; or
+similar) and the HTTP name (&lt;code&gt;Bad Request&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m going to make this easier, so you don&amp;rsquo;t have to replace the verbose HTTP
+condition explanation, so you can still expose that if you want.&lt;/p&gt;
+
+&lt;h3 id=&#34;support-rcurl&#34;&gt;Support RCurl&lt;/h3&gt;
+
+&lt;p&gt;I hope to support &lt;code&gt;RCurl&lt;/code&gt; at some point.&lt;/p&gt;
+
+&lt;h2 id=&#34;feedback&#34;&gt;Feedback?&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;d love to know what people think about this package.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Does the package API make sense?&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;Any additional exported methods you&amp;rsquo;d like?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I know documentation can be better, e.g., there&amp;rsquo;s no vignette yet (but adding
+that soon).&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

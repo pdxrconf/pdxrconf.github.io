@@ -1,0 +1,1379 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Hurricanes on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/hurricanes/</link>
+    <description>Recent content in Hurricanes on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 27 Sep 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/hurricanes/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>rrricanes to Access Tropical Cyclone Data</title>
+      <link>https://ropensci.org/blog/2017/09/27/rrricanes/</link>
+      <pubDate>Wed, 27 Sep 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/09/27/rrricanes/</guid>
+      <description>
+        
+        
+
+&lt;h3 id=&#34;what-is-rrricanes&#34;&gt;What is rrricanes&lt;/h3&gt;
+
+&lt;h4 id=&#34;why-write-rrricanes&#34;&gt;Why Write rrricanes?&lt;/h4&gt;
+
+&lt;p&gt;There is a tremendous amount of weather data available on the internet. Much of it is in raw format and not very easy to obtain. Hurricane data is no different. When one thinks of this data they may be inclined to think it is a bunch of map coordinates with some wind values and not much else. A deeper look will reveal structural and forecast data. An even deeper look will find millions of data points from hurricane reconnaissance, computer forecast models, ship and buoy observations, satellite and radar imagery, &amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;rrricanes&lt;/code&gt; is an attempt to bring this data together in a way that doesn&amp;rsquo;t just benefit R users, but other languages as well.&lt;/p&gt;
+
+&lt;p&gt;I began learning R in 2015 and immediately had wished I had a hurricane-specific dataset when Hurricane Patricia became a harmless, but historic hurricane roaming the Pacific waters. I found this idea revisited again as Hurricane Matthew took aim at Florida and the southeast in 2016. Unable to use R to study and consolidate Matthew&amp;rsquo;s data in R led me to begin learning package development. Thus, the birth of &lt;code&gt;rrricanes&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;In this article, I will take you on a lengthy tour of the most important features of &lt;code&gt;rrricanes&lt;/code&gt; and what the data means. If you have a background working with hurricane data, most of this will be redundant. My aim here is to cover the big ideas behind the package and explain them under the assumption you, the reader, are unfamiliar with the data offered.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;rrricanes&lt;/code&gt; &lt;strong&gt;is not intended to be used in emergency situations&lt;/strong&gt;. I write this article as areas I have lived or currently live are under the gun from Hurricane Harvey and &lt;code&gt;rrricanes&lt;/code&gt; is unable to obtain data due to external issues (I will describe these later). It is designed with the intent of answering questions and exploring ideas outside of a time-sensitive environment.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;rrricanes&lt;/code&gt; will not be available in CRAN for quite some time. The current schedule is May 15, 2018 (the &amp;ldquo;start&amp;rdquo; of the East Pacific hurricane season). This year is soley for testing under real-time conditions.&lt;/p&gt;
+
+&lt;h4 id=&#34;and-rrricanesdata&#34;&gt;And rrricanesdata&lt;/h4&gt;
+
+&lt;p&gt;The NHC archives text products dating back to at least 1998 (some earlier years exist but yet to be implemented in this package). Accessing this data is a time-consuming process on any computer. A limit of 4 requests per second is put in place to avoid being banned (or restricted) from the archives. So, if a hurricane has 20 text products you wish to pull and parse, this will take 5 seconds. Most cyclones have more and some, far more.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;rrricanesdata&lt;/code&gt; is a compliment package to &lt;code&gt;rrricanes&lt;/code&gt;. &lt;code&gt;rrricanesdata&lt;/code&gt; contains post-scraped datasets of the archives for all available storms with the exception of advisories issued in the current month.This means you can explore the various datasets without the wait.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;rrricanesdata&lt;/code&gt; will be updated monthly if an advisory has been issued the previous month. There will be regular monthly updates approximately from May through November - the typical hurricane season. In some cases, a cyclone may develop in the off-season. &lt;code&gt;rrricanesdata&lt;/code&gt; will be updated on the same schedule.&lt;/p&gt;
+
+&lt;h4 id=&#34;eli5-the-data&#34;&gt;ELI5 the Data&lt;/h4&gt;
+
+&lt;p&gt;This package covers tropical cyclones that have developed in the Atlantic basin (north Atlantic ocean) or East Pacific basin (northeast Pacific east of 140#&amp;deg;W). Central Pacific (140#&amp;deg;W - 180#&amp;deg;W) may be mixed in if listed in the NHC archives.&lt;/p&gt;
+
+&lt;p&gt;While traditionally the hurricane season for each basin runs from mid-May or June through November, some cyclones have developed outside of this time frame.&lt;/p&gt;
+
+&lt;p&gt;Every tropical cylone (any tropical low whether classified as a tropical depression, tropical storm or hurricane) contains a core set of text products officially issued from the National Hurricane Center. These products are issued every six hours.&lt;/p&gt;
+
+&lt;p&gt;Much of this data has changed in format over the years. Some products have been discontinued and replaced by new products or wrapped into existing products. Some of these products are returned in raw text format; it is not cleaned and may contain HTML characters. Other products are parsed with every piece of data extracted and cleaned.&lt;/p&gt;
+
+&lt;p&gt;I have done my best to ensure data is high quality. But, I cannot guarantee it is perfect. If you do believe you have found an error, please &lt;a href=&#34;https://github.com/ropensci/rrricanes/issues&#34;&gt;let me know&lt;/a&gt;; even if it seems small. I would rather be notified of a false error than ignore a true one.&lt;/p&gt;
+
+&lt;h4 id=&#34;the-products&#34;&gt;The Products&lt;/h4&gt;
+
+&lt;p&gt;Each advisory product is listed below with an abbreviation in parentheses. Unless otherwise noted, these products are issued every six hours. Generally, the times issued are 03:00, 09:00, 15:00 and 21:00 UTC. Some products may be issued in three-hour increments and, sometimes, two-hour increments. &lt;code&gt;update&lt;/code&gt; can be issued at any time.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Storm Discussion (&lt;code&gt;discus&lt;/code&gt;) - These are technical discussions centered on the current structure of the cyclone, satellite presentation, computer forecast model tendencies and more. These products are not parsed.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Forecast/Adivsory (&lt;code&gt;fstadv&lt;/code&gt;) - This data-rich product lists the current location of the cyclone, its wind structure, forecast and forecast wind structure.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Public Advisory (&lt;code&gt;public&lt;/code&gt;) - These are general text statements issued for the public-at-large. Information in these products is a summary of the Forecast/Advisory product along with any watches and warnings issued, changed, or cancelled. Public Advisory products are the only regularly-scheduled product that may be issued intermittently (every three hours and, occasionally, every two hours) when watches and warnings are in effect. These products are not parsed.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Wind Speed Probabilities (&lt;code&gt;wndprb&lt;/code&gt;) - These products list the probability of a minimum sustained wind speed expected in a given forecast window. This product replaces the Strike Probabilities product beginning in 2006 (see below).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Updates (&lt;code&gt;update&lt;/code&gt;) - Tropical Cyclone Updates may be issued at any time if a storm is an immediate threat to land or if the cyclone undergoes a significant change of strength or structure. The information in this product is general. These products are not parsed.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;discontinued-products&#34;&gt;Discontinued Products&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Strike Probabilities (&lt;code&gt;prblty&lt;/code&gt;) - List the probability of a tropical cyclone passing within 65 nautical miles of a location within a forecast window. Replaced in 2006 by the Wind Speed Probabilities product.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Position Estimates (&lt;code&gt;posest&lt;/code&gt;) - Typically issued as a storm is threatening land but generally rare (see Hurricane Ike 2008, Key AL092008). It is generally just an update of the current location of the cyclone. After the 2011 hurricane season, this product was discontinued; Updates are now issued in their place. These products are not parsed.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;primary-key&#34;&gt;Primary Key&lt;/h4&gt;
+
+&lt;p&gt;Every cyclone has a &lt;code&gt;Key&lt;/code&gt;. However, not all products contain this value (&lt;code&gt;prblty&lt;/code&gt;, for example). Products issued during and after the 2005 hurricane season contain this variable.&lt;/p&gt;
+
+&lt;p&gt;Use &lt;code&gt;Key&lt;/code&gt; to tie datasets together. If &lt;code&gt;Key&lt;/code&gt; does not exist, you will need to use a combination of &lt;code&gt;Name&lt;/code&gt; and &lt;code&gt;Date&lt;/code&gt;, depending on your requirements. Keep in mind that, unless a name is retired, names are recycled every seven years. For example, there are multiple cyclones named Katrina but you may want to isolate on Katrina, 2005.&lt;/p&gt;
+
+&lt;h3 id=&#34;installation&#34;&gt;Installation&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;rrricanes&lt;/code&gt; will not be submitted to CRAN until prior to the hurricane season, 2018. It can be installed via github using &lt;code&gt;devtools&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;devtools::install_github(&amp;quot;ropensci/rrricanes&amp;quot;, build_vignettes = TRUE)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;optional-supporting-packages&#34;&gt;Optional Supporting Packages&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;rrricanesdata&lt;/code&gt; uses a drat repository to host the large, pre-processed datasets.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;rrricanesdata&amp;quot;,
+                 repos = &amp;quot;https://timtrice.github.io/drat/&amp;quot;,
+                 type = &amp;quot;source&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To use high resolution tracking charts, you may also wish to install the `rnaturalearthhires&amp;rsquo; package:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;rnaturalearthhires&amp;quot;,
+                 repos = &amp;quot;http://packages.ropensci.org&amp;quot;,
+                 type = &amp;quot;source&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Linux users may also need to install:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;libgdal-dev&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;libproj-dev&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;libxml2-dev&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;get-a-list-of-storms&#34;&gt;Get a List of Storms&lt;/h3&gt;
+
+&lt;p&gt;We start exploring &lt;code&gt;rrricanes&lt;/code&gt; by finding a storm (or storms) we wish to analyze. For this, we use &lt;code&gt;get_storms&lt;/code&gt;. There are two optional parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;years&lt;/code&gt; Between 1998 and current year&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;basins&lt;/code&gt; One or both &amp;ldquo;AL&amp;rdquo; and &amp;ldquo;EP&amp;rdquo;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;An empty call to the function will return storms for both the Atlantic and East Pacific basin for the current year.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(dplyr)
+library(rrricanes)
+get_storms() %&amp;gt;% print(n = nrow(.))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## # A tibble: 33 x 4
+##     Year                           Name Basin
+##    &amp;lt;dbl&amp;gt;                          &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;
+##  1  2017          Tropical Storm Arlene    AL
+##  2  2017            Tropical Storm Bret    AL
+##  3  2017           Tropical Storm Cindy    AL
+##  4  2017       Tropical Depression Four    AL
+##  5  2017             Tropical Storm Don    AL
+##  6  2017           Tropical Storm Emily    AL
+##  7  2017             Hurricane Franklin    AL
+##  8  2017                 Hurricane Gert    AL
+##  9  2017               Hurricane Harvey    AL
+## 10  2017 Potential Tropical Cyclone Ten    AL
+## 11  2017                 Hurricane Irma    AL
+## 12  2017                 Hurricane Jose    AL
+## 13  2017                Hurricane Katia    AL
+## 14  2017                  Hurricane Lee    AL
+## 15  2017                Hurricane Maria    AL
+## 16  2017          Tropical Storm Adrian    EP
+## 17  2017         Tropical Storm Beatriz    EP
+## 18  2017          Tropical Storm Calvin    EP
+## 19  2017                 Hurricane Dora    EP
+## 20  2017               Hurricane Eugene    EP
+## 21  2017             Hurricane Fernanda    EP
+## 22  2017            Tropical Storm Greg    EP
+## 23  2017    Tropical Depression Eight-E    EP
+## 24  2017               Hurricane Hilary    EP
+## 25  2017                Hurricane Irwin    EP
+## 26  2017   Tropical Depression Eleven-E    EP
+## 27  2017            Tropical Storm Jova    EP
+## 28  2017              Hurricane Kenneth    EP
+## 29  2017           Tropical Storm Lidia    EP
+## 30  2017                 Hurricane Otis    EP
+## 31  2017                  Hurricane Max    EP
+## 32  2017                Hurricane Norma    EP
+## 33  2017           Tropical Storm Pilar    EP
+## # ... with 1 more variables: Link &amp;lt;chr&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Function &lt;code&gt;get_storms&lt;/code&gt; returns four variables:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Year - year of the cyclone.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Name - name of the cyclone.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Basin - basin the cyclone developed (AL for Atlantic, EP for east Pacific).&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Link - URL to the cyclone&amp;rsquo;s archive page.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The variables &lt;code&gt;Name&lt;/code&gt; and &lt;code&gt;Link&lt;/code&gt; are the only variables that could potentially change. For example, you&amp;rsquo;ll notice a &lt;code&gt;Name&lt;/code&gt; value of &lt;u&gt;Potential Tropical Cyclone Ten&lt;/u&gt;. If this storm became a tropical storm then it would receive a new name and the link to the archive page would change as well.&lt;/p&gt;
+
+&lt;p&gt;For this example we will explore &lt;u&gt;Hurricane Harvey&lt;/u&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;text-products&#34;&gt;Text Products&lt;/h3&gt;
+
+&lt;h4 id=&#34;current-data&#34;&gt;Current Data&lt;/h4&gt;
+
+&lt;p&gt;Once we have identified the storms we want to retrieve we can begin working on getting the products. In the earlier discussion of the available products, recall I used abbreviations such as &lt;code&gt;discus&lt;/code&gt;, &lt;code&gt;fstadv&lt;/code&gt;, etc. These are the terms we will use when obtaining data.&lt;/p&gt;
+
+&lt;p&gt;The easiest method to getting storm data is the function &lt;code&gt;get_storm_data&lt;/code&gt;. This function can take multiple storm archive URLs and return multiple datasets within a list.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ds &amp;lt;- get_storms() %&amp;gt;%
+  filter(Name == &amp;quot;Hurricane Harvey&amp;quot;) %&amp;gt;%
+  pull(Link) %&amp;gt;%
+  get_storm_data(products = c(&amp;quot;discus&amp;quot;, &amp;quot;fstadv&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This process may take some time (particularly, &lt;code&gt;fstadv&lt;/code&gt; products). This is because the NHC website allows no more than 80 connections every 10 seconds. &lt;code&gt;rrricanes&lt;/code&gt; processes four links every half second.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;rrricanes&lt;/code&gt; uses the &lt;code&gt;dplyr&lt;/code&gt; progress bar to keep you informed of the status. You can turn this off by setting option &lt;code&gt;dplyr.show_progress&lt;/code&gt; to FALSE.&lt;/p&gt;
+
+&lt;p&gt;An additional option is &lt;code&gt;rrricanes.working_msg&lt;/code&gt;; FALSE by default. This option will show a message for each advisory currently being worked. I primarily added it to help find products causing problems but you may find it useful at some point.&lt;/p&gt;
+
+&lt;p&gt;At this point, we have a list - &lt;code&gt;ds&lt;/code&gt; - of dataframes. Each dataframe is named after the product.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;names(ds)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;discus&amp;quot; &amp;quot;fstadv&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;discus&lt;/code&gt; is one of the products that isn&amp;rsquo;t parsed; the full text of the product is returned.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;str(ds$discus)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:	43 obs. of  6 variables:
+##  $ Status  : chr  &amp;quot;Potential Tropical Cyclone&amp;quot; &amp;quot;Tropical Storm&amp;quot; &amp;quot;Tropical Storm&amp;quot; &amp;quot;Tropical Storm&amp;quot; ...
+##  $ Name    : chr  &amp;quot;Nine&amp;quot; &amp;quot;Harvey&amp;quot; &amp;quot;Harvey&amp;quot; &amp;quot;Harvey&amp;quot; ...
+##  $ Adv     : num  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Date    : POSIXct, format: &amp;quot;2017-08-17 15:00:00&amp;quot; &amp;quot;2017-08-17 21:00:00&amp;quot; ...
+##  $ Key     : chr  &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; ...
+##  $ Contents: chr  &amp;quot;\nZCZC MIATCDAT4 ALL\nTTAA00 KNHC DDHHMM\n\nPotential Tropical Cyclone Nine Discussion Number   1\nNWS National&amp;quot;| __truncated__ &amp;quot;\nZCZC MIATCDAT4 ALL\nTTAA00 KNHC DDHHMM\n\nTropical Storm Harvey Discussion Number   2\nNWS National Hurricane&amp;quot;| __truncated__ &amp;quot;\nZCZC MIATCDAT4 ALL\nTTAA00 KNHC DDHHMM\n\nTropical Storm Harvey Discussion Number   3\nNWS National Hurricane&amp;quot;| __truncated__ &amp;quot;\nZCZC MIATCDAT4 ALL\nTTAA00 KNHC DDHHMM\n\nTropical Storm Harvey Discussion Number   4\nNWS National Hurricane&amp;quot;| __truncated__ ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The &lt;code&gt;fstadv&lt;/code&gt; dataframes, however, are parsed and contain the bulk of the information for the storm.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;str(ds$fstadv)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:	43 obs. of  117 variables:
+##  $ Status       : chr  &amp;quot;Potential Tropical Cyclone&amp;quot; &amp;quot;Tropical Storm&amp;quot; &amp;quot;Tropical Storm&amp;quot; &amp;quot;Tropical Storm&amp;quot; ...
+##  $ Name         : chr  &amp;quot;Nine&amp;quot; &amp;quot;Harvey&amp;quot; &amp;quot;Harvey&amp;quot; &amp;quot;Harvey&amp;quot; ...
+##  $ Adv          : num  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Date         : POSIXct, format: &amp;quot;2017-08-17 15:00:00&amp;quot; &amp;quot;2017-08-17 21:00:00&amp;quot; ...
+##  $ Key          : chr  &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; ...
+##  $ Lat          : num  13.1 13 13 13.1 13.1 13.4 13.7 13.8 13.9 14.1 ...
+##  $ Lon          : num  -54.1 -55.8 -57.4 -59.1 -61.3 -62.9 -64.1 -65.9 -68.1 -70 ...
+##  $ Wind         : num  30 35 35 35 35 35 35 35 35 30 ...
+##  $ Gust         : num  40 45 45 45 45 45 45 45 45 40 ...
+##  $ Pressure     : num  1008 1004 1005 1004 1005 ...
+##  $ PosAcc       : num  30 30 30 30 30 40 40 30 30 30 ...
+##  $ FwdDir       : num  270 270 270 270 270 275 275 275 275 275 ...
+##  $ FwdSpeed     : num  15 16 16 16 18 18 16 18 19 19 ...
+##  $ Eye          : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ SeasNE       : num  NA 60 60 60 75 150 60 60 45 NA ...
+##  $ SeasSE       : num  NA 0 0 0 0 0 0 0 0 NA ...
+##  $ SeasSW       : num  NA 0 0 0 0 0 0 0 0 NA ...
+##  $ SeasNW       : num  NA 60 60 60 60 60 45 60 45 NA ...
+##  $ NE64         : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ SE64         : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ SW64         : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ NW64         : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ NE50         : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ SE50         : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ SW50         : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ NW50         : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ NE34         : num  NA 30 50 50 60 60 60 60 0 NA ...
+##  $ SE34         : num  NA 0 0 0 0 0 0 0 0 NA ...
+##  $ SW34         : num  NA 0 0 0 0 0 0 0 0 NA ...
+##  $ NW34         : num  NA 30 50 50 60 60 60 60 60 NA ...
+##  $ Hr12FcstDate : POSIXct, format: &amp;quot;2017-08-18 00:00:00&amp;quot; &amp;quot;2017-08-18 06:00:00&amp;quot; ...
+##  $ Hr12Lat      : num  13.1 13.1 13.2 13.2 13.3 13.6 14 14 14.1 14.3 ...
+##  $ Hr12Lon      : num  -56.4 -58.3 -59.9 -61.7 -63.8 -65.7 -66.8 -68.7 -70.9 -73 ...
+##  $ Hr12Wind     : num  30 35 35 35 35 35 35 35 35 30 ...
+##  $ Hr12Gust     : num  40 45 45 45 45 45 45 45 45 40 ...
+##  $ Hr12NE64     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr12SE64     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr12SW64     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr12NW64     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr12NE50     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr12SE50     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr12SW50     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr12NW50     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr12NE34     : num  NA 30 50 50 60 60 60 60 60 NA ...
+##  $ Hr12SE34     : num  NA 0 0 0 0 0 0 0 0 NA ...
+##  $ Hr12SW34     : num  NA 0 0 0 0 0 0 0 0 NA ...
+##  $ Hr12NW34     : num  NA 30 50 50 60 60 60 60 60 NA ...
+##  $ Hr24FcstDate : POSIXct, format: &amp;quot;2017-08-18 12:00:00&amp;quot; &amp;quot;2017-08-18 18:00:00&amp;quot; ...
+##  $ Hr24Lat      : num  13.2 13.4 13.6 13.5 13.6 13.9 14.3 14.3 14.4 14.6 ...
+##  $ Hr24Lon      : num  -59.8 -61.6 -63.3 -65.2 -67.3 -69.3 -70.4 -72.7 -74.9 -77 ...
+##  $ Hr24Wind     : num  35 40 40 40 40 40 40 40 40 35 ...
+##  $ Hr24Gust     : num  45 50 50 50 50 50 50 50 50 45 ...
+##  $ Hr24NE64     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr24SE64     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr24SW64     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr24NW64     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr24NE50     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr24SE50     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr24SW50     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr24NW50     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr24NE34     : num  50 40 50 50 60 60 60 60 60 60 ...
+##  $ Hr24SE34     : num  0 0 0 0 30 0 0 0 0 0 ...
+##  $ Hr24SW34     : num  0 0 0 0 30 0 0 0 0 0 ...
+##  $ Hr24NW34     : num  50 40 50 50 60 60 60 60 60 60 ...
+##  $ Hr36FcstDate : POSIXct, format: &amp;quot;2017-08-19 00:00:00&amp;quot; &amp;quot;2017-08-19 06:00:00&amp;quot; ...
+##  $ Hr36Lat      : num  13.5 13.7 13.9 13.9 14 14.2 14.5 14.6 14.9 15.2 ...
+##  $ Hr36Lon      : num  -63.2 -65.1 -67 -68.8 -71.1 -73 -74.3 -76.7 -78.7 -80.5 ...
+##  $ Hr36Wind     : num  40 45 45 40 40 40 40 45 45 40 ...
+##  $ Hr36Gust     : num  50 55 55 50 50 50 50 55 55 50 ...
+##  $ Hr36NE64     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr36SE64     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr36SW64     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr36NW64     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr36NE50     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr36SE50     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr36SW50     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr36NW50     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ Hr36NE34     : num  60 60 60 60 60 60 60 70 70 60 ...
+##  $ Hr36SE34     : num  0 30 30 30 30 0 0 0 0 0 ...
+##  $ Hr36SW34     : num  0 30 30 30 30 0 0 0 0 0 ...
+##  $ Hr36NW34     : num  60 60 60 60 60 60 60 70 70 60 ...
+##  $ Hr48FcstDate : POSIXct, format: &amp;quot;2017-08-19 12:00:00&amp;quot; &amp;quot;2017-08-19 18:00:00&amp;quot; ...
+##  $ Hr48Lat      : num  13.9 14 14.1 14.1 14.3 14.5 14.8 15.2 15.7 16 ...
+##  $ Hr48Lon      : num  -66.7 -68.8 -70.9 -72.7 -75 -76.7 -78.1 -80.1 -82.4 -83.8 ...
+##  $ Hr48Wind     : num  45 45 50 50 50 45 45 50 50 45 ...
+##  $ Hr48Gust     : num  55 55 60 60 60 55 55 60 60 55 ...
+##  $ Hr48NE50     : num  NA NA 30 30 30 NA NA 30 30 NA ...
+##  $ Hr48SE50     : num  NA NA 0 0 0 NA NA 0 0 NA ...
+##  $ Hr48SW50     : num  NA NA 0 0 0 NA NA 0 0 NA ...
+##  $ Hr48NW50     : num  NA NA 30 30 30 NA NA 30 30 NA ...
+##  $ Hr48NE34     : num  60 60 60 60 70 60 60 90 90 70 ...
+##  $ Hr48SE34     : num  30 30 30 30 30 30 0 50 50 0 ...
+##  $ Hr48SW34     : num  30 30 30 30 30 30 0 40 40 0 ...
+##  $ Hr48NW34     : num  60 60 60 60 70 60 60 70 70 70 ...
+##  $ Hr72FcstDate : POSIXct, format: &amp;quot;2017-08-20 12:00:00&amp;quot; &amp;quot;2017-08-20 18:00:00&amp;quot; ...
+##  $ Hr72Lat      : num  14.5 14.5 14.8 15 15 15.5 16.5 17 17.5 18 ...
+##  $ Hr72Lon      : num  -74.5 -76.5 -78.6 -80.2 -82 -83.5 -84.7 -86.5 -88 -89 ...
+##  $ Hr72Wind     : num  55 55 60 60 60 60 55 55 60 45 ...
+##  $ Hr72Gust     : num  65 65 75 75 75 75 65 65 75 55 ...
+##   [list output truncated]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Each product can also be accessed on its own. For example, if you only wish to view &lt;code&gt;discus&lt;/code&gt; products, use the &lt;code&gt;get_discus&lt;/code&gt; function. &lt;code&gt;fstadv&lt;/code&gt; products can be accessed with &lt;code&gt;get_fstadv&lt;/code&gt;. Every products specific function is preceeded by &lt;code&gt;get_&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To understand the variable definitions, access the help file for each of these functions (i.e., &lt;code&gt;?get_fstadv&lt;/code&gt;). They contain full definitions on the variables and their purpose.&lt;/p&gt;
+
+&lt;p&gt;As you can see, the &lt;code&gt;fstadv&lt;/code&gt; dataframe is very wide. There may be instances you only want to focus on specific pieces of the product. I&amp;rsquo;ve developed tidy functions to help trim these datasets:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;tidy_fcst&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;tidy_fcst_wr&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;tidy_fstadv&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;tidy_wr&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These datasets exist in &lt;code&gt;rrricanesdata&lt;/code&gt; as &lt;code&gt;fcst&lt;/code&gt;, &lt;code&gt;fcst_wr&lt;/code&gt;, &lt;code&gt;adv&lt;/code&gt;, and &lt;code&gt;wr&lt;/code&gt;, respectively (see below).&lt;/p&gt;
+
+&lt;p&gt;Most tropical cyclone forecast/advisory products will contain multiple forecast points. Initially, only three-day forecasts were issued. Beginning the with the 2003 season, 96 hour (five-day) forecasts were issued.&lt;/p&gt;
+
+&lt;p&gt;If a storm is not expected to survive the full forecast period, then only relevant forecasts will be issued.&lt;/p&gt;
+
+&lt;p&gt;We use &lt;code&gt;tidy_fcst&lt;/code&gt; to return these forecast points in a tidy fashion from &lt;code&gt;fstadv&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;str(tidy_fcst(ds$fstadv))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:	283 obs. of  8 variables:
+##  $ Key     : chr  &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; ...
+##  $ Adv     : num  1 1 1 1 1 1 1 2 2 2 ...
+##  $ Date    : POSIXct, format: &amp;quot;2017-08-17 15:00:00&amp;quot; &amp;quot;2017-08-17 15:00:00&amp;quot; ...
+##  $ FcstDate: POSIXct, format: &amp;quot;2017-08-18 00:00:00&amp;quot; &amp;quot;2017-08-18 12:00:00&amp;quot; ...
+##  $ Lat     : num  13.1 13.2 13.5 13.9 14.5 15.5 17 13.1 13.4 13.7 ...
+##  $ Lon     : num  -56.4 -59.8 -63.2 -66.7 -74.5 -82 -87.5 -58.3 -61.6 -65.1 ...
+##  $ Wind    : num  30 35 40 45 55 65 65 35 40 45 ...
+##  $ Gust    : num  40 45 50 55 65 80 80 45 50 55 ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Wind radius values are issued with parameters of 34, 50 and 64. These values are the radius to which minimum one-minute sustained winds can be expected or exist.&lt;/p&gt;
+
+&lt;p&gt;A tropical depression will not have associated wind radius values since the maximum winds of a depression are 30 knots. If a tropical storm has winds less than 50 knots, then it will only have wind radius values for the 34-knot wind field. If winds are greater than 50 knots, then it will have wind radius values for 34 and 50 knot winds. A hurricane will have all wind radius fields.&lt;/p&gt;
+
+&lt;p&gt;Wind radius values are further seperated by quadrant; NE (northeast), SE, SW and NW. Not all quadrants will have values; particularly if the cyclone is struggling to organize. For example, you will often find a minimal hurricane only has hurricane-force winds (64 knots) in the northeast quadrant.&lt;/p&gt;
+
+&lt;p&gt;When appropriate, a forecast/advisory product will contain these values for the current position and for each forecast position. Use &lt;code&gt;tidy_wr&lt;/code&gt; and &lt;code&gt;tidy_fcst_wr&lt;/code&gt;, respectively, for these variables.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;str(tidy_wr(ds$fstadv))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:	56 obs. of  8 variables:
+##  $ Key      : chr  &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; ...
+##  $ Adv      : num  2 3 4 5 6 7 8 9 15 16 ...
+##  $ Date     : POSIXct, format: &amp;quot;2017-08-17 21:00:00&amp;quot; &amp;quot;2017-08-18 03:00:00&amp;quot; ...
+##  $ WindField: num  34 34 34 34 34 34 34 34 34 34 ...
+##  $ NE       : num  30 50 50 60 60 60 60 0 100 80 ...
+##  $ SE       : num  0 0 0 0 0 0 0 0 0 30 ...
+##  $ SW       : num  0 0 0 0 0 0 0 0 0 20 ...
+##  $ NW       : num  30 50 50 60 60 60 60 60 50 50 ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;str(tidy_fcst_wr(ds$fstadv))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:	246 obs. of  9 variables:
+##  $ Key      : chr  &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; ...
+##  $ Adv      : num  1 1 1 1 1 2 2 2 2 2 ...
+##  $ Date     : POSIXct, format: &amp;quot;2017-08-17 15:00:00&amp;quot; &amp;quot;2017-08-17 15:00:00&amp;quot; ...
+##  $ FcstDate : POSIXct, format: &amp;quot;2017-08-18 12:00:00&amp;quot; &amp;quot;2017-08-19 00:00:00&amp;quot; ...
+##  $ WindField: num  34 34 34 34 50 34 34 34 34 34 ...
+##  $ NE       : num  50 60 60 80 30 30 40 60 60 80 ...
+##  $ SE       : num  0 0 30 40 0 0 0 30 30 40 ...
+##  $ SW       : num  0 0 30 40 0 0 0 30 30 40 ...
+##  $ NW       : num  50 60 60 80 30 30 40 60 60 80 ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Lastly, you may only want to focus on current storm details. For this, we use &lt;code&gt;tidy_fstadv&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;str(tidy_fstadv(ds$fstadv))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:	43 obs. of  18 variables:
+##  $ Key     : chr  &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; &amp;quot;AL092017&amp;quot; ...
+##  $ Adv     : num  1 2 3 4 5 6 7 8 9 10 ...
+##  $ Date    : POSIXct, format: &amp;quot;2017-08-17 15:00:00&amp;quot; &amp;quot;2017-08-17 21:00:00&amp;quot; ...
+##  $ Status  : chr  &amp;quot;Potential Tropical Cyclone&amp;quot; &amp;quot;Tropical Storm&amp;quot; &amp;quot;Tropical Storm&amp;quot; &amp;quot;Tropical Storm&amp;quot; ...
+##  $ Name    : chr  &amp;quot;Nine&amp;quot; &amp;quot;Harvey&amp;quot; &amp;quot;Harvey&amp;quot; &amp;quot;Harvey&amp;quot; ...
+##  $ Lat     : num  13.1 13 13 13.1 13.1 13.4 13.7 13.8 13.9 14.1 ...
+##  $ Lon     : num  -54.1 -55.8 -57.4 -59.1 -61.3 -62.9 -64.1 -65.9 -68.1 -70 ...
+##  $ Wind    : num  30 35 35 35 35 35 35 35 35 30 ...
+##  $ Gust    : num  40 45 45 45 45 45 45 45 45 40 ...
+##  $ Pressure: num  1008 1004 1005 1004 1005 ...
+##  $ PosAcc  : num  30 30 30 30 30 40 40 30 30 30 ...
+##  $ FwdDir  : num  270 270 270 270 270 275 275 275 275 275 ...
+##  $ FwdSpeed: num  15 16 16 16 18 18 16 18 19 19 ...
+##  $ Eye     : num  NA NA NA NA NA NA NA NA NA NA ...
+##  $ SeasNE  : num  NA 60 60 60 75 150 60 60 45 NA ...
+##  $ SeasSE  : num  NA 0 0 0 0 0 0 0 0 NA ...
+##  $ SeasSW  : num  NA 0 0 0 0 0 0 0 0 NA ...
+##  $ SeasNW  : num  NA 60 60 60 60 60 45 60 45 NA ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In release 0.2.1, &lt;code&gt;tidy_fstadv&lt;/code&gt; will be renamed to &lt;code&gt;tidy_adv&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;One final note on the data: all speed variables are measured in knots, distance variables in nautical miles, and pressure variables in millibars. Functions &lt;code&gt;knots_to_mph&lt;/code&gt; and &lt;code&gt;mb_to_in&lt;/code&gt; are available for speed/pressure conversions. Function &lt;code&gt;nm_to_sm&lt;/code&gt; to convert nautical miles to survey miles will be included in release 0.2.1.&lt;/p&gt;
+
+&lt;h4 id=&#34;archived-data&#34;&gt;Archived Data&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;rrricanesdata&lt;/code&gt; was built to make it easier to get pre-processed datasets. As mentioned earlier, &lt;code&gt;rrricanesdata&lt;/code&gt; will be updated the first of every month if any advisory was issued for the previous month. (As I am now writing this portion in September, all of Hurricane Harvey&amp;rsquo;s advisories - the last one issued the morning of August 31 - exist in &lt;code&gt;rrricanesdata&lt;/code&gt; release 0.0.1.4.)&lt;/p&gt;
+
+&lt;p&gt;As with &lt;code&gt;rrricanes&lt;/code&gt;, &lt;code&gt;rrricanesdata&lt;/code&gt; is not available in CRAN (nor will be due to size limitations).&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ll load all datasets with the call:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(rrricanesdata)
+data(list = data(package = &amp;quot;rrricanesdata&amp;quot;)$results[,3])
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All core product datasets are available. The dataframes &lt;code&gt;adv&lt;/code&gt;, &lt;code&gt;fcst&lt;/code&gt;, &lt;code&gt;fcst_wr&lt;/code&gt; and &lt;code&gt;wr&lt;/code&gt; are the dataframes created by &lt;code&gt;tidy_fstadv&lt;/code&gt;, &lt;code&gt;tidy_fcst&lt;/code&gt;, &lt;code&gt;tidy_fcst_wr&lt;/code&gt; and &lt;code&gt;tidy_wr&lt;/code&gt;, respectively.&lt;/p&gt;
+
+&lt;h3 id=&#34;tracking-charts&#34;&gt;Tracking Charts&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;rrricanes&lt;/code&gt; also comes with helper functions to quickly generate tracking charts. These charts use &lt;code&gt;rnaturalearthdata&lt;/code&gt; (for high resolution maps, use package &lt;code&gt;rnaturalearthhires&lt;/code&gt;). These charts are not required - &lt;a href=&#34;https://twitter.com/hrbrmstr/status/900762714477350913&#34;&gt;Bob Rudis demonstrates&lt;/a&gt; demonstrates succintly - so feel free to experiment.&lt;/p&gt;
+
+&lt;p&gt;You can generate a default plot for the entire globe with &lt;code&gt;tracking_chart&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;tracking_chart()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-11-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;You may find this handy when examining cyclones that cross basins (from the Atlantic to east Pacific such as Hurricane Otto, 2016).&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;tracking_chart&lt;/code&gt; takes three parameters (in addition to dots for other &lt;code&gt;ggplot&lt;/code&gt; calls):&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;countries&lt;/code&gt; - By default, show country borders&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;states&lt;/code&gt; - By default, show state borders&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;res&lt;/code&gt; - resolution; default is 110nm.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We do not see countries and states in the map above because of the ggplot defaults. Let&amp;rsquo;s try it again:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;tracking_chart(color = &amp;quot;black&amp;quot;, size = 0.1, fill = &amp;quot;white&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-12-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We can &amp;ldquo;zoom in&amp;rdquo; on each basin with helper functions &lt;code&gt;al_tracking_chart&lt;/code&gt; and &lt;code&gt;ep_tracking_chart&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;al_tracking_chart(color = &amp;quot;black&amp;quot;, size = 0.1, fill = &amp;quot;white&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-13-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ep_tracking_chart(color = &amp;quot;black&amp;quot;, size = 0.1, fill = &amp;quot;white&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-14-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;gis-data&#34;&gt;GIS Data&lt;/h3&gt;
+
+&lt;p&gt;GIS data exists for some cyclones and varies by year. This is a relatively new archive by the NHC and is inconsistent from storm to storm.&lt;/p&gt;
+
+&lt;p&gt;The &amp;ldquo;gis&amp;rdquo; functions are as follows:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;gis_advisory&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;gis_latest&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;gis_prob_storm_surge&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;gis_windfield&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;gis_wsp&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Another area of inconsistency with these products is how they are organized. For example, &lt;code&gt;gis_advisory&lt;/code&gt;, &lt;code&gt;gis_prob_storm_surge&lt;/code&gt; and &lt;code&gt;gis_windfield&lt;/code&gt; can be retrieved with a storm &lt;code&gt;Key&lt;/code&gt; (unique identifier for every cyclone; see &lt;code&gt;fstadv$Key&lt;/code&gt;). Except for &lt;code&gt;gis_prob_storm_surge&lt;/code&gt;, you can even pass an advisory number (see &lt;code&gt;fstadv$Adv&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;gis_wsp&lt;/code&gt; requires a datetime value; to access a specific GIS package for a storm&amp;rsquo;s advisory you would need to use a variable such as &lt;code&gt;fstadv$Date&lt;/code&gt;, subtract three hours and convert to &amp;ldquo;%Y%m%d%H&amp;rdquo; format (&amp;ldquo;%m&amp;rdquo;, &amp;ldquo;%d&amp;rdquo;, and &amp;ldquo;%H&amp;rdquo; are optional).&lt;/p&gt;
+
+&lt;p&gt;All above functions only return URL&amp;rsquo;s to their respective datasets. This was done to allow you to validate the quantity of datasets you wish to retrieve as, in some cases, the dataset may not exist at all or there may be several available. Use &lt;code&gt;gis_download&lt;/code&gt; with the requested URL&amp;rsquo;s to retrieve your datasets.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s go through each of these. First, let&amp;rsquo;s get the &lt;code&gt;Key&lt;/code&gt; of Hurricane Harvey:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Remember that ds already and only contains data for Hurricane Harvey
+key &amp;lt;- ds$fstadv %&amp;gt;% pull(Key) %&amp;gt;% first()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;gis-advisory&#34;&gt;gis_advisory&lt;/h4&gt;
+
+&lt;p&gt;&lt;code&gt;gis_advisory&lt;/code&gt; returns a dataset package containing past and forecast plot points and lines, a forecast cone (area representing where the cyclone could track), wind radius data and current watches and warnings.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;gis_advisory&lt;/code&gt; takes two parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;Key&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;advisory&lt;/code&gt; (optional)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If we leave out advisory we get all related datasets for Hurricane Harvey:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;x &amp;lt;- gis_advisory(key = key)
+length(x)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] 77
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(x, n = 5L)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;http://www.nhc.noaa.gov/gis/forecast/archive/al092017_5day_001.zip&amp;quot;
+## [2] &amp;quot;http://www.nhc.noaa.gov/gis/forecast/archive/al092017_5day_001A.zip&amp;quot;
+## [3] &amp;quot;http://www.nhc.noaa.gov/gis/forecast/archive/al092017_5day_002.zip&amp;quot;
+## [4] &amp;quot;http://www.nhc.noaa.gov/gis/forecast/archive/al092017_5day_002A.zip&amp;quot;
+## [5] &amp;quot;http://www.nhc.noaa.gov/gis/forecast/archive/al092017_5day_003.zip&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As you can see, there is quite a bit (and why the core gis functions only return URLs rather than the actual datasets). Let&amp;rsquo;s trim this down a bit. Sneaking a peek (&lt;a href=&#34;http://www.nhc.noaa.gov/archive/2017/HARVEY_graphics.php?product=5day_cone_with_line_and_wind&#34;&gt;cheating&lt;/a&gt;) I find advisory 19 seems a good choice.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;gis_advisory(key = key, advisory = 19)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;http://www.nhc.noaa.gov/gis/forecast/archive/al092017_5day_019.zip&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Good; there is a data package available for this advisory. Once you have confirmed the package you want to retrieve, use &lt;code&gt;gis_download&lt;/code&gt; to get the data.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;gis &amp;lt;- gis_advisory(key = key, advisory = 19) %&amp;gt;%
+  gis_download()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## OGR data source with driver: ESRI Shapefile
+## Source: &amp;quot;/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//Rtmp1wYg2x&amp;quot;, layer: &amp;quot;al092017-019_5day_lin&amp;quot;
+## with 1 features
+## It has 7 fields
+## OGR data source with driver: ESRI Shapefile
+## Source: &amp;quot;/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//Rtmp1wYg2x&amp;quot;, layer: &amp;quot;al092017-019_5day_pgn&amp;quot;
+## with 1 features
+## It has 7 fields
+## OGR data source with driver: ESRI Shapefile
+## Source: &amp;quot;/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//Rtmp1wYg2x&amp;quot;, layer: &amp;quot;al092017-019_5day_pts&amp;quot;
+## with 8 features
+## It has 23 fields
+## OGR data source with driver: ESRI Shapefile
+## Source: &amp;quot;/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//Rtmp1wYg2x&amp;quot;, layer: &amp;quot;al092017-019_ww_wwlin&amp;quot;
+## with 5 features
+## It has 8 fields
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let&amp;rsquo;s see what we have.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;str(gis)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## List of 4
+##  $ al092017_019_5day_lin:Formal class &#39;SpatialLinesDataFrame&#39; [package &amp;quot;sp&amp;quot;] with 4 slots
+##   .. ..@ data       :&#39;data.frame&#39;:	1 obs. of  7 variables:
+##   .. .. ..$ STORMNAME: chr &amp;quot;Harvey&amp;quot;
+##   .. .. ..$ STORMTYPE: chr &amp;quot;HU&amp;quot;
+##   .. .. ..$ ADVDATE  : chr &amp;quot;1000 PM CDT Thu Aug 24 2017&amp;quot;
+##   .. .. ..$ ADVISNUM : chr &amp;quot;19&amp;quot;
+##   .. .. ..$ STORMNUM : num 9
+##   .. .. ..$ FCSTPRD  : num 120
+##   .. .. ..$ BASIN    : chr &amp;quot;AL&amp;quot;
+##   .. ..@ lines      :List of 1
+##   .. .. ..$ :Formal class &#39;Lines&#39; [package &amp;quot;sp&amp;quot;] with 2 slots
+##   .. .. .. .. ..@ Lines:List of 1
+##   .. .. .. .. .. ..$ :Formal class &#39;Line&#39; [package &amp;quot;sp&amp;quot;] with 1 slot
+##   .. .. .. .. .. .. .. ..@ coords: num [1:8, 1:2] -94.6 -95.6 -96.5 -97.1 -97.3 -97.5 -97 -95 25.2 26.1 ...
+##   .. .. .. .. ..@ ID   : chr &amp;quot;0&amp;quot;
+##   .. ..@ bbox       : num [1:2, 1:2] -97.5 25.2 -94.6 29.5
+##   .. .. ..- attr(*, &amp;quot;dimnames&amp;quot;)=List of 2
+##   .. .. .. ..$ : chr [1:2] &amp;quot;x&amp;quot; &amp;quot;y&amp;quot;
+##   .. .. .. ..$ : chr [1:2] &amp;quot;min&amp;quot; &amp;quot;max&amp;quot;
+##   .. ..@ proj4string:Formal class &#39;CRS&#39; [package &amp;quot;sp&amp;quot;] with 1 slot
+##   .. .. .. ..@ projargs: chr &amp;quot;+proj=longlat +a=6371200 +b=6371200 +no_defs&amp;quot;
+##  $ al092017_019_5day_pgn:Formal class &#39;SpatialPolygonsDataFrame&#39; [package &amp;quot;sp&amp;quot;] with 5 slots
+##   .. ..@ data       :&#39;data.frame&#39;:	1 obs. of  7 variables:
+##   .. .. ..$ STORMNAME: chr &amp;quot;Harvey&amp;quot;
+##   .. .. ..$ STORMTYPE: chr &amp;quot;HU&amp;quot;
+##   .. .. ..$ ADVDATE  : chr &amp;quot;1000 PM CDT Thu Aug 24 2017&amp;quot;
+##   .. .. ..$ ADVISNUM : chr &amp;quot;19&amp;quot;
+##   .. .. ..$ STORMNUM : num 9
+##   .. .. ..$ FCSTPRD  : num 120
+##   .. .. ..$ BASIN    : chr &amp;quot;AL&amp;quot;
+##   .. ..@ polygons   :List of 1
+##   .. .. ..$ :Formal class &#39;Polygons&#39; [package &amp;quot;sp&amp;quot;] with 5 slots
+##   .. .. .. .. ..@ Polygons :List of 1
+##   .. .. .. .. .. ..$ :Formal class &#39;Polygon&#39; [package &amp;quot;sp&amp;quot;] with 5 slots
+##   .. .. .. .. .. .. .. ..@ labpt  : num [1:2] -95.4 29.2
+##   .. .. .. .. .. .. .. ..@ area   : num 51.7
+##   .. .. .. .. .. .. .. ..@ hole   : logi FALSE
+##   .. .. .. .. .. .. .. ..@ ringDir: int 1
+##   .. .. .. .. .. .. .. ..@ coords : num [1:1482, 1:2] -94.6 -94.7 -94.7 -94.7 -94.7 ...
+##   .. .. .. .. ..@ plotOrder: int 1
+##   .. .. .. .. ..@ labpt    : num [1:2] -95.4 29.2
+##   .. .. .. .. ..@ ID       : chr &amp;quot;0&amp;quot;
+##   .. .. .. .. ..@ area     : num 51.7
+##   .. ..@ plotOrder  : int 1
+##   .. ..@ bbox       : num [1:2, 1:2] -100 24.9 -91 33
+##   .. .. ..- attr(*, &amp;quot;dimnames&amp;quot;)=List of 2
+##   .. .. .. ..$ : chr [1:2] &amp;quot;x&amp;quot; &amp;quot;y&amp;quot;
+##   .. .. .. ..$ : chr [1:2] &amp;quot;min&amp;quot; &amp;quot;max&amp;quot;
+##   .. ..@ proj4string:Formal class &#39;CRS&#39; [package &amp;quot;sp&amp;quot;] with 1 slot
+##   .. .. .. ..@ projargs: chr &amp;quot;+proj=longlat +a=6371200 +b=6371200 +no_defs&amp;quot;
+##  $ al092017_019_5day_pts:Formal class &#39;SpatialPointsDataFrame&#39; [package &amp;quot;sp&amp;quot;] with 5 slots
+##   .. ..@ data       :&#39;data.frame&#39;:	8 obs. of  23 variables:
+##   .. .. ..$ ADVDATE  : chr [1:8] &amp;quot;1000 PM CDT Thu Aug 24 2017&amp;quot; &amp;quot;1000 PM CDT Thu Aug 24 2017&amp;quot; &amp;quot;1000 PM CDT Thu Aug 24 2017&amp;quot; &amp;quot;1000 PM CDT Thu Aug 24 2017&amp;quot; ...
+##   .. .. ..$ ADVISNUM : chr [1:8] &amp;quot;19&amp;quot; &amp;quot;19&amp;quot; &amp;quot;19&amp;quot; &amp;quot;19&amp;quot; ...
+##   .. .. ..$ BASIN    : chr [1:8] &amp;quot;AL&amp;quot; &amp;quot;AL&amp;quot; &amp;quot;AL&amp;quot; &amp;quot;AL&amp;quot; ...
+##   .. .. ..$ DATELBL  : chr [1:8] &amp;quot;10:00 PM Thu&amp;quot; &amp;quot;7:00 AM Fri&amp;quot; &amp;quot;7:00 PM Fri&amp;quot; &amp;quot;7:00 AM Sat&amp;quot; ...
+##   .. .. ..$ DVLBL    : chr [1:8] &amp;quot;H&amp;quot; &amp;quot;H&amp;quot; &amp;quot;M&amp;quot; &amp;quot;M&amp;quot; ...
+##   .. .. ..$ FCSTPRD  : num [1:8] 120 120 120 120 120 120 120 120
+##   .. .. ..$ FLDATELBL: chr [1:8] &amp;quot;2017-08-24 7:00 PM Thu CDT&amp;quot; &amp;quot;2017-08-25 7:00 AM Fri CDT&amp;quot; &amp;quot;2017-08-25 7:00 PM Fri CDT&amp;quot; &amp;quot;2017-08-26 7:00 AM Sat CDT&amp;quot; ...
+##   .. .. ..$ GUST     : num [1:8] 90 115 135 120 85 45 45 45
+##   .. .. ..$ LAT      : num [1:8] 25.2 26.1 27.2 28.1 28.6 28.5 28.5 29.5
+##   .. .. ..$ LON      : num [1:8] -94.6 -95.6 -96.5 -97.1 -97.3 -97.5 -97 -95
+##   .. .. ..$ MAXWIND  : num [1:8] 75 95 110 100 70 35 35 35
+##   .. .. ..$ MSLP     : num [1:8] 973 9999 9999 9999 9999 ...
+##   .. .. ..$ SSNUM    : num [1:8] 1 2 3 3 1 0 0 0
+##   .. .. ..$ STORMNAME: chr [1:8] &amp;quot;Hurricane Harvey&amp;quot; &amp;quot;Hurricane Harvey&amp;quot; &amp;quot;Hurricane Harvey&amp;quot; &amp;quot;Hurricane Harvey&amp;quot; ...
+##   .. .. ..$ STORMNUM : num [1:8] 9 9 9 9 9 9 9 9
+##   .. .. ..$ STORMSRC : chr [1:8] &amp;quot;Tropical Cyclone&amp;quot; &amp;quot;Tropical Cyclone&amp;quot; &amp;quot;Tropical Cyclone&amp;quot; &amp;quot;Tropical Cyclone&amp;quot; ...
+##   .. .. ..$ STORMTYPE: chr [1:8] &amp;quot;HU&amp;quot; &amp;quot;HU&amp;quot; &amp;quot;MH&amp;quot; &amp;quot;MH&amp;quot; ...
+##   .. .. ..$ TCDVLP   : chr [1:8] &amp;quot;Hurricane&amp;quot; &amp;quot;Hurricane&amp;quot; &amp;quot;Major Hurricane&amp;quot; &amp;quot;Major Hurricane&amp;quot; ...
+##   .. .. ..$ TAU      : num [1:8] 0 12 24 36 48 72 96 120
+##   .. .. ..$ TCDIR    : num [1:8] 315 9999 9999 9999 9999 ...
+##   .. .. ..$ TCSPD    : num [1:8] 9 9999 9999 9999 9999 ...
+##   .. .. ..$ TIMEZONE : chr [1:8] &amp;quot;CDT&amp;quot; &amp;quot;CDT&amp;quot; &amp;quot;CDT&amp;quot; &amp;quot;CDT&amp;quot; ...
+##   .. .. ..$ VALIDTIME: chr [1:8] &amp;quot;25/0000&amp;quot; &amp;quot;25/1200&amp;quot; &amp;quot;26/0000&amp;quot; &amp;quot;26/1200&amp;quot; ...
+##   .. ..@ coords.nrs : num(0)
+##   .. ..@ coords     : num [1:8, 1:2] -94.6 -95.6 -96.5 -97.1 -97.3 -97.5 -97 -95 25.2 26.1 ...
+##   .. .. ..- attr(*, &amp;quot;dimnames&amp;quot;)=List of 2
+##   .. .. .. ..$ : NULL
+##   .. .. .. ..$ : chr [1:2] &amp;quot;coords.x1&amp;quot; &amp;quot;coords.x2&amp;quot;
+##   .. ..@ bbox       : num [1:2, 1:2] -97.5 25.2 -94.6 29.5
+##   .. .. ..- attr(*, &amp;quot;dimnames&amp;quot;)=List of 2
+##   .. .. .. ..$ : chr [1:2] &amp;quot;coords.x1&amp;quot; &amp;quot;coords.x2&amp;quot;
+##   .. .. .. ..$ : chr [1:2] &amp;quot;min&amp;quot; &amp;quot;max&amp;quot;
+##   .. ..@ proj4string:Formal class &#39;CRS&#39; [package &amp;quot;sp&amp;quot;] with 1 slot
+##   .. .. .. ..@ projargs: chr &amp;quot;+proj=longlat +a=6371200 +b=6371200 +no_defs&amp;quot;
+##  $ al092017_019_ww_wwlin:Formal class &#39;SpatialLinesDataFrame&#39; [package &amp;quot;sp&amp;quot;] with 4 slots
+##   .. ..@ data       :&#39;data.frame&#39;:	5 obs. of  8 variables:
+##   .. .. ..$ STORMNAME: chr [1:5] &amp;quot;Harvey&amp;quot; &amp;quot;Harvey&amp;quot; &amp;quot;Harvey&amp;quot; &amp;quot;Harvey&amp;quot; ...
+##   .. .. ..$ STORMTYPE: chr [1:5] &amp;quot;HU&amp;quot; &amp;quot;HU&amp;quot; &amp;quot;HU&amp;quot; &amp;quot;HU&amp;quot; ...
+##   .. .. ..$ ADVDATE  : chr [1:5] &amp;quot;1000 PM CDT Thu Aug 24 2017&amp;quot; &amp;quot;1000 PM CDT Thu Aug 24 2017&amp;quot; &amp;quot;1000 PM CDT Thu Aug 24 2017&amp;quot; &amp;quot;1000 PM CDT Thu Aug 24 2017&amp;quot; ...
+##   .. .. ..$ ADVISNUM : chr [1:5] &amp;quot;19&amp;quot; &amp;quot;19&amp;quot; &amp;quot;19&amp;quot; &amp;quot;19&amp;quot; ...
+##   .. .. ..$ STORMNUM : num [1:5] 9 9 9 9 9
+##   .. .. ..$ FCSTPRD  : num [1:5] 120 120 120 120 120
+##   .. .. ..$ BASIN    : chr [1:5] &amp;quot;AL&amp;quot; &amp;quot;AL&amp;quot; &amp;quot;AL&amp;quot; &amp;quot;AL&amp;quot; ...
+##   .. .. ..$ TCWW     : chr [1:5] &amp;quot;TWA&amp;quot; &amp;quot;HWA&amp;quot; &amp;quot;TWR&amp;quot; &amp;quot;TWR&amp;quot; ...
+##   .. ..@ lines      :List of 5
+##   .. .. ..$ :Formal class &#39;Lines&#39; [package &amp;quot;sp&amp;quot;] with 2 slots
+##   .. .. .. .. ..@ Lines:List of 1
+##   .. .. .. .. .. ..$ :Formal class &#39;Line&#39; [package &amp;quot;sp&amp;quot;] with 1 slot
+##   .. .. .. .. .. .. .. ..@ coords: num [1:3, 1:2] -97.7 -97.4 -97.2 24.3 25.2 ...
+##   .. .. .. .. ..@ ID   : chr &amp;quot;0&amp;quot;
+##   .. .. ..$ :Formal class &#39;Lines&#39; [package &amp;quot;sp&amp;quot;] with 2 slots
+##   .. .. .. .. ..@ Lines:List of 1
+##   .. .. .. .. .. ..$ :Formal class &#39;Line&#39; [package &amp;quot;sp&amp;quot;] with 1 slot
+##   .. .. .. .. .. .. .. ..@ coords: num [1:3, 1:2] -97.2 -97.2 -97.3 26 26.1 ...
+##   .. .. .. .. ..@ ID   : chr &amp;quot;1&amp;quot;
+##   .. .. ..$ :Formal class &#39;Lines&#39; [package &amp;quot;sp&amp;quot;] with 2 slots
+##   .. .. .. .. ..@ Lines:List of 1
+##   .. .. .. .. .. ..$ :Formal class &#39;Line&#39; [package &amp;quot;sp&amp;quot;] with 1 slot
+##   .. .. .. .. .. .. .. ..@ coords: num [1:3, 1:2] -97.2 -97.2 -97.3 26 26.1 ...
+##   .. .. .. .. ..@ ID   : chr &amp;quot;2&amp;quot;
+##   .. .. ..$ :Formal class &#39;Lines&#39; [package &amp;quot;sp&amp;quot;] with 2 slots
+##   .. .. .. .. ..@ Lines:List of 1
+##   .. .. .. .. .. ..$ :Formal class &#39;Line&#39; [package &amp;quot;sp&amp;quot;] with 1 slot
+##   .. .. .. .. .. .. .. ..@ coords: num [1:10, 1:2] -95.6 -95.3 -95.1 -95.1 -94.8 ...
+##   .. .. .. .. ..@ ID   : chr &amp;quot;3&amp;quot;
+##   .. .. ..$ :Formal class &#39;Lines&#39; [package &amp;quot;sp&amp;quot;] with 2 slots
+##   .. .. .. .. ..@ Lines:List of 1
+##   .. .. .. .. .. ..$ :Formal class &#39;Line&#39; [package &amp;quot;sp&amp;quot;] with 1 slot
+##   .. .. .. .. .. .. .. ..@ coords: num [1:16, 1:2] -97.3 -97.3 -97.3 -97.4 -97.4 ...
+##   .. .. .. .. ..@ ID   : chr &amp;quot;4&amp;quot;
+##   .. ..@ bbox       : num [1:2, 1:2] -97.7 24.3 -94.4 29.8
+##   .. .. ..- attr(*, &amp;quot;dimnames&amp;quot;)=List of 2
+##   .. .. .. ..$ : chr [1:2] &amp;quot;x&amp;quot; &amp;quot;y&amp;quot;
+##   .. .. .. ..$ : chr [1:2] &amp;quot;min&amp;quot; &amp;quot;max&amp;quot;
+##   .. ..@ proj4string:Formal class &#39;CRS&#39; [package &amp;quot;sp&amp;quot;] with 1 slot
+##   .. .. .. ..@ projargs: chr &amp;quot;+proj=longlat +a=6371200 +b=6371200 +no_defs&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We get four spatial dataframes - points, polygons and lines.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;names(gis)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;al092017_019_5day_lin&amp;quot; &amp;quot;al092017_019_5day_pgn&amp;quot; &amp;quot;al092017_019_5day_pts&amp;quot;
+## [4] &amp;quot;al092017_019_ww_wwlin&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;With the expection of point spatial dataframes (which can be converted to dataframe using &lt;code&gt;tibble::as_data_frame&lt;/code&gt;, use helper function &lt;code&gt;shp_to_df&lt;/code&gt; to convert the spatial dataframes to dataframes.&lt;/p&gt;
+
+&lt;h4 id=&#34;forecast-track&#34;&gt;Forecast Track&lt;/h4&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(ggplot2)
+al_tracking_chart(color = &amp;quot;black&amp;quot;, size = 0.1, fill = &amp;quot;white&amp;quot;) +
+  geom_path(data = shp_to_df(gis$al092017_019_5day_lin), aes(x = long, y = lat))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-21-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Use &lt;code&gt;geom_path&lt;/code&gt; instead of &lt;code&gt;geom_line&lt;/code&gt; to keep the positions in order.&lt;/p&gt;
+
+&lt;p&gt;You can &amp;ldquo;zoom in&amp;rdquo; even further using &lt;code&gt;ggplot2::coord_equal&lt;/code&gt;. For that, we need to know the limits of our objects (minimum and maximum latitude and longitude) or bounding box. Thankfully, the &lt;code&gt;sp&lt;/code&gt; package can get us this information with the &lt;code&gt;bbox&lt;/code&gt; function.&lt;/p&gt;
+
+&lt;p&gt;But, we don&amp;rsquo;t want to use the &amp;ldquo;al092017_019_5day_lin&amp;rdquo; dataset. Our &lt;code&gt;gis&lt;/code&gt; dataset contains a forecast cone which expands well beyond the lines dataset.  Take a look:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sp::bbox(gis$al092017_019_5day_lin)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##     min   max
+## x -97.5 -94.6
+## y  25.2  29.5
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;sp::bbox(gis$al092017_019_5day_pgn)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##          min       max
+## x -100.01842 -90.96327
+## y   24.86433  33.01644
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So, let&amp;rsquo;s get the bounding box of our forecast cone dataset and zoom in on our map.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;bb &amp;lt;- sp::bbox(gis$al092017_019_5day_pgn)
+al_tracking_chart(color = &amp;quot;black&amp;quot;, size = 0.1, fill = &amp;quot;white&amp;quot;) +
+  geom_path(data = shp_to_df(gis$al092017_019_5day_lin),
+            aes(x = long, y = lat)) +
+  coord_equal(xlim = c(bb[1,1], bb[1,2]),
+              ylim = c(bb[2,1], bb[2,2]))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-24-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;That&amp;rsquo;s much better. For simplicity I&amp;rsquo;m going to save the base map, &lt;code&gt;bp&lt;/code&gt;, without the line plot.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;bp &amp;lt;- al_tracking_chart(color = &amp;quot;black&amp;quot;, size = 0.1, fill = &amp;quot;white&amp;quot;) +
+  coord_equal(xlim = c(bb[1,1], bb[1,2]),
+              ylim = c(bb[2,1], bb[2,2]))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;forecast-points&#34;&gt;Forecast Points&lt;/h4&gt;
+
+&lt;p&gt;Forecast points identify each forecast position along with forecast winds and date. Remember that for point spatial dataframes you use &lt;code&gt;tibble::as_data_frame&lt;/code&gt; rather than &lt;code&gt;sp_to_df&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;bp +
+  geom_point(data = tibble::as_data_frame(gis$al092017_019_5day_pts),
+             aes(x = long, y = lat))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If you ran the code above you would get an error.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Error in FUN(X[[i]], ...) : object &#39;long&#39; not found
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Why? The variable &lt;code&gt;long&lt;/code&gt; does not exist as it does in other GIS datasets; it is &lt;code&gt;lon&lt;/code&gt;. This is one of the inconsistencies I was referring to previously. Additionally, the variables are all uppercase.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;names(gis$al092017_019_5day_pts)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;ADVDATE&amp;quot;   &amp;quot;ADVISNUM&amp;quot;  &amp;quot;BASIN&amp;quot;     &amp;quot;DATELBL&amp;quot;   &amp;quot;DVLBL&amp;quot;
+##  [6] &amp;quot;FCSTPRD&amp;quot;   &amp;quot;FLDATELBL&amp;quot; &amp;quot;GUST&amp;quot;      &amp;quot;LAT&amp;quot;       &amp;quot;LON&amp;quot;
+## [11] &amp;quot;MAXWIND&amp;quot;   &amp;quot;MSLP&amp;quot;      &amp;quot;SSNUM&amp;quot;     &amp;quot;STORMNAME&amp;quot; &amp;quot;STORMNUM&amp;quot;
+## [16] &amp;quot;STORMSRC&amp;quot;  &amp;quot;STORMTYPE&amp;quot; &amp;quot;TCDVLP&amp;quot;    &amp;quot;TAU&amp;quot;       &amp;quot;TCDIR&amp;quot;
+## [21] &amp;quot;TCSPD&amp;quot;     &amp;quot;TIMEZONE&amp;quot;  &amp;quot;VALIDTIME&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let&amp;rsquo;s try it again.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;bp +
+  geom_point(data = tibble::as_data_frame(gis$al092017_019_5day_pts),
+             aes(x = LON, y = LAT))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-28-1.png&#34;  style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Better.&lt;/p&gt;
+
+&lt;h4 id=&#34;forecast-cone&#34;&gt;Forecast Cone&lt;/h4&gt;
+
+&lt;p&gt;A forecast cone identifies the probability of error in a forecast. Forecasting tropical cyclones is tricky business - errors increase the further out a forecast is issued. Theoretically, any area within a forecast cone is at risk of seeing cyclone conditions within the given period of time.&lt;/p&gt;
+
+&lt;p&gt;Generally, a forecast cone package contains two subsets: 72-hour forecast cone and 120-hour forecast cone. This is identified in the dataset under the variable &lt;code&gt;FCSTPRD&lt;/code&gt;. Let&amp;rsquo;s take a look at the 72-hour forecast period:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;bp +
+  geom_polygon(data = shp_to_df(gis$al092017_019_5day_pgn) %&amp;gt;%
+                 filter(FCSTPRD == 72),
+               aes(x = long, y = lat, color = FCSTPRD))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-29-1.png&#34;  style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Nothing there!&lt;/p&gt;
+
+&lt;p&gt;As mentioned earlier, these are experimental products issued by the NHC and they do contain inconsistencies. To demonstrate, I&amp;rsquo;ll use Hurricane Ike advisory 42.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;df &amp;lt;- gis_advisory(key = &amp;quot;AL092008&amp;quot;, advisory = 42) %&amp;gt;%
+  gis_download()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## OGR data source with driver: ESRI Shapefile
+## Source: &amp;quot;/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//Rtmp1wYg2x&amp;quot;, layer: &amp;quot;al092008.042_5day_lin&amp;quot;
+## with 2 features
+## It has 9 fields
+## OGR data source with driver: ESRI Shapefile
+## Source: &amp;quot;/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//Rtmp1wYg2x&amp;quot;, layer: &amp;quot;al092008.042_5day_pgn&amp;quot;
+## with 2 features
+## It has 9 fields
+## OGR data source with driver: ESRI Shapefile
+## Source: &amp;quot;/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//Rtmp1wYg2x&amp;quot;, layer: &amp;quot;al092008.042_5day_pts&amp;quot;
+## with 13 features
+## It has 20 fields
+## OGR data source with driver: ESRI Shapefile
+## Source: &amp;quot;/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//Rtmp1wYg2x&amp;quot;, layer: &amp;quot;al092008.042_ww_wwlin&amp;quot;
+## with 5 features
+## It has 10 fields
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;al_tracking_chart(color = &amp;quot;black&amp;quot;, size = 0.1, fill = &amp;quot;white&amp;quot;) +
+  geom_polygon(data = shp_to_df(df$al092008_042_5day_pgn) %&amp;gt;%
+                 filter(FCSTPRD == 72),
+                  aes(x = long, y = lat))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-30-1.png&#34;  style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;We do, however, have a 120-hour forecast cone for Hurricane Harvey. Let&amp;rsquo;s go ahead and plot that.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;bp +
+  geom_polygon(data = gis$al092017_019_5day_pgn,
+               aes(x = long, y = lat), alpha = 0.15)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-31-1.png&#34;  style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s an odd-looking forecast cone, for sure. But this demonstrates the entire area that Harvey could have potentially traveled.&lt;/p&gt;
+
+&lt;h4 id=&#34;watches-and-warnings&#34;&gt;Watches and Warnings&lt;/h4&gt;
+
+&lt;p&gt;Our last dataset in this package is &amp;ldquo;al092017_09_ww_wlin&amp;rdquo;. These are the current watches and warnings in effect. This is a spatial lines dataframe that needs &lt;code&gt;shp_to_df&lt;/code&gt;. Again, we use &lt;code&gt;geom_path&lt;/code&gt; instead of &lt;code&gt;geom_line&lt;/code&gt;. And we want to group our paths by the variable &lt;code&gt;TCWW&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;bp +
+  geom_path(data = shp_to_df(gis$al092017_019_ww_wwlin),
+            aes(x = long, y = lat, group = group, color = TCWW), size = 1)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-32-1.png&#34;  style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;The paths won&amp;rsquo;t follow our coastlines exactly but you get the idea. The abbreviations don&amp;rsquo;t really give much information, either. Convert &lt;code&gt;TCWW&lt;/code&gt; to factor and provide better labels for your legend.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ww_wlin &amp;lt;- shp_to_df(gis$al092017_019_ww_wwlin)
+ww_wlin$TCWW &amp;lt;- factor(ww_wlin$TCWW,
+                              levels = c(&amp;quot;TWA&amp;quot;, &amp;quot;TWR&amp;quot;, &amp;quot;HWA&amp;quot;, &amp;quot;HWR&amp;quot;),
+                              labels = c(&amp;quot;Tropical Storm Watch&amp;quot;,
+                                         &amp;quot;Tropical Storm Warning&amp;quot;,
+                                         &amp;quot;Hurricane Watch&amp;quot;,
+                                         &amp;quot;Hurricane Warning&amp;quot;))
+
+bp +
+  geom_path(data = ww_wlin,
+            aes(x = long, y = lat, group = group, color = TCWW), size = 1)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-33-1.png&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;See &lt;a href=&#34;https://ropensci.github.io/rrricanes/articles/articles/forecast_advisory.html&#34;&gt;Forecast/Adivsory GIS&lt;/a&gt; on the &lt;code&gt;rrricanes&lt;/code&gt; website for an example of putting all of this data together in one map.&lt;/p&gt;
+
+&lt;h4 id=&#34;gis-prob-storm-surge&#34;&gt;gis_prob_storm_surge&lt;/h4&gt;
+
+&lt;p&gt;We can also plot the probablistic storm surge for given locations. Again, you will need the storm &lt;code&gt;Key&lt;/code&gt; for this function. There are two additional parameters:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;products&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;datetime&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;products&lt;/code&gt; can be one or both of &amp;ldquo;esurge&amp;rdquo; and &amp;ldquo;psurge&amp;rdquo;. esurge shows the probability of the cyclone exceeding the given storm surge plus tide within a given forecast period. psurge shows the probability of a given storm surge within a specified forecast period.&lt;/p&gt;
+
+&lt;p&gt;One or more products may not exist depending on the cyclone and advisory.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;products&lt;/code&gt; parameter expects a list of values for each product. For esurge products, valid values are 10, 20, 30, 40 or 50. For psurge products, valid values are 0, 1, 2, &amp;hellip;, 20.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s see if any esurge products exist for Harvey.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;length(gis_prob_storm_surge(key = key,
+                            products = list(&amp;quot;esurge&amp;quot; = seq(10, 50, by = 10))))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] 150
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And psurge:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;length(gis_prob_storm_surge(key = key, products = list(&amp;quot;psurge&amp;quot; = 0:20)))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] 630
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So, we have access to a ton of data here. When discussing &lt;code&gt;gis_advisory&lt;/code&gt;, we were able to filter by advisory number. With &lt;code&gt;gis_prob_storm_surge&lt;/code&gt;, this is not an option; we have to use the &lt;code&gt;datetime&lt;/code&gt; parameter to filter. Let&amp;rsquo;s find the &lt;code&gt;Date&lt;/code&gt; for advisory 19.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;(d &amp;lt;- ds$fstadv %&amp;gt;% filter(Adv == 19) %&amp;gt;% pull(Date))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;2017-08-25 03:00:00 UTC&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h5 id=&#34;esurge&#34;&gt;esurge&lt;/h5&gt;
+
+&lt;p&gt;Now, let&amp;rsquo;s view all esurge products for date only (exlude time).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;gis_prob_storm_surge(key = key,
+                     products = list(&amp;quot;esurge&amp;quot; = seq(10, 50, by = 10)),
+                     datetime = strftime(d, &amp;quot;%Y%m%d&amp;quot;, tz = &amp;quot;UTC&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;##  [1] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge10_2017082500.zip&amp;quot;
+##  [2] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge10_2017082506.zip&amp;quot;
+##  [3] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge10_2017082512.zip&amp;quot;
+##  [4] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge10_2017082518.zip&amp;quot;
+##  [5] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge20_2017082500.zip&amp;quot;
+##  [6] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge20_2017082506.zip&amp;quot;
+##  [7] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge20_2017082512.zip&amp;quot;
+##  [8] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge20_2017082518.zip&amp;quot;
+##  [9] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge30_2017082500.zip&amp;quot;
+## [10] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge30_2017082506.zip&amp;quot;
+## [11] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge30_2017082512.zip&amp;quot;
+## [12] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge30_2017082518.zip&amp;quot;
+## [13] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge40_2017082500.zip&amp;quot;
+## [14] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge40_2017082506.zip&amp;quot;
+## [15] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge40_2017082512.zip&amp;quot;
+## [16] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge40_2017082518.zip&amp;quot;
+## [17] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge50_2017082500.zip&amp;quot;
+## [18] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge50_2017082506.zip&amp;quot;
+## [19] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge50_2017082512.zip&amp;quot;
+## [20] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge50_2017082518.zip&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That&amp;rsquo;s still quite a bit. We can filter it to more by adding hour to the &lt;code&gt;datetime&lt;/code&gt; parameter.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;gis_prob_storm_surge(key = key,
+                     products = list(&amp;quot;esurge&amp;quot; = seq(10, 50, by = 10)),
+                     datetime = strftime(d, &amp;quot;%Y%m%d%H&amp;quot;, tz = &amp;quot;UTC&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This call will give you an error:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Error: No data available for requested storm/advisory
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;But, this isn&amp;rsquo;t entirely correct. When an advisory package is issued it contains information for the release time. Some of the GIS datasets are based on the release time -3 hours. So, we need to subtract 3 hours from &lt;code&gt;d&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Note&lt;/strong&gt;: There is an additional value that, as of the latest release is not extracted, records the position of the cyclone three hours prior. (As I understand it from the NHC, this is due to the time it takes to collect and prepare the data.) Per &lt;a href=&#34;https://github.com/ropensci/rrricanes/issues/102&#34;&gt;Issue #102&lt;/a&gt;, these values will be added for release 0.2.1. Therefore, instead of subtracting three hours from the &lt;code&gt;Date&lt;/code&gt; variable, you can simply use the &lt;code&gt;PrevPosDate&lt;/code&gt; value for this function.&lt;/p&gt;
+
+&lt;p&gt;Let&amp;rsquo;s try it again with the math:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;gis_prob_storm_surge(key = key,
+                     products = list(&amp;quot;esurge&amp;quot; = seq(10, 50, by = 10)),
+                     datetime = strftime(d - 60 * 60 * 3, &amp;quot;%Y%m%d%H&amp;quot;,
+                                         tz = &amp;quot;UTC&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge10_2017082500.zip&amp;quot;
+## [2] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge20_2017082500.zip&amp;quot;
+## [3] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge30_2017082500.zip&amp;quot;
+## [4] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge40_2017082500.zip&amp;quot;
+## [5] &amp;quot;http://www.nhc.noaa.gov/gis/storm_surge/al092017_esurge50_2017082500.zip&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As I don&amp;rsquo;t want to get all of these datasets, I&amp;rsquo;ll limit my esurge to show surge values with at least a 50% chance of being exceeded:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;gis &amp;lt;- gis_prob_storm_surge(key = key,
+                            products = list(&amp;quot;esurge&amp;quot; = 50),
+                            datetime = strftime(d - 60 * 60 * 3, &amp;quot;%Y%m%d%H&amp;quot;,
+                                                tz = &amp;quot;UTC&amp;quot;)) %&amp;gt;%
+  gis_download()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## OGR data source with driver: ESRI Shapefile
+## Source: &amp;quot;/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//Rtmp1wYg2x&amp;quot;, layer: &amp;quot;al092017_2017082500_e50&amp;quot;
+## with 97 features
+## It has 2 fields
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will bring us a spatial polygon dataframe.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;df &amp;lt;- shp_to_df(gis$al092017_2017082500_e50)
+bb &amp;lt;- sp::bbox(gis$al092017_2017082500_e50)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;str(df)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:	161313 obs. of  9 variables:
+##  $ long   : num  -93.2 -93.2 -93.2 -93.2 -93.2 ...
+##  $ lat    : num  29.9 29.9 29.9 29.9 29.9 ...
+##  $ order  : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ hole   : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
+##  $ piece  : Factor w/ 349 levels &amp;quot;1&amp;quot;,&amp;quot;2&amp;quot;,&amp;quot;3&amp;quot;,&amp;quot;4&amp;quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ group  : Factor w/ 7909 levels &amp;quot;0.1&amp;quot;,&amp;quot;0.2&amp;quot;,&amp;quot;0.3&amp;quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ id     : chr  &amp;quot;0&amp;quot; &amp;quot;0&amp;quot; &amp;quot;0&amp;quot; &amp;quot;0&amp;quot; ...
+##  $ POINTID: int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ TCSRG50: num  0 0 0 0 0 0 0 0 0 0 ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;al_tracking_chart(color = &amp;quot;black&amp;quot;, size = 0.1, fill = &amp;quot;white&amp;quot;) +
+  geom_polygon(data = df,
+            aes(x = long, y = lat, group = group, color = TCSRG50)) +
+  coord_equal(xlim = c(bb[1,1], bb[1,2]),
+              ylim = c(bb[2,1], bb[2,2]))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-43-1.png&#34; title=&#34;plot of chunk unnamed-chunk-43&#34; alt=&#34;plot of chunk unnamed-chunk-43&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This plot tells us that, along the central Texas coast, the expected storm surge along with tides is greater than 7.5 feet and there is a 50% chance of this height being exceeded.&lt;/p&gt;
+
+&lt;h4 id=&#34;psurge&#34;&gt;psurge&lt;/h4&gt;
+
+&lt;p&gt;The psurge product gives us the probabilistic storm surge for a location within the given forecast period.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;gis &amp;lt;- gis_prob_storm_surge(key = key,
+                            products = list(&amp;quot;psurge&amp;quot; = 20),
+                            datetime = strftime(d - 60 * 60 * 3, &amp;quot;%Y%m%d%H&amp;quot;,
+                                                tz = &amp;quot;UTC&amp;quot;)) %&amp;gt;%
+  gis_download()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## OGR data source with driver: ESRI Shapefile
+## Source: &amp;quot;/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//Rtmp1wYg2x&amp;quot;, layer: &amp;quot;al092017_2017082500_gt20&amp;quot;
+## with 12 features
+## It has 2 fields
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This will bring us a spatial polygon dataframe.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;df &amp;lt;- shp_to_df(gis$al092017_2017082500_gt20)
+bb &amp;lt;- sp::bbox(gis$al092017_2017082500_gt20)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;str(df)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:	3293 obs. of  9 variables:
+##  $ long     : num  -96.8 -96.8 -96.8 -96.8 -96.8 ...
+##  $ lat      : num  28.5 28.5 28.4 28.4 28.4 ...
+##  $ order    : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ hole     : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
+##  $ piece    : Factor w/ 54 levels &amp;quot;1&amp;quot;,&amp;quot;2&amp;quot;,&amp;quot;3&amp;quot;,&amp;quot;4&amp;quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ group    : Factor w/ 227 levels &amp;quot;0.1&amp;quot;,&amp;quot;0.2&amp;quot;,&amp;quot;0.3&amp;quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ id       : chr  &amp;quot;0&amp;quot; &amp;quot;0&amp;quot; &amp;quot;0&amp;quot; &amp;quot;0&amp;quot; ...
+##  $ POINTID  : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ PSurge20c: num  1 1 1 1 1 1 1 1 1 1 ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;al_tracking_chart(color = &amp;quot;black&amp;quot;, size = 0.1, fill = &amp;quot;white&amp;quot;) +
+  geom_polygon(data = df,
+            aes(x = long, y = lat, group = group, color = PSurge20c)) +
+  coord_equal(xlim = c(bb[1,1], bb[1,2]),
+              ylim = c(bb[2,1], bb[2,2]))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-47-1.png&#34; title=&#34;plot of chunk unnamed-chunk-47&#34; alt=&#34;plot of chunk unnamed-chunk-47&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;This map shows the cumulative probability that a storm surge of greater than 20 feet will be seen within the highlighted regions.&lt;/p&gt;
+
+&lt;p&gt;This particular map doesn&amp;rsquo;t help much as we&amp;rsquo;ve zoomed in too far. What may provide use is a list of probability stations as obtained from the NHC. For this, you can use &lt;code&gt;al_prblty_stations&lt;/code&gt; (&lt;code&gt;ep_prblty_stations&lt;/code&gt; returns FALSE since, as of this writing, the format is invalid).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;stations &amp;lt;- al_prblty_stations()
+
+al_tracking_chart(color = &amp;quot;black&amp;quot;, size = 0.1, fill = &amp;quot;white&amp;quot;) +
+  geom_polygon(data = df,
+            aes(x = long, y = lat, group = group, color = PSurge20c)) +
+  geom_label(data = stations, aes(x = Lon, y = Lat, label = Location)) +
+  coord_equal(xlim = c(bb[1,1], bb[1,2]),
+              ylim = c(bb[2,1], bb[2,2]))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-48-1.png&#34; title=&#34;plot of chunk unnamed-chunk-48&#34; alt=&#34;plot of chunk unnamed-chunk-48&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;gis-windfield&#34;&gt;gis_windfield&lt;/h4&gt;
+
+&lt;p&gt;When possible, there may also be a cyclone wind radius dataset for the current and forecast positions. With this function we can resort back to &lt;code&gt;Key&lt;/code&gt; and an advisory number.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;gis &amp;lt;- gis_windfield(key = key, advisory = 19) %&amp;gt;%
+  gis_download()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## OGR data source with driver: ESRI Shapefile
+## Source: &amp;quot;/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//Rtmp1wYg2x&amp;quot;, layer: &amp;quot;al092017_2017082503_forecastradii&amp;quot;
+## with 15 features
+## It has 13 fields
+## OGR data source with driver: ESRI Shapefile
+## Source: &amp;quot;/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//Rtmp1wYg2x&amp;quot;, layer: &amp;quot;al092017_2017082503_initialradii&amp;quot;
+## with 3 features
+## It has 13 fields
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;names(gis)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;al092017_2017082503_forecastradii&amp;quot; &amp;quot;al092017_2017082503_initialradii&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let&amp;rsquo;s get the bounding box and plot our initialradii dataset.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;bb &amp;lt;- sp::bbox(gis$al092017_2017082503_initialradii)
+
+al_tracking_chart(color = &amp;quot;black&amp;quot;, size = 0.1, fill = &amp;quot;white&amp;quot;) +
+  geom_polygon(data = shp_to_df(gis$al092017_2017082503_initialradii),
+            aes(x = long, y = lat, group = group, fill = factor(RADII)),
+            alpha = 0.5) +
+  coord_equal(xlim = c(bb[1,1], bb[1,2]),
+              ylim = c(bb[2,1], bb[2,2]))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-51-1.png&#34; title=&#34;plot of chunk unnamed-chunk-51&#34; alt=&#34;plot of chunk unnamed-chunk-51&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And add the forecast wind radii data onto the chart (modifying &lt;code&gt;bb&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;bb &amp;lt;- sp::bbox(gis$al092017_2017082503_forecastradii)
+
+al_tracking_chart(color = &amp;quot;black&amp;quot;, size = 0.1, fill = &amp;quot;white&amp;quot;) +
+  geom_polygon(data = shp_to_df(gis$al092017_2017082503_initialradii),
+            aes(x = long, y = lat, group = group, fill = factor(RADII)),
+            alpha = 0.5) +
+  geom_polygon(data = shp_to_df(gis$al092017_2017082503_forecastradii),
+               aes(x = long, y = lat, group = group, fill = factor(RADII)),
+               alpha = 0.5) +
+  geom_label(data = stations, aes(x = Lon, y = Lat, label = Location)) +
+  coord_equal(xlim = c(bb[1,1], bb[1,2]),
+              ylim = c(bb[2,1], bb[2,2]))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-52-1.png&#34; title=&#34;plot of chunk unnamed-chunk-52&#34; alt=&#34;plot of chunk unnamed-chunk-52&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;gis-wsp&#34;&gt;gis_wsp&lt;/h4&gt;
+
+&lt;p&gt;Our last GIS dataset is wind speed probabilities. This dataset is not storm specific nor even basin-specific; you may get results for cyclones halfway across the world.&lt;/p&gt;
+
+&lt;p&gt;The two parameters needed are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;datetime&lt;/code&gt; - again, using the %Y%m%d%H format (not all values are required)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;code&gt;res&lt;/code&gt; - Resolution of the probabilities; 5 degrees, 0.5 degrees and 0.1 degrees.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Wind fields are for 34, 50 and 64 knots. Not all resolutions or windfields will be available at a given time.&lt;/p&gt;
+
+&lt;p&gt;Sticking with our variable &lt;code&gt;d&lt;/code&gt;, let&amp;rsquo;s first make sure there is a dataset that exists for that time.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;gis_wsp(datetime = strftime(d - 60 * 60 * 3, format = &amp;quot;%Y%m%d%H&amp;quot;, tz = &amp;quot;UTC&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;http://www.nhc.noaa.gov/gis/&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For this article, we&amp;rsquo;ll stick to the higher resolution plot.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;we need a temporarily fixed function to replace &lt;code&gt;gis_wsp()&lt;/code&gt;, which will be
+fixed in package soon&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;gis_wsp_2 &amp;lt;- function(datetime, res = c(5, 0.5, 0.1)) {
+  res &amp;lt;- as.character(res)
+  res &amp;lt;- stringr::str_replace(res, &amp;quot;^5$&amp;quot;, &amp;quot;5km&amp;quot;)
+  res &amp;lt;- stringr::str_replace(res, &amp;quot;^0.5$&amp;quot;, &amp;quot;halfDeg&amp;quot;)
+  res &amp;lt;- stringr::str_replace(res, &amp;quot;^0.1$&amp;quot;, &amp;quot;tenthDeg&amp;quot;)
+  year &amp;lt;- stringr::str_sub(datetime, 0L, 4L)
+  request &amp;lt;- httr::GET(&amp;quot;http://www.nhc.noaa.gov/gis/archive_wsp.php&amp;quot;,
+                       query = list(year = year))
+  contents &amp;lt;- httr::content(request, as = &amp;quot;parsed&amp;quot;, encoding = &amp;quot;UTF-8&amp;quot;)
+  ds &amp;lt;- rvest::html_nodes(contents, xpath = &amp;quot;//a&amp;quot;) %&amp;gt;% rvest::html_attr(&amp;quot;href&amp;quot;) %&amp;gt;%
+    stringr::str_extract(&amp;quot;.+\\.zip$&amp;quot;) %&amp;gt;% .[stats::complete.cases(.)]
+  if (nchar(datetime) &amp;lt; 10) {
+    ptn_datetime &amp;lt;- paste0(datetime, &amp;quot;[:digit:]+&amp;quot;)
+  } else {
+    ptn_datetime &amp;lt;- datetime
+  }
+  ptn_res &amp;lt;- paste(res, collapse = &amp;quot;|&amp;quot;)
+  ptn &amp;lt;- sprintf(&amp;quot;%s_wsp_[:digit:]{1,3}hr(%s)&amp;quot;, ptn_datetime,
+                 ptn_res)
+  links &amp;lt;- ds[stringr::str_detect(ds, ptn)]
+  links &amp;lt;- paste0(&amp;quot;http://www.nhc.noaa.gov/gis/&amp;quot;, links)
+  return(links)
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;gis &amp;lt;- gis_wsp_2(
+  datetime = strftime(d - 60 * 60 * 3, format = &amp;quot;%Y%m%d%H&amp;quot;, tz = &amp;quot;UTC&amp;quot;),
+  res = 5) %&amp;gt;%
+  gis_download()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## OGR data source with driver: ESRI Shapefile
+## Source: &amp;quot;/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//Rtmp1wYg2x&amp;quot;, layer: &amp;quot;2017082500_wsp34knt120hr_5km&amp;quot;
+## with 11 features
+## It has 1 fields
+## OGR data source with driver: ESRI Shapefile
+## Source: &amp;quot;/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//Rtmp1wYg2x&amp;quot;, layer: &amp;quot;2017082500_wsp50knt120hr_5km&amp;quot;
+## with 11 features
+## It has 1 fields
+## OGR data source with driver: ESRI Shapefile
+## Source: &amp;quot;/var/folders/gs/4khph0xs0436gmd2gdnwsg080000gn/T//Rtmp1wYg2x&amp;quot;, layer: &amp;quot;2017082500_wsp64knt120hr_5km&amp;quot;
+## with 11 features
+## It has 1 fields
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;All of these datasets are spatial polygon dataframes. Again, we will need to convert to dataframe using &lt;code&gt;shp_to_df&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;bb &amp;lt;- sp::bbox(gis$`2017082500_wsp34knt120hr_5km`)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Examine the structure.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;df &amp;lt;- shp_to_df(gis$`2017082500_wsp34knt120hr_5km`)
+str(df)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;## Classes &#39;tbl_df&#39;, &#39;tbl&#39; and &#39;data.frame&#39;:	24182 obs. of  8 variables:
+##  $ long      : num  -97.2 -97.2 -97.2 -97.3 -97.3 ...
+##  $ lat       : num  20.3 20.3 20.3 20.3 20.4 ...
+##  $ order     : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ hole      : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
+##  $ piece     : Factor w/ 8 levels &amp;quot;1&amp;quot;,&amp;quot;2&amp;quot;,&amp;quot;3&amp;quot;,&amp;quot;4&amp;quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ group     : Factor w/ 52 levels &amp;quot;0.1&amp;quot;,&amp;quot;0.2&amp;quot;,&amp;quot;0.3&amp;quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ id        : chr  &amp;quot;0&amp;quot; &amp;quot;0&amp;quot; &amp;quot;0&amp;quot; &amp;quot;0&amp;quot; ...
+##  $ PERCENTAGE: chr  &amp;quot;&amp;lt;5%&amp;quot; &amp;quot;&amp;lt;5%&amp;quot; &amp;quot;&amp;lt;5%&amp;quot; &amp;quot;&amp;lt;5%&amp;quot; ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;al_tracking_chart(color = &amp;quot;black&amp;quot;, size = 0.1, fill = &amp;quot;white&amp;quot;) +
+  geom_polygon(data = df,
+               aes(x = long, y = lat, group = group, fill = PERCENTAGE),
+               alpha = 0.25) +
+  coord_equal(xlim = c(bb[1,1], bb[1,2]),
+              ylim = c(bb[2,1], bb[2,2]))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-58-1.png&#34; title=&#34;plot of chunk unnamed-chunk-58&#34; alt=&#34;plot of chunk unnamed-chunk-58&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;There aren&amp;rsquo;t many ways we can narrow this down other than using arbitrary longitude values. The observations in the dataset do not have a variable identifying which storm each set of values belongs to. So, I&amp;rsquo;ll remove the &lt;code&gt;coord_equal&lt;/code&gt; call so we&amp;rsquo;re only focused on the Atlantic basin.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;al_tracking_chart(color = &amp;quot;black&amp;quot;, size = 0.1, fill = &amp;quot;white&amp;quot;) +
+  geom_polygon(data = df,
+               aes(x = long, y = lat, group = group, fill = PERCENTAGE),
+               alpha = 0.25)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-09-27-rrricanes/unnamed-chunk-59-1.png&#34; title=&#34;plot of chunk unnamed-chunk-59&#34; alt=&#34;plot of chunk unnamed-chunk-59&#34; style=&#34;display: block; margin: auto;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Of course, you can narrow it down further as you see fit.&lt;/p&gt;
+
+&lt;p&gt;Do not confuse this GIS dataset with the &lt;code&gt;wndprb&lt;/code&gt; product or similar &lt;code&gt;prblty&lt;/code&gt; products; both of which only identify probabilities for given locations.&lt;/p&gt;
+
+&lt;h4 id=&#34;gis-latest&#34;&gt;gis_latest&lt;/h4&gt;
+
+&lt;p&gt;For active cyclones, you can retrieve all available GIS datasets using &lt;code&gt;gis_latest&lt;/code&gt;. Note that, unlike the previous GIS functions, this function will return a list of all GIS dataframes available.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;gis &amp;lt;- gis_latest()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Now we have a large list of GIS spatial dataframes. Two things to point out here; first, we now have a &amp;ldquo;windswath&amp;rdquo; GIS dataset. This dataset, to the best of my knowledge, does not exist on it&amp;rsquo;s own. Therefore, no archived &amp;ldquo;windswath&amp;rdquo; datasets are available.&lt;/p&gt;
+
+&lt;p&gt;Second, I have found this data fluctuates even from minute to minute. Earlier this year when attempting to develop automated reporting, I found the return value of the call would vary almost with every call.&lt;/p&gt;
+
+&lt;p&gt;Of course, that doesn&amp;rsquo;t mean it is not valuable, and why it has been included. You can easily perform checks for specific data you are looking for. If it doesn&amp;rsquo;t exist, bail and try again in a few minutes.&lt;/p&gt;
+
+&lt;h3 id=&#34;potential-issues-using-rrricanes&#34;&gt;Potential Issues Using rrricanes&lt;/h3&gt;
+
+&lt;p&gt;I cannot stress enough that &lt;code&gt;rrricanes&lt;/code&gt; &lt;strong&gt;is not intended for use during emergency situations&lt;/strong&gt;, as I myself learned &lt;a href=&#34;https://twitter.com/timtrice/status/901025869367586816&#34;&gt;during Hurricane Harvey&lt;/a&gt;. The package currently relies on the NHC website which, I truly believe, is curated by hand.&lt;/p&gt;
+
+&lt;p&gt;The most common problems I&amp;rsquo;ve noticed are:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The NHC website unable to load or slow to respond. This was a hassle in previous releases but seems to be ironed out as of release 0.2.0.6. Nonetheless, there may be instances where response time is slow.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Incorrect storm archive links. Another example would be during Harvey when the link to Harvey&amp;rsquo;s archive page was &lt;a href=&#34;https://twitter.com/PutmanSteve/status/900777826412105729&#34;&gt;listed incorrectly&lt;/a&gt;. If I manually typed the link as it should be, the storm&amp;rsquo;s correct archive page would load. However, the NHC website listed it incorrectly on the annual archives page.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;As I become more aware of potential problems, I will look for workarounds. I would be greatly appreciative of any problems being posted to the &lt;a href=&#34;https://github.com/ropensci/rrricanes/issues&#34;&gt;rrricanes repository&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I will also post known issues beyond my control (such as NHC website issues) to Twitter using the &lt;a href=&#34;https://twitter.com/search?f=tweets&amp;amp;vertical=default&amp;amp;q=%23rrricanes&amp;amp;src=typd&#34;&gt;#rrricanes hashtag&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;future-plans&#34;&gt;Future Plans&lt;/h3&gt;
+
+&lt;p&gt;The following data will be added to &lt;code&gt;rrricanes&lt;/code&gt; as time allows:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Reconnaissance data (release 0.2.2)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Computer forecast model data (release 0.2.3)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Archived satellite images (tentative)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Ship and buoy data (tentative)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Reconnaissance data itself will be a massive project. There are numerous types of products. And, as advisory product formats have changed over the years, so have these. Any help in this task would be tremendously appreciated!&lt;/p&gt;
+
+&lt;p&gt;Some computer forecast models are in the public domain and can certainly be of tremendous use. Some are difficult to find (especially archived). The caution in this area is that many websites post this data but may have limitations on how it can be accessed.&lt;/p&gt;
+
+&lt;p&gt;Additionally, data may be added as deemed fitting.&lt;/p&gt;
+
+&lt;h3 id=&#34;contribute&#34;&gt;Contribute&lt;/h3&gt;
+
+&lt;p&gt;Anyone is more than welcome to contribute to the package. I would definitely appreciate any help. See &lt;a href=&#34;https://github.com/ropensci/rrricanes/blob/master/.github/CONTRIBUTING.md&#34;&gt;Contributions&lt;/a&gt; for more information.&lt;/p&gt;
+
+&lt;p&gt;I would ask that you follow the &lt;a href=&#34;http://style.tidyverse.org/&#34;&gt;Tidyverse style guide&lt;/a&gt;. Release 0.2.1 will fully incorporate these rules.&lt;/p&gt;
+
+&lt;p&gt;You do not need to submit code in order to be listed as a contributor. If there is a data source (that can legally be scraped) that you feel should be added, please feel free to submit a request. Submitting bug reports and feature requests are all extremely valuable to the success of &lt;code&gt;rrricanes&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;acknowledgments&#34;&gt;Acknowledgments&lt;/h3&gt;
+
+&lt;p&gt;I want to thank the &lt;a href=&#34;https://ropensci.org/&#34;&gt;rOpenSci&lt;/a&gt; community for embracing &lt;code&gt;rrricanes&lt;/code&gt; and accepting the package into their vast portfolio. This is my first attempt and putting a project into part of a larger community and the lessons learned have been outstanding.&lt;/p&gt;
+
+&lt;p&gt;I want to thank &lt;a href=&#34;https://github.com/maelle&#34;&gt;Maelle Salmon&lt;/a&gt; who, in a sense, has been like a guiding angel from start to finish during the entire onboarding and review process.&lt;/p&gt;
+
+&lt;p&gt;I want to give a very special thanks to &lt;a href=&#34;https://github.com/robinsones&#34;&gt;Emily Robinson&lt;/a&gt; and &lt;a href=&#34;https://github.com/jsta&#34;&gt;Joseph Stachelek&lt;/a&gt; for taking the time to put &lt;code&gt;rrricanes&lt;/code&gt; to the test, giving valuable insight and recommendations on improving it.&lt;/p&gt;
+
+&lt;p&gt;And a thank-you also to &lt;a href=&#34;https://github.com/jimmylovestea&#34;&gt;James Molyneux&lt;/a&gt;, &lt;a href=&#34;https://github.com/mpadge&#34;&gt;Mark Padgham&lt;/a&gt;, and &lt;a href=&#34;https://github.com/hrbrmstr&#34;&gt;Bob Rudis&lt;/a&gt;, all of whom have offered guidance or input that has helped make &lt;code&gt;rrricanes&lt;/code&gt; far better than it would have been on my own.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

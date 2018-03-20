@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Graphics on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/graphics/</link>
+    <description>Recent content in Graphics on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 23 Aug 2016 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/graphics/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Advanced Image-Processing in R with Magick, Part I</title>
+      <link>https://ropensci.org/blog/2016/08/23/z-magick-release/</link>
+      <pubDate>Tue, 23 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2016/08/23/z-magick-release/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;The new &lt;a href=&#34;https://cran.r-project.org/web/packages/magick/index.html&#34;&gt;magick&lt;/a&gt; package is an ambitious effort to modernize and simplify high-quality image processing in R. It wraps the &lt;a href=&#34;https://www.imagemagick.org/Magick++/STL.html&#34;&gt;ImageMagick STL&lt;/a&gt; which is perhaps the most comprehensive open-source image processing library available today.&lt;/p&gt;
+
+&lt;p&gt;The ImageMagick library has an overwhelming amount of functionality. The current version of Magick exposes a decent chunk of it, but being a first release, documentation is still sparse. This post briefly introduces the most important concepts to get started. There will also be an &lt;a href=&#34;https://github.com/ropensci/commcalls/issues/11&#34;&gt;rOpenSci community call&lt;/a&gt; on Wednesday in which we demonstrate basic functionality.&lt;/p&gt;
+
+&lt;h2 id=&#34;installation&#34;&gt;Installation&lt;/h2&gt;
+
+&lt;p&gt;On Windows or OS-X the package is most easily installed via CRAN.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;magick&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;On Linux you need to install the ImageMagick++ library: on Debian/Ubuntu this is called &lt;a href=&#34;https://packages.debian.org/testing/libmagick++-dev&#34;&gt;libmagick++-dev&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo apt-get install libmagick++-dev
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;On Fedora or CentOS/RHEL we need &lt;a href=&#34;https://apps.fedoraproject.org/packages/ImageMagick-c++-devel&#34;&gt;ImageMagick-c++-devel&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;sudo yum install ImageMagick-c++-devel
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To install from source on OS-X you need &lt;code&gt;imagemagick&lt;/code&gt; from homebrew.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;brew install imagemagick --with-fontconfig --with-librsvg --with-fftw
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The default imagemagick configuration on homebrew disables a bunch of features. I recommend you install &lt;code&gt;--with-fontconfig&lt;/code&gt; and &lt;code&gt;--with-librsvg&lt;/code&gt; to get high quality font / svg rendering (the CRAN OSX binary package enables these as well).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(magick)
+magick_config()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Use &lt;code&gt;magick_config&lt;/code&gt; to see which features and formats are supported by your version of ImageMagick.&lt;/p&gt;
+
+&lt;h2 id=&#34;reading-and-writing&#34;&gt;Reading and writing&lt;/h2&gt;
+
+&lt;p&gt;Images can be read directly from a file path, URL, or raw vector with image data. Similarly we can write images back to disk, or in memory by setting &lt;code&gt;path=NULL&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Render svg to png
+tiger &amp;lt;- image_read(&#39;https://upload.wikimedia.org/wikipedia/commons/f/fd/Ghostscript_Tiger.svg&#39;)
+image_write(tiger, path = &amp;quot;tiger.png&amp;quot;, format = &amp;quot;png&amp;quot;)
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;IDE&amp;rsquo;s with a built-in web browser (such as RStudio) automatically display magick images in the viewer. This results in a neat interactive image editing environment.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/magick-rstudio.png&#34; alt=&#34;RStudio Screenshot&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Alternatively, on Linux you can use &lt;code&gt;image_display&lt;/code&gt; to preview the image in an X11 window. Finally &lt;code&gt;image_browse&lt;/code&gt; opens the image in your system&amp;rsquo;s default application for a given type.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# X11 only
+image_display(tiger)
+
+# System dependent
+image_browse(tiger)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;There is some functionality to convert images to R raster graphics and plot it on R&amp;rsquo;s graphics display, but this doesn&amp;rsquo;t always work too well yet.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;frink &amp;lt;- image_read(&amp;quot;https://jeroen.github.io/images/frink.png&amp;quot;)
+raster &amp;lt;- as.raster(frink)
+plot(raster)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Also the R graphics device is relatively slow for displaying bitmap images.&lt;/p&gt;
+
+&lt;h2 id=&#34;transformations-and-effects&#34;&gt;Transformations and effects&lt;/h2&gt;
+
+&lt;p&gt;The best way to get a sense of available transformations is walk through the examples in the &lt;code&gt;?transformations&lt;/code&gt; help page in RStudio. Below a few examples to get a sense of what is possible.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Example image
+frink &amp;lt;- image_read(&amp;quot;https://jeroen.github.io/images/frink.png&amp;quot;)
+
+# Trim margins
+image_trim(frink)
+
+# Passport pica
+image_crop(frink, &amp;quot;100x150+50&amp;quot;)
+
+# Resize
+image_scale(frink, &amp;quot;200x&amp;quot;) # width: 200px
+image_scale(frink, &amp;quot;x200&amp;quot;) # height: 200px
+
+# Rotate or mirror
+image_rotate(frink, 45)
+image_flip(frink)
+image_flop(frink)
+
+# Set a background color
+image_background(frink, &amp;quot;pink&amp;quot;, flatten = TRUE)
+
+# World-cup outfit (Flood fill)
+image_fill(frink, &amp;quot;orange&amp;quot;, &amp;quot;+100+200&amp;quot;, 30000)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;ImageMagick also has a bunch of standard effects that are worth checking out.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Add randomness
+image_blur(frink, 10, 5)
+image_noise(frink)
+
+# Silly filters
+image_charcoal(frink)
+image_oilpaint(frink)
+image_emboss(frink)
+image_edge(frink)
+image_negate(frink)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally it can be useful to print some text on top of images:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Add some text
+image_annotate(frink, &amp;quot;I like R!&amp;quot;, size = 50)
+
+# Customize text
+image_annotate(frink, &amp;quot;CONFIDENTIAL&amp;quot;, size = 30, color = &amp;quot;red&amp;quot;, boxcolor = &amp;quot;pink&amp;quot;,
+  degrees = 60, location = &amp;quot;+50+100&amp;quot;)
+
+# Only works if ImageMagick has fontconfig
+image_annotate(frink, &amp;quot;The quick brown fox&amp;quot;, font = &#39;times-new-roman&#39;, size = 30)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Maybe this is enough to get started.&lt;/p&gt;
+
+&lt;h2 id=&#34;layers-and-animation&#34;&gt;Layers and animation&lt;/h2&gt;
+
+&lt;p&gt;The examples above concern single images. However all functions in magick have been vectorized to support working with layers, compositions or animation.&lt;/p&gt;
+
+&lt;p&gt;The standard base vector methods &lt;code&gt;[&lt;/code&gt; &lt;code&gt;[[&lt;/code&gt;, &lt;code&gt;$&lt;/code&gt;, &lt;code&gt;c()&lt;/code&gt; and &lt;code&gt;length()&lt;/code&gt; are used to manipulate sets of images which can then be treated as layers or frames. This system is actually so extensive that we will do a separate blog post about it later.&lt;/p&gt;
+
+&lt;p&gt;For now here is an example on how to generate the instant classic dancing banana on R logo (which is probably why you are here):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;# Background image
+logo &amp;lt;- image_read(&amp;quot;https://www.r-project.org/logo/Rlogo.png&amp;quot;)
+background &amp;lt;- image_scale(logo, &amp;quot;400&amp;quot;)
+
+# Foreground image
+banana &amp;lt;- image_read(system.file(&amp;quot;banana.gif&amp;quot;, package = &amp;quot;magick&amp;quot;))
+front &amp;lt;- image_scale(banana, &amp;quot;300&amp;quot;)
+
+# Combine and flatten frames
+frames &amp;lt;- lapply(as.list(front), function(x) image_flatten(c(background, x)))
+
+# Turn frames into animation
+animation &amp;lt;- image_animate(image_join(frames))
+print(animation)
+
+# Save as GIF
+image_write(animation, &amp;quot;Rlogo-banana.gif&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If time permits we will demonstrate more examples during our &lt;a href=&#34;https://github.com/ropensci/commcalls/issues/11&#34;&gt;community call&lt;/a&gt; on Wednesday!&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

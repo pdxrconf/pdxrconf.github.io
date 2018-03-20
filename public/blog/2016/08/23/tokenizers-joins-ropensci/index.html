@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | New package tokenizers joins rOpenSci</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">New package tokenizers joins rOpenSci</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="http://lincolnmullen.com" target="_blank"> Lincoln Mullen </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">August 23, 2016</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                <p>The R package ecosystem for natural language processing has been flourishing in recent days. R packages for text analysis have usually been based on the classes provided by the <a href="https://cran.r-project.org/package=NLP/">NLP</a> or <a href="https://cran.r-project.org/package=tm/">tm</a> packages. Many of them depend on Java. But recently there have been a number of new packages for text analysis in R, most notably <a href="https://github.com/dselivanov/text2vec">text2vec</a>, <a href="https://github.com/kbenoit/quanteda">quanteda</a>, and <a href="https://github.com/juliasilge/tidytext">tidytext</a>. These packages are built on top of <a href="http://www.rcpp.org/">Rcpp</a> instead of <a href="https://cran.r-project.org/package=rJava/">rJava</a>, which makes them much more reliable and portable. And instead of the classes based on NLP, which I have never thought to be particularly idiomatic for R, they use standard R data structures. The text2vec and quanteda packages both rely on the sparse matrices provided by the rock solid <a href="https://cran.r-project.org/package=Matrix/">Matrix</a> package. The tidytext package is idiosyncratic (in the best possible way!) for doing all of its work in data frames rather than matrices, but a data frame is about as standard as you can get. For a long time when I would recommend R to people, I had to add the caveat that they should use Python if they were primarily interested in text analysis. But now I no longer feel the need to hedge.</p>
+
+<p>Still there is a lot of duplicated effort between these packages on the one hand and a lot of incompatibilities between the packages on the other. The R ecosystem for text analysis is not exactly coherent or consistent at the moment.</p>
+
+<p>My small contribution to the new text analysis ecosystem is the tokenizers package, which was recently accepted into rOpenSci after a careful <a href="https://github.com/ropensci/onboarding/issues/33">peer review</a> by <a href="https://kevinushey.github.io/">Kevin Ushey</a>. A new version of the package is <a href="https://cran.r-project.org/package=tokenizers/">on CRAN</a>. (Also check out the
+Jeroen Ooms&rsquo;s <a href="https://github.com/ropensci/hunspell">hunspell</a> package, which is a part of rOpensci.)</p>
+
+<p>One of the basic tasks in any NLP pipeline is turning texts (which humans can read) into tokens (which machines can compute with). For example, you might break a text into words or into <a href="https://en.wikipedia.org/wiki/N-gram">n-grams</a>. Here is an example using the <a href="https://memory.loc.gov/ammem/snhtml/snhome.html">former slave interviews</a> from the Great Depression era Federal Writers&rsquo; Project. (A data package with those interviews is in development <a href="https://github.com/lmullen/WPAnarratives">here</a>).</p>
+
+<pre><code># devtools::install_github(&quot;lmullen/WPAnarratives&quot;)
+# install.packages(&quot;tokenizers&quot;)
+library(WPAnarratives)
+library(tokenizers)
+
+text &lt;- head(wpa_narratives$text, 5)
+class(text)
+
+## [1] &quot;character&quot;
+
+words &lt;- tokenize_words(text, lowercase = TRUE)
+str(words)
+
+## List of 5
+##  $ : chr [1:1141] &quot;_he&quot; &quot;loved&quot; &quot;young&quot; &quot;marster&quot; ...
+##  $ : chr [1:1034] &quot;_old&quot; &quot;joe&quot; &quot;can&quot; &quot;keep&quot; ...
+##  $ : chr [1:824] &quot;_jesus&quot; &quot;has&quot; &quot;my&quot; &quot;chillun&quot; ...
+##  $ : chr [1:779] &quot;charity&quot; &quot;anderson&quot; &quot;who&quot; &quot;believes&quot; ...
+##  $ : chr [1:350] &quot;dat&quot; &quot;was&quot; &quot;one&quot; &quot;time&quot; ...
+
+ngrams &lt;- tokenize_ngrams(text, n_min = 3, n = 5)
+str(ngrams)
+
+## List of 5
+##  $ : chr [1:3414] &quot;_he loved young&quot; &quot;_he loved young marster&quot; &quot;_he loved young marster john_&quot; &quot;loved young marster&quot; ...
+##  $ : chr [1:3093] &quot;_old joe can&quot; &quot;_old joe can keep&quot; &quot;_old joe can keep his&quot; &quot;joe can keep&quot; ...
+##  $ : chr [1:2463] &quot;_jesus has my&quot; &quot;_jesus has my chillun&quot; &quot;_jesus has my chillun counted_&quot; &quot;has my chillun&quot; ...
+##  $ : chr [1:2328] &quot;charity anderson who&quot; &quot;charity anderson who believes&quot; &quot;charity anderson who believes she&quot; &quot;anderson who believes&quot; ...
+##  $ : chr [1:1041] &quot;dat was one&quot; &quot;dat was one time&quot; &quot;dat was one time when&quot; &quot;was one time&quot; ...
+</code></pre>
+
+<p>Practically all text analysis packages provide their own functions for tokenizing text, so why do R users need this package?</p>
+
+<p>First, these tokenizers are reasonably fast. The basic string operations are handled by the <a href="https://cran.r-project.org/package=stringi/">stringi</a> package, which is quick while also doing the correct thing across encodings and locales. And <a href="http://dsnotes.com/">Dmitriy Selivanov</a> (author of the text2vec package) has written the n-gram and skip n-gram tokenizers in C++ so that those are fast too. It is probably possible to write tokenizers with better performance, but these are fast enough for even large scale text mining efforts.</p>
+
+<p>The second and more important reason is that these tokenizers are consistent. They all take either a character vector of any length, or a list where each element is a character vector of length one. The idea is that each element of the input comprises a text. Then each function returns a list with the same length as the input vector, where each element in the list contains the tokens generated by the function. If the input character vector or list is named, then the names are preserved, so that the names can serve as identifiers.</p>
+
+<p>And third, the tokenizers are reasonably comprehensive, including functions for characters, lines, words, word stems, sentences, paragraphs, n-grams, skip n-grams, and regular expressions.</p>
+
+<p>My hope is that developers of other text analysis packages for R will rely on this package to provide tokenizers. (So far only tidytext has taken me up on that, but I also have to re-write my own <a href="https://github.com/ropensci/textreuse">textreuse</a> package now.) But even if natural language packages do not take the package as a formal dependency, most packages let you pass in your own tokenizing functions. So users can reap the benefits of a consistent set of tokenizers by using the functions in this package. The success of the &ldquo;<a href="https://twitter.com/hadleywickham/status/751805589425000450">tidyverse</a>&rdquo; has shown the power of buying into a convention for the structure of data and the inputs and outputs of functions. My hope is that the tokenizers package is a step in that direction for text analysis in R.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+                    <a href="/tags/natural-language"><span class="label">natural-language</span></a>
+                
+                    <a href="/tags/text-analysis"><span class="label">text-analysis</span></a>
+                
+                    <a href="/tags/package"><span class="label">package</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

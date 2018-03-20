@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Testing on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/testing/</link>
+    <description>Recent content in Testing on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 20 Jun 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/testing/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tackling the Research Compendium at runconf17</title>
+      <link>https://ropensci.org/blog/2017/06/20/checkers/</link>
+      <pubDate>Tue, 20 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/06/20/checkers/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Two years ago at &lt;a href=&#34;https://twitter.com/hashtag/runconf15&#34;&gt;#runconf15&lt;/a&gt;, there was a great discussion about best practices for organizing R-based analysis projects that yielded a &lt;a href=&#34;https://github.com/ropensci/rrrpkg&#34;&gt;nice guidance document&lt;/a&gt; describing &lt;em&gt;research compendia&lt;/em&gt;. Compendia, as we described them, were minimal products of reproducible research, using parts of R package structure to organize the inputs, analyses, and outputs of research projects.&lt;/p&gt;
+
+&lt;p&gt;Since then, we&amp;rsquo;ve seen more examples and models of research compendia emerge (the organization of such projects is &lt;a href=&#34;https://discuss.ropensci.org/t/resources-on-project-directory-organization/340&#34;&gt;something of an obsession&lt;/a&gt; for some of the community). In parallel, there&amp;rsquo;s been much progress on a number of fronts with R &lt;em&gt;packages&lt;/em&gt;: rOpenSci&amp;rsquo;s &lt;a href=&#34;https://github.com/ropensci/onboarding&#34;&gt;package review process&lt;/a&gt; has expanded and we&amp;rsquo;ve worked out many kinks. Infrastructure for automated testing of package code has been developed and field tested. So at &lt;a href=&#34;unconf17.ropensci.org&#34;&gt;#runconf17&lt;/a&gt;, we wanted to see how much of this progress in review, testing, and automation could apply to research compendia.&lt;/p&gt;
+
+&lt;p&gt;It turns out there&amp;rsquo;s a &lt;em&gt;lot&lt;/em&gt; to do here, and a lot of interest! We put up a proposal as a &lt;a href=&#34;https://github.com/ropensci/unconf17/issues/5&#34;&gt;GitHub issue&lt;/a&gt;; before the unconf even began, the thread had over 50 posts and the discussion had yielded two design documents led by Hadley Wickham on &lt;a href=&#34;https://docs.google.com/document/d/1LzZKS44y4OEJa4Azg5reGToNAZL0e0HSUwxamNY7E-Y/edit&#34;&gt;research compendium organization&lt;/a&gt; and &lt;a href=&#34;https://docs.google.com/document/d/1avYAqjTS7zSZn7JAAOZhFPkhkPvYwaPVrSpo31Cu0Yc/edit#&#34;&gt;automated build systems&lt;/a&gt;. There were easily four or five projects wrapped up in the proposal.&lt;/p&gt;
+
+&lt;p&gt;The thread also revealed many schools of thought. As &lt;a href=&#34;https://twitter.com/nj_tierney&#34;&gt;Nick&lt;/a&gt; put it, &amp;ldquo;The problem with &lt;a href=&#34;https://www.rstudio.com/resources/videos/opinionated-analysis-development/&#34;&gt;opinionated analysis development&lt;/a&gt; is that everyone has an opinion.&amp;rdquo; We never reached consensus on basic issues like directory structure and build systems.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://imgur.com/RpjyfL8.jpeg&#34; alt=&#34;Wading our way through a thorny bramble of opinions (photo: Alice Daish)&#34; /&gt;
+&lt;em&gt;Wading our way through a thorny bramble of opinions (photo: Alice Daish)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;In the face of a beast of a topic, and so many unresolved decisions, we decided to tackle a modest slice - a guide for compendium review, and a first pass at a package for automated checks of various best practices.&lt;/p&gt;
+
+&lt;h3 id=&#34;reviewing-a-research-compendium&#34;&gt;Reviewing a research compendium&lt;/h3&gt;
+
+&lt;p&gt;How does one do peer review for a research compendium in the face of so much heterogeneity in types and styles of analysis?  We spent the better part of our first day brainstorming everything that one might review, from the meta-topics (&amp;ldquo;Is there a clear question?&amp;rdquo;) to  minutiae (&amp;ldquo;Are &lt;code&gt;library()&lt;/code&gt; calls at the top of the script?&amp;ldquo;), and mapping these out on an ever more data-dense whiteboard:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://imgur.com/vb4E3JV.jpeg&#34; alt=&#34;Nick, Jennifer and Molly discussing analysis best practices (photo: Alice Daish)&#34; /&gt;
+ &lt;em&gt;Nick, Jennifer, Molly and Alice discussing analysis best practices (photo: Alice Daish)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/dIT1sjK.jpg&#34; alt=&#34;The team prioritizing data analysis workflow best practice into tiers (photo: Nistara Randhawa)&#34; /&gt;
+ &lt;em&gt;The team prioritizing data analysis workflow best practice into tiers (photo: Nistara Randhawa)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://imgur.com/8klgK7Q.jpeg&#34; alt=&#34;With our 7th team member, Wy T. Board (photo: Alice Daish)&#34; /&gt;
+&lt;em&gt;With our 7th team member, Wy T. Board (photo: Alice Daish)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;These review topics made their way into a &lt;a href=&#34;https://docs.google.com/document/d/1OYcWJUk-MiM2C1TIHB1Rn6rXoF5fHwRX-7_C12Blx8g/edit#heading=h.dyoxrtoo15mm&#34;&gt;Google doc&lt;/a&gt; which will form the basis of a review guide along the lines of rOpenSci&amp;rsquo;s &lt;a href=&#34;https://github.com/ropensci/onboarding/#-useful-documents-in-this-repository&#34;&gt;package review guides&lt;/a&gt;.  One major organizing dimension we hit upon was &amp;ldquo;Tiers&amp;rdquo; - as the number of best practices can be overwhelming, it is better to prioritize them so that users have a way of advancing through escalating levels of detail.  Another was &amp;ldquo;automatability,&amp;rdquo; which is key to the other half of our work.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/lWpcEfb.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;checkers-r-cmd-check-for-your-data-analysis&#34;&gt;&lt;strong&gt;checkers&lt;/strong&gt;: R CMD check for your data analysis&lt;/h3&gt;
+
+&lt;p&gt;One of the lessons of the rOpenSci package review process has been that reviews work better when we let reviewers focus on the tasks that humans are best at, and find ways to automate tedious or tiny tasks. So for the second aim of our project, we built a package to run the automatable components of  review and create reports for analysts and reviewers.  The package, &lt;strong&gt;&lt;a href=&#34;https://github.com/ropenscilabs/checkers&#34;&gt;checkers&lt;/a&gt;&lt;/strong&gt;, is meant to be, as Hadley coined it, &amp;ldquo;&lt;code&gt;R CMD check&lt;/code&gt; for your data analysis.&amp;rdquo;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;checkers&lt;/strong&gt; scans the project directory and delivers advice on how to improve project code, like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt; checkers::gp_check()
+─────────────────────────────────────────────────────────────────────
+It is good practice to
+
+  ✖ Place your project under version control. You are using
+    neither git nor svn. See http://happygitwithr.com/ for more
+    info
+  ✖ Use preferred packages. xml2 is preferred to XML.
+──────────────────────────────────────────────────────────────────
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;One area we had to tackle was the need for both &lt;em&gt;opinionated defaults&lt;/em&gt; and &lt;em&gt;configurability&lt;/em&gt;.  So we built in the ability for individuals or teams to select or define their own best practices in a shared YAML configuration file.&lt;/p&gt;
+
+&lt;h3 id=&#34;stone-soup-development-at-the-unconf&#34;&gt;Stone soup development at the unconf&lt;/h3&gt;
+
+&lt;p&gt;The review guide and &lt;strong&gt;checkers&lt;/strong&gt; are works in progress, but both made great leaps forward in two days thanks to the tremendous catalyzing environment of the unconf.  While our team of six only formed the morning of the first day, the &lt;a href=&#34;https://github.com/ropensci/unconf17/issues/5&#34;&gt;pre-unconf discussion&lt;/a&gt; meant that many more people from the community shaped contours of the project.&lt;/p&gt;
+
+&lt;p&gt;Also, one of the great things about the unconf is that so many experienced developers are on hand to chip in with their areas of expertise. Hadley Wickham joined in to brainstorm some of the initial best practices to include in our guide. Later, we decided to base our checks system on Gábor Csárdi&amp;rsquo;s &lt;strong&gt;&lt;a href=&#34;https://github.com/MangoTheCat/goodpractice/&#34;&gt;goodpractice&lt;/a&gt;&lt;/strong&gt;, and Gábor worked with us to build a flexible extension system into that package. Jim Hester was on hand to answer questions about &lt;strong&gt;&lt;a href=&#34;https://github.com/jimhester/lintr/&#34;&gt;lintr&lt;/a&gt;&lt;/strong&gt; internals, and we&amp;rsquo;ll be sending some changes upstream to that as well.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/uWYKR1e.jpg&#34; alt=&#34;Laura and Gábor practicing goodpractices (photo: Nistara Randhawa)&#34; /&gt;
+&lt;em&gt;Laura and Gábor practicing goodpractices (photo: Nistara Randhawa)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://imgur.com/Dw0yTwi.jpeg&#34; alt=&#34;Team reviewing framework and package development examples (photo: Alice Daish)&#34; /&gt;
+&lt;em&gt;Team reviewing framework and package development examples (photo: Alice Daish)&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;We&amp;rsquo;re excited about the potential for this project, and just as excited about the potential of what else we&amp;rsquo;ll make with our new friends and collaborators. Thanks to rOpenSci and everyone who made #runconf17 such a tremendously productive and fun event!&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

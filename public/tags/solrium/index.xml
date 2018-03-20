@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Solrium on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/solrium/</link>
+    <description>Recent content in Solrium on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 08 Nov 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/solrium/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>solrium 1.0: Working with Solr from R</title>
+      <link>https://ropensci.org/technotes/2017/11/08/solrium-solr-r/</link>
+      <pubDate>Wed, 08 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/technotes/2017/11/08/solrium-solr-r/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;Nearly 4 years ago I wrote on this blog about an R package &lt;a href=&#34;https://github.com/ropensci/solr&#34;&gt;solr&lt;/a&gt; for working with the database &lt;a href=&#34;https://lucene.apache.org/solr/&#34;&gt;Solr&lt;/a&gt;. Since then we&amp;rsquo;ve created a refresh of that package in the &lt;a href=&#34;https://github.com/ropensci/solrium&#34;&gt;solrium&lt;/a&gt; package. Since &lt;code&gt;solrium&lt;/code&gt; first hit CRAN about two years ago, users have raised a number of issues that required breaking changes. Thus, this blog post is about a major version bump in &lt;code&gt;solrium&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;what-is-solr&#34;&gt;What is Solr?&lt;/h2&gt;
+
+&lt;p&gt;Solr is a &amp;ldquo;search platform&amp;rdquo; - a NoSQL database - data is organized by so called documents that are xml/json/etc blobs of text. Documents are nested within either collections or cores (depending on the mode you start Solr in). Solr makes it easy to search for documents, with a huge variety of parameters, and a number of different data formats (json/xml/csv). Solr is similar to &lt;a href=&#34;https://www.elastic.co/products/elasticsearch&#34;&gt;Elasticsearch&lt;/a&gt; (see our Elasticsearch client &lt;a href=&#34;https://github.com/ropensci/elastic&#34;&gt;elastic&lt;/a&gt;) - and was around before it. Solr in my opinion is harder to setup than Elasticsearch, but I don&amp;rsquo;t claim to be an expert on either.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;vignettes&#34;&gt;Vignettes&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://cran.rstudio.com/web/packages/solrium/vignettes/search.html&#34;&gt;Solr Search with solrium&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://cran.rstudio.com/web/packages/solrium/vignettes/local_setup.html&#34;&gt;Local Solr setup&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://cran.rstudio.com/web/packages/solrium/vignettes/document_management.html&#34;&gt;Document management&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://cran.rstudio.com/web/packages/solrium/vignettes/cores_collections.html&#34;&gt;Cores/collections management&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;noteable-features&#34;&gt;Noteable features&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Added in v1, you can now work with many connection objects to different Solr instances.&lt;/li&gt;
+&lt;li&gt;Methods for the major search functionalities: search, highlight, stats, mlt, group, and facet. In addition, a catch all function &lt;code&gt;all&lt;/code&gt; to combine all of those.&lt;/li&gt;
+&lt;li&gt;Comprehensive coverage of the Solr HTTP API&lt;/li&gt;
+&lt;li&gt;Can coerce data from Solr API into data.frame&amp;rsquo;s when possible&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
+
+&lt;p&gt;Install &lt;code&gt;solrium&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;solrium&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Or get the development version:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;devtools::install_github(&amp;quot;ropensci/solrium&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(solrium)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;initialize-a-client&#34;&gt;Initialize a client&lt;/h2&gt;
+
+&lt;p&gt;A big change in &lt;code&gt;v1&lt;/code&gt; of &lt;code&gt;solrium&lt;/code&gt; is &lt;code&gt;solr_connect&lt;/code&gt; has been replaced by &lt;code&gt;SolrClient&lt;/code&gt;. Now you create an &lt;code&gt;R6&lt;/code&gt; connection object with &lt;code&gt;SolrClient&lt;/code&gt;, then you can call methods on that &lt;code&gt;R6&lt;/code&gt; object, &lt;strong&gt;OR&lt;/strong&gt; you can pass the connection object to functions.&lt;/p&gt;
+
+&lt;p&gt;By default, &lt;code&gt;SolrClient$new()&lt;/code&gt; sets connections details for a Solr instance that&amp;rsquo;s running on &lt;code&gt;localhost&lt;/code&gt;, and on port &lt;code&gt;8983&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;(conn &amp;lt;- SolrClient$new())
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;#&amp;gt; &amp;lt;Solr Client&amp;gt;
+#&amp;gt;   host: 127.0.0.1
+#&amp;gt;   path: 
+#&amp;gt;   port: 8983
+#&amp;gt;   scheme: http
+#&amp;gt;   errors: simple
+#&amp;gt;   proxy:
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;On instantiation, it does not check that the Solr instance is up, but merely sets connection details. You can check if the instance is up by doing for example (assuming you have a collection named &lt;code&gt;gettingstarted&lt;/code&gt;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;conn$ping(&amp;quot;gettingstarted&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;#&amp;gt; $responseHeader
+#&amp;gt; $responseHeader$zkConnected
+#&amp;gt; [1] TRUE
+#&amp;gt; 
+#&amp;gt; $responseHeader$status
+#&amp;gt; [1] 0
+#&amp;gt; 
+#&amp;gt; $responseHeader$QTime
+#&amp;gt; [1] 163
+#&amp;gt; 
+#&amp;gt; $responseHeader$params
+#&amp;gt; $responseHeader$params$q
+#&amp;gt; [1] &amp;quot;{!lucene}*:*&amp;quot;
+#&amp;gt; 
+#&amp;gt; $responseHeader$params$distrib
+#&amp;gt; [1] &amp;quot;false&amp;quot;
+#&amp;gt; 
+#&amp;gt; $responseHeader$params$df
+#&amp;gt; [1] &amp;quot;_text_&amp;quot;
+#&amp;gt; 
+#&amp;gt; $responseHeader$params$rows
+#&amp;gt; [1] &amp;quot;10&amp;quot;
+#&amp;gt; 
+#&amp;gt; $responseHeader$params$wt
+#&amp;gt; [1] &amp;quot;json&amp;quot;
+#&amp;gt; 
+#&amp;gt; $responseHeader$params$echoParams
+#&amp;gt; [1] &amp;quot;all&amp;quot;
+#&amp;gt; 
+#&amp;gt; 
+#&amp;gt; 
+#&amp;gt; $status
+#&amp;gt; [1] &amp;quot;OK&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;A good hint when connecting to a publicly exposed Solr instance is that you likely don&amp;rsquo;t need to specify a port, so a pattern like this should work to connect to a URL like &lt;code&gt;http://foobar.com/search&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;SolrClient$new(host = &amp;quot;foobar.com&amp;quot;, path = &amp;quot;search&amp;quot;, port = NULL)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;If the instance uses SSL, simply specify that like:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;SolrClient$new(host = &amp;quot;foobar.com&amp;quot;, path = &amp;quot;search&amp;quot;, port = NULL, scheme = &amp;quot;https&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;query-and-body-parameters&#34;&gt;Query and body parameters&lt;/h2&gt;
+
+&lt;p&gt;Another big change in the package is that we wanted to make it easy to determine whether your Solr query gets passed as query parameters in a &lt;code&gt;GET&lt;/code&gt; request or as body in a &lt;code&gt;POST&lt;/code&gt; request. Solr clients in some other languages do this, and it made sense to port over that idea here. Now you pass your key-value pairs to either &lt;code&gt;params&lt;/code&gt; or &lt;code&gt;body&lt;/code&gt;. If nothing is passed to &lt;code&gt;body&lt;/code&gt;, we do a &lt;code&gt;GET&lt;/code&gt; request. If something is passed to &lt;code&gt;body&lt;/code&gt; we do a &lt;code&gt;POST&lt;/code&gt; request, even if there&amp;rsquo;s also key-value pairs passed to &lt;code&gt;params&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;This change does break the interface we had in the old version, but we think it&amp;rsquo;s worth it.&lt;/p&gt;
+
+&lt;p&gt;For example, to do a search you have to pass the collection name and a list of named parameters:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;conn$search(name = &amp;quot;gettingstarted&amp;quot;, params = list(q = &amp;quot;*:*&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;#&amp;gt; # A tibble: 5 x 5
+#&amp;gt;      id   title title_str  `_version_` price
+#&amp;gt;   &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;        &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;
+#&amp;gt; 1    10 adfadsf   adfadsf 1.582913e+18    NA
+#&amp;gt; 2    12  though    though 1.582913e+18    NA
+#&amp;gt; 3    14 animals   animals 1.582913e+18    NA
+#&amp;gt; 4     1    &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt; 1.582913e+18   100
+#&amp;gt; 5     2    &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt; 1.582913e+18   500
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can instead pass the connection object to &lt;code&gt;solr_search&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;solr_search(conn, name = &amp;quot;gettingstarted&amp;quot;, params = list(q = &amp;quot;*:*&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;#&amp;gt; # A tibble: 5 x 5
+#&amp;gt;      id   title title_str  `_version_` price
+#&amp;gt;   &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;        &amp;lt;dbl&amp;gt; &amp;lt;int&amp;gt;
+#&amp;gt; 1    10 adfadsf   adfadsf 1.582913e+18    NA
+#&amp;gt; 2    12  though    though 1.582913e+18    NA
+#&amp;gt; 3    14 animals   animals 1.582913e+18    NA
+#&amp;gt; 4     1    &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt; 1.582913e+18   100
+#&amp;gt; 5     2    &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt; 1.582913e+18   500
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And the same pattern applies for the other functions:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;solr_facet&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;solr_group&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;solr_mlt&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;solr_highlight&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;solr_stats&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;solr_all&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;new-functions-for-atomic-updates&#34;&gt;New functions for atomic updates&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/ropensci/solrium/issues/97&#34;&gt;A user requested&lt;/a&gt; the ability to do &lt;a href=&#34;https://lucene.apache.org/solr/guide/7_0/updating-parts-of-documents.html&#34;&gt;atomic updates&lt;/a&gt; - partial updates to documents without having to re-index the entire document.&lt;/p&gt;
+
+&lt;p&gt;Two functions were added: &lt;code&gt;update_atomic_json&lt;/code&gt; and &lt;code&gt;update_atomic_xml&lt;/code&gt; for JSON and XML based updates. Check out their help pages for usage.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;search-results-as-attributes&#34;&gt;Search results as attributes&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;solr_search&lt;/code&gt; and &lt;code&gt;solr_all&lt;/code&gt; in &lt;code&gt;v1&lt;/code&gt; gain attributes that include &lt;code&gt;numFound&lt;/code&gt;, &lt;code&gt;start&lt;/code&gt;, and &lt;code&gt;maxScore&lt;/code&gt;. That is, you can get to these three values after data is returned. Note that some Solr instances may not return all three values.&lt;/p&gt;
+
+&lt;p&gt;For example, let&amp;rsquo;s use the Public Library of Science Solr search instance at &lt;a href=&#34;http://api.plos.org/search&#34;&gt;http://api.plos.org/search&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;plos &amp;lt;- SolrClient$new(host = &amp;quot;api.plos.org&amp;quot;, path = &amp;quot;search&amp;quot;, port = NULL)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Search&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;res &amp;lt;- plos$search(params = list(q = &amp;quot;*:*&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Get attributes&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;attr(res, &amp;quot;numFound&amp;quot;)
+#&amp;gt; [1] 1902279
+attr(res, &amp;quot;start&amp;quot;)
+#&amp;gt; [1] 0
+attr(res, &amp;quot;maxScore&amp;quot;)
+#&amp;gt; [1] 1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;automatically-adjust-rows-parameter&#34;&gt;Automatically adjust rows parameter&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://github.com/ropensci/solrium/pull/102&#34;&gt;A user higlighted&lt;/a&gt; that &lt;a href=&#34;https://wiki.apache.org/solr/SolrPerformanceProblems#Asking_for_too_many_rows&#34;&gt;there&amp;rsquo;s a performance penalty when asking for too many rows&lt;/a&gt;. The resulting change in &lt;code&gt;solrium&lt;/code&gt; is that in some search functions we automatically adjust the &lt;code&gt;rows&lt;/code&gt; parameter to avoid the performance penalty.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;usage-in-other-packages&#34;&gt;Usage in other packages&lt;/h2&gt;
+
+&lt;p&gt;I maintain 4 other packages that use &lt;code&gt;solrium&lt;/code&gt;: &lt;a href=&#34;https://github.com/ropensci/rplos&#34;&gt;rplos&lt;/a&gt;, &lt;a href=&#34;https://github.com/ropensci/ritis&#34;&gt;ritis&lt;/a&gt;, &lt;a href=&#34;https://github.com/ropensci/rdatacite&#34;&gt;rdatacite&lt;/a&gt;, and &lt;a href=&#34;https://github.com/ropensci/rdryad&#34;&gt;rdryad&lt;/a&gt;. If you are interested in using &lt;code&gt;solrium&lt;/code&gt; in your package, looking at any of those four packages will give a good sense of how to do it.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;notes&#34;&gt;Notes&lt;/h2&gt;
+
+&lt;h3 id=&#34;solr-pkg&#34;&gt;solr pkg&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code&gt;solr&lt;/code&gt; package will soon be archived on CRAN. We&amp;rsquo;ve moved all packages depending on it to &lt;code&gt;solrium&lt;/code&gt;. Let me know ASAP if you have any complaints about archiving it on CRAN.&lt;/p&gt;
+
+&lt;h3 id=&#34;feedback&#34;&gt;Feedback!&lt;/h3&gt;
+
+&lt;p&gt;Please do upgrade/install &lt;code&gt;solrium&lt;/code&gt;  &lt;code&gt;v1&lt;/code&gt; and let us know what you think.&lt;/p&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

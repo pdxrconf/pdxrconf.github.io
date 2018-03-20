@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | musemeta tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>musemeta tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.0.5</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p>Currently <code>musemeta</code> can get data from:</p>
+
+<ul>
+<li><a href="http://www.metmuseum.org/">The Metropolitan Museum of Art</a> via
+
+<ul>
+<li>scraping the MET website (see function <code>met()</code>)</li>
+<li><a href="http://scrapi.org/">http://scrapi.org/</a> (see functions <code>scrapi_()</code>)</li>
+</ul></li>
+<li>The <a href="http://techno-science.ca/en/index.php">Canadian Science &amp; Technology Museum Corporation</a> (CSTMC) (see functions <code>cstmc_()</code>)</li>
+<li>The <a href="http://www.nga.gov/content/ngaweb.html">National Gallery of Art</a> (NGA) (see function <code>nga()</code>)</li>
+<li>The <a href="http://www.getty.edu/">Getty Museum</a> (see function <code>getty()</code>)</li>
+<li>The <a href="http://www.artic.edu/">Art Institute of Chicago</a> (see function <code>aic()</code>)</li>
+<li>The <a href="http://www.asianart.org/">Asian Art Museum of San Francisco</a> (see function <code>aam()</code>)</li>
+</ul>
+
+<p>Other sources of museum metadata will be added&hellip;check back later &amp; see <a href="https://github.com/ropensci/musemeta/issues">issues</a>.</p>
+
+<p><section id="installation"></p>
+
+<h2 id="installation">Installation</h2>
+
+<p>Not on CRAN yet. Get <code>ckanr</code> first</p>
+
+<pre><code class="language-r">install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;ropensci/ckanr&quot;)
+</code></pre>
+
+<p>Then install musemeta</p>
+
+<pre><code class="language-r">devtools::install_github(&quot;ropensci/musemeta&quot;)
+</code></pre>
+
+<p><section id="usage"></p>
+
+<h2 id="usage">Usage</h2>
+
+<pre><code class="language-r">library(&quot;musemeta&quot;)
+</code></pre>
+
+<h3 id="met-data">MET data</h3>
+
+<p>To get actual metadata for an object, you can use <code>met()</code> or <code>scrapi_get()</code> functions. The latter gets much more data, and uses a REST API, while the former scrapes the html directly, and can be more fragile with any changes in the html on the site.
+<br></p>
+
+<h4 id="scraping-site-directly">Scraping site directly</h4>
+
+<p>Data for a single object</p>
+
+<pre><code class="language-r">met(559490)
+</code></pre>
+
+<pre><code>#&gt; &lt;Museum metadata&gt; Siphon nozzle
+#&gt;   Period: New Kingdom, Ramesside
+#&gt;   Dynasty: Dynasty 19 20
+#&gt;   Date: ca. 1295 1070 B.C.
+#&gt;   Geography: From Egypt, Memphite Region, Lisht North, Cemetery, MMA excavations, 1913 14
+#&gt;   Medium: Bronze
+#&gt;   Dimensions: l. 5.4 cm (2 1/8 in)
+#&gt;   Credit Line: Rogers Fund and Edward S. Harkness Gift, 1922
+#&gt;   Accession Number: 22.1.962
+</code></pre>
+
+<p>Or index to name of object, or values in the description</p>
+
+<pre><code class="language-r">met(559490)$name
+</code></pre>
+
+<pre><code>#&gt; [1] &quot;Siphon nozzle&quot;
+</code></pre>
+
+<pre><code class="language-r">met(559490)$values[1:2]
+</code></pre>
+
+<pre><code>#&gt; [[1]]
+#&gt; [[1]]$name
+#&gt; [1] &quot;Period&quot;
+#&gt;
+#&gt; [[1]]$value
+#&gt; [1] &quot;New Kingdom, Ramesside&quot;
+#&gt;
+#&gt;
+#&gt; [[2]]
+#&gt; [[2]]$name
+#&gt; [1] &quot;Dynasty&quot;
+#&gt;
+#&gt; [[2]]$value
+#&gt; [1] &quot;Dynasty 19 20&quot;
+</code></pre>
+
+<p>A different object</p>
+
+<pre><code class="language-r">met(246562)
+</code></pre>
+
+<pre><code>#&gt; &lt;Museum metadata&gt; Terracotta guttus (flask with handle and spout)
+#&gt;   Period: Classical
+#&gt;   Date: 4th century B.C.
+#&gt;   Culture: Greek, South Italian, Campanian
+#&gt;   Medium: Terracotta; black-glaze
+#&gt;   Dimensions: 2 7/8in. (7.3cm)
+#&gt;   Classification: Vases
+#&gt;   Credit Line: Purchase by subscription, 1896
+#&gt;   Accession Number: 96.18.35
+</code></pre>
+
+<p>Get many objects</p>
+
+<pre><code class="language-r">lapply(c(479283, 228901, 436876), met)
+</code></pre>
+
+<pre><code>#&gt; [[1]]
+#&gt; &lt;Museum metadata&gt; Papyri Fragments
+#&gt;   Date: 7th century
+#&gt;   Geography: Made in Thebes, Byzantine Egypt
+#&gt;   Culture: Coptic
+#&gt;   Medium: Papyrus and ink
+#&gt;   Dimensions: Framed: 11 1/4 x 15 in. (28.5 x 38.1 cm)
+#&gt;   Classification: Papyrus
+#&gt;   Credit Line: Rogers Fund, 1914
+#&gt;   Accession Number: 14.1.616
+#&gt;
+#&gt; [[2]]
+#&gt; &lt;Museum metadata&gt; Piece
+#&gt;   Date: 19th century
+#&gt;   Culture: German
+#&gt;   Dimensions: 1 1/4 x 6 1/4in. (3.2 x 15.9cm)
+#&gt;   Classification: Textiles-Laces
+#&gt;   Credit Line: Gift of Helen E. Ionides, 1963
+#&gt;   Accession Number: 63.80.18
+#&gt;
+#&gt; [[3]]
+#&gt; &lt;Museum metadata&gt; Marion Lenbach (1892 1947), the Artist's Daughter
+#&gt;   Artist: Franz von Lenbach (German, Schrobenhausen 1836 1904 Munich)
+#&gt;   Date: 1900
+#&gt;   Medium: Oil on canvas
+#&gt;   Dimensions: 58 7/8 x 41 1/2 in. (149.5 x 105.4 cm)
+#&gt;   Classification: Paintings
+#&gt;   Credit Line: Bequest of Collis P. Huntington, 1900
+#&gt;   Accession Number: 25.110.46
+</code></pre>
+
+<h4 id="using-the-scrapi-api">Using the scrapi API</h4>
+
+<p>This is again, for The Metropolitan Museum of Art only</p>
+
+<p>Get a specific object</p>
+
+<pre><code class="language-r">scrapi_info(123, fields=c('title','primaryArtistNameOnly','medium'))
+</code></pre>
+
+<pre><code>#&gt; $timelineList
+#&gt; $timelineList[[1]]
+#&gt; $timelineList[[1]]$name
+#&gt; [1] &quot;The United States, 1600-1800 A.D.&quot;
+#&gt;
+#&gt; $timelineList[[1]]$count
+#&gt; [1] 0
+#&gt;
+#&gt; $timelineList[[1]]$orderId
+#&gt; [1] 0
+...
+</code></pre>
+
+<p>Search for objects</p>
+
+<pre><code class="language-r">scrapi_search(query='mirror')
+</code></pre>
+
+<pre><code>#&gt; $links
+#&gt;  [1] &quot;http://scrapi.org/object/207785&quot; &quot;http://scrapi.org/object/50444&quot;
+#&gt;  [3] &quot;http://scrapi.org/object/313256&quot; &quot;http://scrapi.org/object/467733&quot;
+#&gt;  [5] &quot;http://scrapi.org/object/49591&quot;  &quot;http://scrapi.org/object/267055&quot;
+#&gt;  [7] &quot;http://scrapi.org/object/156225&quot; &quot;http://scrapi.org/object/545128&quot;
+#&gt;  [9] &quot;http://scrapi.org/object/452364&quot; &quot;http://scrapi.org/object/460423&quot;
+#&gt; [11] &quot;http://scrapi.org/object/244558&quot; &quot;http://scrapi.org/object/436839&quot;
+#&gt; [13] &quot;http://scrapi.org/object/452852&quot; &quot;http://scrapi.org/object/248153&quot;
+#&gt; [15] &quot;http://scrapi.org/object/54118&quot;  &quot;http://scrapi.org/object/60142&quot;
+#&gt; [17] &quot;http://scrapi.org/object/3977&quot;   &quot;http://scrapi.org/object/255391&quot;
+...
+</code></pre>
+
+<p>Get an object, with a scrapi.org url</p>
+
+<pre><code class="language-r">out &lt;- scrapi_get(&quot;http://scrapi.org/object/427581&quot;)
+out$primaryArtist
+</code></pre>
+
+<pre><code>#&gt; $role
+#&gt; [1] &quot;Artist&quot;
+#&gt;
+#&gt; $name
+#&gt; [1] &quot;Daniel Marot the Elder&quot;
+#&gt;
+#&gt; $nationality
+#&gt; [1] &quot;(French, Paris 1661–1752 The Hague)&quot;
+</code></pre>
+
+<p>or an object id</p>
+
+<pre><code class="language-r">out &lt;- scrapi_get(427581)
+out$primaryArtist
+</code></pre>
+
+<pre><code>#&gt; $role
+#&gt; [1] &quot;Artist&quot;
+#&gt;
+#&gt; $name
+#&gt; [1] &quot;Daniel Marot the Elder&quot;
+#&gt;
+#&gt; $nationality
+#&gt; [1] &quot;(French, Paris 1661–1752 The Hague)&quot;
+</code></pre>
+
+<h3 id="cstmc-data">CSTMC data</h3>
+
+<p>List changes</p>
+
+<pre><code class="language-r">cstmc_changes(limit = 1)
+</code></pre>
+
+<pre><code>#&gt; [[1]]
+#&gt; [[1]]$user_id
+#&gt; [1] &quot;27778230-2e90-4818-9f00-bbf778c8fa09&quot;
+#&gt;
+#&gt; [[1]]$timestamp
+#&gt; [1] &quot;2015-03-30T15:06:55.500589&quot;
+#&gt;
+#&gt; [[1]]$object_id
+#&gt; [1] &quot;f4406699-3e11-4856-be48-b55da98b3c14&quot;
+#&gt;
+...
+</code></pre>
+
+<p>List datasets</p>
+
+<pre><code class="language-r">cstmc_datasets(as = &quot;table&quot;)
+</code></pre>
+
+<pre><code>#&gt;  [1] &quot;artifact-data-agriculture&quot;
+#&gt;  [2] &quot;artifact-data-aviation&quot;
+#&gt;  [3] &quot;artifact-data-bookbinding&quot;
+#&gt;  [4] &quot;artifact-data-chemistry&quot;
+#&gt;  [5] &quot;artifact-data-communications&quot;
+#&gt;  [6] &quot;artifact-data-computing-technology&quot;
+#&gt;  [7] &quot;artifact-data-domestic-technology&quot;
+#&gt;  [8] &quot;artifact-data-energy-electric&quot;
+#&gt;  [9] &quot;artifact-data-exploration-and-survey&quot;
+#&gt; [10] &quot;artifact-data-fisheries&quot;
+...
+</code></pre>
+
+<p>Search for packages</p>
+
+<pre><code class="language-r">out &lt;- cstmc_package_search(q = '*:*', rows = 2, as='table')
+lapply(out$results$resources, function(x) x[,1:3])
+</code></pre>
+
+<pre><code>#&gt; [[1]]
+#&gt;                      resource_group_id cache_last_updated
+#&gt; 1 4cff3cdf-7174-46f1-b2cf-da84a2478583                 NA
+#&gt; 2 4cff3cdf-7174-46f1-b2cf-da84a2478583                 NA
+#&gt; 3 4cff3cdf-7174-46f1-b2cf-da84a2478583                 NA
+#&gt; 4 4cff3cdf-7174-46f1-b2cf-da84a2478583                 NA
+#&gt;           revision_timestamp
+#&gt; 1 2015-03-30T15:06:55.217106
+#&gt; 2 2014-11-04T02:23:51.866763
+#&gt; 3 2014-11-05T19:05:31.328801
+#&gt; 4 2014-11-05T19:09:35.883635
+#&gt;
+#&gt; [[2]]
+#&gt;                      resource_group_id cache_last_updated
+#&gt; 1 9d1467e6-4e87-4ebf-bd73-35326fd46491                 NA
+#&gt; 2 9d1467e6-4e87-4ebf-bd73-35326fd46491                 NA
+#&gt; 3 9d1467e6-4e87-4ebf-bd73-35326fd46491                 NA
+#&gt; 4 9d1467e6-4e87-4ebf-bd73-35326fd46491                 NA
+#&gt;           revision_timestamp
+#&gt; 1 2015-01-09T23:33:13.972143
+#&gt; 2 2014-10-31T22:37:58.762911
+#&gt; 3 2014-11-05T18:23:00.789562
+#&gt; 4 2014-11-05T18:25:16.764967
+</code></pre>
+
+<h3 id="national-gallery-of-art-nga">National Gallery of Art (NGA)</h3>
+
+<p>Get metadata for a single object</p>
+
+<pre><code class="language-r">nga(id=33267)
+</code></pre>
+
+<pre><code>#&gt; &lt;NGA metadata&gt; Paradise with Christ in the Lap of Abraham
+#&gt;   Artist: German 13th Century
+#&gt;   Inscription: on verso late thirteenth-century copy of a letter from Pope Gregory
+#&gt;           IX to Elizabeth of Thuringia
+#&gt;   Provenance: R. Forrer (Lugt Supp.941a)
+#&gt;   Description:
+#&gt;      created: c. 1239
+#&gt;      medium: tempera and gold leaf on vellum, NGA Miniatures 1975, no. 33
+#&gt;      dimensions: overall: 22.4 x 15.7 cm (8 13/16 x 6 3/16 in.)
+#&gt;      credit: Rosenwald Collection
+#&gt;      accession: 1946.21.11
+#&gt;   Exhibition history:
+#&gt;      2007: Fabulous Journeys and Faraway Places: Travels on Paper, 1450 - 1700,
+#&gt;           National Gallery of Art, Washington, D.C., 2007
+#&gt;      2009: Heaven on Earth: Manuscript Illuminations from the National Gallery
+#&gt;           of Art, NGA, 2009.
+#&gt;   Bibliography:
+#&gt;      1975: National Gallery of Art. Medieval and Renaissance Miniatures from the
+#&gt;           National Gallery of Art. Washington, 1975.
+#&gt;      1982: Fine 1982, 45.
+#&gt;      1984: Walker, John. National Gallery of Art, Washington. Rev. ed. New York,
+#&gt;           1984: 658, no. 1033, color repro.
+#&gt;      1990: Clayton, Virginia Tuttle. Gardens on Paper: Prints and Drawings,
+#&gt;           1200-1900. Exh. cat. National Gallery of Art, Washington,
+#&gt;           1990: 1.
+</code></pre>
+
+<p>Get metadata for many objects</p>
+
+<pre><code class="language-r">lapply(c(143679,27773,28487), nga)
+</code></pre>
+
+<pre><code>#&gt; [[1]]
+#&gt; &lt;NGA metadata&gt;  Barrington bore it all with exemplary patience
+#&gt;   Artist: Du Maurier, George
+#&gt;   Inscription: by artist, lower right in pen and brown ink: Barrington bore it all
+#&gt;           with exemplary patience / P.7 Par VI / Mlle de Mersac /
+#&gt;           [Not deciphered]; by later hand, upper right on flap in
+#&gt;           graphite: [Not deciphered] (cut off) / Reduce [to?] 6 1/4;
+#&gt;           by later hand, lower center verso in pen and blue ink: [Not
+#&gt;           deciphered] (effaced)
+#&gt;   Provenance: (Fry Gallery, London); Joseph F. McCrindle [1923-2008], New York,
+#&gt;           1968; Joseph F. McCrindle Foundation, 2008; gift to NGA,
+#&gt;           2009.
+#&gt;   Description:
+#&gt;      created: 1878/1879
+#&gt;      medium: pen and brown ink with graphite on heavy wove paper
+#&gt;      dimensions: , sheet: 22 x 30.2 cm (8 11/16 x 11 7/8 in.)  image (6.4 cm of sheet width is folded under): 22 x 23.8 cm (8 11/16 x 9 3/8 in.)
+#&gt;      credit: Joseph F. McCrindle Collection
+#&gt;      accession: 2009.70.110
+#&gt;   Exhibition history:
+#&gt;   Bibliography:
+#&gt;      2012: Grasselli, Margaret M., and Arthur K. Wheelock, Jr., eds. The
+#&gt;           McCrindle Gift: A Distinguished Collection of Drawings and
+#&gt;           Watercolors. Exh. cat. National Gallery of Art. Washington,
+#&gt;           2012: 169 (color).
+#&gt;
+#&gt; [[2]]
+#&gt; &lt;NGA metadata&gt;  Bell Hop  Marionette
+#&gt;   Artist: Cero, Emile
+#&gt;   Inscription: lower right in black ink: EMILE CERO
+#&gt;   Provenance: NA
+#&gt;   Description:
+#&gt;      created: c. 1938
+#&gt;      medium: watercolor, graphite, and pen and ink on paper
+#&gt;      dimensions: overall: 35.5 x 28 cm (14 x 11 in.)  Original IAD Object: 42&quot; high
+#&gt;      credit: Index of American Design
+#&gt;      accession: 1943.8.15682
+#&gt;   Exhibition history:
+#&gt;   Bibliography:
+#&gt;
+#&gt; [[3]]
+#&gt; &lt;NGA metadata&gt;  Bell in Hand  Tavern Sign
+#&gt;   Artist: American 20th Century
+#&gt;   Inscription:
+#&gt;   Provenance: NA
+#&gt;   Description:
+#&gt;      created: 1935/1942
+#&gt;      medium: watercolor and graphite on paper
+#&gt;      dimensions: overall: 37.7 x 26.5 cm (14 13/16 x 10 7/16 in.)
+#&gt;      credit: Index of American Design
+#&gt;      accession: 1943.8.16396
+#&gt;   Exhibition history:
+#&gt;   Bibliography:
+#&gt;      1950: Christensen, Erwin O., The Index of American Design, New York: 1950,
+#&gt;           p. 67, no. 127.
+#&gt;      1970: Hornung, Clarence P., Treasury of American Design. New York, 1970:
+#&gt;           83, pl. 265.
+</code></pre>
+
+<h3 id="getty-museum">Getty Museum</h3>
+
+<p>Get metadata for a single object</p>
+
+<pre><code class="language-r">getty(id=140725)
+</code></pre>
+
+<pre><code>#&gt; &lt;Getty metadata&gt; A Young Herdsman Leaning on his &quot;Houlette&quot;
+#&gt;   Artist: Herman Saftleven the Younger [Dutch, 1609 - 1685]
+#&gt;   Provenance
+#&gt;      : Gustav Nebehay [Vienna, Austria]
+#&gt;      - 1941: Franz W. Koenigs [Haarlem, Netherlands], by inheritance to his heirs.
+#&gt;      - 2001: Private Collection (sold, Sotheby's New York, January 23, 2001, lot 20, to Bob Haboldt.)
+#&gt;      2001: Bob P. Haboldt, sold to the J. Paul Getty Museum, 2001.
+#&gt;   Description:
+#&gt;      Artist/Maker(s): Herman Saftleven the Younger [Dutch, 1609 - 1685]
+#&gt;      Date: about 1650
+#&gt;      Medium: Black chalk and brown wash
+#&gt;      Dimensions: 27.5 x 18.6 cm (10 13/16 x 7 5/16 in.)
+#&gt;      Object Number: 2001.40
+#&gt;      Department: Drawings
+#&gt;      Culture: Dutch
+#&gt;      Previous number: L.2001.12
+#&gt;      Classification/Object Type: Drawings / Drawing
+#&gt;   Exhibition history:
+#&gt;      Dutch Drawings of the Golden Age (May 28 to August 25, 2002): The J. Paul Getty Museum at the Getty Center (Los Angeles), May 28,
+#&gt;           2002 - August 25, 2002
+#&gt;      Visions of Grandeur: Drawing in the Baroque Age (June 1 to September 12, 2004): The J. Paul Getty Museum at the Getty Center (Los Angeles), June 1,
+#&gt;           2004 - September 12, 2004
+#&gt;      Paper Art: Finished Drawings in Holland 1590-1800 (September 6 to November 20, 2005): The J. Paul Getty Museum at the Getty Center (Los Angeles), September
+#&gt;           6, 2005 - November 20, 2005
+#&gt;      Drawing Life: The Dutch Visual Tradition (November 24, 2009 to February 28, 2010): The J. Paul Getty Museum at the Getty Center (Los Angeles), November
+#&gt;           24, 2009 - February 28, 2010
+</code></pre>
+
+<p>Get metadata for many objects</p>
+
+<pre><code class="language-r">lapply(c(140725,8197), getty)
+</code></pre>
+
+<pre><code>#&gt; [[1]]
+#&gt; &lt;Getty metadata&gt; A Young Herdsman Leaning on his &quot;Houlette&quot;
+#&gt;   Artist: Herman Saftleven the Younger [Dutch, 1609 - 1685]
+#&gt;   Provenance
+#&gt;      : Gustav Nebehay [Vienna, Austria]
+#&gt;      - 1941: Franz W. Koenigs [Haarlem, Netherlands], by inheritance to his heirs.
+#&gt;      - 2001: Private Collection (sold, Sotheby's New York, January 23, 2001, lot 20, to Bob Haboldt.)
+#&gt;      2001: Bob P. Haboldt, sold to the J. Paul Getty Museum, 2001.
+#&gt;   Description:
+#&gt;      Artist/Maker(s): Herman Saftleven the Younger [Dutch, 1609 - 1685]
+#&gt;      Date: about 1650
+#&gt;      Medium: Black chalk and brown wash
+#&gt;      Dimensions: 27.5 x 18.6 cm (10 13/16 x 7 5/16 in.)
+#&gt;      Object Number: 2001.40
+#&gt;      Department: Drawings
+#&gt;      Culture: Dutch
+#&gt;      Previous number: L.2001.12
+#&gt;      Classification/Object Type: Drawings / Drawing
+#&gt;   Exhibition history:
+#&gt;      Dutch Drawings of the Golden Age (May 28 to August 25, 2002): The J. Paul Getty Museum at the Getty Center (Los Angeles), May 28,
+#&gt;           2002 - August 25, 2002
+#&gt;      Visions of Grandeur: Drawing in the Baroque Age (June 1 to September 12, 2004): The J. Paul Getty Museum at the Getty Center (Los Angeles), June 1,
+#&gt;           2004 - September 12, 2004
+#&gt;      Paper Art: Finished Drawings in Holland 1590-1800 (September 6 to November 20, 2005): The J. Paul Getty Museum at the Getty Center (Los Angeles), September
+#&gt;           6, 2005 - November 20, 2005
+#&gt;      Drawing Life: The Dutch Visual Tradition (November 24, 2009 to February 28, 2010): The J. Paul Getty Museum at the Getty Center (Los Angeles), November
+#&gt;           24, 2009 - February 28, 2010
+#&gt;
+#&gt; [[2]]
+#&gt; &lt;Getty metadata&gt; Grave Stele of a Boy
+#&gt;   Artist: Unknown
+#&gt;   Provenance
+#&gt;      - 1973: Nicolas Koutoulakis [Geneva, Switzerland], sold to the J. Paul Getty Museum, 1973.
+#&gt;   Description:
+#&gt;      Artist/Maker(s): Unknown
+#&gt;      Date: 1 - 50
+#&gt;      Medium: Marble
+#&gt;      Dimensions: Object: H: 87 x W: 39.1 x D: 7 cm (34 1/4 x 15 3/8 x 2 3/4 in.)
+#&gt;      Object Number: 73.AA.114
+#&gt;      Department: Antiquities
+#&gt;      Display Title: Gravestone of a Boy
+#&gt;      Culture: Roman
+#&gt;      Place Created: Roman Empire
+#&gt;      Classification/Object Type: Sculpture / Relief
+#&gt;   Exhibition history:
+</code></pre>
+
+<h2 id="art-institute-of-chicago">Art Institute of Chicago</h2>
+
+<p>Get metadata for a single object</p>
+
+<pre><code class="language-r">aic(41033)
+</code></pre>
+
+<pre><code>#&gt; &lt;AIC metadata&gt; 41033
+#&gt;    Artist:
+#&gt;       Name: Charles Edmund Brock English
+#&gt;       Years: 1870-1938
+#&gt;    Link: http://www.artic.edu/aic/collections/artwork/41033
+#&gt;    Title: &quot;'The unwelcome hints of Mr. Shepherd, his Agent,' Chapter I&quot;
+#&gt;       frontispiece for Jane Austen's Persuasion, 1898
+#&gt;    Description: Pen and black ink with brush and watercolor, on ivory wove card 298 x
+#&gt;       222 mm Signed lower right, in pen and black ink: &quot;C.E.Brock .
+#&gt;       1898&quot;; inscribed, lower center: &quot;'The unwelcome hints of Mr.
+#&gt;       Shepherd, his agent' / Chapter I&quot;; further ink and graphite
+#&gt;       inscriptions in marginsGift of James Deering, 1927.1623
+#&gt;    Description-2: Prints and Drawings Not on Display
+#&gt;    Artwork body:
+#&gt;    Exhibition history:
+#&gt;    Publication history:
+#&gt;      - : Jane Austen, edited by Gerald Brimley Johnson, Persuasion, in Jane
+#&gt;           Austen's Novels, Volume X, (London: Dent, 1898), p. 8
+#&gt;           (ill).
+#&gt;    Ownership history:
+</code></pre>
+
+<p>Get metadata for many objects</p>
+
+<pre><code class="language-r">lapply(c(41033,210804), aic)
+</code></pre>
+
+<pre><code>#&gt; [[1]]
+#&gt; &lt;AIC metadata&gt; 41033
+#&gt;    Artist:
+#&gt;       Name: Charles Edmund Brock English
+#&gt;       Years: 1870-1938
+#&gt;    Link: http://www.artic.edu/aic/collections/artwork/41033
+#&gt;    Title: &quot;'The unwelcome hints of Mr. Shepherd, his Agent,' Chapter I&quot;
+#&gt;       frontispiece for Jane Austen's Persuasion, 1898
+#&gt;    Description: Pen and black ink with brush and watercolor, on ivory wove card 298 x
+#&gt;       222 mm Signed lower right, in pen and black ink: &quot;C.E.Brock .
+#&gt;       1898&quot;; inscribed, lower center: &quot;'The unwelcome hints of Mr.
+#&gt;       Shepherd, his agent' / Chapter I&quot;; further ink and graphite
+#&gt;       inscriptions in marginsGift of James Deering, 1927.1623
+#&gt;    Description-2: Prints and Drawings Not on Display
+#&gt;    Artwork body:
+#&gt;    Exhibition history:
+#&gt;    Publication history:
+#&gt;      - : Jane Austen, edited by Gerald Brimley Johnson, Persuasion, in Jane
+#&gt;           Austen's Novels, Volume X, (London: Dent, 1898), p. 8
+#&gt;           (ill).
+#&gt;    Ownership history:
+#&gt;
+#&gt; [[2]]
+#&gt; &lt;AIC metadata&gt; 210804
+#&gt;    Artist:
+#&gt;       Name: William H. Bell , American
+#&gt;       Years: 1830 1910
+#&gt;    Link: http://www.artic.edu/aic/collections/artwork/210804
+#&gt;    Title: The &quot;Vermillion Cliff,&quot; a typical plateau edge, as seen from Jacobs
+#&gt;       Pool, Arizona. From its top a plateau stretches to the right,
+#&gt;       and from its base another to the left. Their difference of
+#&gt;       level is 1.500 feet, and the step is too steep for scaling.,
+#&gt;       1872
+#&gt;    Description: Albumen print, stereo, No. 15 from the series &quot;Geographical
+#&gt;       Explorations and Surveys West of the 100th Meridian&quot; 9.3 x 7.5
+#&gt;       cm (each image); 10 x 17.7 cm (card)Photography Gallery Fund,
+#&gt;       1959.616.13
+#&gt;    Description-2: Photography Not on Display
+#&gt;    Artwork body:
+#&gt;    Exhibition history:
+#&gt;    Publication history:
+#&gt;    Ownership history:
+</code></pre>
+
+<p><section id="citing"></p>
+
+<h2 id="citing">Citing</h2>
+
+<p>To cite <code>musemeta</code> in publications use:</p>
+
+<p><br></p>
+
+<blockquote>
+<p>Scott Chamberlain (2015). musemeta: R Client for Scraping Museum Metadata. R
+  package version 0.0.5. <a href="https://github.com/ropensci/musemeta">https://github.com/ropensci/musemeta</a></p>
+</blockquote>
+
+<p><section id="license_bugs"></p>
+
+<h2 id="license-and-bugs">License and bugs</h2>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/musemeta/issues?state=open">our Github repo for musemeta</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | textreuse tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>textreuse tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.1.4</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p>Tools for measuring similarity among documents and detecting passages which have been reused. Implements shingled n-gram, skip n-gram, and other tokenizers; similarity/dissimilarity functions; pairwise comparisons; minhash and locality sensitive hashing algorithms; and a version of the Smith-Waterman local alignment algorithm suitable for natural language.</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>Stable <code>textreuse</code> version from CRAN</p>
+
+<pre><code class="language-r">install.packages(&quot;textreuse&quot;)
+</code></pre>
+
+<p>Or, the development version from Github</p>
+
+<pre><code class="language-r">devtools::install_github(&quot;ropensci/textreuse&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;textreuse&quot;)
+</code></pre>
+
+<h2 id="usage">Usage</h2>
+
+<p>The textreuse package provides classes and functions to detect document similarity and text reuse in text corpora. This introductory vignette provides details on the <code>TextReuseTextDocument</code> and <code>TextReuseCorpus</code> classes, as well as functions for tokenizing, hashing, and measuring similarity. See the pairwise, minhash/LSH, or alignment vignettes for details on solving text similarity problems.</p>
+
+<pre><code class="language-r">vignette(&quot;textreuse-pairwise&quot;, package = &quot;textreuse&quot;)
+vignette(&quot;textreuse-minhash&quot;, package = &quot;textreuse&quot;)
+vignette(&quot;textreuse-alignment&quot;, package = &quot;textreuse&quot;)
+</code></pre>
+
+<p>For these vignette we will use a small corpus of eight documents published by the <a href="https://en.wikipedia.org/wiki/American_Tract_Society">American Tract Society</a> and available from the Internet Archive. The <a href="http://lincolnmullen.com/blog/corpus-of-american-tract-society-publications/">full corpus</a> is also available to be downloaded if you wish to test the package.</p>
+
+<h3 id="textreuse-classes">TextReuse classes</h3>
+
+<h4 id="textreusetextdocument">TextReuseTextDocument</h4>
+
+<p>The most basic class provided by this package is the <code>TextReuseTextDocument</code> class. This class contains the text of a document and its metadata. When the document is loaded, the text is also tokenized. (See the section on tokenizers below.) Those tokens are then hashed using a hash function. By default the hashes are retained and the tokens are discarded, since using only hashes results in a significant memory savings.</p>
+
+<p>Here we load a file into a <code>TextReuseTextDocument</code> and tokenize it into shingled n-grams, adding an option to retain the tokens.</p>
+
+<pre><code class="language-r">library(textreuse)
+file &lt;- system.file(&quot;extdata/ats/remember00palm.txt&quot;,
+                    package = &quot;textreuse&quot;)
+doc &lt;- TextReuseTextDocument(file = file, meta = list(&quot;publisher&quot; = &quot;ATS&quot;),
+                             tokenizer = tokenize_ngrams, n = 5,
+                             keep_tokens = TRUE)
+doc
+#&gt; TextReuseTextDocument
+#&gt; file : /Library/Frameworks/R.framework/Versions/3.4/Resources/library/textreuse/extdata/ats/remember00palm.txt 
+#&gt; hash_func : hash_string 
+#&gt; id : remember00palm 
+#&gt; publisher : ATS 
+#&gt; tokenizer : tokenize_ngrams 
+#&gt; content : Remember 
+#&gt; By 
+#&gt; Rat Palmer. 
+#&gt; Boston: 
+#&gt; 
+#&gt; THE AMERICAN TRACT SOCI] 
+#&gt; 
+#&gt; Depositories, 28 Cornhill, Boston ; and 13 Biblb House, 
+#&gt; Astor Place, New York. 
+#&gt; Entered, according to Act of Congress, in the year 1865
+</code></pre>
+
+<p>We can see details of the document with accessor functions. These are derived from the S3 virtual class <code>TextDocument</code> in the <a href="https://cran.r-project.org/package=NLP">NLP</a> package. Notice that an ID has been assigned to the document based on the filename (without the extension). The name of the tokenizer and hash functions are also saved in the metadata.</p>
+
+<pre><code class="language-r">meta(doc)
+#&gt; $file
+#&gt; [1] &quot;/Library/Frameworks/R.framework/Versions/3.4/Resources/library/textreuse/extdata/ats/remember00palm.txt&quot;
+#&gt; 
+#&gt; $hash_func
+#&gt; [1] &quot;hash_string&quot;
+#&gt; 
+#&gt; $id
+#&gt; [1] &quot;remember00palm&quot;
+#&gt; 
+#&gt; $publisher
+#&gt; [1] &quot;ATS&quot;
+#&gt; 
+#&gt; $tokenizer
+#&gt; [1] &quot;tokenize_ngrams&quot;
+meta(doc, &quot;id&quot;)
+#&gt; [1] &quot;remember00palm&quot;
+meta(doc, &quot;date&quot;) &lt;- 1865
+head(tokens(doc))
+#&gt; [1] &quot;remember by rat palmer boston&quot;       
+#&gt; [2] &quot;by rat palmer boston the&quot;            
+#&gt; [3] &quot;rat palmer boston the american&quot;      
+#&gt; [4] &quot;palmer boston the american tract&quot;    
+#&gt; [5] &quot;boston the american tract soci&quot;      
+#&gt; [6] &quot;the american tract soci depositories&quot;
+head(hashes(doc))
+#&gt; [1]   -96275747 -1721204321   707361410  -626087009  -532862870   141807655
+wordcount(doc)
+#&gt; [1] 11399
+</code></pre>
+
+<p>The <code>tokens()</code> and <code>hashes()</code> function return the tokens and hashes associated with the document. The <code>meta()</code> function returns a named list of all the metadata fields. If that function is called with a specific ID, as in <code>meta(doc, &quot;myfield&quot;)</code>, then the value for only that field is returned. You can also assign to the metadata as a whole or a specific field, as in the example above.</p>
+
+<p>In addition the <code>content()</code> function provides the unprocessed text of the document.</p>
+
+<p>The assumption is that is that you want to tokenize and hash the tokens from the start. If, however, you wish to do any of those steps yourself, you can load a document with <code>tokenizer = NULL</code>, then use <code>tokenize()</code> or <code>rehash()</code> to recompute the tokens and hashes.</p>
+
+<p>Note that a <code>TextReuseTextDocument</code> can actually contain two kinds of hashes. The <code>hashes()</code> accessor gives you integer representations of each of the tokens in the document: if there are 100,000 tokens in the document, there will be 100,000 hashes. The <code>minhashes()</code> accessor gives you a signature that represents the document as a whole but not the specific tokens within it. See the minhash vignette for details: <code>vignette(&quot;textreuse-minhash&quot;)</code>.</p>
+
+<h4 id="textreusecorpus">TextReuseCorpus</h4>
+
+<p>The class <code>TextReuseCorpus</code> provides a list of <code>TextReuseTextDocuments</code>. It derives from the S3 virtual class <code>Corpus</code> in the <a href="https://cran.r-project.org/package=tm">tm</a> package. It can be created from a directory of files (or by providing a vector of paths to files).</p>
+
+<pre><code class="language-r">dir &lt;- system.file(&quot;extdata/ats&quot;, package = &quot;textreuse&quot;)
+corpus &lt;- TextReuseCorpus(dir = dir, tokenizer = tokenize_ngrams, n = 5,
+                          progress = FALSE)
+corpus
+#&gt; TextReuseCorpus
+#&gt; Number of documents: 8 
+#&gt; hash_func : hash_string 
+#&gt; tokenizer : tokenize_ngrams
+</code></pre>
+
+<p>The names of the items in a <code>TextReuseCorpus</code> are the IDs of the documents. You can use these IDs to subset the corpus or to retrieve specific documents.</p>
+
+<pre><code class="language-r">names(corpus)
+#&gt; [1] &quot;calltounconv00baxt&quot;        &quot;gospeltruth00whit&quot;        
+#&gt; [3] &quot;lifeofrevrichard00baxt&quot;    &quot;memoirjamesbrai00ricegoog&quot;
+#&gt; [5] &quot;practicalthought00nev&quot;     &quot;remember00palm&quot;           
+#&gt; [7] &quot;remembermeorholy00palm&quot;    &quot;thoughtsonpopery00nevi&quot;
+corpus[[&quot;remember00palm&quot;]]
+#&gt; TextReuseTextDocument
+#&gt; file : /Library/Frameworks/R.framework/Versions/3.4/Resources/library/textreuse/extdata/ats/remember00palm.txt 
+#&gt; hash_func : hash_string 
+#&gt; id : remember00palm 
+#&gt; minhash_func : 
+#&gt; tokenizer : tokenize_ngrams 
+#&gt; content : Remember 
+#&gt; By 
+#&gt; Rat Palmer. 
+#&gt; Boston: 
+#&gt; 
+#&gt; THE AMERICAN TRACT SOCI] 
+#&gt; 
+#&gt; Depositories, 28 Cornhill, Boston ; and 13 Biblb House, 
+#&gt; Astor Place, New York. 
+#&gt; Entered, according to Act of Congress, in the year 1865
+corpus[c(&quot;calltounconv00baxt&quot;, &quot;lifeofrevrichard00baxt&quot;)]
+#&gt; TextReuseCorpus
+#&gt; Number of documents: 2 
+#&gt; hash_func : hash_string 
+#&gt; tokenizer : tokenize_ngrams
+</code></pre>
+
+<p>Accessor functions such as <code>meta()</code>, <code>tokens()</code>, <code>hashes()</code>, and <code>wordcount()</code> have methods that work on corpora.</p>
+
+<pre><code class="language-r">wordcount(corpus)
+#&gt;        calltounconv00baxt         gospeltruth00whit 
+#&gt;                    134616                     16593 
+#&gt;    lifeofrevrichard00baxt memoirjamesbrai00ricegoog 
+#&gt;                     44283                    131939 
+#&gt;     practicalthought00nev            remember00palm 
+#&gt;                    124544                     11399 
+#&gt;    remembermeorholy00palm    thoughtsonpopery00nevi 
+#&gt;                     11532                     64758
+</code></pre>
+
+<p>Note that when creating a corpus, very short or empty documents will be skipped with a warning. A document must have enough words to create at least two n-grams. For example, if five-grams are desired, then the document must have at least six words.</p>
+
+<h3 id="tokenizers">Tokenizers</h3>
+
+<p>One of the steps that is performed when loading a <code>TextReuseTextDocument</code>, either individual or in a corpus, is tokenization. Tokenization breaks up a text into pieces, often overlapping. These pieces are the features which are compared when measuring document similarity.</p>
+
+<p>The textreuse package provides a number of tokenizers.</p>
+
+<pre><code class="language-r">text &lt;- &quot;How many roads must a man walk down\nBefore you'll call him a man?&quot;
+
+tokenize_words(text)
+#&gt;  [1] &quot;how&quot;    &quot;many&quot;   &quot;roads&quot;  &quot;must&quot;   &quot;a&quot;      &quot;man&quot;    &quot;walk&quot;  
+#&gt;  [8] &quot;down&quot;   &quot;before&quot; &quot;you'll&quot; &quot;call&quot;   &quot;him&quot;    &quot;a&quot;      &quot;man&quot;
+tokenize_sentences(text)
+#&gt; [1] &quot;how many roads must a man walk down&quot;
+#&gt; [2] &quot;before you ll call him a man&quot;
+tokenize_ngrams(text, n = 3)
+#&gt;  [1] &quot;how many roads&quot;     &quot;many roads must&quot;    &quot;roads must a&quot;      
+#&gt;  [4] &quot;must a man&quot;         &quot;a man walk&quot;         &quot;man walk down&quot;     
+#&gt;  [7] &quot;walk down before&quot;   &quot;down before you'll&quot; &quot;before you'll call&quot;
+#&gt; [10] &quot;you'll call him&quot;    &quot;call him a&quot;         &quot;him a man&quot;
+tokenize_skip_ngrams(text, n = 3, k = 2)
+#&gt;  [1] &quot;how must walk&quot;      &quot;many a down&quot;        &quot;roads man before&quot;  
+#&gt;  [4] &quot;must walk you'll&quot;   &quot;a down call&quot;        &quot;man before him&quot;    
+#&gt;  [7] &quot;walk you'll a&quot;      &quot;down call man&quot;      &quot;how roads a&quot;       
+#&gt; [10] &quot;many must man&quot;      &quot;roads a walk&quot;       &quot;must man down&quot;     
+#&gt; [13] &quot;a walk before&quot;      &quot;man down you'll&quot;    &quot;walk before call&quot;  
+#&gt; [16] &quot;down you'll him&quot;    &quot;before call a&quot;      &quot;you'll him man&quot;    
+#&gt; [19] &quot;how many roads&quot;     &quot;many roads must&quot;    &quot;roads must a&quot;      
+#&gt; [22] &quot;must a man&quot;         &quot;a man walk&quot;         &quot;man walk down&quot;     
+#&gt; [25] &quot;walk down before&quot;   &quot;down before you'll&quot; &quot;before you'll call&quot;
+#&gt; [28] &quot;you'll call him&quot;    &quot;call him a&quot;         &quot;him a man&quot;
+</code></pre>
+
+<p>You can write your own tokenizers or use tokenizers from other packages. They should accept a character vector as their first argument.</p>
+
+<p>As an example, we will write a tokenizer function using the \link[stringr]{stringr} package which splits a text on new lines, perhaps useful for poetry. Notice that the function takes a single string and returns a character vector with one element for each line. (A more robust tokenizer might strip blank lines and punction, include an option for lowercasing the text, and check for the validity of arguments.)</p>
+
+<pre><code class="language-r">poem &lt;- &quot;Roses are red\nViolets are blue\nI like using R\nAnd you should too&quot;
+cat(poem)
+#&gt; Roses are red
+#&gt; Violets are blue
+#&gt; I like using R
+#&gt; And you should too
+
+tokenize_lines &lt;- function(string) {
+  stringr::str_split(string, &quot;\n+&quot;)[[1]]
+}
+
+tokenize_lines(poem)
+#&gt; [1] &quot;Roses are red&quot;      &quot;Violets are blue&quot;   &quot;I like using R&quot;    
+#&gt; [4] &quot;And you should too&quot;
+</code></pre>
+
+<h3 id="hash-functions">Hash functions</h3>
+
+<p>This package provides one function to hash tokens to integers, <code>hash_string()</code>.</p>
+
+<pre><code class="language-r">hash_string(tokenize_words(text))
+#&gt;  [1]   -78131211  -909288800  -647481819  -909500956 -1640531430
+#&gt;  [6]   -78235283  -904724921  -889252160   317438038   937035765
+#&gt; [11]  -890718890   -78132909 -1640531430   -78235283
+</code></pre>
+
+<p>You can write your own hash functions, or use those provided by the <a href="https://cran.r-project.org/package=digest">digest</a> package.</p>
+
+<h2 id="comparison-functions">Comparison functions</h2>
+
+<p>This package provides a number of comparison functions for measuring similarity. These functions take either a set (in which each token is counted one time) or a bag (in which each token is counted as many times as it appears) and compares it to another set or bag.</p>
+
+<pre><code class="language-r">a &lt;- tokenize_words(paste(&quot;How does it feel, how does it feel?&quot;,
+                          &quot;To be without a home&quot;,
+                          &quot;Like a complete unknown, like a rolling stone&quot;))
+b &lt;- tokenize_words(paste(&quot;How does it feel, how does it feel?&quot;,
+                          &quot;To be on your own, with no direction home&quot;,
+                          &quot;A complete unknown, like a rolling stone&quot;))
+
+jaccard_similarity(a, b)
+#&gt; [1] 0.65
+jaccard_dissimilarity(a, b)
+#&gt; [1] 0.35
+jaccard_bag_similarity(a, b)
+#&gt; [1] 0.4
+ratio_of_matches(a, b)
+#&gt; [1] 0.75
+</code></pre>
+
+<p>See the documentation for <code>?similarity-functions</code> for details on what is measured with these functions.</p>
+
+<p>You can write your own similarity functions, which should accept two sets or bags, <code>a</code> and <code>b</code>, should work on both character and numeric vectors, since they are used with either tokens or hashes of tokens, and should return a single numeric score for the comparison. You will need to implement a method for the <code>TextReuseTextDocument</code> class.</p>
+
+<h3 id="citing">Citing</h3>
+
+<p>To cite <code>textreuse</code> in publications use:</p>
+
+<p><br></p>
+
+<blockquote>
+<p>Lincoln Mullen (2016). textreuse: Detect Text Reuse and Document
+  Similarity. R package version 0.1.4.
+  <a href="https://CRAN.R-project.org/package=textreuse">https://CRAN.R-project.org/package=textreuse</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/textreuse/issues?state=open">our Github repo for textreuse</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

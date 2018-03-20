@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Community Call v13 - How to ask questions so they get answered! Possibly by yourself!</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">Community Call v13 - How to ask questions so they get answered! Possibly by yourself!</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="/about/#team"> Stefanie Butland </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">February 17, 2017</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>Our <a href="https://github.com/ropensci/commcalls/issues/14">Community Call on Tuesday, March 7th, 8-9 AM PST</a>, will cover &ldquo;How to ask questions so they get answered! Possibly by yourself!&rdquo;. Asking questions about programming is a skill you can develop - we&rsquo;re not just born with it. The speakers will cover some of the background and skills you&rsquo;ll need to increase your chances of having your questions answered by your peers or by a busy expert.</p>
+
+<p><strong><a href="https://github.com/ropensci/commcalls/issues/14">Join the Call</a></strong></p>
+
+<h2 id="agenda">Agenda</h2>
+
+<ol>
+<li>Welcome (5 min, Stefanie Butland)</li>
+<li><strong>James (JD) Long</strong> will review the historical challenges of getting R help and give some history about how the <a href="http://stackoverflow.com/questions/tagged/r"><code>[r]</code> tag on Stack Overflow</a> was bootstrapped. (15 min)</li>
+<li><strong>Jenny Bryan</strong> will talk about the mechanics of making reproducible examples using the <a href="https://github.com/jennybc/reprex">reprex</a> package. Just as important, she&rsquo;ll discuss the philosophy i.e. that forcing yourself to make little, rigorous, self-contained examples makes you think more clearly about programming. (20min)</li>
+<li><strong>Scott Chamberlain</strong> will show you how best to raise issues and ask questions on <a href="https://ropensci.org/packages/">rOpenSci packages</a> (10 min)</li>
+<li>Q &amp; A (10 min, moderated by Scott Chamberlain)</li>
+</ol>
+
+<h2 id="resources">Resources</h2>
+
+<ul>
+<li>Nick Tierney&rsquo;s <a href="http://www.njtierney.com/r/rbloggers/2017/01/11/reprex-magic/">blog post about the reprex package</a> that Jenny Bryan will talk about</li>
+<li>Noam Ross&rsquo;s analysis of the most common types of error messages R users post about on Stack Overflow, motivated by his interest in teaching problem-solving skills in R: <a href="https://github.com/noamross/zero-dependency-problems/blob/master/misc/stack-overflow-common-r-errors.md">Common errors in R: An Empirical Investigation</a></li>
+<li>rOpenSci <a href="https://discuss.ropensci.org/">discussion forum</a></li>
+</ul>
+
+<p>Soon after the call, we&rsquo;ll post the <a href="https://vimeo.com/ropensci/videos">video</a> and we plan to capture the highlights and links to resources in a follow-up blog post.</p>
+
+<h2 id="speaker-bios">Speaker bios</h2>
+
+<p><strong>James (JD) Long</strong> works in reinsurance in New York City. He builds risk models which, according to <a href="http://www.tandfonline.com/doi/abs/10.1080/01621459.1976.10480949">George Box</a>, are wrong. In spite of this inconvenient truth, James has proved successful at convincing his employer that his models are useful. James writes poorly commented, inefficient code using Python, R, SQL, and expletives.</p>
+
+<p>James grew up in Kentucky and has multiple degrees from the University of Kentucky. After being marooned on the archipelago of Bermuda for four years, James now lives in Jersey City, NJ with his Minecraft addicted 9 year old daughter and his wife, a recovering trial lawyer.</p>
+
+<p>James on <a href="https://github.com/CerebralMastication">GitHub</a>, <a href="https://twitter.com/CMastication">Twitter</a></p>
+
+<p><strong>Jenny Bryan</strong> is a member of rOpenSci&rsquo;s Leadership team, a software engineer at <a href="https://www.rstudio.com/">RStudio</a> and Associate Professor (on leave) in the Statistics Department at the University of British Columbia. She&rsquo;s a biostatistician specialized in genomics and takes a special interest and delight in data analysis and statistical computing. Jenny is known for her outstanding teaching and her use of lego and mullets (the hair, not the fish) to illustrate #rstats.</p>
+
+<p>Jenny on <a href="https://github.com/jennybc">GitHub</a>, <a href="https://twitter.com/jennybryan">Twitter</a></p>
+
+<p><strong>Scott Chamberlain</strong> is co-founder and technical lead at rOpenSci and tries to answer lots of user questions via email/twitter/github/discussion forum. He has specific expertise in developing packages for handling <a href="https://ropensci.org/tutorials/taxize_tutorial.html">taxonomy</a>, <a href="https://ropensci.org/blog/blog/2016/11/22/geospatial-suite">geospatial analyses</a> and <a href="https://ropensci.org/packages/#literature">accessing journal full-text or metadata</a>.</p>
+
+<p>Scott on <a href="https://github.com/sckott">GitHub</a>, <a href="https://twitter.com/sckottie">Twitter</a></p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/ropensci"><span class="label">ropensci</span></a>
+                
+                    <a href="/tags/community"><span class="label">community</span></a>
+                
+                    <a href="/tags/events"><span class="label">events</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

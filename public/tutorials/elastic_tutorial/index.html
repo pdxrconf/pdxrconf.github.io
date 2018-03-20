@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | elastic tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>elastic tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.8.0</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p><code>elastic</code> is an R client for <a href="https://www.elastic.co/products/elasticsearch">Elasticsearch</a>. This tutorial is an introduction to the package.</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>You can install from CRAN</p>
+
+<pre><code class="language-r">install.packages(&quot;elastic&quot;)
+</code></pre>
+
+<p>Or the development version from GitHub</p>
+
+<pre><code class="language-r">install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;ropensci/elastic&quot;)
+</code></pre>
+
+<p>Then load the package</p>
+
+<pre><code class="language-r">library(&quot;elastic&quot;)
+</code></pre>
+
+<h3 id="elasticsearch">Elasticsearch</h3>
+
+<p><strong>Elasticsearch info</strong></p>
+
+<ul>
+<li><a href="https://www.elastic.co/products/elasticsearch">Elasticsearch home page</a></li>
+<li><a href="http://www.elastic.co/guide/en/elasticsearch/reference/current/index.html">API docs</a></li>
+</ul>
+
+<p><strong>Install Elasticsearch</strong></p>
+
+<ul>
+<li><a href="http://www.elastic.co/guide/en/elasticsearch/reference/current/_installation.html">Elasticsearch installation help</a></li>
+</ul>
+
+<p><strong>Unix (linux/osx)</strong></p>
+
+<p>Replace <code>5.6.0</code> with the version you are working with.</p>
+
+<ul>
+<li>Download zip or tar file from Elasticsearch <a href="https://www.elastic.co/downloads">see here for download</a>, e.g., <code>curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.0.tar.gz</code></li>
+<li>Extract: <code>tar -zxvf elasticsearch-5.6.0.tar.gz</code></li>
+<li>Move it: <code>sudo mv elasticsearch-5.6.0 /usr/local</code></li>
+<li>Navigate to /usr/local: <code>cd /usr/local</code></li>
+<li>Delete symlinked <code>elasticsearch</code> directory: <code>rm -rf elasticsearch</code></li>
+<li>Add shortcut: <code>sudo ln -s elasticsearch-5.6.0 elasticsearch</code> (replace version with your version)</li>
+</ul>
+
+<p>On OSX, you can install via Homebrew: <code>brew install elasticsearch</code></p>
+
+<p><strong>Windows</strong></p>
+
+<p>Windows users can follow the above, but unzip the zip file instead of uncompressing the tar file.</p>
+
+<p><strong>Start Elasticsearch</strong></p>
+
+<ul>
+<li>Navigate to elasticsearch: <code>cd /usr/local/elasticsearch</code></li>
+<li>Start elasticsearch: <code>bin/elasticsearch</code></li>
+</ul>
+
+<p>I create a little bash shortcut called <code>es</code> that does both of the above commands in one step (<code>cd /usr/local/elasticsearch &amp;&amp; bin/elasticsearch</code>).</p>
+
+<p><strong>Note:</strong> Windows users should run the <code>elasticsearch.bat</code> file</p>
+
+<p><strong>Initialize connection</strong></p>
+
+<p>The function <code>connect()</code> is used before doing anything else to set the connection details to your remote or local elasticsearch store. The details created by <code>connect()</code> are written to your options for the current session, and are used by <code>elastic</code> functions.</p>
+
+<pre><code class="language-r">connect()
+</code></pre>
+
+<pre><code>#&gt; transport:  http
+#&gt; host:       127.0.0.1
+#&gt; port:       9200
+#&gt; path:       NULL
+#&gt; username:   NULL
+#&gt; password:   &lt;secret&gt;
+#&gt; errors:     simple
+#&gt; headers (names):  NULL
+</code></pre>
+
+<p>On package load, your base url and port are set to <code>http://127.0.0.1</code> and <code>9200</code>, respectively. You can of course override these settings per session or for all sessions.</p>
+
+<p><strong>Get some data</strong></p>
+
+<p>Elasticsearch has a bulk load API to load data in fast. The format is pretty weird though. It&rsquo;s sort of JSON, but would pass no JSON linter. I include a few data sets in <code>elastic</code> so it&rsquo;s easy to get up and running, and so when you run examples in this package they&rsquo;ll actually run the same way (hopefully).</p>
+
+<p>I have prepared a non-exported function useful for preparing the weird format that Elasticsearch wants for bulk data loads (see below). See <code>elastic:::make_bulk_plos</code> and <code>elastic:::make_bulk_gbif</code>.</p>
+
+<p><strong>Shakespeare data</strong></p>
+
+<p>Elasticsearch provides some data on Shakespeare plays. I&rsquo;ve provided a subset of this data in this package. Get the path for the file specific to your machine:</p>
+
+<pre><code class="language-r">shakespeare &lt;- system.file(&quot;examples&quot;, &quot;shakespeare_data.json&quot;, package = &quot;elastic&quot;)
+</code></pre>
+
+<p>Then load the data into Elasticsearch:</p>
+
+<pre><code class="language-r">docs_bulk(shakespeare)
+</code></pre>
+
+<p>If you need some big data to play with, the shakespeare dataset is a good one to start with. You can get the whole thing and pop it into Elasticsearch (beware, may take up to 10 minutes or so.):</p>
+
+<pre><code class="language-sh">curl -XGET http://www.elasticsearch.org/guide/en/kibana/current/snippets/shakespeare.json &gt; shakespeare.json
+curl -XPUT localhost:9200/_bulk --data-binary @shakespeare.json
+</code></pre>
+
+<p><strong>Public Library of Science (PLOS) data</strong></p>
+
+<p>A dataset inluded in the <code>elastic</code> package is metadata for PLOS scholarly articles. Get the file path, then load:</p>
+
+<pre><code class="language-r">plosdat &lt;- system.file(&quot;examples&quot;, &quot;plos_data.json&quot;, package = &quot;elastic&quot;)
+docs_bulk(plosdat)
+</code></pre>
+
+<p><strong>More data sets</strong></p>
+
+<p>There are more datasets formatted for bulk loading in the <code>ropensci/elastic_data</code> GitHub repository. Find it at <a href="https://github.com/ropensci/elastic_data">https://github.com/ropensci/elastic_data</a></p>
+
+<h3 id="search">Search</h3>
+
+<p>Search the <code>plos</code> index and only return 1 result</p>
+
+<pre><code class="language-r">Search(index=&quot;plos&quot;, size=1)$hits$hits
+</code></pre>
+
+<pre><code>#&gt; [[1]]
+#&gt; [[1]]$`_index`
+#&gt; [1] &quot;plos&quot;
+#&gt;
+#&gt; [[1]]$`_type`
+#&gt; [1] &quot;article&quot;
+#&gt;
+#&gt; [[1]]$`_id`
+#&gt; [1] &quot;0&quot;
+#&gt;
+#&gt; [[1]]$`_score`
+#&gt; [1] 1
+#&gt;
+#&gt; [[1]]$`_source`
+#&gt; [[1]]$`_source`$id
+#&gt; [1] &quot;10.1371/journal.pone.0007737&quot;
+#&gt;
+#&gt; [[1]]$`_source`$title
+#&gt; [1] &quot;Phospholipase C-β4 Is Essential for the Progression of the Normal Sleep Sequence and Ultradian Body Temperature Rhythms in Mice&quot;
+</code></pre>
+
+<p>Search the <code>plos</code> index, and the <code>article</code> document type, and query for <em>antibody</em>, limit to 1 result</p>
+
+<pre><code class="language-r">Search(index=&quot;plos&quot;, type=&quot;article&quot;, q=&quot;antibody&quot;, size=1)$hits$hits
+</code></pre>
+
+<pre><code>#&gt; [[1]]
+#&gt; [[1]]$`_index`
+#&gt; [1] &quot;plos&quot;
+#&gt;
+#&gt; [[1]]$`_type`
+#&gt; [1] &quot;article&quot;
+#&gt;
+#&gt; [[1]]$`_id`
+#&gt; [1] &quot;568&quot;
+#&gt;
+#&gt; [[1]]$`_score`
+#&gt; [1] 4.165291
+#&gt;
+#&gt; [[1]]$`_source`
+#&gt; [[1]]$`_source`$id
+#&gt; [1] &quot;10.1371/journal.pone.0085002&quot;
+#&gt;
+#&gt; [[1]]$`_source`$title
+#&gt; [1] &quot;Evaluation of 131I-Anti-Angiotensin II Type 1 Receptor Monoclonal Antibody as a Reporter for Hepatocellular Carcinoma&quot;
+</code></pre>
+
+<h4 id="a-bool-query">A bool query</h4>
+
+<pre><code class="language-r">mmatch &lt;- '{
+ &quot;query&quot;: {
+   &quot;bool&quot; : {
+     &quot;must_not&quot; : {
+       &quot;range&quot; : {
+         &quot;speech_number&quot; : {
+           &quot;from&quot; : 1, &quot;to&quot;: 5
+}}}}}}'
+sapply(Search(index=&quot;shakespeare&quot;, body=mmatch)$hits$hits, function(x) x$`_source`$speech_number)
+</code></pre>
+
+<pre><code>#&gt; [[1]]
+#&gt; NULL
+#&gt;
+#&gt; [[2]]
+#&gt; [1] 6
+#&gt;
+#&gt; [[3]]
+#&gt; [1] 7
+#&gt;
+#&gt; [[4]]
+#&gt; [1] 7
+#&gt;
+#&gt; [[5]]
+#&gt; [1] 7
+#&gt;
+#&gt; [[6]]
+#&gt; [1] 8
+#&gt;
+#&gt; [[7]]
+#&gt; [1] 8
+#&gt;
+#&gt; [[8]]
+#&gt; [1] 9
+#&gt;
+#&gt; [[9]]
+#&gt; [1] 9
+#&gt;
+#&gt; [[10]]
+#&gt; [1] 10
+</code></pre>
+
+<h4 id="range-query">Range query</h4>
+
+<p>With numeric</p>
+
+<pre><code class="language-r">body &lt;- list(query=list(range=list(decimalLongitude=list(gte=1, lte=3))))
+Search('gbif', body=body)$hits$total
+</code></pre>
+
+<pre><code>#&gt; [1] 24
+</code></pre>
+
+<p>With dates</p>
+
+<pre><code class="language-r">body &lt;- list(query=list(range=list(eventDate=list(gte=&quot;2012-01-01&quot;, lte=&quot;now&quot;))))
+Search('gbif', body=body)$hits$total
+</code></pre>
+
+<pre><code>#&gt; [1] 899
+</code></pre>
+
+<h4 id="more-like-this-query-more-like-this-can-be-shortened-to-mlt">More-like-this query (more_like_this can be shortened to mlt)</h4>
+
+<pre><code class="language-r">body &lt;- '{
+ &quot;query&quot;: {
+   &quot;more_like_this&quot;: {
+     &quot;fields&quot;: [&quot;abstract&quot;,&quot;title&quot;],
+     &quot;like_text&quot;: &quot;and then&quot;,
+     &quot;min_term_freq&quot;: 1,
+     &quot;max_query_terms&quot;: 12
+   }
+ }
+}'
+Search('plos', body=body)$hits$total
+</code></pre>
+
+<pre><code>#&gt; [1] 488
+</code></pre>
+
+<h4 id="highlighting">Highlighting</h4>
+
+<pre><code class="language-r">body &lt;- '{
+ &quot;query&quot;: {
+   &quot;query_string&quot;: {
+     &quot;query&quot; : &quot;cell&quot;
+   }
+ },
+ &quot;highlight&quot;: {
+   &quot;fields&quot;: {
+     &quot;title&quot;: {&quot;number_of_fragments&quot;: 2}
+   }
+ }
+}'
+out &lt;- Search('plos', 'article', body=body)
+out$hits$total
+</code></pre>
+
+<pre><code>#&gt; [1] 58
+</code></pre>
+
+<pre><code class="language-r">sapply(out$hits$hits, function(x) x$highlight$title[[1]])[8:10]
+</code></pre>
+
+<pre><code>#&gt; [[1]]
+#&gt; NULL
+#&gt;
+#&gt; [[2]]
+#&gt; NULL
+#&gt;
+#&gt; [[3]]
+#&gt; NULL
+</code></pre>
+
+<h3 id="bulk-load-from-r-objects">Bulk load from R objects</h3>
+
+<p>A new feature in <code>v0.4</code> is loading data into Elasticsearch via the bulk API (faster than via the
+normal route) from R objects (data.frame, or list). E.g.:</p>
+
+<p>Using a pretty large data.frame, at 53K rows, load <code>ggplot2</code> package first</p>
+
+<pre><code class="language-r">library(&quot;ggplot2&quot;)
+res &lt;- invisible(docs_bulk(diamonds, &quot;diam&quot;))
+</code></pre>
+
+<pre><code class="language-r">Search(index = &quot;diam&quot;)$hits$total
+</code></pre>
+
+<pre><code>#&gt; [1] 159698
+</code></pre>
+
+<h3 id="get-documents">Get documents</h3>
+
+<p>Get document with <code>id=1</code></p>
+
+<pre><code class="language-r">docs_get(index='plos', type='article', id=1)
+</code></pre>
+
+<pre><code>#&gt; $`_index`
+#&gt; [1] &quot;plos&quot;
+#&gt;
+#&gt; $`_type`
+#&gt; [1] &quot;article&quot;
+#&gt;
+#&gt; $`_id`
+#&gt; [1] &quot;1&quot;
+#&gt;
+#&gt; $`_version`
+#&gt; [1] 1
+#&gt;
+#&gt; $found
+#&gt; [1] TRUE
+#&gt;
+#&gt; $`_source`
+#&gt; $`_source`$id
+#&gt; [1] &quot;10.1371/journal.pone.0098602&quot;
+#&gt;
+#&gt; $`_source`$title
+#&gt; [1] &quot;Population Genetic Structure of a Sandstone Specialist and a Generalist Heath Species at Two Levels of Sandstone Patchiness across the Strait of Gibraltar&quot;
+</code></pre>
+
+<p>Get certain fields</p>
+
+<pre><code class="language-r">docs_get(index='plos', type='article', id=1, fields='id')
+</code></pre>
+
+<pre><code>#&gt; $`_index`
+#&gt; [1] &quot;plos&quot;
+#&gt;
+#&gt; $`_type`
+#&gt; [1] &quot;article&quot;
+#&gt;
+#&gt; $`_id`
+#&gt; [1] &quot;1&quot;
+#&gt;
+#&gt; $`_version`
+#&gt; [1] 1
+#&gt;
+#&gt; $found
+#&gt; [1] TRUE
+</code></pre>
+
+<h4 id="get-multiple-documents-at-once">Get multiple documents at once</h4>
+
+<p>Same index and type, different document ids</p>
+
+<pre><code class="language-r">docs_mget(index=&quot;plos&quot;, type=&quot;article&quot;, id=3:4)
+</code></pre>
+
+<pre><code>#&gt; $docs
+#&gt; $docs[[1]]
+#&gt; $docs[[1]]$`_index`
+#&gt; [1] &quot;plos&quot;
+#&gt;
+#&gt; $docs[[1]]$`_type`
+#&gt; [1] &quot;article&quot;
+#&gt;
+#&gt; $docs[[1]]$`_id`
+#&gt; [1] &quot;3&quot;
+#&gt;
+#&gt; $docs[[1]]$`_version`
+#&gt; [1] 1
+#&gt;
+#&gt; $docs[[1]]$found
+#&gt; [1] TRUE
+#&gt;
+#&gt; $docs[[1]]$`_source`
+#&gt; $docs[[1]]$`_source`$id
+#&gt; [1] &quot;10.1371/journal.pone.0107756&quot;
+#&gt;
+#&gt; $docs[[1]]$`_source`$title
+#&gt; [1] &quot;The Effect of S-Adenosylmethionine on Cognitive Performance in Mice: An Animal Model Meta-Analysis&quot;
+#&gt;
+#&gt;
+#&gt;
+#&gt; $docs[[2]]
+#&gt; $docs[[2]]$`_index`
+#&gt; [1] &quot;plos&quot;
+#&gt;
+#&gt; $docs[[2]]$`_type`
+#&gt; [1] &quot;article&quot;
+#&gt;
+#&gt; $docs[[2]]$`_id`
+#&gt; [1] &quot;4&quot;
+#&gt;
+#&gt; $docs[[2]]$`_version`
+#&gt; [1] 1
+#&gt;
+#&gt; $docs[[2]]$found
+#&gt; [1] TRUE
+#&gt;
+#&gt; $docs[[2]]$`_source`
+#&gt; $docs[[2]]$`_source`$id
+#&gt; [1] &quot;10.1371/journal.pone.0107758&quot;
+#&gt;
+#&gt; $docs[[2]]$`_source`$title
+#&gt; [1] &quot;Lactobacilli Inactivate Chlamydia trachomatis through Lactic Acid but Not H2O2&quot;
+</code></pre>
+
+<p>Different indeces, types, and ids</p>
+
+<pre><code class="language-r">docs_mget(index_type_id=list(c(&quot;plos&quot;,&quot;article&quot;,1), c(&quot;gbif&quot;,&quot;record&quot;,1)))$docs[[1]]
+</code></pre>
+
+<pre><code>#&gt; $`_index`
+#&gt; [1] &quot;plos&quot;
+#&gt;
+#&gt; $`_type`
+#&gt; [1] &quot;article&quot;
+#&gt;
+#&gt; $`_id`
+#&gt; [1] &quot;1&quot;
+#&gt;
+#&gt; $`_version`
+#&gt; [1] 1
+#&gt;
+#&gt; $found
+#&gt; [1] TRUE
+#&gt;
+#&gt; $`_source`
+#&gt; $`_source`$id
+#&gt; [1] &quot;10.1371/journal.pone.0098602&quot;
+#&gt;
+#&gt; $`_source`$title
+#&gt; [1] &quot;Population Genetic Structure of a Sandstone Specialist and a Generalist Heath Species at Two Levels of Sandstone Patchiness across the Strait of Gibraltar&quot;
+</code></pre>
+
+<h3 id="raw-json-data">Raw JSON data</h3>
+
+<p>You can optionally get back raw <code>json</code> from <code>Search()</code>, <code>docs_get()</code>, and <code>docs_mget()</code> setting parameter <code>raw=TRUE</code>.</p>
+
+<p>For example:</p>
+
+<pre><code class="language-r">(out &lt;- docs_mget(index=&quot;plos&quot;, type=&quot;article&quot;, id=5:6, raw=TRUE))
+</code></pre>
+
+<pre><code>#&gt; [1] &quot;{\&quot;docs\&quot;:[{\&quot;_index\&quot;:\&quot;plos\&quot;,\&quot;_type\&quot;:\&quot;article\&quot;,\&quot;_id\&quot;:\&quot;5\&quot;,\&quot;_version\&quot;:1,\&quot;found\&quot;:true,\&quot;_source\&quot;:{\&quot;id\&quot;:\&quot;10.1371/journal.pone.0085123\&quot;,\&quot;title\&quot;:\&quot;MiR-21 Is under Control of STAT5 but Is Dispensable for Mammary Development and Lactation\&quot;}},{\&quot;_index\&quot;:\&quot;plos\&quot;,\&quot;_type\&quot;:\&quot;article\&quot;,\&quot;_id\&quot;:\&quot;6\&quot;,\&quot;_version\&quot;:1,\&quot;found\&quot;:true,\&quot;_source\&quot;:{\&quot;id\&quot;:\&quot;10.1371/journal.pone.0098600\&quot;,\&quot;title\&quot;:\&quot;Correction: Designing Mixed Species Tree Plantations for the Tropics: Balancing Ecological Attributes of Species with Landholder Preferences in the Philippines\&quot;}}]}&quot;
+#&gt; attr(,&quot;class&quot;)
+#&gt; [1] &quot;elastic_mget&quot;
+</code></pre>
+
+<p>Then parse</p>
+
+<pre><code class="language-r">jsonlite::fromJSON(out)
+</code></pre>
+
+<pre><code>#&gt; $docs
+#&gt;   _index   _type _id _version found                   _source.id
+#&gt; 1   plos article   5        1  TRUE 10.1371/journal.pone.0085123
+#&gt; 2   plos article   6        1  TRUE 10.1371/journal.pone.0098600
+#&gt;                                                                                                                                                     _source.title
+#&gt; 1                                                                       MiR-21 Is under Control of STAT5 but Is Dispensable for Mammary Development and Lactation
+#&gt; 2 Correction: Designing Mixed Species Tree Plantations for the Tropics: Balancing Ecological Attributes of Species with Landholder Preferences in the Philippines
+</code></pre>
+
+<h3 id="citing">Citing</h3>
+
+<blockquote>
+<p>Scott Chamberlain (2017). elastic: General Purpose Interface to Elasticsearch. R package version 0.8.0.
+  <a href="https://cran.rstudio.com/package=elastic">https://cran.rstudio.com/package=elastic</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/elastic/issues?state=open">our GitHub repo for elastic</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

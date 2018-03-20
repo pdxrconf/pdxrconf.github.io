@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | ccafs - client for CCAFS General Circulation Models data</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article class="blog-post">
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h1 style="text-align: center;">ccafs - client for CCAFS General Circulation Models data</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        &nbsp;
+                        
+                          <a href="/about/#team">Scott Chamberlain</a> 
+                        
+                        
+                        &nbsp; |
+                    
+                    <small style="color: #5B617A; margin-left: 10px;"> MARCH 1, 2017</small>
+                </p>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+                
+
+<p>I&rsquo;ve recently released the new package <a href="https://github.com/ropensci/ccafs">ccafs</a>, which provides access
+to data from Climate Change, Agriculture and Food Security
+(CCAFS; <a href="http://ccafs-climate.org/">http://ccafs-climate.org/</a>) General Circulation Models (GCM) data.
+GCM&rsquo;s are a particular type of climate model, used for weather forecasting,
+and climate change forecasting - read more at
+<a href="https://en.wikipedia.org/wiki/General_circulation_model">https://en.wikipedia.org/wiki/General_circulation_model</a>.</p>
+
+<p><code>ccafs</code> falls in the data client camp - its focus is on getting users
+data - many <a href="https://ropensci.org/packages/#data_access">rOpenSci packages</a>
+fall into this area. These kinds of packages are important so that
+scientists don&rsquo;t have to recreate the wheel themselves every time, but
+instead use one client that everyone else uses.</p>
+
+<p>CCAFS GCM data files are <code>.zip</code> files with a bunch of files inside. The
+individual files are in ARC ASCII format (<a href="https://en.wikipedia.org/wiki/Esri_grid#ASCII">https://en.wikipedia.org/wiki/Esri_grid#ASCII</a>) -
+a plain text data format, but still require painful manipulation/wrangling to
+get into an easily consumable format. The files have a <code>.asc</code> file extension.</p>
+
+<p>For each <code>.asc</code> file, the first 6 lines of each file indicate the reference of
+the grid (number of columns and rows, corner coordinates, cellsize, and missing
+data value), followed by the actual data values, delimited with single
+space characters.</p>
+
+<p>There&rsquo;s a related binary format - but its proprietary, so nevermind.</p>
+
+<p>The workflow with <code>ccafs</code> for most users will likely be as follows:</p>
+
+<ul>
+<li>Search for data they want: <code>cc_search()</code></li>
+<li>Fetch/download data: <code>cc_data_fetch()</code></li>
+<li>Reaad data: <code>cc_data_read()</code></li>
+</ul>
+
+<p>I&rsquo;ll dive into more details below.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>First, install the package.</p>
+
+<pre><code class="language-r">install.packages(&quot;ccafs&quot;)
+</code></pre>
+
+<p>Then load <code>ccafs</code></p>
+
+<pre><code class="language-r">library(&quot;ccafs&quot;)
+</code></pre>
+
+<h2 id="search-for-data">Search for data</h2>
+
+<p>Searching CCAF&rsquo;s data holdings is not as easy as it could be as they don&rsquo;t
+provide any programmatic way to do so. However, we provide a way to search
+using their web interface from R.</p>
+
+<p>You can search by the numbers representing each possible value for
+each parameter. See the <code>?'ccafs-search'</code> for help on what the numbers
+refer to.</p>
+
+<pre><code class="language-r">(result1 &lt;- cc_search(file_set = 4, scenario = 6, model = 2, extent = &quot;global&quot;,
+  format = &quot;ascii&quot;, period = 5, variable = 2, resolution = 3))
+#&gt; [1] &quot;http://gisweb.ciat.cgiar.org/ccafs_climate/files/data/ipcc_4ar_ciat/sres_b1/2040s/bccr_bcm2_0/5min/bccr_bcm2_0_sres_b1_2040s_prec_5min_no_tile_asc.zip&quot;
+</code></pre>
+
+<p>Alternatively, you can use the helper list <code>cc_params</code> where you can reference
+options by name; the downside is that this leads to very verbose code.</p>
+
+<pre><code class="language-r">(result2 &lt;- cc_search(file_set = cc_params$file_set$`Delta method IPCC AR4`,
+                  scenario = cc_params$scenario$`SRES B1`,
+                  model = cc_params$model$bccr_bcm2_0,
+                  extent = cc_params$extent$global,
+                  format = cc_params$format$ascii,
+                  period = cc_params$period$`2040s`,
+                  variable = cc_params$variable$Precipitation,
+                  resolution = cc_params$resolution$`5 minutes`))
+#&gt; [1] &quot;http://gisweb.ciat.cgiar.org/ccafs_climate/files/data/ipcc_4ar_ciat/sres_b1/2040s/bccr_bcm2_0/5min/bccr_bcm2_0_sres_b1_2040s_prec_5min_no_tile_asc.zip&quot;
+</code></pre>
+
+<p>If you already know what you want in terms of file paths, you can query
+Amazon S3 directly with <code>cc_list_keys()</code> (the data file come from Amazon S3):</p>
+
+<pre><code class="language-r">cc_list_keys(max = 3)
+#&gt; # A tibble: 3 × 5
+#&gt;                                              Key             LastModified
+#&gt;                                            &lt;chr&gt;                    &lt;chr&gt;
+#&gt; 1                                         ccafs/ 2014-02-28T15:15:45.000Z
+#&gt; 2 ccafs/2014-05-24-01-19-33-3A0DFF1F86F3E7F7.txt 2014-07-01T02:15:51.000Z
+#&gt; 3                                 ccafs/amzn.csv 2014-02-28T15:21:32.000Z
+#&gt; # ... with 3 more variables: ETag &lt;chr&gt;, Size &lt;chr&gt;, StorageClass &lt;chr&gt;
+</code></pre>
+
+<p>When using <code>cc_list_keys()</code>, you&rsquo;ll get not just <code>.zip</code> files that can be
+downloaded, but also directories. So beware that if you&rsquo;re going after grabbing
+&ldquo;keys&rdquo; for files that can be downloaded, you&rsquo;re looking for <code>.zip</code> files.</p>
+
+<h2 id="fetch-and-read-data">Fetch and read data</h2>
+
+<p>Once you get links from <code>cc_search()</code> or &ldquo;keys&rdquo; from <code>cc_list_keys()</code>, you
+can pass either to <code>cc_data_fetch()</code> - which normalizes the input - so it
+doesn&rsquo;t matter whether you pass in e.g.,</p>
+
+<p><code>http://gisweb.ciat.cgiar.org/ccafs_climate/files/data/ipcc_4ar_ciat/</code>
+<code>sres_b1/2040s/bccr_bcm2_0/5min/bccr_bcm2_0_sres_b1_2040s_prec_5min_no_tile_asc.zip</code></p>
+
+<p>or</p>
+
+<p><code>ccafs_climate/files/data/ipcc_4ar_ciat/sres_b1/2040s/bccr_bcm2_0/5min/</code>
+<code>bccr_bcm2_0_sres_b1_2040s_prec_5min_no_tile_asc.zip</code></p>
+
+<p>Let&rsquo;s download data with <code>cc_data_fetch()</code> using the result we got above
+using <code>cc_search()</code>:</p>
+
+<pre><code class="language-r">xx &lt;- cc_data_fetch(result2)
+</code></pre>
+
+<p>Then we can read data with <code>cc_data_read()</code>:</p>
+
+<pre><code class="language-r">(dat &lt;- cc_data_read(xx))
+#&gt; class       : RasterStack
+#&gt; dimensions  : 1800, 4320, 7776000, 12  (nrow, ncol, ncell, nlayers)
+#&gt; resolution  : 0.08333333, 0.08333333  (x, y)
+#&gt; extent      : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+#&gt; coord. ref. : NA
+#&gt; names       :      prec_1,     prec_10,     prec_11,     prec_12,      prec_2,      prec_3,      prec_4,      prec_5,      prec_6,      prec_7,      prec_8,      prec_9
+#&gt; min values  : -2147483648, -2147483648, -2147483648, -2147483648, -2147483648, -2147483648, -2147483648, -2147483648, -2147483648, -2147483648, -2147483648, -2147483648
+#&gt; max values  :  2147483647,  2147483647,  2147483647,  2147483647,  2147483647,  2147483647,  2147483647,  2147483647,  2147483647,  2147483647,  2147483647,  2147483647
+</code></pre>
+
+<p>Which gives a <code>raster</code> class object, which you are likely familiar with - which
+opens up all the tools that deal with <code>raster</code> class objects, yay!</p>
+
+<p>You can easily plot the data with the <code>plot</code> method from the  <code>raster</code> package.</p>
+
+<pre><code class="language-r">library(&quot;raster&quot;)
+plot(dat)
+</code></pre>
+
+<p><img src="/assets/blog-images/2017-03-01-ccafs-release/unnamed-chunk-9-1.png" alt="plot" /></p>
+
+<h2 id="caching">Caching</h2>
+
+<p>For a better user experience, we cache files for you. That means
+when we download data, we put the files in a known location. When a
+user tries to download the same data again, we look to see if it&rsquo;s already
+been downloaded, and use the cached version - if we don&rsquo;t have it
+already, we download it.</p>
+
+<p>Of course, CCAFS may change their files, so you may not want the cached
+version, but the new version from them. We provide tools to inspect your
+cached files, and delete them.</p>
+
+<p>List your cached files:</p>
+
+<pre><code class="language-r">cc_cache_list()
+#&gt;   [1] &quot;/Users/sacmac/Library/Caches/ccafs/bcc_csm1_1_m_rcp2_6_2030s_bio_10min_r1i1p1_no_tile_asc&quot;
+#&gt;   [2] &quot;/Users/sacmac/Library/Caches/ccafs/bcc_csm1_1_m_rcp2_6_2030s_bio_10min_r1i1p1_no_tile_asc.zip&quot;
+#&gt;   [3] &quot;/Users/sacmac/Library/Caches/ccafs/bcc_csm1_1_m_rcp2_6_2030s_bio_10min_r1i1p1_no_tile_asc/bio_1.asc&quot;
+#&gt;   [4] &quot;/Users/sacmac/Library/Caches/ccafs/bcc_csm1_1_m_rcp2_6_2030s_bio_10min_r1i1p1_no_tile_asc/bio_10.asc&quot;
+#&gt;   [5] &quot;/Users/sacmac/Library/Caches/ccafs/bcc_csm1_1_m_rcp2_6_2030s_bio_10min_r1i1p1_no_tile_asc/bio_11.asc&quot;
+#&gt;   [6] &quot;/Users/sacmac/Library/Caches/ccafs/bcc_csm1_1_m_rcp2_6_2030s_bio_10min_r1i1p1_no_tile_asc/bio_12.asc&quot;
+#&gt;   [7] &quot;/Users/sacmac/Library/Caches/ccafs/bcc_csm1_1_m_rcp2_6_2030s_bio_10min_r1i1p1_no_tile_asc/bio_13.asc&quot;
+#&gt;   [8] &quot;/Users/sacmac/Library/Caches/ccafs/bcc_csm1_1_m_rcp2_6_2030s_bio_10min_r1i1p1_no_tile_asc/bio_14.asc&quot;
+#&gt;   [9] &quot;/Users/sacmac/Library/Caches/ccafs/bcc_csm1_1_m_rcp2_6_2030s_bio_10min_r1i1p1_no_tile_asc/bio_15.asc&quot;
+#&gt;  [10] &quot;/Users/sacmac/Library/Caches/ccafs/bcc_csm1_1_m_rcp2_6_2030s_bio_10min_r1i1p1_no_tile_asc/bio_16.asc&quot;
+...
+</code></pre>
+
+<p>Get details on all files or a specific file:</p>
+
+<pre><code class="language-r"># cc_cache_details() # details for all files
+cc_cache_details(cc_cache_list()[1])
+#&gt; &lt;ccafs cached files&gt;
+#&gt;   directory: /Users/sacmac/Library/Caches/ccafs
+#&gt;
+#&gt;   file: /bcc_csm1_1_m_rcp2_6_2030s_bio_10min_r1i1p1_no_tile_asc
+#&gt;   size: 0.001 mb
+</code></pre>
+
+<p>Be careful with <code>cc_cache_delete_all()</code> as you will delete all your cached
+files.</p>
+
+<h2 id="ccafs-software-review">ccafs software review</h2>
+
+<p>I want to touch briefly on the software review for this package. The reviews
+for <code>ccafs</code> were great, and I think the package was greatly improved via the
+review process.</p>
+
+<p><a href="https://github.com/mikoontz">Michael Koontz</a> and <a href="https://github.com/manuramon">Manuel Ramon</a>
+did reviews for <code>ccafs</code>.</p>
+
+<p>One thing in particular that improved about <code>ccafs</code> was the user interface -
+that is, the programmatic interface. One feature about the interface was
+adding the <code>cc_search()</code> function. When I started developing <code>ccafs</code>, I didn&rsquo;t
+see a way to programmatically search CCAFS data - other than the Amazon S3
+data, which isn&rsquo;t really search, but more like listing files in a directory -
+so I just left it at that. During the reviews, reviewers wanted a clear workflow
+for potential users - the package as submitted for review didn&rsquo;t really have a
+clear workflow; it was</p>
+
+<ul>
+<li>Know what you want already (<code>cc_list_keys</code> helped get real paths at least)</li>
+<li>Download data</li>
+<li>Read data</li>
+</ul>
+
+<p>Which is not ideal. There should be a discovery portion to the workflow. So
+I decided to dig into possibly querying the CCAFS web portal itself. That panned
+out, and the workflow we have now is much better:</p>
+
+<ul>
+<li>Search for data with all the same variables you would on the CCAFS website</li>
+<li>Download data</li>
+<li>Read data</li>
+</ul>
+
+<p>This is much better!</p>
+
+<p>As always, reviews improved the documentation a lot by pointing out areas that
+could use improvement - which all users will greatly benefit from.</p>
+
+<p>A new vignette (<a href="https://cran.rstudio.com/web/packages/ccafs/vignettes/amazon_s3_keys.html">https://cran.rstudio.com/web/packages/ccafs/vignettes/amazon_s3_keys.html</a>)
+was added in the review process to explain how to get a &ldquo;key&rdquo;, a URL for CCAFS data.</p>
+
+<h2 id="to-do-and-feedback">To Do and Feedback</h2>
+
+<p>There&rsquo;s probably lots of improvements that can be made - I&rsquo;m looking forward
+to getting feedback from users on any bugs or feature requests. One immediate
+thing is to <a href="https://github.com/ropensci/ccafs/issues/22">make the cache details more compact</a>.</p>
+
+            </div>
+            <br>
+
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

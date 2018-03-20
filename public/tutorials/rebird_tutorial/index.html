@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | rebird tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>rebird tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.4.0</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p>A programmatic interface to the eBird database. Find out more about eBird at <a href="http://ebird.org/content/ebird/">their website</a>.</p>
+
+<h3 id="installation">Installation</h3>
+
+<p>You can install the stable version from CRAN</p>
+
+<pre><code class="language-r">install.packages(&quot;rebird&quot;)
+</code></pre>
+
+<p>Or the development version from Github</p>
+
+<pre><code class="language-r">install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;ropensci/rebird&quot;)
+</code></pre>
+
+<p>Then load the package into the R sesssion</p>
+
+<pre><code class="language-r">library(&quot;rebird&quot;)
+</code></pre>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="sightings-at-location-determined-by-latitude-longitude">Sightings at location determined by latitude/longitude</h3>
+
+<p>Search for bird occurrences by latitude and longitude point</p>
+
+<pre><code class="language-r">ebirdgeo(species = 'spinus tristis', lat = 42, lng = -76)
+#&gt; # A tibble: 20 x 11
+#&gt;          lng
+#&gt;        &lt;dbl&gt;
+#&gt;  1 -76.05834
+#&gt;  2 -75.96821
+#&gt;  3 -75.83381
+#&gt;  4 -76.09052
+#&gt;  5 -75.98258
+#&gt;  6 -75.97672
+#&gt;  7 -75.95513
+#&gt;  8 -75.88343
+#&gt;  9 -75.99768
+#&gt; 10 -75.89515
+#&gt; 11 -75.95105
+#&gt; 12 -75.89231
+#&gt; 13 -76.01368
+#&gt; 14 -75.95690
+#&gt; 15 -75.96305
+#&gt; 16 -75.90261
+#&gt; 17 -75.91839
+#&gt; 18 -75.80182
+#&gt; 19 -75.86727
+#&gt; 20 -75.90484
+#&gt; # ... with 10 more variables: locName &lt;chr&gt;, howMany &lt;int&gt;, sciName &lt;chr&gt;,
+#&gt; #   obsValid &lt;lgl&gt;, locationPrivate &lt;lgl&gt;, obsDt &lt;chr&gt;, obsReviewed &lt;lgl&gt;,
+#&gt; #   comName &lt;chr&gt;, lat &lt;dbl&gt;, locID &lt;chr&gt;
+</code></pre>
+
+<p>Same, but with additional parameter settings, returning only 10 records, including provisional records, and hotspot records.</p>
+
+<pre><code class="language-r">ebirdgeo(lat = 42, lng = -76, max = 10, includeProvisional = TRUE, hotspot = TRUE)
+#&gt; # A tibble: 10 x 11
+#&gt;          lng                               locName howMany
+#&gt;        &lt;dbl&gt;                                 &lt;chr&gt;   &lt;int&gt;
+#&gt;  1 -75.88152                           Boland Pond       6
+#&gt;  2 -75.88152                           Boland Pond      80
+#&gt;  3 -75.88152                           Boland Pond      10
+#&gt;  4 -75.88152                           Boland Pond       7
+#&gt;  5 -75.88152                           Boland Pond      38
+#&gt;  6 -75.88152                           Boland Pond       1
+#&gt;  7 -75.88152                           Boland Pond       1
+#&gt;  8 -75.96821 Binghamton University Nature Preserve       1
+#&gt;  9 -75.96821 Binghamton University Nature Preserve       4
+#&gt; 10 -75.96821 Binghamton University Nature Preserve      20
+#&gt; # ... with 8 more variables: sciName &lt;chr&gt;, obsValid &lt;lgl&gt;,
+#&gt; #   locationPrivate &lt;lgl&gt;, obsDt &lt;chr&gt;, obsReviewed &lt;lgl&gt;, comName &lt;chr&gt;,
+#&gt; #   lat &lt;dbl&gt;, locID &lt;chr&gt;
+</code></pre>
+
+<h3 id="recent-sightings-frm-location-ids">Recent sightings frm location IDs</h3>
+
+<p>Search for bird occurrences for two locations by their IDs</p>
+
+<pre><code class="language-r">ebirdloc(locID = c('L99381','L99382'))
+#&gt; # A tibble: 108 x 11
+#&gt;          lng      locName howMany                   sciName obsValid
+#&gt;        &lt;dbl&gt;        &lt;chr&gt;   &lt;int&gt;                     &lt;chr&gt;    &lt;lgl&gt;
+#&gt;  1 -76.50546 Stewart Park     200         Branta canadensis     TRUE
+#&gt;  2 -76.50546 Stewart Park       2        Anas platyrhynchos     TRUE
+#&gt;  3 -76.50546 Stewart Park       5   Melanitta perspicillata     TRUE
+#&gt;  4 -76.50546 Stewart Park       1        Oxyura jamaicensis     TRUE
+#&gt;  5 -76.50546 Stewart Park     100     Phalacrocorax auritus     TRUE
+#&gt;  6 -76.50546 Stewart Park     150        Larus delawarensis     TRUE
+#&gt;  7 -76.50546 Stewart Park       1          Larus argentatus     TRUE
+#&gt;  8 -76.50546 Stewart Park       2             Larus marinus     TRUE
+#&gt;  9 -76.50546 Stewart Park       2 Anser sp. (Domestic type)     TRUE
+#&gt; 10 -76.50546 Stewart Park       1             Aythya marila     TRUE
+#&gt; # ... with 98 more rows, and 6 more variables: locationPrivate &lt;lgl&gt;,
+#&gt; #   obsDt &lt;chr&gt;, obsReviewed &lt;lgl&gt;, comName &lt;chr&gt;, lat &lt;dbl&gt;, locID &lt;chr&gt;
+</code></pre>
+
+<p>Search by location ID and species name, as well as some additional parameter settings</p>
+
+<pre><code class="language-r">ebirdloc(locID = 'L99381', species = 'larus delawarensis', max = 10, provisional = TRUE, hotspot=TRUE)
+#&gt; # A tibble: 1 x 11
+#&gt;         lng      locName howMany            sciName obsValid
+#&gt;       &lt;dbl&gt;        &lt;chr&gt;   &lt;int&gt;              &lt;chr&gt;    &lt;lgl&gt;
+#&gt; 1 -76.50546 Stewart Park     150 Larus delawarensis     TRUE
+#&gt; # ... with 6 more variables: locationPrivate &lt;lgl&gt;, obsDt &lt;chr&gt;,
+#&gt; #   obsReviewed &lt;lgl&gt;, comName &lt;chr&gt;, lat &lt;dbl&gt;, locID &lt;chr&gt;
+</code></pre>
+
+<h3 id="recent-observations-at-a-region">Recent observations at a region</h3>
+
+<p>Search for bird occurrences by region and species name</p>
+
+<pre><code class="language-r">ebirdregion(region = 'US', species = 'Setophaga caerulescens')
+#&gt; # A tibble: 932 x 11
+#&gt;          lng                                               locName howMany
+#&gt;        &lt;dbl&gt;                                                 &lt;chr&gt;   &lt;int&gt;
+#&gt;  1 -83.02266                                           SW 153rd Ct       1
+#&gt;  2 -81.41950                     US-Florida-Longwood-W Hornbeam Dr       1
+#&gt;  3 -79.09746                                    Briar Chapel Trail       1
+#&gt;  4 -81.50596 543 Union Road, Naples, Florida, US (25.972, -81.506)       1
+#&gt;  5 -81.24840                                    Green Springs Park       1
+#&gt;  6 -74.96083                         Cape Island--Higbee Beach WMA       1
+#&gt;  7 -82.83691                 Clemson University/SCDNR--Cherry Farm       1
+#&gt;  8 -73.96957                              Central Park--The Ramble       1
+#&gt;  9 -74.87466                                              New Road       1
+#&gt; 10 -74.91712              Cape Island--Cape May--Convention Center       1
+#&gt; # ... with 922 more rows, and 8 more variables: sciName &lt;chr&gt;,
+#&gt; #   obsValid &lt;lgl&gt;, locationPrivate &lt;lgl&gt;, obsDt &lt;chr&gt;, obsReviewed &lt;lgl&gt;,
+#&gt; #   comName &lt;chr&gt;, lat &lt;dbl&gt;, locID &lt;chr&gt;
+</code></pre>
+
+<p>Search by location ID and species name, as well as some additional parameter settings. Note that we use <code>US-OH</code> to represent Ohio within the US. <a href="https://confluence.cornell.edu/display/CLOISAPI/eBird-1.1-RegionCodeReference">See possible region values</a>.</p>
+
+<pre><code class="language-r">ebirdregion(region = 'US-OH', max = 10, provisional = TRUE, hotspot = TRUE)
+#&gt; # A tibble: 10 x 11
+#&gt;          lng            locName howMany               sciName obsValid
+#&gt;        &lt;dbl&gt;              &lt;chr&gt;   &lt;int&gt;                 &lt;chr&gt;    &lt;lgl&gt;
+#&gt;  1 -81.58932 Lake View Cemetery      12    Turdus migratorius     TRUE
+#&gt;  2 -81.58932 Lake View Cemetery       1      Zenaida macroura     TRUE
+#&gt;  3 -81.58932 Lake View Cemetery      15    Anas platyrhynchos     TRUE
+#&gt;  4 -81.58932 Lake View Cemetery       1  Haemorhous mexicanus     TRUE
+#&gt;  5 -81.58932 Lake View Cemetery      10       Regulus satrapa     TRUE
+#&gt;  6 -81.58932 Lake View Cemetery       2           Anas crecca     TRUE
+#&gt;  7 -81.58932 Lake View Cemetery       1      Sturnus vulgaris     TRUE
+#&gt;  8 -81.58932 Lake View Cemetery       1 Phalacrocorax auritus     TRUE
+#&gt;  9 -81.58932 Lake View Cemetery      45     Branta canadensis     TRUE
+#&gt; 10 -81.58932 Lake View Cemetery       4   Cyanocitta cristata     TRUE
+#&gt; # ... with 6 more variables: locationPrivate &lt;lgl&gt;, obsDt &lt;chr&gt;,
+#&gt; #   obsReviewed &lt;lgl&gt;, comName &lt;chr&gt;, lat &lt;dbl&gt;, locID &lt;chr&gt;
+</code></pre>
+
+<h3 id="recent-observations-at-hotspots">Recent observations at hotspots</h3>
+
+<p>Search for bird occurrences by region and species name</p>
+
+<pre><code class="language-r">ebirdhotspot(locID = c('L99381','L99382'), species = 'larus delawarensis')
+#&gt; # A tibble: 2 x 11
+#&gt;         lng                                      locName howMany
+#&gt;       &lt;dbl&gt;                                        &lt;chr&gt;   &lt;int&gt;
+#&gt; 1 -76.50546                                 Stewart Park     150
+#&gt; 2 -76.51902 Hog Hole (Allan H. Treman State Marine Park)      70
+#&gt; # ... with 8 more variables: sciName &lt;chr&gt;, obsValid &lt;lgl&gt;,
+#&gt; #   locationPrivate &lt;lgl&gt;, obsDt &lt;chr&gt;, obsReviewed &lt;lgl&gt;, comName &lt;chr&gt;,
+#&gt; #   lat &lt;dbl&gt;, locID &lt;chr&gt;
+</code></pre>
+
+<h3 id="frequency-of-observations-at-hotspots-or-regions">Frequency of observations at hotspots or regions</h3>
+
+<p>Obtain historical frequencies of bird occurrences at a given hotspot</p>
+
+<pre><code class="language-r">ebirdfreq(loctype = 'hotspots', loc = 'L196159')
+#&gt; # A tibble: 8,880 x 4
+#&gt;                        comName   monthQt frequency sampleSize
+#&gt;                          &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+#&gt;  1                  Snow Goose January-1 0.0000000         26
+#&gt;  2 Greater White-fronted Goose January-1 0.0000000         26
+#&gt;  3              Cackling Goose January-1 0.0000000         26
+#&gt;  4                Canada Goose January-1 0.0000000         26
+#&gt;  5       Cackling/Canada Goose January-1 0.0000000         26
+#&gt;  6              Trumpeter Swan January-1 0.0000000         26
+#&gt;  7                   Wood Duck January-1 0.1538462         26
+#&gt;  8            Blue-winged Teal January-1 0.0000000         26
+#&gt;  9   Blue-winged/Cinnamon Teal January-1 0.0000000         26
+#&gt; 10           Northern Shoveler January-1 0.6923077         26
+#&gt; # ... with 8,870 more rows
+</code></pre>
+
+<p>Same, but in wide format (for making bar charts)</p>
+
+<pre><code class="language-r">ebirdfreq(loctype = 'hotspots', loc = 'L196159', long = FALSE)
+#&gt; # A tibble: 186 x 49
+#&gt;                        comName `January-1` `January-2` `January-3`
+#&gt;                          &lt;chr&gt;       &lt;dbl&gt;       &lt;dbl&gt;       &lt;dbl&gt;
+#&gt;  1                Sample Size:  26.0000000          25     35.0000
+#&gt;  2                  Snow Goose   0.0000000           0      0.0000
+#&gt;  3 Greater White-fronted Goose   0.0000000           0      0.0000
+#&gt;  4              Cackling Goose   0.0000000           0      0.0000
+#&gt;  5                Canada Goose   0.0000000           0      0.0015
+#&gt;  6       Cackling/Canada Goose   0.0000000           0      0.0000
+#&gt;  7              Trumpeter Swan   0.0000000           0      0.0000
+#&gt;  8                   Wood Duck   0.1538462           0      0.0000
+#&gt;  9            Blue-winged Teal   0.0000000           0      0.0000
+#&gt; 10   Blue-winged/Cinnamon Teal   0.0000000           0      0.0000
+#&gt; # ... with 176 more rows, and 45 more variables: `January-4` &lt;dbl&gt;,
+#&gt; #   `February-1` &lt;dbl&gt;, `February-2` &lt;dbl&gt;, `February-3` &lt;dbl&gt;,
+#&gt; #   `February-4` &lt;dbl&gt;, `March-1` &lt;dbl&gt;, `March-2` &lt;dbl&gt;, `March-3` &lt;dbl&gt;,
+#&gt; #   `March-4` &lt;dbl&gt;, `April-1` &lt;dbl&gt;, `April-2` &lt;dbl&gt;, `April-3` &lt;dbl&gt;,
+#&gt; #   `April-4` &lt;dbl&gt;, `May-1` &lt;dbl&gt;, `May-2` &lt;dbl&gt;, `May-3` &lt;dbl&gt;,
+#&gt; #   `May-4` &lt;dbl&gt;, `June-1` &lt;dbl&gt;, `June-2` &lt;dbl&gt;, `June-3` &lt;dbl&gt;,
+#&gt; #   `June-4` &lt;dbl&gt;, `July-1` &lt;dbl&gt;, `July-2` &lt;dbl&gt;, `July-3` &lt;dbl&gt;,
+#&gt; #   `July-4` &lt;dbl&gt;, `August-1` &lt;dbl&gt;, `August-2` &lt;dbl&gt;, `August-3` &lt;dbl&gt;,
+#&gt; #   `August-4` &lt;dbl&gt;, `September-1` &lt;dbl&gt;, `September-2` &lt;dbl&gt;,
+#&gt; #   `September-3` &lt;dbl&gt;, `September-4` &lt;dbl&gt;, `October-1` &lt;dbl&gt;,
+#&gt; #   `October-2` &lt;dbl&gt;, `October-3` &lt;dbl&gt;, `October-4` &lt;dbl&gt;,
+#&gt; #   `November-1` &lt;dbl&gt;, `November-2` &lt;dbl&gt;, `November-3` &lt;dbl&gt;,
+#&gt; #   `November-4` &lt;dbl&gt;, `December-1` &lt;dbl&gt;, `December-2` &lt;dbl&gt;,
+#&gt; #   `December-3` &lt;dbl&gt;, `December-4` &lt;dbl&gt;
+</code></pre>
+
+<p>Obtain frequency data for a given state</p>
+
+<pre><code class="language-r">ebirdfreq(loctype = 'states', loc = 'CA-BC')
+#&gt; # A tibble: 34,560 x 4
+#&gt;                                          comName   monthQt    frequency
+#&gt;                                            &lt;chr&gt;     &lt;chr&gt;        &lt;dbl&gt;
+#&gt;  1                        Fulvous Whistling-Duck January-1 0.0000000000
+#&gt;  2                                 Emperor Goose January-1 0.0000000000
+#&gt;  3                                    Snow Goose January-1 0.0279534963
+#&gt;  4                                  Ross's Goose January-1 0.0000000000
+#&gt;  5                  Snow x Ross's Goose (hybrid) January-1 0.0000000000
+#&gt;  6                             Snow/Ross's Goose January-1 0.0000000000
+#&gt;  7                    Swan Goose (Domestic type) January-1 0.0000854847
+#&gt;  8 Graylag x Swan Goose (Domestic type) (hybrid) January-1 0.0000000000
+#&gt;  9                   Greater White-fronted Goose January-1 0.0078645922
+#&gt; 10                             Pink-footed Goose January-1 0.0000000000
+#&gt; # ... with 34,550 more rows, and 1 more variables: sampleSize &lt;dbl&gt;
+</code></pre>
+
+<p>Or county</p>
+
+<pre><code class="language-r">ebirdfreq(loctype = 'counties', loc = 'CA-BC-GV')
+#&gt; # A tibble: 23,808 x 4
+#&gt;                               comName   monthQt   frequency sampleSize
+#&gt;                                 &lt;chr&gt;     &lt;chr&gt;       &lt;dbl&gt;      &lt;dbl&gt;
+#&gt;  1                      Emperor Goose January-1 0.000000000       3895
+#&gt;  2                         Snow Goose January-1 0.063414634       3895
+#&gt;  3                       Ross's Goose January-1 0.000000000       3895
+#&gt;  4                  Snow/Ross's Goose January-1 0.000000000       3895
+#&gt;  5        Greater White-fronted Goose January-1 0.005905006       3895
+#&gt;  6 Domestic goose sp. (Domestic type) January-1 0.000000000       3895
+#&gt;  7                              Brant January-1 0.023620026       3895
+#&gt;  8                     Cackling Goose January-1 0.012836970       3895
+#&gt;  9                       Canada Goose January-1 0.201026958       3895
+#&gt; 10    Graylag x Canada Goose (hybrid) January-1 0.000000000       3895
+#&gt; # ... with 23,798 more rows
+</code></pre>
+
+<p>Obtain frequency data within a range of years and months</p>
+
+<pre><code class="language-r">ebirdfreq(loctype = 'hotspots', loc = 'L196159', startyear = 2010,
+          endyear = 2014, startmonth = 1, endmonth = 3)
+#&gt; # A tibble: 3,792 x 4
+#&gt;                                comName   monthQt frequency sampleSize
+#&gt;                                  &lt;chr&gt;     &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+#&gt;  1                        Canada Goose January-1       0.0         10
+#&gt;  2                           Wood Duck January-1       0.4         10
+#&gt;  3                   Northern Shoveler January-1       0.8         10
+#&gt;  4                             Gadwall January-1       0.0         10
+#&gt;  5                     Eurasian Wigeon January-1       0.4         10
+#&gt;  6                     American Wigeon January-1       1.0         10
+#&gt;  7 Eurasian x American Wigeon (hybrid) January-1       0.0         10
+#&gt;  8                             Mallard January-1       1.0         10
+#&gt;  9                    Northern Pintail January-1       0.0         10
+#&gt; 10                   Green-winged Teal January-1       0.0         10
+#&gt; # ... with 3,782 more rows
+</code></pre>
+
+<h3 id="recent-notable-sightings">Recent notable sightings</h3>
+
+<p>Search for notable sightings at a given latitude and longitude</p>
+
+<pre><code class="language-r">ebirdnotable(lat = 42, lng = -70)
+#&gt; # A tibble: 1,059 x 11
+#&gt;          lng
+#&gt;        &lt;dbl&gt;
+#&gt;  1 -72.49699
+#&gt;  2 -72.49699
+#&gt;  3 -71.26230
+#&gt;  4 -70.98485
+#&gt;  5 -70.71425
+#&gt;  6 -70.71425
+#&gt;  7 -70.71425
+#&gt;  8 -71.25293
+#&gt;  9 -71.25293
+#&gt; 10 -72.55930
+#&gt; # ... with 1,049 more rows, and 10 more variables: locName &lt;chr&gt;,
+#&gt; #   howMany &lt;int&gt;, sciName &lt;chr&gt;, obsValid &lt;lgl&gt;, locationPrivate &lt;lgl&gt;,
+#&gt; #   obsDt &lt;chr&gt;, obsReviewed &lt;lgl&gt;, comName &lt;chr&gt;, lat &lt;dbl&gt;, locID &lt;chr&gt;
+</code></pre>
+
+<h3 id="ebird-taxonomy">eBird taxonomy</h3>
+
+<p>Returns a data.frame of all species in the eBird taxonomy for the given parameter inputs</p>
+
+<pre><code class="language-r">ebirdtaxonomy()
+#&gt; # A tibble: 10,550 x 9
+#&gt;    speciesCode comNameCodes bandingCodes                comName category
+#&gt;          &lt;chr&gt;        &lt;chr&gt;        &lt;chr&gt;                  &lt;chr&gt;    &lt;chr&gt;
+#&gt;  1     ostric2         COOS         &lt;NA&gt;         Common Ostrich  species
+#&gt;  2     ostric3         SOOS         &lt;NA&gt;         Somali Ostrich  species
+#&gt;  3     grerhe1         GRRH         &lt;NA&gt;           Greater Rhea  species
+#&gt;  4     lesrhe2         LERH         &lt;NA&gt;            Lesser Rhea  species
+#&gt;  5     tabtin1         TBTI         &lt;NA&gt; Tawny-breasted Tinamou  species
+#&gt;  6     higtin1         &lt;NA&gt;         HITI       Highland Tinamou  species
+#&gt;  7     hootin1         HOTI         &lt;NA&gt;         Hooded Tinamou  species
+#&gt;  8     grytin1         GRTI         &lt;NA&gt;           Gray Tinamou  species
+#&gt;  9     soltin1         SOTI         &lt;NA&gt;       Solitary Tinamou  species
+#&gt; 10     blatin1         BLTI         &lt;NA&gt;          Black Tinamou  species
+#&gt; # ... with 10,540 more rows, and 4 more variables: sciName &lt;chr&gt;,
+#&gt; #   sciNameCodes &lt;chr&gt;, taxonID &lt;chr&gt;, taxonOrder &lt;dbl&gt;
+</code></pre>
+
+<p>Search for hybrid species only</p>
+
+<pre><code class="language-r">ebirdtaxonomy(cat=&quot;hybrid&quot;)
+#&gt; # A tibble: 382 x 9
+#&gt;    speciesCode        comNameCodes bandingCodes
+#&gt;          &lt;chr&gt;               &lt;chr&gt;        &lt;chr&gt;
+#&gt;  1      x00721 WFDU,SWDU,WFWD,SPWD         &lt;NA&gt;
+#&gt;  2      x00775           BBWD,WIWD         &lt;NA&gt;
+#&gt;  3      x00875 BBWD,FUDU,FUWD,FWDU         &lt;NA&gt;
+#&gt;  4     sxrgoo1           ROGO,SNGO         SRGH
+#&gt;  5      x00776                GRGO         &lt;NA&gt;
+#&gt;  6      x00755           GWFG,BHGO         &lt;NA&gt;
+#&gt;  7      x00627           GWFG,SNGO         &lt;NA&gt;
+#&gt;  8      x00685      BRGO,SNGO,BRAN         &lt;NA&gt;
+#&gt;  9      x00756      BAGO,BARG,PFGO         &lt;NA&gt;
+#&gt; 10      x00757      BAGO,BARG,GWFG         &lt;NA&gt;
+#&gt; # ... with 372 more rows, and 6 more variables: comName &lt;chr&gt;,
+#&gt; #   category &lt;chr&gt;, sciName &lt;chr&gt;, sciNameCodes &lt;chr&gt;, taxonID &lt;chr&gt;,
+#&gt; #   taxonOrder &lt;dbl&gt;
+</code></pre>
+
+<h3 id="check-ebird-region">Check eBird region</h3>
+
+<p>Check if region is valid in eBird database</p>
+
+<pre><code class="language-r">ebirdregioncheck(loctype = 'counties', loc = 'CA-BC-GV')
+#&gt; [1] TRUE
+</code></pre>
+
+<h3 id="citing">Citing</h3>
+
+<p>To cite <code>rebird</code> in publications use:</p>
+
+<p><br></p>
+
+<blockquote>
+<p>Rafael Maia, Scott Chamberlain, Andy Teucher and Sebastian Pardo
+  (2017). rebird: R Client for the eBird Database of Bird Observations.
+  R package version 0.4.0. <a href="https://CRAN.R-project.org/package=rebird">https://CRAN.R-project.org/package=rebird</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/rebird/issues?state=open">our Github repo for rebird</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

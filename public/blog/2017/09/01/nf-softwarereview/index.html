@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | How rOpenSci uses Code Review to Promote Reproducible Science</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">How rOpenSci uses Code Review to Promote Reproducible Science</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="https://twitter.com/noamross" target="_blank"> Noam Ross </a>&nbsp;
+                        
+                    
+                        
+                          <a href="/about/#team"> Scott Chamberlain </a>&nbsp;
+                        
+                    
+                        
+                          <a href="/about/#team"> Karthik Ram </a>&nbsp;
+                        
+                    
+                        
+                          <a href="http://www.masalmon.eu/" target="_blank"> Maëlle Salmon </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">September 1, 2017</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+                <div class="alert alert-info" role="alert">This is cross-posted from the NumFOCUS blog. NumFOCUS is a nonprofit that supports and promotes world-class, innovative, open source scientific computing, including rOpenSci.</div>
+                
+
+                
+
+<p>At rOpenSci, we create and curate software to help scientists with the data life cycle. These tools access, download, manage, and archive scientific data in open, reproducible ways. Early on, we realized this could only be a community effort. The variety of scientific data and workflows could only be tackled by drawing on contributions of scientists with field-specific expertise.</p>
+
+<p>With the community approach came challenges. <strong>How could we ensure the quality of code written by scientists without formal training in software development practices? How could we drive adoption of best practices among our contributors? How could we create a community that would support each other in this work?</strong></p>
+
+<p><strong>We have had great success addressing these challenges via the <em>peer review</em>.</strong> We draw elements from a process familiar to our target community – <em>academic peer review</em> – and a practice from the software development world – <em>production code review</em> – to create a system that fosters software quality, ongoing education, and community development.</p>
+
+<h3 id="an-open-review-process">An Open Review Process</h3>
+
+<p><strong>Production software review</strong> occurs within software development teams, open source or not. Contributions to a software project are reviewed by one or more other team members before incorporation into project source code. Contributions are typically small patches, and review serves as a check on quality, as well as an opportunity for training in team standards.</p>
+
+<p><strong>In academic peer review</strong>, external reviewers critique a complete product – usually a manuscript – with a very broad mandate to address any areas they see as deficient. Academic review is often anonymous and passing through it gives the product, and the author, a public mark of validation.</p>
+
+<p><strong>We blend these approaches.</strong> In our process, authors submit complete R packages to rOpenSci. Editors check that packages fit into our project’s scope, run a series of automated tests to ensure a baseline of code quality and completeness, and then assign two independent reviewers. Reviewers comment on usability, quality, and style of software code as well as documentation. Authors make changes in response, and once reviewers are satisfied with the updates, the package receives a badge of approval and joins our suite.</p>
+
+<p>This process is quite iterative. After reviewers post a first round of extensive reviews, authors and reviewers chat in an informal back-and-forth, only lightly moderated by an editor. This lets both reviewers and authors pose questions of each other and explain differences of opinion. It can proceed at a much faster pace than typical academic review correspondence. We use the GitHub issues system for this conversation, and responses take minutes to days, rather than weeks to months.</p>
+
+<p><strong>The exchange is also open and public</strong>. Authors, reviewers, and editors all know each other’s identities. The broader community can view or even participate in the conversation as it happens. This provides an incentive to be thorough and provide non-adversarial, constructive reviews. Both authors and reviewers report that they enjoy and learn more from this open and direct exchange. It also has the benefit of building community. Participants have the opportunity to meaningfully network with new peers, and new collaborations have emerged via ideas spawned during the review process.</p>
+
+<p>We are aware that open systems can have drawbacks. For instance, in traditional academic review, double-blind peer review <a href="http://www.sciencedirect.com/science/article/pii/S0169534707002704">can increase representation of female authors</a>, suggesting bias in non-blind reviews. It is also possible reviewers are less critical in open review. However, we posit that the openness of the review conversation provides a check on review quality and bias; it’s harder to inject unsupported or subjective comments in public and without the cover of anonymity. Ultimately, we believe the ability of authors and reviewers to have direct but public communication improves quality and fairness.</p>
+
+<h3 id="guidance-and-standards">Guidance and Standards</h3>
+
+<p><strong>rOpenSci provides guidance on reviewing.</strong> This falls into two main categories: <strong>high-level best practices</strong> and <strong>low-level standards</strong>. High-level best practices are general and broadly applicable across languages and applications. These are practices such as “Write re-usable functions rather than repeating the same code,” “Test edge cases,” or “Write documentation for all of your functions.” Because of their general nature, these can be drawn from other sources and not developed from scratch. Our best practices are based on guidance originally developed by <a href="https://mozillascience.github.io/codeReview/intro.html">Mozilla Science Lab</a>.</p>
+
+<p>Low-level standards are specific to a language (in our case, R), applications (data interfaces) and user base (researchers). These include specific items such as naming conventions for functions, best choices of dependencies for certain tasks, and adherence to a code style guide. We have an extensive set of standards for our reviewers to check. These change over time as the R software ecosystem evolves, best practices change, and tooling and educational resources make new methods available to developers.</p>
+
+<p><strong>Our standards also change based on feedback from reviewers.</strong> We adopt into our standards suggestions that emerge in multiple reviewers across different packages. Many of these, we’ve found, have to do with with the ease-of-use and consistency of software APIs, and the type and location of information in documentation that make it easiest to find. This highlights one of the advantages of external reviewers – they can provide a fresh perspective on usability, as well as test software under different use-cases than imagined by the author.</p>
+
+<p><strong>As our standards have become more extensive, we have come to rely more on automated tools.</strong> The R ecosystem, like most languages, has a suite of tools for code linting, function testing, static code analysis and continuous integration. We require authors to use these, and editors run submissions through a suite of tests prior to sending them for review. This frees reviewers from the burden of low-level tasks to focus on high-level critiques where they can add the most value.</p>
+
+<h3 id="the-reviewer-community">The Reviewer Community</h3>
+
+<p>One of the core challenges and rewards of our work has been developing a community of reviewers.</p>
+
+<p><strong>Reviewing is a high-skill activity.</strong> Reviewers need expertise in the programming methods used in a software package and also the scientific field of its application. (“Find me someone who knows sensory ecology and sparse data structures!”) They need good communications skills and the time and willingness to volunteer. Thankfully, the open-science and open-source worlds are filled with generous, expert people. We have been able to expand our reviewer pool as the pace of submissions and the domains of their applications have grown.</p>
+
+<p>Developing the reviewer pool requires constant recruitment. Our editors actively and broadly engage with developer and research communities to find new reviewers. We recruit from authors of previous submissions, co-workers and colleagues, at conferences, through our other collaborative work and on social media. In the open-source software ecosystem, one can often identify people with particular expertise by looking at their published software or contribution to other projects, and we often will cold-email potential reviewers whose published work suggests they would be a good match for a submission.</p>
+
+<p>We cultivate our reviewer pool as well as expand it. We bring back reviewers so that they may develop reviewing as a skill, but not so often as to overburden them. We provide guidance and feedback to new recruits. When assigning reviewers to a submission, we aim to pair experienced reviewers with new ones, or reviewers with expertise on a package’s programming methods with those experienced in its field of application. <strong>These reviewers learn from each other, and diversity in perspectives is an advantage</strong>; less experienced developers often provide insight that more experienced ones do not on software usability, API design, and documentation. More experienced developers will more often identify inefficiencies in code, pitfalls due to edge-cases, or suggest alternate implementation approaches.</p>
+
+<h3 id="expanding-peer-review-for-code">Expanding Peer Review for Code</h3>
+
+<p>Code review has been one of rOpenSci’s best initiatives. We build software, build skills, and build community, and the peer review process has been a major catalyst for all three. It has made both the software we develop internally and that we accept from outside contributors more reliable, usable, and maintainable. So <strong>we are working to promote open peer review of code by more organizations</strong> working with scientific software. We helped launch <a href="http://joss.theoj.org/">The Journal of Open Source Software</a>, which uses a version of our review process to provide a developer-friendly publication venue. JOSS’s success has led to a spin-off, the <a href="http://jose.theoj.org/">Journal of Open Source Education</a>, which uses an open, code-review-like processes to provide feedback on curricula and educational materials. We are also developing a pilot program where software papers submitted to a partner academic journal receive a badge for going through rOpenSci review. We are encouraged by other review initiatives like <a href="https://rescience.github.io/">ReScience</a> and <a href="https://programminghistorian.org/">The Programming Historian</a>. <a href="https://www.bioconductor.org/">BioConductor</a>’s code reviews, which predate ours by several years, recently switched to an open model.</p>
+
+<p><strong>If your organization is developing or curating scientific code</strong>, we believe code review, implemented well, can be a great benefit. It can take considerable effort to begin, but <strong>here are some of the key lessons we’ve learned that can help:</strong></p>
+
+<ul>
+<li><strong>Develop standards and guidelines</strong> for your authors and reviewers to use. Borrow these freely from other projects (feel free to use ours), and modify them iteratively as you go.</li>
+<li><strong>Use automated tools</strong> such as code linters, test suites, and test coverage measures to reduce burden on authors, reviewers, and editors as much as possible.</li>
+<li><strong>Have a clear scope.</strong> Spell out to yourselves and potential contributors what your project will accept, and why. This will save a lot of confusion and effort in the future.</li>
+<li><strong>Build a community</strong> through incentives of networking, opportunities to learn, and kindness.</li>
+</ul>
+
+<p><strong>rOpenSci is eager to work with other groups interested in developing similar review processes</strong>, especially if you are interested in reviewing and curating scientific software in languages other than R or beyond our scope of supporting the data life cycle. Software that implements statistical algorithms, for instance, is an area ripe for open peer review of code. Please <a href="https://ropensci.org/contact.html">get in touch</a> if you have questions or wish to co-pilot a review system for your project.</p>
+
+<p>And of course, if you want to review, we’re always looking for volunteers. Sign up at <a href="https://ropensci.org/onboarding">https://ropensci.org/onboarding</a>.</p>
+
+<hr />
+
+<p>You can support rOpenSci by <a href="https://www.numfocus.org/community/donate/">becoming a NumFOCUS member</a> or making a <a href="https://www.numfocus.org/open-source-projects/">donation to the project</a>.</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/software"><span class="label">software</span></a>
+                
+                    <a href="/tags/review"><span class="label">review</span></a>
+                
+                    <a href="/tags/community"><span class="label">community</span></a>
+                
+                    <a href="/tags/onboarding"><span class="label">onboarding</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+                <div id='discourse-comments'></div>
+                <script type="text/javascript">
+                DiscourseEmbed = { discourseUrl: 'https://discuss.ropensci.org/',
+                                   topicId:  850  };
+                (function() {
+                  var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+                  d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+                })();
+                </script>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

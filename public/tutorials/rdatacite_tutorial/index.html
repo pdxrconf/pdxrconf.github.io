@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | rdatacite tutorial</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>rdatacite tutorial</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.1.0</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<p><code>rdatacite</code> provides programmatic accesses to <a href="http://datacite.org/">DataCite</a> metadata</p>
+
+<ul>
+<li>OAI-PMH. Documentation for the DataCite OAI-PMH is available <a href="http://oai.datacite.org/">here</a>. <a href="http://www.openarchives.org/OAI/openarchivesprotocol.html">Documentation for OAI-PMH</a></li>
+<li>REST API. <a href="http://search.datacite.org/help.html">Docs</a>. <a href="http://schema.datacite.org/">Metadata schema</a>. <a href="https://github.com/datacite/search/blob/master/src/main/resources/solrconfig.xml">Solr config file</a></li>
+</ul>
+
+<h3 id="installation">Installation</h3>
+
+<pre><code class="language-r">install.packages(&quot;rdatacite&quot;)
+</code></pre>
+
+<p>Or development version from GitHub</p>
+
+<pre><code class="language-r">install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;ropensci/rdatacite&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;rdatacite&quot;)
+</code></pre>
+
+<h2 id="usage">Usage</h2>
+
+<h3 id="oai-pmh">OAI-PMH</h3>
+
+<h4 id="ping-the-service">Ping the service</h4>
+
+<pre><code class="language-r">dc_oai_identify()
+#&gt;   repositoryName                     baseURL protocolVersion
+#&gt; 1   DataCite MDS http://oai.datacite.org/oai             2.0
+#&gt;           adminEmail    earliestDatestamp deletedRecord
+#&gt; 1 admin@datacite.org 2011-01-01T00:00:00Z    persistent
+#&gt;            granularity compression compression.1
+#&gt; 1 YYYY-MM-DDThh:mm:ssZ        gzip       deflate
+#&gt;                                      description
+#&gt; 1 oaioai.datacite.org:oai:oai.datacite.org:12425
+</code></pre>
+
+<h4 id="list-metadata-formats">List metadata formats</h4>
+
+<pre><code class="language-r">dc_oai_listmetadataformats(id = &quot;56225&quot;)
+#&gt; $`56225`
+#&gt; NULL
+</code></pre>
+
+<h4 id="list-identifiers">List identifiers</h4>
+
+<pre><code class="language-r">dc_oai_listidentifiers(from = '2011-06-01T', until = '2011-07-01T')
+#&gt; # A tibble: 5 x 4
+#&gt;                   identifier            datestamp setSpec setSpec.1
+#&gt;                        &lt;chr&gt;                &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;
+#&gt; 1 oai:oai.datacite.org:32153 2011-06-08T08:57:11Z     TIB  TIB.WDCC
+#&gt; 2 oai:oai.datacite.org:32200 2011-06-20T08:12:41Z     TIB TIB.DAGST
+#&gt; 3 oai:oai.datacite.org:32220 2011-06-28T14:11:08Z     TIB TIB.DAGST
+#&gt; 4 oai:oai.datacite.org:32241 2011-06-30T13:24:45Z     TIB TIB.DAGST
+#&gt; 5 oai:oai.datacite.org:32255 2011-07-01T12:09:24Z     TIB TIB.DAGST
+</code></pre>
+
+<h4 id="get-records">Get records</h4>
+
+<pre><code class="language-r">dc_oai_getrecord(id = &quot;56225&quot;)
+#&gt; $`oai:oai.datacite.org:56225`
+#&gt; $`oai:oai.datacite.org:56225`$header
+#&gt; # A tibble: 1 x 3
+#&gt;                   identifier            datestamp   setSpec
+#&gt;                        &lt;chr&gt;                &lt;chr&gt;     &lt;chr&gt;
+#&gt; 1 oai:oai.datacite.org:56225 2014-06-03T12:03:28Z BL;BL.ADS
+#&gt; 
+#&gt; $`oai:oai.datacite.org:56225`$metadata
+#&gt; # A tibble: 1 x 12
+#&gt;                                                                         title
+#&gt;                                                                         &lt;chr&gt;
+#&gt; 1 Land at Hill Barton, Clyst St Mary, Devon (NGR SY 0002 9083) Hill Barton In
+#&gt; # ... with 11 more variables: creator &lt;chr&gt;, publisher &lt;chr&gt;, date &lt;chr&gt;,
+#&gt; #   identifier &lt;chr&gt;, relation &lt;chr&gt;, subject &lt;chr&gt;, language &lt;chr&gt;,
+#&gt; #   type &lt;chr&gt;, format &lt;chr&gt;, rights &lt;chr&gt;, coverage &lt;chr&gt;
+</code></pre>
+
+<p>You can pass in more than one identifier to <code>id</code> parameter.</p>
+
+<h3 id="search-api">Search API</h3>
+
+<p>This is the API for the same query interface you&rsquo;d use on the DataCite website.</p>
+
+<h4 id="search">Search</h4>
+
+<p>Search for the term <em>laser</em></p>
+
+<pre><code class="language-r">dc_search(q = &quot;laser&quot;, fl = c('doi','publicationYear'), rows = 5)
+#&gt; # A tibble: 5 x 2
+#&gt;                          doi publicationYear
+#&gt;                        &lt;chr&gt;           &lt;chr&gt;
+#&gt; 1             10.7283/R3ZW26            2016
+#&gt; 2 10.17035/D.2016.0008119129            2016
+#&gt; 3             10.7283/R3V30K            2016
+#&gt; 4      10.2314/GBV:667365621            2010
+#&gt; 5      10.2314/GBV:72192168X            2012
+</code></pre>
+
+<p>Another search: published between 2000 and 2005</p>
+
+<pre><code class="language-r">dc_search(q = &quot;publicationYear:[2000 TO 2005]&quot;, fl = c('doi', 'publicationYear'), rows = 5)
+#&gt; # A tibble: 5 x 2
+#&gt;                   doi publicationYear
+#&gt;                 &lt;chr&gt;           &lt;chr&gt;
+#&gt; 1 10.17192/Z2003.0408            2003
+#&gt; 2        10.17617/1.5            2000
+#&gt; 3        10.17617/1.6            2004
+#&gt; 4  10.17617/2.2250118            2005
+#&gt; 5   10.17617/2.492916            2004
+</code></pre>
+
+<h4 id="facet">Facet</h4>
+
+<pre><code class="language-r">dc_facet(q = &quot;wind&quot;, facet.field = 'publisher_facet', facet.limit = 5)
+#&gt; $facet_queries
+#&gt; NULL
+#&gt; 
+#&gt; $facet_fields
+#&gt; $facet_fields$publisher_facet
+#&gt; # A tibble: 5 x 2
+#&gt;                                                         term value
+#&gt;                                                        &lt;chr&gt; &lt;chr&gt;
+#&gt; 1 PANGAEA - Data Publisher for Earth &amp; Environmental Science 32377
+#&gt; 2                       Defense Technical Information Center  2382
+#&gt; 3                                                   Figshare  1533
+#&gt; 4                                                Unpublished  1186
+#&gt; 5                                                     Zenodo   594
+#&gt; 
+#&gt; 
+#&gt; $facet_pivot
+#&gt; NULL
+#&gt; 
+#&gt; $facet_dates
+#&gt; NULL
+#&gt; 
+#&gt; $facet_ranges
+#&gt; NULL
+</code></pre>
+
+<h4 id="stats">Stats</h4>
+
+<pre><code class="language-r">dc_stats(q = &quot;ecology&quot;, stats.field = 'date')
+#&gt; $data
+#&gt;                          min                max  count missing
+#&gt; date 01-Jan-2007/29-Nov-2010 September 30, 2015 153476    5366
+#&gt; 
+#&gt; $facet
+#&gt; NULL
+</code></pre>
+
+<h4 id="more-like-this">More-like-this</h4>
+
+<pre><code class="language-r">dc_mlt(q = &quot;ecology&quot;, mlt.fl = 'title', mlt.count = 2, fl = 'doi')
+#&gt; $docs
+#&gt; # A tibble: 10 x 1
+#&gt;                            doi
+#&gt;                          &lt;chr&gt;
+#&gt;  1         10.7892/BORIS.79067
+#&gt;  2         10.7892/BORIS.16589
+#&gt;  3         10.7892/BORIS.16333
+#&gt;  4      10.13140/2.1.3940.8968
+#&gt;  5      10.1594/PANGAEA.745038
+#&gt;  6      10.1594/PANGAEA.745039
+#&gt;  7      10.1594/PANGAEA.745049
+#&gt;  8 10.6084/M9.FIGSHARE.1540730
+#&gt;  9 10.6084/M9.FIGSHARE.1541138
+#&gt; 10 10.6084/M9.FIGSHARE.1178080
+#&gt; 
+#&gt; $mlt
+#&gt; $mlt$`8103779`
+#&gt; # A tibble: 1 x 2
+#&gt;   numFound start
+#&gt;      &lt;int&gt; &lt;int&gt;
+#&gt; 1        0     0
+#&gt; 
+#&gt; $mlt$`7245706`
+#&gt; # A tibble: 2 x 3
+#&gt;   numFound start                         doi
+#&gt;      &lt;int&gt; &lt;int&gt;                       &lt;chr&gt;
+#&gt; 1      591     0 10.7925/DRS1.DUCHAS_5141541
+#&gt; 2      591     0            10.7282/T3P55KJ4
+#&gt; 
+#&gt; $mlt$`5704684`
+#&gt; # A tibble: 1 x 2
+#&gt;   numFound start
+#&gt;      &lt;int&gt; &lt;int&gt;
+#&gt; 1        0     0
+#&gt; 
+#&gt; $mlt$`4647415`
+#&gt; # A tibble: 1 x 2
+#&gt;   numFound start
+#&gt;      &lt;int&gt; &lt;int&gt;
+#&gt; 1        0     0
+#&gt; 
+#&gt; $mlt$`536251`
+#&gt; # A tibble: 1 x 2
+#&gt;   numFound start
+#&gt;      &lt;int&gt; &lt;int&gt;
+#&gt; 1        0     0
+#&gt; 
+#&gt; $mlt$`536252`
+#&gt; # A tibble: 1 x 2
+#&gt;   numFound start
+#&gt;      &lt;int&gt; &lt;int&gt;
+#&gt; 1        0     0
+#&gt; 
+#&gt; $mlt$`536260`
+#&gt; # A tibble: 1 x 2
+#&gt;   numFound start
+#&gt;      &lt;int&gt; &lt;int&gt;
+#&gt; 1        0     0
+#&gt; 
+#&gt; $mlt$`6743504`
+#&gt; # A tibble: 1 x 2
+#&gt;   numFound start
+#&gt;      &lt;int&gt; &lt;int&gt;
+#&gt; 1        0     0
+#&gt; 
+#&gt; $mlt$`6746350`
+#&gt; # A tibble: 1 x 2
+#&gt;   numFound start
+#&gt;      &lt;int&gt; &lt;int&gt;
+#&gt; 1        0     0
+#&gt; 
+#&gt; $mlt$`4013379`
+#&gt; # A tibble: 1 x 2
+#&gt;   numFound start
+#&gt;      &lt;int&gt; &lt;int&gt;
+#&gt; 1        0     0
+</code></pre>
+
+<h3 id="citing">Citing</h3>
+
+<p>To cite <code>rdatacite</code> in publications use:</p>
+
+<p><br></p>
+
+<blockquote>
+<p>Scott Chamberlain (2016). rdatacite: &lsquo;DataCite&rsquo; Client for &lsquo;OAI-PMH&rsquo;
+  Methods and their Search &lsquo;API&rsquo;. R package version 0.1.0. <a href="https://cran.rstudio.com/package=rdatacite">https://cran.rstudio.com/package=rdatacite</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/rdatacite/issues?state=open">our Github repo for rdatacite</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

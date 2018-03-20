@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | gistr vignette</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+
+    <article>
+        <div class="container top-20">
+            
+            <div class="row centered">
+                
+                <div class="col-7 bottom-20 maintext">
+                    <h1>gistr vignette</h1>
+                    <br>
+                    <h4><small style="color:grey">for v0.4.0</small></h4>
+                    <br>
+
+                    <article>
+                    
+
+<h3 id="installation">Installation</h3>
+
+<p>You can install from CRAN</p>
+
+<pre><code class="language-r">install.packages(&quot;gistr&quot;)
+</code></pre>
+
+<p>Or the development version from GitHub</p>
+
+<pre><code class="language-r">install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;ropensci/gistr&quot;)
+</code></pre>
+
+<pre><code class="language-r">library(&quot;gistr&quot;)
+</code></pre>
+
+<h3 id="authentication">Authentication</h3>
+
+<p>There are two ways to authorise gistr to work with your GitHub account:</p>
+
+<ul>
+<li>Generate a personal access token (PAT) at <a href="https://help.github.com/articles/creating-an-access-token-for-command-line-use">https://help.github.com/articles/creating-an-access-token-for-command-line-use</a> and record it in the <code>GITHUB_PAT</code> envar.</li>
+<li>Interactively login into your GitHub account and authorise with OAuth.</li>
+</ul>
+
+<p>Using the PAT is recommended.</p>
+
+<p>Using the <code>gist_auth()</code> function you can authenticate seperately first, or if you&rsquo;re not authenticated, this function will run internally with each functionn call. If you have a PAT, that will be used, if not, OAuth will be used.</p>
+
+<pre><code class="language-r">gist_auth()
+</code></pre>
+
+<h3 id="workflow">Workflow</h3>
+
+<p>In <code>gistr</code> you can use pipes, introduced perhaps first in R in the package <code>magrittr</code>, to pass outputs from one function to another. If you have used <code>dplyr</code> with pipes you can see the difference, and perhaps the utility, of this workflow over the traditional workflow in R. You can use a non-piping or a piping workflow with <code>gistr</code>. Examples below use a mix of both workflows. Here is an example of a piping wofklow (with some explanation):</p>
+
+<pre><code class="language-r">file &lt;- system.file(&quot;examples&quot;, &quot;stuff.Rmd&quot;, package = &quot;gistr&quot;)
+gists(what = &quot;minepublic&quot;)[[1]] %&gt;% # List my public gists, and index 1st
+  add_files(file) %&gt;% # Add new file to that gist
+  update() # update sends a PATCH command to Gists API to add file to your gist
+</code></pre>
+
+<p>And a non-piping workflow that does the same exact thing:</p>
+
+<pre><code class="language-r">file &lt;- system.file(&quot;examples&quot;, &quot;example1.md&quot;, package = &quot;gistr&quot;)
+g &lt;- gists(what = &quot;minepublic&quot;)[[1]]
+g &lt;- add_files(g, file)
+update(g)
+</code></pre>
+
+<p>Or you could string them all together in one line (but it&rsquo;s rather difficult to follow what&rsquo;s going on because you have to read from the inside out)</p>
+
+<pre><code class="language-r">update(add_files(gists(what = &quot;minepublic&quot;)[[1]], file))
+</code></pre>
+
+<p><strong>Rate limit information</strong></p>
+
+<pre><code class="language-r">rate_limit()
+</code></pre>
+
+<pre><code>#&gt; Rate limit: 5000
+#&gt; Remaining:  4958
+#&gt; Resets in:  43 minutes
+</code></pre>
+
+<p><strong>List gists</strong></p>
+
+<p>Limiting to a few results here to keep it brief</p>
+
+<pre><code class="language-r">gists(per_page = 2)
+</code></pre>
+
+<pre><code>#&gt; [[1]]
+#&gt; &lt;gist&gt;8c421b44f6be14d299102d5c84558e15
+#&gt;   URL: https://gist.github.com/8c421b44f6be14d299102d5c84558e15
+#&gt;   Description: Break on unsatisfiable constraints and send to wtfautolayout
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2017-10-17T01:25:47Z / 2017-10-17T01:25:48Z
+#&gt;   Files: .lldbinit, break_unsatisfiable.py
+#&gt;   Truncated?: FALSE, FALSE
+#&gt; 
+#&gt; [[2]]
+#&gt; &lt;gist&gt;db12d6afe01568f7348c2d4d96bf3ef8
+#&gt;   URL: https://gist.github.com/db12d6afe01568f7348c2d4d96bf3ef8
+#&gt;   Description: Dockerized SQL Server
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2017-10-17T01:25:45Z / 2017-10-17T01:25:45Z
+#&gt;   Files: sql-docker.sh
+#&gt;   Truncated?: FALSE
+</code></pre>
+
+<p>Since a certain date/time</p>
+
+<pre><code class="language-r">gists(since = '2014-05-26T00:00:00Z', per_page = 2)
+</code></pre>
+
+<pre><code>#&gt; [[1]]
+#&gt; &lt;gist&gt;8c421b44f6be14d299102d5c84558e15
+#&gt;   URL: https://gist.github.com/8c421b44f6be14d299102d5c84558e15
+#&gt;   Description: Break on unsatisfiable constraints and send to wtfautolayout
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2017-10-17T01:25:47Z / 2017-10-17T01:25:48Z
+#&gt;   Files: .lldbinit, break_unsatisfiable.py
+#&gt;   Truncated?: FALSE, FALSE
+#&gt; 
+#&gt; [[2]]
+#&gt; &lt;gist&gt;db12d6afe01568f7348c2d4d96bf3ef8
+#&gt;   URL: https://gist.github.com/db12d6afe01568f7348c2d4d96bf3ef8
+#&gt;   Description: Dockerized SQL Server
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2017-10-17T01:25:45Z / 2017-10-17T01:25:45Z
+#&gt;   Files: sql-docker.sh
+#&gt;   Truncated?: FALSE
+</code></pre>
+
+<p>Request different types of gists, one of public, minepublic, mineall, or starred.</p>
+
+<pre><code class="language-r">gists('minepublic', per_page = 2)
+</code></pre>
+
+<pre><code>#&gt; [[1]]
+#&gt; &lt;gist&gt;4d2e89ea344632392bcd20b784dc88d8
+#&gt;   URL: https://gist.github.com/4d2e89ea344632392bcd20b784dc88d8
+#&gt;   Description: 
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2017-10-16T06:32:52Z / 2017-10-16T06:32:52Z
+#&gt;   Files: pleiades304c3d27174e.geojson
+#&gt;   Truncated?: FALSE
+#&gt; 
+#&gt; [[2]]
+#&gt; &lt;gist&gt;39d17a26cbc558117fc2dde0f445f155
+#&gt;   URL: https://gist.github.com/39d17a26cbc558117fc2dde0f445f155
+#&gt;   Description: gist gist gist
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2017-10-16T05:58:14Z / 2017-10-16T05:58:15Z
+#&gt;   Files: stuff.md, zoo.json
+#&gt;   Truncated?: FALSE, FALSE
+</code></pre>
+
+<p><strong>List a single gist</strong></p>
+
+<pre><code class="language-r">gist(id = 'f1403260eb92f5dfa7e1')
+</code></pre>
+
+<pre><code>#&gt; &lt;gist&gt;f1403260eb92f5dfa7e1
+#&gt;   URL: https://gist.github.com/f1403260eb92f5dfa7e1
+#&gt;   Description: Querying bitly from R 
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2014-10-15T20:40:12Z / 2015-08-29T14:07:43Z
+#&gt;   Files: bitly_r.md
+#&gt;   Truncated?: FALSE
+</code></pre>
+
+<p><strong>Create gist</strong></p>
+
+<p>You can pass in files</p>
+
+<p>First, get a file to work with</p>
+
+<pre><code class="language-r">stuffpath &lt;- system.file(&quot;examples&quot;, &quot;stuff.md&quot;, package = &quot;gistr&quot;)
+</code></pre>
+
+<pre><code class="language-r">gist_create(files = stuffpath, description = 'a new cool gist')
+</code></pre>
+
+<pre><code class="language-r">gist_create(files = stuffpath, description = 'a new cool gist', browse = FALSE)
+</code></pre>
+
+<pre><code>#&gt; &lt;gist&gt;db689b9cbdb0dcbb08576449f04047cb
+#&gt;   URL: https://gist.github.com/db689b9cbdb0dcbb08576449f04047cb
+#&gt;   Description: a new cool gist
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2017-10-17T01:25:57Z / 2017-10-17T01:25:57Z
+#&gt;   Files: stuff.md
+#&gt;   Truncated?: FALSE
+</code></pre>
+
+<p>Or, wrap <code>gist_create()</code> around some code in your R session/IDE, like so, with just the function name, and a <code>{'</code> at the start and a <code>'}</code> at the end.</p>
+
+<pre><code class="language-r">gist_create(code = {'
+x &lt;- letters
+numbers &lt;- runif(8)
+numbers
+
+[1] 0.3229318 0.5933054 0.7778408 0.3898947 0.1309717 0.7501378 0.3206379 0.3379005
+'}, browse = FALSE)
+</code></pre>
+
+<pre><code>#&gt; &lt;gist&gt;cd0a9dd3e163f48f50164efafcb794b3
+#&gt;   URL: https://gist.github.com/cd0a9dd3e163f48f50164efafcb794b3
+#&gt;   Description: 
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2017-10-17T01:25:58Z / 2017-10-17T01:25:58Z
+#&gt;   Files: code.R
+#&gt;   Truncated?: FALSE
+</code></pre>
+
+<p>You can also knit an input file before posting as a gist:</p>
+
+<pre><code class="language-r">file &lt;- system.file(&quot;examples&quot;, &quot;stuff.Rmd&quot;, package = &quot;gistr&quot;)
+gist_create(file, description = 'a new cool gist', knit = TRUE)
+#&gt; &lt;gist&gt;4162b9c53479fbc298db
+#&gt;   URL: https://gist.github.com/4162b9c53479fbc298db
+#&gt;   Description: a new cool gist
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2014-10-27T16:07:31Z / 2014-10-27T16:07:31Z
+#&gt;   Files: stuff.md
+</code></pre>
+
+<p>Or code blocks before (note that code blocks without knitr block demarcations will result in unexecuted code):</p>
+
+<pre><code class="language-r">gist_create(code = {'
+x &lt;- letters
+(numbers &lt;- runif(8))
+'}, knit = TRUE)
+#&gt; &lt;gist&gt;ec45c396dee4aa492139
+#&gt;   URL: https://gist.github.com/ec45c396dee4aa492139
+#&gt;   Description:
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2014-10-27T16:09:09Z / 2014-10-27T16:09:09Z
+#&gt;   Files: file81720d1ceff.md
+</code></pre>
+
+<p><strong>knit code from file path, code block, or gist file</strong></p>
+
+<p>knit a local file</p>
+
+<pre><code class="language-r">file &lt;- system.file(&quot;examples&quot;, &quot;stuff.Rmd&quot;, package = &quot;gistr&quot;)
+run(file, knitopts = list(quiet = TRUE)) %&gt;% gist_create(browse = FALSE)
+</code></pre>
+
+<pre><code>#&gt; &lt;gist&gt;ddb81aee4a0d081568da0c742446d7c9
+#&gt;   URL: https://gist.github.com/ddb81aee4a0d081568da0c742446d7c9
+#&gt;   Description: 
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2017-10-17T01:26:00Z / 2017-10-17T01:26:00Z
+#&gt;   Files: stuff.md
+#&gt;   Truncated?: FALSE
+</code></pre>
+
+<p>knit a code block (<code>knitr</code> code block notation missing, do add that in) (result not shown)</p>
+
+<pre><code class="language-r">run({'
+x &lt;- letters
+(numbers &lt;- runif(8))
+'}) %&gt;% gist_create()
+</code></pre>
+
+<p>knit a file from a gist, has to get file first (result not shown)</p>
+
+<pre><code class="language-r">gists('minepublic')[[1]] %&gt;% run() %&gt;% update()
+</code></pre>
+
+<p><strong>List commits on a gist</strong></p>
+
+<pre><code class="language-r">gists()[[1]] %&gt;% commits()
+</code></pre>
+
+<pre><code>#&gt; [[1]]
+#&gt; &lt;commit&gt;
+#&gt;   Version: a47b69d043bb4beb979d100e4c0407f737ad180d
+#&gt;   User: sckott
+#&gt;   Commited: 2017-10-17T01:25:57Z
+#&gt;   Commits [total, additions, deletions]: [5,5,0]
+</code></pre>
+
+<p><strong>Star a gist</strong></p>
+
+<p>Star</p>
+
+<pre><code class="language-r">gist('485d4edfb1e1912bb9f4') %&gt;% star()
+</code></pre>
+
+<pre><code>#&gt; &lt;gist&gt;485d4edfb1e1912bb9f4
+#&gt;   URL: https://gist.github.com/485d4edfb1e1912bb9f4
+#&gt;   Description: rentrez release blog post
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2015-09-23T02:26:19Z / 2015-12-29T18:08:27Z
+#&gt;   Files: rentrez_1.Rmd, rentrez_1.md
+#&gt;   Truncated?: FALSE, FALSE
+</code></pre>
+
+<p>Unstar</p>
+
+<pre><code class="language-r">gist('485d4edfb1e1912bb9f4') %&gt;% unstar()
+</code></pre>
+
+<pre><code>#&gt; &lt;gist&gt;485d4edfb1e1912bb9f4
+#&gt;   URL: https://gist.github.com/485d4edfb1e1912bb9f4
+#&gt;   Description: rentrez release blog post
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2015-09-23T02:26:19Z / 2017-10-17T01:26:03Z
+#&gt;   Files: rentrez_1.Rmd, rentrez_1.md
+#&gt;   Truncated?: FALSE, FALSE
+</code></pre>
+
+<p><strong>Update a gist</strong></p>
+
+<p>Add files</p>
+
+<p>First, path to file</p>
+
+<pre><code class="language-r">file &lt;- system.file(&quot;examples&quot;, &quot;alm.md&quot;, package = &quot;gistr&quot;)
+</code></pre>
+
+<pre><code class="language-r">gists(what = &quot;minepublic&quot;)[[1]] %&gt;%
+  add_files(file) %&gt;%
+  update()
+</code></pre>
+
+<pre><code>#&gt; &lt;gist&gt;cd0a9dd3e163f48f50164efafcb794b3
+#&gt;   URL: https://gist.github.com/cd0a9dd3e163f48f50164efafcb794b3
+#&gt;   Description: 
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2017-10-17T01:25:58Z / 2017-10-17T01:26:04Z
+#&gt;   Files: alm.md, code.R
+#&gt;   Truncated?: FALSE, FALSE
+</code></pre>
+
+<p>Delete files</p>
+
+<pre><code class="language-r">gists(what = &quot;minepublic&quot;)[[1]] %&gt;%
+  delete_files(file) %&gt;%
+  update()
+</code></pre>
+
+<pre><code>#&gt; &lt;gist&gt;cd0a9dd3e163f48f50164efafcb794b3
+#&gt;   URL: https://gist.github.com/cd0a9dd3e163f48f50164efafcb794b3
+#&gt;   Description: 
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2017-10-17T01:25:58Z / 2017-10-17T01:26:05Z
+#&gt;   Files: code.R
+#&gt;   Truncated?: FALSE
+</code></pre>
+
+<p><strong>Open a gist in your default browser</strong></p>
+
+<pre><code class="language-r">gists()[[1]] %&gt;% browse()
+</code></pre>
+
+<blockquote>
+<p>Opens the gist in your default browser</p>
+</blockquote>
+
+<p><strong>Get embed script</strong></p>
+
+<pre><code class="language-r">gists()[[1]] %&gt;% embed()
+</code></pre>
+
+<pre><code>#&gt; [1] &quot;&lt;script src=\&quot;https://gist.github.com/carllhw/dc8ee3885d8a43b887fce1ae7fe3bb1f.js\&quot;&gt;&lt;/script&gt;&quot;
+</code></pre>
+
+<p><strong>List forks</strong></p>
+
+<p>Returns a list of <code>gist</code> objects, just like <code>gists()</code></p>
+
+<pre><code class="language-r">gist(id = '1642874') %&gt;% forks(per_page = 2)
+</code></pre>
+
+<pre><code>#&gt; [[1]]
+#&gt; &lt;gist&gt;1642989
+#&gt;   URL: https://gist.github.com/1642989
+#&gt;   Description: Spline Transition
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2012-01-19T21:45:20Z / 2017-06-29T02:55:47Z
+#&gt;   Files: 
+#&gt;   Truncated?: 
+#&gt; 
+#&gt; [[2]]
+#&gt; &lt;gist&gt;1643051
+#&gt;   URL: https://gist.github.com/1643051
+#&gt;   Description: Line Transition (Broken)
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2012-01-19T21:51:30Z / 2016-12-01T07:19:06Z
+#&gt;   Files: 
+#&gt;   Truncated?:
+</code></pre>
+
+<p><strong>Fork a gist</strong></p>
+
+<p>Returns a <code>gist</code> object</p>
+
+<pre><code class="language-r">g &lt;- gists()
+(forked &lt;- g[[ sample(seq_along(g), 1) ]] %&gt;% fork())
+</code></pre>
+
+<pre><code>#&gt; &lt;gist&gt;31efdee731df890039c49d816ff886aa
+#&gt;   URL: https://gist.github.com/31efdee731df890039c49d816ff886aa
+#&gt;   Description: 
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2017-10-17T01:26:12Z / 2017-10-17T01:26:12Z
+#&gt;   Files: brlog.trunk.20171017-102108
+#&gt;   Truncated?: FALSE
+</code></pre>
+
+<h3 id="example-use-case">Example use case</h3>
+
+<p><em>Working with the Mapzen Pelias geocoding API</em></p>
+
+<p>The API is described at <a href="https://github.com/pelias/pelias">https://github.com/pelias/pelias</a>, and is still in alpha they say. The steps: get data, make a gist. The data is returned from Mapzen as geojson, so all we have to do is literally push it up to GitHub gists and we&rsquo;re done b/c GitHub renders the map.</p>
+
+<pre><code class="language-r">library('httr')
+base &lt;- &quot;http://pelias.mapzen.com/search&quot;
+res &lt;- httr::GET(base, query = list(input = 'coffee shop', lat = 45.5, lon = -122.6))
+json &lt;- httr::content(res, &quot;text&quot;)
+gist_create(code = json, filename = &quot;pelias_test.geojson&quot;)
+#&gt; &lt;gist&gt;017214637bcfeb198070
+#&gt;   URL: https://gist.github.com/017214637bcfeb198070
+#&gt;   Description:
+#&gt;   Public: TRUE
+#&gt;   Created/Edited: 2014-10-28T14:42:36Z / 2014-10-28T14:42:36Z
+#&gt;   Files: pelias_test.geojson
+</code></pre>
+
+<p>And here&rsquo;s that gist: <a href="https://gist.github.com/sckott/017214637bcfeb198070">https://gist.github.com/sckott/017214637bcfeb198070</a></p>
+
+<p><img src="/img/tutorial-images/gistr/gistr_ss.png" alt="img" /></p>
+
+<h3 id="citing">Citing</h3>
+
+<blockquote>
+<p>Scott Chamberlain, Ramnath Vaidyanathan and Karthik Ram (2017).
+  gistr: Work with &lsquo;GitHub&rsquo; &lsquo;Gists&rsquo;. R package version 0.4.0. <a href="https://github.com/ropensci/gistr">https://github.com/ropensci/gistr</a></p>
+</blockquote>
+
+<h3 id="license-and-bugs">License and bugs</h3>
+
+<ul>
+<li>License: <a href="http://opensource.org/licenses/MIT">MIT</a></li>
+<li>Report bugs at <a href="https://github.com/ropensci/gistr/issues?state=open">our GitHub repo for gistr</a></li>
+</ul>
+
+<p><a href="#top">Back to top</a></p>
+
+                    </article>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </article>
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    
+
+    
+    <script type="text/javascript" src="/js/highlight.pack.js"></script>
+    <script type="text/javascript">
+        hljs.initHighlightingOnLoad();
+    </script>
+
+
+
+</body>
+</html>

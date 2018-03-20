@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | The new Tesseract package: High Quality OCR in R</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">The new Tesseract package: High Quality OCR in R</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="/about/#team"> Jeroen Ooms </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">November 16, 2016</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>Optical character recognition (OCR) is the process of extracting written or typed text from images such as photos and scanned documents into machine-encoded text. The new rOpenSci package <a href="https://cran.r-project.org/web/packages/tesseract/index.html">tesseract</a> brings one of the best open-source OCR engines to R. This enables researchers or journalists, for example, to search and analyze vast numbers of documents that are only available in printed form.</p>
+
+<p>People looking to extract text and metadata from pdf files in R should try our <a href="https://cran.r-project.org/web/packages/pdftools/index.html">pdftools</a> package.</p>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<p>The package links to the libtesseract C++ library and works out of the box on Windows and Mac without installing any third party software.</p>
+
+<pre><code class="language-r">install.packages(&quot;tesseract&quot;)
+</code></pre>
+
+<p>On Linux you first need to install libtesseract (<a href="https://github.com/ropensci/tesseract#readme">readme</a>) which ships with every popular distribution (Debian, Ubuntu, Fedora, CentOS, etc).</p>
+
+<p>The package itself is very simple. The <code>ocr</code> function takes a URL or path or raw vector with image data. On most platforms the image should either be in <code>png</code> or <code>jpeg</code> or <code>tiff</code> format.</p>
+
+<pre><code class="language-r">library(tesseract)
+text &lt;- ocr(&quot;http://jeroen.github.io/images/testocr.png&quot;)
+cat(text)
+</code></pre>
+
+<p>Running this in R should recognize the text in the example image almost perfectly. The <code>ocr</code> function has one additional argument to set custom tesseract options. This is needed if you want to use custom or non-english training data (which we will explain below). The <code>?tesseract</code> manual page has more information.</p>
+
+<h2 id="why-ocr-is-hard">Why OCR is hard</h2>
+
+<p>Finding and classifying visual patterns is incredibly difficult for computers, especially if the picture contains noise or other artifacts. Humans take advantage of prior knowledge about the language that we use to &ldquo;fill in the gaps&rdquo; when reading text. For this reason recognizing text within a blurred or deformed image is a common CAPTCHA method to tell humans apart from computers.</p>
+
+<p><img src="http://ropensci.org/assets/blog-images/captcha.gif" alt="captcha" /></p>
+
+<p>When using OCR to extract text from a document, the result will rarely be perfect. The accuracy of the results varies depending on the quality of the image. Obviously images used by CAPTCHA software are designed to be too difficult to recognize by state of the art OCR methods.</p>
+
+<h2 id="context-language">Context Language</h2>
+
+<p>A character can often only be recognized in the context of the word or sentence appears in. For example if a text contains the words <em>In love</em> the capital I and lower case l look (nearly) identical when printed.</p>
+
+<p><a href="http://jeroen.github.io/files/inlove.png"><img src="http://jeroen.github.io/files/inlove.png" alt="inlove" /></a></p>
+
+<p>They can only be distinguished them from their context: both <em>in</em> and <em>love</em> are common words in English and a preposition may be followed by a noun. From from this context we can derive that the first character is most likely a capital I whereas the third character must be a lower case l.</p>
+
+<pre><code class="language-r">text &lt;- ocr(&quot;http://jeroen.github.io/files/inlove.png&quot;)
+cat(text) # In love
+
+</code></pre>
+
+<p>The OCR method used by tesseract uses language specific training data to optimize character recognition. The default language is English, training data for other languages are provided via the official <a href="https://github.com/tesseract-ocr/tessdata">tessdata repository</a> directory. On Linux these can be installed directly with the <a href="https://apps.fedoraproject.org/packages/tesseract">yum</a> or <a href="https://packages.debian.org/search?suite=stable&amp;section=all&amp;arch=any&amp;searchon=names&amp;keywords=tesseract-ocr-">apt</a> package manager.</p>
+
+<p>On Windows/MacOS you have to manually download training data for other langauges for now. The next version of the package will hopefully make this a little easier.</p>
+
+<h2 id="optimizing-performance">Optimizing Performance</h2>
+
+<p>Besides training data, the most important aspect of OCR performance is the quality of the input image. High resolution images with horizontal text, high contrast and little noise will achieve the best accuracy. The official <a href="https://github.com/tesseract-ocr/tesseract/wiki/ImproveQuality">Tesseract Wiki</a> has some advice on how to improve the image quality.</p>
+
+<p><a href="http://jeroen.github.io/files/dog_hq.png"><img src="http://jeroen.github.io/files/dog_hq.png" alt="dogs" /></a></p>
+
+<p>To put this to the test, we made two screenshots from the Wikipedia page above. The high quality image in the code below has approximately double the resolution of the low quality image. In addition the font rendering seems slightly better for the high quality image.</p>
+
+<pre><code class="language-r"># Low quality:
+text1 &lt;- ocr(&quot;http://jeroen.github.io/files/dog_lq.png&quot;)
+cat(text1)
+
+# High quality:
+text2 &lt;- ocr(&quot;http://jeroen.github.io/files/dog_hq.png&quot;)
+cat(text2)
+</code></pre>
+
+<p>Running this example in R shows that the accuracy of text extraction from the first image is very high but it dramatically decreases for the second image. Because Tesseract relies on the context to recognize characters, accuracy drops exponentially as increasingly many characters become blurry and ambiguous.</p>
+
+<h2 id="future-plans">Future Plans</h2>
+
+<p>The current version of the &lsquo;tesseract&rsquo; package is stable and essentially feature complete. We may release an update in the future to include additional utitlities for downloading and managing training data. These updates may also include some integration with the rOpenSci&rsquo;s <a href="https://cran.r-project.org/web/packages/magick/vignettes/intro.html">magick</a> package to help with preprocessing images.</p>
+
+<p>All of our development at rOpenSci is driven by user feedback. If you find a problem or have suggestions for improvement, we would love to hear about it on our <a href="https://github.com/ropensci/tesseract/issues">Github page</a>!</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/ropensci"><span class="label">ropensci</span></a>
+                
+                    <a href="/tags/packages"><span class="label">packages</span></a>
+                
+                    <a href="/tags/tesseract"><span class="label">tesseract</span></a>
+                
+                    <a href="/tags/r"><span class="label">R</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+              <div id="disqus_thread"></div>
+                <div id="disqus_thread"></div>
+                <script type="text/javascript">
+                var disqus_shortname = 'ropenscience';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+                </script>
+                <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

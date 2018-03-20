@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Careers on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/careers/</link>
+    <description>Recent content in Careers on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Wed, 07 Sep 2016 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/careers/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Postdoctoral Scholar – Sustainable Software and Reproducible Research</title>
+      <link>https://ropensci.org/blog/2016/09/07/postdoc-position/</link>
+      <pubDate>Wed, 07 Sep 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2016/09/07/postdoc-position/</guid>
+      <description>
+        
+        &lt;p&gt;The rOpenSci project based at the University of California, Berkeley seeks to hire a postdoctoral scholar to work on the research activities funded by the grant titled “Fostering the next generation of sustainable software and reproducible research practices in the scientific community”. The project develops open source software to promote reproducible research practices in the scientific community. The postdoctoral scholar will focus on a research topic aligned with their own interests in order to better understand and improve scientific software practices. Possible topics include but are not limited to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Defining &amp;amp; evaluating sustainability for research software&lt;/li&gt;
+&lt;li&gt;Improving the development process that leads to new, sustainable, reusable, and impactful software&lt;/li&gt;
+&lt;li&gt;Developing recommendations for the support and maintenance of existing software: engineering best practices, transparency, governance, business and sustainability&lt;/li&gt;
+&lt;li&gt;Building large and engaged user communities&lt;/li&gt;
+&lt;li&gt;Understanding and recommending policy changes to software credit, attribution, incentive, and reward; issues related to multiple organizations and multiple countries, such as intellectual property, licensing, and mechanisms and venues for publishing software, and the role of publishers&lt;/li&gt;
+&lt;li&gt;Improving education and training&lt;/li&gt;
+&lt;li&gt;Studying careers and profession institutional changes to support sustainable software such as promotion and tenure metrics, job categories and career paths&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We expect the postdoc will disseminate their findings in the form of blog posts, technical reports, workshop and conference talks and papers, journal papers or software products, as appropriate for the work and the applicant’s own career goals.
+While experience in developing academic software may be helpful, many projects in the areas above need not require software development experience.&lt;/p&gt;
+
+&lt;p&gt;The candidate can expect to work closely with mentors from the rOpenSci project aligned with their interests, such as Dr. Karthik Ram and Dr. Carl Boettiger (UC Berkeley), Dr. Jenny Bryan (University of British Columbia), and Dr. Daniel S. Katz (University of Illinois), as well as other members from the rOpenSci and UC Berkeley communities. This position will be based at UC Berkeley, but arrangements for working remotely may be available.&lt;/p&gt;
+
+&lt;p&gt;This research is funded by the rOpenSci project through a grant from the Helmsely Trust. The initial appointment will be for 1 year, full-time (100%), renewable for another year based on adequate progress made in the first year. The position comes with a competitive postdoc salary &lt;a href=&#34;http://vspa.berkeley.edu/postdoc-health-and-welfare-benefits&#34;&gt;plus benefits&lt;/a&gt;, as well as a generous yearly allowance for computing equipment, conference travel, and other research expenses. Earliest start date is November 2016. Please contact Dr. Karthik Ram &lt;a href=&#34;mailto:karthik.ram@berkeley.edu&#34;&gt;karthik.ram@berkeley.edu&lt;/a&gt; with any informal questions about the position before applying.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Qualifications&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Applicants must possess a PhD or equivalent degree by their start date (more details in the full job ad linked below).&lt;/li&gt;
+&lt;li&gt;Applicants from natural or social sciences, computer science, statistics or related disciplines are all welcome.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;To apply, submit the following items online at &lt;a href=&#34;https://aprecruit.berkeley.edu/apply/JPF01132&#34;&gt;https://aprecruit.berkeley.edu/apply/JPF01132&lt;/a&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

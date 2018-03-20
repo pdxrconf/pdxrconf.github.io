@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Reproducibility on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/reproducibility/</link>
+    <description>Recent content in Reproducibility on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 11 Apr 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/reproducibility/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Data validation with the assertr package</title>
+      <link>https://ropensci.org/blog/2017/04/11/assertr/</link>
+      <pubDate>Tue, 11 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/04/11/assertr/</guid>
+      <description>
+        
+        
+
+&lt;div class=&#34;alert alert-info&#34; role=&#34;alert&#34;&gt;
+This is cross-posted from Tony&#39;s blog &lt;a href=&#34;http://www.onthelambda.com/2017/03/20/data-validation-with-the-assertr-package/&#34; target=&#34;_blank&#34;&gt;onthelambda.com&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;small&gt;&lt;em&gt;Version 2.0 of my data set validation package &lt;code&gt;assertr&lt;/code&gt; hit CRAN just this weekend. It has some pretty great improvements over version 1. For those new to the package, what follows is a short and new introduction. For those who are already using &lt;code&gt;assertr&lt;/code&gt;, the text below will point out the improvements.&lt;/em&gt;&lt;/small&gt;&lt;/p&gt;
+
+&lt;p&gt;I can (and have) go on and on about the treachery of messy/bad datasets. Though its substantially less exciting than… pretty much everything else, I believe (proportional to the heartache and stress it causes) we don’t spend enough time talking about it or building solutions around it. No matter how new and fancy your ML algorithm is, it’s success is predicated upon a properly sanitized dataset. If you are using bad data, your approach will fail—either flagrantly (best case), or unnoticeably (considerably more probable and considerably more pernicious).&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;assertr&lt;/code&gt; is a R package to help you identify common dataset errors. More specifically, it helps you easily spell out your assumptions about how the data should look and alert you of any deviation from those assumptions.&lt;/p&gt;
+
+&lt;p&gt;I’ll return to this point later in the post when we have more background, but I want to be up front about the goals of the package; &lt;code&gt;assertr&lt;/code&gt; is not (and can never be) a “one-stop shop” for all of your data validation needs. The specific kind of checks individuals or teams have to perform any particular dataset are often far too idiosyncratic to ever be exhaustively addressed by a single package (although, the &lt;code&gt;assertive&lt;/code&gt; meta-package may come very close!) But all of these checks will reuse motifs and follow the same patterns. So, instead, I’m trying to sell &lt;code&gt;assertr&lt;/code&gt; as a way of thinking about dataset validations—a set of common dataset validation &lt;em&gt;actions&lt;/em&gt;. If we think of these actions as &lt;em&gt;verbs&lt;/em&gt;, you could say that &lt;code&gt;assertr&lt;/code&gt; attempts to impose a grammar of error checking for datasets.&lt;/p&gt;
+
+&lt;p&gt;In my experience, the overwhelming majority of data validation tasks fall into only five different patterns:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;For every element in a column&lt;/em&gt;, you want to make sure it fits certain criteria. Examples of this strain of error checking would be to make sure every element is a valid credit card number, or fits a certain regex pattern, or represents a date between two other dates. &lt;code&gt;assertr&lt;/code&gt; calls this verb &lt;code&gt;assert&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;For every element in a column&lt;/em&gt;, you want to make sure certain criteria are met &lt;strong&gt;but the criteria can be decided only &lt;em&gt;after&lt;/em&gt; looking at the entire column as a whole&lt;/strong&gt;. For example, testing whether each element is within &lt;em&gt;n&lt;/em&gt; standard deviations of the mean of the elements requires computation on the elements prior to inform the criteria to check for. &lt;code&gt;assertr&lt;/code&gt; calls this verb &lt;code&gt;insist&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;For every row of a dataset&lt;/em&gt;, you want to make sure certain assumptions hold. Examples include ensuring that no row has more than &lt;em&gt;n&lt;/em&gt; number of missing values, or that a group of columns are jointly unique and never duplicated. &lt;code&gt;assertr&lt;/code&gt; calls this verb &lt;code&gt;assert_rows&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;For every row of a dataset&lt;/em&gt;, you want to make sure certain assumptions hold &lt;strong&gt;but the criteria can be decided only &lt;em&gt;after&lt;/em&gt; looking at the entire column as a whole&lt;/strong&gt;. This closely mirrors the distinction between &lt;code&gt;assert&lt;/code&gt; and &lt;code&gt;insist&lt;/code&gt;, but for entire rows (not individual elements). An example of using this would be checking to make sure that the &lt;a href=&#34;https://en.wikipedia.org/wiki/Mahalanobis_distance&#34;&gt;Mahalanobis distance&lt;/a&gt; between each row and all other rows are within &lt;em&gt;n&lt;/em&gt; number of standard deviations of the mean distance. &lt;code&gt;assertr&lt;/code&gt; calls this verb &lt;code&gt;insist_rows&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;You want to check some property of the dataset as a whole object. Examples include making sure the dataset has more than &lt;em&gt;n&lt;/em&gt; columns, making sure the dataset has some specified column names, etc… &lt;code&gt;assertr&lt;/code&gt; calls this last verb &lt;code&gt;verify&lt;/code&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Some of this might sound a little complicated, but I promise this is a worthwhile way to look at dataset validation. Now we can begin with an example of what can be achieved with these verbs. The following example is borrowed from the package vignette and README…&lt;/p&gt;
+
+&lt;p&gt;Pretend that, before finding the average miles per gallon for each number of engine cylinders in the &lt;code&gt;mtcars&lt;/code&gt; dataset, we wanted to confirm the following dataset assumptions…
+&lt;small&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;that it has the columns &lt;code&gt;mpg&lt;/code&gt;, &lt;code&gt;vs&lt;/code&gt;, and &lt;code&gt;am&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;that the dataset contains more than 10 observations&lt;/li&gt;
+&lt;li&gt;that the column for &amp;lsquo;miles per gallon&amp;rsquo; (mpg) is a positive number&lt;/li&gt;
+&lt;li&gt;that the column for ‘miles per gallon’ (mpg) does not contain a datum that is outside 4 standard deviations from its mean&lt;/li&gt;
+&lt;li&gt;that the &lt;code&gt;am&lt;/code&gt; and &lt;code&gt;vs&lt;/code&gt; columns (automatic/manual and v/straight engine, respectively) contain 0s and 1s only&lt;/li&gt;
+&lt;li&gt;each row contains at most 2 NAs&lt;/li&gt;
+&lt;li&gt;each row is unique jointly between the &lt;code&gt;mpg&lt;/code&gt;, &lt;code&gt;am&lt;/code&gt;, and &lt;code&gt;wt&lt;/code&gt; columns&lt;/li&gt;
+&lt;li&gt;each row&amp;rsquo;s mahalanobis distance is within 10 median absolute deviations of all the distances (for outlier detection)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;/small&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r results=&#39;hide&#39;, warning=FALSE, comment=FALSE, warning=FALSE, message=FALSE&#34;&gt;library(assertr)
+library(magrittr)
+library(dplyr)
+
+mtcars %&amp;gt;%
+  verify(has_all_names(&amp;quot;mpg&amp;quot;, &amp;quot;vs&amp;quot;, &amp;quot;am&amp;quot;, &amp;quot;wt&amp;quot;)) %&amp;gt;%
+  verify(nrow(.) &amp;gt; 10) %&amp;gt;%
+  verify(mpg &amp;gt; 0) %&amp;gt;%
+  insist(within_n_sds(4), mpg) %&amp;gt;%
+  assert(in_set(0,1), am, vs) %&amp;gt;%
+  assert_rows(num_row_NAs, within_bounds(0,2), everything()) %&amp;gt;%
+  assert_rows(col_concat, is_uniq, mpg, am, wt) %&amp;gt;%
+  insist_rows(maha_dist, within_n_mads(10), everything()) %&amp;gt;%
+  group_by(cyl) %&amp;gt;%
+  summarise(avg.mpg=mean(mpg))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Before &lt;code&gt;assertr&lt;/code&gt; version 2, the pipeline would immediately terminate at the first failure. Sometimes this is a good thing. However, sometimes we’d like to run a dataset through our entire suite of checks and record all failures. The latest version includes the &lt;code&gt;chain_start&lt;/code&gt; and &lt;code&gt;chain_end&lt;/code&gt; functions; all assumptions within a chain (below a call to &lt;code&gt;chain_start&lt;/code&gt; and above &lt;code&gt;chain_end&lt;/code&gt;) will run from beginning to end and accumulate errors along the way. At the end of the chain, a specific action can be taken but the default is to halt execution and display a comprehensive report of what failed including line numbers and the offending datum, where applicable.&lt;/p&gt;
+
+&lt;p&gt;Another major improvement since the last version of &lt;code&gt;assertr&lt;/code&gt; on CRAN is that &lt;code&gt;assertr&lt;/code&gt; errors are now S3 classes (instead of dumb strings). Additionally, the behavior of each assertion statement on success (no error) and failure can now be flexibly customized. For example, you can now tell &lt;code&gt;assertr&lt;/code&gt; to just return TRUE and FALSE instead of returning the data passed in or halting execution, respectively. Alternatively, you can instruct &lt;code&gt;assertr&lt;/code&gt; to just give a warning instead of throwing a fatal error. For more information on this, see &lt;code&gt;help(&amp;quot;success_and_error_functions&amp;quot;)&lt;/code&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;beyond-these-examples&#34;&gt;Beyond these examples&lt;/h3&gt;
+
+&lt;p&gt;Since the package was initially published on CRAN (almost exactly two years ago) many people have asked me how they should go about using &lt;code&gt;assertr&lt;/code&gt; to test a particular assumption (and I’m very happy to help if you have one of your own, dear reader!) In every single one of these cases, I’ve been able to express it as an incantation using one of these 5 verbs. It also underscored, to me, that creating specialized functions for every need is a pipe dream. There is, however, two good pieces of news.&lt;/p&gt;
+
+&lt;p&gt;The first is that there is another package, &lt;a href=&#34;https://CRAN.R-project.org/package=assertive&#34;&gt;assertive&lt;/a&gt; that greatly enhances the &lt;code&gt;assertr&lt;/code&gt; experience. The predicates (functions that start with &lt;code&gt;is_&lt;/code&gt;) from this (meta)package can be used in &lt;code&gt;assertr&lt;/code&gt; pipelines just as easily as &lt;code&gt;assertr&lt;/code&gt;’s own predicates. And &lt;code&gt;assertive&lt;/code&gt; has an enormous amount of them! Some specialized and exciting examples include &lt;code&gt;is_hex_color&lt;/code&gt;, &lt;code&gt;is_ip_address&lt;/code&gt;, and &lt;code&gt;is_isbn_code&lt;/code&gt;!&lt;/p&gt;
+
+&lt;p&gt;The second is if &lt;code&gt;assertive&lt;/code&gt; doesn’t have what you’re looking for, with just a little bit of studying the &lt;code&gt;assertr&lt;/code&gt; grammar, you can whip up your own predicates with relative ease. Using some these basic constructs and a little effort, I’m confident that the grammar is expressive enough to completely adapt to your needs.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;If this package interests you, I urge you to read the most recent package vignette &lt;a href=&#34;https://cran.rstudio.com/web/packages/assertr/vignettes/assertr.html&#34;&gt;here&lt;/a&gt;. If you&amp;rsquo;re an &lt;code&gt;assertr&lt;/code&gt; old-timer, I point you to &lt;a href=&#34;https://cran.rstudio.com/web/packages/assertr/NEWS&#34;&gt;this NEWS file&lt;/a&gt; that list the changes from the previous version.&lt;/em&gt;&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

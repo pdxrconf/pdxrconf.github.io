@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Drat on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/drat/</link>
+    <description>Recent content in Drat on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 04 Aug 2015 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/drat/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>A drat repository for rOpenSci</title>
+      <link>https://ropensci.org/blog/2015/08/04/a-drat-repository-for-ropensci/</link>
+      <pubDate>Tue, 04 Aug 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2015/08/04/a-drat-repository-for-ropensci/</guid>
+      <description>
+        
+        
+
+&lt;p&gt;We&amp;rsquo;re happy to announce the launch of a CRAN-style repository for rOpenSci at &lt;a href=&#34;http://packages.ropensci.org&#34;&gt;http://packages.ropensci.org&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;This repository contains the latest nightly builds from the master branch of all rOpenSci packages currently on GitHub. This allows users to install development versions of our software without specialized functions such as &lt;code&gt;install_github()&lt;/code&gt;, allows
+dependencies not hosted on CRAN to still be resolved automatically, and permits the use of &lt;code&gt;update.packages()&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;using-the-repository&#34;&gt;Using the repository&lt;/h2&gt;
+
+&lt;p&gt;To use, simply add
+&lt;code&gt;packages.ropensci.org&lt;/code&gt; to your existing list of R repos, such as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;options(repos = c(&amp;quot;http://packages.ropensci.org&amp;quot;, getOption(&amp;quot;repos&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;(If you don&amp;rsquo;t have any default CRAN mirrors selected yet by &lt;code&gt;getOption(&amp;quot;repos&amp;quot;)&lt;/code&gt;, you may want to add one now). You can also include this line in specific &lt;code&gt;install.packages()&lt;/code&gt; requests:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;taxize&amp;quot;, repos = c(&amp;quot;http://packages.ropensci.org&amp;quot;, &amp;quot;http://cran.rstudio.com&amp;quot;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;design&#34;&gt;Design&lt;/h2&gt;
+
+&lt;p&gt;Our goal in creating a CRAN-style package repository (yes, it&amp;rsquo;s confusing that we use the word &amp;ldquo;repository&amp;rdquo; to describe both an individual package source in a GitHub &lt;em&gt;repo&lt;/em&gt; as well as a collection of package binaries on a CRAN-like &lt;em&gt;repo&lt;/em&gt;&amp;hellip; sorry) was to provide users with a way to install the latest development versions of rOpenSci packages that offered an easier and more seamless alternative to the widely used method of &lt;code&gt;devtools::install_github()&lt;/code&gt;.  This would be particularly useful for updating all packages at once, or installing development versions that depended on other versions of packages not yet released to CRAN. As an added benefit, we also wanted a system that would allow us to compute anonymized download statistics, analogous to what RStudio provides for it&amp;rsquo;s CRAN mirror.  Getting this all to work required the introduction of a few additional technologies.&lt;/p&gt;
+
+&lt;h3 id=&#34;drat-and-drat-builder&#34;&gt;&lt;code&gt;drat&lt;/code&gt; and &lt;code&gt;drat.builder&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;While the basic structure of a CRAN-like R repository is simple, and used by both platforms such as &lt;a href=&#34;https://r-forge.r-project.org/&#34;&gt;RForge&lt;/a&gt; and individual developers, kudos really goes to Dirk Eddelbuettel&amp;rsquo;s &lt;a href=&#34;https://github.com/eddelbuettel/drat&#34;&gt;drat&lt;/a&gt; package for really making this automated, simple, and fun.  While &lt;code&gt;drat&lt;/code&gt; makes it easy to toss individual packages into a CRAN-like repo (which we often refer to as a &lt;code&gt;drat&lt;/code&gt; repo), we needed an easy &amp;amp; automatic way to add a whole list of packages, given their GitHub repos.  Rich FitzJohn&amp;rsquo;s new &lt;a href=&#34;https://github.com/richfitz/drat.builder&#34;&gt;drat.builder&lt;/a&gt; package does precisely this; handling the downloading of packages with some clever record-keeping to avoid building and adding packages which have not changed since the last time the &lt;code&gt;drat&lt;/code&gt; repo was built.  The sources for building the rOpenSci packages repository can be found in our &amp;ldquo;drat&amp;rdquo; GitHub repo: &lt;a href=&#34;https://github.com/ropensci/drat&#34;&gt;https://github.com/ropensci/drat&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;dynamic-package-lists-ropkgs&#34;&gt;Dynamic package lists: &lt;code&gt;ropkgs&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;With rOpenSci, we wanted to take this one step further.  No one wants to have to maintain one more list that must be updated every time a package is successfully on-boarded to the project.  Scott Chamberlain&amp;rsquo;s work with &lt;a href=&#34;https://github.com/ropensci/ropkgs&#34;&gt;ropkgs&lt;/a&gt; provides a convenient way to query the rOpenSci software suite, automatically generating a list of available rOpenSci packages, and filtering them on relevant metadata, such as those that are in good status and installable condition, like so:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;ropkgs&amp;quot;)
+out &amp;lt;- ro_pkgs()
+good &amp;lt;- out$packages$status == &amp;quot;good&amp;quot;
+installable &amp;lt;- out$packages$installable
+pkgs &amp;lt;- out$packages$name[installable &amp;amp; good]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;the-magic-of-continuous-integration-circleci&#34;&gt;The magic of continuous integration: CircleCI&lt;/h3&gt;
+
+&lt;p&gt;With &lt;code&gt;ropkgs&lt;/code&gt;, &lt;code&gt;drat&lt;/code&gt; and &lt;code&gt;drat.builder&lt;/code&gt;, we now have everything we need to automate the building of the CRAN-like package repository.  Now we just need some computing resource that can do the hard work of pulling down all the GitHub packages, building the repository, and securely sending off the binaries somewhere they can be downloaded.  Continuous Integration systems turn out to be perfect for this.  My favorite CI platform at the moment is &lt;a href=&#34;https://circleci.com&#34;&gt;CircleCi&lt;/a&gt;, for several reasons particularly relevant here:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;it has a rich API which includes support for &lt;code&gt;POST&lt;/code&gt; requests which can trigger a build without making commits to GitHub&lt;/li&gt;
+&lt;li&gt;it supports custom Docker containers, allowing us to just download a container with most or all the dependencies we need to build packages, etc., without having to wait for them to install manually from source first.&lt;/li&gt;
+&lt;li&gt;it has a convenient web interface for providing secure credentials we&amp;rsquo;ll need to publish the binary repository to GitHub or Amazon.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Circle has other advantages too, like great live help and the ability to ssh into your CI run to troubleshoot when all else fails, but otherwise works like most other CI platforms.  More on that another day. You can see the daily builds here: &lt;a href=&#34;https://circleci.com/gh/ropensci/drat/tree/gh-pages&#34;&gt;CircleCi&lt;/a&gt;, which are triggered by a simple &lt;code&gt;POST&lt;/code&gt; request running as a cron job.  The &lt;a href=&#34;https://github.com/ropensci/drat/blob/gh-pages/circle.yml&#34;&gt;circle.yml&lt;/a&gt; configuration file appears in the project&amp;rsquo;s drat repo &amp;ndash; check out how simple it is!&lt;/p&gt;
+
+&lt;h3 id=&#34;publishing-to-amazon&#34;&gt;Publishing to Amazon&lt;/h3&gt;
+
+&lt;p&gt;The last step would be getting download logs; which is somewhat more complicated than it sounds.  &lt;code&gt;drat&lt;/code&gt; conveniently already handles pushing packages to GitHub&amp;rsquo;s gh-pages, a free and easy way to provide static hosting.  This is free and easy, but isn&amp;rsquo;t ideal, particularly for large and frequently updated package collections.  Also, it is impossible to get download logs from this approach. To avoid these issues, we settled on pushing our package repository to a static site hosted through Amazon&amp;rsquo;s S3 data storage &amp;ldquo;buckets.&amp;rdquo;  It&amp;rsquo;s not free, but for at most a few gigs of space we&amp;rsquo;ll need it&amp;rsquo;s still very cost effective.  In particular, S3 buckets can generate their own log files, which provides a way to count package downloads.&lt;/p&gt;
+
+&lt;p&gt;Secure communication with Amazon S3 system is accomplished using the very nascent / actively developing &lt;a href=&#34;https://github.com/cloudyr/aws.s3&#34;&gt;aws.s3&lt;/a&gt; R package from the awesome &lt;a href=&#34;https://cloudyr.github.io/&#34;&gt;cloudyr&lt;/a&gt; project.&lt;/p&gt;
+
+&lt;h3 id=&#34;parsing-the-download-logs&#34;&gt;Parsing the download logs&lt;/h3&gt;
+
+&lt;p&gt;Amazon&amp;rsquo;s S3 logs are rather raw and require some good ol data tidying work to transform them into the conveniently parsed, tidied and IP-address-anonymized format used by RStudio&amp;rsquo;s download logs.  Eventually this too can be accomplished by the CircleCI builds, but at the moment is too computationally intensive for them.  A script for this work-flow can be found in the project repo, &lt;a href=&#34;https://github.com/ropensci/drat/blob/gh-pages/parse_s3_logs.R&#34;&gt;parse_s3_logs.R&lt;/a&gt;.  As the data accumulate we should be able to start publishing the tidy logs.&lt;/p&gt;
+
+&lt;p&gt;This project is still in it&amp;rsquo;s early days, and as ever, we welcome feedback, problems or ideas on the &lt;a href=&#34;https://github.com/ropensci/drat/issues&#34;&gt;issues tracker&lt;/a&gt;.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Now go ahead and install or update some packages from the shiny new &lt;a href=&#34;http://packages.ropensci.org&#34;&gt;http://packages.ropensci.org&lt;/a&gt;!&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

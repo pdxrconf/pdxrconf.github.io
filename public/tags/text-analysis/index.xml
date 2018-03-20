@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Text Analysis on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/text-analysis/</link>
+    <description>Recent content in Text Analysis on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Tue, 05 Dec 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/text-analysis/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Exploratory Data Analysis of Ancient Texts with rperseus</title>
+      <link>https://ropensci.org/blog/2017/12/05/rperseus/</link>
+      <pubDate>Tue, 05 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/12/05/rperseus/</guid>
+      <description>
+        
+        
+
+&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;
+
+&lt;p&gt;When I was in grad school at Emory, I had a favorite desk in the library. The desk wasn’t particularly cozy or private, but what it lacked in comfort it made up for in real estate. My books and I needed room to operate. Students of the ancient world require many tools, and when jumping between commentaries, lexicons, and interlinears, additional clutter is additional “friction”, i.e., lapses in thought due to frustration. Technical solutions to this clutter exist, but the best ones are proprietary and expensive. Furthermore, they are somewhat inflexible, and you may have to shoehorn your thoughts into their framework. More friction.&lt;/p&gt;
+
+&lt;p&gt;Interfacing with &lt;a href=&#34;http://www.perseus.tufts.edu/hopper/&#34;&gt;the Perseus Digital Library&lt;/a&gt; was a popular online alternative. The library includes a catalog of classical texts, a Greek and Latin lexicon, and a word study tool for appearances and references in other literature. If the university library’s reference copies of BDAG&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; and &lt;em&gt;Synopsis Quattuor Evangeliorum&lt;/em&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; were unavailable, Perseus was our next best thing.&lt;/p&gt;
+
+&lt;p&gt;Fast forward several years, and I’ve abandoned my quest to become a biblical scholar. Much to my father’s dismay, I’ve learned writing code is more fun than writing exegesis papers. Still, I enjoy dabbling with dead languages, and it was the desire to wed my two loves, biblical studies and R, that birthed my latest package, &lt;code&gt;rperseus&lt;/code&gt;. The goal of this package is to furnish classicists with texts of the ancient world and a toolkit to unpack them.&lt;/p&gt;
+
+&lt;h3 id=&#34;exploratory-data-analysis-in-biblical-studies&#34;&gt;Exploratory Data Analysis in Biblical Studies&lt;/h3&gt;
+
+&lt;p&gt;Working with the Perseus Digital Library was already a trip down memory lane, but here’s an example of how I would have leveraged &lt;code&gt;rperseus&lt;/code&gt; many years ago.&lt;/p&gt;
+
+&lt;p&gt;My best papers often sprung from the outer margins of my &lt;a href=&#34;https://en.wikipedia.org/wiki/Novum_Testamentum_Graece&#34;&gt;&lt;em&gt;Nestle-Aland Novum Testamentum Graece.&lt;/em&gt;&lt;/a&gt; Here the editors inserted cross references to parallel vocabulary, themes, and even grammatical constructions. Given the intertextuality of biblical literature, the margins are a rich source of questions: Where else does the author use similar vocabulary? How is the source material used differently? Does the literary context affect our interpretation of a particular word? This is exploratory data analysis in biblical studies.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately the excitement of your questions is incommensurate with the tedium of the process&amp;ndash;EDA continues by flipping back and forth between books, dog-earring pages, and avoiding paper cuts. &lt;code&gt;rperseus&lt;/code&gt; aims to streamline this process with two functions: &lt;code&gt;get_perseus_text&lt;/code&gt; and &lt;code&gt;perseus_parallel&lt;/code&gt;. The former returns a data frame containing the text from any work in the Perseus Digital Library, and the latter renders a parallel in &lt;code&gt;ggplot2&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Suppose I am writing a paper on different expressions of love in Paul’s letters. Naturally, I start in 1 Corinthians 13, the famed “Love Chapter” often heard at weddings and seen on bumper stickers. I finish the chapter and turn to the margins. In the image below, I see references to Colossians 1:4, 1 Thessalonians 1:3, 5:8, Hebrews 10:22-24, and Romans 8:35-39.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-12-05-rperseus/nantg.png&#34; alt=&#34;&#34; /&gt;
+&lt;em&gt;1 Corinithians 13 in Nestle-Aland Novum Testamentum Graece&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Ignoring that some scholars exclude Colossians from the “authentic” letters, let’s see the references alongside each other:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(rperseus) #devtools::install_github(“ropensci/rperseus”)
+library(tidyverse)
+
+tribble(
+  ~label, ~excerpt,
+  &amp;quot;Colossians&amp;quot;, &amp;quot;1.4&amp;quot;,
+  &amp;quot;1 Thessalonians&amp;quot;, &amp;quot;1.3&amp;quot;,
+  &amp;quot;1 Thessalonians&amp;quot;, &amp;quot;5.8&amp;quot;,
+  &amp;quot;Romans&amp;quot;, &amp;quot;8.35-8.39&amp;quot;
+  ) %&amp;gt;% 
+  left_join(perseus_catalog) %&amp;gt;%
+  filter(language == &amp;quot;grc&amp;quot;) %&amp;gt;%
+  select(urn, excerpt) %&amp;gt;%
+  pmap_df(get_perseus_text) %&amp;gt;%
+  perseus_parallel(words_per_row = 4)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-12-05-rperseus/Parallel1.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A brief explanation: First, I specify the labels and excerpts within a tibble. Second, I join the lazily loaded &lt;code&gt;perseus_catalog&lt;/code&gt; onto the data frame. Third, I filter for the Greek&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:3&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; and select the columns containing the arguments required for &lt;code&gt;get_perseus_text&lt;/code&gt;. Fourth, I map over each urn and excerpt, returning another data frame. Finally, I pipe the output into &lt;code&gt;perseus_parallel&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The key word shared by each passage is &lt;em&gt;agape&lt;/em&gt; (“love”). Without going into detail, it might be fruitful to consider the references alongside each other, pondering how the semantic range of &lt;em&gt;agape&lt;/em&gt; expands or contracts within the Pauline corpus. Paul had a penchant for appropriating and recasting old ideas&amp;ndash;often in slippery and unexpected ways&amp;ndash;and your Greek lexicon provides a mere approximation. In other words, how can we move from the dictionary definition of &lt;em&gt;agape&lt;/em&gt; towards Paul&amp;rsquo;s unique vision?&lt;/p&gt;
+
+&lt;p&gt;If your Greek is rusty, you can parse each word with &lt;code&gt;parse_excerpt&lt;/code&gt; by locating the text&amp;rsquo;s urn within the &lt;code&gt;perseus_catalog&lt;/code&gt; object.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;parse_excerpt(urn = &amp;quot;urn:cts:greekLit:tlg0031.tlg012.perseus-grc2&amp;quot;, excerpt = &amp;quot;1.4&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;left&#34;&gt;word&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;form&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;verse&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;part_of_speech&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;person&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;number&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;tense&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;mood&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;voice&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;gender&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;case&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;degree&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;ἀκούω&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;ἀκούσαντες&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;1.4&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;verb&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;NA&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;plural&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;aorist&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;participle&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;active&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;masculine&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;nominative&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;NA&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;ὁ&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;τὴν&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;1.4&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;article&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;NA&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;singular&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;NA&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;NA&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;NA&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;feminine&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;accusative&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;NA&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;πίστις&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;πίστιν&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;1.4&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;noun&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;NA&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;singular&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;NA&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;NA&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;NA&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;feminine&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;accusative&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;NA&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;left&#34;&gt;ὑμός&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;ὑμῶν&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;1.4&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;pronoun&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;NA&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;plural&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;NA&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;NA&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;NA&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;masculine&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;genative&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;NA&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;If your Greek is &lt;em&gt;really&lt;/em&gt; rusty, you can also flip the &lt;code&gt;language&lt;/code&gt; filter to “eng” to view an older English translation.&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:4&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:4&#34;&gt;4&lt;/a&gt;&lt;/sup&gt; And if the margin references a text from the Old Testament, you can call the Septuagint as well as the original Hebrew.&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:5&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:5&#34;&gt;5&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;tribble(
+  ~label, ~excerpt,
+  &amp;quot;Genesis&amp;quot;, &amp;quot;32.31&amp;quot;,
+  &amp;quot;Genesis, pointed&amp;quot;, &amp;quot;32.31&amp;quot;,
+  &amp;quot;Numeri&amp;quot;, &amp;quot;12.8&amp;quot;,
+  &amp;quot;Numbers, pointed&amp;quot;, &amp;quot;12.8&amp;quot;
+  ) %&amp;gt;% 
+  left_join(perseus_catalog) %&amp;gt;%
+  filter(language %in% c(&amp;quot;grc&amp;quot;, &amp;quot;hpt&amp;quot;)) %&amp;gt;%
+  select(urn, excerpt) %&amp;gt;%
+  pmap_df(get_perseus_text) %&amp;gt;%
+  perseus_parallel()
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://ropensci.org/img/blog-images/2017-12-05-rperseus/Parallel2.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Admittedly, there is some “friction” here in joining the &lt;code&gt;perseus_catalog&lt;/code&gt; onto the initial tibble. There is a learning curve with getting acquainted with the idiosyncrasies of the catalog object. A later release will aim to streamline this workflow.&lt;/p&gt;
+
+&lt;h3 id=&#34;future-work&#34;&gt;Future Work&lt;/h3&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://ropensci.github.io/rperseus/articles/rperseus-vignette.html&#34;&gt;Check the vignette&lt;/a&gt; for a more general overview of &lt;code&gt;rperseus&lt;/code&gt;. In the meantime, I look forward to getting more intimately acquainted with the Perseus Digital Library. Tentative plans to extend &lt;code&gt;rperseus&lt;/code&gt; a Shiny interface to further reduce “friction” and a method of creating a “book” of custom parallels with &lt;code&gt;bookdown&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;acknowledgements&#34;&gt;Acknowledgements&lt;/h3&gt;
+
+&lt;p&gt;I want to thank my two rOpenSci reviewers, &lt;a href=&#34;https://www.ildiczeller.com/&#34;&gt;Ildikó Czeller&lt;/a&gt; and &lt;a href=&#34;https://francoismichonneau.net/&#34;&gt;François Michonneau,&lt;/a&gt; for coaching me through the review process. They were the first two individuals to ever scrutinize my code, and I was lucky to hear their feedback. rOpenSci onboarding is truly a wonderful process.&lt;/p&gt;
+
+&lt;!-- references --&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;Bauer, Walter. &lt;em&gt;A Greek-English Lexicon of the New Testament and Other Early Christian Literature.&lt;/em&gt; Edited by Frederick W. Danker. 3rd ed. Chicago: University of Chicago Press, 2000.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;Aland, Kurt. &lt;em&gt;Synopsis Quattuor Evangeliorum.&lt;/em&gt; Deutsche Bibelgesellschaft, 1997.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;The Greek text from the Perseus Digital Library is from 1885 standards. The advancement of textual criticism in the 20th century led to a more stable text you would find in current editions of the Greek New Testament.&lt;br /&gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:3&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34;&gt;The English translation is from Rainbow Missions, Inc. &lt;em&gt;World English Bible.&lt;/em&gt; Rainbow Missions, Inc.; revision of the American Standard Version of 1901. I’ve toyed with the idea of incorporating more modern translations, but that would require require resources beyond the Perseus Digital Library.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:4&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:5&#34;&gt;&amp;ldquo;hpt&amp;rdquo; is the pointed Hebrew text from &lt;em&gt;Codex Leningradensis.&lt;/em&gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:5&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>googleLanguageR - Analysing language through the Google Cloud Machine Learning APIs</title>
+      <link>https://ropensci.org/blog/2017/10/03/googlelanguager/</link>
+      <pubDate>Tue, 03 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/10/03/googlelanguager/</guid>
+      <description>
+        
+        
+
+&lt;!-- open source image taken from: https://upload.wikimedia.org/wikipedia/commons/2/21/Bell_System_switchboard.jpg --&gt;
+
+&lt;p&gt;&lt;span&gt;
+&lt;div align=&#34;center&#34;&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-10-03-googlelanguager/switchboard.jpg&#34;&gt;&lt;/div&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;One of the greatest assets human beings possess is the power of speech and language, from which almost all our other accomplishments flow. To be able to analyse communication offers us a chance to gain a greater understanding of one another.&lt;/p&gt;
+
+&lt;p&gt;To help you with this, &lt;a href=&#34;http://code.markedmondson.me/googleLanguageR/&#34;&gt;&lt;code&gt;googleLanguageR&lt;/code&gt;&lt;/a&gt; is an R package that allows you to perform speech-to-text transcription, neural net translation and natural language processing via the &lt;a href=&#34;https://cloud.google.com/products/machine-learning/&#34;&gt;Google Cloud machine learning services&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;An introduction to the package is below, but you can find out more details at the &lt;a href=&#34;http://code.markedmondson.me/googleLanguageR/&#34;&gt;&lt;code&gt;googleLanguageR&lt;/code&gt; website&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&#34;google-s-bet&#34;&gt;Google&amp;rsquo;s bet&lt;/h3&gt;
+
+&lt;p&gt;Google predicts that machine learning is to be a fundamental feature of business, and so they are looking to become the infrastructure that makes machine learning possible. Metaphorically speaking: If machine learning is electricity, then Google wants to be the pylons carrying it around the country.&lt;/p&gt;
+
+&lt;!-- open source image taken from: https://pixabay.com/en/pylon-sky-electricity-tower-2515429/ --&gt;
+
+&lt;p&gt;&lt;span&gt;
+&lt;div align=&#34;center&#34;&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-10-03-googlelanguager/pylon.jpg&#34;&gt;&lt;/div&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Google may not be the only company with such ambitions, but one advantage Google has is the amount of data it possesses. Twenty years of web crawling has given it an unprecedented corpus to train its models.  In addition, its recent moves into voice and video gives it one of the biggest audio and speech datasets, all of which have been used to help create machine learning applications within its products such as search and Gmail. Further investment in machine learning is shown by Google&amp;rsquo;s purchase of &lt;a href=&#34;https://deepmind.com/&#34;&gt;Deepmind&lt;/a&gt;, a UK based A.I. research firm that recently was in the news for defeating the top Go champion with its neural network trained Go bot.  Google has also taken an open-source route with the creation and publication of &lt;a href=&#34;https://www.tensorflow.org/&#34;&gt;Tensorflow&lt;/a&gt;, a leading machine learning framework.&lt;/p&gt;
+
+&lt;p&gt;Whilst you can create your own machine learning models, for those users who haven&amp;rsquo;t the expertise, data or time to do so, Google also offers an increasing range of machine learning APIs that are pre-trained, such as image and video recognition or job search.  &lt;code&gt;googleLanguageR&lt;/code&gt; wraps the subset of those machine learning APIs that are language flavoured - Cloud Speech, Translation and Natural Language.&lt;/p&gt;
+
+&lt;p&gt;Since they carry complementary outputs that can be used in each other&amp;rsquo;s input, all three of the APIs are included in one package. For example, you can transcribe a recording of someone speaking in Danish, translate that to English and then identify how positive or negative the writer felt about its content (sentiment analysis) then identify the most important concepts and objects within the content (entity analysis).&lt;/p&gt;
+
+&lt;h3 id=&#34;motivations&#34;&gt;Motivations&lt;/h3&gt;
+
+&lt;h4 id=&#34;fake-news&#34;&gt;Fake news&lt;/h4&gt;
+
+&lt;p&gt;One reason why I started looking at this area was the growth of &amp;lsquo;fake news&amp;rsquo;, and its effect on political discourse on social media. I wondered if there was some way to put metrics on how much a news story fuelled one&amp;rsquo;s own bias within your own filter bubble.  The entity API provides a way to perform entity and sentiment analysis at scale on tweets, and by then comparing different users and news sources preferences the hope is to be able to judge how much they are in agreement with your own bias, views and trusted reputation sources.&lt;/p&gt;
+
+&lt;h4 id=&#34;make-your-own-alexa&#34;&gt;Make your own Alexa&lt;/h4&gt;
+
+&lt;p&gt;Another motivating application is the growth of voice commands that will become the primary way of user interface with technology.  Already, &lt;a href=&#34;https://www.thinkwithgoogle.com/data-gallery/detail/google-app-voice-search/&#34;&gt;Google reports up to 20% of search in its app&lt;/a&gt; is via voice search.  I&amp;rsquo;d like to be able to say &amp;ldquo;R, print me out that report for client X&amp;rdquo;.  A Shiny app that records your voice, uploads to the API then parses the return text into actions gives you a chance to create your very own Alexa-like infrastructure.&lt;/p&gt;
+
+&lt;p&gt;&lt;span style=&#34;text-align:center&#34;&gt;
+&lt;div align=&#34;center&#34;&gt;&lt;img src=&#34;https://ropensci.org/assets/blog-images/2017-10-03-googlelanguager/alexa.jpg&#34;&gt;&lt;/div&gt;
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;The voice activated internet connected speaker, Amazon&amp;rsquo;s Alexa - image from www.amazon.co.uk&lt;/em&gt;&lt;/p&gt;
+
+&lt;h4 id=&#34;translate-everything&#34;&gt;Translate everything&lt;/h4&gt;
+
+&lt;p&gt;Finally, I live and work in Denmark.  As Danish is only spoken by less than 6 million people, applications that work in English may not be available in Danish very quickly, if at all.  The API&amp;rsquo;s translation service is the one that made the news in 2016 for &lt;a href=&#34;https://research.googleblog.com/2016/09/a-neural-network-for-machine.html&#34;&gt;&amp;ldquo;inventing its own language&amp;rdquo;&lt;/a&gt;, and offers much better English to Danish translations that the free web version and may make services available in Denmark sooner.&lt;/p&gt;
+
+&lt;h3 id=&#34;using-the-library&#34;&gt;Using the library&lt;/h3&gt;
+
+&lt;p&gt;To use these APIs within R, you first need to do a one-time setup to create a Google Project, add a credit card and authenticate which is &lt;a href=&#34;http://code.markedmondson.me/googleLanguageR/#installation&#34;&gt;detailed on the package website&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;After that, you feed in the R objects you want to operate upon.  The &lt;a href=&#34;https://github.com/ropensci/onboarding/issues/127&#34;&gt;rOpenSci review&lt;/a&gt; helped to ensure that this can scale up easily, so that you can feed in large character vectors which the library will parse and rate limit as required.  The functions also work within &lt;a href=&#34;https://www.tidyverse.org/&#34;&gt;tidyverse&lt;/a&gt; pipe syntax.&lt;/p&gt;
+
+&lt;h4 id=&#34;speech-to-text&#34;&gt;Speech-to-text&lt;/h4&gt;
+
+&lt;p&gt;The &lt;a href=&#34;http://code.markedmondson.me/googleLanguageR/articles/speech.html&#34;&gt;Cloud Speech API&lt;/a&gt; is exposed via the &lt;a href=&#34;http://code.markedmondson.me/googleLanguageR/reference/gl_speech.html&#34;&gt;&lt;code&gt;gl_speech&lt;/code&gt;&lt;/a&gt; function.&lt;/p&gt;
+
+&lt;p&gt;It supports multiple audio formats and languages, and you can either feed a sub-60 second audio file directly, or perform asynchrnous requests for longer audio files.&lt;/p&gt;
+
+&lt;p&gt;Example code:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(googleLanguageR)
+
+my_audio &amp;lt;- &amp;quot;my_audio_file.wav&amp;quot;
+gl_speech(my_audio)
+#  A tibble: 1 x 3
+#  transcript confidence                 words
+#* &amp;lt;chr&amp;gt;      &amp;lt;dbl&amp;gt;                &amp;lt;list&amp;gt;
+#1 Hello Mum  0.9227779 &amp;lt;data.frame [19 x 3]&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;translation&#34;&gt;Translation&lt;/h4&gt;
+
+&lt;p&gt;The &lt;a href=&#34;http://code.markedmondson.me/googleLanguageR/articles/translation.html&#34;&gt;Cloud Translation API&lt;/a&gt; lets you translate text via &lt;a href=&#34;http://code.markedmondson.me/googleLanguageR/reference/gl_translate.html&#34;&gt;&lt;code&gt;gl_translate&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;As you are charged per character, one tip here if you are working with lots of different languages is to perform detection of language offline first using another rOpenSci package, &lt;a href=&#34;https://github.com/ropensci/cld2&#34;&gt;&lt;code&gt;cld2&lt;/code&gt;&lt;/a&gt;.  That way you can avoid charges for text that is already in your target language i.e. English.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(googleLanguageR)
+library(cld2)
+library(purrr)
+
+my_text &amp;lt;- c(&amp;quot;Katten sidder på måtten&amp;quot;, &amp;quot;The cat sat on the mat&amp;quot;)
+
+## offline detect language via cld2
+detected &amp;lt;- map_chr(my_text, detect_language)
+# [1] &amp;quot;DANISH&amp;quot;  &amp;quot;ENGLISH&amp;quot;
+
+## get non-English text
+translate_me &amp;lt;- my_text[detected != &amp;quot;ENGLISH&amp;quot;]
+
+## translate
+gl_translate(translate_me)
+## A tibble: 1 x 3
+#                 translatedText detectedSourceLanguage                    text
+#*                         &amp;lt;chr&amp;gt;                  &amp;lt;chr&amp;gt;                   &amp;lt;chr&amp;gt;
+#1 The cat is sitting on the mat                     da Katten sidder på måtten
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;natural-language-processing&#34;&gt;Natural Language Processing&lt;/h4&gt;
+
+&lt;p&gt;The &lt;a href=&#34;http://code.markedmondson.me/googleLanguageR/articles/nlp.html&#34;&gt;Natural Language API&lt;/a&gt; reveals the structure and meaning of text, accessible via the &lt;a href=&#34;http://code.markedmondson.me/googleLanguageR/reference/gl_nlp.html&#34;&gt;&lt;code&gt;gl_nlp&lt;/code&gt;&lt;/a&gt; function.&lt;/p&gt;
+
+&lt;p&gt;It returns several analysis:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Entity analysis&lt;/em&gt; - finds named entities (currently proper names and common nouns) in the text along with entity types, salience, mentions for each entity, and other properties. If possible, will also return metadata about that entity such as a Wikipedia URL.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Syntax&lt;/em&gt; - analyzes the syntax of the text and provides sentence boundaries and tokenization along with part of speech tags, dependency trees, and other properties.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Sentiment&lt;/em&gt; - the overall sentiment of the text, represented by a magnitude [0, +inf] and score between -1.0 (negative sentiment) and 1.0 (positive sentiment)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These are all useful to get an understanding of the meaning of a sentence, and has potentially the greatest number of applications of the APIs featured.  With entity analysis, auto categorisation of text is possible; the syntax returns let you pull out nouns and verbs for parsing into other actions; and the sentiment analysis allows you to get a feeling for emotion within text.&lt;/p&gt;
+
+&lt;p&gt;A demonstration is below which gives an idea of what output you can generate:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(googleLanguageR)
+quote &amp;lt;- &amp;quot;Two things are infinite: the universe and human stupidity; and I&#39;m not sure about the universe.&amp;quot;
+nlp &amp;lt;- gl_nlp(quote)
+
+str(nlp)
+#List of 6
+# $ sentences        :List of 1
+#  ..$ :&#39;data.frame&#39;:	1 obs. of  4 variables:
+#  .. ..$ content    : chr &amp;quot;Two things are infinite: the universe and human stupidity; and I&#39;m not sure about the universe.&amp;quot;
+#  .. ..$ beginOffset: int 0
+#  .. ..$ magnitude  : num 0.6
+#  .. ..$ score      : num -0.6
+# $ tokens           :List of 1
+#  ..$ :&#39;data.frame&#39;:	20 obs. of  17 variables:
+#  .. ..$ content       : chr [1:20] &amp;quot;Two&amp;quot; &amp;quot;things&amp;quot; &amp;quot;are&amp;quot; &amp;quot;infinite&amp;quot; ...
+#  .. ..$ beginOffset   : int [1:20] 0 4 11 15 23 25 29 38 42 48 ...
+#  .. ..$ tag           : chr [1:20] &amp;quot;NUM&amp;quot; &amp;quot;NOUN&amp;quot; &amp;quot;VERB&amp;quot; &amp;quot;ADJ&amp;quot; ...
+#  .. ..$ aspect        : chr [1:20] &amp;quot;ASPECT_UNKNOWN&amp;quot; &amp;quot;ASPECT_UNKNOWN&amp;quot; &amp;quot;ASPECT_UNKNOWN&amp;quot; &amp;quot;ASPECT_UNKNOWN&amp;quot; ...
+#  .. ..$ case          : chr [1:20] &amp;quot;CASE_UNKNOWN&amp;quot; &amp;quot;CASE_UNKNOWN&amp;quot; &amp;quot;CASE_UNKNOWN&amp;quot; &amp;quot;CASE_UNKNOWN&amp;quot; ...
+#  .. ..$ form          : chr [1:20] &amp;quot;FORM_UNKNOWN&amp;quot; &amp;quot;FORM_UNKNOWN&amp;quot; &amp;quot;FORM_UNKNOWN&amp;quot; &amp;quot;FORM_UNKNOWN&amp;quot; ...
+#  .. ..$ gender        : chr [1:20] &amp;quot;GENDER_UNKNOWN&amp;quot; &amp;quot;GENDER_UNKNOWN&amp;quot; &amp;quot;GENDER_UNKNOWN&amp;quot; &amp;quot;GENDER_UNKNOWN&amp;quot; ...
+#  .. ..$ mood          : chr [1:20] &amp;quot;MOOD_UNKNOWN&amp;quot; &amp;quot;MOOD_UNKNOWN&amp;quot; &amp;quot;INDICATIVE&amp;quot; &amp;quot;MOOD_UNKNOWN&amp;quot; ...
+#  .. ..$ number        : chr [1:20] &amp;quot;NUMBER_UNKNOWN&amp;quot; &amp;quot;PLURAL&amp;quot; &amp;quot;NUMBER_UNKNOWN&amp;quot; &amp;quot;NUMBER_UNKNOWN&amp;quot; ...
+#  .. ..$ person        : chr [1:20] &amp;quot;PERSON_UNKNOWN&amp;quot; &amp;quot;PERSON_UNKNOWN&amp;quot; &amp;quot;PERSON_UNKNOWN&amp;quot; &amp;quot;PERSON_UNKNOWN&amp;quot; ...
+#  .. ..$ proper        : chr [1:20] &amp;quot;PROPER_UNKNOWN&amp;quot; &amp;quot;PROPER_UNKNOWN&amp;quot; &amp;quot;PROPER_UNKNOWN&amp;quot; &amp;quot;PROPER_UNKNOWN&amp;quot; ...
+#  .. ..$ reciprocity   : chr [1:20] &amp;quot;RECIPROCITY_UNKNOWN&amp;quot; &amp;quot;RECIPROCITY_UNKNOWN&amp;quot; &amp;quot;RECIPROCITY_UNKNOWN&amp;quot; &amp;quot;RECIPROCITY_UNKNOWN&amp;quot; ...
+#  .. ..$ tense         : chr [1:20] &amp;quot;TENSE_UNKNOWN&amp;quot; &amp;quot;TENSE_UNKNOWN&amp;quot; &amp;quot;PRESENT&amp;quot; &amp;quot;TENSE_UNKNOWN&amp;quot; ...
+#  .. ..$ voice         : chr [1:20] &amp;quot;VOICE_UNKNOWN&amp;quot; &amp;quot;VOICE_UNKNOWN&amp;quot; &amp;quot;VOICE_UNKNOWN&amp;quot; &amp;quot;VOICE_UNKNOWN&amp;quot; ...
+#  .. ..$ headTokenIndex: int [1:20] 1 2 2 2 2 6 2 6 9 6 ...
+#  .. ..$ label         : chr [1:20] &amp;quot;NUM&amp;quot; &amp;quot;NSUBJ&amp;quot; &amp;quot;ROOT&amp;quot; &amp;quot;ACOMP&amp;quot; ...
+#  .. ..$ value         : chr [1:20] &amp;quot;Two&amp;quot; &amp;quot;thing&amp;quot; &amp;quot;be&amp;quot; &amp;quot;infinite&amp;quot; ...
+# $ entities         :List of 1
+#  ..$ :Classes ‘tbl_df’, ‘tbl’ and &#39;data.frame&#39;:	6 obs. of  9 variables:
+#  .. ..$ name         : chr [1:6] &amp;quot;human stupidity&amp;quot; &amp;quot;things&amp;quot; &amp;quot;universe&amp;quot; &amp;quot;universe&amp;quot; ...
+#  .. ..$ type         : chr [1:6] &amp;quot;OTHER&amp;quot; &amp;quot;OTHER&amp;quot; &amp;quot;OTHER&amp;quot; &amp;quot;OTHER&amp;quot; ...
+#  .. ..$ salience     : num [1:6] 0.1662 0.4771 0.2652 0.2652 0.0915 ...
+#  .. ..$ mid          : Factor w/ 0 levels: NA NA NA NA NA NA
+#  .. ..$ wikipedia_url: Factor w/ 0 levels: NA NA NA NA NA NA
+#  .. ..$ magnitude    : num [1:6] NA NA NA NA NA NA
+#  .. ..$ score        : num [1:6] NA NA NA NA NA NA
+#  .. ..$ beginOffset  : int [1:6] 42 4 29 86 29 86
+#  .. ..$ mention_type : chr [1:6] &amp;quot;COMMON&amp;quot; &amp;quot;COMMON&amp;quot; &amp;quot;COMMON&amp;quot; &amp;quot;COMMON&amp;quot; ...
+# $ language         : chr &amp;quot;en&amp;quot;
+# $ text             : chr &amp;quot;Two things are infinite: the universe and human stupidity; and I&#39;m not sure about the universe.&amp;quot;
+# $ documentSentiment:Classes ‘tbl_df’, ‘tbl’ and &#39;data.frame&#39;:	1 obs. of  2 variables:
+#  ..$ magnitude: num 0.6
+#  ..$ score    : num -0.6
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;acknowledgements&#34;&gt;Acknowledgements&lt;/h3&gt;
+
+&lt;p&gt;This package is 10 times better due to the efforts of the rOpenSci reviewers &lt;a href=&#34;http://enpiar.com/&#34;&gt;Neal Richardson&lt;/a&gt; and &lt;a href=&#34;http://www.juliagustavsen.com/&#34;&gt;Julia Gustavsen&lt;/a&gt;, who have whipped the documentation, outputs and test cases into the form they are today in &lt;code&gt;0.1.0&lt;/code&gt;.  Many thanks to them.&lt;/p&gt;
+
+&lt;p&gt;Hopefully, this is just the beginning and the package can be further improved by its users - if you do give the package a try and find a potential improvement, &lt;a href=&#34;https://github.com/ropensci/googleLanguageR/issues&#34;&gt;raise an issue on GitHub&lt;/a&gt; and we can try to implement it.  I&amp;rsquo;m excited to see what users can do with these powerful tools.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Text Analysis R Developers&#39; Workshop 2017</title>
+      <link>https://ropensci.org/blog/2017/05/03/textworkshop17/</link>
+      <pubDate>Wed, 03 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/05/03/textworkshop17/</guid>
+      <description>
+        
+        &lt;p&gt;On 21-22 April, the London School of Economics hosted the &lt;a href=&#34;http://textworkshop17.ropensci.org&#34;&gt;&lt;em&gt;Text Analysis Package Developers&amp;rsquo; Workshop&lt;/em&gt;&lt;/a&gt;, a two-day event held in London that brought together developers of R packages for working with text and text-related data.  This included a wide range of applications, including string handling (&lt;a href=&#34;https://github.com/gagolews/stringi&#34;&gt;&lt;code&gt;stringi&lt;/code&gt;&lt;/a&gt;) and tokenization (the rOpenSci-onboarded &lt;a href=&#34;https://github.com/ropensci/tokenizers&#34;&gt;&lt;code&gt;tokenizers&lt;/code&gt;&lt;/a&gt;, &lt;a href=&#34;https://github.com/haven-jeon/KoNLP&#34;&gt;&lt;code&gt;KoNLP&lt;/code&gt;&lt;/a&gt;), corpus and text processing (&lt;a href=&#34;https://github.com/kbenoit/readtext&#34;&gt;&lt;code&gt;readtext&lt;/code&gt;&lt;/a&gt;, &lt;a href=&#34;http://tm.r-forge.r-project.org&#34;&gt;&lt;code&gt;tm&lt;/code&gt;&lt;/a&gt;, &lt;a href=&#34;http://quanteda.io&#34;&gt;&lt;code&gt;quanteda&lt;/code&gt;&lt;/a&gt;, and &lt;a href=&#34;https://github.com/trinker/qdap&#34;&gt;&lt;code&gt;qdap&lt;/code&gt;&lt;/a&gt;), natural language processing (NLP) such as part of speech and dependency tagging (&lt;a href=&#34;https://github.com/statsmaths/cleanNLP&#34;&gt;&lt;code&gt;cleanNLP&lt;/code&gt;&lt;/a&gt;, &lt;a href=&#34;https://github.com/kbenoit/spacyr&#34;&gt;&lt;code&gt;spacyr&lt;/code&gt;&lt;/a&gt;), and the statistical analysis of textual data (&lt;a href=&#34;http://www.structuraltopicmodel.com&#34;&gt;&lt;code&gt;stm&lt;/code&gt;&lt;/a&gt;, &lt;a href=&#34;https://github.com/dselivanov/text2vec&#34;&gt;&lt;code&gt;text2vec&lt;/code&gt;&lt;/a&gt;, and &lt;a href=&#34;https://reaktanz.de/?c=hacking&amp;amp;s=koRpus&#34;&gt;&lt;code&gt;koRpus&lt;/code&gt;&lt;/a&gt;) &amp;ndash; although this list is hardly complete.  The main objective was to bring together experts working on various aspects of text processing and text analysis using R, to discuss common challenges and identify collaborative solutions.&lt;/p&gt;
+
+&lt;p&gt;The workshop was semi-structured, somewhere in between a traditional agenda-driven workshop and an &amp;ldquo;&lt;a href=&#34;http://unconf17.ropensci.org&#34;&gt;unconference&lt;/a&gt;&amp;rdquo;.  On Day 1 and in the first session of Day 2, we held a set of seven topically focused roundtables, with between 3-4 participants plus an appointed moderator.  Organized around themes or problems, such as segmenting and tokenizing text, or trying to parse linguistic structure and parts of speech, each session lasted about an hour (the full list is &lt;a href=&#34;https://github.com/ropensci/textworkshop17/blob/master/preliminary_schedule.md#schedule&#34;&gt;here&lt;/a&gt;). This gave everyone a chance to participate in a structured event, and served to guide discussion.  This proved invaluable in identifying challenges, especially the final roundtable on Saturday morning to discuss package interoperability, which had been aided greatly by the overall discussion that took place before across the first six roundtables.  (A group dinner at a &lt;a href=&#34;http://www.templebrewhouse.com/brewery/&#34;&gt;local brewpub&lt;/a&gt; the evening before also helped spur this discussion.)&lt;/p&gt;
+
+&lt;p&gt;The remainder of Day 2 consisted of people joining a variety of self-organized groups to work on projects we identified in the final roundtable session, and then spending the rest of the day planning and programming as part of these groups.  We concluded with brief presentations from each group as to what they had learned, accomplished, and developed.  This ranged from drafting &lt;a href=&#34;https://github.com/ropensci/tif&#34;&gt;interoperability standards for textual data exchange&lt;/a&gt;, starting new packages such as &lt;a href=&#34;https://github.com/leeper/textcolor&#34;&gt;&lt;code&gt;textcolor&lt;/code&gt;&lt;/a&gt; for displaying highlighted keywords in text, and even some fully functional packages having been completed on the spot (&lt;a href=&#34;https://github.com/ropensci/antiword&#34;&gt;&lt;code&gt;antiword&lt;/code&gt;&lt;/a&gt;, with &lt;a href=&#34;https://github.com/jeroen&#34;&gt;Jeroen&lt;/a&gt; giving a masterclass in rapid package development and deployment).  It was also a great chance to bug &lt;a href=&#34;http://www.gagolewski.com&#34;&gt;Marek&lt;/a&gt; to add new features to &lt;code&gt;stringi&lt;/code&gt; (such as: Unicode 9.0 support; Korean segmentation rules; etc.).&lt;/p&gt;
+
+&lt;p&gt;The main sponsor for the workshop was my &lt;a href=&#34;https://erc.europa.eu/&#34;&gt;European Research Council&lt;/a&gt; grant ERC-2011-StG 283794-QUANTESS, a five-year project aimed at developing methodologies and tools for the social scientific analysis of textual data.  We also enjoyed support from the LSE&amp;rsquo;s &lt;a href=&#34;http://www.lse.ac.uk/seds/&#34;&gt;Social and Economic Data Sciences Unit&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Following my eye-opening introduction last year to &lt;a href=&#34;https://ropensci.org&#34;&gt;rOpenSci&lt;/a&gt; through the 2016 unconference, I was also eager to adopt the approach of rOpenSci, including a partial unconference format, the embrace of the rOpenSci &lt;a href=&#34;https://ropensci.signup.team&#34;&gt;communication channels&lt;/a&gt;, the &lt;a href=&#34;https://github.com/ropensci/onboarding&#34;&gt;on-boarding and package peer-review process&lt;/a&gt;, and especially the &lt;a href=&#34;http://textworkshop17.ropensci.org/coc.html&#34;&gt;positive and constructive spirit&lt;/a&gt; of collaboration.  &lt;a href=&#34;http://karthik.io&#34;&gt;Karthik&lt;/a&gt; and Jeroen helped with the &lt;a href=&#34;http://textworkshop17.ropensci.org&#34;&gt;workshop webpage&lt;/a&gt; and with the Slack team, which we invited all participants to join.  Over 10 weeks before the event, we set up a channel &lt;code&gt;#text-sig&lt;/code&gt; and invited all participants to join.  We also solicited &lt;a href=&#34;https://github.com/ropensci/textworkshop17/issues&#34;&gt;issues&lt;/a&gt; and had pre-conference discussions about those issues through the conference GitHub repository.&lt;/p&gt;
+
+&lt;p&gt;Going forward, we anticipate working together on the projects we started, such as the Text Interchange Format, or contributing to common tool packages such as &lt;code&gt;tokenizers&lt;/code&gt;, or launching new packages.  We hope that the participants will also take part in the on-boarding process as reviewers or as authors.  Finally, through a proof-of-concept of the &amp;ldquo;special interest group&amp;rdquo; concept applied to rOpenSci, we hope to serve as a model for the SIG structure, developing a set of guidelines that could apply to other topically focused groups.  We also hope to continue the meetings of the text-SIG through future workshops and through continued communication using the Slack channel and the GitHub issues.  The enormously positive experience not only deserves to be repeated, but also to include new participants.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>New package tokenizers joins rOpenSci</title>
+      <link>https://ropensci.org/blog/2016/08/23/tokenizers-joins-ropensci/</link>
+      <pubDate>Tue, 23 Aug 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2016/08/23/tokenizers-joins-ropensci/</guid>
+      <description>
+        
+        &lt;p&gt;The R package ecosystem for natural language processing has been flourishing in recent days. R packages for text analysis have usually been based on the classes provided by the &lt;a href=&#34;https://cran.r-project.org/package=NLP/&#34;&gt;NLP&lt;/a&gt; or &lt;a href=&#34;https://cran.r-project.org/package=tm/&#34;&gt;tm&lt;/a&gt; packages. Many of them depend on Java. But recently there have been a number of new packages for text analysis in R, most notably &lt;a href=&#34;https://github.com/dselivanov/text2vec&#34;&gt;text2vec&lt;/a&gt;, &lt;a href=&#34;https://github.com/kbenoit/quanteda&#34;&gt;quanteda&lt;/a&gt;, and &lt;a href=&#34;https://github.com/juliasilge/tidytext&#34;&gt;tidytext&lt;/a&gt;. These packages are built on top of &lt;a href=&#34;http://www.rcpp.org/&#34;&gt;Rcpp&lt;/a&gt; instead of &lt;a href=&#34;https://cran.r-project.org/package=rJava/&#34;&gt;rJava&lt;/a&gt;, which makes them much more reliable and portable. And instead of the classes based on NLP, which I have never thought to be particularly idiomatic for R, they use standard R data structures. The text2vec and quanteda packages both rely on the sparse matrices provided by the rock solid &lt;a href=&#34;https://cran.r-project.org/package=Matrix/&#34;&gt;Matrix&lt;/a&gt; package. The tidytext package is idiosyncratic (in the best possible way!) for doing all of its work in data frames rather than matrices, but a data frame is about as standard as you can get. For a long time when I would recommend R to people, I had to add the caveat that they should use Python if they were primarily interested in text analysis. But now I no longer feel the need to hedge.&lt;/p&gt;
+
+&lt;p&gt;Still there is a lot of duplicated effort between these packages on the one hand and a lot of incompatibilities between the packages on the other. The R ecosystem for text analysis is not exactly coherent or consistent at the moment.&lt;/p&gt;
+
+&lt;p&gt;My small contribution to the new text analysis ecosystem is the tokenizers package, which was recently accepted into rOpenSci after a careful &lt;a href=&#34;https://github.com/ropensci/onboarding/issues/33&#34;&gt;peer review&lt;/a&gt; by &lt;a href=&#34;https://kevinushey.github.io/&#34;&gt;Kevin Ushey&lt;/a&gt;. A new version of the package is &lt;a href=&#34;https://cran.r-project.org/package=tokenizers/&#34;&gt;on CRAN&lt;/a&gt;. (Also check out the
+Jeroen Ooms&amp;rsquo;s &lt;a href=&#34;https://github.com/ropensci/hunspell&#34;&gt;hunspell&lt;/a&gt; package, which is a part of rOpensci.)&lt;/p&gt;
+
+&lt;p&gt;One of the basic tasks in any NLP pipeline is turning texts (which humans can read) into tokens (which machines can compute with). For example, you might break a text into words or into &lt;a href=&#34;https://en.wikipedia.org/wiki/N-gram&#34;&gt;n-grams&lt;/a&gt;. Here is an example using the &lt;a href=&#34;https://memory.loc.gov/ammem/snhtml/snhome.html&#34;&gt;former slave interviews&lt;/a&gt; from the Great Depression era Federal Writers&amp;rsquo; Project. (A data package with those interviews is in development &lt;a href=&#34;https://github.com/lmullen/WPAnarratives&#34;&gt;here&lt;/a&gt;).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# devtools::install_github(&amp;quot;lmullen/WPAnarratives&amp;quot;)
+# install.packages(&amp;quot;tokenizers&amp;quot;)
+library(WPAnarratives)
+library(tokenizers)
+
+text &amp;lt;- head(wpa_narratives$text, 5)
+class(text)
+
+## [1] &amp;quot;character&amp;quot;
+
+words &amp;lt;- tokenize_words(text, lowercase = TRUE)
+str(words)
+
+## List of 5
+##  $ : chr [1:1141] &amp;quot;_he&amp;quot; &amp;quot;loved&amp;quot; &amp;quot;young&amp;quot; &amp;quot;marster&amp;quot; ...
+##  $ : chr [1:1034] &amp;quot;_old&amp;quot; &amp;quot;joe&amp;quot; &amp;quot;can&amp;quot; &amp;quot;keep&amp;quot; ...
+##  $ : chr [1:824] &amp;quot;_jesus&amp;quot; &amp;quot;has&amp;quot; &amp;quot;my&amp;quot; &amp;quot;chillun&amp;quot; ...
+##  $ : chr [1:779] &amp;quot;charity&amp;quot; &amp;quot;anderson&amp;quot; &amp;quot;who&amp;quot; &amp;quot;believes&amp;quot; ...
+##  $ : chr [1:350] &amp;quot;dat&amp;quot; &amp;quot;was&amp;quot; &amp;quot;one&amp;quot; &amp;quot;time&amp;quot; ...
+
+ngrams &amp;lt;- tokenize_ngrams(text, n_min = 3, n = 5)
+str(ngrams)
+
+## List of 5
+##  $ : chr [1:3414] &amp;quot;_he loved young&amp;quot; &amp;quot;_he loved young marster&amp;quot; &amp;quot;_he loved young marster john_&amp;quot; &amp;quot;loved young marster&amp;quot; ...
+##  $ : chr [1:3093] &amp;quot;_old joe can&amp;quot; &amp;quot;_old joe can keep&amp;quot; &amp;quot;_old joe can keep his&amp;quot; &amp;quot;joe can keep&amp;quot; ...
+##  $ : chr [1:2463] &amp;quot;_jesus has my&amp;quot; &amp;quot;_jesus has my chillun&amp;quot; &amp;quot;_jesus has my chillun counted_&amp;quot; &amp;quot;has my chillun&amp;quot; ...
+##  $ : chr [1:2328] &amp;quot;charity anderson who&amp;quot; &amp;quot;charity anderson who believes&amp;quot; &amp;quot;charity anderson who believes she&amp;quot; &amp;quot;anderson who believes&amp;quot; ...
+##  $ : chr [1:1041] &amp;quot;dat was one&amp;quot; &amp;quot;dat was one time&amp;quot; &amp;quot;dat was one time when&amp;quot; &amp;quot;was one time&amp;quot; ...
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Practically all text analysis packages provide their own functions for tokenizing text, so why do R users need this package?&lt;/p&gt;
+
+&lt;p&gt;First, these tokenizers are reasonably fast. The basic string operations are handled by the &lt;a href=&#34;https://cran.r-project.org/package=stringi/&#34;&gt;stringi&lt;/a&gt; package, which is quick while also doing the correct thing across encodings and locales. And &lt;a href=&#34;http://dsnotes.com/&#34;&gt;Dmitriy Selivanov&lt;/a&gt; (author of the text2vec package) has written the n-gram and skip n-gram tokenizers in C++ so that those are fast too. It is probably possible to write tokenizers with better performance, but these are fast enough for even large scale text mining efforts.&lt;/p&gt;
+
+&lt;p&gt;The second and more important reason is that these tokenizers are consistent. They all take either a character vector of any length, or a list where each element is a character vector of length one. The idea is that each element of the input comprises a text. Then each function returns a list with the same length as the input vector, where each element in the list contains the tokens generated by the function. If the input character vector or list is named, then the names are preserved, so that the names can serve as identifiers.&lt;/p&gt;
+
+&lt;p&gt;And third, the tokenizers are reasonably comprehensive, including functions for characters, lines, words, word stems, sentences, paragraphs, n-grams, skip n-grams, and regular expressions.&lt;/p&gt;
+
+&lt;p&gt;My hope is that developers of other text analysis packages for R will rely on this package to provide tokenizers. (So far only tidytext has taken me up on that, but I also have to re-write my own &lt;a href=&#34;https://github.com/ropensci/textreuse&#34;&gt;textreuse&lt;/a&gt; package now.) But even if natural language packages do not take the package as a formal dependency, most packages let you pass in your own tokenizing functions. So users can reap the benefits of a consistent set of tokenizers by using the functions in this package. The success of the &amp;ldquo;&lt;a href=&#34;https://twitter.com/hadleywickham/status/751805589425000450&#34;&gt;tidyverse&lt;/a&gt;&amp;rdquo; has shown the power of buying into a convention for the structure of data and the inputs and outputs of functions. My hope is that the tokenizers package is a step in that direction for text analysis in R.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>rOpenSci | Tackling the Research Compendium at runconf17</title>
+
+     
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+    <script src="//cdn.bootcss.com/highlight.js/9.12.0/languages/r.min.js"></script>
+
+    <script type="text/javascript">
+    hljs.configure({languages: []});
+    hljs.initHighlightingOnLoad();
+    </script>
+    <link rel="stylesheet" type="text/css" href="/css/style-new.css" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#4b8add">
+<meta name="theme-color" content="#4b8add">
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-462421-6', 'auto');
+ga('send', 'pageview');
+</script>
+
+</head>
+<body>
+
+    
+    <div id="header">
+        <div class="container">
+            <div class="row center-m">
+                
+                <div class="col-1">
+                    <a href="/index.html"><img src="/img/icon_lettering_white.svg" /></a>
+                </div>
+                
+                
+                <nav class="col-6 col-offset-4 top-3">
+                    <ul class="row between">
+						<li><a href="/about/">About</a></li>
+                        <li><a href="/blog/">Blog</a></li>
+                        <li><a href="/packages/">Packages</a></li>
+                        <li><a href="/community/">Community</a></li>
+                        <li><a href="http://discuss.ropensci.org/" target="_blank">Discuss</a></li>
+
+                    </ul>
+                </nav>
+                
+            </div>
+        </div>
+    </div>
+
+
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 sidebar top-5">
+                <ul class="autoSidebar"></ul>
+            </div> 
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-20">
+                <h2 style="text-align: center;">Tackling the Research Compendium at runconf17</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-offset-2 col-8 top-10 bottom-5" style="font-size: 20px; text-align: center;">
+                <p class="authors" style="text-align: center;">
+                    
+                        
+                          <a href="https://twitter.com/noamross" target="_blank"> Noam Ross </a>&nbsp;
+                        
+                    
+                        
+                          <a href="https://twitter.com/alice_data" target="_blank"> Alice Daish </a>&nbsp;
+                        
+                    
+                        
+                          <a href="https://twitter.com/DeCiccoDonk" target="_blank"> Laura DeCicco </a>&nbsp;
+                        
+                    
+                        
+                          <a href="https://twitter.com/mollyllewis" target="_blank"> Molly Lewis </a>&nbsp;
+                        
+                    
+                        
+                          <a href="https://twitter.com/nistara_r" target="_blank"> Nistara Randhawa </a>&nbsp;
+                        
+                    
+                        
+                          <a href="https://twitter.com/jent103" target="_blank"> Jennifer Thompson </a>&nbsp;
+                        
+                    
+                        
+                          <a href="https://twitter.com/nj_tierney" target="_blank"> Nick Tierney </a>&nbsp;
+                        
+                    
+                </p>
+                <br>
+                <div style="font-size: 20px; color: #2C3E50; margin-top: 15px;">June 20, 2017</div>
+            </div>
+            <div class="col-offset-2 col-8 top-2">
+
+                
+
+                
+
+<p>Two years ago at <a href="https://twitter.com/hashtag/runconf15">#runconf15</a>, there was a great discussion about best practices for organizing R-based analysis projects that yielded a <a href="https://github.com/ropensci/rrrpkg">nice guidance document</a> describing <em>research compendia</em>. Compendia, as we described them, were minimal products of reproducible research, using parts of R package structure to organize the inputs, analyses, and outputs of research projects.</p>
+
+<p>Since then, we&rsquo;ve seen more examples and models of research compendia emerge (the organization of such projects is <a href="https://discuss.ropensci.org/t/resources-on-project-directory-organization/340">something of an obsession</a> for some of the community). In parallel, there&rsquo;s been much progress on a number of fronts with R <em>packages</em>: rOpenSci&rsquo;s <a href="https://github.com/ropensci/onboarding">package review process</a> has expanded and we&rsquo;ve worked out many kinks. Infrastructure for automated testing of package code has been developed and field tested. So at <a href="unconf17.ropensci.org">#runconf17</a>, we wanted to see how much of this progress in review, testing, and automation could apply to research compendia.</p>
+
+<p>It turns out there&rsquo;s a <em>lot</em> to do here, and a lot of interest! We put up a proposal as a <a href="https://github.com/ropensci/unconf17/issues/5">GitHub issue</a>; before the unconf even began, the thread had over 50 posts and the discussion had yielded two design documents led by Hadley Wickham on <a href="https://docs.google.com/document/d/1LzZKS44y4OEJa4Azg5reGToNAZL0e0HSUwxamNY7E-Y/edit">research compendium organization</a> and <a href="https://docs.google.com/document/d/1avYAqjTS7zSZn7JAAOZhFPkhkPvYwaPVrSpo31Cu0Yc/edit#">automated build systems</a>. There were easily four or five projects wrapped up in the proposal.</p>
+
+<p>The thread also revealed many schools of thought. As <a href="https://twitter.com/nj_tierney">Nick</a> put it, &ldquo;The problem with <a href="https://www.rstudio.com/resources/videos/opinionated-analysis-development/">opinionated analysis development</a> is that everyone has an opinion.&rdquo; We never reached consensus on basic issues like directory structure and build systems.</p>
+
+<p><img src="http://imgur.com/RpjyfL8.jpeg" alt="Wading our way through a thorny bramble of opinions (photo: Alice Daish)" />
+<em>Wading our way through a thorny bramble of opinions (photo: Alice Daish)</em></p>
+
+<p>In the face of a beast of a topic, and so many unresolved decisions, we decided to tackle a modest slice - a guide for compendium review, and a first pass at a package for automated checks of various best practices.</p>
+
+<h3 id="reviewing-a-research-compendium">Reviewing a research compendium</h3>
+
+<p>How does one do peer review for a research compendium in the face of so much heterogeneity in types and styles of analysis?  We spent the better part of our first day brainstorming everything that one might review, from the meta-topics (&ldquo;Is there a clear question?&rdquo;) to  minutiae (&ldquo;Are <code>library()</code> calls at the top of the script?&ldquo;), and mapping these out on an ever more data-dense whiteboard:</p>
+
+<p><img src="http://imgur.com/vb4E3JV.jpeg" alt="Nick, Jennifer and Molly discussing analysis best practices (photo: Alice Daish)" />
+ <em>Nick, Jennifer, Molly and Alice discussing analysis best practices (photo: Alice Daish)</em></p>
+
+<p><img src="https://i.imgur.com/dIT1sjK.jpg" alt="The team prioritizing data analysis workflow best practice into tiers (photo: Nistara Randhawa)" />
+ <em>The team prioritizing data analysis workflow best practice into tiers (photo: Nistara Randhawa)</em></p>
+
+<p><img src="http://imgur.com/8klgK7Q.jpeg" alt="With our 7th team member, Wy T. Board (photo: Alice Daish)" />
+<em>With our 7th team member, Wy T. Board (photo: Alice Daish)</em></p>
+
+<p>These review topics made their way into a <a href="https://docs.google.com/document/d/1OYcWJUk-MiM2C1TIHB1Rn6rXoF5fHwRX-7_C12Blx8g/edit#heading=h.dyoxrtoo15mm">Google doc</a> which will form the basis of a review guide along the lines of rOpenSci&rsquo;s <a href="https://github.com/ropensci/onboarding/#-useful-documents-in-this-repository">package review guides</a>.  One major organizing dimension we hit upon was &ldquo;Tiers&rdquo; - as the number of best practices can be overwhelming, it is better to prioritize them so that users have a way of advancing through escalating levels of detail.  Another was &ldquo;automatability,&rdquo; which is key to the other half of our work.</p>
+
+<p><img src="https://i.imgur.com/lWpcEfb.png" alt="" /></p>
+
+<h3 id="checkers-r-cmd-check-for-your-data-analysis"><strong>checkers</strong>: R CMD check for your data analysis</h3>
+
+<p>One of the lessons of the rOpenSci package review process has been that reviews work better when we let reviewers focus on the tasks that humans are best at, and find ways to automate tedious or tiny tasks. So for the second aim of our project, we built a package to run the automatable components of  review and create reports for analysts and reviewers.  The package, <strong><a href="https://github.com/ropenscilabs/checkers">checkers</a></strong>, is meant to be, as Hadley coined it, &ldquo;<code>R CMD check</code> for your data analysis.&rdquo;</p>
+
+<p><strong>checkers</strong> scans the project directory and delivers advice on how to improve project code, like so:</p>
+
+<pre><code>&gt; checkers::gp_check()
+─────────────────────────────────────────────────────────────────────
+It is good practice to
+
+  ✖ Place your project under version control. You are using
+    neither git nor svn. See http://happygitwithr.com/ for more
+    info
+  ✖ Use preferred packages. xml2 is preferred to XML.
+──────────────────────────────────────────────────────────────────
+</code></pre>
+
+<p>One area we had to tackle was the need for both <em>opinionated defaults</em> and <em>configurability</em>.  So we built in the ability for individuals or teams to select or define their own best practices in a shared YAML configuration file.</p>
+
+<h3 id="stone-soup-development-at-the-unconf">Stone soup development at the unconf</h3>
+
+<p>The review guide and <strong>checkers</strong> are works in progress, but both made great leaps forward in two days thanks to the tremendous catalyzing environment of the unconf.  While our team of six only formed the morning of the first day, the <a href="https://github.com/ropensci/unconf17/issues/5">pre-unconf discussion</a> meant that many more people from the community shaped contours of the project.</p>
+
+<p>Also, one of the great things about the unconf is that so many experienced developers are on hand to chip in with their areas of expertise. Hadley Wickham joined in to brainstorm some of the initial best practices to include in our guide. Later, we decided to base our checks system on Gábor Csárdi&rsquo;s <strong><a href="https://github.com/MangoTheCat/goodpractice/">goodpractice</a></strong>, and Gábor worked with us to build a flexible extension system into that package. Jim Hester was on hand to answer questions about <strong><a href="https://github.com/jimhester/lintr/">lintr</a></strong> internals, and we&rsquo;ll be sending some changes upstream to that as well.</p>
+
+<p><img src="https://i.imgur.com/uWYKR1e.jpg" alt="Laura and Gábor practicing goodpractices (photo: Nistara Randhawa)" />
+<em>Laura and Gábor practicing goodpractices (photo: Nistara Randhawa)</em></p>
+
+<p><img src="http://imgur.com/Dw0yTwi.jpeg" alt="Team reviewing framework and package development examples (photo: Alice Daish)" />
+<em>Team reviewing framework and package development examples (photo: Alice Daish)</em></p>
+
+<p>We&rsquo;re excited about the potential for this project, and just as excited about the potential of what else we&rsquo;ll make with our new friends and collaborators. Thanks to rOpenSci and everyone who made #runconf17 such a tremendously productive and fun event!</p>
+
+            </div>
+            <br>
+            <div class="col-offset-2 col-8 top-4 labels">
+                
+                    <a href="/tags/unconf"><span class="label">unconf</span></a>
+                
+                    <a href="/tags/testing"><span class="label">testing</span></a>
+                
+                    <a href="/tags/review"><span class="label">review</span></a>
+                
+                    <a href="/tags/packages"><span class="label">packages</span></a>
+                
+                    <a href="/tags/software"><span class="label">software</span></a>
+                
+                    <a href="/tags/community"><span class="label">community</span></a>
+                
+                    <a href="/tags/meetings"><span class="label">meetings</span></a>
+                
+            </div>
+
+            
+            
+            <div class="col-offset-2 col-8 top-4">
+                <div id='discourse-comments'></div>
+                <script type="text/javascript">
+                DiscourseEmbed = { discourseUrl: 'https://discuss.ropensci.org/',
+                                   topicId:  752  };
+                (function() {
+                  var d = document.createElement('script'); d.type = 'text/javascript'; d.async = true;
+                  d.src = DiscourseEmbed.discourseUrl + 'javascripts/embed.js';
+                  (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(d);
+                })();
+                </script>
+            </div>
+            
+        </div>
+        <br>
+    </div>
+</article>
+
+
+
+
+
+    <div id="footer">
+        <div class="container">
+            <div class="row start">
+                <div class="col-1 col-1-3 top-8">
+                    <img src="/img/icon_short_white.svg" />
+                </div>
+
+                <div class="col-9 col-offset-2 top-10 bottom-8">
+                    <div class="row between">
+                        <div class="col-2 col-1-3">
+                            <a href="http://github.com/ropensci" target="_blank"><div class="icon icon-github"></div></a>
+                            <a href="http://twitter.com/ropensci" target="_blank"><div class="icon icon-twitter"></div></a>
+                            <a href="http://vimeo.com/ropensci" target="_blank"><div class="icon icon-vimeo"></div></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Info</h5>
+                                <li><a href="/about">Mission</a></li>
+                                <li><a href="/about#team">Team</a></li>
+                                <li><a href="/about#collaborators">Collaborators</a></li>
+                                <li><a href="/careers">Careers</a></li>
+
+                            </ul>
+                        </div>
+
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Work</h5>
+                                <li><a href="/packages/">Packages</a></li>
+                                <li><a href="/blog/">Blog</a></li>
+                                <li><a href="/technotes/">Tech Notes</a></li>
+                                <li><a href="/tutorials/">Tutorials</a></li>
+                                <li><a href="/usecases/">Use Cases</a></li>
+                                <li><a href="/resources/">More Resources</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-2 col-1-3 top-8 bottom-8">
+                            <ul>
+                                <h5 class="bottom-2">Participate</h5>
+                                <li><a href="/contact.html">Contact us</a></li>
+                                <li><a href="/community/">Community</a></li>
+                                <li><a href="http://onboarding.ropensci.org/">Contribute software</a></li>
+                                <li><a href="http://unconf17.ropensci.org/">Unconference</a></li>
+                                <li><a href="/coc">Code of conduct</a></li>
+                                <li><a href="/donate/">Donate</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-4 top-8 bottom-8">
+                            <h5 class="bottom-2"></h5>
+
+                            <p>rOpenSci is a fiscally sponsored project of <a href="http://numfocus.org" target="_blank">NumFOCUS</a></p>
+                            <a href="http://numfocus.org" target="_blank"><img src="img/numfocus.png"></a>
+                            <br>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 top-8 bottom-9 divider">
+                    <p class="top-9">Except where otherwise noted, content on this site is licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC-BY license</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>
+
+
+

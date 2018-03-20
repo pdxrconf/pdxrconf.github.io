@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Taxizedb on rOpenSci - open tools for open science</title>
+    <link>https://ropensci.org/tags/taxizedb/</link>
+    <description>Recent content in Taxizedb on rOpenSci - open tools for open science</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Thu, 27 Jul 2017 00:00:00 +0000</lastBuildDate>
+    
+        <atom:link href="https://ropensci.org/tags/taxizedb/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The rOpenSci Taxonomy Suite</title>
+      <link>https://ropensci.org/blog/2017/07/27/taxonomy-suite/</link>
+      <pubDate>Thu, 27 Jul 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://ropensci.org/blog/2017/07/27/taxonomy-suite/</guid>
+      <description>
+        
+        
+
+&lt;h2 id=&#34;what-is-taxonomy&#34;&gt;What is Taxonomy?&lt;/h2&gt;
+
+&lt;p&gt;Taxonomy in its most general sense is &lt;a href=&#34;https://en.wikipedia.org/wiki/Taxonomy_(general)&#34;&gt;the practice and science of classification&lt;/a&gt;. It can refer to many things. You may have heard or used the word &lt;em&gt;taxonomy&lt;/em&gt; used to indicate any sort of classification of things, whether it be companies or widgets. Here, we&amp;rsquo;re talking about &lt;a href=&#34;https://en.wikipedia.org/wiki/Taxonomy_(biology)&#34;&gt;biological taxonomy&lt;/a&gt;, the science of defining and naming groups of biological organisms.&lt;/p&gt;
+
+&lt;p&gt;In case you aren&amp;rsquo;t familiar with the terminology, here&amp;rsquo;s a brief intro.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;species&lt;/code&gt; - the term you are likely most familiar with, usually defined as a group of individuals in which any 2 individuals can produce fertile offspring, although definitions can vary.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;genus&lt;/code&gt;/&lt;code&gt;family&lt;/code&gt;/&lt;code&gt;order&lt;/code&gt;/&lt;code&gt;class&lt;/code&gt;/&lt;code&gt;phylum&lt;/code&gt;/&lt;code&gt;kingdom&lt;/code&gt; -  These are nested groupings of similar species. &lt;code&gt;genus&lt;/code&gt; (e.g. &lt;em&gt;Homo&lt;/em&gt;) is  restrictive grouping and &lt;code&gt;kingdom&lt;/code&gt; (e.g. &lt;em&gt;Animalia&lt;/em&gt;) is a much more inclusive grouping. There are genera in families, families in orders, etc.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;taxon&lt;/code&gt; - a species or grouping of species. e.g. &lt;em&gt;Homo sapiens&lt;/em&gt;, &lt;em&gt;Primates&lt;/em&gt;, and &lt;em&gt;Animalia&lt;/em&gt; are all taxa.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;taxa&lt;/code&gt; - the plural of &lt;code&gt;taxon&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;taxonomic hierarchy&lt;/code&gt; or &lt;code&gt;taxonomic classification&lt;/code&gt; - the list of groups a species (or other taxon) belongs to. For example the taxonomic classification of humans is: &lt;code&gt;Animalia;Chordata;Mammalia;Primates;Hominidae;Homo;sapiens&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;ubiquity-and-importance-of-taxonomic-names&#34;&gt;Ubiquity and Importance of Taxonomic Names&lt;/h2&gt;
+
+&lt;p&gt;We put a lot of time into our suite of taxonomic software for a good reason - probably all naturalists/biologists/environmental consultants/etc. will be confronted with taxonomic names in their research/work/surveys/etc. at some point or all along the way. Some people study a single species their entire career, likely having little trouble with taxonomic names - while others study entire communities or ecosystems, dealing with thousands of taxonomic names.&lt;/p&gt;
+
+&lt;p&gt;Taxonomic names are not only ubiquitous but are incredibly important to get right. Just as the URL points to the correct page you want to view on the internet (an incorrect URL will not get you where you want to go), taxonomic names point to the right definition/description of a taxon, leading to lots of resources increasingly online including text, images, sounds, etc. If you get the taxonomic name wrong, all information downstream is likely to be wrong.&lt;/p&gt;
+
+&lt;h2 id=&#34;why-r-for-taxonomic-names&#34;&gt;Why R for taxonomic names?&lt;/h2&gt;
+
+&lt;p&gt;R is gaining in popularity in general (&lt;a href=&#34;https://www.tiobe.com/tiobe-index//&#34;&gt;TIOBE index&lt;/a&gt;, &lt;a href=&#34;http://r4stats.com/articles/popularity/&#34;&gt;Muenchen 2017&lt;/a&gt;), and in &lt;a href=&#34;http://www.nature.com/news/programming-tools-adventures-with-r-1.16609&#34;&gt;academia&lt;/a&gt;. At least in my graduate school experience (&amp;lsquo;06 - &amp;lsquo;12), most graduate students used R - despite their bosses often using other things.&lt;/p&gt;
+
+&lt;p&gt;Given that R is widely used among biologists that have to deal with taxonomic names, it makes a lot of sense to build taxonomic tools in R.&lt;/p&gt;
+
+&lt;h2 id=&#34;ropensci-taxonomy-suite&#34;&gt;rOpenSci Taxonomy Suite&lt;/h2&gt;
+
+&lt;p&gt;We have an ever-growing suite of packages that enable users to:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Search for taxonomic names&lt;/li&gt;
+&lt;li&gt;Correct taxonomic names&lt;/li&gt;
+&lt;li&gt;Embed their taxonomic names in R classes that enable powerful downstream manipulations&lt;/li&gt;
+&lt;li&gt;Leverage dozens of taxonomic data sources&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The packages:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;taxize&lt;/code&gt; - taxonomic data from many sources&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;taxizedb&lt;/code&gt; - work with taxonomic SQL databases locally&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;taxa&lt;/code&gt; - taxonomic classes and manipulation functions&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;binomen&lt;/code&gt; - taxonomic name classes and parsing methods (getting folded into &lt;code&gt;taxa&lt;/code&gt;, will be archived on CRAN soon)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;wikitaxa&lt;/code&gt; - taxonomic data from Wikipedia/Wikidata/Wikispecies&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;ritis&lt;/code&gt; - get ITIS (Integrated Taxonomic Information Service) taxonomic data&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;worrms&lt;/code&gt; - get WORMS (World Register of Marine Species) taxonomic data&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;pegax&lt;/code&gt; - taxonomy PEG (Parsing Expression Grammar)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br&gt;&lt;br&gt;&lt;/p&gt;
+
+&lt;p&gt;For each package below, there are 2-3 badges. One for whether the package is on CRAN
+&lt;br&gt;
+&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312; color:white&#34;&gt;cran&lt;/span&gt;
+&lt;br&gt;
+a link to source on GitHub
+&lt;br&gt;
+&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB; color:white&#34;&gt;github&lt;/span&gt;
+&lt;br&gt;
+and another for when the package is community contributed:&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#19B698; color:white&#34;&gt;community&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;For each package we show a very brief example - all packages have much more functionality - check them out on CRAN or GitHub.&lt;/p&gt;
+
+&lt;h2 id=&#34;taxize&#34;&gt;taxize&lt;/h2&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/taxize/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/taxize&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;This was our first package for taxonomy. It is a one stop shop for lots of different taxonomic data sources online, including NCBI, ITIS, GBIF, EOL, IUCN, and more - up to 22 data sources now.&lt;/p&gt;
+
+&lt;p&gt;The canonical reference for &lt;code&gt;taxize&lt;/code&gt; is the paper we published in 2013:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Chamberlain, S. A., &amp;amp; Szöcs, E. (2013). taxize: taxonomic search and retrieval in R. F1000Research.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Check it out at &lt;a href=&#34;https://doi.org/10.12688/f1000research.2-191.v1&#34;&gt;https://doi.org/10.12688/f1000research.2-191.v1&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;We released a new version (&lt;code&gt;v0.8.8&lt;/code&gt;) about a month ago (a tiny bug fix was pushed more recently (&lt;code&gt;v0.8.9&lt;/code&gt;)) with some new features requested by users:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You can now get downstream taxa from NCBI, see &lt;code&gt;ncbi_downstream&lt;/code&gt; and &lt;code&gt;downstream&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Wikipedia/Wikidata/Wikispecies are now data sources! via the &lt;code&gt;wikitaxa&lt;/code&gt; package&lt;/li&gt;
+&lt;li&gt;Now you can get IUCN IDs for taxa, see &lt;code&gt;get_iucn&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;tax_rank&lt;/code&gt; now works with many more data sources: ncbi, itis, eol, col, tropicos, gbif, nbn,
+worms, natserv, and bold&lt;/li&gt;
+&lt;li&gt;Many improvements and bug fixes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;example&#34;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;A quick example of the power of &lt;code&gt;taxize&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;taxize&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;taxize&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Get WORMS identifiers for three taxa:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ids &amp;lt;- get_wormsid(c(&amp;quot;Platanista gangetica&amp;quot;, &amp;quot;Lichenopora neapolitana&amp;quot;, &#39;Gadus morhua&#39;))
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Get classifications for each taxon&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;clazz &amp;lt;- classification(ids, db = &#39;worms&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Combine all three into a single data.frame&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;head(rbind(clazz))
+#&amp;gt;            name       rank     id  query
+#&amp;gt; 1      Animalia    Kingdom      2 254967
+#&amp;gt; 2      Chordata     Phylum   1821 254967
+#&amp;gt; 3    Vertebrata  Subphylum 146419 254967
+#&amp;gt; 4 Gnathostomata Superclass   1828 254967
+#&amp;gt; 5     Tetrapoda Superclass   1831 254967
+#&amp;gt; 6      Mammalia      Class   1837 254967
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;taxizedb&#34;&gt;taxizedb&lt;/h2&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/taxizedb/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/taxizedb&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;taxizedb&lt;/code&gt; is a relatively new package. We just released a new version (&lt;code&gt;v0.1.4&lt;/code&gt;) about one month ago, with fixes for the new &lt;code&gt;dplyr&lt;/code&gt; version.&lt;/p&gt;
+
+&lt;p&gt;The sole purpose of &lt;code&gt;taxizedb&lt;/code&gt; is to solve the use case where a user has a lot of taxonomic names, and thus using &lt;code&gt;taxize&lt;/code&gt; is too slow. Although &lt;code&gt;taxize&lt;/code&gt; is a powerful tool, every request is a transaction over the internet, and the speed of that transaction can vary from very fast to very slow, depending on three factors: data provider speed (including many things), your internet speed, and how much data you requested. &lt;code&gt;taxizedb&lt;/code&gt; gets around this problem by using a local SQL database of the same stuff the data providers have, so you can get things done much faster.&lt;/p&gt;
+
+&lt;p&gt;The trade-off with &lt;code&gt;taxizedb&lt;/code&gt; is that the interface is quite different from &lt;code&gt;taxize&lt;/code&gt;.  So there is a learning curve. There are two options in &lt;code&gt;taxizedb&lt;/code&gt;: you can use SQL syntax, or &lt;code&gt;dplyr&lt;/code&gt; commands. I&amp;rsquo;m guessing people are more familiar with the latter.&lt;/p&gt;
+
+&lt;h3 id=&#34;example-1&#34;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;Install &lt;code&gt;taxizedb&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;taxizedb&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;taxizedb&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here, we show working with the ITIS SQL database. Other sources work with the same workflow of function calls.&lt;/p&gt;
+
+&lt;p&gt;Download ITIS SQL database&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;x &amp;lt;- db_download_itis()
+#&amp;gt; downloading...
+#&amp;gt; unzipping...
+#&amp;gt; cleaning up...
+#&amp;gt; [1] &amp;quot;/Users/sacmac/Library/Caches/R/taxizedb/ITIS.sql&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;db_load_tpl()&lt;/code&gt; loads the SQL database into Postgres. Data sources vary in the SQL database used, see help for more.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;db_load_tpl(x, &amp;quot;&amp;lt;your Postgresql user name&amp;gt;&amp;quot;, &amp;quot;your Postgresql password, if any&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Create a &lt;code&gt;src&lt;/code&gt; object to connect to the SQL database.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;src &amp;lt;- src_itis(&amp;quot;&amp;lt;your Postgresql user name&amp;gt;&amp;quot;, &amp;quot;your Postgresql password, if any&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Query!&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(dbplyr)
+library(dplyr)
+tbl(src, sql(&amp;quot;select * from taxonomic_units limit 10&amp;quot;))
+# Source:   SQL [?? x 26]
+# Database: postgres 9.6.0 [sacmac@localhost:5432/ITIS]
+     tsn unit_ind1                          unit_name1 unit_ind2 unit_name2 unit_ind3 unit_name3 unit_ind4 unit_name4
+   &amp;lt;int&amp;gt;     &amp;lt;chr&amp;gt;                               &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;
+ 1    50      &amp;lt;NA&amp;gt; Bacteria                                 &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+ 2    51      &amp;lt;NA&amp;gt; Schizomycetes                            &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+ 3    52      &amp;lt;NA&amp;gt; Archangiaceae                            &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+ 4    53      &amp;lt;NA&amp;gt; Pseudomonadales                          &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+ 5    54      &amp;lt;NA&amp;gt; Rhodobacteriineae                        &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+ 6    55      &amp;lt;NA&amp;gt; Pseudomonadineae                         &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+ 7    56      &amp;lt;NA&amp;gt; Nitrobacteraceae                         &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+ 8    57      &amp;lt;NA&amp;gt; Nitrobacter                              &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+ 9    58      &amp;lt;NA&amp;gt; Nitrobacter                              &amp;lt;NA&amp;gt;     agilis      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+10    59      &amp;lt;NA&amp;gt; Nitrobacter                              &amp;lt;NA&amp;gt;     flavus      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;      &amp;lt;NA&amp;gt;       &amp;lt;NA&amp;gt;
+# ... with more rows, and 17 more variables: unnamed_taxon_ind &amp;lt;chr&amp;gt;, name_usage &amp;lt;chr&amp;gt;, unaccept_reason &amp;lt;chr&amp;gt;,
+#   credibility_rtng &amp;lt;chr&amp;gt;, completeness_rtng &amp;lt;chr&amp;gt;, currency_rating &amp;lt;chr&amp;gt;, phylo_sort_seq &amp;lt;int&amp;gt;, initial_time_stamp &amp;lt;dttm&amp;gt;,
+#   parent_tsn &amp;lt;int&amp;gt;, taxon_author_id &amp;lt;int&amp;gt;, hybrid_author_id &amp;lt;int&amp;gt;, kingdom_id &amp;lt;int&amp;gt;, rank_id &amp;lt;int&amp;gt;, update_date &amp;lt;date&amp;gt;,
+#   uncertain_prnt_ind &amp;lt;chr&amp;gt;, n_usage &amp;lt;chr&amp;gt;, complete_name &amp;lt;chr&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;taxa&#34;&gt;taxa&lt;/h2&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/taxa/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/taxa&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;taxa&lt;/code&gt; is our newest entry (hit CRAN just a few weeks ago) into the taxonomic R package space. It defines taxonomic classes for R, and basic, but powerful manipulations on those classes.&lt;/p&gt;
+
+&lt;p&gt;It defines two broad types of classes: those with just taxonomic data, and a class with taxonomic data plus other associated data (such as traits, environmental data, etc.) called &lt;code&gt;taxmap&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code&gt;taxa&lt;/code&gt; package includes functions to do various operations with these taxonomic classes. With the taxonomic classes, you can filter out or keep taxa based on various criteria. In the case of the &lt;code&gt;taxmap&lt;/code&gt; class, when you filter on taxa, the associated data is filtered the same way so taxa and data are in sync.&lt;/p&gt;
+
+&lt;p&gt;A manuscript about &lt;code&gt;taxa&lt;/code&gt; is being prepared at the moment - so look out for that.&lt;/p&gt;
+
+&lt;p&gt;Most of the hard work in &lt;code&gt;taxa&lt;/code&gt; has been done by my co-maintainer &lt;a href=&#34;https://github.com/zachary-foster&#34;&gt;Zachary Foster&lt;/a&gt;!&lt;/p&gt;
+
+&lt;h3 id=&#34;example-2&#34;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;A quick example of the power of &lt;code&gt;taxa&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;taxa&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;taxa&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;An example &lt;code&gt;Hierarchy&lt;/code&gt; data object that comes with the package:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ex_hierarchy1
+#&amp;gt; &amp;lt;Hierarchy&amp;gt;
+#&amp;gt;   no. taxon&#39;s:  3
+#&amp;gt;   Poaceae / family / 4479
+#&amp;gt;   Poa / genus / 4544
+#&amp;gt;   Poa annua / species / 93036
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We can remove taxa like the following, combining criteria targeting ranks, taxonomic names, or IDs:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ex_hierarchy1 %&amp;gt;% pop(ranks(&amp;quot;family&amp;quot;), ids(4544))
+#&amp;gt; &amp;lt;Hierarchy&amp;gt;
+#&amp;gt;   no. taxon&#39;s:  1
+#&amp;gt;   Poa annua / species / 93036
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;An example &lt;code&gt;taxmap&lt;/code&gt; class:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;ex_taxmap
+#&amp;gt; &amp;lt;Taxmap&amp;gt;
+#&amp;gt;   17 taxa: b. Mammalia ... q. lycopersicum, r. tuberosum
+#&amp;gt;   17 edges: NA-&amp;gt;b, NA-&amp;gt;c, b-&amp;gt;d ... j-&amp;gt;o, k-&amp;gt;p, l-&amp;gt;q, l-&amp;gt;r
+#&amp;gt;   4 data sets:
+#&amp;gt;     info:
+#&amp;gt;       # A tibble: 6 x 4
+#&amp;gt;           name n_legs dangerous taxon_id
+#&amp;gt;         &amp;lt;fctr&amp;gt;  &amp;lt;dbl&amp;gt;     &amp;lt;lgl&amp;gt;    &amp;lt;chr&amp;gt;
+#&amp;gt;       1  tiger      4      TRUE        m
+#&amp;gt;       2    cat      4     FALSE        n
+#&amp;gt;       3   mole      4     FALSE        o
+#&amp;gt;       # ... with 3 more rows
+#&amp;gt;     phylopic_ids:  e148eabb-f138-43c6-b1e4-5cda2180485a ... 63604565-0406-460b-8cb8-1abe954b3f3a
+#&amp;gt;     foods: a list with 6 items
+#&amp;gt;     And 1 more data sets: abund
+#&amp;gt;   1 functions:
+#&amp;gt;  reaction
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Here, filter by taxonomic names to those starting with the letter &lt;code&gt;t&lt;/code&gt; (notice the taxa, edgelist, and datasets have changed)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;filter_taxa(ex_taxmap, startsWith(taxon_names, &amp;quot;t&amp;quot;))
+#&amp;gt; &amp;lt;Taxmap&amp;gt;
+#&amp;gt;   3 taxa: m. tigris, o. typhlops, r. tuberosum
+#&amp;gt;   3 edges: NA-&amp;gt;m, NA-&amp;gt;o, NA-&amp;gt;r
+#&amp;gt;   4 data sets:
+#&amp;gt;     info:
+#&amp;gt;       # A tibble: 3 x 4
+#&amp;gt;           name n_legs dangerous taxon_id
+#&amp;gt;         &amp;lt;fctr&amp;gt;  &amp;lt;dbl&amp;gt;     &amp;lt;lgl&amp;gt;    &amp;lt;chr&amp;gt;
+#&amp;gt;       1  tiger      4      TRUE        m
+#&amp;gt;       2   mole      4     FALSE        o
+#&amp;gt;       3 potato      0     FALSE        r
+#&amp;gt;     phylopic_ids:  e148eabb-f138-43c6-b1e4-5cda2180485a ... 63604565-0406-460b-8cb8-1abe954b3f3a
+#&amp;gt;     foods: a list with 3 items
+#&amp;gt;     And 1 more data sets: abund
+#&amp;gt;   1 functions:
+#&amp;gt;  reaction
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;wikitaxa&#34;&gt;wikitaxa&lt;/h2&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/wikitaxa/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/wikitaxa&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;wikitaxa&lt;/code&gt; is a client that allows you to get taxonomic data from four different Wiki-* sites:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Wikipedia&lt;/li&gt;
+&lt;li&gt;Wikispecies&lt;/li&gt;
+&lt;li&gt;Wikidata&lt;/li&gt;
+&lt;li&gt;Wikicommons&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Only Wikispecies is focused on taxonomy - for the others you could use &lt;code&gt;wikitaxa&lt;/code&gt; to do any searches, but we look for and parse out taxonomic specific items in the wiki objects that are returned.&lt;/p&gt;
+
+&lt;p&gt;We released a new version (&lt;code&gt;v0.1.4&lt;/code&gt;) earlier this year. Big thanks to &lt;a href=&#34;https://github.com/ezwelty&#34;&gt;Ethan Welty&lt;/a&gt; for help on this package.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;wikitaxa&lt;/code&gt; is used in &lt;code&gt;taxize&lt;/code&gt; to get Wiki* data.&lt;/p&gt;
+
+&lt;h3 id=&#34;example-3&#34;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;A quick example of the power of &lt;code&gt;wikitaxa&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;wikitaxa&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;wikitaxa&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Search for &lt;em&gt;Malus domestica&lt;/em&gt; (apple):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;res &amp;lt;- wt_wikispecies(name = &amp;quot;Malus domestica&amp;quot;)
+# links to language sites for the taxon
+res$langlinks
+#&amp;gt; # A tibble: 12 x 5
+#&amp;gt;     lang                                                   url    langname
+#&amp;gt;  * &amp;lt;chr&amp;gt;                                                 &amp;lt;chr&amp;gt;       &amp;lt;chr&amp;gt;
+#&amp;gt;  1   ast        https://ast.wikipedia.org/wiki/Malus_domestica    Asturian
+#&amp;gt;  2    es         https://es.wikipedia.org/wiki/Malus_domestica     Spanish
+#&amp;gt;  3    hu              https://hu.wikipedia.org/wiki/Nemes_alma   Hungarian
+#&amp;gt;  4    ia         https://ia.wikipedia.org/wiki/Malus_domestica Interlingua
+#&amp;gt;  5    it         https://it.wikipedia.org/wiki/Malus_domestica     Italian
+#&amp;gt;  6   nds              https://nds.wikipedia.org/wiki/Huusappel  Low German
+#&amp;gt;  7    nl           https://nl.wikipedia.org/wiki/Appel_(plant)       Dutch
+#&amp;gt;  8    pl https://pl.wikipedia.org/wiki/Jab%C5%82o%C5%84_domowa      Polish
+#&amp;gt;  9   pms        https://pms.wikipedia.org/wiki/Malus_domestica Piedmontese
+#&amp;gt; 10    pt         https://pt.wikipedia.org/wiki/Malus_domestica  Portuguese
+#&amp;gt; 11    sk https://sk.wikipedia.org/wiki/Jablo%C5%88_dom%C3%A1ca      Slovak
+#&amp;gt; 12    vi         https://vi.wikipedia.org/wiki/Malus_domestica  Vietnamese
+#&amp;gt; # ... with 2 more variables: autonym &amp;lt;chr&amp;gt;, `*` &amp;lt;chr&amp;gt;
+# any external links on the page
+res$externallinks
+#&amp;gt; [1] &amp;quot;https://web.archive.org/web/20090115062704/http://www.ars-grin.gov/cgi-bin/npgs/html/taxon.pl?104681&amp;quot;
+# any common names, and the language they are from
+res$common_names
+#&amp;gt; # A tibble: 19 x 2
+#&amp;gt;               name   language
+#&amp;gt;              &amp;lt;chr&amp;gt;      &amp;lt;chr&amp;gt;
+#&amp;gt;  1          Ябълка  български
+#&amp;gt;  2    Poma, pomera     català
+#&amp;gt;  3           Apfel    Deutsch
+#&amp;gt;  4     Aed-õunapuu      eesti
+#&amp;gt;  5           Μηλιά   Ελληνικά
+#&amp;gt;  6           Apple    English
+#&amp;gt;  7         Manzano    español
+#&amp;gt;  8           Pomme   français
+#&amp;gt;  9           Melâr     furlan
+#&amp;gt; 10        사과나무     한국어
+#&amp;gt; 11          ‘Āpala    Hawaiʻi
+#&amp;gt; 12            Melo   italiano
+#&amp;gt; 13           Aapel Nordfriisk
+#&amp;gt; 14  Maçã, Macieira  português
+#&amp;gt; 15 Яблоня домашняя    русский
+#&amp;gt; 16   Tarhaomenapuu      suomi
+#&amp;gt; 17            Elma     Türkçe
+#&amp;gt; 18  Яблуня домашня українська
+#&amp;gt; 19          Pomaro     vèneto
+# the taxonomic hierarchy - or classification
+res$classification
+#&amp;gt; # A tibble: 8 x 2
+#&amp;gt;          rank          name
+#&amp;gt;         &amp;lt;chr&amp;gt;         &amp;lt;chr&amp;gt;
+#&amp;gt; 1 Superregnum     Eukaryota
+#&amp;gt; 2      Regnum       Plantae
+#&amp;gt; 3      Cladus   Angiosperms
+#&amp;gt; 4      Cladus      Eudicots
+#&amp;gt; 5      Cladus Core eudicots
+#&amp;gt; 6      Cladus        Rosids
+#&amp;gt; 7      Cladus    Eurosids I
+#&amp;gt; 8        Ordo       Rosales
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;ritis&#34;&gt;ritis&lt;/h2&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/ritis/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/ritis&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;ritis&lt;/code&gt; is a client for ITIS (Integrated Taxonomic Information Service), part of &lt;a href=&#34;https://www.usgs.gov/&#34;&gt;USGS&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;There&amp;rsquo;s a number of different ways to get ITIS data, one of which (local SQL dump) is available in &lt;code&gt;taxizedb&lt;/code&gt;, while the others are covered in &lt;code&gt;ritis&lt;/code&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;SOLR web service &lt;a href=&#34;https://www.itis.gov/solr_documentation.html&#34;&gt;https://www.itis.gov/solr_documentation.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;RESTful web service &lt;a href=&#34;https://www.itis.gov/web_service.html&#34;&gt;https://www.itis.gov/web_service.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The functions that use the SOLR service are: &lt;code&gt;itis_search&lt;/code&gt;, &lt;code&gt;itis_facet&lt;/code&gt;, &lt;code&gt;itis_group&lt;/code&gt;, and &lt;code&gt;itis_highlight&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;All other functions interact with the RESTful web service.&lt;/p&gt;
+
+&lt;p&gt;We released a new version (&lt;code&gt;v0.5.4&lt;/code&gt;) late last year.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ritis&lt;/code&gt; is used in &lt;code&gt;taxize&lt;/code&gt; to get ITIS data.&lt;/p&gt;
+
+&lt;h3 id=&#34;example-4&#34;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;A quick example of the power of &lt;code&gt;ritis&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;ritis&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;ritis&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Search for blue oak ( &lt;em&gt;Quercus douglasii&lt;/em&gt; )&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;search_scientific(&amp;quot;Quercus douglasii&amp;quot;)
+#&amp;gt; # A tibble: 1 x 12
+#&amp;gt;         author      combinedName kingdom   tsn unitInd1 unitInd2 unitInd3
+#&amp;gt; *        &amp;lt;chr&amp;gt;             &amp;lt;chr&amp;gt;   &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;    &amp;lt;lgl&amp;gt;    &amp;lt;lgl&amp;gt;    &amp;lt;lgl&amp;gt;
+#&amp;gt; 1 Hook. &amp;amp; Arn. Quercus douglasii Plantae 19322       NA       NA       NA
+#&amp;gt; # ... with 5 more variables: unitInd4 &amp;lt;lgl&amp;gt;, unitName1 &amp;lt;chr&amp;gt;,
+#&amp;gt; #   unitName2 &amp;lt;chr&amp;gt;, unitName3 &amp;lt;lgl&amp;gt;, unitName4 &amp;lt;lgl&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Get taxonomic hierarchy down from the Oak genus - that is, since it&amp;rsquo;s a genus, get all species in the Oak genus&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;res &amp;lt;- search_scientific(&amp;quot;Quercus&amp;quot;)
+hierarchy_down(res[1,]$tsn)
+#&amp;gt; # A tibble: 207 x 5
+#&amp;gt;    parentname parenttsn rankname          taxonname   tsn
+#&amp;gt;  *      &amp;lt;chr&amp;gt;     &amp;lt;chr&amp;gt;    &amp;lt;chr&amp;gt;              &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;
+#&amp;gt;  1    Quercus     19276  Species    Quercus falcata 19277
+#&amp;gt;  2    Quercus     19276  Species     Quercus lyrata 19278
+#&amp;gt;  3    Quercus     19276  Species  Quercus michauxii 19279
+#&amp;gt;  4    Quercus     19276  Species      Quercus nigra 19280
+#&amp;gt;  5    Quercus     19276  Species  Quercus palustris 19281
+#&amp;gt;  6    Quercus     19276  Species    Quercus phellos 19282
+#&amp;gt;  7    Quercus     19276  Species Quercus virginiana 19283
+#&amp;gt;  8    Quercus     19276  Species Quercus macrocarpa 19287
+#&amp;gt;  9    Quercus     19276  Species   Quercus coccinea 19288
+#&amp;gt; 10    Quercus     19276  Species  Quercus agrifolia 19289
+#&amp;gt; # ... with 197 more rows
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;worrms&#34;&gt;worrms&lt;/h2&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/worrms/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/worrms&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;worrms&lt;/code&gt; is a client for working with data from World Register of Marine Species (WoRMS).&lt;/p&gt;
+
+&lt;p&gt;WoRMS is the most authoritative list of names of all marine species globally.&lt;/p&gt;
+
+&lt;p&gt;We released our first version (&lt;code&gt;v0.1.0&lt;/code&gt;) earlier this year.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;worrms&lt;/code&gt; is used in &lt;code&gt;taxize&lt;/code&gt; to get WoRMS data.&lt;/p&gt;
+
+&lt;h3 id=&#34;example-5&#34;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;A quick example of the power of &lt;code&gt;worrms&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;install.packages(&amp;quot;worrms&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;worrms&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Get taxonomic name synonyms for salmon ( &lt;em&gt;Oncorhynchus&lt;/em&gt; )&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;xx &amp;lt;- wm_records_name(&amp;quot;Oncorhynchus&amp;quot;, fuzzy = FALSE)
+wm_synonyms(id = xx$AphiaID)
+#&amp;gt; # A tibble: 4 x 25
+#&amp;gt;   AphiaID                                                           url
+#&amp;gt; *   &amp;lt;int&amp;gt;                                                         &amp;lt;chr&amp;gt;
+#&amp;gt; 1  296858 http://www.marinespecies.org/aphia.php?p=taxdetails&amp;amp;id=296858
+#&amp;gt; 2  397908 http://www.marinespecies.org/aphia.php?p=taxdetails&amp;amp;id=397908
+#&amp;gt; 3  397909 http://www.marinespecies.org/aphia.php?p=taxdetails&amp;amp;id=397909
+#&amp;gt; 4  297397 http://www.marinespecies.org/aphia.php?p=taxdetails&amp;amp;id=297397
+#&amp;gt; # ... with 23 more variables: scientificname &amp;lt;chr&amp;gt;, authority &amp;lt;chr&amp;gt;,
+#&amp;gt; #   status &amp;lt;chr&amp;gt;, unacceptreason &amp;lt;chr&amp;gt;, rank &amp;lt;chr&amp;gt;, valid_AphiaID &amp;lt;int&amp;gt;,
+#&amp;gt; #   valid_name &amp;lt;chr&amp;gt;, valid_authority &amp;lt;chr&amp;gt;, kingdom &amp;lt;chr&amp;gt;, phylum &amp;lt;chr&amp;gt;,
+#&amp;gt; #   class &amp;lt;chr&amp;gt;, order &amp;lt;chr&amp;gt;, family &amp;lt;chr&amp;gt;, genus &amp;lt;chr&amp;gt;, citation &amp;lt;chr&amp;gt;,
+#&amp;gt; #   lsid &amp;lt;chr&amp;gt;, isMarine &amp;lt;int&amp;gt;, isBrackish &amp;lt;lgl&amp;gt;, isFreshwater &amp;lt;lgl&amp;gt;,
+#&amp;gt; #   isTerrestrial &amp;lt;int&amp;gt;, isExtinct &amp;lt;lgl&amp;gt;, match_type &amp;lt;chr&amp;gt;, modified &amp;lt;chr&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;pegax&#34;&gt;pegax&lt;/h2&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://github.com/ropensci/pegax&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;pegax&lt;/code&gt; aims to be a powerful taxonomic name parser for R. This package started at &lt;a href=&#34;http://unconf17.ropensci.org/&#34;&gt;#runconf17&lt;/a&gt; - was made possible because the talented &lt;a href=&#34;https://github.com/Ironholds/&#34;&gt;Oliver Keyes&lt;/a&gt; created a &lt;a href=&#34;https://en.wikipedia.org/wiki/Parsing_expression_grammar&#34;&gt;Parsing Expression Grammar&lt;/a&gt; package for R: &lt;a href=&#34;https://github.com/Ironholds/piton&#34;&gt;piton&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;From &lt;code&gt;piton&lt;/code&gt; PEGs are:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;a way of defining formal grammars for formatted data that allow you to identify matched structures and then take actions on them&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Some great taxonomic name parsing does exist already. &lt;a href=&#34;https://github.com/GlobalNamesArchitecture/gnparser&#34;&gt;Global Names Parser, gnparser&lt;/a&gt; is a great effort by &lt;a href=&#34;https://github.com/dimus&#34;&gt;Dmitry Mozzherin&lt;/a&gt; and others. The only problem is Java does not play nice with R - thus &lt;code&gt;pegax&lt;/code&gt;, implementing in C++. We&amp;rsquo;ll definitely try to learn alot from the work they have done on &lt;code&gt;gnparser&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;pegax&lt;/code&gt; is not on CRAN yet.  The package is in very very early days, so expect lots of changes.&lt;/p&gt;
+
+&lt;h3 id=&#34;example-6&#34;&gt;Example&lt;/h3&gt;
+
+&lt;p&gt;A quick example of the power of &lt;code&gt;pegax&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;devtools::install_github(&amp;quot;ropenscilabs/pegax&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;library(&amp;quot;pegax&amp;quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Parse out authority name&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;authority_names(&amp;quot;Linnaeus, 1758&amp;quot;)
+#&amp;gt; [1] &amp;quot;Linnaeus&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Parse out authority year&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;authority_years(&amp;quot;Linnaeus, 1758&amp;quot;)
+#&amp;gt; [1] &amp;quot;1758&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;taxonomic-adjacent-packages&#34;&gt;Taxonomic adjacent packages&lt;/h2&gt;
+
+&lt;p&gt;These packages do not primarily deal with taxonomy, but do include taxonomic data. No examples are included below, but do check out their vignettes and other documentation to get started.&lt;/p&gt;
+
+&lt;h3 id=&#34;rotl&#34;&gt;rotl&lt;/h3&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/rotl/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/rotl&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt; &lt;span class=&#34;label&#34; style=&#34;background-color:#19B698&#34;&gt;community&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;rotl&lt;/code&gt; is maintained by &lt;a href=&#34;https://github.com/fmichonneau&#34;&gt;Francois Michonneau&lt;/a&gt;, &lt;a href=&#34;https://github.com/josephwb&#34;&gt;Joseph Brown&lt;/a&gt;, and &lt;a href=&#34;https://github.com/dwinter&#34;&gt;David Winter&lt;/a&gt;, and is a package to interact with the &lt;a href=&#34;https://opentreeoflife.org/&#34;&gt;Open Tree of Life (OTL)&lt;/a&gt;. OTL main purpose is perhaps about phylogeny data, but they do have a taxonomy they maintain, and &lt;code&gt;rotl&lt;/code&gt; has functions that let you access that taxonomic data.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;rotl&lt;/code&gt; is used in &lt;code&gt;taxize&lt;/code&gt; to get OTL data.&lt;/p&gt;
+
+&lt;h3 id=&#34;rredlist&#34;&gt;rredlist&lt;/h3&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/rredlist/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/rredlist&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;rredlist&lt;/code&gt; is an interface to the &lt;a href=&#34;http://www.iucnredlist.org/&#34;&gt;IUCN Redlist of Threatened Species&lt;/a&gt;,&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;which provides taxonomic, conservation status and distribution information on plants, fungi and animals that have been globally evaluated using the IUCN Red List Categories and Criteria.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code&gt;rredlist&lt;/code&gt; is used in &lt;code&gt;taxize&lt;/code&gt; to get IUCN Redlist Taxonomy data.&lt;/p&gt;
+
+&lt;h3 id=&#34;bold&#34;&gt;bold&lt;/h3&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/bold/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/bold&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;bold&lt;/code&gt; is an interface to the &lt;a href=&#34;http://www.iucnredlist.org/&#34;&gt;IUCN Redlist of Threatened Species&lt;/a&gt;,&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;which provides taxonomic, conservation status and distribution information on plants, fungi and animals that have been globally evaluated using the IUCN Red List Categories and Criteria.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;code&gt;bold&lt;/code&gt; is used in &lt;code&gt;taxize&lt;/code&gt; to get BOLD taxonomy data.&lt;/p&gt;
+
+&lt;h3 id=&#34;rgbif&#34;&gt;rgbif&lt;/h3&gt;
+
+&lt;div class=&#34;labels&#34;&gt;
+&lt;a href=&#34;https://cran.rstudio.com/web/packages/rgbif/&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#F1C312&#34;&gt;cran&lt;/span&gt;&lt;/a&gt; &lt;a href=&#34;https://github.com/ropensci/rgbif&#34;&gt;&lt;span class=&#34;label&#34; style=&#34;background-color:#3598DB&#34;&gt;github&lt;/span&gt;&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;rgbif&lt;/code&gt; is an interface to the &lt;a href=&#34;http://www.gbif.org/&#34;&gt;Global Biodiversity Information Facility&lt;/a&gt;, the largest provider of free and open access biodiversity data.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;rgbif&lt;/code&gt; is used in &lt;code&gt;taxize&lt;/code&gt; to get GBIF taxonomy data.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;Together, the rOpenSci taxonomy suite of packages make it much easier to work with taxonomy data in R. We hope you agree :)&lt;/p&gt;
+
+&lt;p&gt;Despite all of the above, we still have some things to work on:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Use &lt;code&gt;taxa&lt;/code&gt; taxonomy classes where appropriate. We plan to deploy &lt;code&gt;taxa&lt;/code&gt; classes inside of the &lt;code&gt;taxize&lt;/code&gt; package very soon, but they may be appropriate elsewhere as well. Using the same classes in many packages will make working with taxonomic data more consistent across packages.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;taxizedb&lt;/code&gt; needs to be more robust. Given that the package not only touches your file system, and for some databases depends on different SQL databases, we likely will run into many problems with various operating system + database combinations. Please do kick the tires and get back to us!&lt;/li&gt;
+&lt;li&gt;Once &lt;code&gt;pegax&lt;/code&gt; is ready for use, we&amp;rsquo;ll be able to use it in many packages whenever we need to parse taxonomic names.&lt;/li&gt;
+&lt;li&gt;They&amp;rsquo;ll always be more data sources that we can potentially add to &lt;code&gt;taxize&lt;/code&gt; - get in touch and let us know.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;What do you think about the taxonomic suite of packages?  Anything we&amp;rsquo;re missing? Anything we can be doing better with any of the packages?  Are you working on a taxonomic R package? Consider &lt;a href=&#34;https://github.com/ropensci/onboarding&#34;&gt;submitting to rOpenSci&lt;/a&gt;.&lt;/p&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>
