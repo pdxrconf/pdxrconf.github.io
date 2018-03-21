@@ -30,10 +30,23 @@ title = "Sponsors"
 <hr>
 <br>
 
+<h2>2018 Sponsors</h2>
+
+<div class="center" id="sponsors-2018">
+    <a href="https://azure.microsoft.com/en-us/" target="_blank"><img src="../img/Microsoft.png" width="250" title="Microsoft"></a>
+    <a href="https://www.h2o.ai/" target="_blank"><img src="../img/H2O-logo-01.png" width="130" title="H20.AI"></a>
+    <a href="https://www.cooladata.com/" target="_blank"><img src="../img/cooladata.png" width="250" title="Cooladata"></a>
+    <br>
+    <a href="http://ohsugso.weebly.com/" target="_blank"><img src="../img/ohsu.png" width="150" title="OSHU Graduate Student Organization"></a>
+    <a href="http://sagebionetworks.org/" target="_blank"><img src="../img/SageBionetworks-Logo.png" width="450" title="Sage Bionetworks"></a>
+</div>
+
+<br>
+
 <h2>2017 Sponsors</h2>
 
-<div class="center" id="sponsors">
-
-  <img src="../img/rstudio.png" width="400" >
-  <img src="../img/icon_lettering_color.svg" width="400">
+<div class="center" id="sponsors-2017">
+  <a href="https://www.rstudio.com/" target="_blank"><img src="../img/rstudio.png" width="300" ></a>
+  <a href="https://ropensci.org/" target="_blank"><img src="../img/icon_lettering_color.svg" width="300"></a>
 </div>
+
