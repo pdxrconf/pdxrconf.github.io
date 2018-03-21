@@ -1,5 +1,4 @@
 +++
-draft= false
 title = "About"
 description = "About CascadiaRConf"
 +++
