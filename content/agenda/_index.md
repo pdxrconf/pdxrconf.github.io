@@ -15,7 +15,7 @@ description = "CascadiaRConf Agenda"
     <h2>Kara Woo</h2>
     <img src="../img/kara_woo.jpg" width="200">
     <p><strong>Title:</strong> Anyone Can Play Git/R: Tips for First-Time Contributions to R Packages</p>
-    <p>Bio: Contributing to R packages and projects can be a rewarding way to give back to the tools you use and to improve your own programming skills in the process. In this talk, Kara will discuss some of the varied ways to contribute to existing projects. Anyone, whether a seasoned programmer or someone brand new to R, can make useful contributions to R packages. Kara will draw on her experience working on ggplot2 to offer strategies for finding your way in an unfamiliar codebase, and to give insights into the relationship between maintainers and contributors.</p>
+    <p>Bio: Kara Woo is a research scientist in data curation at Sage Bionetworks. She has a master's in library and information science from the University of Washington and is interested in data management, data visualization, and open and reproducible research. Kara is also a co-maintainer of accidental aRt, a blog of data visualizations gone beautifully wrong. </p>
   </div>
 
   <br><br>
