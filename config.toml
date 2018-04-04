@@ -46,7 +46,7 @@ googleAnalytics = ""
     weight = 6
 
 [[menu.main]]
-    name = "Sponors"
+    name = "Sponsors"
     url  = "/sponsors/"
     weight = 7
 
