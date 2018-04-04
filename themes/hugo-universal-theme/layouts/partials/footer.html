@@ -1,0 +1,48 @@
+<footer id="footer">
+    <div class="container">
+
+        {{ if isset .Site.Params "about_us" }}
+        <div class="col-md-4 col-sm-6">
+            <h4>{{ i18n "aboutUs" }}</h4>
+
+            {{ .Site.Params.about_us | markdownify }}
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        <!-- /.col-md-4 -->
+        {{ end }}
+
+        {{ if isset .Site.Params "social" }}
+        <div class="col-md-4 col-sm-6">
+
+          <h4>{{ i18n "contactTitle" }}</h4>
+              <a href="https://github.com/pdxrconf/pdxrconf.github.io" target="_blank" style="opacity: 1;"><i class="fa fa-2x fa-github"></i></a>  
+              <a href="http://twitter.com/cascadiarconf" target="_blank" style="opacity: 1;"><i class="fa fa-2x fa-twitter"></i></a>
+              <a href="mailto:cascadiarconf@gmail.com" target="_blank" style="opacity: 1;"><i class="fa fa-2x fa-envelope"></i></a>
+            <hr class="hidden-md hidden-lg hidden-sm">
+        </div>
+        <!-- /.col-md-4 -->
+        {{ end }}
+
+         <div class="col-md-4 col-sm-6">
+
+            {{ if isset .Site.Params "copyright" }}
+            <p class="pull-left">{{ .Site.Params.copyright | safeHTML }}</p>
+            {{ end }}
+            <p class="pull-right">
+              {{ i18n "templateBy" }} <a href="http://bootstrapious.com/free-templates">Bootstrapious</a>.
+              <!-- Not removing this link is part of the licence conditions of the template. Thanks for understanding :) -->
+
+              {{ i18n "portedBy" }} <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>
+            </p>
+
+        </div>
+
+    </div>
+    <!-- /.container -->
+</footer>
+
+<!-- /#footer -->
+
+<!-- *** FOOTER END *** -->
