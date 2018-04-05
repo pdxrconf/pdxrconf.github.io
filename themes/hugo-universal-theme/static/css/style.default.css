@@ -382,7 +382,7 @@ ul.list-style-none {
 .navbar .yamm-content h3 {
   font-size: 18px;
   text-transform: uppercase;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
   margin-top: 5px;
   border-bottom: dotted 1px #555555;
   letter-spacing: 0.08em;
@@ -394,7 +394,7 @@ ul.list-style-none {
 }
 .navbar .yamm-content h5 {
   text-transform: uppercase;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   border-bottom: dotted 1px #555555;
   letter-spacing: 0.08em;
 }
@@ -423,7 +423,7 @@ ul.list-style-none {
   padding-left: 2px;
 }
 .navbar .yamm-content .banner {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 .navbar .yamm-fw .dropdown-menu {
   padding: 0;
