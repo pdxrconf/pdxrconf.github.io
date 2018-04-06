@@ -15,7 +15,12 @@ June 2nd, 2018
 
 ## Where will it be?
 
-OHSU Collaborative Life Science Building, 2730 SW Moody Ave, Portland, OR 97201. <strong>Directions:</strong> Please enter CLSB through the South entrance and go to the 3rd floor via the South Elevators. 3A001/3A002 (the main conference location) is across the short bridge. See <a href="/#location">location</a> for a map
+OHSU Collaborative Life Science Building <br> 
+2730 SW Moody Ave, Portland, OR 97201
+
+**Directions:** 
+
+Please enter CLSB through the South entrance and go to the 3rd floor via the South Elevators. 3A001/3A002 (the main conference location) is across the short bridge. See the <a href="/venue">venue</a> page for a map
 
 ## What kind of talks are you looking for?
 
@@ -59,7 +64,7 @@ See the <a href="#getting_there">Getting There</a> section below.
 
 <br><br>
 
-# Transportation
+# Transportation <a id="getting_there"></a>
 
 ### Bike
 
