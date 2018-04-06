@@ -25,9 +25,13 @@ We are doing lightning talks only this year.
 
 Yes! Student tickets are only $5
 
+## Are there early bird tickets?
+
+Yes! Tickets will go up by $5 and $10 for student and general admission, respectively.
+
 ## What about tickets?
 
-Get tickets at <>
+Tickets will be on sale soon.
 
 ## What about food?
 
