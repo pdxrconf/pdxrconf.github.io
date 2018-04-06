@@ -23,11 +23,11 @@ We are doing lightning talks only this year.
 
 ## Are there discounts for students?
 
-Yes! Details coming soon.
+Yes! Student tickets are only $5
 
 ## What about tickets?
 
-Tickets are not on sale yet.
+Get tickets at <>
 
 ## What about food?
 
@@ -35,7 +35,7 @@ We'll have coffee and snacks during breaks. More details to come ...
 
 ## Will you provide lunch?
 
-Details to come ...
+Most likely. Details to come ...
 
 ## Will you provide a private place to nurse/pump breastmilk?
 
@@ -55,21 +55,34 @@ See the <a href="#getting_there">Getting There</a> section below.
 
 <br><br>
 
-<section id="getting_there">
-    <h2>Transportation</h2>
-    <h3>Bike</h3>
-    <p>The location we're at is the meeting point of a few major bike routes: one going East-West, and one going North-South. So whether you're coming from downtown, North Portland, or East Portland or elsewhere, it should be convenient to get here. Here's some <a href="https://www.portlandoregon.gov/transportation/39402">bike maps</a>. Also, Google maps obs.
-    <h3>Train</h3>
-    <p>The location is also a nexus for a few train routes. Here's an <a href="https://ride.trimet.org/#/">interactive map</a>. Also, Google maps obs.
-    <h3>Walking</h3>
-    <p>yay! Walking along the river is very nice if it's on your way.
-    <h3>Car</h3>
-    <p>Parking is free at Schnitzer Lot - <a href="https://www.ohsu.edu/xd/about/services/transportation-and-parking/upload/Waterfront_Transportation_Map-2.pdf">printable map</a>. However, we encourage people to carpool if possible since there are a couple of other events that day in the building.
-    <h3>Flying</h3>
-    <p>We imagine most people will be local-ish, but if you are flying, we have a great airport, though it's not super big so not a ton of direct flights.  You can grab a train from the airport and get all the way here. See above links for trains. Or cab/etc.
-    <h3>Unicycling</h3>
-    <p>show off
-    <h3>Tall biking</h3>
-    <p>jealous
-</section>
+# Transportation
 
+### Bike
+
+The location we're at is the meeting point of a few major bike routes: one going East-West, and one going North-South. So whether you're coming from downtown, North Portland, or East Portland or elsewhere, it should be convenient to get here. Here's some <a href="https://www.portlandoregon.gov/transportation/39402">bike maps</a>. Also, Google maps obs.
+
+### Train
+
+The location is also a nexus for a few train routes. Here's an <a href="https://ride.trimet.org/#/">interactive map</a>. Also, Google maps obs.
+
+### Walking
+
+yay! Walking along the river is very nice if it's on your way.
+
+### Car
+
+Parking is free at Schnitzer Lot - <a href="https://www.ohsu.edu/xd/about/services/transportation-and-parking/upload/Waterfront_Transportation_Map-2.pdf">printable map</a>. However, we encourage people to carpool if possible since there are a couple of other events that day in the building.
+
+### Flying
+
+We imagine most people will be local-ish, but if you are flying, we have a great airport, though it's not super big so not a ton of direct flights.  You can grab a train from the airport and get all the way here. See above links for trains. Or cab/etc.
+
+### Unicycling
+
+show off
+
+### Tall biking
+
+jealous
+
+<br><br>
