@@ -88,7 +88,7 @@ googleAnalytics = ""
     # Style options: default (light-blue), blue, green, marsala, pink, red, turquoise, violet
     style = "default"
 
-    about_us = "<p>CascadiaRConf is an regional R conference for the Pacific Northwest</p>"
+    about_us = "<p>CascadiaRConf is a regional R conference for the Pacific Northwest - brought to you by <a href='https://pdxrlang.com/'>pdxrlang</a></p>"
 
     # Format dates with Go's time formatting
     date_format = "January 2, 2006"
