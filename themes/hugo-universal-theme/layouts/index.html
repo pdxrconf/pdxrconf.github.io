@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+
+  {{ partial "head.html" . }}
+
+  <body>
+
+    <div id="all">
+
+        <header>
+
+          {{ partial "top.html" . }}
+
+          {{ partial "nav.html" . }}
+
+        </header>
+
+        <!-- {{ partial "carousel.html" . }} -->
+        {{ partial "sticker.html" . }}
+
+        <!-- {{ partial "features.html" . }} -->
+
+        {{ partial "submit.html" . }}
+
+        {{ partial "sponsors.html" . }}
+
+        {{ partial "flyer.html" . }}
+
+        <!-- {{ partial "testimonials.html" . }} -->
+
+        <!-- {{ partial "see_more.html" . }}
+
+        {{ partial "recent_posts.html" . }}
+
+        {{ partial "clients.html" . }} -->
+
+        {{ partial "subscribe.html" . }}
+
+        {{ partial "footer.html" . }}
+
+    </div>
+    <!-- /#all -->
+
+    {{ partial "scripts.html" . }}
+
+  </body>
+</html>

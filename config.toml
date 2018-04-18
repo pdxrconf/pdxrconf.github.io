@@ -1,39 +1,157 @@
 baseURL = "https://cascadiarconf.com/"
-languageCode = "en-us"
 title = "CascadiaRConf"
-theme = "kube"
-description = "An R Conference"
-Paginate = 4
-[Params]
-  RSSLink = "/index.xml"
-  author = "CascadiaRConf"
-  github = "pdxrlang"
-  twitter = "cascadiarconf"
-  slack = "https://join.slack.com/t/cascadiarconf/shared_invite/enQtMzM0MDczMTQ1ODkzLTNhMGY1ZWZjZGYxNDAzYjA4YmEwOTBkNTBkNDNmM2Q1MzE0ZWQ5MjBlNGNiZTVhZTUwMGYwZjA0NmViMGU1N2M"
-  email = "cascadiarconf@gmail.com"
+theme = "hugo-universal-theme"
+languageCode = "en-us"
+# Site language. Available translations in the theme's `/i18n` directory.
+defaultContentLanguage = "en"
+# Enable comments by entering your Disqus shortname
+disqusShortname = ""
+# Enable Google Analytics by entering your tracking code
+googleAnalytics = ""
+
+[menu]
+
+# Main menu
+
+[[menu.main]]
+    name = "Home"
+    url  = "/"
+    weight = 1
 
 [[menu.main]]
     name = "About"
-    weight = -100
-    url = "/about/"
+    url  = "/about/"
+    weight = 2
+
+[[menu.main]]
+    name = "Venue"
+    url  = "/venue/"
+    weight = 3
+
 [[menu.main]]
     name = "Agenda"
-    weight = -100
-    url = "/agenda/"
+    url  = "/agenda/"
+    weight = 4
+
 [[menu.main]]
     name = "COC"
-    weight = -100
-    url = "/coc/"
+    identifier = "coc"
+    url  = "/coc/"
+    weight = 5
+
+[[menu.main]]
+    name = "FAQ"
+    identifier = "faq"
+    url  = "/faq/"
+    weight = 6
+
 [[menu.main]]
     name = "Sponsors"
-    weight = -100
-    url = "/sponsors/"
-[[menu.main]]
-    name = "Faq"
-    weight = -100
-    url = "/faq/"
+    url  = "/sponsors/"
+    weight = 7
+
 [[menu.main]]
     name = "Years"
-    weight = -100
-    url = "/years/"
+    url  = "/years/"
+    weight = 8
 
+# Top bar social links menu
+
+[[menu.topbar]]
+    weight = 1
+    name = "GitHub"
+    url = "https://github.com/pdxrconf/pdxrconf.github.io"
+    pre = "<i class='fa fa-2x fa-github'></i>"
+
+[[menu.topbar]]
+    weight = 3
+    name = "Twitter"
+    url = "http://twitter.com/cascadiarconf"
+    pre = "<i class='fa fa-2x fa-twitter'></i>"
+
+[[menu.topbar]]
+    weight = 4
+    name = "Email"
+    url = "mailto:cascadiarconf@gmail.com"
+    pre = "<i class='fa fa-2x fa-envelope'></i>"
+
+[params]
+    social = true
+    viewMorePostLink = "/blog/"
+    author = "Scott Chamberlain"
+    defaultKeywords = ["devows", "hugo", "go"]
+    defaultDescription = "Site template made by devcows using hugo"
+
+    # Google Maps API key (if not set will default to not passing a key.)
+    # #googleMapsApiKey = "AIzaSyCFhtWLJcE30xOAjcbSFi-0fnoVmQZPb1Y"
+
+    # Style options: default (light-blue), blue, green, marsala, pink, red, turquoise, violet
+    style = "default"
+
+    about_us = "<p>CascadiaRConf is a regional R conference for the Pacific Northwest - brought to you by <a href='https://pdxrlang.com/'>pdxrlang</a></p>"
+
+    # Format dates with Go's time formatting
+    date_format = "January 2, 2006"
+
+    logo = "img/sticker_new.png"
+    latitude = "-12.043333"
+    longitude = "-77.028333"
+
+[Permalinks]
+    blog = "/blog/:year/:month/:day/:filename/"
+
+# Enable or disable top bar with social icons
+[params.topbar]
+    enable = false
+    text = """<p class="hidden-sm hidden-xs">Contact us on +420 777 555 333 or hello@universal.com.</p>
+      <p class="hidden-md hidden-lg"><a href="#" data-animate-hover="pulse"><i class="fa fa-phone"></i></a>
+      <a href="#" data-animate-hover="pulse"><i class="fa fa-envelope"></i></a>
+      </p>
+      """
+
+# Enable and disable widgets for the right sidebar
+[params.widgets]
+    categories = false
+    tags = false
+    search = false
+
+[params.carousel]
+    enable = true
+    # All carousel items are defined in their own files. You can find example items
+    # at 'exampleSite/data/carousel'.
+    # For more informtion take a look at the README.
+
+[params.features]
+    enable = true
+    # All features are defined in their own files. You can find example items
+    # at 'exampleSite/data/features'.
+    # For more informtion take a look at the README.
+
+[params.testimonials]
+    enable = true
+    # All testimonials are defined in their own files. You can find example items
+    # at 'exampleSite/data/testimonials'.
+    # For more informtion take a look at the README.
+    title = "Testimonials"
+    subtitle = "We have worked with many clients and we always like to hear they come out from the cooperation happy and satisfied. Have a look what our clients said about us."
+
+[params.see_more]
+    enable = false
+    icon = "fa fa-file-code-o"
+    title = "Do you want to see more?"
+    subtitle = "We have prepared for you more than 40 different HTML pages, including 5 variations of homepage."
+    link_url = "#"
+    link_text = "Check other homepages"
+
+[params.clients]
+    enable = false
+    # All clients are defined in their own files. You can find example items
+    # at 'exampleSite/data/clients'.
+    # For more informtion take a look at the README.
+    title = "Our Clients"
+    subtitle = ""
+
+[params.recent_posts]
+    enable = false
+    title = "From our blog"
+    subtitle = "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo."
