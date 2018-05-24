@@ -62,6 +62,9 @@ Maybe. We'll ask each of the speakers if they give permission for us to record.
 
 See the <a href="#getting_there">Getting There</a> section below.
 
+## Will there be a lactation room?
+
+Yes! Please email Lilly at winfree@ohsu.edu for access to the room as it is locked. The room is Room 1S011, on the first floor of the conference building.
 <br><br>
 
 # Transportation <a id="getting_there"></a>
