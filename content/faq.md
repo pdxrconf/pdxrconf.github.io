@@ -28,7 +28,7 @@ We are doing lightning talks only this year.
 
 ## Are there discounts for students?
 
-Yes! Student tickets are only $5
+Yes! Student tickets are only $5, $10 after early bird deadline.
 
 ## Are there early bird tickets?
 
@@ -36,19 +36,15 @@ Yes! Tickets will go up by $5 and $10 for student and general admission, respect
 
 ## What about tickets?
 
-Tickets will be on sale soon.
+Register/get a ticket [here](https://www.eventbrite.com/e/cascadia-r-conference-tickets-42770967114)!
 
 ## What about food?
 
-We'll have coffee and snacks during breaks. More details to come ...
+We'll have coffee and snacks during breaks, as well as serve lunch (catering from Elephants Deli).
 
 ## Will you provide lunch?
 
-Most likely. Details to come ...
-
-## Will you provide a private place to nurse/pump breastmilk?
-
-Yes! Please get in touch with us beforehand or at the event.
+YES. Catering is from [Elephants Deli](https://www.elephantsdeli.com/).
 
 ## What about next year (2019)?
 
