@@ -6,7 +6,7 @@ description = "CascadiaRConf Code of Conduct"
 Contact numbers:
 
 * (Lilly Winfree)
-* (Scott Chamberlain)
+* (Scott Chamberlain - 713-364-5048)
 
 ## Code of Conduct
 
