@@ -1,4 +1,4 @@
-baseURL = "https://cascadiarconf.com/"
+baseURL = "https://cascadiarconf.org/"
 title = "CascadiaRConf"
 theme = "hugo-universal-theme"
 languageCode = "en-us"
