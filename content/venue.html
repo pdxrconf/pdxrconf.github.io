@@ -5,24 +5,24 @@ title = "Venue"
 
 <div class="center" id="location" style="text-align: center">
   <h1>Location</h1>
-  <h3>OHSU Collaborative Life Science Building</h3>
-  <h3>2730 SW Moody Ave, Portland, OR 97201</h3>
+  <h3>Microsoft Conference Center</h3>
+  <h3>Building 33, 16070 NE 36th Way, Redmond, WA 98052</h3>
 
   <!-- the actual map -->
   <div id='map' style='width: 450px; height: 350px;'></div>
   <br>
-  <p><strong>Directions:</strong> Please enter CLSB through the South entrance and go to the 3rd floor via the South Elevators. 3A001/3A002 (the main conference location) is across the short bridge.</p>
-  <img src="../img/enter.png" width="300">
+  <!-- <p><strong>Directions:</strong> Please enter CLSB through the South entrance and go to the 3rd floor via the South Elevators. 3A001/3A002 (the main conference location) is across the short bridge.</p> -->
+  <!-- <img src="../img/enter.png" width="300"> -->
 
   <script>
     L.mapbox.accessToken = 'pk.eyJ1IjoicmVjb2xvZ3kiLCJhIjoiZWlta1B0WSJ9.u4w33vy6kkbvmPyGnObw7A';
       var map = L.mapbox.map("map", "mapbox.streets")
-      .setView([45.503, -122.67], 13);
+      .setView([47.643, -122.125], 13);
 
     var geojson = [
       {
         type: "Feature",
-          "geometry": { "type": "Point", "coordinates": [ -122.671894, 45.503176 ]},
+          "geometry": { "type": "Point", "coordinates": [ -122.125466, 47.642927 ]},
           "properties": {
               "place": "OHSU Collaborative Life Science Building",
               "marker-symbol": "triangle",
