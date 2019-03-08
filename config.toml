@@ -72,7 +72,7 @@ googleAnalytics = ""
 [[menu.topbar]]
     weight = 4
     name = "Email"
-    url = "mailto:cascadiarconf@gmail.com"
+    url = "mailto:cascadia.r.conf.2019@gmail.com"
     pre = "<i class='fa fa-2x fa-envelope'></i>"
 
 [params]
