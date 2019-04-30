@@ -5,8 +5,8 @@ title = "Venue"
 
 <div class="center" id="location" style="text-align: center">
   <h1>Location</h1>
-  <h3>Microsoft Conference Center</h3>
-  <h3>Building 33, 16070 NE 36th Way, Redmond, WA 98052</h3>
+  <h3>Embassy Suites by Hilton Seattle Bellevue</h3>
+  <h3>3225 158th Ave SE, Bellevue, WA 98008</h3>
 
   <!-- the actual map -->
   <div id='map' style='width: 450px; height: 350px;'></div>
@@ -17,14 +17,14 @@ title = "Venue"
   <script>
     L.mapbox.accessToken = 'pk.eyJ1IjoicmVjb2xvZ3kiLCJhIjoiZWlta1B0WSJ9.u4w33vy6kkbvmPyGnObw7A';
       var map = L.mapbox.map("map", "mapbox.streets")
-      .setView([47.643, -122.125], 13);
+      .setView([47.581078, -122.1363361], 13);
 
     var geojson = [
       {
         type: "Feature",
-          "geometry": { "type": "Point", "coordinates": [ -122.125466, 47.642927 ]},
+          "geometry": { "type": "Point", "coordinates": [ -122.1363361, 47.581078 ]},
           "properties": {
-              "place": "OHSU Collaborative Life Science Building",
+              "place": "Embassy Suites",
               "marker-symbol": "triangle",
               "marker-color": "#5B72AF",
               "nosoy": false,
