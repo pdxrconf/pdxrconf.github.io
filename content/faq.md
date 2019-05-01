@@ -15,9 +15,9 @@ June 8th, 2019
 
 ## Where will it be?
 
-Microsoft Conference Center <br> 
-Building 33, 16070 NE 36th way <br>
-Redmond, WA 98052
+Embassy Suites by Hilton Seattle Bellevue <br> 
+3225 158th Ave SE <br>
+Bellevue, WA 98008
 
 <!-- **Directions:** 
 
@@ -40,11 +40,15 @@ There was, the deadline has passed
 Register/get a ticket [here](https://www.eventbank.com/event/11944/register/)
 
 ## What about food?
- There will be food! Beverages are available at all times throughout the building and Lunch is included with the ticket. At this time no breakfast included, but there will be Coffee/Tea/Water available at all breaks. In addition, there will be a reception afterwards with Adult Beverages and light appetizers available, included with your ticket.
+ There will be food!<br>
+	Breakfast pastries will be available during the registration period before the welcoming remarks.
+	Coffee, tea and water are available at all the breaks.
+	A box lunch is included with the ticket.
+	Finally, there will be a reception afterwards with adult beverages and light appetizers available!
 
 ## Will you provide lunch?
 
-Included in the ticket price is a box lunch from Microsoft Catering (Gluten free options are available)
+Included in the ticket price is a box lunch (Gluten free options are available)
 
 ## What about next year (2020)?
 
@@ -67,8 +71,8 @@ TBD
 # Transportation <a id="getting_there"></a>
 
 ### Car
- - Parking is free and plentiful on the Microsoft Campus, and there is parking available beneath the center.
- - Take SR-520 East (Redmond) to NE 40th St exit. Turn RIGHT (East) onto NE 40th St, in two blocks turn RIGHT (South) onto 159th Ave NE. Bear LEFT (South) onto NE 36th Way and you will see Executive Briefing Center. Just around the corner to the left is the Conference Center
+ - Parking is free and plentiful at the hotel and surrouding area.
+ - Take I-5 North to I 405 North for approx 15 minutes (11miles) take I-90 East and exit 11A. Cross over freeway, take right on SE Eastgate Way, take left at 158th Avenue SE (at second stoplight ), we are on the left hand side.
  
 ...
 
@@ -79,11 +83,10 @@ Our major local airport is the Sea-Tac Airport. If using a taxi/rideshare/local 
 
 ### Bus/Public Transport
  - From Downtown Seattle:
-    - The 545 can take you the whole way, get off at the NE 40th St exit and walk along NE 36th about a half mile to the building. Follow the signs to the Executive Briefing Center/Conference Center.
-    - Use the 255 (Brickyard P&R Kirkland) to 6th St S and 5th Ave St stop in Kirkland. Take the 245 to the 156th Ave NE and NE 36th St stop in Redmond. Walk along NE 36th about a half mile to the building. Follow the signs to the Executive Briefing Center/Conference Center.
+    - The 554 can take you most of the way; get off at the I-90 Expressway Ramp & 142nd Pl. You can either walk from there (approximately 25 minutes) along SE Eastgate Way or walk to the Eastgate Park and Ride and take the 221 to 150th and SE Eastgate way, walking east along SE Eastgate Way to the hotel.
     
   - From Downtown Bellevue:
-    - Take the B line from the Bellevue Transit Center to the Overlake Transit Center. Walk along NE 36th about a half mile to the building. Follow the signs to the Executive Briefing Center/Conference Center.
+    - Take the 271 from the Bellevue Transit Center to 150th and SE Eastgate way. Walk east along SE Eastgate Way East to the hotel
 
 ...
 
