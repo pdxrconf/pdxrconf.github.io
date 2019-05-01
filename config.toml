@@ -99,7 +99,7 @@ googleAnalytics = ""
     date_format = "January 2, 2006"
 
     #logo = "img/sticker_new.png"
-	logo = "../img/Cascadia_R_2019_Sticker.png"
+	logo = "img/Cascadia_R_2019_Sticker.png"
 	description = "CascadiaRConf is a regional R conference for the Pacific Northwest - 2019 is in Bellevue, WA"
     latitude = "-12.043333"
     longitude = "-77.028333"
