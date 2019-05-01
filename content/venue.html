@@ -9,7 +9,7 @@ title = "Venue"
   <h3>3225 158th Ave SE, Bellevue, WA 98008</h3>
 
   <!-- the actual map -->
-  <div id='map' style='width: 450px; height: 350px;'></div>
+  <div id='map' style='height: 350px;position: relative;margin: auto;width: 50%;'></div>
   <br>
   <!-- <p><strong>Directions:</strong> Please enter CLSB through the South entrance and go to the 3rd floor via the South Elevators. 3A001/3A002 (the main conference location) is across the short bridge.</p> -->
   <!-- <img src="../img/enter.png" width="300"> -->
@@ -17,12 +17,12 @@ title = "Venue"
   <script>
     L.mapbox.accessToken = 'pk.eyJ1IjoicmVjb2xvZ3kiLCJhIjoiZWlta1B0WSJ9.u4w33vy6kkbvmPyGnObw7A';
       var map = L.mapbox.map("map", "mapbox.streets")
-      .setView([47.581078, -122.1363361], 13);
+      .setView([47.581068, -122.1480673], 13);
 
     var geojson = [
       {
         type: "Feature",
-          "geometry": { "type": "Point", "coordinates": [ -122.1363361, 47.581078 ]},
+          "geometry": { "type": "Point", "coordinates": [ -122.1480673, 47.581068 ]},
           "properties": {
               "place": "Embassy Suites",
               "marker-symbol": "triangle",
