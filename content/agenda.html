@@ -4,18 +4,43 @@ description = "CascadiaRConf Agenda"
 +++
 
 <style>
-td{vertical-align:top;}
-table {
+td {vertical-align:top;}
+.agenda {
 border-width:2px;
 border-style:solid;
 border-color:black;
 border-collapse: collapse;
 }
-td {
+
+.agenda td {
 border-width:1px;
 border-style:solid;
 border-color:black;
 }
+
+.portrait {display: inline-block;top:0px; margin:10px;padding:10px;width:165px}
+.portrait img {max-height:200px; width:auto; max-width:100%; height:auto; margin: 20px 0 0 0;}
+.portrait p {max-height:200px; width:auto; margin: 20px 0 0 0;}
+.details {display:inline-block; margin:10px ;padding:10px}
+.portraitContainer {width: 200px;}
+.detailsContainer {width:100%;}
+.speakerContainer { transition: all .2s ease-in-out; }
+.speakerContainer:hover { transform: scale(1.01); }
+
+a {color: blue; text-decoration: none;}
+a:hover {text-decoration: underline;}
+a:active {color: black;}
+a:visited {color: purple;}
+
+@media all and (max-width:740px) {
+.mc tr {display: table;width:200%;}               
+.mc td {display: table-row; width:100%}
+.portraitContainer {width:100%;}
+.detailsContainer {width:100%;}
+
+}
+</style>
+
 </style>
 
 <h1>Communication</h1>
@@ -24,27 +49,82 @@ border-color:black;
 
 <h1>Schedule</h1>
 
-<table>
+<ul>
+	<table>
+	<col span=1 class="portraitContainer">
+	<col span=1 class="detailsContainer">
+	<tr class="speakerContainer">
+		<td><div class="portrait">
+		<h3 id="david_smith"> David Smith </h3>
+		<img style="" src="../img/speakers_2019/david_smith.jpg"/>
+		</div></td>
+		<td><div class="details"/>
+		<div class="biography">
+			<h4> Conference MC </h4>
+			<p> David is a Cloud Advocate for Microsoft, specializing in the topics of artificial intelligence and machine learning. Since 2009 he has been the editor of the Revolutions blog http://blog.revolutionanalytics.com where he writes regularly about applications of data science with a focus on R, and is also a founding member of the R Consortium. Follow David on Twitter as @revodavid.</p>
+		</div></div>
+		</td>
+	</tr>
+	<!--<tr class="speakerContainer">
+		<td><div class="portrait">
+		<h3 id="david_smith"> David Smith </h3>
+		<img style="" src="../img/speakers_2019/david_smith.jpg"/>
+		</div></td>
+		<td><div class="details"/>
+		<div class="biography">
+			<h4> Conference MC </h4>
+			<p> David is a Cloud Advocate for Microsoft, specializing in the topics of artificial intelligence and machine learning. Since 2009 he has been the editor of the Revolutions blog http://blog.revolutionanalytics.com where he writes regularly about applications of data science with a focus on R, and is also a founding member of the R Consortium. Follow David on Twitter as @revodavid.</p>
+		</div></div>
+		</td>
+	</tr>-->
+	<tr class="speakerContainer">
+		<td><div class="portrait">
+		<h3 id="gabriela_de_queiroz"> Gabriela de Queiroz </h3>
+		<img style="" src="../img/speakers_2019/gabriela_de_queiroz.jpg"/>
+		</div></td>
+		<td><div class="details"/>
+		<div class="biography">
+			<h4> Endnote Speaker </h4>
+			<p>Gabriela de Queiroz is a Sr. Developer Advocate/Sr. Engineering & Data Science Manager at IBM where she leads the CODAIT Machine Learning Team. She works in different open source projects and is actively involved with several organizations to foster an inclusive community.</p>
+			<p>She is the founder of R-Ladies, a worldwide organization for promoting diversity in the R community with more than 150 chapters in 45+ countries. She likes to mentor and shares her knowledge through mentorship programs, tutorials and talks.</p>
+		</div></div>
+		</td>
+	</tr>
+	</table>
+</ul>
+
+<table class="agenda">
 <tr><th>Time</th><th>Description</th><th>Room</th></tr>
 <tr><td>8:00am-9:00am</td><td>Registration</td><td>Atrium</td></tr>
-<tr><td>9:00am-9:45am</td><td>Welcome Remarks<br>Keynote</td><td>Regent/Ambassador</td></tr>
+<tr><td>9:00am-9:45am</td>
+	<td>Welcome Remarks: <a href="/speakers#david_smith">David Smith</a><br>
+		Keynote: TBD</td>
+	<td>Regent/Ambassador</td></tr>
 <tr><td rowspan="3">10:00am-11:30am</td><td colspan="2">Session 1</td></tr>
-<tr><td><a href="/speakers#kate_hertweck">Kate Hertweck</a><br>
+<tr><td><h4> Track 1: Community </h4>
+<!-- 		<a href="/speakers#kate_hertweck">Kate Hertweck</a><br>
 		<a href="/speakers#robert_amezquita">Robert Amezquita</a><br>
-		<a href="/speakers#heather_nolis_and_sai_nuthalapati">Heather Nolis and Sai Nuthalapati</a></td><td>Ambassador</td/></tr>
-<tr><td><a href="/speakers#bethany_yollin">Bethany Yollin</a><br>
-		<a href="/speakers#clara_yuan">Clara Yuan</a><br>
-		<a href="/speakers#edward_flinchem">Edward P Flinchem</a></td><td>Regent</td/></tr>
+		<a href="/speakers#heather_nolis_and_sai_nuthalapati">Heather Nolis and Sai Nuthalapati</a> -->
+		</td><td>Ambassador</td/></tr>
+<tr><td><h4> Track 2: Application of R</h4>
+<!-- 	<a href="/speakers#bethany_yollin">Bethany Yollin</a><br>
+		a href="/speakers#clara_yuan">Clara Yuan</a><br>
+		<a href="/speakers#edward_flinchem">Edward P Flinchem</a> -->
+		</td><td>Regent</td/></tr>
 <tr><td>11:30am-1pm</td><td>Lunch</td><td>Atrium</td></tr>
 <tr><td rowspan="3">1:00pm-2:30pm</td><td colspan="2">Session 2</td></tr>
-<tr><td><a href="/speakers#eina_ooka">Eina Ooka</a><br>
+<tr><td><h4> Track 1: Machine Learning </h4>
+<!-- 		<a href="/speakers#eina_ooka">Eina Ooka</a><br>
 		<a href="/speakers#michael_frasco">Michael Frasco</a><br>
-		<a href="/speakers#kevin_kuo">Kevin Kuo</a></td><td>Ambassador</td/></tr>
-<tr><td><a href="/speakers#bryan_mayer">Bryan Mayer</a><br>
+		<a href="/speakers#kevin_kuo">Kevin Kuo</a> -->
+		</td><td>Ambassador</td/></tr>
+<tr><td><h4> Track 2: R in Production </h4>
+<!-- 		<a href="/speakers#bryan_mayer">Bryan Mayer</a><br>
 		<a href="/speakers#javier_luraschi">Javier Luraschi</a><br>
-		<a href="/speakers#gagandeep_singh">Gagandeep Singh</a></td><td>Regent</td/></tr>
-<tr><td rowspan="2">2:45pm-4:00pm</td><td colspan="2">Lightning Talks</td></tr>
-<tr><td><a href="/speakers#brittany_barker">Brittany Barker</a><br>
+		<a href="/speakers#gagandeep_singh">Gagandeep Singh</a> -->
+		</td><td>Regent</td/></tr>
+<tr><td>2:45pm-4:00pm</td><td><h4> Lightning Talks</h4>
+<!-- 		<a href="/speakers#brittany_barker">Brittany Barker</a><br>
 		<a href="/speakers#joseph_scheidt">Joseph Scheidt</a><br>
 		<a href="/speakers#scott_came">Scott Came</a><br>
 		<a href="/speakers#tiernan_martin">Tiernan Martin</a><br>
@@ -52,8 +132,12 @@ border-color:black;
 		<a href="/speakers#jacqueline_nolis">Jacqueline Nolis</a><br>
 		<a href="/speakers#edward_borasky">M. Edward (Ed) Borasky</a><br>
 		<a href="/speakers#mark_druffel">Mark Druffel</a><br>
-		<a href="/speakers#ryan_hafen">Ryan Hafen</a></td><td>Regent/Ambassador</td>
-<tr><td>4:00pm-4:45pm</td><td>Endnote<br>Closing Remarks</td><td>Regent/Ambassador</td></tr>
+		<a href="/speakers#ryan_hafen">Ryan Hafen</a> -->
+		</td><td>Regent/Ambassador</td>
+<tr><td>4:00pm-4:45pm</td>
+	<td>Endnote: <a href="/speakers#gabriella_de_queiroz">Gabriela de Queiroz</a><br>
+	Closing Remarks: <a href="/speakers#david_smith">David Smith</a></td>
+	<td>Regent/Ambassador</td></tr>
 <tr><td>4:45pm-5:30pm</td><td>Cocktail hour and Networking</td><td>Atrium</td></tr>
 </table>
 
