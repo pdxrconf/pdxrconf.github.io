@@ -5,8 +5,8 @@ description = "CascadiaRConf Code of Conduct"
 
 Contact numbers:
 
-* (Lilly Winfree)
-* (Scott Chamberlain)
+* (Ellis Hughes)
+* (Daniella Mark)
 
 ## Code of Conduct
 
