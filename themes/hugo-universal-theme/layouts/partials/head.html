@@ -74,8 +74,10 @@
   <!-- Facebook OpenGraph tags -->
   <meta property="og:title" content="{{ .Title }}" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="{{ .URL }}/" />
-  <meta property="og:image" content="{{ .URL }}/{{ .Site.Params.logo }}" />
+
+  <meta property="og:url" content="{{ .Site.BaseURL }}" />
+  <meta property="og:image" content="{{ .Site.BaseURL }}{{ .Site.Params.logo }}" />
+
   <meta property="og:description" content="{{ .Site.Params.description }}" />
 
 </head>
