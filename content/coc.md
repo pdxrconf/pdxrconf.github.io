@@ -2,11 +2,11 @@
 title = "COC"
 description = "CascadiaRConf Code of Conduct"
 +++
-
+<!-- 
 Contact numbers:
 
-* (Ellis Hughes)
-* (Daniella Mark)
+* Daniel Anderson
+* Patrick Kennedy -->
 
 ## Code of Conduct
 
@@ -14,7 +14,7 @@ CascadiaConf is dedicated to providing a harassment-free conference experience f
 
 Harassment includes verbal comments that reinforce social structures of domination related to gender, gender identity and expression, sexual orientation, disability, physical appearance, body size, race, age, religion; sexual images in public spaces; deliberate intimidation; stalking; following; harassing photography or recording; sustained disruption of talks or other events; inappropriate physical contact; and unwelcome sexual attention. Participants asked to stop any harassing behavior are expected to comply immediately.
 
-If a participant engages in harassing behavior, the conference organizers may take any action they deem appropriate, including warning the offender or expulsion from the conference with no refund. If you are being harassed, notice that someone else is being harassed, or have any other concerns, please contact a member of conference staff immediately or email `cascadia.r.conf.2019@gmail.com`. Conference staff can be identified by their nametags.
+If a participant engages in harassing behavior, the conference organizers may take any action they deem appropriate, including warning the offender or expulsion from the conference with no refund. If you are being harassed, notice that someone else is being harassed, or have any other concerns, please contact a member of conference staff immediately or email `cascadiarcon@gmail.com`. Conference staff can be identified by their nametags.
 
 ### Photography Policy
 At the conference anyone with a red sticker: "do not photograph me".
@@ -22,7 +22,7 @@ At the conference anyone with a red sticker: "do not photograph me".
 Conference staff will be happy to help participants contact venue security or local law enforcement, provide escorts, or otherwise assist those experiencing harassment to feel safe for the duration of the conference. We value your attendance.
 
 We expect attendees, sponsors, volunteers, and speakers to adhere to the code of conduct during the conference, conference events at off-site locations, in related online communities and social media. We will be monitoring all social media related to the conference throughout the year.
-If you have any questions, email `cascadia.r.conf.2019@gmail.com`
+If you have any questions, email `cascadiarcon@gmail.com`
 
 <hr><br>
 

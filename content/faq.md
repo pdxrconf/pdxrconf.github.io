@@ -11,21 +11,16 @@ YES! See the <a href="/coc">COC</a> page.
 
 ## When will it be?
 
-June 8th, 2019
+May 31st, 2020
 
 ## Where will it be?
 
-Embassy Suites by Hilton Seattle Bellevue <br> 
-3225 158th Ave SE <br>
-Bellevue, WA 98008
+Erb Memorial Union <br> 
+University of Oregon
+1395 University St <br>
+Eugene, OR 97403
 
-<!-- **Directions:** 
-
-Please enter CLSB through the South entrance and go to the 3rd floor via the South Elevators. 3A001/3A002 (the main conference location) is across the short bridge. See the <a href="/venue">venue</a> page for a map -->
-
-## What kind of talks are you looking for?
-
-See <https://www.eventbank.com/event/cascadia-r-conference-2019-11944/>
+See the <a href="/venue"> Venue</a> page.
 
 ## Are there discounts for students?
 
@@ -33,34 +28,29 @@ Yes! Student tickets are $20
 
 ## Are there early bird tickets?
 
-There was, the deadline has passed
+Yes! Please register by...
 
 ## What about tickets?
 
 Register/get a ticket [here](https://www.eventbank.com/event/11944/register/)
 
 ## What about food?
- There will be food!<br>
-	Breakfast pastries will be available during the registration period before the welcoming remarks.
-	Coffee, tea and water are available at all the breaks.
-	A box lunch is included with the ticket.
-	Finally, there will be a reception afterwards with adult beverages and light appetizers available!
+ The EMU has a variety of food options. See [here](https://emu.uoregon.edu/food). Falling Sky is a great local establishment for a slice of pizza (and beer on tap). The Fresh corner market has a variety of snacks, healthy Mediterranean bowls, soups, sandwiches, and bulk options.
 
 ## Will you provide lunch?
+Unfortunately we are unable to provide lunch this year.
 
-Included in the ticket price is a box lunch (Gluten free options are available)
-
-## What about next year (2020)?
-
-We'll let you know at the end of the conference on June 8th
+## What about next year (2021)?
+We'll let you know at the end of the conference on May 31st
 
 ## Will talks be recorded?
 
 TBD
 
 ## What about parking?
+Parking in most University of Oregon parking lots will be free for the day of the conference (given it's a Sunday). Please see the PDF map <a href = "https://business.uoregon.edu/sites/business1.uoregon.edu/files/media/campus-parking-map.pdf"> here </a> for a list of parking lots and their relation to the EMU. 
 
-See the <a href="#getting_there">Getting There</a> section below.
+Metered parking is also generally free on Sunday, and the spots on University Street near McArthur court would be a good spot to look first. Lots 18, 17, and 16A are good alternatives.
 
 ## Will there be a lactation room?
 
@@ -68,7 +58,7 @@ TBD
 
 <br><br>
 
-# Transportation <a id="getting_there"></a>
+<!-- # Transportation <a id="getting_there"></a>
 
 ### Car
  - Parking is free and plentiful at the hotel and surrouding area.
@@ -95,4 +85,4 @@ First set the up-quark to a spin of 42 and feed your Z Boson to ...wait, why do 
 
 ...
 
-<br><br>
+<br><br> -->
