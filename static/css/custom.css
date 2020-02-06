@@ -1,0 +1,48 @@
+/* your styles go here */
+
+.box-image-text .image {
+  min-height: 200px;
+  max-height: 200px;
+}
+
+.box-simple {
+  min-height: 230px;
+}
+
+#heading-breadcrumbs {
+	background: none;
+	padding: 20px 0;
+	margin-bottom: 40px;
+}
+
+.home-carousel {
+	background: none;
+}
+
+.home-carousel .dark-mask {
+	background: none;
+}
+
+.bar.background-pentagon {
+	background: none;
+	border-top: solid 1px #999999;
+	border-bottom: solid 1px #999999;
+}
+
+.bar.background-white {
+	background: none;
+}
+
+.bar.background-image-fixed-2 {
+	background: url('../img/mckayla-crump-iooWFdcizKo-unsplash.jpg') center top no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+#top {
+  background: #ffffff;
+  color: #eeeeee;
+  padding: 10px 0;
+}
+
+
