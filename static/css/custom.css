@@ -45,4 +45,15 @@
   padding: 10px 0;
 }
 
+#top .social a {
+  margin-right: 10px;
+}
+
+#top .social a:hover {
+  background: none;
+  -webkit-transform: none;
+  color: #555555;
+}
+
+
 
