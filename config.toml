@@ -39,9 +39,9 @@ googleAnalytics = ""
     weight = 5
 
 [[menu.main]]
-    name = "COC"
-    identifier = "coc"
-    url  = "/coc/"
+    name = "Policies"
+    identifier = "policies"
+    url  = "/policies/"
     weight = 6
 
 [[menu.main]]
@@ -84,8 +84,8 @@ googleAnalytics = ""
     social = true
     viewMorePostLink = "/blog/"
     author = "Scott Chamberlain"
-    defaultKeywords = ["devows", "hugo", "go"]
-    defaultDescription = "Site template made by devcows using hugo"
+    defaultKeywords = ["r", "data science", "conference"]
+    defaultDescription = "Cascadia R Conference is an R conference serving the Pacific Northwest region (Oregon/Washington/BC)."
 
     # Google Maps API key (if not set will default to not passing a key.)
     # #googleMapsApiKey = "AIzaSyCFhtWLJcE30xOAjcbSFi-0fnoVmQZPb1Y"
@@ -157,7 +157,7 @@ googleAnalytics = ""
 
 [params.recent_posts]
     enable = false
-    title = "From our blog"
+    title = "Featured Speakers"
     subtitle = "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo."
 
 [markup.goldmark.renderer]

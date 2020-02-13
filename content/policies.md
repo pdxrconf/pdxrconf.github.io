@@ -1,6 +1,6 @@
 +++
-title = "COC"
-description = "CascadiaRConf Code of Conduct"
+title = "Policies"
+description = "CascadiaRConf Code of Conduct and Photography Policy"
 +++
 <!-- 
 Contact numbers:

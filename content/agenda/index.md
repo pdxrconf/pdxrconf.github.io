@@ -1,7 +1,6 @@
-+++
-title = "Agenda"
-description = "CascadiaRConf Agenda"
-+++
+---
+title: Agenda
+---
 
 <style>
 td {vertical-align:top;}
