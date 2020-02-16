@@ -15,20 +15,19 @@ a larger part of the Pacific Northwest.
 
 ### 2020 Organization Team
 
-+ Daniel Anderson
-+ Patrick Kennedy
-+ Raina Megert
++ [Daniel Anderson](https://www.datalorax.com/about/)
++ [Patrick Kennedy](https://ctl.uoregon.edu/about/staff/patrick-kennedy)
++ [Raina Megert](https://education.uoregon.edu/people/faculty/rainam)
++ [Alison Hill](https://alison.rbind.io/)
++ [Brendan Cullen](https://bcullen.rbind.io/)
 
 ### 2019 Organization Team
 
-<!--+ Lou Bajuk-Yorgan=-->
 + Terry Christiani
 + David Henderson
 + Ellis Hughes
 + Lindsey Hughes
-<!--+ Stephen Kaluzny>-->
 + Daniella Mark
-<!--+ Mackenzie Shimokaji-->
 + Mehar Singh
 + David Smith
 
