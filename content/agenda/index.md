@@ -76,13 +76,13 @@ border-color:black;
 	</tr>
 	<tr class="speakerContainer">
 		<td><div class="portrait">
-		<h3 id="raphael_gottardo"> Raphael Gottardo </h3>
-		<img style="" src="../img/speakers_2019/raphael_gottardo.png"/>
+		<h3 id="raphael_gottardo"> Danielle Claar </h3>
+		<img style="" src="../img/speakers_2020/danielle_claar.jpg"/>
 		</div></td>
 		<td><div class="details"/>
 		<div class="biography">
 			<h4> Keynote Speaker </h4>
-			<p>Dr. Gottardo is a pioneer in developing and applying statistical methods and software tools to distill actionable insights from large and complex biological data sets.In partnership with scientists and clinicians, he works to understand such diseases as cancer, HIV, malaria, and tuberculosis and inform the development of vaccines and treatments. He is a leader in forming interdisciplinary collaborations across the Hutch, as well as nationally and internationally, to address important research questions, particularly in the areas of vaccine research, human immunology, and immunotherapy. As director of the Translational Data Science Integrated Research Center, he fosters interaction between the Hutch’s experimental and clinical researchers and their computational and quantitative science colleagues with the goal of transforming patient care through data-driven research. Dr. Gottardo partners closely with the cancer immunotherapy program at Fred Hutch to improve treatments. For example, his team is harnessing cutting-edge computational methods to determine how cancers evade immunotherapy. He has made significant contributions to vaccine research and is the principal investigator of the Vaccine and Immunology Statistical Center of the Collaboration for AIDS Vaccine Discovery.</p>
+			<p>Danielle Claar is a NOAA Climate and Global Change Postdoctoral Scholar at the University of Washington. Her research focuses on the resilience of imperiled and understudied species in changing tropical and temperate environments. Her work includes conducting research expeditions, using statistical modelling to disentangle large data sets, and implementing genomic and bioinformatic approaches to support conservation decisions. She is a reproducible research advocate and leads open science initiatives within the Wood Lab at UW. She was also a member of the inaugural OpenScapes cohort. She likes to share her knowledge of reproducibility tools to help colleagues and students do better science in less time.</p>
 		</div></div>
 		</td>
 	</tr>
