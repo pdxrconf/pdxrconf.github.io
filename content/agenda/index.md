@@ -64,38 +64,26 @@ border-color:black;
 		<col span=1 class="detailsContainer">
 	<tr class="speakerContainer">
 		<td><div class="portrait">
-		<h3 id="david_smith"> David Smith </h3>
-		<img style="" src="../img/speakers_2019/david_smith.png"/>
-		</div></td>
-		<td><div class="details"/>
-		<div class="biography">
-			<h4> Conference MC </h4>
-			<p> David is a Cloud Advocate for Microsoft, specializing in the topics of artificial intelligence and machine learning. Since 2009 he has been the editor of the Revolutions blog http://blog.revolutionanalytics.com where he writes regularly about applications of data science with a focus on R, and is also a founding member of the R Consortium. Follow David on Twitter as @revodavid.</p>
-		</div></div>
-		</td>
-	</tr>
-	<tr class="speakerContainer">
-		<td><div class="portrait">
-		<h3 id="raphael_gottardo"> Danielle Claar </h3>
+		<h3 id="danielle_claar"> Danielle Claar </h3>
 		<img style="" src="../img/speakers_2020/danielle_claar.jpg"/>
 		</div></td>
 		<td><div class="details"/>
 		<div class="biography">
-			<h4> Keynote Speaker </h4>
+			<h4> Morning Keynote Speaker </h4>
 			<p>Danielle Claar is a NOAA Climate and Global Change Postdoctoral Scholar at the University of Washington. Her research focuses on the resilience of imperiled and understudied species in changing tropical and temperate environments. Her work includes conducting research expeditions, using statistical modelling to disentangle large data sets, and implementing genomic and bioinformatic approaches to support conservation decisions. She is a reproducible research advocate and leads open science initiatives within the Wood Lab at UW. She was also a member of the inaugural OpenScapes cohort. She likes to share her knowledge of reproducibility tools to help colleagues and students do better science in less time.</p>
 		</div></div>
 		</td>
 	</tr>
 	<tr class="speakerContainer">
 		<td><div class="portrait">
-		<h3 id="gabriela_de_queiroz"> Gabriela de Queiroz </h3>
-		<img style="" src="../img/speakers_2019/gabriela_de_queiroz.jpg"/>
+		<h3 id="gabriela_de_queiroz"> Heather and Jacqueline Nolis </h3>
+		<img style="" src="../img/speakers_2020/heather_jacqueline_nolis.jpg"/>
 		</div></td>
 		<td><div class="details"/>
 		<div class="biography">
-			<h4> Endnote Speaker </h4>
-			<p>Gabriela de Queiroz is a Sr. Developer Advocate/Sr. Engineering & Data Science Manager at IBM where she leads the CODAIT Machine Learning Team. She works in different open source projects and is actively involved with several organizations to foster an inclusive community.</p>
-			<p>She is the founder of R-Ladies, a worldwide organization for promoting diversity in the R community with more than 150 chapters in 45+ countries. She likes to mentor and shares her knowledge through mentorship programs, tutorials and talks.</p>
+			<h4> Afternoon Keynote Speakers </h4>
+			<p>Heather Nolis is a founding member of the AI @ T-Mobile team, focusing the conversion of cutting-edge analyses to real-time, scalable data-driven products. She began her career in neuroscience but once realized how heavily that field relied on software built by other people, she pivoted - deciding to make software herself. You can find her <a href="https://twitter.com/heatherklus">@heatherklus</a> on Twitter, where she speaks about diversity in technology, the ethical implications of data, and cats</p>
+			<p>Dr. Jacqueline Nolis is a co-founder of Nolis, LLC, a data science consulting firm. She has over a decade of experience using data to help companies including DSW, Union Bank, Microsoft, and Airbnb. She has a PhD from Arizona State University where her research focused on electric vehicle route optimization. For fun she likes to use machine learning to do weird things like generate offensive license plates. You can find her <a href="https://twitter.com/skyetetra">@skyetetra</a> on Twitter.</p>
 		</div></div>
 		</td>
 	</tr>
