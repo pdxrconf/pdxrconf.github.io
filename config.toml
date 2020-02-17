@@ -141,11 +141,11 @@ googleAnalytics = ""
 
 [params.see_more]
     enable = true
-    icon = "fa fa-file-code-o"
-    title = "Download Flyer"
-    subtitle = "Post in your building to spread the word about CascadiaRConf!"
-    link_url = "../pdfs/Cascadia_R_Conf_2019_Flyer.pdf"
-    link_text = "Download Flyer"
+    icon = ""
+    title = "REGISTER"
+    subtitle = "Use the link below to register for Cascadia R Conf 2020!"
+    link_url = "https://ecommerce.uoregon.edu/select/2449452/5966451114612"
+    link_text = "Click here to register"
 
 [params.clients]
     enable = true
