@@ -13,6 +13,16 @@ Corvallis/Eugene/Seattle/etc. This event is a place to come together around R,
 but also an excuse to get together with like minded people across
 a larger part of the Pacific Northwest.
 
+***
+
+<center>
+
+**Register for Cascadia R Conf 2020 [here](https://ecommerce.uoregon.edu/select/2449515/5966604571965)!**
+
+</center>
+
+***
+
 ### 2020 Organization Team
 
 + [Daniel Anderson](https://www.datalorax.com/about/)
