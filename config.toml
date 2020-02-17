@@ -98,10 +98,10 @@ googleAnalytics = ""
     # Format dates with Go's time formatting
     date_format = "January 2, 2006"
 
-    logo = "img/Cascadia_R_2019_logo_small.png"
-    logo_small = "img/Cascadia_R_2019_logo_small.png"
-    logo_sticker = "img/Cascadia_R_2019_logo_medium.png"
-	  description = "CascadiaRConf is a regional R conference for the Pacific Northwest - For 2019, the conference will be held in Bellevue, WA!"
+    logo = "img/Cascadia_R_2020_logo_small.png"
+    logo_small = "img/Cascadia_R_2020_logo_small.png"
+    logo_sticker = "img/Cascadia_R_2020_logo.png"
+	  description = "CascadiaRConf is a regional R conference for the Pacific Northwest - For 2020, the conference will be held in Eugene, OR!"
     latitude = "-12.043333"
     longitude = "-77.028333"
 
