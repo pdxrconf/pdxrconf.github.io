@@ -7,7 +7,7 @@ keywords: ["FAQ","How do I","questions","what if"]
 
 ## Do you have a Code of Conduct?
 
-YES! See the <a href="/coc">COC</a> page.
+YES! See the <a href="/policies">Policies</a> page.
 
 ## When will it be?
 
