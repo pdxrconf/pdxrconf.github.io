@@ -91,57 +91,63 @@ border-color:black;
 </ul>
 
 <h3>Speakers</h3>
-  <h4>To see the list of the rest of our speakers and details about their talks, go to our <a href="/speakers">speaker page</a>!</h4>
+  <h4>To see the list of the rest of our speakers and their bios, go to our <a href="/speakers">speaker page</a>!</h4>
   <br>
   
 <h2> Agenda: Sunday, May 31 </h2>
 <table class="agenda">
 <tr><th>Time</th><th>Description</th><th>Room</th></tr>
-<tr><td>8:00am-9:00am</td><td>Registration</td><td>Erb Memorial Union</td></tr>
-<tr><td>9:00am-9:45am</td>
-	<td>Opening plenary & Intro to conf<br>
-		Keynote 1: <a class="agendaLink" href="/speakers#danielle_claar">Danielle Claar</a></td>
+<tr><td>8:00am-9:00am</td><td>Registration</td><td>TBD</td></tr>
+<tr><td>9:00am-9:15am</td><td>Opening plenary & Intro to conf</td><td>TBD</td></tr>
+<tr><td>9:15am-10:00am</td>
+	<td><h4>Morning Keynote</h4>
+	<a class="agendaLink" href="/speakers#danielle_claar">Danielle Claar</a></td>
 	<td>TBD</td></tr>
 <tr><td>10:00am-10:15am</td><td colspan="2">Coffee break</td><tr>
-<tr><td rowspan="3">10:00am-11:30am</td><td colspan="2">Training 1</td></tr>
-<tr><td><h4> Track 1: Community </h4>
- 		<a class="agendaLink" href="/speakers#kate_hertweck">R We There Yet? Building Communities of Practice Around R and Topics in Biology</a><br>
-		<a class="agendaLink" href="/speakers#robert_amezquita">The Role of Data Science in Translational Cancer Research: From Desk, to Bench, to Bedside</a><br>
-		<a class="agendaLink" href="/speakers#heather_nolis_and_sai_nuthalapati">How To Talk So Engineers Will Listen: R in Production at T-Mobile</a> 
-		</td><td>Ambassador</td/></tr>
-<tr><td><h4> Track 2: Application of R</h4>
- 		<a class="agendaLink" href="/speakers#bethany_yollin">Creating Interactive GIS Applications with Shiny and Leaflet</a><br>
-		<a class="agendaLink" href="/speakers#clara_yuan">Surge Pricing: An Application of Segmented Regression in Marketplace Pricing</a><br>
-		<a class="agendaLink" href="/speakers#edward_flinchem">Bayesian NLP in R on Clinical Text: Predictions from Electronic Health Records</a> 
-		</td><td>Regent</td/></tr>
-<tr><td>11:30am-1pm</td><td>Lunch</td><td>Atrium</td></tr>
-<tr><td rowspan="3">1:00pm-2:30pm</td><td colspan="2">Session 2</td></tr>
-<tr><td><h4> Track 1: Machine Learning </h4>
- 		<a class="agendaLink" class="agendaLink" href="/speakers#eina_ooka">Time Series Forcasting with Keras: LSTM vs ConvNN</a><br>
-		<a class="agendaLink" href="/speakers#michael_frasco">Deploying Machine Learning in R with Amazon SageMaker</a><br>
-		<a class="agendaLink" href="/speakers#kevin_kuo">The latest drops from the Tensorflow + R ecosystem</a> 
-		</td><td>Ambassador</td/></tr>
-<tr><td><h4> Track 2: R in Production </h4>
- 		<a class="agendaLink" href="/speakers#bryan_mayer">Reproducible Data Processing in Team Workflows with DataPackageR</a><br>
-		<a class="agendaLink" href="/speakers#javier_luraschi">Cluster Computing Made Easy with Spark and R</a><br>
-		<a class="agendaLink" href="/speakers#gagandeep_singh">Building Data Science Infrastructure at Enterprise Level</a> 
-		</td><td>Regent</td/></tr>
-<tr><td>2:45pm-4:00pm</td><td><h4> Lightning Talks</h4>
- 		<a class="agendaLink" href="/speakers#brittany_barker">Modeling in R to safeguard U.S. agricultural and natural resources from invasive pests</a><br>
-		<a class="agendaLink" href="/speakers#joseph_scheidt">Improving Performance Metrics with R</a><br>
-		<a class="agendaLink" href="/speakers#scott_came">Analyzing Legislative Activity with R</a><br>
-		<a class="agendaLink" href="/speakers#tiernan_martin">DRAKE-AGE: Lessions Learned While Package-ing {drake}</a><br>
-		<a class="agendaLink" href="/speakers#dror_berel">Scope Creep and other Software design lessons learned the hard way...</a><br>
-		<a class="agendaLink" href="/speakers#jacqueline_nolis">Adding shine to Shiny: improving the look of your UI</a><br>
-		<a class="agendaLink" href="/speakers#edward_borasky">Archetypal Ballers and Ternary Plots - Evaluating Basketball Players via Unsupervised Learning</a><br>
-		<a class="agendaLink" href="/speakers#mark_druffel">Bootstrapping Business / Data Transformation with R</a><br>
-		<a class="agendaLink" href="/speakers#ryan_hafen">Visualizing geographic data with geofacet</a> 
-		</td><td>Regent/Ambassador</td>
-<tr><td>4:00pm-4:45pm</td>
-	<td>Endnote: <a class="agendaLink" href="/speakers#gabriella_de_queiroz">Gabriela de Queiroz</a><br>
-	Closing Remarks: <a class="agendaLink" href="/speakers#david_smith">David Smith</a></td>
-	<td>Regent/Ambassador</td></tr>
-<tr><td>4:45pm-5:30pm</td><td>Cocktail hour and Networking</td><td>Atrium</td></tr>
+<tr><td rowspan="4">10:15am-12:15pm</td><td colspan="2">Training 1 </td></tr>
+<tr><td> <h4>Introduction to ggplot2</h4>
+    <a class="agendaLink" href="/speakers#jessica_minner">Jessica Minnier</a> and 
+		<a class="agendaLink" href="/speakers#mieke_niederhausen">Meike Niederhausen</a><br><br>
+		This workshop will introduce participants to the ggplot2 package for creating data visualizations. This workshop assumes no prior knowledge of ggplot, and will walk participants through building a plot layer by layer. 
+		</td><td>TBD</td/></tr>
+<tr><td> <h4>Introduction to R Markdown</h4>
+    <a class="agendaLink" href="/speakers#jessica_minner">Ouafaa Hmaddi</a>, 
+		<a class="agendaLink" href="/speakers#mieke_niederhausen">Kivalina Grove</a> and
+		<a class="agendaLink" href="/speakers#mieke_niederhausen">Andrew Edelblum</a><br><br>
+		This workshop will introduce participants to R Markdown for generating dynamic and reproducible reports. The concept of literate programming will be introduced, with participants learning how to weave text with code to generate beautiful output in HTML, PDF, and Microsoft Word formats. This is an introductory course with no presumed previous knowledge of R or R Markdown.
+		</td><td>TBD</td/></tr>
+<tr><td> <h4>Machine learning with tidymodels (Part 1)</h4>
+    <a class="agendaLink" href="/speakers#jessica_minner">Alison Hill</a><br><br>
+    </td><td>TBD</td/></tr>
+<tr><td>12:15am-1:15pm</td><td>Lunch</td><td>TBD</td></tr>
+<tr><td>1:15pm-2:00pm</td>
+	<td><h4>Afternoon Keynote</h4>
+	<a class="agendaLink" href="/speakers#heather_nolis">Heather Nolis</a> and 
+	<a class="agendaLink" href="/speakers#jacqueline_nolis">Jacqueline Nolis</a> </td>
+	<td>TBD</td></tr>
+<tr><td>2:00pm-2:15pm</td><td colspan="2">Coffee break</td><tr>
+<tr><td rowspan="4">10:15am-12:15pm</td><td colspan="2">Training 2 </td></tr>
+<tr><td> <h4>A gRadual introduction to shiny</h4>
+    <a class="agendaLink" href="/speakers#ted_laderas">Ted Laderas</a> and 
+		<a class="agendaLink" href="/speakers#jessica_minner">Jessica Minnier</a><br><br>
+	This workshop will introduce you to the basics behind Shiny, an easy to use web application framework in R. We'll learn the basics by building a data exploration app piece by piece. <br><br>
+1. Getting the basics down <br>
+2. What are reactives for? <br>
+3. Observe/isolate/update <br>
+4. Tooltips and graph interactivity <br>
+5. Tooltips the plotly way <br>
+6. Bringing it all together
+		</td><td>TBD</td/></tr>
+<tr><td>  <h4>Intermediate R Markdown</h4>
+		<a class="agendaLink" href="/speakers#ashley_miller">Ashley Miller</a> and
+		<a class="agendaLink" href="/speakers#cameron_kay">Cameron Kay</a><br><br>
+This workshop will discuss (a) modifications to your R Markdown document to change the look and feel of the resulting output, and (b) a few of the many different formats to which R Markdown can render. The first hour will discuss modifications such as themes, code highlighting, and tables of contents, while the second will discuss rendering to HTML slides, and even (briefly) websites.
+		</td><td>TBD</td/></tr>
+<tr><td> <h4>Machine learning with tidymodels (Part 2)</h4>
+    <a class="agendaLink" href="/speakers#alison_hill">Alison Hill</a><br><br>
+    </td><td>TBD</td/></tr>
+<tr><td>4:15pm-4:30pm</td><td>Break</td><td>TBD</td></tr>
+<tr><td>4:30am-5:00pm</td><td><h4>Happy hour, lightning talks</h4></td><td>TBD</td></tr>
 </table>
 
   <br><br><br><br>
