@@ -97,12 +97,13 @@ border-color:black;
 <h2> Agenda: Sunday, May 31 </h2>
 <table class="agenda">
 <tr><th>Time</th><th>Description</th><th>Room</th></tr>
-<tr><td>8:00am-9:00am</td><td>Registration</td><td>Atrium</td></tr>
+<tr><td>8:00am-9:00am</td><td>Registration</td><td>Erb Memorial Union</td></tr>
 <tr><td>9:00am-9:45am</td>
-	<td>Welcome Remarks: Daniella Mark<br>
-		Keynote: <a class="agendaLink" href="/speakers#raphael_gottardo">Raphael Gottardo</a></td>
-	<td>Regent/Ambassador</td></tr>
-<tr><td rowspan="3">10:00am-11:30am</td><td colspan="2">Session 1</td></tr>
+	<td>Opening plenary & Intro to conf<br>
+		Keynote 1: <a class="agendaLink" href="/speakers#danielle_claar">Danielle Claar</a></td>
+	<td>TBD</td></tr>
+<tr><td>10:00am-10:15am</td><td colspan="2">Coffee break</td><tr>
+<tr><td rowspan="3">10:00am-11:30am</td><td colspan="2">Training 1</td></tr>
 <tr><td><h4> Track 1: Community </h4>
  		<a class="agendaLink" href="/speakers#kate_hertweck">R We There Yet? Building Communities of Practice Around R and Topics in Biology</a><br>
 		<a class="agendaLink" href="/speakers#robert_amezquita">The Role of Data Science in Translational Cancer Research: From Desk, to Bench, to Bedside</a><br>
