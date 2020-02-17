@@ -144,7 +144,7 @@ googleAnalytics = ""
     icon = "fa fa-file-code-o"
     title = "REGISTER"
     subtitle = "Use the link below to register for Cascadia R Conf 2020!"
-    link_url = "https://ecommerce.uoregon.edu/select/2449529/5966638673599"
+    link_url = "https://ecommerce.uoregon.edu/order_form/brt-cascadia-r-conference"
     link_text = "Click here to register"
 
 [params.clients]
