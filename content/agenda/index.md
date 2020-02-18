@@ -101,35 +101,35 @@ border-color:black;
 <tr><td>9:00am-9:15am</td><td>Opening plenary & Intro to conf</td><td>TBD</td></tr>
 <tr><td>9:15am-10:00am</td>
 	<td><h4>Morning Keynote</h4>
-	<a class="agendaLink" href="/speakers#danielle_claar">Danielle Claar</a></td>
+	<a class="agendaLink" href="/speakers/danielle_claar">Danielle Claar</a></td>
 	<td>TBD</td></tr>
 <tr><td>10:00am-10:15am</td><td colspan="2">Coffee break</td><tr>
 <tr><td rowspan="4">10:15am-12:15pm</td><td colspan="2">Training 1 </td></tr>
 <tr><td> <h4>Introduction to ggplot2</h4>
-    <a class="agendaLink" href="/speakers#jessica_minner">Jessica Minnier</a> and 
-		<a class="agendaLink" href="/speakers#mieke_niederhausen">Meike Niederhausen</a><br><br>
+    <a class="agendaLink" href="/speakers/jessica_minnier">Jessica Minnier</a> and 
+		<a class="agendaLink" href="/speakers/meike_niederhausen">Meike Niederhausen</a><br><br>
 		This workshop will introduce participants to the ggplot2 package for creating data visualizations. This workshop assumes no prior knowledge of ggplot, and will walk participants through building a plot layer by layer. 
 		</td><td>TBD</td/></tr>
 <tr><td> <h4>Introduction to R Markdown</h4>
-    <a class="agendaLink" href="/speakers#jessica_minner">Ouafaa Hmaddi</a>, 
-		<a class="agendaLink" href="/speakers#mieke_niederhausen">Kivalina Grove</a> and
-		<a class="agendaLink" href="/speakers#mieke_niederhausen">Andrew Edelblum</a><br><br>
+    <a class="agendaLink" href="/speakers/ouafaa_hmaddi">Ouafaa Hmaddi</a>, 
+		<a class="agendaLink" href="/speakers/kivalina_grove">Kivalina Grove</a> and
+		<a class="agendaLink" href="/speakers/andrew_edelblum">Andrew Edelblum</a><br><br>
 		This workshop will introduce participants to R Markdown for generating dynamic and reproducible reports. The concept of literate programming will be introduced, with participants learning how to weave text with code to generate beautiful output in HTML, PDF, and Microsoft Word formats. This is an introductory course with no presumed previous knowledge of R or R Markdown.
 		</td><td>TBD</td/></tr>
 <tr><td> <h4>Machine learning with tidymodels (Part 1)</h4>
-    <a class="agendaLink" href="/speakers#jessica_minner">Alison Hill</a><br><br>
+    <a class="agendaLink" href="/speakers/alison_hill">Alison Hill</a><br><br>
     </td><td>TBD</td/></tr>
 <tr><td>12:15am-1:15pm</td><td>Lunch</td><td>TBD</td></tr>
 <tr><td>1:15pm-2:00pm</td>
 	<td><h4>Afternoon Keynote</h4>
-	<a class="agendaLink" href="/speakers#heather_nolis">Heather Nolis</a> and 
-	<a class="agendaLink" href="/speakers#jacqueline_nolis">Jacqueline Nolis</a> </td>
+	<a class="agendaLink" href="/speakers/heather_nolis">Heather Nolis</a> and 
+	<a class="agendaLink" href="/speakers/jacqueline_nolis">Jacqueline Nolis</a> </td>
 	<td>TBD</td></tr>
 <tr><td>2:00pm-2:15pm</td><td colspan="2">Coffee break</td><tr>
 <tr><td rowspan="4">10:15am-12:15pm</td><td colspan="2">Training 2 </td></tr>
 <tr><td> <h4>A gRadual introduction to shiny</h4>
-    <a class="agendaLink" href="/speakers#ted_laderas">Ted Laderas</a> and 
-		<a class="agendaLink" href="/speakers#jessica_minner">Jessica Minnier</a><br><br>
+    <a class="agendaLink" href="/speakers/ted_laderas">Ted Laderas</a> and 
+		<a class="agendaLink" href="/speakers/jessica_minnier">Jessica Minnier</a><br><br>
 	This workshop will introduce you to the basics behind Shiny, an easy to use web application framework in R. We'll learn the basics by building a data exploration app piece by piece. <br><br>
 1. Getting the basics down <br>
 2. What are reactives for? <br>
@@ -139,12 +139,12 @@ border-color:black;
 6. Bringing it all together
 		</td><td>TBD</td/></tr>
 <tr><td>  <h4>Intermediate R Markdown</h4>
-		<a class="agendaLink" href="/speakers#ashley_miller">Ashley Miller</a> and
-		<a class="agendaLink" href="/speakers#cameron_kay">Cameron Kay</a><br><br>
+		<a class="agendaLink" href="/speakers/ashley_miller">Ashley Miller</a> and
+		<a class="agendaLink" href="/speakers/cameron_kay">Cameron Kay</a><br><br>
 This workshop will discuss (a) modifications to your R Markdown document to change the look and feel of the resulting output, and (b) a few of the many different formats to which R Markdown can render. The first hour will discuss modifications such as themes, code highlighting, and tables of contents, while the second will discuss rendering to HTML slides, and even (briefly) websites.
 		</td><td>TBD</td/></tr>
 <tr><td> <h4>Machine learning with tidymodels (Part 2)</h4>
-    <a class="agendaLink" href="/speakers#alison_hill">Alison Hill</a><br><br>
+    <a class="agendaLink" href="/speakers/alison_hill">Alison Hill</a><br><br>
     </td><td>TBD</td/></tr>
 <tr><td>4:15pm-4:30pm</td><td>Break</td><td>TBD</td></tr>
 <tr><td>4:30am-5:00pm</td><td><h4>Happy hour, lightning talks</h4></td><td>TBD</td></tr>
