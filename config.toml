@@ -39,9 +39,9 @@ googleAnalytics = ""
     weight = 5
 
 [[menu.main]]
-    name = "COC"
-    identifier = "coc"
-    url  = "/coc/"
+    name = "Policies"
+    identifier = "policies"
+    url  = "/policies/"
     weight = 6
 
 [[menu.main]]
@@ -66,41 +66,42 @@ googleAnalytics = ""
     weight = 1
     name = "GitHub"
     url = "https://github.com/pdxrconf/pdxrconf.github.io"
-    pre = "<i class='fa fa-2x fa-github'></i>"
+    pre = "<i class='fab fa-2x fa-github'></i>"
+
+[[menu.topbar]]
+    weight = 2
+    name = "Twitter"
+    url = "http://twitter.com/cascadiarconf"
+    pre = "<i class='fab fa-2x fa-twitter'></i>"
 
 [[menu.topbar]]
     weight = 3
-    name = "Twitter"
-    url = "http://twitter.com/cascadiarconf"
-    pre = "<i class='fa fa-2x fa-twitter'></i>"
-
-[[menu.topbar]]
-    weight = 4
     name = "Email"
     url = "mailto:cascadia.r.conf.2019@gmail.com"
-    pre = "<i class='fa fa-2x fa-envelope'></i>"
+    pre = "<i class='fas fa-2x fa-envelope'></i>"
 
 [params]
     social = true
     viewMorePostLink = "/blog/"
     author = "Scott Chamberlain"
-    defaultKeywords = ["devows", "hugo", "go"]
-    defaultDescription = "Site template made by devcows using hugo"
+    defaultKeywords = ["r", "data science", "conference"]
+    defaultDescription = "Cascadia R Conference is an R conference serving the Pacific Northwest region (Oregon/Washington/BC)."
 
     # Google Maps API key (if not set will default to not passing a key.)
     # #googleMapsApiKey = "AIzaSyCFhtWLJcE30xOAjcbSFi-0fnoVmQZPb1Y"
 
     # Style options: default (light-blue), blue, green, marsala, pink, red, turquoise, violet
-    style = "default"
+    style = "blue"
 
     about_us = "<p>CascadiaRConf is a regional R conference for the Pacific Northwest - brought to you by <a href='https://pdxrlang.com/'>pdxrlang</a></p>"
 
     # Format dates with Go's time formatting
     date_format = "January 2, 2006"
 
-    #logo = "img/sticker_new.png"
-	logo = "img/Cascadia_R_2019_logo.png"
-	description = "CascadiaRConf is a regional R conference for the Pacific Northwest - For 2019, the conference will be held in Bellevue, WA!"
+    logo = "img/Cascadia_R_2020_logo_small.png"
+    logo_small = "img/Cascadia_R_2020_logo_small.png"
+    logo_sticker = "img/Cascadia_R_2020_logo.png"
+	  description = "CascadiaRConf is a regional R conference for the Pacific Northwest - For 2020, the conference will be held in Eugene, OR!"
     latitude = "-12.043333"
     longitude = "-77.028333"
 
@@ -109,12 +110,8 @@ googleAnalytics = ""
 
 # Enable or disable top bar with social icons
 [params.topbar]
-    enable = false
-    text = """<p class="hidden-sm hidden-xs">Contact us on +420 777 555 333 or hello@universal.com.</p>
-      <p class="hidden-md hidden-lg"><a href="#" data-animate-hover="pulse"><i class="fa fa-phone"></i></a>
-      <a href="#" data-animate-hover="pulse"><i class="fa fa-envelope"></i></a>
-      </p>
-      """
+    enable = true
+    text = ""
 
 # Enable and disable widgets for the right sidebar
 [params.widgets]
@@ -123,7 +120,7 @@ googleAnalytics = ""
     search = false
 
 [params.carousel]
-    enable = true
+    enable = false
     # All carousel items are defined in their own files. You can find example items
     # at 'exampleSite/data/carousel'.
     # For more informtion take a look at the README.
@@ -135,7 +132,7 @@ googleAnalytics = ""
     # For more informtion take a look at the README.
 
 [params.testimonials]
-    enable = true
+    enable = false
     # All testimonials are defined in their own files. You can find example items
     # at 'exampleSite/data/testimonials'.
     # For more informtion take a look at the README.
@@ -143,22 +140,25 @@ googleAnalytics = ""
     subtitle = "We have worked with many clients and we always like to hear they come out from the cooperation happy and satisfied. Have a look what our clients said about us."
 
 [params.see_more]
-    enable = false
+    enable = true
     icon = "fa fa-file-code-o"
-    title = "Do you want to see more?"
-    subtitle = "We have prepared for you more than 40 different HTML pages, including 5 variations of homepage."
-    link_url = "#"
-    link_text = "Check other homepages"
+    title = "REGISTER"
+    subtitle = "Use the link below to register for Cascadia R Conf 2020!"
+    link_url = "https://ecommerce.uoregon.edu/order_form/brt-cascadia-r-conference"
+    link_text = "Click here to register"
 
 [params.clients]
-    enable = false
+    enable = true
     # All clients are defined in their own files. You can find example items
     # at 'exampleSite/data/clients'.
     # For more informtion take a look at the README.
-    title = "Our Clients"
+    title = "Our Sponsors"
     subtitle = ""
 
 [params.recent_posts]
     enable = false
-    title = "From our blog"
+    title = "Featured Speakers"
     subtitle = "Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo."
+
+[markup.goldmark.renderer]
+  unsafe = true
