@@ -24,15 +24,15 @@ See the <a href="/venue"> Venue</a> page.
 
 ## Are there discounts for students?
 
-Yes! Student tickets are $20
+Yes! Student tickets are $30.
 
 ## Are there early bird tickets?
 
-Yes! Please register by...
+Yes! Please register by April 15, 2020 at 11:59 PM.
 
 ## What about tickets?
 
-Register/get a ticket [here](https://www.eventbank.com/event/11944/register/)
+Register/get a ticket [here](https://ecommerce.uoregon.edu/order_form/brt-cascadia-r-conference)
 
 ## What about food?
  The EMU has a variety of food options. See [here](https://emu.uoregon.edu/food). Falling Sky is a great local establishment for a slice of pizza (and beer on tap). The Fresh corner market has a variety of snacks, healthy Mediterranean bowls, soups, sandwiches, and bulk options.
