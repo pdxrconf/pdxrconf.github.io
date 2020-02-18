@@ -64,38 +64,26 @@ border-color:black;
 		<col span=1 class="detailsContainer">
 	<tr class="speakerContainer">
 		<td><div class="portrait">
-		<h3 id="david_smith"> David Smith </h3>
-		<img style="" src="../img/speakers_2019/david_smith.png"/>
+		<h3 id="danielle_claar"> Danielle Claar </h3>
+		<img style="" src="../img/speakers_2020/danielle_claar.jpg"/>
 		</div></td>
 		<td><div class="details"/>
 		<div class="biography">
-			<h4> Conference MC </h4>
-			<p> David is a Cloud Advocate for Microsoft, specializing in the topics of artificial intelligence and machine learning. Since 2009 he has been the editor of the Revolutions blog http://blog.revolutionanalytics.com where he writes regularly about applications of data science with a focus on R, and is also a founding member of the R Consortium. Follow David on Twitter as @revodavid.</p>
+			<h4> Morning Keynote Speaker </h4>
+			<p>Danielle Claar is a NOAA Climate and Global Change Postdoctoral Scholar at the University of Washington. Her research focuses on the resilience of imperiled and understudied species in changing tropical and temperate environments. Her work includes conducting research expeditions, using statistical modelling to disentangle large data sets, and implementing genomic and bioinformatic approaches to support conservation decisions. She is a reproducible research advocate and leads open science initiatives within the Wood Lab at UW. She was also a member of the inaugural OpenScapes cohort. She likes to share her knowledge of reproducibility tools to help colleagues and students do better science in less time.</p>
 		</div></div>
 		</td>
 	</tr>
 	<tr class="speakerContainer">
 		<td><div class="portrait">
-		<h3 id="raphael_gottardo"> Raphael Gottardo </h3>
-		<img style="" src="../img/speakers_2019/raphael_gottardo.png"/>
+		<h3 id="gabriela_de_queiroz"> Heather and Jacqueline Nolis </h3>
+		<img style="" src="../img/speakers_2020/heather_jacqueline_nolis.jpg"/>
 		</div></td>
 		<td><div class="details"/>
 		<div class="biography">
-			<h4> Keynote Speaker </h4>
-			<p>Dr. Gottardo is a pioneer in developing and applying statistical methods and software tools to distill actionable insights from large and complex biological data sets.In partnership with scientists and clinicians, he works to understand such diseases as cancer, HIV, malaria, and tuberculosis and inform the development of vaccines and treatments. He is a leader in forming interdisciplinary collaborations across the Hutch, as well as nationally and internationally, to address important research questions, particularly in the areas of vaccine research, human immunology, and immunotherapy. As director of the Translational Data Science Integrated Research Center, he fosters interaction between the Hutch’s experimental and clinical researchers and their computational and quantitative science colleagues with the goal of transforming patient care through data-driven research. Dr. Gottardo partners closely with the cancer immunotherapy program at Fred Hutch to improve treatments. For example, his team is harnessing cutting-edge computational methods to determine how cancers evade immunotherapy. He has made significant contributions to vaccine research and is the principal investigator of the Vaccine and Immunology Statistical Center of the Collaboration for AIDS Vaccine Discovery.</p>
-		</div></div>
-		</td>
-	</tr>
-	<tr class="speakerContainer">
-		<td><div class="portrait">
-		<h3 id="gabriela_de_queiroz"> Gabriela de Queiroz </h3>
-		<img style="" src="../img/speakers_2019/gabriela_de_queiroz.jpg"/>
-		</div></td>
-		<td><div class="details"/>
-		<div class="biography">
-			<h4> Endnote Speaker </h4>
-			<p>Gabriela de Queiroz is a Sr. Developer Advocate/Sr. Engineering & Data Science Manager at IBM where she leads the CODAIT Machine Learning Team. She works in different open source projects and is actively involved with several organizations to foster an inclusive community.</p>
-			<p>She is the founder of R-Ladies, a worldwide organization for promoting diversity in the R community with more than 150 chapters in 45+ countries. She likes to mentor and shares her knowledge through mentorship programs, tutorials and talks.</p>
+			<h4> Afternoon Keynote Speakers </h4>
+			<p>Heather Nolis is a founding member of the AI @ T-Mobile team, focusing the conversion of cutting-edge analyses to real-time, scalable data-driven products. She began her career in neuroscience but once realized how heavily that field relied on software built by other people, she pivoted - deciding to make software herself. You can find her <a href="https://twitter.com/heatherklus">@heatherklus</a> on Twitter, where she speaks about diversity in technology, the ethical implications of data, and cats</p>
+			<p>Dr. Jacqueline Nolis is a co-founder of Nolis, LLC, a data science consulting firm. She has over a decade of experience using data to help companies including DSW, Union Bank, Microsoft, and Airbnb. She has a PhD from Arizona State University where her research focused on electric vehicle route optimization. For fun she likes to use machine learning to do weird things like generate offensive license plates. You can find her <a href="https://twitter.com/skyetetra">@skyetetra</a> on Twitter.</p>
 		</div></div>
 		</td>
 	</tr>
@@ -103,56 +91,63 @@ border-color:black;
 </ul>
 
 <h3>Speakers</h3>
-  <h4>To see the list of the rest of our speakers and details about their talks, go to our <a href="/speakers">speaker page</a>!</h4>
+  <h4>To see the list of the rest of our speakers and their bios, go to our <a href="/speakers">speaker page</a>!</h4>
   <br>
   
 <h2> Agenda: Sunday, May 31 </h2>
 <table class="agenda">
 <tr><th>Time</th><th>Description</th><th>Room</th></tr>
-<tr><td>8:00am-9:00am</td><td>Registration</td><td>Atrium</td></tr>
-<tr><td>9:00am-9:45am</td>
-	<td>Welcome Remarks: Daniella Mark<br>
-		Keynote: <a class="agendaLink" href="/speakers#raphael_gottardo">Raphael Gottardo</a></td>
-	<td>Regent/Ambassador</td></tr>
-<tr><td rowspan="3">10:00am-11:30am</td><td colspan="2">Session 1</td></tr>
-<tr><td><h4> Track 1: Community </h4>
- 		<a class="agendaLink" href="/speakers#kate_hertweck">R We There Yet? Building Communities of Practice Around R and Topics in Biology</a><br>
-		<a class="agendaLink" href="/speakers#robert_amezquita">The Role of Data Science in Translational Cancer Research: From Desk, to Bench, to Bedside</a><br>
-		<a class="agendaLink" href="/speakers#heather_nolis_and_sai_nuthalapati">How To Talk So Engineers Will Listen: R in Production at T-Mobile</a> 
-		</td><td>Ambassador</td/></tr>
-<tr><td><h4> Track 2: Application of R</h4>
- 		<a class="agendaLink" href="/speakers#bethany_yollin">Creating Interactive GIS Applications with Shiny and Leaflet</a><br>
-		<a class="agendaLink" href="/speakers#clara_yuan">Surge Pricing: An Application of Segmented Regression in Marketplace Pricing</a><br>
-		<a class="agendaLink" href="/speakers#edward_flinchem">Bayesian NLP in R on Clinical Text: Predictions from Electronic Health Records</a> 
-		</td><td>Regent</td/></tr>
-<tr><td>11:30am-1pm</td><td>Lunch</td><td>Atrium</td></tr>
-<tr><td rowspan="3">1:00pm-2:30pm</td><td colspan="2">Session 2</td></tr>
-<tr><td><h4> Track 1: Machine Learning </h4>
- 		<a class="agendaLink" class="agendaLink" href="/speakers#eina_ooka">Time Series Forcasting with Keras: LSTM vs ConvNN</a><br>
-		<a class="agendaLink" href="/speakers#michael_frasco">Deploying Machine Learning in R with Amazon SageMaker</a><br>
-		<a class="agendaLink" href="/speakers#kevin_kuo">The latest drops from the Tensorflow + R ecosystem</a> 
-		</td><td>Ambassador</td/></tr>
-<tr><td><h4> Track 2: R in Production </h4>
- 		<a class="agendaLink" href="/speakers#bryan_mayer">Reproducible Data Processing in Team Workflows with DataPackageR</a><br>
-		<a class="agendaLink" href="/speakers#javier_luraschi">Cluster Computing Made Easy with Spark and R</a><br>
-		<a class="agendaLink" href="/speakers#gagandeep_singh">Building Data Science Infrastructure at Enterprise Level</a> 
-		</td><td>Regent</td/></tr>
-<tr><td>2:45pm-4:00pm</td><td><h4> Lightning Talks</h4>
- 		<a class="agendaLink" href="/speakers#brittany_barker">Modeling in R to safeguard U.S. agricultural and natural resources from invasive pests</a><br>
-		<a class="agendaLink" href="/speakers#joseph_scheidt">Improving Performance Metrics with R</a><br>
-		<a class="agendaLink" href="/speakers#scott_came">Analyzing Legislative Activity with R</a><br>
-		<a class="agendaLink" href="/speakers#tiernan_martin">DRAKE-AGE: Lessions Learned While Package-ing {drake}</a><br>
-		<a class="agendaLink" href="/speakers#dror_berel">Scope Creep and other Software design lessons learned the hard way...</a><br>
-		<a class="agendaLink" href="/speakers#jacqueline_nolis">Adding shine to Shiny: improving the look of your UI</a><br>
-		<a class="agendaLink" href="/speakers#edward_borasky">Archetypal Ballers and Ternary Plots - Evaluating Basketball Players via Unsupervised Learning</a><br>
-		<a class="agendaLink" href="/speakers#mark_druffel">Bootstrapping Business / Data Transformation with R</a><br>
-		<a class="agendaLink" href="/speakers#ryan_hafen">Visualizing geographic data with geofacet</a> 
-		</td><td>Regent/Ambassador</td>
-<tr><td>4:00pm-4:45pm</td>
-	<td>Endnote: <a class="agendaLink" href="/speakers#gabriella_de_queiroz">Gabriela de Queiroz</a><br>
-	Closing Remarks: <a class="agendaLink" href="/speakers#david_smith">David Smith</a></td>
-	<td>Regent/Ambassador</td></tr>
-<tr><td>4:45pm-5:30pm</td><td>Cocktail hour and Networking</td><td>Atrium</td></tr>
+<tr><td>8:00am-9:00am</td><td><h4>Registration</h4></td><td>TBD</td></tr>
+<tr><td>9:00am-9:15am</td><td><h4>Opening plenary & Intro to conf</h4></td><td>TBD</td></tr>
+<tr><td>9:15am-10:00am</td>
+	<td><h4>Morning Keynote</h4>
+	<a class="agendaLink" href="/speakers/danielle_claar">Danielle Claar</a></td>
+	<td>TBD</td></tr>
+<tr><td>10:00am-10:15am</td><td colspan="2"><h4>Coffee break</h4></td><tr>
+<tr><td rowspan="4">10:15am-12:15pm</td><td colspan="2"><h4><center>Training 1</center></h4> </td></tr>
+<tr><td> <h4>Introduction to ggplot2</h4>
+    <a class="agendaLink" href="/speakers/jessica_minnier">Jessica Minnier</a> and 
+		<a class="agendaLink" href="/speakers/meike_niederhausen">Meike Niederhausen</a><br><br>
+		This workshop will introduce participants to the ggplot2 package for creating data visualizations. This workshop assumes no prior knowledge of ggplot, and will walk participants through building a plot layer by layer. 
+		</td><td>TBD</td/></tr>
+<tr><td> <h4>Introduction to R Markdown</h4>
+    <a class="agendaLink" href="/speakers/ouafaa_hmaddi">Ouafaa Hmaddi</a>, 
+		<a class="agendaLink" href="/speakers/kivalina_grove">Kivalina Grove</a> and
+		<a class="agendaLink" href="/speakers/andrew_edelblum">Andrew Edelblum</a><br><br>
+		This workshop will introduce participants to R Markdown for generating dynamic and reproducible reports. The concept of literate programming will be introduced, with participants learning how to weave text with code to generate beautiful output in HTML, PDF, and Microsoft Word formats. This is an introductory course with no presumed previous knowledge of R or R Markdown.
+		</td><td>TBD</td/></tr>
+<tr><td> <h4>Machine learning with tidymodels (Part 1)</h4>
+    <a class="agendaLink" href="/speakers/alison_hill">Alison Hill</a><br><br>
+    </td><td>TBD</td/></tr>
+<tr><td>12:15am-1:15pm</td><td><h4>Lunch</h4></td><td>TBD</td></tr>
+<tr><td>1:15pm-2:00pm</td>
+	<td><h4>Afternoon Keynote</h4>
+	<a class="agendaLink" href="/speakers/heather_nolis">Heather Nolis</a> and 
+	<a class="agendaLink" href="/speakers/jacqueline_nolis">Jacqueline Nolis</a> </td>
+	<td>TBD</td></tr>
+<tr><td>2:00pm-2:15pm</td><td colspan="2"><h4>Coffee break</h4></td><tr>
+<tr><td rowspan="4">10:15am-12:15pm</td><td colspan="2"><h4><center>Training 2</center></h4></td></tr>
+<tr><td> <h4>A gRadual introduction to shiny</h4>
+    <a class="agendaLink" href="/speakers/ted_laderas">Ted Laderas</a> and 
+		<a class="agendaLink" href="/speakers/jessica_minnier">Jessica Minnier</a><br><br>
+	This workshop will introduce you to the basics behind Shiny, an easy to use web application framework in R. We'll learn the basics by building a data exploration app piece by piece. <br><br>
+1. Getting the basics down <br>
+2. What are reactives for? <br>
+3. Observe/isolate/update <br>
+4. Tooltips and graph interactivity <br>
+5. Tooltips the plotly way <br>
+6. Bringing it all together
+		</td><td>TBD</td/></tr>
+<tr><td>  <h4>Intermediate R Markdown</h4>
+		<a class="agendaLink" href="/speakers/ashley_miller">Ashley Miller</a> and
+		<a class="agendaLink" href="/speakers/cameron_kay">Cameron Kay</a><br><br>
+This workshop will discuss (a) modifications to your R Markdown document to change the look and feel of the resulting output, and (b) a few of the many different formats to which R Markdown can render. The first hour will discuss modifications such as themes, code highlighting, and tables of contents, while the second will discuss rendering to HTML slides, and even (briefly) websites.
+		</td><td>TBD</td/></tr>
+<tr><td> <h4>Machine learning with tidymodels (Part 2)</h4>
+    <a class="agendaLink" href="/speakers/alison_hill">Alison Hill</a><br><br>
+    </td><td>TBD</td/></tr>
+<tr><td>4:15pm-4:30pm</td><td><h4>Break</h4></td><td>TBD</td></tr>
+<tr><td>4:30am-5:00pm</td><td><h4>Happy hour, lightning talks</h4></td><td>TBD</td></tr>
 </table>
 
   <br><br><br><br>

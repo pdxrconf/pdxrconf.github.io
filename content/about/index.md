@@ -13,22 +13,31 @@ Corvallis/Eugene/Seattle/etc. This event is a place to come together around R,
 but also an excuse to get together with like minded people across
 a larger part of the Pacific Northwest.
 
+***
+
+<center>
+
+**Register for Cascadia R Conf 2020 [here](https://ecommerce.uoregon.edu/order_form/brt-cascadia-r-conference)!**
+
+</center>
+
+***
+
 ### 2020 Organization Team
 
-+ Daniel Anderson
-+ Patrick Kennedy
-+ Raina Megert
++ [Daniel Anderson](https://www.datalorax.com/about/)
++ [Patrick Kennedy](https://ctl.uoregon.edu/about/staff/patrick-kennedy)
++ [Raina Megert](https://education.uoregon.edu/people/faculty/rainam)
++ [Alison Hill](https://alison.rbind.io/)
++ [Brendan Cullen](https://bcullen.rbind.io/)
 
 ### 2019 Organization Team
 
-<!--+ Lou Bajuk-Yorgan=-->
 + Terry Christiani
 + David Henderson
 + Ellis Hughes
 + Lindsey Hughes
-<!--+ Stephen Kaluzny>-->
 + Daniella Mark
-<!--+ Mackenzie Shimokaji-->
 + Mehar Singh
 + David Smith
 
