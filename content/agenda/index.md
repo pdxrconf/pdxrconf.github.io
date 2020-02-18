@@ -97,14 +97,14 @@ border-color:black;
 <h2> Agenda: Sunday, May 31 </h2>
 <table class="agenda">
 <tr><th>Time</th><th>Description</th><th>Room</th></tr>
-<tr><td>8:00am-9:00am</td><td>Registration</td><td>TBD</td></tr>
-<tr><td>9:00am-9:15am</td><td>Opening plenary & Intro to conf</td><td>TBD</td></tr>
+<tr><td>8:00am-9:00am</td><td><h4>Registration</h4></td><td>TBD</td></tr>
+<tr><td>9:00am-9:15am</td><td><h4>Opening plenary & Intro to conf</h4></td><td>TBD</td></tr>
 <tr><td>9:15am-10:00am</td>
 	<td><h4>Morning Keynote</h4>
 	<a class="agendaLink" href="/speakers/danielle_claar">Danielle Claar</a></td>
 	<td>TBD</td></tr>
-<tr><td>10:00am-10:15am</td><td colspan="2">Coffee break</td><tr>
-<tr><td rowspan="4">10:15am-12:15pm</td><td colspan="2">Training 1 </td></tr>
+<tr><td>10:00am-10:15am</td><td colspan="2"><h4>Coffee break</h4></td><tr>
+<tr><td rowspan="4">10:15am-12:15pm</td><td colspan="2"><h4><center>Training 1</center></h4> </td></tr>
 <tr><td> <h4>Introduction to ggplot2</h4>
     <a class="agendaLink" href="/speakers/jessica_minnier">Jessica Minnier</a> and 
 		<a class="agendaLink" href="/speakers/meike_niederhausen">Meike Niederhausen</a><br><br>
@@ -119,14 +119,14 @@ border-color:black;
 <tr><td> <h4>Machine learning with tidymodels (Part 1)</h4>
     <a class="agendaLink" href="/speakers/alison_hill">Alison Hill</a><br><br>
     </td><td>TBD</td/></tr>
-<tr><td>12:15am-1:15pm</td><td>Lunch</td><td>TBD</td></tr>
+<tr><td>12:15am-1:15pm</td><td><h4>Lunch</h4></td><td>TBD</td></tr>
 <tr><td>1:15pm-2:00pm</td>
 	<td><h4>Afternoon Keynote</h4>
 	<a class="agendaLink" href="/speakers/heather_nolis">Heather Nolis</a> and 
 	<a class="agendaLink" href="/speakers/jacqueline_nolis">Jacqueline Nolis</a> </td>
 	<td>TBD</td></tr>
-<tr><td>2:00pm-2:15pm</td><td colspan="2">Coffee break</td><tr>
-<tr><td rowspan="4">10:15am-12:15pm</td><td colspan="2">Training 2 </td></tr>
+<tr><td>2:00pm-2:15pm</td><td colspan="2"><h4>Coffee break</h4></td><tr>
+<tr><td rowspan="4">10:15am-12:15pm</td><td colspan="2"><h4><center>Training 2</center></h4></td></tr>
 <tr><td> <h4>A gRadual introduction to shiny</h4>
     <a class="agendaLink" href="/speakers/ted_laderas">Ted Laderas</a> and 
 		<a class="agendaLink" href="/speakers/jessica_minnier">Jessica Minnier</a><br><br>
@@ -146,7 +146,7 @@ This workshop will discuss (a) modifications to your R Markdown document to chan
 <tr><td> <h4>Machine learning with tidymodels (Part 2)</h4>
     <a class="agendaLink" href="/speakers/alison_hill">Alison Hill</a><br><br>
     </td><td>TBD</td/></tr>
-<tr><td>4:15pm-4:30pm</td><td>Break</td><td>TBD</td></tr>
+<tr><td>4:15pm-4:30pm</td><td><h4>Break</h4></td><td>TBD</td></tr>
 <tr><td>4:30am-5:00pm</td><td><h4>Happy hour, lightning talks</h4></td><td>TBD</td></tr>
 </table>
 
