@@ -118,8 +118,8 @@ googleAnalytics = ""
     latitude = "-12.043333"
     longitude = "-77.028333"
     
-    default_sharing_image = "img/Cascadia_R_2020_logo_small.png"
-    twitterImage = "img/Cascadia_R_2020_logo_small.png"
+    default_sharing_image = "img/Cascadia_R_2020_logo.png"
+    twitterImage = "img/Cascadia_R_2020_logo.png"
 
 [Permalinks]
     blog = "/blog/:year/:month/:day/:filename/"
