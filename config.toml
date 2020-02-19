@@ -117,6 +117,9 @@ googleAnalytics = ""
 	  description = "CascadiaRConf is a regional R conference for the Pacific Northwest - For 2020, the conference will be held in Eugene, OR!"
     latitude = "-12.043333"
     longitude = "-77.028333"
+    
+    twitter = "GoHugoIO"
+    twitterImage = "img/Cascadia_R_2020_logo_small.png"
 
 [Permalinks]
     blog = "/blog/:year/:month/:day/:filename/"
