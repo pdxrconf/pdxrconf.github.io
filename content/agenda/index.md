@@ -91,7 +91,7 @@ border-color:black;
 </ul>
 
 <h3>Speakers</h3>
-  <h4>To see the list of the rest of our speakers and their bios, go to our <a href="/speakers">speaker page</a>!</h4>
+  <h4>To see the list of the rest of our speakers and their bios, go to our <a href="/speakers/workshop/">speaker page</a>!</h4>
   <br>
   
 <h2> Agenda: Sunday, May 31 </h2>
