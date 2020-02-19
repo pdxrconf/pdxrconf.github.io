@@ -12,6 +12,10 @@ border-collapse: collapse;
 width:60%;
 }
 
+th, td {
+  padding: 10px;
+}
+
 .agenda td {
 border-width:1px;
 border-style:solid;
