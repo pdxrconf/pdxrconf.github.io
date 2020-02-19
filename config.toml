@@ -118,7 +118,7 @@ googleAnalytics = ""
     latitude = "-12.043333"
     longitude = "-77.028333"
     
-    twitter = "GoHugoIO"
+    default_sharing_image = "img/Cascadia_R_2020_logo_small.png"
     twitterImage = "img/Cascadia_R_2020_logo_small.png"
 
 [Permalinks]
