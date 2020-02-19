@@ -101,23 +101,23 @@ border-color:black;
 <tr><td>9:00am-9:15am</td><td><h4>Opening plenary & Intro to conf</h4></td><td>TBD</td></tr>
 <tr><td>9:15am-10:00am</td>
 	<td><h4>Morning Keynote</h4>
-	<a class="agendaLink" href="/speakers/danielle_claar">Danielle Claar</a></td>
+	<a class="agendaLink" href="/speakers/keynote/danielle_claar">Danielle Claar</a></td>
 	<td>TBD</td></tr>
 <tr><td>10:00am-10:15am</td><td colspan="2"><h4>Coffee break</h4></td><tr>
 <tr><td rowspan="4">10:15am-12:15pm</td><td colspan="2"><h4><center>Training 1</center></h4> </td></tr>
 <tr><td> <h4>Introduction to ggplot2</h4>
-    <a class="agendaLink" href="/speakers/jessica_minnier">Jessica Minnier</a> and 
-		<a class="agendaLink" href="/speakers/meike_niederhausen">Meike Niederhausen</a><br><br>
+    <a class="agendaLink" href="/speakers/workshop/jessica_minnier">Jessica Minnier</a> and 
+		<a class="agendaLink" href="/speakers/workshop/meike_niederhausen">Meike Niederhausen</a><br><br>
 		This workshop will introduce participants to the ggplot2 package for creating data visualizations. This workshop assumes no prior knowledge of ggplot, and will walk participants through building a plot layer by layer. 
 		</td><td>TBD</td/></tr>
 <tr><td> <h4>Introduction to R Markdown</h4>
-    <a class="agendaLink" href="/speakers/ouafaa_hmaddi">Ouafaa Hmaddi</a>, 
-		<a class="agendaLink" href="/speakers/kivalina_grove">Kivalina Grove</a> and
-		<a class="agendaLink" href="/speakers/andrew_edelblum">Andrew Edelblum</a><br><br>
+    <a class="agendaLink" href="/speakers/workshop/ouafaa_hmaddi">Ouafaa Hmaddi</a>, 
+		<a class="agendaLink" href="/speakers/workshop/kivalina_grove">Kivalina Grove</a> and
+		<a class="agendaLink" href="/speakers/workshop/andrew_edelblum">Andrew Edelblum</a><br><br>
 		This workshop will introduce participants to R Markdown for generating dynamic and reproducible reports. The concept of literate programming will be introduced, with participants learning how to weave text with code to generate beautiful output in HTML, PDF, and Microsoft Word formats. This is an introductory course with no presumed previous knowledge of R or R Markdown.
 		</td><td>TBD</td/></tr>
 <tr><td> <h4>Machine learning with tidymodels (Part 1)</h4>
-    <a class="agendaLink" href="/speakers/alison_hill">Alison Hill</a><br><br>
+    <a class="agendaLink" href="/speakers/workshop/alison_hill">Alison Hill</a><br><br>
     This four-hour workshop will provide a gentle introduction to machine learning with R using the modern suite of predictive modeling packages called <a href="https://github.com/tidymodels">tidymodels</a>. We will build, evaluate, compare, and tune predictive models. Along the way, we’ll learn about key concepts in machine learning including overfitting, the holdout method, the bias-variance trade-off, ensembling, cross-validation, and feature engineering. Learners will gain knowledge about good predictive modeling practices, as well as hands-on experience using tidymodels packages like <a href="https://tidymodels.github.io/parsnip">parsnip</a>, <a href="https://tidymodels.github.io/rsample">rsample</a>, <a href="https://tidymodels.github.io/recipes">recipes</a>, <a href="https://tidymodels.github.io/yardstick">yardstick</a>, <a href="https://tidymodels.github.io/tune">tune</a>, and <a href="https://tidymodels.github.io/workflows">workflows</a>. <br><br>
     For more details about this workshop, including the <a href="https://tidyml-cascadiarconf.netlify.com/prework/">prework</a> to complete before attending, please click the link below:<br>
     <a href="https://tidyml-cascadiarconf.netlify.com">https://tidyml-cascadiarconf.netlify.com</a>
@@ -125,14 +125,14 @@ border-color:black;
 <tr><td>12:15am-1:15pm</td><td><h4>Lunch</h4></td><td>TBD</td></tr>
 <tr><td>1:15pm-2:00pm</td>
 	<td><h4>Afternoon Keynote</h4>
-	<a class="agendaLink" href="/speakers/heather_nolis">Heather Nolis</a> and 
-	<a class="agendaLink" href="/speakers/jacqueline_nolis">Jacqueline Nolis</a> </td>
+	<a class="agendaLink" href="/speakers/keynote/heather_nolis">Heather Nolis</a> and 
+	<a class="agendaLink" href="/speakers/keynote/jacqueline_nolis">Jacqueline Nolis</a> </td>
 	<td>TBD</td></tr>
 <tr><td>2:00pm-2:15pm</td><td colspan="2"><h4>Coffee break</h4></td><tr>
 <tr><td rowspan="4">10:15am-12:15pm</td><td colspan="2"><h4><center>Training 2</center></h4></td></tr>
 <tr><td> <h4>A gRadual introduction to shiny</h4>
-    <a class="agendaLink" href="/speakers/ted_laderas">Ted Laderas</a> and 
-		<a class="agendaLink" href="/speakers/jessica_minnier">Jessica Minnier</a><br><br>
+    <a class="agendaLink" href="/speakers/workshop/ted_laderas">Ted Laderas</a> and 
+		<a class="agendaLink" href="/speakers/workshop/jessica_minnier">Jessica Minnier</a><br><br>
 	This workshop will introduce you to the basics behind Shiny, an easy to use web application framework in R. We'll learn the basics by building a data exploration app piece by piece. <br><br>
 1. Getting the basics down <br>
 2. What are reactives for? <br>
@@ -142,12 +142,12 @@ border-color:black;
 6. Bringing it all together
 		</td><td>TBD</td/></tr>
 <tr><td>  <h4>Intermediate R Markdown</h4>
-		<a class="agendaLink" href="/speakers/ashley_miller">Ashley Miller</a> and
-		<a class="agendaLink" href="/speakers/cameron_kay">Cameron Kay</a><br><br>
+		<a class="agendaLink" href="/speakers/workshop/ashley_miller">Ashley Miller</a> and
+		<a class="agendaLink" href="/speakers/workshop/cameron_kay">Cameron Kay</a><br><br>
 This workshop will discuss (a) modifications to your R Markdown document to change the look and feel of the resulting output, and (b) a few of the many different formats to which R Markdown can render. The first hour will discuss modifications such as themes, code highlighting, and tables of contents, while the second will discuss rendering to HTML slides, and even (briefly) websites.
 		</td><td>TBD</td/></tr>
 <tr><td> <h4>Machine learning with tidymodels (Part 2)</h4>
-    <a class="agendaLink" href="/speakers/alison_hill">Alison Hill</a><br><br>
+    <a class="agendaLink" href="/speakers/workshop/alison_hill">Alison Hill</a><br><br>
     See Part 1 info above for details.
     </td><td>TBD</td/></tr>
 <tr><td>4:15pm-4:30pm</td><td><h4>Break</h4></td><td>TBD</td></tr>
