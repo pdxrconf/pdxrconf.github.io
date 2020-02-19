@@ -35,8 +35,21 @@ googleAnalytics = ""
 	
 [[menu.main]]
     name = "Speakers"
-    url  = "/speakers/"
+    identifier = "speakers"
+    url  = "#"
     weight = 5
+    
+[[menu.main]]
+    name = "Keynote speakers"
+    parent = "speakers"
+    url  = "/speakers/keynote"
+    weight = 5.1
+    
+[[menu.main]]
+    name = "Workshop instructors"
+    parent = "speakers"
+    url  = "/speakers/workshop"
+    weight = 5.2
 
 [[menu.main]]
     name = "Policies"
