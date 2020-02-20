@@ -35,8 +35,21 @@ googleAnalytics = ""
 	
 [[menu.main]]
     name = "Speakers"
-    url  = "/speakers/"
+    identifier = "speakers"
+    url  = "#"
     weight = 5
+    
+[[menu.main]]
+    name = "Keynote speakers"
+    parent = "speakers"
+    url  = "/speakers/keynote"
+    weight = 5.1
+    
+[[menu.main]]
+    name = "Workshop instructors"
+    parent = "speakers"
+    url  = "/speakers/workshop"
+    weight = 5.2
 
 [[menu.main]]
     name = "Policies"
@@ -77,7 +90,7 @@ googleAnalytics = ""
 [[menu.topbar]]
     weight = 3
     name = "Email"
-    url = "mailto:cascadia.r.conf.2019@gmail.com"
+    url = "mailto:cascadiarcon@gmail.com"
     pre = "<i class='fas fa-2x fa-envelope'></i>"
 
 [params]
@@ -104,6 +117,9 @@ googleAnalytics = ""
 	  description = "CascadiaRConf is a regional R conference for the Pacific Northwest - For 2020, the conference will be held in Eugene, OR!"
     latitude = "-12.043333"
     longitude = "-77.028333"
+    
+    default_sharing_image = "img/Cascadia_R_2020_logo.png"
+    twitterImage = "img/Cascadia_R_2020_logo.png"
 
 [Permalinks]
     blog = "/blog/:year/:month/:day/:filename/"
