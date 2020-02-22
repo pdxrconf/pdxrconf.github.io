@@ -126,7 +126,7 @@ border-color:black;
     For more details about this workshop, including the <a href="https://tidyml-cascadiarconf.netlify.com/prework/">prework</a> to complete before attending, please click the link below:<br>
     <a href="https://tidyml-cascadiarconf.netlify.com">https://tidyml-cascadiarconf.netlify.com</a>
     </td><td>TBD</td/></tr>
-<tr><td>12:15am-1:15pm</td><td><h4>Lunch</h4></td><td>TBD</td></tr>
+<tr><td>12:15pm-1:15pm</td><td><h4>Lunch</h4></td><td>TBD</td></tr>
 <tr><td>1:15pm-2:00pm</td>
 	<td><h4>Afternoon Keynote</h4>
 	<a class="agendaLink" href="/speakers/keynote/heather_nolis">Heather Nolis</a> and 
@@ -155,7 +155,7 @@ This workshop will discuss (a) modifications to your R Markdown document to chan
     See Part 1 info above for details.
     </td><td>TBD</td/></tr>
 <tr><td>4:15pm-4:30pm</td><td><h4>Break</h4></td><td>TBD</td></tr>
-<tr><td>4:30am-5:00pm</td><td><h4>Happy hour, lightning talks</h4></td><td>TBD</td></tr>
+<tr><td>4:30pm-5:30pm</td><td><h4>Happy hour, lightning talks</h4></td><td>TBD</td></tr>
 </table>
 
   <br><br><br><br>
