@@ -162,11 +162,11 @@ googleAnalytics = ""
 
 [params.see_more]
     enable = true
-    icon = "fa fa-file-code-o"
-    title = "REGISTER"
-    subtitle = "Use the link below to register for Cascadia R Conf 2020!"
-    link_url = "https://ecommerce.uoregon.edu/order_form/brt-cascadia-r-conference"
-    link_text = "Click here to register"
+    icon = "fas fa-bolt"
+    title = "SUBMIT A LIGHTNING TALK"
+    subtitle = "Call for 5-min lightning talk submissions now open! <br>Proposals are due April 15th, 2020."
+    link_url = "https://docs.google.com/forms/d/e/1FAIpQLSfJOSQzSEkfpsNJQeuTZJ-WxLOhty_tZ6eh9mI84uUhU-1R6Q/viewform"
+    link_text = "SUBMISSION PORTAL"
 
 [params.clients]
     enable = true
