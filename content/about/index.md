@@ -15,14 +15,6 @@ a larger part of the Pacific Northwest.
 
 ***
 
-<center>
-
-**Register for Cascadia R Conf 2020 [here](https://ecommerce.uoregon.edu/order_form/brt-cascadia-r-conference)!**
-
-</center>
-
-***
-
 ### 2020 Organization Team
 
 + [Daniel Anderson](https://www.datalorax.com/about/)

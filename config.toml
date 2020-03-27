@@ -24,59 +24,54 @@ googleAnalytics = ""
     weight = 2
 
 [[menu.main]]
-    name = "Register"
-    url  = "https://ecommerce.uoregon.edu/order_form/brt-cascadia-r-conference"
-    weight = 3
-
-[[menu.main]]
     name = "Venue"
     url  = "/venue/"
-    weight = 4
+    weight = 3
 
 [[menu.main]]
     name = "Agenda"
     url  = "/agenda/"
-    weight = 5
+    weight = 4
 	
 [[menu.main]]
     name = "Speakers"
     identifier = "speakers"
     url  = "#"
-    weight = 6
+    weight = 5
     
 [[menu.main]]
     name = "Keynote speakers"
     parent = "speakers"
     url  = "/speakers/keynote"
-    weight = 6.1
+    weight = 5.1
     
 [[menu.main]]
     name = "Workshop instructors"
     parent = "speakers"
     url  = "/speakers/workshop"
-    weight = 6.2
+    weight = 5.2
 
 [[menu.main]]
     name = "Policies"
     identifier = "policies"
     url  = "/policies/"
-    weight = 7
+    weight = 6
 
 [[menu.main]]
     name = "FAQ"
     identifier = "faq"
     url  = "/faq/"
-    weight = 8
+    weight = 7
 
 [[menu.main]]
     name = "Sponsors"
     url  = "/sponsors/"
-    weight = 9
+    weight = 8
 
 [[menu.main]]
     name = "Years"
     url  = "/years/"
-    weight = 10
+    weight = 9
 
 # Top bar social links menu
 
