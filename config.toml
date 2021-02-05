@@ -36,20 +36,20 @@ googleAnalytics = ""
 [[menu.main]]
     name = "Speakers"
     identifier = "speakers"
-    url  = "#"
+    url  = "/speakers/"
     weight = 5
     
-[[menu.main]]
-    name = "Keynote speakers"
-    parent = "speakers"
-    url  = "/speakers/keynote"
-    weight = 5.1
+#[[menu.main]]
+#    name = "Keynote speakers"
+#    parent = "speakers"
+#    url  = "/speakers/keynote"
+#    weight = 5.1
     
-[[menu.main]]
-    name = "Workshop instructors"
-    parent = "speakers"
-    url  = "/speakers/workshop"
-    weight = 5.2
+#[[menu.main]]
+#    name = "Workshop instructors"
+#    parent = "speakers"
+#    url  = "/speakers/workshop"
+#    weight = 5.2
 
 [[menu.main]]
     name = "Policies"
@@ -98,7 +98,7 @@ googleAnalytics = ""
     viewMorePostLink = "/blog/"
     author = "Scott Chamberlain"
     defaultKeywords = ["r", "data science", "conference"]
-    defaultDescription = "Cascadia R Conference is an R conference serving the Pacific Northwest region (Oregon/Washington/BC)."
+    defaultDescription = "Cascadia R Conference is an R conference serving the Pacific Northwest region (Alaska/British Columbia/Washington/Oregon/California)."
 
     # Google Maps API key (if not set will default to not passing a key.)
     # #googleMapsApiKey = "AIzaSyCFhtWLJcE30xOAjcbSFi-0fnoVmQZPb1Y"
@@ -106,20 +106,20 @@ googleAnalytics = ""
     # Style options: default (light-blue), blue, green, marsala, pink, red, turquoise, violet
     style = "blue"
 
-    about_us = "<p>CascadiaRConf is a regional R conference for the Pacific Northwest - brought to you by <a href='https://pdxrlang.com/'>pdxrlang</a></p>"
+    about_us = "<p>Cascadia R Conference is a regional R conference for the Pacific Northwest</p>"
 
     # Format dates with Go's time formatting
     date_format = "January 2, 2006"
 
-    logo = "img/Cascadia_R_2020_logo_small.png"
-    logo_small = "img/Cascadia_R_2020_logo_small.png"
-    logo_sticker = "img/Cascadia_R_2020_logo.png"
-	  description = "CascadiaRConf is a regional R conference for the Pacific Northwest - For 2020, the conference will be held in Eugene, OR!"
-    latitude = "-12.043333"
-    longitude = "-77.028333"
+    logo = "img/logo2.png"
+    logo_small = "img/logo2.png"
+    logo_sticker = "img/sticker_new.png"
+	  description = "CascadiaRConf is a regional R conference for the Pacific Northwest - For 2021, the conference will be held virtually!"
+    #latitude = "-12.043333"
+    #longitude = "-77.028333"
     
-    default_sharing_image = "img/Cascadia_R_2020_logo.png"
-    twitterImage = "img/Cascadia_R_2020_logo.png"
+    default_sharing_image = "img/sticker_new.png"
+    twitterImage = "img/sticker_new.png"
 
 [Permalinks]
     blog = "/blog/:year/:month/:day/:filename/"
@@ -142,7 +142,7 @@ googleAnalytics = ""
     # For more informtion take a look at the README.
 
 [params.features]
-    enable = true
+    enable = false
     # All features are defined in their own files. You can find example items
     # at 'exampleSite/data/features'.
     # For more informtion take a look at the README.
@@ -158,13 +158,13 @@ googleAnalytics = ""
 [params.see_more]
     enable = true
     icon = "fas fa-bolt"
-    title = "SUBMIT A LIGHTNING TALK"
-    subtitle = "Call for 5-min lightning talk submissions now open! <br>Proposals are due April 15th, 2020."
-    link_url = "https://docs.google.com/forms/d/e/1FAIpQLSfJOSQzSEkfpsNJQeuTZJ-WxLOhty_tZ6eh9mI84uUhU-1R6Q/viewform"
-    link_text = "SUBMISSION PORTAL"
+    title = "SUBMIT A PRESENTATION"
+    subtitle = "Submissions for both regular 15 minute presentations and 5 minute lightning talks are now open!<br>See our Call for Presentations for more information.<br>Proposals are due March 15th, 2021."
+    link_url = "/speakers/"
+    link_text = "CALL FOR PRESENTATIONS"
 
 [params.clients]
-    enable = true
+    enable = false
     # All clients are defined in their own files. You can find example items
     # at 'exampleSite/data/clients'.
     # For more informtion take a look at the README.

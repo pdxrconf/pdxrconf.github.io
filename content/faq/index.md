@@ -11,17 +11,16 @@ YES! See the <a href="/policies">Policies</a> page.
 
 ## When will it be?
 
-May 31st, 2020
+June 4-5, 2021
 
 ## Where will it be?
 
-Erb Memorial Union <br> 
-University of Oregon
-1395 University St <br>
-Eugene, OR 97403
+We're holding the 2021 conference virtually.
 
-See the <a href="/venue"> Venue</a> page.
+See the <a href="/venue"> Venue</a> page for more information
+as the conference approaches.
 
+<!--
 ## Are there discounts for students?
 
 Yes! Student tickets are $30.
@@ -40,13 +39,6 @@ Register/get a ticket [here](https://ecommerce.uoregon.edu/order_form/brt-cascad
 ## Will you provide lunch?
 Unfortunately we are unable to provide lunch this year.
 
-## What about next year (2021)?
-We'll let you know at the end of the conference on May 31st
-
-## Will talks be recorded?
-
-TBD
-
 ## What about parking?
 Parking in most University of Oregon parking lots will be free for the day of the conference (given it's a Sunday). Please see the PDF map <a href = "https://business.uoregon.edu/sites/business1.uoregon.edu/files/media/campus-parking-map.pdf"> here </a> for a list of parking lots and their relation to the EMU. 
 
@@ -55,6 +47,14 @@ Metered parking is also generally free on Sunday, and the spots on University St
 ## Will there be a lactation room?
 
 TBD
+-->
+
+## Will talks be recorded?
+
+Most likely!
+
+## What about next year (2022)?
+We'll let you know at the end of 2021!
 
 <br><br>
 
