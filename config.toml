@@ -36,20 +36,20 @@ googleAnalytics = ""
 [[menu.main]]
     name = "Speakers"
     identifier = "speakers"
-    url  = "#"
+    url  = "/speakers/"
     weight = 5
     
-[[menu.main]]
-    name = "Keynote speakers"
-    parent = "speakers"
-    url  = "/speakers/keynote"
-    weight = 5.1
+#[[menu.main]]
+#    name = "Keynote speakers"
+#    parent = "speakers"
+#    url  = "/speakers/keynote"
+#    weight = 5.1
     
-[[menu.main]]
-    name = "Workshop instructors"
-    parent = "speakers"
-    url  = "/speakers/workshop"
-    weight = 5.2
+#[[menu.main]]
+#    name = "Workshop instructors"
+#    parent = "speakers"
+#    url  = "/speakers/workshop"
+#    weight = 5.2
 
 [[menu.main]]
     name = "Policies"
@@ -159,9 +159,9 @@ googleAnalytics = ""
     enable = true
     icon = "fas fa-bolt"
     title = "SUBMIT A PRESENTATION"
-    subtitle = "Call for regular 15 minute talk and 5 minute lightning talk submissions now open! <br>Proposals are due March 15th, 2021."
-    link_url = "https://forms.gle/y9VRggFfN7B2MfCz9"
-    link_text = "SUBMISSION PORTAL"
+    subtitle = "Submissions for both regular 15 minute presentations and 5 minute lightning talks are now open!<br>See our Call for Presentations for more information.<br>Proposals are due March 15th, 2021."
+    link_url = "/speakers/"
+    link_text = "CALL FOR PRESENTATIONS"
 
 [params.clients]
     enable = false

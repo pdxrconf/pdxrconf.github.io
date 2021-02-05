@@ -11,13 +11,14 @@ YES! See the <a href="/policies">Policies</a> page.
 
 ## When will it be?
 
-June 4-5, 2021e
+June 4-5, 2021
 
 ## Where will it be?
 
 We're holding the 2021 conference virtually.
 
-See the <a href="/venue"> Venue</a> page.
+See the <a href="/venue"> Venue</a> page for more information
+as the conference approaches.
 
 <!--
 ## Are there discounts for students?
