@@ -2,6 +2,8 @@
 
 made with [Hugo](https://gohugo.io/) - and the [Bootstrapious](https://bootstrapious.com/free-templates) theme 
 
+This site has Dependabot updates included.
+
 To run locally you'll need Hugo installed on your machine.
 
 To get this repo locally clone it down, then run `hugo serve -w` (the `-w` is for watch changes)
