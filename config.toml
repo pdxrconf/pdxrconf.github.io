@@ -113,7 +113,7 @@ googleAnalytics = ""
 
     logo = "img/logo2.png"
     logo_small = "img/logo2.png"
-    logo_sticker = "img/sticker_new.png"
+    logo_sticker = "img/logo_2021.png"
 	  description = "CascadiaRConf is a regional R conference for the Pacific Northwest - For 2021, the conference will be held virtually!"
     #latitude = "-12.043333"
     #longitude = "-77.028333"
