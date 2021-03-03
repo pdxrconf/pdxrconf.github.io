@@ -18,6 +18,24 @@ a larger part of the Pacific Northwest.
 
 ***
 
+### 2021 Organization Team
+
++ [Ellis Hughes](http://twitter.com/thebioengineer)
++ Martin Monkman
++ [Kate Hertweck](http://katehertweck.com)
++ [Daniel Anderson](https://www.datalorax.com/about/)
++ [Lea Frank](https://github.com/lfrank14)
++ [Ted Laderas](https://laderast.github.io)
++ John David Smith
++ [Dani Chu](https://danichusfu.github.io/)
++ Marie Vendettuoli
++ Brittany Barker
++ Melissa Lee
++ [Ariel Muldoon](https://aosmith.rbind.io/)
++ Daniella Mark
++ Helen Miller
++ Rodolfo Lourenzutti
+
 ### 2020 Organization Team
 
 + [Daniel Anderson](https://www.datalorax.com/about/)
