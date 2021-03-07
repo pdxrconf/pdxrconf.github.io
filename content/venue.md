@@ -1,10 +1,11 @@
 +++
 title = "Venue"
+description = "Description of this year's venue for CascadiaRConf"
 +++
 
 <style>
 
-a:hover {
+#location a:hover {
   text-decoration: none;
   color: #EA33E4;
 }
@@ -15,7 +16,7 @@ a:hover {
 #location a:hover {
   color: #FEE11A;
 }
-body {
+#location {
   font-size: 1.7em;
   font-weight: normal; 
 }
