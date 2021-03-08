@@ -2,6 +2,11 @@
 title = "Policies"
 description = "CascadiaRConf Code of Conduct and Photography Policy"
 +++
+<!-- 
+Contact numbers:
+
+* Daniel Anderson
+* Patrick Kennedy -->
 
 ## Code of Conduct
 
