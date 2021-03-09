@@ -33,7 +33,7 @@ a larger part of the Pacific Northwest.
 + Melissa Lee
 + [Ariel Muldoon](https://aosmith.rbind.io/)
 + Daniella Mark
-+ Helen Miller
++ [Helen Miller](https://github.com/helenmiller16)
 + Rodolfo Lourenzutti
 
 ### 2020 Organization Team
