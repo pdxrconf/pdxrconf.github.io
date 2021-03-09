@@ -1,5 +1,6 @@
 /* your styles go here */
 
+
 .box-image-text .image {
   min-height: 200px;
   max-height: 200px;
@@ -39,8 +40,8 @@
 	background-size: cover;
 }
 
-#top {
-  background: #ffffff;
+#top {	
+  background-color: #f8f8f8;
   color: #eeeeee;
   padding: 10px 0;
 }
@@ -55,5 +56,21 @@
   color: #555555;
 }
 
+
+.navbar {
+	background-color: #f8f8f8;
+}
+
+.navbar-affixed-top {
+	box-shadow: 0 0 5px -5px #cccccc;
+}
+
+.navbar-brand {
+	padding-top: 5px;
+}
+
+.navbar-brand img {
+	height: 90px;
+}
 
 
