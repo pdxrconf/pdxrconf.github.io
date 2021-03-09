@@ -24,7 +24,7 @@ a larger part of the Pacific Northwest.
 + Martin Monkman
 + [Kate Hertweck](http://katehertweck.com)
 + [Daniel Anderson](https://www.datalorax.com/about/)
-+ [Lea Frank](https://github.com/lfrank14)
++ [Lea E. Frank](https://github.com/lfrank14)
 + [Ted Laderas](https://laderast.github.io)
 + John David Smith
 + [Dani Chu](https://danichusfu.github.io/)
