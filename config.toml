@@ -96,7 +96,7 @@ googleAnalytics = ""
 [params]
     social = true
     viewMorePostLink = "/blog/"
-    author = "Scott Chamberlain"
+    author = "CascadiaRConf"
     defaultKeywords = ["r", "data science", "conference"]
     defaultDescription = "Cascadia R Conference is an R conference serving the Pacific Northwest region (Alaska/British Columbia/Washington/Oregon/California)."
 
