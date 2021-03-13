@@ -1,5 +1,5 @@
 ---
-title: "Speakers: Call for Presentations"
+title: "Call for Presentations: Extended to March 22, 2021"
 ---
 
 It is with great pleasure that we announce the Call for Presentations for the 2021 Cascadia R Conference to be held virtually on June 4-5, 2021.
@@ -19,4 +19,8 @@ Please note that Cascadia R Conference is a regional conference that focuses on 
 
 To apply, fill out and submit the <a href="https://forms.gle/y9VRggFfN7B2MfCz9">Cascadia R Conference 2021 talk submission form</a>. Applicants must include an abstract limited to 500 words describing your presentation and how it aligns with the goals of the conference, as well as email contact information. 
 
-The Call for Presentations will open Feb 5, 2021 and will close March 15, 2021. Presenters will be notified by April 1, 2021. Upon notification, presenters are expected to confirm acceptance, provide high quality headshots, and a short biography that will be included on the Cascadia R Conference website. Prior to the conference, copies of final presentation are required to be made available to the planning committee by May 31, 2021. Presenters’ registration fees will be covered after acceptance. 
+The Call for Presentations will open Feb 5, 2021 and will close March 22, 2021. Presenters will be notified by April 1, 2021. Upon notification, presenters are expected to confirm acceptance, provide high quality headshots, and a short biography that will be included on the Cascadia R Conference website. Prior to the conference, copies of final presentation are required to be made available to the planning committee by May 31, 2021. Presenters’ registration fees will be covered after acceptance. 
+
+<div style="text-align: center; padding: 20px;">
+    <a class="btn btn-primary" href="https://forms.gle/y9VRggFfN7B2MfCz9" role="button">Submit a Talk</a>
+</div>
