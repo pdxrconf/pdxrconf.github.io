@@ -159,7 +159,7 @@ googleAnalytics = ""
     enable = true
     icon = "fas fa-bolt"
     title = "SUBMIT A PRESENTATION"
-    subtitle = "Submissions for both regular 15 minute presentations and 5 minute lightning talks are now open!<br>See our Call for Presentations for more information.<br>Proposals are due March 15th, 2021."
+    subtitle = "Submissions for both regular 15 minute presentations and 5 minute lightning talks are now open!<br>See our Call for Presentations for more information.<br>The due date for proposals has been extended to March 22, 2021."
     link_url = "/speakers/"
     link_text = "CALL FOR PRESENTATIONS"
 
