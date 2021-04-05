@@ -39,17 +39,23 @@ googleAnalytics = ""
     url  = "/speakers/"
     weight = 5
     
-#[[menu.main]]
-#    name = "Keynote speakers"
-#    parent = "speakers"
-#    url  = "/speakers/keynote"
-#    weight = 5.1
+[[menu.main]]
+   name = "Keynote speakers"
+   parent = "speakers"
+   url  = "/speakers/keynote"
+   weight = 5.1
     
-#[[menu.main]]
-#    name = "Workshop instructors"
+# [[menu.main]]
+#    name = "Session Presentors"
 #    parent = "speakers"
-#    url  = "/speakers/workshop"
+#    url  = "/speakers/session"
 #    weight = 5.2
+
+# [[menu.main]]
+#    name = "Lighning Talks"
+#    parent = "speakers"
+#    url = "/speakers/lightning"
+#    weight = 5.3
 
 [[menu.main]]
     name = "Policies"
@@ -156,12 +162,12 @@ googleAnalytics = ""
     subtitle = "We have worked with many clients and we always like to hear they come out from the cooperation happy and satisfied. Have a look what our clients said about us."
 
 [params.see_more]
-    enable = true
-    icon = "fas fa-bolt"
-    title = "SUBMIT A PRESENTATION"
-    subtitle = "Submissions for both regular 15 minute presentations and 5 minute lightning talks are now open!<br>See our Call for Presentations for more information.<br>The due date for proposals has been extended to March 22, 2021."
-    link_url = "/speakers/"
-    link_text = "CALL FOR PRESENTATIONS"
+    enable = "true"
+    icon = "fas fa-lightbulb"
+    title = "KEYNOTES"
+    subtitle = "We are proud to annouce our 2021 Keynote speakers."
+    link_url = "/speakers/keynote"
+    link_text = "KEYNOTES"
 
 [params.clients]
     enable = false
