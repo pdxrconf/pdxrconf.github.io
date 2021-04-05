@@ -45,11 +45,11 @@ googleAnalytics = ""
    url  = "/speakers/keynote"
    weight = 5.1
     
-# [[menu.main]]
-#    name = "Session Presentors"
-#    parent = "speakers"
-#    url  = "/speakers/session"
-#    weight = 5.2
+[[menu.main]]
+   name = "Session Presentors"
+   parent = "speakers"
+   url  = "/speakers/session"
+   weight = 5.2
 
 # [[menu.main]]
 #    name = "Lighning Talks"
