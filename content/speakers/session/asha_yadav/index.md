@@ -1,6 +1,6 @@
 ---
 title: "Asha Yadav"
-affiliation or location: "Eugene, OR"
+location: "Eugene, OR"
 talk: "Data-Informed Decision Making in Part C Early Intervention using Shiny R"
 session: "Lightning Talks"
 ---
