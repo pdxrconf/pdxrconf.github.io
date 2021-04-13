@@ -1,6 +1,6 @@
 ---
 title: "Kimberly Dill-McFarlang"
-affiliation or location: "University of Washington, Seattle, WA"
+location: "University of Washington, Seattle, WA"
 talk: "First of her name: Fostering R usage as the first bioinformatician in my department"
 session: "Sharing R Love"
 ---

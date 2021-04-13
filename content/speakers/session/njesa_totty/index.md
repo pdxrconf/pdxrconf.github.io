@@ -1,6 +1,6 @@
 ---
 title: "Njesa Totty"
-affiliation or location: "Oregon State University, Corvallis, Oregon"
+location: "Oregon State University, Corvallis, Oregon"
 talk: "Validating the assumptions of bootstrap intervals for responsible implementation using the R package bootEd"
 session: "Education & Community"
 ---

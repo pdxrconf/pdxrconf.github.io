@@ -1,6 +1,6 @@
 ---
 title: "Ted Laderas"
-affiliation or location: "Oregon"
+location: "Oregon"
 talk: "Using gRatitude to learn the tidyverse together"
 session: "Lightning Talks"
 ---

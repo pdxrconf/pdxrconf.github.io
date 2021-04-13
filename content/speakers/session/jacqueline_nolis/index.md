@@ -1,6 +1,6 @@
 ---
 title: "Jacqueline Nolis"
-affiliation or location: "Seattle, WA"
+location: "Seattle, WA"
 talk: "TBD"
 session: "Using R"
 ---

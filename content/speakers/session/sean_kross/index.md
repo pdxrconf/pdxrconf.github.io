@@ -1,6 +1,6 @@
 ---
 title: "Sean Kross"
-affiliation or location: "The University of California, San Diego, CA"
+location: "The University of California, San Diego, CA"
 talk: "Create a Personal Website in 5 Minutes with Postcards"
 session: "Lightning Talks"
 ---

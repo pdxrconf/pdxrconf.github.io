@@ -1,6 +1,6 @@
 ---
 title: "Edgar Zamora"
-affiliation or location: "Big Bend Community College, Moses Lake, WA"
+location: "Big Bend Community College, Moses Lake, WA"
 talk: "How Did I Do That?: Redesigning A Workflow In R"
 session: "Lightning Talks"
 ---

@@ -1,6 +1,6 @@
 ---
 title: "Simon Couch"
-affiliation or location: "Reed College, Portland, Oregon and RStudio PBC"
+location: "Reed College, Portland, Oregon and RStudio PBC"
 talk: "Naming Things"
 session: "Sharing R Love"
 ---

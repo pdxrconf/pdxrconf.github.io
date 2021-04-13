@@ -1,6 +1,6 @@
 ---
 title: "Jill Levine"
-affiliation or location: "Victoria, BC"
+location: "Victoria, BC"
 talk: "The Clio Package: Clean and Simple Historical Statistics"
 session: "Lightning Talks"
 ---

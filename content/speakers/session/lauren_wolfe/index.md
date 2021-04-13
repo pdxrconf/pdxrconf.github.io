@@ -1,6 +1,6 @@
 ---
 title: "Lauren Wolfe"
-affiliation or location: "Fred Hutch, Seattle, WA"
+location: "Fred Hutch, Seattle, WA"
 talk: "Reflections from my first R package (working title)"
 session: "Lightning Talks"
 ---

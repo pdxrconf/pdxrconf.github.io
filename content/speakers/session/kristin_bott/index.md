@@ -1,6 +1,6 @@
 ---
 title: "Kristin Bott"
-affiliation or location: "Reed College, Portland, Oregon"
+location: "Reed College, Portland, Oregon"
 talk: "Supporting R across disciplines + building community"
 session: "Education & Community"
 ---

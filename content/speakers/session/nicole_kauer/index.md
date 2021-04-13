@@ -1,6 +1,6 @@
 ---
 title: "Nicole Kauer"
-affiliation or location: "Sage Bionetworks"
+location: "Sage Bionetworks"
 talk: "Hey, I want that app! Designing contagious Shiny apps"
 session: "Shiny and R"
 ---

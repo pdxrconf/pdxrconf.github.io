@@ -1,6 +1,6 @@
 ---
 title: "Kevin Floyd"
-affiliation or location: "Simon Fraser University Alumni"
+location: "Simon Fraser University Alumni"
 talk: "March Sadness: Building a Hands-on College Basketball Simulator in R"
 session: "Lightning Talks"
 ---

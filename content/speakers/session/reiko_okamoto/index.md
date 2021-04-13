@@ -1,6 +1,6 @@
 ---
 title: "Reiko Okamoto"
-affiliation or location: "Government of British Columbia"
+location: "Government of British Columbia"
 talk: "Bringing analysts and technical writers together through internal packages"
 session: "Lightning Talks"
 ---

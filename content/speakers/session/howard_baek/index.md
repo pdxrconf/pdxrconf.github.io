@@ -1,6 +1,6 @@
 ---
 title: "Howard Baek"
-affiliation or location: "University of Washington, Seattle, WA"
+location: "University of Washington, Seattle, WA"
 talk: "Feedback Report: A Web-Based Shiny Dashboard for displaying Patient-Reported Outcome Measures for Patients in Addiction Treatment"
 session: "Lightning Talks"
 ---

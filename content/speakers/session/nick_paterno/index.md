@@ -1,6 +1,6 @@
 ---
 title: "Nick Paterno"
-affiliation or location: "OpenIntro & Pacific Lutheran University, Tacoma, Washington"
+location: "OpenIntro & Pacific Lutheran University, Tacoma, Washington"
 talk: "Teaching Non-STEM Students to Code"
 session: "Education & Community"
 ---

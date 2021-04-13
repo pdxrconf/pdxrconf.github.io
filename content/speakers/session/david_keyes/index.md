@@ -1,6 +1,6 @@
 ---
 title: "David Keyes"
-affiliation or location: "R for the Rest of Us, Portland, OR"
+location: "R for the Rest of Us, Portland, OR"
 talk: "Making Beautiful Reports that Communicate Effectively with pagedown and pagedreport"
 session: "Reporting & Sharing of R"
 ---
