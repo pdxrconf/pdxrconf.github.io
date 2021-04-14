@@ -1,6 +1,5 @@
 ---
 title: "Emily Markowitz"
-pronouns: 
 location: "NOAA Fisheries/Alaska Fisheries Science Center, Seattle, WA"
 talk: "Reproducible Reports in R Markdown: Perspectives and {NMFSReports}"
 session: "Reporting & Sharing of R"

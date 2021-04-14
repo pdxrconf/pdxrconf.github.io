@@ -51,17 +51,18 @@ googleAnalytics = ""
    url  = "/speakers/session"
    weight = 5.2
 
+
+[[menu.main]]
+   name = "Lighning Talks"
+   parent = "speakers"
+   url = "/speakers/lightning"
+   weight = 5.3
+   
 [[menu.main]]
   name = "Prerecored Talks"
   parent = "speakers"
   url = "/speakers/prerecorded"
   weight = 5.4
-
-# [[menu.main]]
-#    name = "Lighning Talks"
-#    parent = "speakers"
-#    url = "/speakers/lightning"
-#    weight = 5.3
 
 [[menu.main]]
     name = "Policies"

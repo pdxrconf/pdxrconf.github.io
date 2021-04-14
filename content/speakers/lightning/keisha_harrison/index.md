@@ -1,7 +1,6 @@
 ---
 title: "Keisha R Harrison"
-pronouns: 
-location: "Oregon State University, Corvallis, OR
+location: "Oregon State University, Corvallis, OR"
 talk: "Defining Complex Microbial Systems within Kombucha Fermentations Using METACODER and PYHLOSEQ Libraries"
 session: "Lightning Talks"
 ---
