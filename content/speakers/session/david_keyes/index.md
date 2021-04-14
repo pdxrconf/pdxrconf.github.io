@@ -1,5 +1,6 @@
 ---
 title: "David Keyes"
+pronouns: "he/him"
 location: "R for the Rest of Us, Portland, OR"
 talk: "Making Beautiful Reports that Communicate Effectively with pagedown and pagedreport"
 session: "Reporting & Sharing of R"

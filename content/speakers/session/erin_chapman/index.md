@@ -1,5 +1,6 @@
 ---
 title: "Erin Chapman"
+pronouns: "she/her"
 location: "American Statistical Association and Institute of Mathematical Staitistics"
 talk: "American Statistical Association's Dedication to Justice, Equality, Diversity and Inclusion"
 session: "Birds of a Feather"

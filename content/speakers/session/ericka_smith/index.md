@@ -1,5 +1,6 @@
 ---
 title: "Ericka Smith"
+pronouns: "she/hers"
 location: "Oregon State University, Corvallis, OR"
 talk: "Addressing Gaps in Data Accessibility with Shiny Dashboards"
 session: "Reporting & Sharing of R"

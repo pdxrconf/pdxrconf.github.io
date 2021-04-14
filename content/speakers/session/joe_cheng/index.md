@@ -1,5 +1,6 @@
 ---
 title: "Joe Cheng"
+pronouns: "he/him"
 location: "RStudio, PBC / Redmond, WA"
 talk: "Extending Tableau with R and Shiny"
 session: "Shiny and R"

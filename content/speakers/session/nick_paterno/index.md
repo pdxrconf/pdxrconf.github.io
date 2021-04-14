@@ -1,5 +1,6 @@
 ---
 title: "Nick Paterno"
+pronouns: "he/him/his"
 location: "OpenIntro & Pacific Lutheran University, Tacoma, Washington"
 talk: "Teaching Non-STEM Students to Code"
 session: "Education & Community"

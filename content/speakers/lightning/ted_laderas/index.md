@@ -1,5 +1,6 @@
 ---
 title: "Ted Laderas"
+pronouns: "he/him"
 location: "Oregon"
 talk: "Using gRatitude to learn the tidyverse together"
 session: "Lightning Talks"

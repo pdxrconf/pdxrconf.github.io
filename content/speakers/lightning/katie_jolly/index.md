@@ -1,5 +1,6 @@
 ---
 title: "Katie Jolly"
+pronouns: "she/her"
 location: "Seattle, WA"
 talk: "Designing graphics to post online: What I’ve learned from the (sometimes helpful) comments on my maps from Twitter and Reddit"
 session: "Lightning Talks"

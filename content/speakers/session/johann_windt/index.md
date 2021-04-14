@@ -1,5 +1,6 @@
 ---
 title: "Johann Windt"
+pronouns: "he/him"
 location: "Vancouver Whitecaps Football Club"
 talk: "The PlayerMakeR Pipeline - Using R across the data pipeline with the Vancouver Whitecaps Football Club, an example using wearable technology."
 session: "Using R"

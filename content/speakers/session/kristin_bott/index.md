@@ -1,5 +1,6 @@
 ---
 title: "Kristin Bott"
+pronouns: "she/her"
 location: "Reed College, Portland, Oregon"
 talk: "Supporting R across disciplines + building community"
 session: "Education & Community"

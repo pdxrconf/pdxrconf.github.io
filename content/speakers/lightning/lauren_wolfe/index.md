@@ -1,5 +1,6 @@
 ---
 title: "Lauren Wolfe"
+pronouns: "they/them"
 location: "Fred Hutch, Seattle, WA"
 talk: "Reflections from my first R package (working title)"
 session: "Lightning Talks"

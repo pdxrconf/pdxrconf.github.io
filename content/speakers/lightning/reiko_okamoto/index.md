@@ -1,5 +1,6 @@
 ---
 title: "Reiko Okamoto"
+pronouns: "she/her"
 location: "Government of British Columbia"
 talk: "Bringing analysts and technical writers together through internal packages"
 session: "Lightning Talks"

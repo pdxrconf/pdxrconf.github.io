@@ -1,5 +1,6 @@
 ---
 title: "Sean Kross"
+pronouns: "he/him/his"
 location: "The University of California, San Diego, CA"
 talk: "Create a Personal Website in 5 Minutes with Postcards"
 session: "Lightning Talks"

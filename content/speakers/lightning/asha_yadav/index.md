@@ -1,5 +1,6 @@
 ---
 title: "Asha Yadav"
+pronouns: "she/her/hers"
 location: "Eugene, OR"
 talk: "Data-Informed Decision Making in Part C Early Intervention using Shiny R"
 session: "Lightning Talks"
