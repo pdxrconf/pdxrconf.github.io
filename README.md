@@ -8,9 +8,9 @@ To get this repo locally:
 
 1. Clone it: 
     ```
-    git clone --recursive-submodules https://github.com/pdxrconf/pdxrconf.github.io.git
+    git clone --recurse-submodules https://github.com/pdxrconf/pdxrconf.github.io.git
     ```  
-2. The theme is tracked as a git [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules), which means that this repo only tracks the info for how to clone the theme files from github, but not the files themselves. By cloning this repo with `--recursive-submodules`, the theme files should be cloned from their respective repository. If you need to add them (you already had this repo cloned or didn't run do `--recursive-submodules`): 
+2. The theme is tracked as a git [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules), which means that this repo only tracks the info for how to clone the theme files from github, but not the files themselves. By cloning this repo with `--recurse-submodules`, the theme files should be cloned from their respective repository. If you need to add them (you already had this repo cloned or didn't run do `--recurse-submodules`): 
     ```
     cd themes/hugo-universal-theme
     git submodule init
