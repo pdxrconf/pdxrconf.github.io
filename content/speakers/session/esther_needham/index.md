@@ -1,5 +1,6 @@
 ---
 title: "Esther Needham"
+pronouns: "she/her"
 location: "Nelson\\Nygaard Consulting Associates, Portland, OR"
 talk: "Using Shiny Dashboards to Understand Bus Transit Delay and Sketch Solutions for King County Metro Transit"
 session: "Shiny and R"

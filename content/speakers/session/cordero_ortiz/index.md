@@ -1,5 +1,6 @@
 ---
 title: "Cordero Ortiz"
+pronouns: "he/him/his"
 location: "Portland, OR"
 talk: "PurpleAir PM2.5 Modeling in Portland, Oregon"
 session: "Using R"

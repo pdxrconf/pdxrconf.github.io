@@ -1,5 +1,6 @@
 ---
 title: "Simon Couch"
+pronouns: "he/him"
 location: "Reed College, Portland, Oregon and RStudio PBC"
 talk: "Naming Things"
 session: "Sharing R Love"

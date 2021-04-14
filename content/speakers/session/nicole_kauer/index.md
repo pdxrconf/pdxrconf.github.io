@@ -1,5 +1,6 @@
 ---
 title: "Nicole Kauer"
+pronouns: "she/they"
 location: "Sage Bionetworks"
 talk: "Hey, I want that app! Designing contagious Shiny apps"
 session: "Shiny and R"

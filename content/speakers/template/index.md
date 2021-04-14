@@ -1,5 +1,7 @@
 ---
 title: "Presentor Name"
+pronouns: 
+location: 
 talk: "Title of the talk"
 session: "Session name"
 ---

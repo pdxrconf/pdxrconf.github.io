@@ -1,5 +1,6 @@
 ---
 title: "Erin Dahl"
+pronouns: "she/her"
 location: "OHSU, Portland, OR"
 talk: "Do you see what I see? Introducing microshades: An R package for improving color accessibility and organization of complex data"
 session: "Lightning Talks"
