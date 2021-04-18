@@ -67,6 +67,9 @@ border-color:black;
 
 ## Jun 3-4, 2021 8am-3:45pm
 
+### Full agenda coming soon!
+
+
 <br><br><br>
 
 <h2>Keynotes</h2>
@@ -144,5 +147,5 @@ border-color:black;
 
 <!-- <h4>The full schedule and speaker list will be posted soon!</h4> -->
 
-## Agenda
+
 
