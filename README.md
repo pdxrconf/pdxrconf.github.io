@@ -33,11 +33,11 @@ You'll also need Hugo installed on your machine.
 
 1. Clone the website repository: 
     ```
-    git clone --recursive-submodules https://github.com/pdxrconf/pdxrconf.github.io.git
+    git clone --recurse-submodules https://github.com/pdxrconf/pdxrconf.github.io.git
     cd pdxrconf.github.io.git
     ```  
 
-2. If you did not run `--recursive-submodules` when you cloned this repository,
+2. If you did not run `--recurse-submodules` when you cloned this repository,
 or have an old version of the site,
 you'll need to run the following code to incorporate submodules (see [below](#about-the-theme) for more information on using themes as submodules):
     ```
@@ -58,7 +58,7 @@ you should be able to refresh the webpage to see your changes implemented.
 ## About the theme
 
 The theme for this website is tracked as a git [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules), which means that this repo only tracks the info for how to clone the theme files from github, but not the files themselves. 
-By cloning this repo with `--recursive-submodules`, the theme files should be cloned from their respective repository. 
+By cloning this repo with `--recurse-submodules`, the theme files should be cloned from their respective repository. 
 
 The Hugo Boostrapious theme is hosted on [github](https://github.com/devcows/hugo-universal-theme). 
 This repo (for our website) tracks the commit hash from the theme repo. To reset theme files to the commit specified in this repo: 
