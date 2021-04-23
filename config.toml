@@ -59,9 +59,9 @@ googleAnalytics = ""
    weight = 5.3
    
 [[menu.main]]
-  name = "Prerecored Talks"
+  name = "Digital Talks"
   parent = "speakers"
-  url = "/speakers/prerecorded"
+  url = "/speakers/digital"
   weight = 5.4
 
 [[menu.main]]
