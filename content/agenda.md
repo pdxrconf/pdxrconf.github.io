@@ -65,14 +65,23 @@ border-color:black;
   <br>
  -->
 
-## Jun 3-4, 2021 8am-3:45pm
+## June 4, 2021 8am-3:45pm
 
-### Full agenda coming soon!
+* Workshops: More info coming soon!
+* Digital tracks: Selected presentations will be made available on day one of the conference! Please see [digital talk abstracts](/speakers/digital)
+
+## June 5, 2021 8am-3:45pm
+* [Keynotes](#keynotes)
+* Live talks: A full schedule is coming soon!
+	* [15-minute presentations](/speakers/session)
+	* [5-minute Lightning talks](/speakers/lightning)
+* [Birds of a Feather discussion](/speakers/bof)
+
 
 
 <br><br><br>
 
-<h2>Keynotes</h2>
+<h2 id="keynotes">Keynotes</h2>
 <div class="speakerContainer container">
 	<div class="row">
 		<div class="row speaker-title">
