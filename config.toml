@@ -45,17 +45,30 @@ googleAnalytics = ""
    url  = "/speakers/keynote"
    weight = 5.1
     
-# [[menu.main]]
-#    name = "Session Presentors"
-#    parent = "speakers"
-#    url  = "/speakers/session"
-#    weight = 5.2
+[[menu.main]]
+   name = "Regular Talks"
+   parent = "speakers"
+   url  = "/speakers/session"
+   weight = 5.2
 
-# [[menu.main]]
-#    name = "Lighning Talks"
-#    parent = "speakers"
-#    url = "/speakers/lightning"
-#    weight = 5.3
+
+[[menu.main]]
+   name = "Lightning Talks"
+   parent = "speakers"
+   url = "/speakers/lightning"
+   weight = 5.3
+   
+[[menu.main]]
+  name = "Digital Talks"
+  parent = "speakers"
+  url = "/speakers/digital"
+  weight = 5.4
+
+[[menu.main]]
+  name = "Birds of a Feather"
+  parent = "speakers"
+  url = "/speakers/bof"
+  weight = 5.4
 
 [[menu.main]]
     name = "Policies"

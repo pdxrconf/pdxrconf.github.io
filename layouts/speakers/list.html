@@ -15,6 +15,7 @@
 
         {{ partial "breadcrumbs.html" . }}
 
+
         <div id="content">
             <div class="container">
                 <div class="row">
@@ -22,6 +23,7 @@
 
                     <div class="col-md-9" id="blog-listing-medium">
 
+                        {{ .Content | markdownify}}
                         {{ range (.Pages.ByParam "categories") }}
                         <section class="post">
                             <div class="row">
@@ -35,30 +37,19 @@
                                   </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h2><a href="{{ .Params.sponsor_link }}" target="_blank">{{ .Title }}</a></h2>
-                                    <!-- <div class="clearfix">
-                                        <p class="author-category">
-                                          {{ if isset .Params "author" }}
-                                          {{ i18n "authorBy" }} <a href="#">{{ .Params.author }}</a>
-                                          {{ end }}
-                                          {{ if isset .Params "categories" }}
-                                          {{ if gt (len .Params.categories) 0 }}
-                                          in <a href="{{ "categories/" | relURL }}{{ index .Params.categories 0 | urlize | lower }}">{{ index .Params.categories 0 }}</a>
-                                          {{ end }}
-                                          {{ end }}
-                                          {{ if isset .Params "tags" }}
-                                          {{ if gt (len .Params.tags) 0 }}
-                                          <a href="{{ "tags/" | relURL }}{{ index .Params.tags 0 | urlize | lower }}">{{ index .Params.tags 0 }}</a>
-                                          {{ end }}
-                                          {{ end }}
-
-                                        </p> 
-                                    </div> -->
+                                    <h2>{{ .Title }}</h2>
+                                    {{ if .Params.pronouns }}
+                                    <h5>Pronouns: {{ .Params.pronouns }}</h5>
+                                    {{ end }}
+                                    <h5>{{ .Params.location }}</h5>
+                                    
+                                    {{ if .Params.session }}
                                     <div class="clearfix">
                                         <p class="session-name">
-                                            <h4>{{ .Params.session | markdownify }}</h4>
+                                            <h4>Session: {{ .Params.session | markdownify }}</h4>
                                         </p>
                                     </div>
+                                    {{ end }}
                                     <h3>{{ .Params.talk | markdownify }}</h3>
                                     <p class="intro">
                                         {{ .Content | markdownify }}

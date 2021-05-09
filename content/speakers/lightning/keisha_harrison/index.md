@@ -1,0 +1,10 @@
+---
+title: "Keisha R Harrison"
+location: "Oregon State University, Corvallis, OR"
+talk: "Defining Complex Microbial Systems within Kombucha Fermentations Using METACODER and PYHLOSEQ Libraries"
+session: "Lightning Talks"
+---
+
+Kombucha, an increasingly popular beverage in North America, is made from the fermentation of sweetened tea and an inoculum of bacteria and yeast, commonly referred to as a symbiotic culture of bacteria and yeast (SCOBY) (Villarreal‐Soto et al., 2018). To better characterize the Kombucha SCOBY diversity, metagenomic approaches were used to evaluate microbial spatial homogeneity within a commercial SCOBY and taxonomic diversity across a large sample population (n= 104) of SCOBY used by Kombucha brewers. Data obtained from the metabarcoding of the 16S and ITS ribosomal RNA genes was analyzed using the microbiome profiler Phyloseq (McMurdie & Holmes, 2013) to show that the global microbial community is dominated by Brettanomyces bruxellensis (Br.), Br. anamolus, Komagateibacter xylinus (Kom.), and Kom. rhateicus. Subsequently K-means clustering and the visualization package MetaCoder (Foster & Sharpton, 2017) were used to delineate the population into four SCOBY types and describe significant microbial structural differences between the clusters designations. Cluster communities that lacked the dominant genera of bacteria and yeast presented a higher abundance of a combination of Zygosaccharomyces, Starmerella, Lachancea and Lactobacillacae, suggesting a compensatory pattern of co-occurrence. Combining these two R packages was a novel approach to identifying Kombucha starter culture types from a global population. 
+
+__Bio:__ I'm a PhD candidate at Oregon State University in Food Science and Technology with a focus on Microbial Ecology and Microbiome Data Analysis. Her work involves the study of cross kingdom microbial interactions in fermentation systems, specifically using Kombucha as a model system.  Currently, she is using R microbiome packages, including Phyloseq, to process large sequence information from 16S and ITS amplification datasets.  

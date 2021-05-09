@@ -1,0 +1,11 @@
+---
+title: "Howard Baek"
+pronouns: "he/his"
+location: "University of Washington, Seattle, WA"
+talk: "Feedback Report: A Web-Based Shiny Dashboard for displaying Patient-Reported Outcome Measures for Patients in Addiction Treatment"
+session: "Lightning Talks"
+---
+
+We have developed a web-based Shiny Dashboard, “Feedback Report”, for clinicians and patients in addiction treatment for clinical monitoring of patient progress and goals over time. Feedback Report imports data from a secure REDCap database containing patient-reported outcome measures reported longitudinally by patients on a weekly basis during their addiction treatment. It then generates an interactive dashboard containing plotly line graphs that illustrate changes in patient-reported progress and goal measures across multiple domains (e.g., drinking, craving, coping skills, depression). Feedback Report operates as an interactive dashboard where clinicians can review progress for multiple patients and can overlay progress on multiple domains within a single graph to see associations between different outcome domains over time. We designed Feedback Report to be easily modifiable so clinics can choose which measures can be administered and graphed, including custom measures selected or created by users. This is enabled by the R package purrr that we applied to iterate over the data and update the plots and table in real time. Also, the appearance of the graphs and table can be configured with a Google sheet that is connected to the dashboard with the R package googlesheets4. Layouts that are optimized for both computer and smartphone (using shinyMobile) are available. 
+
+__Bio:__ My name is Howard Baek and I am a Statistics major with a Mathematics minor at the University of Washington. As a Research Assistant at the Behavioral Research In Technology and Engineering (BRiTE) Center, housed at the University of Washington's School of Medicine, I developed a Shiny Dashboard (“Feedback Report”) that allows patients and clinicians in addiction treatment to monitor patients’ progress and goals over time. This dashboard implements Plotly graphs that illustrate changes in patient-reported progress and goal measures over time. For optimal viewing on a smartphone, I programmed a shinyMobile application of the dashboard.

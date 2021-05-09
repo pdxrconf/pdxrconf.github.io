@@ -32,6 +32,7 @@ The following instructions walk you through this process.
 You'll also need Hugo installed on your machine.
 
 1. Clone the website repository: 
+
     ```
     git clone --recurse-submodules https://github.com/pdxrconf/pdxrconf.github.io.git
     cd pdxrconf.github.io.git
@@ -40,6 +41,7 @@ You'll also need Hugo installed on your machine.
 2. If you did not run `--recurse-submodules` when you cloned this repository,
 or have an old version of the site,
 you'll need to run the following code to incorporate submodules (see [below](#about-the-theme) for more information on using themes as submodules):
+
     ```
     cd themes/hugo-universal-theme
     git submodule init

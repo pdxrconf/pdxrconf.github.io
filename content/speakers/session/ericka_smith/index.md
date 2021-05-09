@@ -1,0 +1,12 @@
+---
+title: "Ericka Smith"
+pronouns: "she/hers"
+location: "Oregon State University, Corvallis, OR"
+talk: "Addressing Gaps in Data Accessibility with Shiny Dashboards"
+session: "Reporting & Sharing of R"
+---
+
+The concept of publicly available data stems from ideals surrounding open science, reproducibility, and integrity. It is underscored by federal laws that codify the societal benefits, while simultaneously laying out rules to ensure this concept is practiced. Unfortunately, there are clear gaps between these ideas and their execution. This project elucidates a way to fill those gaps. Specifically, we created a Shiny Dashboard to address the difficulties and hurdles that exist for the public in approaching and understanding large climate model data. There are three primary challenges that we focused on: obscure file and data types, complex models, and the unwieldy size of these datasets. The first is managed by using a Shiny Dashboard as a tool. Since the user is not interacting with the code or data themselves, they cannot be hindered at this point. Making models approachable to a general audience was a more significant undertaking. We solved this issue via the design of the dashboard, by giving careful consideration to navigation and how we led users to higher levels of complexity. The size was addressed in a multifaceted manner which, in summary, amounted to being very intentional about which things are calculated and when. Ultimately, these data went from an initial state of requiring significant knowledge and resource investment to even look at, to being approachable to anyone with a link to the website. Our methodology is available on GitHub and could be scaled to other public datasets. There is a clear benefit to the initial investment required to make a tool like this. This project acts as a proof of concept, showing that Shiny Dashboards are a viable tool for creating truly accessible data.
+
+__Bio:__ Ericka Smith recently graduated with a master's in statistics from Oregon State University. She has a strong passion for data accessibility. With a background in natural resources, she has firsthand experience with everything that happens to data before it gets into R and after it leaves. This expertise gives her a unique insight into the pitfalls and traps we can fall into as R users working with data that is not our own, as well as knowledge about how to avoid them.
+
