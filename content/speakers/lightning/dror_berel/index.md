@@ -2,6 +2,7 @@
 title: "Dror Berel"
 location: "Seattle"
 talk: "Been there, done that. Practices I adopted from R that will guide me through learning additional programming languages."
+session: "Lightning Talks"
 ---
 
 Adding another programming language for your analytical skill is an important tool set. However, after getting used to R unique dialect, it may be tricky to adapt a different one. It also does not mean you need to neglect the practices that have already proved to be useful in your day-to-day work.
