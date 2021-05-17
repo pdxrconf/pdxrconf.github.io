@@ -179,8 +179,6 @@ googleAnalytics = ""
     icon = "fas fa-lightbulb"
     title = "KEYNOTES"
     subtitle = "We are proud to annouce our 2021 Keynote speakers."
-    link_url = "/speakers/keynote"
-    link_text = "KEYNOTES"
 
 [params.clients]
     enable = false
