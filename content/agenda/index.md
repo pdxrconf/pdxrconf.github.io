@@ -72,7 +72,8 @@ border-color:black;
 * [Chanté Davis](/speakers/session/#Chanté%20Davis), [Emily Markowitz](/speakers/session/#Emily%20Markowitz), and [Diana Dishman](/speakers/session/#Diana%20Dishman): Different Strategies for Teaching Your Colleagues R: Lessons Learned and Recommendations
 
 #### 12:00-12:30 Break/BoF
-* 
+* [Erin Chapman](/speakers/bof): American Statistical Association's Dedication to Justice, Equality, Diversity and Inclusion  
+  In this BoF session Erin Chapman will share the current status of ASA's JEDI programming, including impact of new policies and programs on the broader statistical community. If you are interested in making statistics a more inclusive space, please join us for a discussion of how that can happen and what challenges exist. Note: This BoF session is intended to be an extremely safe and inclusive space for everyone. If you have thoughts but aren’t ready to share them in public, please reach out to Erin at erin@mcgladreychapman.com.
 
 #### 12:30-1:30 Lightning Talks
 * [Ted Laderas](/speakers/lightning/#Ted%20Laderas): Using gRatitude to learn the tidyverse together
