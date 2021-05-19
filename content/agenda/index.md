@@ -41,7 +41,7 @@ border-color:black;
   <br>
  -->
 
-## June 4, 2021 8am-3:45pm
+## June 4, 2021 10am-3:30pm
 
 #### 10:00-12:00 Workshops (separate registration required)
 
