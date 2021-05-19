@@ -71,6 +71,12 @@ googleAnalytics = ""
   weight = 5.4
 
 [[menu.main]]
+  name = "Workshops"
+  parent = "speakers"
+  url = "/speakers/workshop"
+  weight = 5.4
+
+[[menu.main]]
     name = "Policies"
     identifier = "policies"
     url  = "/policies/"
