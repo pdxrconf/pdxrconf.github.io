@@ -43,8 +43,19 @@ border-color:black;
 
 ## June 4, 2021 8am-3:45pm
 
-* Workshops: More info coming soon!
-* Digital tracks: Selected presentations will be made available on day one of the conference! Please see [digital talk abstracts](/speakers/digital)
+#### 10:00-12:00 Workshops (separate registration required)
+
+* Joe Korszun: Transitioning to R
+* Kate Hertweck: Introduction to R
+* Ellis Hughes & Marie Vendettuoli: R Package Development and Validation (continued in afternoon session)
+
+#### 12:00-1:00 Digital tracks
+Please see [digital talk abstracts](/speakers/digital)
+
+#### 1:30-3:30 Workshops (separate registration required)
+* Mike Garcia: Reproducible Research with Targets
+* Ted Laderas: A gRadual intRoduction to Shiny
+* Ellis Hughes & Marie Vendettuoli: R Package Development and Validation (continued from morning session)
 
 <br><br><br>
 
