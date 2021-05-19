@@ -71,6 +71,12 @@ googleAnalytics = ""
   weight = 5.4
 
 [[menu.main]]
+  name = "Workshops"
+  parent = "speakers"
+  url = "/speakers/workshop"
+  weight = 5.4
+
+[[menu.main]]
     name = "Policies"
     identifier = "policies"
     url  = "/policies/"
@@ -179,8 +185,6 @@ googleAnalytics = ""
     icon = "fas fa-lightbulb"
     title = "KEYNOTES"
     subtitle = "We are proud to annouce our 2021 Keynote speakers."
-    link_url = "/speakers/keynote"
-    link_text = "KEYNOTES"
 
 [params.clients]
     enable = false
