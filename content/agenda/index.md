@@ -49,8 +49,8 @@ border-color:black;
 * [Kate Hertweck](/speakers/workshop/#Kate%20Hertweck): Introduction to R
 * [Ellis Hughes & Marie Vendettuoli](/speakers/workshop/#Ellis%20Hughes): R Package Development and Validation (continued in afternoon session)
 
-#### 12:00-1:00 Digital tracks
-Please see [digital talk abstracts](/speakers/digital)
+#### 12:00-1:00 Digital track
+Please see [abstracts for digital (pre-recorded) talks](/speakers/digital)
 
 #### 1:30-3:30 Workshops (separate registration required)
 * [Mike Garcia](/speakers/workshop/#Mike%20Garcia): Reproducible Research with Targets

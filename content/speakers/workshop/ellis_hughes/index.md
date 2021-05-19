@@ -3,7 +3,7 @@ title: "Ellis Hughes & Marie Vendettuoli"
 pronouns: ""
 location: ""
 talk: "R Package Development and Validation"
-session: "Morning"
+session: "Morning and Afternoon"
 ---
 
 This tutorial aims to teach some basics of R package development while creating all the necessary documentation to support a validation. By the end of this tutorial, you will know how to apply the R Package Validation Framework to your internal R packages, and apply the {valtools} package.
