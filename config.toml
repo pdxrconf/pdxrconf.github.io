@@ -187,11 +187,11 @@ googleAnalytics = ""
     subtitle = "We are proud to annouce our 2021 Keynote speakers."
 
 [params.clients]
-    enable = false
+    enable = true
     # All clients are defined in their own files. You can find example items
     # at 'exampleSite/data/clients'.
     # For more informtion take a look at the README.
-    title = "Our Sponsors"
+    title = "2021 Sponsors"
     subtitle = ""
 
 [params.recent_posts]

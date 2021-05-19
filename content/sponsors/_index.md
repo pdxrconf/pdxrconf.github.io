@@ -1,4 +1,4 @@
 ---
-title: "Sponsors from previous years"
+title: "2021 Sponsors"
 description: "Cascadia R Conf Sponsors"
 ---
