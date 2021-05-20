@@ -1,5 +1,5 @@
 ---
-title: "Julia Lowndes"
+title: "Julia Stewart Lowndes"
 tags: ["2021"]
 ---
 
