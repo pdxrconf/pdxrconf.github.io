@@ -43,7 +43,7 @@ border-color:black;
 
 ## June 4, 2021 10am-3:30pm
 
-#### 10:00-12:00 Workshops (separate registration required)
+#### 10:00-12:00 Workshops (separate [registration](https://www.eventbrite.com/e/cascadia-r-conf-2021-workshops-tickets-155828476167) required)
 
 * [Joe Korszun](/speakers/workshop/#Joe%Korszun): Transitioning to R
 * [Kate Hertweck](/speakers/workshop/#Kate%20Hertweck): Introduction to R
@@ -52,7 +52,7 @@ border-color:black;
 #### 12:00-1:00 Digital track
 Please see [abstracts for digital (pre-recorded) talks](/speakers/digital)
 
-#### 1:30-3:30 Workshops (separate registration required)
+#### 1:30-3:30 Workshops (separate [registration](https://www.eventbrite.com/e/cascadia-r-conf-2021-workshops-tickets-155828476167) required)
 * [Mike Garcia](/speakers/workshop/#Mike%20Garcia): Reproducible Research with Targets
 * [Ted Laderas](/speakers/workshop/#Ted%20Laderas): A gRadual intRoduction to Shiny
 * [Ellis Hughes & Marie Vendettuoli](/speakers/workshop/#Ellis%20Hughes): R Package Development and Validation (continued from morning session)
