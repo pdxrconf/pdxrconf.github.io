@@ -25,8 +25,8 @@ description = "Description of this year's venue for CascadiaRConf"
 
 <div class="center" id="location" style="text-align: center">
   <h1>Location</h1>
-  <h3>Cascadia R Conference 2021 will be held virtually.</h3>
-  <h3>Platform details will be available in May.</h3>
+  <h3>Cascadia R Conf 2021 will be held virtually via Crowdcast.</h3>
+  <h3>Connection details will be shared with all registered participants by early June.</h3>
 </div>
 
 <br><br><br>
