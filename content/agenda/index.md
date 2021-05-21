@@ -45,7 +45,7 @@ border-color:black;
 
 #### 10:00-12:00 Workshops (separate [registration](https://www.eventbrite.com/e/cascadia-r-conf-2021-workshops-tickets-155828476167) required)
 
-* [Joe Korszun](/speakers/workshop/#Joe%Korszun): Transitioning to R
+* [Joe Korszun](/speakers/workshop/#Joe%20Korszun): Transitioning to R
 * [Kate Hertweck](/speakers/workshop/#Kate%20Hertweck): Introduction to R
 * [Ellis Hughes & Marie Vendettuoli](/speakers/workshop/#Ellis%20Hughes): R Package Development and Validation (continued in afternoon session)
 
@@ -59,7 +59,9 @@ Please see [abstracts for digital (pre-recorded) talks](/speakers/digital)
 
 <br><br><br>
 
-## June 5, 2021 8am-3:45pm
+## June 5, 2021 8am-3:45pm 
+[More detailed schedule here](https://docs.google.com/spreadsheets/d/1xlx_jnsNM6C2qckinhxoGKJ9Mn9mqXckyWRL5KQXKQo/edit#gid=0)  
+<br>
 
 #### 8:00-8:05: Introductions
 
