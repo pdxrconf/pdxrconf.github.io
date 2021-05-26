@@ -1,7 +1,7 @@
 ---
 title: "Mike Garcia"
-pronouns: ""
-location: ""
+pronouns: "he/him"
+location: "Data Scientist Consultant at ProCogia"
 talk: "Reproducible Research with Targets Package"
 session: "Afternoon"
 ---
@@ -14,4 +14,4 @@ Agenda:
 - Debugging
 - Integrating other tools for reproducible research
 
-__Bio:__ 
+__Bio:__ I’m a data scientist and biostatistician who has been programming in R long enough to remember thrill of abandoning the R GUI for the first RStudio release. I’m passionate about teaching statistics and coding in R, especially helping others learn to build and maintain reproducible workflows.

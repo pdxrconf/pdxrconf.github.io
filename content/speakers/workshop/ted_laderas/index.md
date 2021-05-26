@@ -1,7 +1,7 @@
 ---
 title: "Ted Laderas"
-pronouns: ""
-location: ""
+pronouns: "he/him"
+location: "Oregon"
 talk: "A gRadual intRoduction to Shiny"
 session: "Afternoon"
 ---
