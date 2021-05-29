@@ -76,7 +76,7 @@ Please see [abstracts for digital (pre-recorded) talks](/speakers/digital)
 
 #### 10:00-10:55 Shiny and R
 * [Nicole Kauer](/speakers/session/#Nicole%20Kauer): Hey, I want that app! Designing contagious Shiny apps
-* [Esther Needham](/speakers/session/#Esther%20Needham) and [Bryan Blanc](/speakers/session/#Bryan%20Blanc): Using Shiny Dashboards to Understand Bus Transit Delay and Sketch Solutions for King County Metro Transit
+* [Jacqueline Nolis](/speakers/session/#Jacqueline%20Nolis): I made an entire e-commerce platform on Shiny
 * [Joe Cheng](/speakers/session/#Joe%20Cheng): Extending Tableau with R and Shiny
 
 #### 11:05-12:00 Sharing R Love
@@ -103,7 +103,7 @@ Please see [abstracts for digital (pre-recorded) talks](/speakers/digital)
 
 #### 1:40-2:35 Using R
 * [Johann Windt](/speakers/session/#Johann%20Windt): The PlayerMakeR Pipeline - Using R across the data pipeline with the Vancouver Whitecaps Football Club, an example using wearable technology.
-* [Jacqueline Nolis](/speakers/session/#Jacqueline%20Nolis): I made an entire e-commerce platform on Shiny
+* [Esther Needham](/speakers/session/#Esther%20Needham) and [Bryan Blanc](/speakers/session/#Bryan%20Blanc): Using Shiny Dashboards to Understand Bus Transit Delay and Sketch Solutions for King County Metro Transit
 * [Cordero Ortiz](/speakers/session/#Cordero%20Ortiz): PurpleAir PM2.5 Modeling in Portland, Oregon
 
 #### 3:00-3:40 Education & Community
