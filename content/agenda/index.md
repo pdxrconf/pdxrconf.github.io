@@ -80,7 +80,7 @@ Please see [abstracts for digital (pre-recorded) talks](/speakers/digital)
 * [Joe Cheng](/speakers/session/#Joe%20Cheng): Extending Tableau with R and Shiny
 
 #### 11:05-12:00 Sharing R Love
-* [Simon Couch](/speakers/session/#Simon%20Couch): Naming Things
+* [Kate Hertweck](/speakers/session/#Kate%20Hertweck): Coordination and collaboration within teams using R
 * [Kim Dill-McFarland](/speakers/session/#Kim%20Dill-McFarland): First of her name: Fostering R usage as the first bioinformatician in my department
 * [Chanté Davis](/speakers/session/#Chanté%20Davis), [Emily Markowitz](/speakers/session/#Emily%20Markowitz), and [Diana Dishman](/speakers/session/#Diana%20Dishman): Different Strategies for Teaching Your Colleagues R: Lessons Learned and Recommendations
 
