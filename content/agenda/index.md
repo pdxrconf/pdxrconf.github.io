@@ -91,6 +91,7 @@ Please see [abstracts for digital (pre-recorded) talks](/speakers/digital)
 #### 12:30-1:30 Lightning Talks
 * [Ted Laderas](/speakers/lightning/#Ted%20Laderas): Using gRatitude to learn the tidyverse together
 * [Kevin Floyd](/speakers/lightning/#Kevin%20Floyd): March Sadness: Building a Hands-on College Basketball Simulator in R
+* [Reiko Okamoto](/speakers/lightning/#Reiko%20Okamoto): Bringing analysts and technical writers together through internal packages
 * [Keisha R Harrison](/speakers/lightning/#Keisha%20R%20Harrison): Defining Complex Microbial Systems within Kombucha Fermentations Using METACODER and PYHLOSEQ Libraries
 * [Erin Dahl](/speakers/lightning/#Erin%20Dahl): Do you see what I see? Introducing microshades: An R package for improving color accessibility and organization of complex data
 * [Jill Levine](/speakers/lightning/#Jill%20Levine): The Clio Package: Clean and Simple Historical Statistics
