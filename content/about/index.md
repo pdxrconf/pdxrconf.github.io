@@ -5,8 +5,7 @@ title: "About"
 Cascadia R Conference is an R conference serving the Pacific Northwest region (Oregon/Washington/BC).
 
 The conference first started in 2017, 
-and while we had to cancel our plans to meet in 2020 in Eugene, OR,
-we're back with a virtual conference in 2021.
+and will be returning for another virtual conference in 2022.
 See you there!
 
 We wanted to run this event as there are relatively few R conferences. In addition, 

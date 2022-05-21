@@ -11,11 +11,11 @@ YES! See the <a href="/policies">Policies</a> page.
 
 ## When will it be?
 
-June 4-5, 2021
+September 17, 2022
 
 ## Where will it be?
 
-We're holding the 2021 conference virtually.
+We're holding the 2022 conference virtually.
 
 See the <a href="/venue"> Venue</a> page for more information
 as the conference approaches.
@@ -53,8 +53,8 @@ TBD
 
 Most likely!
 
-## What about next year (2022)?
-We'll let you know at the end of 2021!
+## What about next year (2023)?
+We'll let you know at the end of 2022!
 
 <br><br>
 
