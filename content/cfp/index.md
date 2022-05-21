@@ -7,6 +7,7 @@ It is with great pleasure that we announce the Call for Presentations for the 20
 The goals of the conference are to showcase the interesting ways R is being used in the region, provide learning opportunities, and connect R programmers with one another. The presentations, therefore, are a platform for promoting these ideals. 
 
 The theme of the 2022 conference is “Storytelling and Building Community”.  This is purposefully broad to allow a diverse suite of talks.  Some examples of topics that would fit in this theme include:
+
 + Using R for collaborating and communicating with a diverse audience: using blogs/websites, reports, Shiny Dashboards, leaflet maps
 + R packages for Storytelling and how you use them in your work: you don’t have to be the author of a package to share how you use it!
 + Making the R ecosystem more inclusive: sharing skills, building community
