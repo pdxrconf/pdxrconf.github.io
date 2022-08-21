@@ -1,0 +1,10 @@
+---
+title: "Radhika Etikala and Emily Zhang"
+location: "Fred Hutch, Seattle, WA"
+talk: "Wrangling the Stakeholder Community – Data Specifications"
+session: "Creating an R Environment for a Team"
+---
+
+The specification is a document describing the creation of a derived datasets. Specification document contains but not limited to data sources (input data), study-specific processing requirements, an overview of processing steps, a list of included variables, a brief description of variable content, detailed derivation notes, and designation of key variables. Also includes the version of the specifications or other documents used, decisions, changes made, and all the communication is incorporated into the specification. This presentation will talk about the importance of data specifications, and how data FAIRness (findable, accessible, interoperable, reusable) impacts the overall productivity and quality. 
+
+Findability is important, when different teams and departments look at the data to gain further insights and to perform further analysis, after certain period. It is often very difficult to find information (documentation, programs, data), so data specifications fill the gaps to find information even years later.  Accessibility is key as well, as our data is getting from various sources and has levels of restrictions. Often programmers struggle to access the data from different locations due to permission issues. Data without the necessary specifications / documentation is useless. Any data sharing needs to contain data and the necessary documentation and metadata. Data FAIRness should bring structure and should make data re-usable. And this presentation further talks about why good stakeholder-relationships are important and to lift statistical programming to the next level to become an equal partner with clinical teams and stakeholders.

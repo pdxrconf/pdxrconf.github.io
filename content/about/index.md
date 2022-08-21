@@ -17,6 +17,16 @@ a larger part of the Pacific Northwest.
 
 ***
 
+### 2022 Organization Team
+
++ Ellis Hughes
++ [Lea Frank](https://lea-frank.netlify.app/)
++ [Brittany Barker](http://brittanysbarker.org)
++ Melissa Lee
++ Laura O' Mahony
++ [Ted Laderas](https://laderast.github.io )
++ Ben McCary
+
 ### 2021 Organization Team
 
 + [Ellis Hughes](http://twitter.com/thebioengineer)
