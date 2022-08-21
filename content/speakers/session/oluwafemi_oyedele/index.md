@@ -1,0 +1,8 @@
+---
+title: "Oluwafemi Oyedele" 
+location: "International Institute of Tropical Agriculture, Nigeria"
+talk: "Reproducible Research with R"
+session: "Reporting & Sharing of R!"
+---
+
+Reproducible research is the process whereby future you and anyone else will be able to pick up your analysis and reproduce the same results, including figures and tables. Reproducible research also implies well-documented research, your code should be well commented and the reasons behind functions and methods should be explained thoroughly throughout the analysis. The communication aspect should not be an afterthought, it should be recorded with your analysis as you are going through it. The main aim of this talk is to set you on the right path of making your research more reproducible and sharable. Quarto is the next generation of RMarkdown for publishing, including dynamic and static documents and multi-lingual programming language support. The ability to easily collaborate and share your analysis goes hand-in-hand with good record-keeping and reproducibility. We are going to repurpose the git version control tool and leverage the GitHub remote hosting provider for managing and sharing our work. Git + GitHub will provide a very powerful resource for global collaboration and exposure of your work. In this talk, we are going to version control our work and push it to github, which can then be accessed by collaborators and supervisors. Git + GitHub should become an integral part of your workflow. This talk is for people with little or no prior knowledge of R, Rmarkdown and quarto.

@@ -1,0 +1,7 @@
+---
+title: "Meike Niederhausen"
+location: "Oregon Health & Science University, Portland, OR"
+talk: "Using visualizations to understand complex care trajectory trends of Veterans in Home-Based Primary Care"
+---
+
+Home-Based Primary Care (HBPC) is a home care program for medically complex Veterans, providing comprehensive primary care from an interdisciplinary team of Veterans Health Administration (VA) staff. With a rapidly aging VA population, the VA will need to provide more long-term care services and support to care for Veterans. A goal of HBPC is to increase patients’ time at home and allow them to age in place. We analyzed daily longitudinal data over two years of 11,640 Veterans in 440 different HBPC programs across the United States to better understand transitions between different care type settings, such as home, emergency department, hospital, long term care, and hospice. Visualizations played a key role in communicating the complexity of the care setting trajectories. For example, we adapted heatmaps, raster plots, and alluvial plots to display longitudinal data of many patients simultaneously and identify trends in care. These were created using the ggplot2 and ggalluvial R packages.

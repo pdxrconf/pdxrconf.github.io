@@ -17,43 +17,61 @@ googleAnalytics = ""
     name = "Home"
     url  = "/"
     weight = 1
-    
-[[menu.main]]
-    name = "Call for Presentations"
-    url  = "/cfp/"
-    weight = 2
 
 [[menu.main]]
     name = "About"
     url  = "/about/"
+    weight = 2
+
+[[menu.main]]
+    name = "Agenda"
+    url  = "/agenda/"
     weight = 3
+
+[[menu.main]]
+    name = "Speakers"
+    identifier = "speakers"
+    url  = "/speakers/"
+    weight = 4
+    
+[[menu.main]]
+   name = "Regular Talks"
+   parent = "speakers"
+   url  = "/speakers/session"
+   weight = 4.2
+
+[[menu.main]]
+   name = "Lightning Talks"
+   parent = "speakers"
+   url = "/speakers/lightning"
+   weight = 4.3
 
 [[menu.main]]
     name = "Venue"
     url  = "/venue/"
-    weight = 4
+    weight = 5
 
 [[menu.main]]
     name = "Policies"
     identifier = "policies"
     url  = "/policies/"
-    weight = 5
+    weight = 6
 
 [[menu.main]]
     name = "FAQ"
     identifier = "faq"
     url  = "/faq/"
-    weight = 6
+    weight = 7
 
 [[menu.main]]
     name = "Sponsors"
     url  = "/sponsors/"
-    weight = 7
+    weight = 8
 
 [[menu.main]]
     name = "Years"
     url  = "/years/"
-    weight = 8
+    weight = 9
 
 # Top bar social links menu
 
@@ -138,17 +156,17 @@ googleAnalytics = ""
     subtitle = "We have worked with many clients and we always like to hear they come out from the cooperation happy and satisfied. Have a look what our clients said about us."
 
 [params.see_more]
-    enable = false #EDITED LF
+    enable = true
     icon = "fas fa-lightbulb"
     title = "KEYNOTES"
-    subtitle = "We are proud to announce our 2021 Keynote speakers."
+    subtitle = "We are proud to announce our 2022 Keynote speakers!"
 
 [params.clients]
-    enable = false #EDITED LF
+    enable = true 
     # All clients are defined in their own files. You can find example items
     # at 'exampleSite/data/clients'.
     # For more informtion take a look at the README.
-    title = "2021 Sponsors"
+    title = "2022 Sponsors"
     subtitle = ""
 
 [params.recent_posts]
