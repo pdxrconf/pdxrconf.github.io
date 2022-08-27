@@ -50,7 +50,7 @@ border-color:black;
 #### 8:05-8:45 Keynotes 
 
 * [Jacqueline Nolis](/speakers/keynote/jacqueline_nolis): The Messy Space between Analysis and Output
-* Tiffany Timbers
+* [Tiffany Timbers](/speakers/keynote/tiffany_timbers): 10 Simple Rules for Teaching R for Data Science
 
 #### 8:55-9:50 Shiny and R
 

@@ -33,6 +33,12 @@ googleAnalytics = ""
     identifier = "speakers"
     url  = "/speakers/"
     weight = 4
+
+[[menu.main]]
+   name = "Keynote Speakers"
+   parent = "speakers"
+   url  = "/speakers/keynote"
+   weight = 4.1
     
 [[menu.main]]
    name = "Regular Talks"
