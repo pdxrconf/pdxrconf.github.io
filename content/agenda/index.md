@@ -52,11 +52,11 @@ border-color:black;
 * [Jacqueline Nolis](/speakers/keynote/jacqueline_nolis): The Messy Space between Analysis and Output
 * [Tiffany Timbers](/speakers/keynote/tiffany_timbers): 10 Simple Rules for Teaching R for Data Science
 
-#### 8:55-9:50 Shiny and R
+#### 8:55-9:50 Developing in R
 
-* [Jeff Rothschild](/speakers/session/jeff_rothschild): A Dashboard for Calculating Hourly Energy Balance
-* [Nick Sun](/speakers/session/nick_sun): Making Power Calculations Easier with Shiny
-* [Anthony Lusardi](/speakers/session/anthony_lusardi): Improving Energy Imbalances in PNW Using R
+* [Siddharth Bhatia](/speakers/session/siddharth_bhatia): Engineering Better Shiny Apps using Docker
+* [Dror Berel](/speakers/session/dror_berel): Benchmarking AWS Sagemaker ML and Forecasting Algorithm Performance with Traditional R Packages
+* [Priyanka Gagneja](/speakers/session/priyanka_gagneja): Going Beyond Tidyverse 101
 
 #### 10:00-10:55 Data Science for Good
 
@@ -78,11 +78,11 @@ border-color:black;
 * [Brittany Barker](/speakers/lightning/brittany_barker): Spatial Modeling in R to Help Detect Emerald Ash Borer, a New Invader in the Pacific Northwest
 * [Kevin Kuo](/speakers/lightning/kevin_kuo): Bussin: A Modern Framework for Interactive Data Apps
 
-#### 1:15-2:10 Developing in R
+#### 1:15-2:10 Shiny and R
 
-* [Siddharth Bhatia](/speakers/session/siddharth_bhatia): Engineering Better Shiny Apps using Docker
-* [Dror Berel](/speakers/session/dror_berel): Benchmarking AWS Sagemaker ML and Forecasting Algorithm Performance with Traditional R Packages
-* [Priyanka Gagneja](/speakers/session/priyanka_gagneja): Going Beyond Tidyverse 101
+* [Jeff Rothschild](/speakers/session/jeff_rothschild): A Dashboard for Calculating Hourly Energy Balance
+* [Nick Sun](/speakers/session/nick_sun): Making Power Calculations Easier with Shiny
+* [Anthony Lusardi](/speakers/session/anthony_lusardi): Improving Energy Imbalances in PNW Using R
 
 #### 2:20-3:15 Reporting & Sharing of R!
 
