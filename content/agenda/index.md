@@ -54,7 +54,7 @@ border-color:black;
 
 #### 8:55-9:50 Developing in R
 
-* Dan McGuire
+* [Dan McGuire](/speakers/session/dan_mcguire): Model-based cell typing for single cell spatial transcriptomics
 * [Dror Berel](/speakers/session/dror_berel): Benchmarking AWS Sagemaker ML and Forecasting Algorithm Performance with Traditional R Packages
 * [Priyanka Gagneja](/speakers/session/priyanka_gagneja): Going Beyond Tidyverse 101
 
