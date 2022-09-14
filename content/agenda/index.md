@@ -54,7 +54,7 @@ border-color:black;
 
 #### 8:55-9:50 Developing in R
 
-* [Siddharth Bhatia](/speakers/session/siddharth_bhatia): Engineering Better Shiny Apps using Docker
+* Dan McGuire
 * [Dror Berel](/speakers/session/dror_berel): Benchmarking AWS Sagemaker ML and Forecasting Algorithm Performance with Traditional R Packages
 * [Priyanka Gagneja](/speakers/session/priyanka_gagneja): Going Beyond Tidyverse 101
 
@@ -74,8 +74,10 @@ border-color:black;
 
 #### 12:30-1:05 Lightning Talks!
 
+* [Ben McCary](/speakers/lightning/ben_mccary): Persuasion with Pretty Pictures: Using Data Viz to Make a Point
 * [Meike Niederhausen](/speakers/lightning/meike_niederhausen): Using Visualizations to Understand Complex Care Trajectory Trends of Veterans in Home-Based Primary Care
 * [Brittany Barker](/speakers/lightning/brittany_barker): Spatial Modeling in R to Help Detect Emerald Ash Borer, a New Invader in the Pacific Northwest
+* [Siddharth Bhatia](/speakers/lightning/siddharth_bhatia): Engineering Better Shiny Apps using Docker
 * [Kevin Kuo](/speakers/lightning/kevin_kuo): Bussin: A Modern Framework for Interactive Data Apps
 
 #### 1:15-2:10 Shiny and R
