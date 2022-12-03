@@ -2,22 +2,30 @@
 title: "About"
 ---
 
-Cascadia R Conference is an R conference serving the Pacific Northwest region (Oregon/Washington/BC).
+<h3>Cascadia R Conference is an R conference serving the Pacific Northwest region (OR/WA/BC).
+This event is a place to come together around R
+but also an excuse to get together with like-minded people across
+a larger part of the Pacific Northwest.</h3>
 
-The conference first started in 2017, 
-and will be returning for another virtual conference in 2022.
-See you there!
-
-We wanted to run this event as there are relatively few R conferences. In addition, 
-the <a href="https://www.meetup.com/portland-r-user-group/">Portland R User Group</a>
-is quite active, but it is hard to get together with folks from nearby cities like
-Corvallis/Eugene/Seattle/etc. This event is a place to come together around R,
-but also an excuse to get together with like minded people across
-a larger part of the Pacific Northwest.
+<h3>The conference first started in 2017 
+and will be returning for a hybrid in-person and virtual conference in 2023.
+We hope to see you there!</h3>
 
 ***
 
-### 2022 Organization Team
+### 2023 Organization Team
+
++ [Brittany Barker](http://brittanysbarker.org)
++ [Dominik Grätz](https://www.researchgate.net/profile/Dominik-Graetz-2)
++ Ellis Hughes
++ [Jacqueline Nolis](https://jnolis.com/)
++ [Kim Dill-McFarland](https://kdillmcfarland.github.io/)
++ Melissa Lee
++ Tim Anderson
+
+***
+### Past conferences
+#### 2022
 
 + Ellis Hughes
 + [Lea Frank](https://lea-frank.netlify.app/)
@@ -27,7 +35,7 @@ a larger part of the Pacific Northwest.
 + [Ted Laderas](https://laderast.github.io )
 + Ben McCary
 
-### 2021 Organization Team
+#### 2021
 
 + [Ellis Hughes](http://twitter.com/thebioengineer)
 + Martin Monkman
@@ -45,7 +53,7 @@ a larger part of the Pacific Northwest.
 + [Helen Miller](https://github.com/helenmiller16)
 + Rodolfo Lourenzutti
 
-### 2020 Organization Team
+#### 2020
 
 + [Daniel Anderson](https://www.datalorax.com/about/)
 + [Patrick Kennedy](https://ctl.uoregon.edu/about/staff/patrick-kennedy)
@@ -53,7 +61,7 @@ a larger part of the Pacific Northwest.
 + [Alison Hill](https://alison.rbind.io/)
 + [Brendan Cullen](https://bcullen.rbind.io/)
 
-### 2019 Organization Team
+#### 2019
 
 + Terry Christiani
 + David Henderson
@@ -64,7 +72,7 @@ a larger part of the Pacific Northwest.
 + David Smith
 
 
-### 2017/2018 Organization Team
+#### 2017/2018
 
 + Aaron Makubuya
 + Jessica Minnier

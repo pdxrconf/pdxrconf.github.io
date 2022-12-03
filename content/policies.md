@@ -14,8 +14,14 @@ If a participant engages in harassing behavior, the conference organizers may ta
 We expect attendees, sponsors, volunteers, and speakers to adhere to the code of conduct during the conference and in related online communities and social media. We will be monitoring all social media related to the conference throughout the year.
 If you have any questions, email `cascadiarcon@gmail.com`
 
-<hr><br>
+<br>
 
 This Code of Conduct is adapted from the policy of the [PyDX Conference](https://blog.pydx.org/code-of-conduct/), which is under a Creative Commons Zero license.
+
+<br>
+
+## COVID precautions
+
+We will assess masking and testing policies closer to the event date. 
 
 <br>

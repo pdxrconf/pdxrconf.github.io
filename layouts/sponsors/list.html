@@ -7,115 +7,99 @@
 
     <div id="all">
 
-          {{ partial "nav_2022_regbutton.html" . }}
+        {{ partial "nav_2023_regbutton.html" . }}
 
         {{ partial "breadcrumbs.html" . }}
 
         <div id="content">
             <div class="container">
-                <div class="row" style="margin-bottom: 50px;">
-                    <!-- *** LEFT COLUMN *** -->
+                <div class="row" style="margin-bottom: 50px; margin-top: -20px">
                     <div>
                         <div class="col-md-9" id="blog-listing-medium">
+                            <!-- TEMPLATE -->
+                            <!--
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="image">
-                                        <a href="https://www.r-consortium.org/" target="_blank">
-                                            <img src="/img/sponsors/rconsortium.png" class="img-responsive" alt="R Consortium Logo">
+                                        <a href="COMPANY URL" target="_blank">
+                                            <img src="/img/sponsors/IMAGE.png" class="img-responsive" alt="NAME">
                                         </a>
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h2><a href="https://www.r-consortium.org/" target="_blank">R Consortium</a></h2>
+                                    <h2><a href="COMPANY URL" target="_blank">COMPANY NAME</a></h2>
                                 </div>
-                                <p class="intro">Supporting the worldwide community of users, maintainers and developers of R software.</p>
+                                <p class="intro">COMPANY BLURB</p>
                             </div>
                             <br>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="image">
-                                        <a href="https://procogia.com/" target="_blank">
-                                            <img src="/img/sponsors/procogia.png" class="img-responsive" alt="ProCogia Logo">
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <h2><a href="https://procogia.com/" target="_blank">ProCogia</a></h2>
-                                </div>
-                                <p class="intro">Higher intelligence. Deeper insights. Smarter Decisions.</p>
-                            </div>
+                            -->
+                            <h3>We are currently looking for sponsors for Cascadia R Conf 2023. Please see 
+                            <a href="TBD">here</a>
+                            if you're interested in sponsoring!</h3>
                         </div>
                     </div>
                 </div>
                 <hr>
                 <div class="row" style="margin-top: 50px">
-                        <h2>Sponsors from previous years</h2>
-                        <div class="col-md-9" id="blog-listing-medium">
-
-                            {{ $paginator := .Paginate (where .Data.Pages "Type" "blog") }}
-                            {{ range $paginator.Pages }}
-                            <section class="post">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                      <div class="image">
-                                          <a href="{{ .Params.sponsor_link }}" target="_blank">
-                                            {{ $card := (.Resources.ByType "image").GetMatch "*logo*" }}
-                                            {{ with $card }}
-                                                  <img src="{{ .RelPermalink  | relURL }}" class="img-responsive" alt="">
-                                            {{ end }}
-                                          </a>
-                                      </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <h2><a href="{{ .Params.sponsor_link }}" target="_blank">{{ .Title }}</a></h2>
-                                        <div class="clearfix">
-                                            <p class="author-category">
-                                              {{ if isset .Params "author" }}
-                                              {{ i18n "authorBy" }} <a href="#">{{ .Params.author }}</a>
-                                              {{ end }}
-                                              {{ if isset .Params "categories" }}
-                                              {{ if gt (len .Params.categories) 0 }}
-                                              in <a href="{{ "categories/" | relURL }}{{ index .Params.categories 0 | urlize | lower }}">{{ index .Params.categories 0 }}</a>
-                                              {{ end }}
-                                              {{ end }}
-                                              {{ if isset .Params "tags" }}
-                                              {{ if gt (len .Params.tags) 0 }}
-                                              <br><a href="{{ "tags/" | relURL }}{{ index .Params.tags 0 | urlize | lower }}">{{ index .Params.tags 0 }}</a> level
-                                              {{ end }}
-                                              {{ end }}
-    
-                                            </p>
-                                        </div>
-                                        <p class="intro">{{ .Summary }}</p>
-                                        <p class="read-more"><a href="{{ .Params.sponsor_link }}" target="_blank" class="btn btn-template-main">Go to site</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </section>
-                            {{ end }}
-    
-                            <ul class="pager">
-                                {{ if .Paginator.HasPrev }}
-                                <li class="previous"><a href="{{ .Paginator.Prev.URL | relURL }}">&larr; {{ i18n "newer" }}</a></li>
-                                {{ else }}
-                                <li class="previous disabled"><a href="#">&larr; {{ i18n "newer" }}</a></li>
-                                {{ end }}
-    
-                                {{ if .Paginator.HasNext }}
-                                <li class="next"><a href="{{ .Paginator.Next.URL | relURL }}">{{ i18n "older" }} &rarr;</a></li>
-                                {{ else }}
-                                <li class="next disabled"><a href="#">{{ i18n "older" }} &rarr;</a></li>
-                                {{ end }}
-                            </ul>
+                        <h2>Previous Sponsors</h2>
+                        <br>
+                        <!-- Procogia and nanostring-->
+                        <div class="column">
+                                <div class="col-md-3">
+                                  <div class="row">
+                                    <div class="image" style="padding: 20px">
+                                        <a href="https://procogia.com/" target="_blank">
+                                            <img src="/img/sponsors/procogia.png" class="img-responsive" alt="ProCogia Logo"></a>
+                                            </div></div>
+                                            <br><br>
+                                  <div class="row">
+                                    <div class="image" style="padding: 20px">
+                                        <a href="https://nanostring.com/" target="_blank">
+                                            <img src="/img/sponsors/Nanostring.png" class="img-responsive" alt="Nanostring Logo"></a>
+                                            </div></div>
+                                    </div></div>
+                        <!-- Rstudio and R -->
+                        <div class="column">
+                                <div class="col-md-3">
+                                  <div class="row">
+                                    <div class="image" style="padding: 20px">
+                                        <a href="https://www.r-consortium.org/" target="_blank">
+                                            <img src="/img/sponsors/rconsortium.png" class="img-responsive" alt="R Consortium Logo"></a>
+                                            </div></div>
+                                            <br><br>
+                                  <div class="row">
+                                    <div class="image" style="padding: 20px">
+                                        <a href="https://posit.co/" target="_blank">
+                                            <img src="/img/sponsors/RStudio-Logo-Flat.png" class="img-responsive" alt="RStudio Logo"></a>
+                                            </div></div>
+                                    </div></div>
+                        <!-- U of Oregon -->
+                        <div class="column">
+                                <div class="col-md-3">
+                                    <div class="image" style="padding: 20px">
+                                        <a href="https://datascience.uoregon.edu/" target="_blank">
+                                            <img src="/img/sponsors/university-of-oregon-logo.jpeg" class="img-responsive" alt="University of Oregon Logo"></a>
+                                    </div></div></div>
+                                    
+                        <!-- H2O.ai and PIE -->
+                        <div class="column">
+                                <div class="col-md-2">
+                                  <div class="row">
+                                    <div class="image" style="padding: 20px">
+                                        <a href="https://h2o.ai/" target="_blank">
+                                            <img src="/img/sponsors/h2o.png" class="img-responsive" alt="H2O.ai Logo"></a>
+                                            </div></div>
+                                  <div class="row">
+                                    <div class="image" style="padding: 20px">
+                                        <a href="https://pielab.uoregon.edu/" target="_blank">
+                                            <img src="/img/sponsors/PIElab-logo.png" class="img-responsive" alt="PIE lab Logo"></a>
+                                            </div></div>
+                                    </div></div>
+                                    
+                                    
+                        
                         </div>
-                    </div>
-                    
-                    <!-- /.col-md-9 -->
-
-                    <!-- *** LEFT COLUMN END *** -->
-
-                    <!-- *** RIGHT COLUMN ***
-       _________________________________________________________ -->
+                        <br>
 
                     <div class="col-md-3">
 

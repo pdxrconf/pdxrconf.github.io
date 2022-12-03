@@ -41,10 +41,14 @@ border-color:black;
   <br>
  -->
 
-## September 17, 2022 8am-3:20pm
-[More detailed schedule here](https://docs.google.com/spreadsheets/d/1XlN4DKRMixDPyEhkuI8ZZSyrQHEFNVGjRin-VkV5n8Y/edit#gid=570888047)  
+## Coming soon!
+<br>
+<!--
+[More detailed schedule here](GOOGLE DOC)  
 <br>
 
+-->
+<!--
 #### 8:00-8:05 Introductions
 
 #### 8:05-8:45 Keynotes 
@@ -96,7 +100,7 @@ border-color:black;
 
 <br><br><br>
 
-
+-->
 <!-- <h4>The full schedule and speaker list will be posted soon!</h4> -->
 
 

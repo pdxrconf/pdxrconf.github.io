@@ -1,5 +1,5 @@
 ---
-title: "2022 Speakers"
-description: "Cascadia R Conf Session speakers 2022"
+title: "2023 Speakers"
+description: "Cascadia R Conf Session speakers 2023"
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: "2022 Keynotes"
-description: "Cascadia R Conf Keynotes 2022"
+title: "2023 Keynotes"
+description: "Cascadia R Conf Keynotes 2023"
 ---
 
