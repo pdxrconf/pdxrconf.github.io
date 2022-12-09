@@ -141,7 +141,7 @@ googleAnalytics = ""
     enable = true
     icon = "fas fa-lightbulb"
     title = "KEYNOTES"
-    subtitle = "Coming soon in 2023!"
+    subtitle = "We are proud to announce this year's Keynote Speakers!"
 
 [params.clients]
     enable = false 
