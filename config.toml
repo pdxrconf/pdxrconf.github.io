@@ -15,44 +15,44 @@ googleAnalytics = ""
 
 [[menu.main]]
     name = "Home"
-    url  = "/"
+    url = "/"
     weight = 1
 
 [[menu.main]]
     name = "About"
-    url  = "/about/"
+    url = "/about/"
     weight = 2
 
 [[menu.main]]
     name = "Agenda"
-    url  = "/agenda/"
+    url = "/coming_soon/agenda/"
     weight = 3
 
 [[menu.main]]
     name = "Venue"
-    url  = "/venue/"
+    url = "/coming_soon/venue/"
     weight = 4
 
 [[menu.main]]
     name = "Policies"
     identifier = "policies"
-    url  = "/policies/"
+    url = "/policies/"
     weight = 5
 
 [[menu.main]]
     name = "FAQ"
     identifier = "faq"
-    url  = "/faq/"
+    url = "/faq/"
     weight = 6
 
 [[menu.main]]
     name = "Sponsors"
-    url  = "/sponsors/"
+    url = "/sponsors/"
     weight = 7
 
 [[menu.main]]
     name = "Years"
-    url  = "/years/"
+    url = "/years/"
     weight = 8
 
 # Top bar social links menu
