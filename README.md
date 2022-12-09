@@ -1,14 +1,19 @@
-# CascadiaRConf website
+# How to contribute to the CascadiaRConf website
 
 This repository holds content for the [Cascadia R Conference website](https://cascadiarconf.org).
 The most recent conference organizers can be identified [here](https://cascadiarconf.org/about/).  
 
-## Contributing
+### Code of conduct
 
 Interactions associated with this repository fall under the same [Code of Conduct](https://cascadiarconf.org/policies/)
 used for the conference.
 
+# Ways to contribute
+### Make suggestions
+
 Please feel free to submit an [issue](https://github.com/pdxrconf/pdxrconf.github.io/issues) with any recommendations for our website.
+
+### Make changes
 
 If you have specific changes to website content or code you would like to suggest,
 please fork this repository prior to making your changes (either using the GitHub web interface, 
@@ -21,7 +26,7 @@ With a pull request, you'll get a preview of the site including your suggested c
 Click on `Details` to access the preview link
 and view any failure reports.
 
-## Rendering locally
+# Rendering locally
 
 The website is made with [Hugo](https://gohugo.io/)
 and the [Bootstrapious](https://bootstrapious.com/free-templates) theme.
@@ -57,7 +62,7 @@ The `-w` in the code above means watch for changes;
 if you alter website content while your hugo server is running,
 you should be able to refresh the webpage to see your changes implemented.
 
-## About the theme
+### About the theme
 
 The theme for this website is tracked as a git [submodule](https://git-scm.com/book/en/v2/Git-Tools-Submodules), which means that this repo only tracks the info for how to clone the theme files from github, but not the files themselves. 
 By cloning this repo with `--recurse-submodules`, the theme files should be cloned from their respective repository. 
