@@ -93,14 +93,14 @@ googleAnalytics = ""
     # Format dates with Go's time formatting
     date_format = "January 2, 2006"
 
-    logo = "img/logo_2023_small.png"
-    logo_small = "img/logo_2023_small.png"
-    logo_sticker = "img/logo_2023.png"
+    logo = "img/logo/logo_2023/logo_2023_small.png"
+    logo_small = "img/logo/logo_2023/logo_2023_small.png"
+    logo_sticker = "img/logo/logo_2023/logo_2023.png"
 	  description = "CascadiaRConf is a regional R conference for the Pacific Northwest - For 2023, the conference will be held in-person and virtually!"
     #latitude = "-12.043333"
     #longitude = "-77.028333"
     
-    default_sharing_image = "img/logo_2023_small.png"
+    default_sharing_image = "img/logo/logo_2023/logo_2023_small.png"
     twitterImage = "img/logo_2023_small.png"
 
 [Permalinks]
