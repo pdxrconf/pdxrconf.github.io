@@ -1,15 +1,15 @@
 ---
 title: "About"
+url: "about"
 ---
 
-<h3>Cascadia R Conference is an R conference serving the Pacific Northwest region (OR/WA/BC).
-This event is a place to come together around R
-but also an excuse to get together with like-minded people across
-a larger part of the Pacific Northwest.</h3>
+<h3>Cascadia R Conference is an R conference serving the Pacific Northwest (OR/WA/BC).
+This event is a place to come together around R and get together with like-minded people across
+the region.</h3>
 
-<h3>The conference first started in 2017 
-and will be returning for a hybrid in-person and virtual conference in 2023.
-We hope to see you there!</h3>
+<h3>This conference first started in 2017 with the strong support of R-Ladies Portland and
+has since expanded across the region. We are excited to return to an in-person event 
+this year and hope to see you there!</h3>
 
 ***
 

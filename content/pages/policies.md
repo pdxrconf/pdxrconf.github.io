@@ -1,7 +1,8 @@
-+++
-title = "Policies"
-description = "CascadiaRConf Code of Conduct and Photography Policy"
-+++
+---
+title: "Policies"
+description: "CascadiaRConf Code of Conduct and Photography Policy"
+url: "policies"
+---
 
 ## Code of Conduct
 
