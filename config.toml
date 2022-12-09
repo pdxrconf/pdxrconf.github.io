@@ -29,55 +29,31 @@ googleAnalytics = ""
     weight = 3
 
 [[menu.main]]
-    name = "Speakers"
-    identifier = "speakers"
-    url  = "/speakers/"
-    weight = 4
-
-[[menu.main]]
-   name = "Keynote Speakers"
-   parent = "speakers"
-   url  = "/speakers/keynote"
-   weight = 4.1
-    
-[[menu.main]]
-   name = "Regular Talks"
-   parent = "speakers"
-   url  = "/speakers/session"
-   weight = 4.2
-
-[[menu.main]]
-   name = "Lightning Talks"
-   parent = "speakers"
-   url = "/speakers/lightning"
-   weight = 4.3
-
-[[menu.main]]
     name = "Venue"
     url  = "/venue/"
-    weight = 5
+    weight = 4
 
 [[menu.main]]
     name = "Policies"
     identifier = "policies"
     url  = "/policies/"
-    weight = 6
+    weight = 5
 
 [[menu.main]]
     name = "FAQ"
     identifier = "faq"
     url  = "/faq/"
-    weight = 7
+    weight = 6
 
 [[menu.main]]
     name = "Sponsors"
     url  = "/sponsors/"
-    weight = 8
+    weight = 7
 
 [[menu.main]]
     name = "Years"
     url  = "/years/"
-    weight = 9
+    weight = 8
 
 # Top bar social links menu
 
