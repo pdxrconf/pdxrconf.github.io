@@ -64,8 +64,10 @@ googleAnalytics = ""
     weight = 7
 
 [[menu.main]]
+    name = "Contact"
+    url = "/contact/"
     weight = 8
-
+    
 # Top bar social links menu
 
 [[menu.topbar]]
