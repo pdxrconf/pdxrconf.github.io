@@ -25,8 +25,21 @@ googleAnalytics = ""
 
 [[menu.main]]
     name = "Agenda"
+    identifier = "agenda"
     url = "/coming_soon/agenda/"
     weight = 3
+
+[[menu.main]]
+   name = "Current"
+   parent = "agenda"
+   url  = "/coming_soon/agenda/"
+   weight = 3.1
+    
+[[menu.main]]
+   name = "Past"
+   parent = "agenda"
+   url  = "/years"
+   weight = 3.2
 
 [[menu.main]]
     name = "Venue"
@@ -51,8 +64,6 @@ googleAnalytics = ""
     weight = 7
 
 [[menu.main]]
-    name = "Years"
-    url = "/years/"
     weight = 8
 
 # Top bar social links menu
