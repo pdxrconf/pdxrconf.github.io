@@ -15,70 +15,59 @@ googleAnalytics = ""
 
 [[menu.main]]
     name = "Home"
-    url  = "/"
+    url = "/"
     weight = 1
 
 [[menu.main]]
     name = "About"
-    url  = "/about/"
+    url = "/about/"
     weight = 2
 
 [[menu.main]]
     name = "Agenda"
-    url  = "/agenda/"
+    identifier = "agenda"
+    url = "/coming_soon/agenda/"
     weight = 3
 
 [[menu.main]]
-    name = "Speakers"
-    identifier = "speakers"
-    url  = "/speakers/"
-    weight = 4
-
-[[menu.main]]
-   name = "Keynote Speakers"
-   parent = "speakers"
-   url  = "/speakers/keynote"
-   weight = 4.1
+   name = "Current"
+   parent = "agenda"
+   url  = "/coming_soon/agenda/"
+   weight = 3.1
     
 [[menu.main]]
-   name = "Regular Talks"
-   parent = "speakers"
-   url  = "/speakers/session"
-   weight = 4.2
-
-[[menu.main]]
-   name = "Lightning Talks"
-   parent = "speakers"
-   url = "/speakers/lightning"
-   weight = 4.3
+   name = "Past"
+   parent = "agenda"
+   url  = "/years"
+   weight = 3.2
 
 [[menu.main]]
     name = "Venue"
-    url  = "/venue/"
-    weight = 5
+    url = "/coming_soon/venue/"
+    weight = 4
 
 [[menu.main]]
     name = "Policies"
     identifier = "policies"
-    url  = "/policies/"
-    weight = 6
+    url = "/policies/"
+    weight = 5
 
 [[menu.main]]
     name = "FAQ"
     identifier = "faq"
-    url  = "/faq/"
-    weight = 7
+    url = "/faq/"
+    weight = 6
 
 [[menu.main]]
     name = "Sponsors"
-    url  = "/sponsors/"
-    weight = 8
+    url = "/sponsors/"
+    weight = 7
 
 [[menu.main]]
-    name = "Years"
-    url  = "/years/"
-    weight = 9
-
+    name = "Contact"
+    url = "/contact/"
+    weight = 8
+    
 # Top bar social links menu
 
 [[menu.topbar]]
@@ -117,15 +106,15 @@ googleAnalytics = ""
     # Format dates with Go's time formatting
     date_format = "January 2, 2006"
 
-    logo = "img/logo_2022_small.png"
-    logo_small = "img/logo_2022_small.png"
-    logo_sticker = "img/logo_2022.png"
-	  description = "CascadiaRConf is a regional R conference for the Pacific Northwest - For 2022, the conference will be held virtually!"
+    logo = "img/logo/logo_2023/logo_2023_small.png"
+    logo_small = "img/logo/logo_2023/logo_2023_small.png"
+    logo_sticker = "img/logo/logo_2023/logo_2023.png"
+	  description = "CascadiaRConf is a regional R conference for the Pacific Northwest - For 2023, the conference will be held in-person and virtually!"
     #latitude = "-12.043333"
     #longitude = "-77.028333"
     
-    default_sharing_image = "img/logo_2022_small.png"
-    twitterImage = "img/logo_2022_small.png"
+    default_sharing_image = "img/logo/logo_2023/logo_2023_small.png"
+    twitterImage = "img/logo_2023_small.png"
 
 [Permalinks]
     blog = "/blog/:year/:month/:day/:filename/"
@@ -144,7 +133,7 @@ googleAnalytics = ""
 [params.carousel]
     enable = false
     # All carousel items are defined in their own files. You can find example items
-    # at 'exampleSite/data/carousel'.
+    # at 'exampleSite/data/carousel'. 
     # For more informtion take a look at the README.
 
 [params.features]
@@ -165,14 +154,14 @@ googleAnalytics = ""
     enable = true
     icon = "fas fa-lightbulb"
     title = "KEYNOTES"
-    subtitle = "We are proud to announce our 2022 Keynote speakers!"
+    subtitle = "We are proud to announce this year's Keynote Speakers!"
 
 [params.clients]
-    enable = true 
+    enable = false 
     # All clients are defined in their own files. You can find example items
     # at 'exampleSite/data/clients'.
     # For more informtion take a look at the README.
-    title = "2022 Sponsors"
+    title = "2023 Sponsors"
     subtitle = ""
 
 [params.recent_posts]
