@@ -9,6 +9,12 @@ If you are interested in sponsoring, please contact us
 <a href="mailto:cascadiarcon@gmail.com">here</a> </h3>
 
 <br>
+
+<div class="image" style="padding: 20px">
+  <a href="https://www.fredhutch.org/en.html" target="_blank">
+  <img src="/img/sponsors/Fred_Hutch.png" class="img-responsive" alt="Fred Hutch Logo"></a></div>
+                                            
+<br>
 <hr>
 
 <div class="row" style="margin-top: 50px">

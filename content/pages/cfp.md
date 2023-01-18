@@ -3,7 +3,7 @@ title: "Call for Presentations"
 url: "cfp" 
 ---
 
-It is with great pleasure that we announce the Call for Presentations for the 2023 Cascadia R Conference to be held in-person and virtually on TBD 2023. All speakers must present in-person unless last-minute issues arise.
+It is with great pleasure that we announce the Call for Presentations for the 2023 Cascadia R Conference to be held in-person and virtually on August 19, 2023. All speakers must present in-person unless last-minute issues arise.
 
 The goals of the conference are to showcase the interesting ways R is being used in the region, provide learning opportunities, and connect R programmers with one another. The presentations, therefore, are a platform for promoting these ideals. 
 

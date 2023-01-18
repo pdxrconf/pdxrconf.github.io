@@ -10,23 +10,29 @@ url: "faq"
 Yes! See the <a href="/policies">Policies</a> page.
 
 ### When is the conference?
-TBD
+Saturday, August 19, 2023
 
 ### Where is the conference?
-TBD. See the <a href="/venue"> Venue</a> page for more information
-as the conference approaches.
+[Fred Hutchinson Cancer Center](https://goo.gl/maps/evYEvVbkZSsaPDAR6) in Seattle, WA, USA. See the <a href="/venue"> Venue</a> page for more information including directions and parking.
 
 ### Will meals be provided?
 A light breakfast as well as a catered lunch are provided with your registration.
 
-### Will there be a lactation room?
-TBD
-
 ### Will there be a virtual option?
-Yes.
+Yes. You will receive access information after registration.
 
 ### What are the COVID precautions and policies?
 Please see the <a href="/policies">Policies</a> page for more information.
+
+<br>
+
+# Facilities
+
+### Will there be a lactation room?
+Yes. See the <a href="/venue"> Venue</a> page for more information.
+
+### Is there a preferred hotel?
+No. R Cascadia has not negoitated any group rates at local hotels. There are several options within walking distance of the venue such as the Residence Inn by Marriott Seattle Downtown/Lake Union and Silver Cloud Hotel - Seattle Lake Union. 
 
 <br>
 
@@ -43,25 +49,6 @@ Yes! Student tickets are available on the registration page.
 
 ### Are there early bird tickets?
 Yes! Please register by April 15, 2023 at 11:59 PM.
-
-<br>
-
-# Navigation
-
-### Where do I park?
-TBD
-
-### Getting here by car
-TBD
-
-### Getting here by public transport
-TBD
-
-### Getting here by air
-TBD
-
-### Getting here by teleporter
-First set the up-quark to a spin of 42 and feed your Z Boson to ...wait, why do you need directions?
 
 <br>
 
