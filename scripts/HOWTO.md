@@ -109,7 +109,6 @@ Note that this page only renders when `cfp="true"`. See [Step 2.8](#update) for 
 * File: `content/pages/faq.md`
 * Recommended updates:
     - Conference date and location
-    - Venue information like lactation rooms (basic) and the navigation section
     - Registration link and early-bird cutoff
     - After the conference, the recorded talks link and next year's teaser
 
@@ -120,7 +119,7 @@ Note that this page always renders so you should use TBD for things you plan to 
 #### 2.4.6 Venue
 
 * File: `content/pages/venue.md`
-* This page is specific to the venue. You may consider including things like directions, parking, nearby food options, etc. Really anything you think attendees will find useful.
+* This page is specific to the venue. You may consider including things like directions, lactation rooms, parking, etc. Really anything you think attendees will find useful.
 
 Note that this page only renders when `venue="true"`. See [Step 2.8](#update) for details.
 
