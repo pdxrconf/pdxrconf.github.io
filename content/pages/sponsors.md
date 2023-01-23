@@ -1,6 +1,5 @@
 ---
 title: "Sponsors"
-layout: "sponsors"
 url: "sponsors"
 ---
 
