@@ -12,7 +12,7 @@ url: "venue"
 }
 
 #location a {
-  color: #036936;
+  color: #3366cc;
 }
 #location a:hover {
   color: #FEE11A;
@@ -30,7 +30,8 @@ url: "venue"
   -->
   
   <h3>Address</h3> 
-  1100 Fairview Ave N, Seattle, WA 98109
+  <a href="https://goo.gl/maps/evYEvVbkZSsaPDAR6">
+  1100 Fairview Ave N, Seattle, WA 98109</a>
   
   <img src="/img/venue/Hutch_campus_map.png" class="img-responsive" alt="Fred Hutch map" style="height:600px;">
   <br>
