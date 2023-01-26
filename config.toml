@@ -70,23 +70,23 @@ googleAnalytics = ""
     
 # Top bar social links menu
 
-[[menu.topbar]]
-    weight = 1
-    name = "GitHub"
-    url = "https://github.com/pdxrconf/pdxrconf.github.io"
-    pre = "<i class='fab fa-2x fa-github'></i>"
+# [[menu.topbar]]
+#     weight = 1
+#     name = "GitHub"
+#     url = "https://github.com/pdxrconf/pdxrconf.github.io"
+#     pre = "<i class='fab fa-2x fa-github'></i>"
 
-[[menu.topbar]]
-    weight = 2
-    name = "Twitter"
-    url = "http://twitter.com/cascadiarconf"
-    pre = "<i class='fab fa-2x fa-twitter'></i>"
+# [[menu.topbar]]
+#     weight = 2
+#     name = "Twitter"
+#     url = "http://twitter.com/cascadiarconf"
+#     pre = "<i class='fab fa-2x fa-twitter'></i>"
 
-[[menu.topbar]]
-    weight = 3
-    name = "Email"
-    url = "mailto:cascadiarcon@gmail.com"
-    pre = "<i class='fas fa-2x fa-envelope'></i>"
+# [[menu.topbar]]
+#     weight = 3
+#     name = "Email"
+#     url = "mailto:cascadiarcon@gmail.com"
+#     pre = "<i class='fas fa-2x fa-envelope'></i>"
 
 [params]
     social = true

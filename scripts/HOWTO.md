@@ -100,11 +100,14 @@ And then after scheduling
 * Recommended updates:
     - Year and date of conference in intro
     - Check that _Presentation format_ matches this year's formats
-    - Registration link 
 
 Note that this page only renders when `cfp="true"`. See [Step 2.8](#update) for details.
 
-#### 2.4.5 FAQ
+#### 2.4.5 Registration link
+
+Once available, add the registration link to `layouts/partials/nav.html ` (`href=` near line 41) and `layouts/partials/register.html` (`href=` near line 3). Then, set `register="true"` in the update script. See [Step 2.8](#update) for details.
+
+#### 2.4.6 FAQ
 
 * File: `content/pages/faq.md`
 * Recommended updates:
@@ -116,7 +119,7 @@ Note that this page always renders so you should use TBD for things you plan to 
 
 <a name="venue"></a>
 
-#### 2.4.6 Venue
+#### 2.4.7 Venue
 
 * File: `content/pages/venue.md`
 * This page is specific to the venue. You may consider including things like directions, lactation rooms, parking, etc. Really anything you think attendees will find useful.
@@ -125,8 +128,7 @@ Note that this page only renders when `venue="true"`. See [Step 2.8](#update) fo
 
 <a name="agenda"></a>
 
-#### 2.4.7 Agenda
-
+#### 2.4.8 Agenda
 * File: `content/pages/agenda.md`
     - Optional template `content/pages/agenda_example.md`
 * Recommended updates:
@@ -144,7 +146,7 @@ Note that this page only renders when `venue="true"`. See [Step 2.8](#update) fo
 
 Note that this page only renders when `agenda="true"`. See [Step 2.8](#update) for details.
 
-#### 2.4.8 Sponsors
+#### 2.4.9 Sponsors
 
 _UNDER DEVELOPMENT_
 
@@ -163,20 +165,21 @@ _UNDER DEVELOPMENT_
 To add speakers:
 
 1. Navigate to the appropriate session directory in `content/speakers/speaker_info_YEAR/` i.e. one of `keynote/`, `lightning/`, or `regular/`
-0. Copy the the template directory and rename as `firstname-lastname` for the speaker
+0. Copy the the template directory and rename as `firstname_lastname` for the speaker
 0. Fill out the `index.md` including
     - title
-    - url (make sure the format is the speaker's `firstname-lastname` all lowercase, underscore separators)
-    - Talk title, session time, and locataion
+    - url (make sure the format is the speaker's `firstname_lastname` all lowercase, underscore separators)
+    - Talk title, session time, and location
     - Abstract
     - (Within the table)
-        - Image name (replace `logo_2023.png`) and alt text
+        - Image name (replace `logo_2023.png` if using custom image) and alt text
         - Pronouns
         - Location (i.e. where they live)
         - Biography
-0. [Optional] Add a speaker photo named `firstname-lastname.png` (`.jpg` also okay)
+0. [Optional] Add a speaker photo named `firstname_lastname.png` (`.jpg` also okay)
     - If no photo provided, it will render the conference logo instead
 0. Add/update URL link in `content/pages/agenda.md`
+0. If keynote speaker, add similar info to `layouts/partials/keynotes.html`
 0. Repeat for all speakers
 
 Once the keynote speakers are added, update the `speakers` parameter in [Step 2.8](#update) to highlight them on the homepage.
