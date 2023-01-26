@@ -35,16 +35,16 @@ reg_button_new=`echo "${reg_button}""\""$register""\"`
 if [ $register == "false" ];
 then
   # Remove button
-  sed -i '' "s/^<\!-- REGISTER start-->$/<\!-- REGISTER start/g" layouts/partials/nav_regbutton.html
-  sed -i '' "s/^<\!-- REGISTER end-->$/REGISTER end-->/g" layouts/partials/nav_regbutton.html
+  sed -i '' "s/^<\!-- REGISTER start-->$/<\!-- REGISTER start/g" layouts/partials/nav.html
+  sed -i '' "s/^<\!-- REGISTER end-->$/REGISTER end-->/g" layouts/partials/nav.html
   # Remove button link
-  sed -i '' "s|id=\"register-button\" href=.*|id=\"register-button\" href= |g" layouts/partials/nav_regbutton.html
+  sed -i '' "s|id=\"register-button\" href=.*|id=\"register-button\" href= |g" layouts/partials/nav.html
 else
   # Add button
-  sed -i '' "s/<\!-- REGISTER start$/<\!-- REGISTER start-->/g" layouts/partials/nav_regbutton.html
-  sed -i '' "s/^REGISTER end-->/<\!-- REGISTER end-->/g" layouts/partials/nav_regbutton.html
+  sed -i '' "s/<\!-- REGISTER start$/<\!-- REGISTER start-->/g" layouts/partials/nav.html
+  sed -i '' "s/^REGISTER end-->/<\!-- REGISTER end-->/g" layouts/partials/nav.html
   # Add button link
-  sed -i '' "s|id=\"register-button\" href= |$reg_button_new|g" layouts/partials/nav_regbutton.html
+  sed -i '' "s|id=\"register-button\" href= |$reg_button_new|g" layouts/partials/nav.html
 fi
 
 #HOMEPAGE#
