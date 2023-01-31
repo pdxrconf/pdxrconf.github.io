@@ -135,7 +135,7 @@ Note that this page only renders when `venue="true"`. See [Step 2.8](#update) fo
     - Update Slack invite link or comment out line if not using `<!--  -->`
     - Update event date as main header
     - Add sessions and talks in simple bullet format (example below)
-        - If you don't have speaker pages ready ([Step 2.5](#speaker)), remove the link aroung the speaker's name
+        - If you don't have speaker pages ready ([Step 2.5](#speaker)), remove the link around the speaker's name
     
 ```
 #### Start-End Session name
