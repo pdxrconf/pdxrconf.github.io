@@ -176,10 +176,10 @@ To add speakers:
         - Pronouns
         - Location (i.e. where they live)
         - Biography
-0. [Optional] Add a speaker photo named `firstname_lastname.png` (`.jpg` also okay)
+0. [Optional] Add a speaker photo in `static/img/speakers/speakers_YEAR/` named `firstname_lastname.png` (`.jpg` also okay)
     - If no photo provided, it will render the conference logo instead
 0. Add/update URL link in `content/pages/agenda.md`
-0. If keynote speaker, add similar info to `layouts/partials/keynotes.html`
+0. If keynote speaker, add name, title, biography, and image to `layouts/partials/keynotes.html`
 0. Repeat for all speakers
 
 Once the keynote speakers are added, update the `speakers` parameter in [Step 2.8](#update) to highlight them on the homepage.

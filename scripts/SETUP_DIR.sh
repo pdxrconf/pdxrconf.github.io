@@ -7,6 +7,7 @@ YEAR="2023"
 ###### Make directories ######
 mkdir -p static/img/logo/logo_"$YEAR"
 mkdir -p static/img/presentations/presentations_"$YEAR"
+mkdir -p static/img/speakers/speakers_"$YEAR"/
 mkdir -p content/speakers/speaker_info_"$YEAR"/
 cp -R content/speakers/template/* content/speakers/speaker_info_"$YEAR"/
 
