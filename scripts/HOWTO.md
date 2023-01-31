@@ -135,7 +135,7 @@ Note that this page only renders when `venue="true"`. See [Step 2.8](#update) fo
     - Update Slack invite link or comment out line if not using `<!--  -->`
     - Update event date as main header
     - Add sessions and talks in simple bullet format (example below)
-        - If you don't have speaker pages ready ([Step 2.5](#speaker)), remove the link aroung the speaker's name
+        - If you don't have speaker pages ready ([Step 2.5](#speaker)), remove the link around the speaker's name
     
 ```
 #### Start-End Session name
@@ -176,10 +176,10 @@ To add speakers:
         - Pronouns
         - Location (i.e. where they live)
         - Biography
-0. [Optional] Add a speaker photo named `firstname_lastname.png` (`.jpg` also okay)
+0. [Optional] Add a speaker photo in `static/img/speakers/speakers_YEAR/` named `firstname_lastname.png` (`.jpg` also okay)
     - If no photo provided, it will render the conference logo instead
 0. Add/update URL link in `content/pages/agenda.md`
-0. If keynote speaker, add similar info to `layouts/partials/keynotes.html`
+0. If keynote speaker, add name, title, biography, and image to `layouts/partials/keynotes.html`
 0. Repeat for all speakers
 
 Once the keynote speakers are added, update the `speakers` parameter in [Step 2.8](#update) to highlight them on the homepage.
