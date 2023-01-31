@@ -12,7 +12,7 @@ logo="true"
 cfp="true"
 venue="true"
 agenda="false"
-speakers="false"
+speakers="true"
 register="false"
 alert="false"
 
