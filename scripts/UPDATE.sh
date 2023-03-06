@@ -13,7 +13,7 @@ cfp="true"
 venue="true"
 agenda="false"
 speakers="true"
-register="false"
+register="true"
 alert="false"
 
 ###### Logo paths ######
