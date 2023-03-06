@@ -44,7 +44,7 @@ url: "venue"
   
   <h3>Parking</h3> 
   
-  The Hutch has visitor parking as indicated in the above map. We are working with them to extend the standard 2-hour free limits. If needed, there is a paid Impark lot #185 across the street (1111 Fairview Ave N). This lot is $20 for up to 12 hours.
+  The Hutch has free visitor parking as indicated in the above map. This parking does not have a time limit on weekends. If needed, there is also a paid Impark lot #185 across the street (1111 Fairview Ave N). This lot is $20 for up to 12 hours.
   
   <br>
 
