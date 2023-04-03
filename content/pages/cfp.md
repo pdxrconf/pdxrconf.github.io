@@ -37,7 +37,7 @@ to be held in Seattle, Washington on August 19, 2023.
 <br>
 
 <center><h2>
-Extended submission now open until April 8, 2023!
+Final submission deadline is April 16, 2023!
 </h2></center>
 
 <br>
@@ -62,7 +62,7 @@ Presenters are expected to comply with the <a href="/policies">code of conduct</
 
 To apply, fill out and submit the [Cascadia R Conference Application](https://forms.gle/D574ZXNmM2Y8jWv96). Applicants must include an abstract limited to 500 words describing your presentation and how it aligns with the goals of the conference as well as contact information. 
 
-The Call for Presentations <b>opens January 30, 2023 and will close April 8, 2023 </b>. Presenters will be notified by end of April 2023. Upon notification, presenters are expected to confirm acceptance, provide high quality headshots, and a short biography that will be included on the Cascadia R Conference website. Prior to the conference, copies of the final presentation are required to be made available to the planning committee as a back-up.
+The Call for Presentations <b>opens January 30, 2023 and will close April 16, 2023 </b>. Presenters will be notified by end of April 2023. Upon notification, presenters are expected to confirm acceptance, provide high quality headshots, and a short biography that will be included on the Cascadia R Conference website. Prior to the conference, copies of the final presentation are required to be made available to the planning committee as a back-up.
 
 Please <a href="/contact">contact us</a> with any questions or concerns!
 
