@@ -39,16 +39,13 @@ No. R Cascadia has not negoitated any group rates at local hotels. There are sev
 # Registration
 
 ### How do I register?
-A link will be available in 2023.
-<!--
-Register [here](https://ecommerce.uoregon.edu/order_form/brt-cascadia-r-conference)
--->
+Register at https://www.eventbrite.com/e/cascadia-r-conf-tickets-525269835217
 
 ### Are there discounts for students?
 Yes! Student tickets are available on the registration page.
 
 ### Are there early bird tickets?
-Yes! Please register by April 15, 2023 at 11:59 PM.
+Yes! Please register by May 15, 2023 at 11:59 PM.
 
 <br>
 
