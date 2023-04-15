@@ -9,7 +9,7 @@ YEAR="2023"
 # Set all that you have ready to post
 ## If not available, set to "false"
 logo="true"
-cfp="true"
+cfp="false"
 venue="true"
 agenda="false"
 speakers="true"
