@@ -60,7 +60,7 @@ url: "venue"
   <h3>By transit</h3>
   
   * Bus line C or 70 brings you right to the venue on Fairview Ave N.
-  * For those staying in South Lake Union, there is also the South Lake Union Streetcar (affectionately called to SLUT).
+  * For those staying in South Lake Union, there is also the South Lake Union Streetcar (affectionately called the SLUT).
   * Uber/Lyft drop-off is recommended in the Campus Dr / Ward St traffic circle.
   
   <br>
