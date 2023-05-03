@@ -12,7 +12,10 @@ If you are interested in sponsoring, please contact us
 <div class="image" style="padding: 20px">
   <a href="https://www.fredhutch.org/en.html" target="_blank">
   <img src="/img/sponsors/Fred_Hutch.png" class="img-responsive" alt="Fred Hutch Logo"></a></div>
-                                            
+  
+<div class="image" style="padding: 20px">
+  <a href="https://escience.washington.edu/" target="_blank">
+  <img src="/img/sponsors/uw_escience.png" class="img-responsive" alt="UW eScience Institute Logo"></a></div>                                          
 <br>
 <hr>
 
