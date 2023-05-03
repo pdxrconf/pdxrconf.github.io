@@ -59,6 +59,18 @@ googleAnalytics = ""
     weight = 6
 
 [[menu.main]]
+   name = "Attendees"
+   parent = "faq"
+   url  = "/faq/"
+   weight = 6.1
+   
+[[menu.main]]
+   name = "Speakers"
+   parent = "faq"
+   url  = "/speaker_faq/"
+   weight = 6.2
+
+[[menu.main]]
     name = "Sponsors"
     url = "/sponsors/"
     weight = 7
