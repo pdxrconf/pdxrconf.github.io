@@ -11,11 +11,11 @@ url: "speaker_faq"
 Link coming soon!
 
 ### There is an error in my bio/abstract/photo on the CascadiaR website. How do I fix this?
-Contact <cascasiarconf@gmail.com> and let us know the issue. We will make sure
+Contact <cascasiarcon@gmail.com> and let us know the issue. We will make sure
 it gets to our web developer.
 
 ### What if I can no longer present in person?
-Please contact <cascasiarconf@gmail.com> as soon as possible and we will work to transition you to a virtual talk format.
+Please contact <cascasiarcon@gmail.com> as soon as possible and we will work to transition you to a virtual talk format.
 
 <br>
 
