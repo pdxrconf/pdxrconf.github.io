@@ -31,7 +31,8 @@ Please contact <cascasiarcon@gmail.com> as soon as possible and we will work to 
 ### Giving an inclusive and accessible talk
 
 *	Use simple language and avoid jargon. Use clear, concise language, and avoid technical jargon that may be difficult for some people to understand. When jargon or technical language is used, offer a definition in plain language.
-*	Use inclusive language such as non-gendered group terms like everyone, y'all, etc.
+*	Avoid phrases like "as we all know". We have a very diverse audience so assume limited prior knowledge if your field.
+* Use inclusive language such as non-gendered group terms like everyone, y'all, etc.
 *	Repeat or summarise questions before answering. This is especially important for our hybrid conference format.
 
 <br><br>
