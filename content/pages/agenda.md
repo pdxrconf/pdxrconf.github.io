@@ -74,16 +74,16 @@ border-color:black;
 
 #### R is for statistics
 
-* [Nathan TeBlunthuis](/2023/regular/nathan_tebluntuis): Misclassification Causes Bias in Regression Models: How to Fix It Using the MisclassificationModels Package
+* [Nathan TeBlunthuis](/2023/regular/nathan_teblunthuis): Misclassification Causes Bias in Regression Models: How to Fix It Using the MisclassificationModels Package
 * [Melissa Bather](/2023/regular/melissa_bather): Using R to Estimate Animal Population Density
 * [Ed Borasky](/2023/regular/ed_borasky): Eikosany: Microtonal Algorithmic Composition with R
 
 #### Lightning talks
 
-* [Cari Gostic](/2023/regular/cari_gostic): RShiny, Big Data and AWS: A tidy solution using Arrow
-* [Valeria Duran](/2023/regular/valeria_duran): Maximizing Performance: Strategies for Code Optimization 
-* [Sean Kross](/2023/regular/sean_kross): Visualize Data Analysis Pipelines with Tidy Data Tutor
-* [C. Nathalie Yuen](/2023/regular/nathalie_yuen): Come TogetheR, Right Now, OveR R
-* [Mohsen Soltanifar](/2023/regular/mohsen_soltanifar): SimSST: An R Statistical Software Package to Simulate Stop Signal Task Data
+* [Cari Gostic](/2023/lightning/cari_gostic): RShiny, Big Data and AWS: A tidy solution using Arrow
+* [Valeria Duran](/2023/lightning/valeria_duran): Maximizing Performance: Strategies for Code Optimization 
+* [Sean Kross](/2023/lightning/sean_kross): Visualize Data Analysis Pipelines with Tidy Data Tutor
+* [C. Nathalie Yuen](/2023/lightning/nathalie_yuen): Come TogetheR, Right Now, OveR R
+* [Mohsen Soltanifar](/2023/lightning/mohsen_soltanifar): SimSST: An R Statistical Software Package to Simulate Stop Signal Task Data
 
 <br><br><br>
