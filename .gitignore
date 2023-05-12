@@ -4,3 +4,5 @@
 .Ruserdata
 public/
 .DS_Store
+R_code/speaker_ticket_codes.R
+R_code/2023_speaker_codes.csv
