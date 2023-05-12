@@ -47,7 +47,7 @@ border-color:black;
 #### Keynotes
 
 * [Isabella Velásquez](/2023/keynote/isabella_velasquez): TBD
-* [Scott Chamberlain](/2023/keynote/scott_chamberlain), [Jessica Minnier](/2023/keynote/jessica_minnier), and [Chester Ismay](/2023/keynote/chester_ismay): TBD
+* [Scott Chamberlain, Jessica Minnier, Chester Ismay](/2023/keynote/og_cascadiaR): TBD
 
 #### Shiny for research
 
