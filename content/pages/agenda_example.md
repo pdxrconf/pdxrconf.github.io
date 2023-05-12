@@ -6,7 +6,7 @@ layout: "agenda"
 url: "agenda"
 ---
 
--->
+
 
 <style>
 td {vertical-align:top;}
@@ -38,7 +38,7 @@ border-color:black;
 .descriptioncontainer {width:60%px;}
 
 </style>
-
+-->
 <!-- </style> -->
 
 <h1>Communication</h1>
