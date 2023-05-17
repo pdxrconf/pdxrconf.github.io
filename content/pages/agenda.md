@@ -65,18 +65,18 @@ border-color:black;
 
 * [Ted Laderas](/2023/regular/ted_laderas): A gRadual introduction to web APIs and JSON
 * [Mark Niemann-Ross](/2023/regular/mark_niemannross): Use R to control a Raspberry Pi
+* [Ed Borasky](/2023/regular/ed_borasky): Eikosany: Microtonal Algorithmic Composition with R
 
 #### Stats and my story
 
 * [Dror Berel](/2023/regular/dror_berel): Tidy everything… How I finally got to dive in Time series, Tree and Graph/Network data structures and analysis, thanks to their tidy packages
 * [Kangjie Zhang](/2023/regular/kangjie_zhang): Beyond the Comfort Zone: Traditional Statistical Programmers Embrace R to Expand their Toolkits
-* [Justin Sherrill](/2023/regular/justin_sherrill): Transit Access Analysis in R
 
 #### R is for statistics
 
 * [Nathan TeBlunthuis](/2023/regular/nathan_teblunthuis): Misclassification Causes Bias in Regression Models: How to Fix It Using the MisclassificationModels Package
 * [Melissa Bather](/2023/regular/melissa_bather): Using R to Estimate Animal Population Density
-* [Ed Borasky](/2023/regular/ed_borasky): Eikosany: Microtonal Algorithmic Composition with R
+* [Justin Sherrill](/2023/regular/justin_sherrill): Transit Access Analysis in R
 
 #### Lightning talks
 
