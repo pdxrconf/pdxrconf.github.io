@@ -3,7 +3,7 @@
 ---
 title: "Agenda"
 layout: "agenda"
-url: "agenda"
+url: "agenda_example"
 ---
 
 
