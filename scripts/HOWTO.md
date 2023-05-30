@@ -158,6 +158,14 @@ _UNDER DEVELOPMENT_
         - New logos should go in `static/img/sponsors/`
     - If different sponsor tiers exist, separate the groups and highlight tiers with color or something else.
     
+<a name="scholarship"></a>
+
+#### 2.4.10 Scholarship
+
+*  File: `content/pages/scholarship.md`
+* Recommended updates:
+    - Change due dates and update link to submission form
+    
 <a name="speaker"></a>
 
 ### 2.5 Speaker pages
@@ -231,6 +239,7 @@ The remaining parameters are optional. Set them to `"false"` when data are not a
 * `speakers`: Homepage keynote highlight. See [Step 2.5](#speaker)
 * `register`: Homepage and taskbar registration links
 * `alert`: Homepage alert. Last used to announce conference cancellation in 2020
+* `scholarship`: Homepage link to scholarships. See [Step ](#scholarship)
 
 ### 2.9: Check website render locally 
 

@@ -15,6 +15,7 @@ agenda="true"
 speakers="true"
 register="true"
 alert="false"
+scholarship="true"
 
 ###### Logo paths ######
 if [ $logo == "true" ];
@@ -117,4 +118,14 @@ else
   # Add content
   sed -i '' "s/<\!--{{ partial \"see_more.html\" . }}-->/{{ partial \"see_more.html\" . }}/g" layouts/index.html
   sed -i '' "s/<\!--{{ partial \"keynotes.html\" . }}-->/{{ partial \"keynotes.html\" . }}/g" layouts/index.html
+fi
+
+###### Scholarship page #####
+if [ $scholarship == "false" ];
+then
+  # Remove button
+  sed -i '' "s/{{ partial \"scholarship.html\" . }}$/<\!--{{ partial \"scholarship.html\" . }}-->/g" layouts/index.html
+else
+  # Add button
+  sed -i '' "s/<\!--{{ partial \"scholarship.html\" . }}-->/{{ partial \"scholarship.html\" . }}/g" layouts/index.html
 fi
