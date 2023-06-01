@@ -11,12 +11,13 @@ Code optimization improves the performance and efficiency of a program and is es
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2023/logo_2023.png" alt="SPEAKER NAME HERE"></td>
+           src="../../../../img/speakers/speakers_2023/valeria_duran.jpg" alt="Valeria Duran headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: she/her</h5>
       <h5>Seattle, WA, USA</h5>
-      Bio coming soon
-      </td></tr>
+      Valeria Duran has a B.S. in Mathematical Biology and M.S. in Statistics and Data Science from the University of Houston with four years of R programming experience. She is a Statistical Programmer at the Statistical Center for HIV/AIDS Research & Prevention (SCHARP) at Fred Hutchinson Cancer Center.
+
+</td></tr>
 
 </table>
 
