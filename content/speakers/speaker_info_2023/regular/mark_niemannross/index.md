@@ -15,11 +15,11 @@ In this fifteen minute talk, Mark Niemann-Ross will demonstrate the installation
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2023/logo_2023.png" alt="SPEAKER NAME HERE"></td>
+           src="../../../../img/speakers/speakers_2023/mark_niemannross.png" alt="Mark Niemann-Ross headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: he/him</h5>
       <h5>Portland, OR, USA</h5>
-      Bio coming soon
+      I write science fiction. Sometimes it’s about spaceships, sometimes it’s about products. The goal is the same; explain where we want to be, point out hazards, celebrate arrival. I live in Portland Oregon and teach R and Raspberry Pi for LinkedIn Learning.
       </td></tr>
 
 </table>

@@ -11,11 +11,11 @@ The stop signal task (SST) paradigm with its original roots in 1948 has been pro
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2023/logo_2023.png" alt="SPEAKER NAME HERE"></td>
+           src="../../../../img/speakers/speakers_2023/mohsen_soltanifar.jpg" alt="Mohsen Soltanifar headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: he/him</h5>
       <h5>Vancouver, BC, Canada</h5>
-      Bio coming soon
+      Mohsen Soltanifar is currently Senior Biostatistican at ClinChoice and an adjunct lecturer at Northeastern University in Vancouver, BC, Canada. He has 2+ years experience in CRO/Pharma and 8+ years experience in Healthcare. His main area of interest in statistics  is Clinical Trials with focus of R software applications in their design, analysis, and result presentations. He got his PhD in Biostatistics from University of Tornoto in Canada in 2020 and  as of that year has served as registered reviewer for 15+ journals including  "Current Oncology" and "Clinical and Translational Neurosicence(CTN)". 
       </td></tr>
 
 </table>

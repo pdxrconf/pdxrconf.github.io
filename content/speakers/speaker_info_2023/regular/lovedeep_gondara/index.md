@@ -11,11 +11,11 @@ At British Columbia Cancer Agency, we have embarked on moving all of our cancer 
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2023/logo_2023.png" alt="SPEAKER NAME HERE"></td>
+           src="../../../../img/speakers/speakers_2023/lovedeep_gondara.jpg" alt="Lovedeep Gondara headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: he/him</h5>
       <h5>Vancouver, BC, Canada</h5>
-      Bio coming soon
+      Lovedeep Gondara is a Research Scientist at Provincial Health Services Authority (PHSA) in British Columbia and has a PhD in computer science. His current job involves research and applications of deep learning in healthcare domain. In his past role, he was a statistician/data scientist at British Columbia Cancer Agency, PHSA, where he was involved in conceptualizing, design, and development of R shiny apps for cancer surveillance.
       </td></tr>
 
 </table>

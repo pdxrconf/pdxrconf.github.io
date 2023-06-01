@@ -11,11 +11,11 @@ The Arrow package facilitates a low-effort, inexpensive transition from a local 
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2023/logo_2023.png" alt="SPEAKER NAME HERE"></td>
+           src="../../../../img/speakers/speakers_2023/cari_gostic.jpg" alt="Cari Gostic headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: she/her</h5>
       <h5>Seattle, WA, USA</h5>
-      Bio coming soon
+      Cari joined Sonoma Technology’s Data Science Department in 2020. In addition to her analytical experience in catastrophe modeling for the insurance industry, she has extensive experience in data processing and analysis, model development, and effective data visualization. She is currently involved in a variety of projects, including dashboard development, exceptional event analyses, and refinery monitoring. Cari earned her BS in Atmospheric Science from Cornell University and her MS in Data Science from the University of British Columbia. 
       </td></tr>
 
 </table>
