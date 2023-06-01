@@ -11,7 +11,7 @@ Code optimization improves the performance and efficiency of a program and is es
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/speakers/speakers_2023/valeria_duran.jpg" alt="Valeria Duran headshot"></td>
+           src="../../../../img/speakers/speakers_2023/valeria_duran.png" alt="Valeria Duran headshot"></td>
   <td>
       <h5>Pronouns: she/her</h5>
       <h5>Seattle, WA, USA</h5>
