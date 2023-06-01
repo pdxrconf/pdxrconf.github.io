@@ -13,7 +13,7 @@ Spatially explicit capture-recapture (SECR) models are used to estimate animal p
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/speakers/speakers_2023/melissa_bather.jpg" alt="Melissa Bather headshot"></td>
   <td>
-      <h5>Pronouns: he/him</h5>
+      <h5>Pronouns: she/her</h5>
       <h5>Vancouver, BC, Canada</h5>
       Ted is a founding member of the Cascadia-R conference. He is a bioinformatics trainer and data science mentor. He trains and empowers learners in learning how to utilize cloud platforms effectively and execute and communicate effective data science. He also is a co-organizer of the PDX-R user group and visualizing Tidy Tuesday datasets in his free time.
       </td></tr>
