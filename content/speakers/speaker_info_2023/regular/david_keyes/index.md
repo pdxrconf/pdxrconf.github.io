@@ -19,11 +19,11 @@ Despite our best intentions, it can be easy for more advanced R users to overwhe
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2023/logo_2023.png" alt="SPEAKER NAME HERE"></td>
+           src="../../../../img/speakers/speakers_2023/david_keyes.jpg" alt="David Keyes headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: he/him</h5>
       <h5>Portland, OR, USA</h5>
-      Bio coming soon
+      David Keyes is the CEO and founder of R for the Rest of Us. Through online courses and trainings for organizations, R for the Rest of Us helps people learn to use R. In addition to its education work, R for the Rest of Us does consulting, developing reports, websites, and more to help organizations use R to improve their workflow, and much more.
       </td></tr>
 
 </table>

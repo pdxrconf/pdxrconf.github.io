@@ -17,11 +17,11 @@ In sum, automated classifiers, even those below common accuracy standards or mak
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2023/logo_2023.png" alt="SPEAKER NAME HERE"></td>
+           src="../../../../img/speakers/speakers_2023/nathan_teblunthuis.jpg" alt="Nathan TeBlunthuis headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: He/Him or They/Them</h5>
       <h5>Seattle, WA, USA</h5>
-      Bio coming soon
+      Nathan TeBlunthuis is a computational social scientist and postdoctoral researcher at the University of Michigan School of Information and affiliate of the Community Data Science Collective at the University of Washington. Much of Nathan's research uses R to study Wikipedia and other online communities using innovative methods. He earned his Ph.D. from the Department of Communication at the University of Washington in 2021 and has also worked for the Wikimedia Foundation and Microsoft. 
       </td></tr>
 
 </table>
