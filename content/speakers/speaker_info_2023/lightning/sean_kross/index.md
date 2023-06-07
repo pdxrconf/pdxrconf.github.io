@@ -31,7 +31,7 @@ for students.
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/speakers/speakers_2023/sean_cross.png" alt="Sean Cross headshot"></td>
+           src="../../../../img/speakers/speakers_2023/sean_kross.png" alt="Sean Kross headshot"></td>
   <td>
       <h5>Pronouns: he/him</h5>
       <h5>Seattle, WA, USA</h5>
