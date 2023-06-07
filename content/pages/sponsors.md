@@ -16,6 +16,12 @@ If you are interested in sponsoring, please contact us
 <br>
 
 <div class="image" style="padding: 20px">
+  <a href="https://procogia.com/" target="_blank">
+  <img src="/img/sponsors/procogia.png" class="img-responsive" alt="ProCogia Logo"></a></div>  
+  
+<br>
+
+<div class="image" style="padding: 20px">
   <a href="https://escience.washington.edu/" target="_blank">
   <img src="/img/sponsors/uw_escience.png" class="img-responsive" alt="UW eScience Institute Logo"></a></div>                                          
 <br>

@@ -31,11 +31,11 @@ for students.
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2023/logo_2023.png" alt="SPEAKER NAME HERE"></td>
+           src="../../../../img/speakers/speakers_2023/sean_cross.png" alt="Sean Cross headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: he/him</h5>
       <h5>Seattle, WA, USA</h5>
-      Bio coming soon
+      Sean Kross, PhD is a Staff Scientist at the Fred Hutch Data Science Lab. His work is focused on understanding data science as a practice, building a better developer experience for data scientists, and creating better outcomes in digital education. He approaches these challenges with computational, statistical, ethnographic, and design-driven methods.
       </td></tr>
 
 </table>
