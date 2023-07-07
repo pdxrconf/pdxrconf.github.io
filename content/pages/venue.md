@@ -36,8 +36,8 @@ url: "venue"
   <img src="/img/venue/Hutch_campus_map.png" class="img-responsive" alt="Fred Hutch map" style="height:600px;">
   <br>
   
-  * All talk sessions will be held in (1) Pelton Auditorium in the Weintraub building. Enter the Thomas building through the main entrance and continue straight back on the first floor until you reach room B1.
-  * Lunch and the mixer will be held in (2) the Behnke Suites in the Arnold building. Enter the Arnold building through the main entrance and proceed to room M1-A303.
+  * All talk sessions will be held in (1) Pelton Auditorium in the Weintraub building. Enter the Thomas building through the main entrance and continue straight back on the first floor past the coffee shop until you reach room B1 on your right.
+  * Lunch and the mixer will be held in (2) the Behnke Suites in the Arnold building. Enter the Arnold building through the main entrance, proceed through the atrium through a second set of doors, immediately turn left before the reception desk, and the rooms will be on your left (room M1-A303).
  * All buildings are locked. Please use only the main entrances indicated in the above map. We will have organizers there to let you in.
   
   <br>
