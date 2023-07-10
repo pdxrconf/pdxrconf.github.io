@@ -15,7 +15,7 @@ Spatially explicit capture-recapture (SECR) models are used to estimate animal p
   <td>
       <h5>Pronouns: she/her</h5>
       <h5>Vancouver, BC, Canada</h5>
-      Ted is a founding member of the Cascadia-R conference. He is a bioinformatics trainer and data science mentor. He trains and empowers learners in learning how to utilize cloud platforms effectively and execute and communicate effective data science. He also is a co-organizer of the PDX-R user group and visualizing Tidy Tuesday datasets in his free time.
+      I recently moved to British Columbia from New Zealand, where I used to build R Shiny apps for the health sector. I’m currently studying a MSc in Statistics part time through the University of Auckland (the birthplace of R!) and I’m due to finish in November 2023. My research project is to assist in the development and validation of an R package for estimating animal population densities based on various capture methods, particularly acoustic methods. I have been using R for seven years and currently co-organise the R Ladies Vancouver meetup group. Right now I work as a Data Engineer in Vancouver.
       </td></tr>
 
 </table>
