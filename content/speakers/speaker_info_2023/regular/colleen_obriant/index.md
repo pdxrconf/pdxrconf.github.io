@@ -26,11 +26,11 @@ There's an impulse when writing koans to keep ramping up the difficulty, but it'
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2023/logo_2023.png" alt="SPEAKER NAME HERE"></td>
+           src="../../../../img/speakers/speakers_2023/colleen_obriant.jpeg" alt="Colleen O'Briant headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: she/her</h5>
       <h5>Eugene, OR, USA</h5>
-      Bio coming soon.
+      Colleen O'Briant is an Economics PhD student at the University of Oregon and anticipates graduating in June 2024. Her research is on building the econometrics of AI/ML tools, with the goal of enhancing trust and transparency in this rapidly evolving field. She will be on the job market for the 2023/2024 academic year.
       </td></tr>
 
 </table>

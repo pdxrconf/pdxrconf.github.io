@@ -11,11 +11,11 @@ Inspired by the musical contributions of the Pacific Northwest, the focus of thi
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2023/logo_2023.png" alt="SPEAKER NAME HERE"></td>
+           src="../../../../img/speakers/speakers_2023/nathalie_yuen.jpeg" alt="Nathalie Yuen headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: she/her</h5>
       <h5>Olympia, WA, USA</h5>
-      Bio coming soon
+      Dr. C. Nathalie Yuen is a member of the faculty at The Evergreen State College in Olympia, WA. She earned her Ph.D. in Psychology at the University of Nebraska at Omaha. Dr. Yuen primarily uses R for data visualization and in-class activities.
       </td></tr>
 
 </table>
