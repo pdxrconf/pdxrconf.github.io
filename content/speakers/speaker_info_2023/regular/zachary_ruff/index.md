@@ -14,11 +14,11 @@ We recently developed a graphical desktop application to increase the accessibil
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2023/logo_2023.png" alt="SPEAKER NAME HERE"></td>
+           src="../../../../img/speakers/speakers_2023/zachary_ruff.jpg" alt="Zachary Ruff headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: he/him</h5>
       <h5>Corvallis, OR, USA</h5>
-      Bio coming soon
+      Zack Ruff is a research assistant in the Department of Fisheries, Wildlife, and Conservation Sciences at Oregon State University and works closely with the U.S. Forest Service through the Pacific Northwest Research Station. He is a wildlife ecologist by training and has previously worked with macaws, plovers, blackbirds, and grouse, but in recent years he has gravitated to projects where he gets to write more code and doesn't have to wear bug spray. Originally from Minnesota, he relocated to Oregon in 2017 and has been working on spotted owl monitoring ever since. His day-to-day work combines bioacoustics, machine learning, and population ecology, and in his spare time he enjoys birding, tinkering, trying new beers, and riding bikes.
       </td></tr>
 
 </table>

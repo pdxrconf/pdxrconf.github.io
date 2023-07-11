@@ -12,11 +12,11 @@ This talk will delve into how you can learn the concept of modules by breaking d
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2023/logo_2023.png" alt="SPEAKER NAME HERE"></td>
+           src="../../../../img/speakers/speakers_2023/deepsha_menghani.jpeg" alt="Deepsha Menghani headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: she/her</h5>
       <h5>Seattle, WA, USA</h5>
-      Bio coming soon
+      Deepsha Menghani is a data science manager at Microsoft. Her work focuses on investment impact analysis and propensity modeling. When she is not geeking out over data, she is knitting or collecting yarn.
       </td></tr>
 
 </table>
