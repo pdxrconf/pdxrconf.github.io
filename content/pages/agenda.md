@@ -81,7 +81,7 @@ border-color:black;
 
 #### 12:35 - 1:35 PM: Lunch (Behnke Suites)
 
-#### 1:35 - 2:05 PM: [Scott Chamberlain, Jessica Minnier, Chester Ismay](/2023/keynote/og_cascadiaR)
+#### 1:35 - 2:05 PM: [Jessica Minnier, Chester Ismay, Ted Laderas](/2023/keynote/og_cascadiaR)
 
 * TBD
 
