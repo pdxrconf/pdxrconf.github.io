@@ -36,9 +36,8 @@ border-color:black;
 </style>
 
 <!-- </style> -->
-
 <h1>Communication</h1>
-  <h3>Join us on <a href="SLACK_INVITE" target="https://join.slack.com/t/cascadiarconf/shared_invite/zt-1lu53059t-GAxQtzrwQhmo7BXE7YfC8w">Slack</a></h3>
+  <h3>Join us on <a href="https://join.slack.com/t/cascadiarconf/shared_invite/zt-1lu53059t-GAxQtzrwQhmo7BXE7YfC8w">Slack</a></h3>
   <br>
 
 ## August 19, 2023
