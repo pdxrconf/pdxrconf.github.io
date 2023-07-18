@@ -3,9 +3,13 @@ title: "Sponsors"
 url: "sponsors"
 ---
 
+<!--
 <h3>We are currently looking for sponsors for Cascadia R Conf 2023! <br><br>
 If you are interested in sponsoring, please contact us 
 <a href="mailto:cascadiarcon@gmail.com">here</a> </h3>
+-->
+
+<h3>Silver</h3>
 
 <br>
 
@@ -17,8 +21,18 @@ If you are interested in sponsoring, please contact us
 
 <div class="image" style="padding: 20px">
   <a href="https://procogia.com/" target="_blank">
-  <img src="/img/sponsors/procogia.png" class="img-responsive" alt="ProCogia Logo"></a></div>  
+  <img src="/img/sponsors/procogia.png" class="img-responsive" alt="ProCogia Logo" style="width:500px;"></a></div>  
   
+<br>
+
+<div class="image" style="padding: 20px">
+  <a href="https://www.r-consortium.org/" target="_blank">
+  <img src="/img/sponsors/rconsortium.png" class="img-responsive" alt="R Consortium Logo"></a></div>  
+
+<br>
+
+<h3>Bronze</h3>
+
 <br>
 
 <div class="image" style="padding: 20px">
