@@ -21,7 +21,7 @@ If you are interested in sponsoring, please contact us
 
 <div class="image" style="padding: 20px">
   <a href="https://procogia.com/" target="_blank">
-  <img src="/img/sponsors/procogia.png" class="img-responsive" alt="ProCogia Logo" style="width:400px;"></a></div>  
+  <img src="/img/sponsors/procogia_wide.png" class="img-responsive" alt="ProCogia Logo" style="width:400px;"></a></div>  
   
 <br>
 
