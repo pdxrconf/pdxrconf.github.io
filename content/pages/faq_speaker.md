@@ -8,7 +8,7 @@ url: "speaker_faq"
 # Logistics
 
 ### Where do I upload my slides?
-Link coming soon!
+Please refer to the Google Drive link sent to you via email. If you do not have this link, please contact <cascasiarcon@gmail.com>.
 
 ### There is an error in my bio/abstract/photo on the CascadiaR website. How do I fix this?
 Contact <cascasiarcon@gmail.com> and let us know the issue. We will make sure
@@ -20,6 +20,12 @@ Please contact <cascasiarcon@gmail.com> as soon as possible and we will work to 
 <br>
 
 # Presentation guidelines
+### Prior to the conf
+
+* Please upload your presentation by end of day August 16.
+* We request that you upload both the original format and a PDF just in case technical issues arise.
+* If you have a live demo or other presentation that you must present directly from your computer, please see an organizer during registration or the break prior to your session to verify setup.
+
 ### Making inclusive and accessible slides
 
 * Use clear, easy to read fonts like Arial, Calibri, or Verdana. Make sure the font size is large enough (at least 18pt for main body text).
