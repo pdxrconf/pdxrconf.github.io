@@ -1,0 +1,103 @@
+---
+logo: "logo_2023.png"
+paperwidth: 8.5in
+paperheight: 11in
+cardwidth: 4in
+cardheight: 3in
+cols: 2
+rows: 3
+mainfont: Helvetica
+output: pagedown::business_card
+---
+
+::: {.wrapper data-repeat='1'}
+[Tim<br>Anderson]{slot='name'}
+[he/him]{slot='title'}
+[Organizer]{slot='url'}
+:::
+::: {.wrapper data-repeat='1'}
+[Brittany<br>Barker]{slot='name'}
+[she/her]{slot='title'}
+[Organizer]{slot='url'}
+:::
+::: {.wrapper data-repeat='1'}
+[Kim<br>Dill-McFarland]{slot='name'}
+[she/her]{slot='title'}
+[Organizer]{slot='url'}
+:::
+::: {.wrapper data-repeat='1'}
+[Dominik<br>Graetz]{slot='name'}
+[he/him]{slot='title'}
+[Organizer]{slot='url'}
+:::
+::: {.wrapper data-repeat='1'}
+[Ellis<br>Hughes]{slot='name'}
+[he/him]{slot='title'}
+[Organizer]{slot='url'}
+:::
+::: {.wrapper data-repeat='1'}
+[Brittney<br>Kroiss]{slot='name'}
+[she/they]{slot='title'}
+[Organizer]{slot='url'}
+:::
+::: {.wrapper data-repeat='1'}
+[Melissa<br>Lee]{slot='name'}
+[she/her/hers]{slot='title'}
+[Organizer]{slot='url'}
+:::
+::: {.wrapper data-repeat='1'}
+[Katie<br>Masiello]{slot='name'}
+[she/her]{slot='title'}
+[Organizer]{slot='url'}
+:::
+::: {.wrapper data-repeat='1'}
+[Jacqueline<br>Nolis]{slot='name'}
+[she/her]{slot='title'}
+[Organizer]{slot='url'}
+:::
+
+```{css}
+br {
+  content: "";
+  margin: 2em;
+  display: block;
+  font-size: 24%;
+}
+.wrapper {
+  color: black;
+  background-color: white;
+  border: 1px dashed grey;
+  text-align: center;
+  background-image: "logo_2023.png";
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  border-bottom: 50px solid orange;
+}
+
+.name{
+  font-weight: normal;
+  font-size: 40px;
+  padding-top: 2em;
+}
+
+.title{
+  font-weight: normal;
+  font-size: 25px;
+  padding-top: 1em;
+}
+
+.coordinates {
+  color: black;
+  font-size: 25px;
+  padding-top: 0.5em;
+}
+
+.logo {
+  height: 8%;
+  float: left;
+  margin-left: 10px;
+  margin-top: -20px;
+  position: absolute;
+}
+```
