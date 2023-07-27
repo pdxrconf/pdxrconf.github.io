@@ -43,7 +43,7 @@ border-color:black;
 ## August 19, 2023
 * All times in PST
 * All talks in Pelton Auditorium in the Weintraub building
-* Lunch and reception in the Behnke Suites in the Arnold building 
+* Lunch and reception in the Weintraub lunch room
 
 <br>
 <br>
@@ -79,9 +79,9 @@ border-color:black;
 * [Mark Niemann-Ross](/2023/regular/mark_niemannross): Use R to control a Raspberry Pi
 * [Ed Borasky](/2023/regular/ed_borasky): Eikosany: Microtonal Algorithmic Composition with R
 
-#### 12:35 - 1:35 PM: Lunch (Behnke Suites)
+#### 12:35 - 1:35 PM: Lunch
 
-#### 1:35 - 2:05 PM: [Jessica Minnier, Chester Ismay, Ted Laderas](/2023/keynote/og_cascadiaR)
+#### 1:35 - 2:05 PM: [Jessica Minnier, Ted Laderas](/2023/keynote/og_cascadiaR)
 
 * TBD
 
@@ -110,6 +110,6 @@ border-color:black;
 
 #### 4:20 - 4:30 PM: Closing remarks
 
-#### 4:30 - 6:00 PM: Reception (Behnke Suites)
+#### 4:30 - 6:00 PM: Reception
 
 <br><br><br>

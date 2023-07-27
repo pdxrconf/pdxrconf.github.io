@@ -36,15 +36,15 @@ url: "venue"
   <img src="/img/venue/Hutch_campus_map.png" class="img-responsive" alt="Fred Hutch map" style="height:600px;">
   <br>
   
-  * All talk sessions will be held in (1) Pelton Auditorium in the Weintraub building. Enter the Thomas building through the main entrance and continue straight back on the first floor past the coffee shop until you reach room B1 on your right.
-  * Lunch and the mixer will be held in (2) the Behnke Suites in the Arnold building. Enter the Arnold building through the main entrance, proceed through the atrium through a second set of doors, immediately turn left before the reception desk, and the rooms will be on your left (room M1-A303).
- * All buildings are locked. Please use only the main entrances indicated in the above map. We will have organizers there to let you in.
+  * All sessions will be held in Pelton Auditorium in the Weintraub building. Enter the Thomas building through the main entrance and continue straight back on the first floor. Go past the coffee shop on your left until you reach room B1 on your right.
+  * Lunch and the reception will be held in the lunch room in the Weintraub building. This is across the hall from the auditorium.
+ * All buildings are locked. Please use only the main entrance indicated in the above map. We will have organizers there to let you in. If no organizer is present, please contact the number of the posted Cascadia R flyer or ring the doorbell to call security.
   
   <br>
   
   <h3>Parking</h3> 
   
-  The Hutch has free visitor parking as indicated in the above map. This parking does not have a time limit on weekends. If needed, there is also a paid Impark lot #185 across the street (1111 Fairview Ave N). This lot is $20 for up to 12 hours.
+  The Hutch has free visitor parking as indicated in the above map. This parking does not have a time limit on weekends. Thus, please ignore signs indicating a 2-hour limit. If needed, there is also a paid Impark lot #185 across the street (1111 Fairview Ave N). This lot is $20 for up to 12 hours.
   
   <br>
 
@@ -52,8 +52,7 @@ url: "venue"
   Private lactation rooms are available. Please get a key from a conference organizer who will make themselves known at the start of each session. Lactation rooms are located in:
   
   * Hutchinson (next door to main session building) Room CD-148 via women's restroom CD-136
-  * Arnold (lunch & reception) Room MD-A204 via the women's locker room MD-A206
-  
+
   <br>
   
   <h2>Getting there</h2>
