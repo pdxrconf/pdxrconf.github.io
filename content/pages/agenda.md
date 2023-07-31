@@ -54,7 +54,7 @@ border-color:black;
 
 #### 9:05 - 9:35 AM: [Isabella Velásquez](/2023/keynote/isabella_velasquez)
 
-* TBD
+* The medium is the message: R programmers as content creators
 
 #### 9:35 - 9:45 AM: Break
 
@@ -83,7 +83,7 @@ border-color:black;
 
 #### 1:35 - 2:05 PM: [Jessica Minnier, Ted Laderas](/2023/keynote/og_cascadiaR)
 
-* TBD
+* Retrospective of Cascadia R
 
 #### 2:05 - 2:55 PM: Shiny for research
 

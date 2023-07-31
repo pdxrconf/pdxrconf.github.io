@@ -3,7 +3,7 @@ title: "Isabella Velásquez"
 url: "2023/keynote/isabella_velasquez"
 ---
 
-### TBD
+### The medium is the message: R programmers as content creators
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
