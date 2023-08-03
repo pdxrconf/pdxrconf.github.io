@@ -105,7 +105,7 @@ Note that this page only renders when `cfp="true"`. See [Step 2.8](#update) for 
 
 #### 2.4.5 Registration link
 
-Once available, add the registration link to `layouts/partials/nav.html ` (`href=` near line 41) and `layouts/partials/register.html` (`href=` near line 3). Then, set `register="true"` in the update script. See [Step 2.8](#update) for details.
+Once available, add the registration link to `layouts/partials/nav.html ` (`href=` near line 41) and `layouts/partials/register.html` (`href=` near line 3). Also update the close date in `layouts/partials/register.html`. Then, set `register="true"` in the update script. See [Step 2.8](#update) for details.
 
 #### 2.4.6 FAQ
 
