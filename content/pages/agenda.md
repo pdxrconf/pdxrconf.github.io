@@ -50,13 +50,11 @@ border-color:black;
 
 #### 8:00 - 9:00 AM: Registration and breakfast
 
-#### 9:00 - 9:05 AM: Welcome
+#### 9:00 - 9:15 AM: Welcome
 
-#### 9:05 - 9:35 AM: [Isabella Velásquez](/2023/keynote/isabella_velasquez)
+#### 9:15 - 9:45 AM: [Isabella Velásquez](/2023/keynote/isabella_velasquez)
 
 * The medium is the message: R programmers as content creators
-
-#### 9:35 - 9:45 AM: Break
 
 #### 9:45 - 10:35 AM: Teaching R to yourself and others
 
