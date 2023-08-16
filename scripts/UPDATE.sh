@@ -15,7 +15,7 @@ agenda="true"
 speakers="true"
 register="true"
 alert="false"
-scholarship="true"
+scholarship="false"
 
 ###### Logo paths ######
 if [ $logo == "true" ];
