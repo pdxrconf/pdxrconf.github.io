@@ -14,7 +14,9 @@ dat <- read_csv(file[length(file)]) %>%
          preferred_pronouns = gsub("///","/",preferred_pronouns),
          preferred_pronouns = gsub("//","/",preferred_pronouns),
          preferred_pronouns = ifelse(is.na(preferred_pronouns) | preferred_pronouns=="yes"," ",
-                                     preferred_pronouns)) %>% 
+                                     preferred_pronouns),
+         preferred_pronouns = recode(preferred_pronouns,
+                                     "he.../because/i/could/never/be/'him'."="he")) %>% 
   # Fix name formatting
   rowwise() %>% 
   mutate(first_name = str_to_title(first_name),
@@ -23,13 +25,16 @@ dat <- read_csv(file[length(file)]) %>%
                                 first_name == "Ann" & last_name == "Rasmussen" & 
                                   ticket_type == "Student" ~ "Rachel",
                                 TRUE~first_name),
+         first_name = case_when(first_name == "Mehar Pratap"~"Mehar", TRUE~first_name),
          last_name = case_when(last_name=="mulder"~"Mulder",
                                last_name=="LaBAZZO"~"LaBazzo",
                                last_name %in% c("HU", "BEVERS", "XIONG",
                                                 "GURREY","TAYLORIS") ~ str_to_title(last_name),
                                first_name == "Rachel" & last_name == "Rasmussen" & 
                                  ticket_type == "Student" ~ "Cross",
+                               first_name == "Mehar" & last_name == "Singh" ~ "Pratap Singh",
                                TRUE~last_name)) %>% 
+  distinct() %>%
   #create wrapper info
   mutate(line1 = "::: {.wrapper data-repeat='1'}",
          line2 = paste0("[",first_name,"<br>",last_name,"]{slot='name'}"),
@@ -47,7 +52,7 @@ dat %>%
   select(rowname,line1:line5) %>% 
   pivot_longer(-rowname) %>% 
   arrange(as.numeric(rowname), name) %>% 
-  select(-rowname) %>% 
+  select(-rowname)  %>% 
   write_csv(file = "R_code/name_tags/data_regular.csv", col_names = FALSE)
 
 ## Speaker
