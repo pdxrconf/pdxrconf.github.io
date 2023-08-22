@@ -16,9 +16,12 @@ this year and hope to see you there!</h3>
 ### 2023 Organization Team
 
 + [Brittany Barker](http://brittanysbarker.org)
++ Brittney Kroiss
 + [Dominik Grätz](https://www.researchgate.net/profile/Dominik-Graetz-2)
 + Ellis Hughes
++ Ezgi Yucel
 + [Jacqueline Nolis](https://jnolis.com/)
++ Katie Masiello
 + [Kim Dill-McFarland](https://kdillmcfarland.github.io/)
 + Melissa Lee
 + Tim Anderson
