@@ -3,6 +3,12 @@ title: "Past conferences"
 url: "years"
 ---
 
+## 2023: Seattle, WA
+
+### - [Agenda](../years/2023/agenda)
+### - Talks coming soon
+### - Video coming soon
+
 ## 2022: Virtual
 
 ### - [Agenda](../years/2022/agenda)
