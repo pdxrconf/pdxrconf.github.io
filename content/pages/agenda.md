@@ -50,13 +50,11 @@ border-color:black;
 
 #### 8:00 - 9:00 AM: Registration and breakfast
 
-#### 9:00 - 9:05 AM: Welcome
+#### 9:00 - 9:15 AM: Welcome
 
-#### 9:05 - 9:35 AM: [Isabella Velásquez](/2023/keynote/isabella_velasquez)
+#### 9:15 - 9:45 AM: [Isabella Velásquez](/2023/keynote/isabella_velasquez)
 
 * The medium is the message: R programmers as content creators
-
-#### 9:35 - 9:45 AM: Break
 
 #### 9:45 - 10:35 AM: Teaching R to yourself and others
 
@@ -93,14 +91,12 @@ border-color:black;
 
 #### 2:55 - 3:05 PM: Break
 
-#### 3:05 - 3:25 PM: Lightning talks
+#### 3:05 - 3:30 PM: Lightning talks
 
 * [Cari Gostic](/2023/lightning/cari_gostic): RShiny, Big Data and AWS: A tidy solution using Arrow
 * [Sean Kross](/2023/lightning/sean_kross): Visualize Data Analysis Pipelines with Tidy Data Tutor
 * [C. Nathalie Yuen](/2023/lightning/nathalie_yuen): Come TogetheR, Right Now, OveR R
 * [Mohsen Soltanifar](/2023/lightning/mohsen_soltanifar): SimSST: An R Statistical Software Package to Simulate Stop Signal Task Data
-
-#### 3:25 - 3:30 PM: Break
 
 #### 3:30 - 4:20 PM: R is for statistics
 

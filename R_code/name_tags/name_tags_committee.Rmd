@@ -41,11 +41,6 @@ output: pagedown::business_card
 [Organizer]{slot='url'}
 :::
 ::: {.wrapper data-repeat='1'}
-[Melissa<br>Lee]{slot='name'}
-[she/her/hers]{slot='title'}
-[Organizer]{slot='url'}
-:::
-::: {.wrapper data-repeat='1'}
 [Katie<br>Masiello]{slot='name'}
 [she/her]{slot='title'}
 [Organizer]{slot='url'}
@@ -53,6 +48,27 @@ output: pagedown::business_card
 ::: {.wrapper data-repeat='1'}
 [Jacqueline<br>Nolis]{slot='name'}
 [she/her]{slot='title'}
+[Organizer]{slot='url'}
+:::
+::: {.wrapper data-repeat='1'}
+[Ezgi<br>Yucel]{slot='name'}
+[she/her]{slot='title'}
+[Organizer]{slot='url'}
+:::
+
+::: {.wrapper data-repeat='1'}
+[.<br>.]{slot='name'}
+[.]{slot='title'}
+[Organizer]{slot='url'}
+:::
+::: {.wrapper data-repeat='1'}
+[.<br>.]{slot='name'}
+[.]{slot='title'}
+[Organizer]{slot='url'}
+:::
+::: {.wrapper data-repeat='1'}
+[.<br>.]{slot='name'}
+[.]{slot='title'}
 [Organizer]{slot='url'}
 :::
 

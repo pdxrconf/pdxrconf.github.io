@@ -8,10 +8,10 @@ url: "speaker_faq"
 # Logistics
 
 ### Where do I upload my slides?
-Please refer to the Google Drive link sent to you via email. If you do not have this link, please contact <cascasiarcon@gmail.com>.
+Please refer to the Google Drive link sent to you via email. If you do not have this link, please contact <cascadiarcon@gmail.com>.
 
 ### There is an error in my bio/abstract/photo on the CascadiaR website. How do I fix this?
-Contact <cascasiarcon@gmail.com> and let us know the issue. We will make sure
+Contact <cascadiarcon@gmail.com> and let us know the issue. We will make sure
 it gets to our web developer.
 
 ### What if I can no longer present in person?
