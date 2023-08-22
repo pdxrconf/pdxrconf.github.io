@@ -295,3 +295,4 @@ As you gather more information and plan, continue to edit the website on your lo
 * Render the final agenda as an html and save it as `content/archive/agenda-YEAR.html` 
 * Update `content/years.html` with a link to the html agenda as well as a YouTube playlist (if available)
 * Edit `layouts/partials/.html`
+* Scrub any old data from `content/pages/faq.md`
