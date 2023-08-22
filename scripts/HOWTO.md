@@ -292,7 +292,8 @@ As you gather more information and plan, continue to edit the website on your lo
 ## 7.1 Archive agenda and videos
 
 * Turn off all except "logo" and run `UPDATE.sh`
-* Render the final agenda as an html and save it as `content/archive/agenda-YEAR.html` 
-* Update `content/years.html` with a link to the html agenda as well as a YouTube playlist (if available)
-* Edit `layouts/partials/.html`
 * Scrub any old data from `content/pages/faq.md`
+* Render the final agenda as an html and save it as `content/archive/agenda-YEAR.html`. Update `content/pages/years.html` with a link to this html agenda
+* Upload slide PDFs to `static/talks/talks_YEAR/`. Update `content/pages/years.html` with a link to this directory on GitHub
+* Upload videos to YouTube and add link to `content/years.html`
+
