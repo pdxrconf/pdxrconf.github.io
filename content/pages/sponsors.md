@@ -92,7 +92,7 @@ If you are interested in sponsoring, please contact us
                                     <div class="row">
                                     <div class="image" style="padding: 20px">
                                         <a href="https://datascience.uoregon.edu/" target="_blank">
-                                            <img src="/img/sponsors/university-of-oregon-wide.jpeg" class="img-responsive" alt="University of Oregon Logo"></a>
+                                            <img src="/img/sponsors/university-of-oregon-wide.jpg" class="img-responsive" alt="University of Oregon Logo"></a>
                                     </div></div>
                                 </div></div>
                         <!-- H2O.ai and PIE -->
