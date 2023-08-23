@@ -74,7 +74,7 @@ If you are interested in sponsoring, please contact us
                                             <img src="/img/sponsors/RStudio-Logo-Flat.png" class="img-responsive" alt="RStudio Logo"></a>
                                             </div></div>
                                     </div></div>
-                        <!-- Fred Hutch and eScience -->
+                        <!-- Fred Hutch and eScience and U of Oregon-->
                         <div class="column">
                                 <div class="col-md-3">
                                     <div class="row">
@@ -87,16 +87,17 @@ If you are interested in sponsoring, please contact us
                                     <div class="image" style="padding: 20px">
                                         <a href="https://escience.washington.edu/" target="_blank">
                                             <img src="/img/sponsors/uw_escience.png" class="img-responsive" alt="UW eScience Institute Logo"></a>
-                                            </div></div>
-                                </div></div>
-                        <!-- U of Oregon and H2O.ai and PIE -->
-                        <div class="column">
-                                <div class="col-md-2">
-                                <div class="row">
+                                    </div></div>
+                                    <br><br>
+                                    <div class="row">
                                     <div class="image" style="padding: 20px">
                                         <a href="https://datascience.uoregon.edu/" target="_blank">
-                                            <img src="/img/sponsors/university-of-oregon-logo.jpeg" class="img-responsive" alt="University of Oregon Logo"></a>
+                                            <img src="/img/sponsors/university-of-oregon-wide.jpeg" class="img-responsive" alt="University of Oregon Logo"></a>
                                     </div></div>
+                                </div></div>
+                        <!-- H2O.ai and PIE -->
+                        <div class="column">
+                                <div class="col-md-2">
                                   <div class="row">
                                     <div class="image" style="padding: 20px">
                                         <a href="https://h2o.ai/" target="_blank">
