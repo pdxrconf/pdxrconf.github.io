@@ -6,7 +6,8 @@ url: "years"
 ## 2023: Seattle, WA
 
 ### - [Agenda](../years/2023/agenda)
-### - Talks and video coming soon
+### - [Talk PDFs](https://github.com/pdxrconf/pdxrconf.github.io/tree/newsite/static/talks/talks_2023)
+### - Video coming soon
 
 ## 2022: Virtual
 
