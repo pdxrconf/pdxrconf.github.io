@@ -3,6 +3,12 @@ title: "Past conferences"
 url: "years"
 ---
 
+## 2023: Seattle, WA
+
+### - [Agenda](../years/2023/agenda)
+### - [Talk PDFs](https://github.com/pdxrconf/pdxrconf.github.io/tree/newsite/static/talks/talks_2023)
+### - Video coming soon
+
 ## 2022: Virtual
 
 ### - [Agenda](../years/2022/agenda)
