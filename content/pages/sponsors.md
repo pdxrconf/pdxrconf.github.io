@@ -74,13 +74,20 @@ If you are interested in sponsoring, please contact us
                                             <img src="/img/sponsors/RStudio-Logo-Flat.png" class="img-responsive" alt="RStudio Logo"></a>
                                             </div></div>
                                     </div></div>
-                        <!-- U of Oregon -->
+                        <!-- Fred Hutch and U of Oregon -->
                         <div class="column">
                                 <div class="col-md-3">
+                                  <div class="row">
                                     <div class="image" style="padding: 20px">
                                         <a href="https://datascience.uoregon.edu/" target="_blank">
                                             <img src="/img/sponsors/university-of-oregon-logo.jpeg" class="img-responsive" alt="University of Oregon Logo"></a>
-                                    </div></div></div>
+                                    </div></div>
+                                  <div class="row">
+                                    <div class="image" style="padding: 20px">
+                                        <a href="https://www.fredhutch.org/en.html" target="_blank">
+                                            <img src="/img/sponsors/Fred_Hutch.png" class="img-responsive" alt="Fred Hutch Logo"></a>
+                                    </div></div>
+                                </div></div>
                         <!-- H2O.ai and PIE -->
                         <div class="column">
                                 <div class="col-md-2">
