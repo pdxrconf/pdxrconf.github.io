@@ -82,13 +82,13 @@ If you are interested in sponsoring, please contact us
                                         <a href="https://www.fredhutch.org/en.html" target="_blank">
                                             <img src="/img/sponsors/Fred_Hutch.png" class="img-responsive" alt="Fred Hutch Logo"></a>
                                     </div></div>
-                                    <br><br>
+                                    <br>
                                             <div class="row">
                                     <div class="image" style="padding: 20px">
                                         <a href="https://escience.washington.edu/" target="_blank">
                                             <img src="/img/sponsors/uw_escience.png" class="img-responsive" alt="UW eScience Institute Logo"></a>
                                     </div></div>
-                                    <br><br>
+                                    <br>
                                     <div class="row">
                                     <div class="image" style="padding: 20px">
                                         <a href="https://datascience.uoregon.edu/" target="_blank">
