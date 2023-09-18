@@ -7,7 +7,7 @@ url: "years"
 
 ### - [Agenda](../years/2023/agenda)
 ### - [Talk PDFs](https://github.com/pdxrconf/pdxrconf.github.io/tree/newsite/static/talks/talks_2023)
-### - Video coming soon
+### - [Video](https://www.youtube.com/playlist?list=PLzwtsyfF_Z4q8_noXAPh3JFSiT22gg9Gv)
 
 ## 2022: Virtual
 
