@@ -13,7 +13,30 @@ this year and hope to see you there!</h3>
 
 ***
 
-### 2023 Organization Team
+### 2024 Organization Team
+
++ Ellis Hughes
++ [Jacqueline Nolis](https://jnolis.com/)
++ [Kim Dill-McFarland](https://kdillmcfarland.github.io/)
+
++ Brittney Kroiss
++ Cameron Mulder
++ Cari Gostic
++ [Dominik Grätz](https://www.researchgate.net/profile/Dominik-Graetz-2)
++ Ezgi Yucel
++ Jadey Ryan
++ Katie Masiello
++ Lydia Gibson 
++ Melissa Lee
++ Miranda Fix
++ Mohsen Soltanifar
++ Peter Geissert
++ Rhonda Crate
++ Tim Anderson
+
+***
+### Past conferences
+#### 2023
 
 + [Brittany Barker](http://brittanysbarker.org)
 + Brittney Kroiss
@@ -26,8 +49,6 @@ this year and hope to see you there!</h3>
 + Melissa Lee
 + Tim Anderson
 
-***
-### Past conferences
 #### 2022
 
 + Ellis Hughes
