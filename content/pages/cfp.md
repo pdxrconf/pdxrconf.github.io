@@ -29,43 +29,62 @@ url: "cfp"
 <center><h2>
 It is with great pleasure that we announce the 
 <br>
-Call for Presentations for the 2023 Cascadia R Conference 
+Call for Presentations for the 2024 Cascadia R Conference 
 <br>
-to be held in Seattle, Washington on August 19, 2023. 
+to be held in Seattle, Washington on June 22, 2024. 
 </h2></center>
-
 <br>
 
 <center><h2>
-Final submission deadline is April 16, 2023!
+Applications are due Feb 14, 2024!
 </h2></center>
 
 <br>
 
 <h2>About the conference</h2>
 
-The goals of the conference are to showcase the interesting ways R is being used in the Cascadia region, provide learning opportunities, and connect R programmers with one another. The presentations, therefore, are a platform for promoting these ideals. 
+The goals of the conference are to showcase the interesting ways R is being used 
+in the Cascadia region, provide learning opportunities, and connect R 
+programmers with one another. The presentations, therefore, are a platform for 
+promoting these ideals. Our audience is of varying skill levels and from a wide 
+range of organizations: non-profit, academic, government, and industry.  
 
 <br>
-<h2>Selection criteria</h2>
 
-Presentations are being solicited to fill a 15-minute presentation window (3 x 15-minute talks + shared 15-minute question and answer to round out an hour-long session) as well as 5-minute lightning talks. 
+<h2>Selection Criteria</h2>
 
-Please note that Cascadia R Conference is a regional conference that focuses on R users from the Cascadia region (primarily Alaska, British Columbia, Washington, Oregon, and California). Submissions are welcome from those outside of the region, but priority may be given to submissions from Cascadia locations. Also, student talks will receive special consideration.
+Applications are being solicited for both full 15-minute presentations and 
+5-minute lightning talks. Full talks will be grouped into sessions with similar 
+themes and share a question and answer period. 
 
-Our audience is of varying skill level and from a wide range of organizations: non-profit, academic, government, and industry. A representative volunteer will be provided the day of the conference to assist with timing, introductions, and facilitate interactions with the audience. 
+Presenters are expected to comply with the <a href="/policies">code of conduct</a> 
+the conference. 
 
-Presenters are expected to comply with the <a href="/policies">code of conduct</a> of the conference.
+Student talks will receive special consideration. Please also note that Cascadia 
+R Conference is a regional conference that focuses on R users from the Cascadia 
+region (primarily Alaska, British Columbia, Washington, Oregon, and California). 
+Submissions are welcome from those outside of the region, but priority will be 
+given to submissions from Cascadia locations.
 
 <br>
+
 <h2>How to apply</h2>
 
-To apply, fill out and submit the [Cascadia R Conference Application](https://forms.gle/D574ZXNmM2Y8jWv96). Applicants must include an abstract limited to 500 words describing your presentation and how it aligns with the goals of the conference as well as contact information. 
+To apply, fill out and submit the [Cascadia R Conference Application](https://forms.gle/b96QqvE61AxAvtnS9). Applicants must include an 
+abstract limited to 500 words describing your presentation and how it aligns 
+with the goals of the conference, as well as email contact information. 
 
-The Call for Presentations <b>opens January 30, 2023 and will close April 16, 2023 </b>. Presenters will be notified by end of April 2023. Upon notification, presenters are expected to confirm acceptance, provide high quality headshots, and a short biography that will be included on the Cascadia R Conference website. Prior to the conference, copies of the final presentation are required to be made available to the planning committee as a back-up.
+**The Call for Presentations will close February 14, 2024 at 5PM PT.** 
+Presenters will be notified by the end of March 2024. Upon notification, 
+presenters are expected to confirm acceptance, provide a high-quality headshot, 
+and a short biography that will be included on the Cascadia R Conference website. 
+Prior to the conference, copies of the final presentation are required to be 
+made available to the planning committee as a back-up.
 
 Please <a href="/contact">contact us</a> with any questions or concerns!
 
 </div>
 
 <br><br><br>
+
+
