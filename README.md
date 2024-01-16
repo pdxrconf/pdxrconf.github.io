@@ -1,7 +1,7 @@
 # How to contribute to the CascadiaRConf website
 
 This repository holds content for the [Cascadia R Conference website](https://cascadiarconf.org).
-The most recent conference organizers can be identified [here](https://cascadiarconf.org/about/).  
+The most recent conference organizers can be found [here](https://cascadiarconf.org/about/) and our contact info is available at [CascadiaRConf](https://cascadiarconf.com/contact/)
 
 ### Code of conduct
 
@@ -16,15 +16,20 @@ Please feel free to submit an [issue](https://github.com/pdxrconf/pdxrconf.githu
 ### Make changes
 
 If you have specific changes to website content or code you would like to suggest,
-please fork this repository prior to making your changes (either using the GitHub web interface, 
-or following instructions below for [rendering locally](#rendering-locally)).
-When you are satisfied with your changes,
-submit a pull request (PR) to the `newsite` branch (note: *not* the `master` branch);
-`newsite` should pop up as the default branch for PRs.
+please follow these steps.
 
-With a pull request, you'll get a preview of the site including your suggested changes.
-Click on `Details` to access the preview link
-and view any failure reports.
+1. Fork this repository to create a copy under your GitHub account.
+2. Create a development `dev` branch in your fork.
+3. Working on this `dev` branch, make any changes to the website.
+4. Optional. Render the website locally to check your changes. See instructions below for [rendering locally](#rendering-locally).
+5. Once you've completed your changes, make sure the `newsite` (default) branch in your fork is up-to-date with the parent repo in `pdxrconf`. If you need to update, you will see a page like this on GitHub. Sync your fork before continuing.
+   ![](https://github.com/pdxrconf/pdxrconf.github.io/blob/newsite/static/img/screenshot/fork_update.png?raw=true)
+7. Merge your `dev` branch with your `newsite` branch. Correct any merge conflicts as needed. This ensures that when you merge with the live website, there are no issues.
+8. Once no conflicts exist, make a pull request to merge your `newsite` fork to the `pdxrconf newsite` branch.
+9. Confirm that your edits look good by previewing the website in the pull request. Click "Details" for the deploy/netlify check.
+    ![](https://github.com/pdxrconf/pdxrconf.github.io/blob/newsite/static/img/screenshot/fork_PR.png?raw=true)
+10. A website moderator will review your your pull request and comment if any further changes are needed.
+11. Once confirmed by a moderator, your edits are merged with the main branch and go live on the website!
 
 # Rendering locally
 
