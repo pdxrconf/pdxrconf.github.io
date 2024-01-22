@@ -24,7 +24,7 @@ url: "cfp"
 
 <div class="center" id="cfp" style="text-align: left">
 
-<img src="/img/logo/logo_2023/hero.png" class="img-responsive" alt="Cascadia R hero logo">
+<img src="/img/logo/logo_2024/hero.png" class="img-responsive" alt="Cascadia R hero logo">
 
 <center><h2>
 It is with great pleasure that we announce the 
