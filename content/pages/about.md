@@ -19,14 +19,16 @@ this year and hope to see you there!</h3>
 + [Jacqueline Nolis](https://jnolis.com/)
 + [Kim Dill-McFarland](https://kdillmcfarland.github.io/)
 
+<br>
+
 + Brittney Kroiss
 + Cameron Mulder
 + Cari Gostic
 + [Dominik Grätz](https://www.researchgate.net/profile/Dominik-Graetz-2)
 + Ezgi Yucel
-+ Jadey Ryan
++ [Jadey Ryan](https://jadeyryan.com)
 + Katie Masiello
-+ Lydia Gibson 
++ [Lydia Gibson](https://lgibson7.quarto.pub/once-upon-a-time-series/about.html)
 + Melissa Lee
 + Miranda Fix
 + Mohsen Soltanifar
