@@ -35,9 +35,13 @@ to be held in Seattle, Washington on June 22, 2024.
 </h2></center>
 <br>
 
-<center><h2>
-Applications are due Feb 14, 2024!
-</h2></center>
+<center>
+<div class="box">
+<h2>
+Extended deadline:
+<br>
+Applications are now due March 1, 2024!
+</h2></div></center>
 
 <br>
 
@@ -74,7 +78,7 @@ To apply, fill out and submit the [Cascadia R Conference Application](https://fo
 abstract limited to 500 words describing your presentation and how it aligns 
 with the goals of the conference, as well as email contact information. 
 
-**The Call for Presentations will close February 14, 2024 at 5PM PT.** 
+**The Call for Presentations will close March 1, 2024 at 5 PM PT.** 
 Presenters will be notified by the end of March 2024. Upon notification, 
 presenters are expected to confirm acceptance, provide a high-quality headshot, 
 and a short biography that will be included on the Cascadia R Conference website. 
