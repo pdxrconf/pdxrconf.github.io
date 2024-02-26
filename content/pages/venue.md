@@ -30,23 +30,23 @@ url: "venue"
   -->
   
   <h3>Address</h3> 
-  U of Washington, South Lake Union, Building C 
+  University of Washington, South Lake Union, Building C 
   <br>
-  <a https://maps.app.goo.gl/Rf6MQ4vTBk4nPuN9A">
+  <a href="https://maps.app.goo.gl/Rf6MQ4vTBk4nPuN9A">
   850 Republican Street Seattle, WA 98109</a>
   
   <img src="/img/venue/UW_SLU_map.png" class="img-responsive" alt="Fred Hutch map" style="height:600px;">
   <br>
   
-  * All sessions will be held in **Orin Smith Auditorium in the C building**. Enter C on the West main entrance. Reception is to your right. Orin Smith is directly in front of you.
-  * Lunch and the reception will be held in the C building atrium right outside the auditorium as well as additional space in classrooms C123A/B.
+  * All sessions will be held in the **Orin Smith Auditorium in the C building**. Enter C from the West main entrance. Reception is to your right. Orin Smith is directly in front of you.
+  * Lunch and the reception will be held in the C building atrium right outside the auditorium. There will be additional space in classrooms C123A/B.
  * All buildings are locked. Please use only the main entrance indicated in the above map. We will have organizers there to let you in. If no organizer is present, please contact the number on the posted Cascadia R flyer or ring the doorbell to call security.
   
   <br>
   
   <h3>Parking</h3> 
 
-  There is paid parking for $21/day under under building C as indicated in the above map. There is additional parking under building F but this is mostly limited to patient and employees of UW.
+  There is paid parking for $21/day under building C as indicated in the above map. There is additional parking under building F but this is mostly limited to patient and employees of UW.
   
   Additionally, there is paid street parking in the area with 10-hour areas on 8th Ave N.
   
@@ -71,7 +71,7 @@ url: "venue"
   
   <h3>By car</h3>
   
-  * **From I-5**: Take Exit 167 for Mercer St and continue straight. Turn left on 9th Ave N, then take the first right onto Republican St. The garage entrance in on your right. 
+  * **From I-5**: Take Exit 167 for Mercer St and continue straight. Turn left on 9th Ave N, then take the first right onto Republican St. The garage entrance is on your right. 
   * **From 99-S (Aurora)**: Take the exit on the left toward Denny Way/Downtown. Keep left, take the first left onto Harrison St, and then the first left onto Dexter Ave N. Turn right onto Republican St and continue 1 block *past* the first UW garage for patients and employees. The visitor garage entrance is on your left on the next (850) block. 
   * **From 99-N (Aurora)**: Take the exit toward I-5/Mercer St. Continue straight onto Republican St and continue 1 block *past* the first UW garage for patients and employees. The visitor garage entrance is on your left on the next (850) block.
 
