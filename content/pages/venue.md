@@ -30,7 +30,8 @@ url: "venue"
   -->
   
   <h3>Address</h3> 
-  U of Washington, South Lake Union, Building C
+  U of Washington, South Lake Union, Building C 
+  <br>
   <a https://maps.app.goo.gl/Rf6MQ4vTBk4nPuN9A">
   850 Republican Street Seattle, WA 98109</a>
   
