@@ -13,7 +13,7 @@ Yes! See the <a href="/policies">Policies</a> page.
 The conference is Saturday, June 22, 2024. We will also have optional workshops on June 21.
 
 ### Where is the conference?
-U of Washington, South Lake Union campus at 850 Republican St, Seattle, WA, USA
+University of Washington, South Lake Union campus at 850 Republican St, Seattle, WA, USA
 
 ### Will meals be provided?
 A light breakfast as well as a catered lunch are provided with your registration.
