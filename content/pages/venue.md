@@ -30,45 +30,50 @@ url: "venue"
   -->
   
   <h3>Address</h3> 
-  <a href="https://goo.gl/maps/evYEvVbkZSsaPDAR6">
-  1100 Fairview Ave N, Seattle, WA 98109</a>
+  University of Washington, South Lake Union, Building C 
+  <br>
+  <a href="https://maps.app.goo.gl/Rf6MQ4vTBk4nPuN9A">
+  850 Republican Street Seattle, WA 98109</a>
   
-  <img src="/img/venue/Hutch_campus_map.png" class="img-responsive" alt="Fred Hutch map" style="height:600px;">
+  <img src="/img/venue/UW_SLU_map.png" class="img-responsive" alt="Fred Hutch map" style="height:600px;">
   <br>
   
-  * All sessions will be held in Pelton Auditorium in the Weintraub building. Enter the Thomas building through the main entrance and continue straight back on the first floor. Go past the coffee shop on your left until you reach room B1 on your right.
-  * Lunch and the reception will be held in the lunch room in the Weintraub building. This is across the hall from the auditorium.
- * All buildings are locked. Please use only the main entrance indicated in the above map. We will have organizers there to let you in. If no organizer is present, please contact the number of the posted Cascadia R flyer or ring the doorbell to call security.
+  * All sessions will be held in the **Orin Smith Auditorium in the C building**. Enter C from the West main entrance. Reception is to your right. Orin Smith is directly in front of you.
+  * Lunch and the reception will be held in the C building atrium right outside the auditorium. There will be additional space in classrooms C123A/B.
+ * All buildings are locked. Please use only the main entrance indicated in the above map. We will have organizers there to let you in. If no organizer is present, please contact the number on the posted Cascadia R flyer or ring the doorbell to call security.
   
   <br>
   
   <h3>Parking</h3> 
+
+  There is paid parking for $21/day under building C as indicated in the above map. There is additional parking under building F but this is mostly limited to patient and employees of UW.
   
-  The Hutch has free visitor parking as indicated in the above map. This parking does not have a time limit on weekends. Thus, please ignore signs indicating a 2-hour limit. If needed, there is also a paid Impark lot #185 across the street (1111 Fairview Ave N). This lot is $20 for up to 12 hours.
+  Additionally, there is paid street parking in the area with 10-hour areas on 8th Ave N.
   
   <br>
 
   <h3>Lactation rooms</h3>
-  Private lactation rooms are available. Please get a key from a conference organizer who will make themselves known at the start of each session. Lactation rooms are located in:
+  Private lactation rooms are available in the buildings next door. Please notify an organizer that you will need one of these rooms when you check-in. Lactation rooms are located in:
   
-  * Hutchinson (next door to main session building) Room CD-148 via women's restroom CD-136
+  * S building, S411
+  * N building, N209a (M-F only)
 
   <br>
   
   <h2>Getting there</h2>
   <h3>By transit</h3>
   
-  * Bus line C or 70 brings you right to the venue on Fairview Ave N.
+  * Bus line E or 62 stop within a 5-minute walk of the venue.
   * For those staying in South Lake Union, there is also the South Lake Union Streetcar (affectionately called the SLUT).
-  * Uber/Lyft drop-off is recommended in the Campus Dr / Ward St traffic circle.
+  * Uber/Lyft drop-off is recommended in the 8th Ave N where there are load/unload areas.
   
   <br>
   
   <h3>By car</h3>
   
-  * **From I-5**: Take Exit 167 for Mercer St and stay/get in the right lane. Turn right at the first traffic light onto Fairview Ave N. Stay in the right lane and go past the Marriot Residence Inn. Turn right at Campus Dr / Ward St.
-  * **From 99-S (Aurora)**: Take the exit on the left toward Denny Way/Downtown. Keep left, take the first left onto Harrison St, and then the first left onto Dexter Ave N. Turn right onto Mercer St and continue 0.4 mi. Turn left onto Fairview Ave N then turn right at Campus Dr / Ward St.
-  * **From 99-N (Aurora)**: Take the exit toward I-5/Mercer St. Take the first left onto onto Dexter Ave N. Turn right onto Mercer St and continue 0.4 mi. Turn left onto Fairview Ave N then turn right at Campus Dr / Ward St.
+  * **From I-5**: Take Exit 167 for Mercer St and continue straight. Turn left on 9th Ave N, then take the first right onto Republican St. The garage entrance is on your right. 
+  * **From 99-S (Aurora)**: Take the exit on the left toward Denny Way/Downtown. Keep left, take the first left onto Harrison St, and then the first left onto Dexter Ave N. Turn right onto Republican St and continue 1 block *past* the first UW garage for patients and employees. The visitor garage entrance is on your left on the next (850) block. 
+  * **From 99-N (Aurora)**: Take the exit toward I-5/Mercer St. Continue straight onto Republican St and continue 1 block *past* the first UW garage for patients and employees. The visitor garage entrance is on your left on the next (850) block.
 
   <br>
    
@@ -76,7 +81,7 @@ url: "venue"
   
   * Seattle–Tacoma International Airport ([SeaTac](https://goo.gl/maps/DYNVnVFX1Zvv9Raj9)) is the closest airport.
   * An Uber/Lyft from SeaTac to South Lake Union in ~$50. This takes at best 20 minutes and at worst 1.5 hrs depending on traffic.
-  * The light rail takes you straight downtown (University St Station) in about 40 minutes with trains every 8 - 15 minutes depending on time of day. There are then a number of public transit options to South Lake Union (bus line C or 70, the streetcar) or a much cheaper Uber/Lyft.
+  * The light rail takes you straight downtown (University St Station) in about 40 minutes with trains every 8 - 15 minutes depending on time of day. There are then a number of public transit options to South Lake Union (bus line E or 62, the streetcar) or a much cheaper Uber/Lyft.
   
   <!--
   <h3>Tickets are officially available <a href="https://hopin.com/events/r-cascadia">here</a> </h3>
