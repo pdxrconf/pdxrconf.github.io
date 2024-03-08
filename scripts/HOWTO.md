@@ -128,9 +128,11 @@ Note that this page only renders when `venue="true"`. See [Step 2.8](#update) fo
 
 <a name="agenda"></a>
 
-#### 2.4.8 Agenda
+#### 2.4.8 Agenda and Workshops
 * File: `content/pages/agenda.md`
     - Optional template `content/pages/agenda_example.md`
+* File: `content/pages/workshop.md`
+    - Optional template `content/pages/workshop_example.md`
 * Recommended updates:
     - Update Slack invite link or comment out line if not using `<!--  -->`
     - Update event date as main header
@@ -235,7 +237,7 @@ The remaining parameters are optional. Set them to `"false"` when data are not a
 * `logo`: Homepage and taskbar logo. See [Step 2.3](#logo)
 * `cfp`: Homepage call for presentations. See [Step 2.4.4](#cfp)
 * `venue`: Venue details page. See [Step 2.4.6 ](#venue)
-* `agenda`: Sgenda page. See [Step 2.4.7](#agenda)
+* `agenda` and `workshop`: Agenda and Workshop pages. See [Step 2.4.8](#agenda)
 * `speakers`: Homepage keynote highlight. See [Step 2.5](#speaker)
 * `register`: Homepage and taskbar registration links
 * `alert`: Homepage alert. Last used to announce conference cancellation in 2020

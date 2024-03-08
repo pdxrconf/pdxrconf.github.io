@@ -9,13 +9,14 @@ YEAR="2024"
 # Set all that you have ready to post
 ## If not available, set to "false"
 logo="true"
-cfp="true"
+cfp="false"
 venue="false"
 agenda="false"
 speakers="false"
 register="false"
 alert="false"
 scholarship="false"
+workshop="false"
 
 ###### Logo paths ######
 if [ $logo == "true" ];
@@ -81,6 +82,16 @@ then
 else
   # Actual page
   sed -i '' "s|url = \"/coming_soon/agenda/\"|url = \"/agenda/\"|g" config.toml
+fi
+
+#WORKSHOP~
+if [ $workshop == "false" ];
+then
+  # Coming soon
+  sed -i '' "s|url = \"/workshop/\"|url = \"/coming_soon/workshop/\"|g" config.toml
+else
+  # Actual page
+  sed -i '' "s|url = \"/coming_soon/workshop/\"|url = \"/workshop/\"|g" config.toml
 fi
 
 #VENUE#
