@@ -37,7 +37,7 @@ googleAnalytics = ""
 
 [[menu.main]]
    name = "Workshops"
-   parent = "workshop"
+   parent = "agenda"
    url = "/coming_soon/workshop/"
    weight = 3.2
    
