@@ -30,7 +30,7 @@ googleAnalytics = ""
     weight = 3
 
 [[menu.main]]
-   name = "Current"
+   name = "Conference"
    parent = "agenda"
    url = "/coming_soon/agenda/"
    weight = 3.1
