@@ -164,7 +164,7 @@ _UNDER DEVELOPMENT_
 
 #### 2.4.10 Scholarship
 
-*  File: `content/pages/scholarship.md`
+* File: `content/pages/scholarship.md`
 * Recommended updates:
     - Change due dates and update link to submission form
     
