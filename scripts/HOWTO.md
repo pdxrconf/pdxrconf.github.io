@@ -194,27 +194,13 @@ To add:
 
 Once the keynote speakers are added, update the `speakers` parameter in [Step 2.8](#update) to highlight them on the homepage.
 
-### 2.6 Speaker presentations
-
-Add links to `content/pages/agenda.md` to speaker presentations. We recommend linking directly to the document either in this year's repo (https://github.com/pdxrconf/pdxrconf.github.io/tree/newsite/static/img/presentations_YEAR/) or to an outside page provided by the speaker. You can display this as a cute little link image like so.
-
-```
-<a href="URL"><i class="fa fa-link"></i>
-```
-
-After the conference, you can also link to a recording of the presentation and use the play symbol.
-
-```
-<a href="URL"><i class="fa fa-play-circle"></i></a>
-```
-
-### 2.7 Other files
+### 2.6 Other files
 
 If you have other materials you would like to include in the repo, you can put them in `static/pdfs/`. This may include fliers, sponsor levels, etc. This directory does not render to the website so naming conventions are not in place. Please just stay organized and logical in your choices.
 
 <a name="update"></a>
 
-### 2.8 Update website 
+### 2.7 Update website 
 
 The `scripts/UPDATE.sh` script updates files with the content you've created above. 
 
@@ -243,7 +229,7 @@ The remaining parameters are optional. Set them to `"false"` when data are not a
 * `alert`: Homepage alert. Last used to announce conference cancellation in 2020
 * `scholarship`: Homepage link to scholarships. See [Step ](#scholarship)
 
-### 2.9: Check website render locally 
+### 2.8: Check website render locally 
 
 The website is made with [Hugo](https://gohugo.io/)
 and the [Bootstrapious](https://bootstrapious.com/free-templates) theme.
