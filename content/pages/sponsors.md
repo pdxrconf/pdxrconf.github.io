@@ -3,41 +3,26 @@ title: "Sponsors"
 url: "sponsors"
 ---
 
-<!--
-<h3>We are currently looking for sponsors for Cascadia R Conf 2023! <br><br>
-If you are interested in sponsoring, please contact us 
+<h3>We are currently looking for sponsors for Cascadia R Conf 2024! <br><br>
+If you are interested in sponsoring, please see our <a href="https://drive.google.com/file/d/1WWry3Mk9vYXdRpzp8rcSfqzg4TAb4p-B/view?usp=drive_link">sponsorship levels</a> and contact us 
 <a href="mailto:cascadiarcon@gmail.com">here</a> </h3>
--->
 
 <h3>Silver</h3>
 
 <br>
 
 <div class="image" style="padding: 20px">
-  <a href="https://www.fredhutch.org/en.html" target="_blank">
-  <img src="/img/sponsors/Fred_Hutch.png" class="img-responsive" alt="Fred Hutch Logo" style="width:400px;"></a></div>
+  <a href="https://medicine.uw.edu/" target="_blank">
+  <img src="/img/sponsors/uw_med.png" class="img-responsive" alt="U of Washington, Dept of Medicine Logo" style="width:400px;"></a></div>
   
 <br>
 
-<div class="image" style="padding: 20px">
-  <a href="https://procogia.com/" target="_blank">
-  <img src="/img/sponsors/procogia_wide.png" class="img-responsive" alt="ProCogia Logo" style="width:400px;"></a></div>  
-  
-<br>
-
-<div class="image" style="padding: 20px">
-  <a href="https://www.r-consortium.org/" target="_blank">
-  <img src="/img/sponsors/rconsortium.png" class="img-responsive" alt="R Consortium Logo" style="width:400px;"></a></div>  
-
-<br>
 
 <h3>Bronze</h3>
 
 <br>
 
-<div class="image" style="padding: 20px">
-  <a href="https://escience.washington.edu/" target="_blank">
-  <img src="/img/sponsors/uw_escience.png" class="img-responsive" alt="UW eScience Institute Logo" style="width:400px;"></a></div>                                          
+                  
 <br>
 <hr>
 
