@@ -39,7 +39,7 @@ border-color:black;
 
 
 <h1>Communication</h1>
-  <h3>Join us on <a href="SLACK_INVITE" target="blank_">Slack</a></h3>
+  <h3>Join us on <a href="bit.ly/CascadiaRSlack2" target="blank_">Slack</a></h3>
   <br>
 
 ## Friday, June 21, 2024
