@@ -3,9 +3,10 @@ title: "Intermediate Quarto Workshop"
 url: "2024/workshop/quarto2"
 ---
 
-By Jadey Ryan  
-Friday June 21, 2024, 1:30 - 4:30 PM  
-Room C123A
+## By Jadey Ryan  
+#### Friday June 21, 2024
+#### 1:30 - 4:30 PM  
+#### Room C123A
 
 Take your Quarto documents to the next level with parameterization and other nifty features. More info coming soon!
 

@@ -3,9 +3,10 @@ title: "Introduction to Shiny Workshop"
 url: "2024/workshop/shiny"
 ---
 
-By Ted Laderas  
-Friday June 21, 2024, 9:00 AM - 12:00 PM  
-Room C123B
+## By Ted Laderas  
+#### Friday June 21, 2024
+#### 9:00 AM - 12:00 PM  
+#### Room C123B
 
 More info coming soon!
 

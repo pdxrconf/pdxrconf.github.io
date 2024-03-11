@@ -3,9 +3,10 @@ title: "Introduction to GIS and mapping in R"
 url: "2024/workshop/gis"
 ---
 
-By Brittany Barker and Roger Andre  
-Friday June 21, 2024, 1:30 - 4:30 PM  
-Room C123B
+## By Brittany Barker and Roger Andre  
+#### Friday June 21, 2024
+#### 1:30 - 4:30 PM  
+#### Room C123B
 
 The usage of R in GIS is growing because of its enhanced capabilities for statistics, data visualization, and spatial analytics. In this workshop, you will learn some basics of working with geospatial data and producing maps in R. Topics will include using `sf` and `terra` to work with vector and raster data, respectively. You will practice visualizing geospatial data using base plotting functions, `ggplot2`, and `leaflet`. 
 
