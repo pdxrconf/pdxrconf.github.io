@@ -170,18 +170,18 @@ _UNDER DEVELOPMENT_
     
 <a name="speaker"></a>
 
-### 2.5 Speaker pages
+### 2.5 Speaker and workshop pages
 
-To add speakers:
+To add:
 
-1. Navigate to the appropriate session directory in `content/speakers/speaker_info_YEAR/` i.e. one of `keynote/`, `lightning/`, or `regular/`
-0. Copy the the template directory and rename as `firstname_lastname` for the speaker
+1. Navigate to the appropriate session directory in `content/speakers/speaker_info_YEAR/` i.e. one of `keynote/`, `lightning/`, `regular/`, or `workshop/`
+0. Copy the the template directory and rename as `firstname_lastname` for the speaker or a short name for workshops
 0. Fill out the `index.md` including
     - title
     - url (make sure the format is the speaker's `firstname_lastname` all lowercase, underscore separators)
     - Talk title, session time, and location
     - Abstract
-    - (Within the table)
+    - Speaker bio (within the table)
         - Image name (replace `logo_2023.png` if using custom image) and alt text
         - Pronouns
         - Location (i.e. where they live)
