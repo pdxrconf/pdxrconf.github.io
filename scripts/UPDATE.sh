@@ -6,7 +6,7 @@
 # Set the  year of the conference
 YEAR="2024"
 
-# Set all that you have ready to post
+# Set all that you have ready to post to "true"
 ## If not available, set to "false"
 logo="true"
 cfp="false"
@@ -16,7 +16,7 @@ speakers="false"
 register="false"
 alert="false"
 scholarship="false"
-workshop="false"
+workshop="true"
 
 ###### Logo paths ######
 if [ $logo == "true" ];
