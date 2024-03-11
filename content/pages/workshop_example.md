@@ -3,7 +3,7 @@
 ---
 title: "Workshops"
 layout: "agenda"
-url: "workshop"
+url: "workshop_example"
 ---
 
 
