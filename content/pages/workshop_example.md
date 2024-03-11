@@ -42,7 +42,7 @@ border-color:black;
 <!-- </style> -->
 
 <h1>Communication</h1>
-  <h4>Join us on <a href="bit.ly/CascadiaRSlack2" target="blank_">Slack</a></h4>
+  <h4>Join us on <a href="https://join.slack.com/t/cascadiarconf/shared_invite/zt-1lu53059t-GAxQtzrwQhmo7BXE7YfC8w" target="blank_">Slack</a></h4>
   <br>
 
 ## DATE
