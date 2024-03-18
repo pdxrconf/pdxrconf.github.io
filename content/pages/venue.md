@@ -38,9 +38,10 @@ url: "venue"
   <img src="/img/venue/UW_SLU_map.png" class="img-responsive" alt="Fred Hutch map" style="height:600px;">
   <br>
   
-  * All sessions will be held in the **Orin Smith Auditorium in the C building**. Enter C from the West main entrance. Reception is to your right. Orin Smith is directly in front of you.
+  * All conference sessions will be held in the **Orin Smith Auditorium in the C building**. Enter C from the West main entrance. Reception is to your right. Orin Smith is directly in front of you.
   * Lunch and the reception will be held in the C building atrium right outside the auditorium. There will be additional space in classrooms C123A/B.
- * All buildings are locked. Please use only the main entrance indicated in the above map. We will have organizers there to let you in. If no organizer is present, please contact the number on the posted Cascadia R flyer or ring the doorbell to call security.
+  * Workshops will be held in classrooms C123A/B. Once you enter building C, follow signs.
+  * All buildings are **locked**. Please use only the main entrance indicated in the above map. We will have organizers there to let you in. If no organizer is present, please contact the number on the posted Cascadia R flyer or ring the doorbell to call security.
   
   <br>
   

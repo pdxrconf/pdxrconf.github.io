@@ -9,3 +9,4 @@ R_code/name_tags/*.html
 R_code/name_tags/*.PDF
 R_code/name_tags/name_tags_regular.Rmd
 R_code/name_tags/name_tags_speaker.Rmd
+R_code/ticket_codes/speaker_ticket_codes.R

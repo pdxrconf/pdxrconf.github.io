@@ -17,14 +17,10 @@ If you have any questions, email `cascadiarcon@gmail.com`
 
 <br>
 
-This Code of Conduct is adapted from the policy of the [PyDX Conference](https://blog.pydx.org/code-of-conduct/), which is under a Creative Commons Zero license.
-
-<br>
-
-## COVID precautions
+## Illness precautions
 
 Per current CDC and Washington State guidelines, masks are not required at Cascadia R Conf.
 
-If you have tested positive for COVID-19 or are otherwise ill, please do not attend the conference in person. Virtual access is provided with all registration types.
+If you have tested positive for COVID-19 or are otherwise ill, please do not attend the conference in person. Virtual attendance is provided with all registration types.
 
 <br>

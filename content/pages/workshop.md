@@ -1,9 +1,7 @@
-<!-- NOTE that the header has been removed to avoid problems with website render. This is just an example agenda for reference. The header would look like so
-
 ---
 title: "Workshops"
 layout: "agenda"
-url: "workshop_example"
+url: "workshop"
 ---
 
 
@@ -38,26 +36,27 @@ border-color:black;
 .descriptioncontainer {width:60%px;}
 
 </style>
--->
-<!-- </style> -->
+
 
 <h1>Communication</h1>
   <h4>Join us on <a href="https://join.slack.com/t/cascadiarconf/shared_invite/zt-1lu53059t-GAxQtzrwQhmo7BXE7YfC8w" target="blank_">Slack</a></h4>
   <br>
 
-## DATE
+## Friday, June 21, 2024
 <br>
 
 #### Morning sessions, 9 AM - 12 PM
 
-* Title1: desc
-* Title2: desc
+* <a href="/2024/workshop/quarto1">Introduction to Quarto</a> by TBD
+* <a href="/2024/workshop/shiny">Introduction to Shiny</a> by Ted Laderas
+
 
 <br>
 
 #### Afternoon sessions, 1:30 PM - 4:30 PM
 
-* Title3: desc
-* Title4: desc
+* <a href="/2024/workshop/quarto2">Intermediate Quarto</a> by Jadey Ryan
+* <a href="/2024/workshop/gis">Introduction to GIS and mapping in R</a> by Brittany Barker and Roger Andre
+
 
 <br><br><br>
