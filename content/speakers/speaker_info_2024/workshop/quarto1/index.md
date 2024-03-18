@@ -3,7 +3,7 @@ title: "Introduction to Quarto Workshop"
 url: "2024/workshop/quarto1"
 ---
 
-## By TBD
+## By Charlotte Wickham
 #### Friday June 21, 2024  
 #### 9:00 AM - 12:00 PM  
 #### Room C123A
