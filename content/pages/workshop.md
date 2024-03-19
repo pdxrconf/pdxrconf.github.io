@@ -47,7 +47,7 @@ border-color:black;
 
 #### Morning sessions, 9 AM - 12 PM
 
-* <a href="/2024/workshop/quarto1">Introduction to Quarto</a> by TBD
+* <a href="/2024/workshop/quarto1">Introduction to Quarto</a> by Charlotte Wickham
 * <a href="/2024/workshop/shiny">Introduction to Shiny</a> by Ted Laderas
 
 
@@ -55,7 +55,7 @@ border-color:black;
 
 #### Afternoon sessions, 1:30 PM - 4:30 PM
 
-* <a href="/2024/workshop/quarto2">Intermediate Quarto</a> by Jadey Ryan
+* <a href="/2024/workshop/quarto2">Intermediate Quarto: Parameterized Reports</a> by Jadey Ryan
 * <a href="/2024/workshop/gis">Introduction to GIS and mapping in R</a> by Brittany Barker and Roger Andre
 
 
