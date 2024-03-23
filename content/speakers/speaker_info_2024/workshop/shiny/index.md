@@ -1,14 +1,27 @@
 ---
-title: "Introduction to Shiny Workshop"
+title: "Intermediate Shiny: How to Draw the Owl"
 url: "2024/workshop/shiny"
 ---
 
-## By Ted Laderas  
 #### Friday June 21, 2024
 #### 9:00 AM - 12:00 PM  
 #### Room C123B
 
-More info coming soon!
+Build on your beginning shiny skills and learn more about the confusing parts of shiny, and the surrounding shiny ecosystem. By the end of this workshop, you will be able to:
+
+- Dynamically update controls based on other inputs
+
+- Explain when to use eventReactive versus observeEvent in your code
+
+- Use Quarto Dashboards with Shiny
+
+- Integrate ObservableJS visualizations into your Shiny Applications
+
+- Explain the deployment process to Shinyapps.io and Posit Connect
+
+**Knowledge Prerequisites**: Basic knowledge of shiny apps. If you know how to build this app - <a href= "https://shiny.posit.co/r/gallery/start-simple/single-file-shiny-app/">Single File Shiny App</a>, you should be good to go.
+
+**Pre-Installations**: We will use Posit.Cloud for this workshop, so no installations needed.
 
 <br><br>
 
@@ -16,11 +29,17 @@ More info coming soon!
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/speakers/speakers_2024/ted_laderas.jpg" alt="Ted Laderas headshot"></td>
   <td>
-      <h5>Pronouns: he/him</h5>
+      <h3>Ted Laderas</h3>
+      <h5>Pronouns: He/him</h5>
       <h5>Portland, OR, USA</h5>
-      Ted is a founding member of the Cascadia-R conference. He is a bioinformatics trainer and data science mentor. He trains and empowers learners in learning how to utilize cloud platforms effectively and execute and communicate effective data science. He also is a co-organizer of the PDX-R user group and visualizing Tidy Tuesday datasets in his free time.
+      Ted Laderas is a trainer, instructor, and community builder. He currently works at the Fred Hutch Cancer Center managing the data science community. He love Shiny, but acknowledges there are some confusing parts.
       </td></tr>
 
 </table>
 
-
+<style>
+h1, .h1 {
+    margin-top: 20px;
+    margin-bottom: -40px;
+}
+</style>

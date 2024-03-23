@@ -3,7 +3,6 @@ title: "Introduction to GIS and mapping in R"
 url: "2024/workshop/gis"
 ---
 
-## By Brittany Barker and Roger Andre  
 #### Friday June 21, 2024
 #### 1:30 - 4:30 PM  
 #### Room C123B
@@ -51,3 +50,10 @@ remotes::install_github("ropensci/USAboundariesData")
       </td></tr>
 
 </table>
+
+<style>
+h1, .h1 {
+    margin-top: 20px;
+    margin-bottom: -40px;
+}
+</style>

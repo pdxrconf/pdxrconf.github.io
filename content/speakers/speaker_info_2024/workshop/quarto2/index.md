@@ -3,7 +3,6 @@ title: "Intermediate Quarto: Parameterized Reports Workshop"
 url: "2024/workshop/quarto2"
 ---
 
-## By Jadey Ryan  
 #### Friday June 21, 2024
 #### 1:30 - 4:30 PM  
 #### Room C123A
@@ -26,6 +25,7 @@ install.packages(c("dplyr", "fs", "ggplot2", "here", "janitor", "knitr",
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/speakers/speakers_2024/jadey_ryan.jpg" alt="Jadey Ryan headshot"></td>
   <td>
+      <h3>Jadey Ryan</h3>
       <h5>Pronouns: she/her</h5>
       <h5>Tacoma, WA, USA</h5>
       Jadey Ryan is a self-taught R enthusiast working in environmental data science in the Natural Resources and Agricultural Sciences section of the Washington State Department of Agriculture. She is obsessed with cats, nature, R, and Quarto. 
@@ -34,4 +34,9 @@ install.packages(c("dplyr", "fs", "ggplot2", "here", "janitor", "knitr",
 
 </table>
 
-
+<style>
+h1, .h1 {
+    margin-top: 20px;
+    margin-bottom: -40px;
+}
+</style>

@@ -3,7 +3,6 @@ title: "Introduction to Quarto Workshop"
 url: "2024/workshop/quarto1"
 ---
 
-## By Charlotte Wickham
 #### Friday June 21, 2024  
 #### 9:00 AM - 12:00 PM  
 #### Room C123A
@@ -24,6 +23,7 @@ install.packages(c("tidyverse", "gt", "palmerpenguins", "quarto"))
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/speakers/speakers_2024/charlotte_wickham.jpeg" alt="Charlotte Wickham headshot"></td>
   <td>
+      <h3>Charlotte Wickham</h3>
       <h5>Pronouns: She/Her/Hers</h5>
       <h5>Corvallis, Oregon</h5>
       Charlotte Wickham is a Developer Educator at Posit with a focus on Quarto. Before Posit, she taught Statistics and Data Science at Oregon State University.
@@ -31,4 +31,9 @@ install.packages(c("tidyverse", "gt", "palmerpenguins", "quarto"))
 
 </table>
 
-
+<style>
+h1, .h1 {
+    margin-top: 20px;
+    margin-bottom: -40px;
+}
+</style>
