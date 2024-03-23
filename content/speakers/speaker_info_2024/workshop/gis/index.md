@@ -1,5 +1,5 @@
 ---
-title: "Introduction to GIS and mapping in R"
+title: "Introduction to GIS and mapping in R Workshop"
 url: "2024/workshop/gis"
 ---
 
@@ -23,37 +23,46 @@ remotes::install_github("ropensci/USAboundaries")
 remotes::install_github("ropensci/USAboundariesData")
 ```
 
-<br><br>
+## Instructors
 
-<table>
-  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/speakers/speakers_2024/brittany_barker.jpeg" alt="Brittany Barker headshot"></td>
-  <td>
-      <h3>Brittany Barker</h3>
-      <h5>Pronouns: She/her</h5>
-      <h5>Portland, OR</h5>
-      <a href="http://brittanysbarker.org">Brittany Barker</a> is an Assistant Professor (Senior Research) at the Oregon IPM Center at Oregon State University. She uses R to develop ecological models that can provide decision-support for managing and monitoring pests, their crop hosts, and their natural enemies. Over the past five years, she has transitioned from ArcGIS to R for nearly all GIS and mapping operations. She loves nature, running, native plants, wildlife, and sci-fi and horror books. 
-      </td></tr>
+<img class="float" width="300px" src="../../../../img/speakers/speakers_2024/brittany_barker.jpeg" alt="Brittany Barker headshot">
 
-</table>
+### Brittany Barker
+      
+**Pronouns:** She/her/hers
+    
+**Location:** Portland, Oregon
+      
+<a href="http://brittanysbarker.org">Brittany Barker</a> is an Assistant Professor (Senior Research) at the Oregon IPM Center at Oregon State University. She uses R to develop ecological models that can provide decision-support for managing and monitoring pests, their crop hosts, and their natural enemies. Over the past five years, she has transitioned from ArcGIS to R for nearly all GIS and mapping operations. She loves nature, running, native plants, wildlife, and sci-fi and horror books. 
 
-<br><br>
+<br style="clear:both">
 
-<table>
-  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/speakers/speakers_2024/roger_andre.jpeg" alt="Roger Andre headshot"></td>
-  <td>
-      <h3>Roger Andre</h3>
-      <h5>Pronouns: He/him</h5>
-      <h5>Seattle, WA</h5>
-      Roger is Sr. Business Analysis Manager at T-Mobile.  He has used R for location based analyses of retail store locations and for reporting and dashboard generation (and a whole lot of data wrangling).  His background is in code-first spatial data analysis and engineering.  When not on a computer, he enjoys fly-fishing and reading. 
-      </td></tr>
+<img class="float" width="300px" src="../../../../img/speakers/speakers_2024/roger_andre.jpeg" alt="Roger Andre headshot">
 
-</table>
+### Roger Andre
+      
+**Pronouns:** He/him/his
+    
+**Location:** Seattle, Washington
+    
+Roger is Sr. Business Analysis Manager at T-Mobile.  He has used R for location based analyses of retail store locations and for reporting and dashboard generation (and a whole lot of data wrangling).  His background is in code-first spatial data analysis and engineering.  When not on a computer, he enjoys fly-fishing and reading. 
 
 <style>
 h1, .h1 {
     margin-top: 20px;
     margin-bottom: -40px;
+}
+h3, .h3 {
+    margin-top: 0em;
+    margin-bottom: .5em;
+}
+.float {
+  float: left;
+  padding: 0em 1em 1em 0em;
+}
+@media only screen and (max-width: 900px) {
+    .float {
+        float:none;
+    }
 }
 </style>

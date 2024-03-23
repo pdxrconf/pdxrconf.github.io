@@ -19,24 +19,36 @@ install.packages(c("dplyr", "fs", "ggplot2", "here", "janitor", "knitr",
                    "rmarkdown", "stringr", "tidyr"))
 ```
 
-<br><br>
+## Instructor
 
-<table>
-  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/speakers/speakers_2024/jadey_ryan.jpg" alt="Jadey Ryan headshot"></td>
-  <td>
-      <h3>Jadey Ryan</h3>
-      <h5>Pronouns: she/her</h5>
-      <h5>Tacoma, WA, USA</h5>
-      Jadey Ryan is a self-taught R enthusiast working in environmental data science in the Natural Resources and Agricultural Sciences section of the Washington State Department of Agriculture. She is obsessed with cats, nature, R, and Quarto. 
-      <br><br>Learn more on her website: <a href="https://jadeyryan.com">jadeyryan.com</a>.
-      </td></tr>
+<img class="float" width="300px" src="../../../../img/speakers/speakers_2024/jadey_ryan.jpeg" alt="Jadey Ryan headshot">
+    
+### Jadey Ryan
+    
+**Pronouns:** She/her/hers
+    
+**Location:** Tacoma, Washington
+      
+Jadey Ryan is a self-taught R enthusiast working in environmental data science in the Natural Resources and Agricultural Sciences section of the Washington State Department of Agriculture. She is obsessed with cats, nature, R, and Quarto. 
 
-</table>
+Learn more at <a href="https://jadeyryan.com">jadeyryan.com</a>.
 
 <style>
 h1, .h1 {
     margin-top: 20px;
     margin-bottom: -40px;
+}
+h3, .h3 {
+    margin-top: 0em;
+    margin-bottom: .5em;
+}
+.float {
+  float: left;
+  padding: 0em 1em 1em 0em;
+}
+@media only screen and (max-width: 900px) {
+    .float {
+        float:none;
+    }
 }
 </style>

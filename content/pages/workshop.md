@@ -4,8 +4,6 @@ layout: "agenda"
 url: "workshop"
 ---
 
-
-
 <style>
 td {vertical-align:top;}
 .agenda {
@@ -34,29 +32,24 @@ border-color:black;
 .timecontainer {width:20%;}
 .trainingcontainer {width:20%;}
 .descriptioncontainer {width:60%px;}
-
 </style>
 
-
-<h1>Communication</h1>
+<h2>Communication</h2>
   <h4>Join us on <a href="https://join.slack.com/t/cascadiarconf/shared_invite/zt-1lu53059t-GAxQtzrwQhmo7BXE7YfC8w" target="blank_">Slack</a></h4>
-  <br>
 
 ## Friday, June 21, 2024
-<br>
 
-#### Morning sessions, 9 AM - 12 PM
+#### Morning sessions, 9:00 AM - 12:00 PM
 
 * <a href="/2024/workshop/quarto1">Introduction to Quarto</a> by Charlotte Wickham
-* <a href="/2024/workshop/shiny">Introduction to Shiny</a> by Ted Laderas
-
+* <a href="/2024/workshop/shiny">Intermediate Shiny: How to Draw the Owl</a> by Ted Laderas
 
 <br>
 
 #### Afternoon sessions, 1:30 PM - 4:30 PM
 
 * <a href="/2024/workshop/quarto2">Intermediate Quarto: Parameterized Reports</a> by Jadey Ryan
-* <a href="/2024/workshop/gis">Introduction to GIS and mapping in R</a> by Brittany Barker and Roger Andre
+* <a href="/2024/workshop/gis">Introduction to GIS and Mapping in R</a> by Brittany Barker and Roger Andre
 
 
 <br><br><br>

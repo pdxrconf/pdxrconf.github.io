@@ -1,5 +1,5 @@
 ---
-title: "Intermediate Shiny: How to Draw the Owl"
+title: "Intermediate Shiny: How to Draw the Owl Workshop"
 url: "2024/workshop/shiny"
 ---
 
@@ -23,23 +23,34 @@ Build on your beginning shiny skills and learn more about the confusing parts of
 
 **Pre-Installations**: We will use Posit.Cloud for this workshop, so no installations needed.
 
-<br><br>
+## Instructor
 
-<table>
-  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/speakers/speakers_2024/ted_laderas.jpg" alt="Ted Laderas headshot"></td>
-  <td>
-      <h3>Ted Laderas</h3>
-      <h5>Pronouns: He/him</h5>
-      <h5>Portland, OR, USA</h5>
-      Ted Laderas is a trainer, instructor, and community builder. He currently works at the Fred Hutch Cancer Center managing the data science community. He love Shiny, but acknowledges there are some confusing parts.
-      </td></tr>
+<img class=float width="300px" src="../../../../img/speakers/speakers_2024/ted_laderas.jpeg" alt="Ted Laderas headshot">
 
-</table>
+### Ted Laderas
+      
+**Pronouns:** He/him/his
+
+**Location:** Portland, Oregon
+      
+Ted Laderas is a trainer, instructor, and community builder. He currently works at the Fred Hutch Cancer Center managing the data science community. He love Shiny, but acknowledges there are some confusing parts.
 
 <style>
 h1, .h1 {
     margin-top: 20px;
     margin-bottom: -40px;
+}
+h3, .h3 {
+    margin-top: 0em;
+    margin-bottom: .5em;
+}
+.float {
+  float: left;
+  padding: 0em 1em 1em 0em;
+}
+@media only screen and (max-width: 900px) {
+    .float {
+        float:none;
+    }
 }
 </style>
