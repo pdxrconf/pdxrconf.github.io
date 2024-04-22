@@ -4,7 +4,7 @@ url: "2024/regular/justin_sherrill"
 ---
 
 ### Cartographic Tricks & Techniques in R
-Regular talk, SESSION TIME HERE, SESSION ROOM HERE
+Regular talk, 11:25-11:40
 
 Over the past few years, the R-spatial community has leveraged the flexibility and popularity of R to create some truly powerful spatial analytics and cartographic packages. This presentation intends to provide a general overview of the packages, functions, and best practices for mapping in R. Example topics to be discussed will range from labeling geographic features and inserting basemaps in {ggplot2}, to repairing and simplifying geometries, to making quick yet effective interactive maps in {mapview} or {leaflet}. The intended audience is expected to already be familiar with working with simple features in R through the {sf} package and how to build a basic plot with {ggplot2}, but curious about stepping up their cartographic game.
 <br><br>

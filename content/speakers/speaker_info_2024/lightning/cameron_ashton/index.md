@@ -4,7 +4,7 @@ url: "2024/lightning/cameron_ashton"
 ---
 
 ### Building R Packages to Deliver Generalized Functions: An Example from Small Number Suppression for Epidemiological Dashboarding
-Lighting Talk, SESSION TIME HERE, SESSION ROOM HERE
+Lighting Talk, 1:45-1:50
 
 "Background: 
 The Data Visualization Section within the Center for Data Science at the Washington Department of Health produces several public disease surveillance dashboards. In these products, we perform small number suppression of the data to prevent case reidentification and discourage misrepresentation of unstable small counts. Suppression includes several layers of logic to obscure small numbers, hide additional cells that could be used to back-calculate values, and remove metrics derived from suppressed values. To accomplish this, we developed a common system of user-defined functions compatible with all our dashboard pipelines. We share our experience organizing this dynamic shared code into an R package used across multiple data processing workflows.
