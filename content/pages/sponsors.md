@@ -3,7 +3,7 @@ title: "Sponsors"
 url: "sponsors"
 ---
 
-<h3>We are currently looking for sponsors for Cascadia R Conf 2024! If you are interested in sponsoring, please see our <a href="https://drive.google.com/file/d/1WWry3Mk9vYXdRpzp8rcSfqzg4TAb4p-B/view?usp=drive_link">sponsorship levels</a> and contact us 
+<h3>We are currently looking for sponsors for Cascadia R Conf 2024! If you are interested in sponsoring, please see our <a href="https://drive.google.com/file/d/1PJ6jyxdbrb8gJTSq4EL9ZqoPd490v-X2/view?usp=sharing">sponsorship levels</a> and contact us 
 <a href="mailtso:cascadiarcon@gmail.com">here</a> </h3>
 
 <br>
