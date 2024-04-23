@@ -14,7 +14,7 @@ The fast-paced needs of the University of Oregon Athletics Department contrast w
            src="../../../../img/speakers/speakers_2024/emily_kraschel.jpg" alt="Emily Kraschel"></td>
   <td>
       <h5>Pronouns: she/her</h5>
-      <h5>LOCATION HERE</h5>
+      <h5>Eugene, OR</h5>
       Emily is a Research Data Science Assistant at the University of Oregon for a project regarding injury modeling and prevention. The project is shared by the Data Science and Athletics departments, as part of the Wu Tsai Human Performance Alliance. In addition to her research work, Emily is a Workshop Coordinator for UO Libraries Data Services, where she organizes and instructs programming workshops and data-related events. She received a BS with honors in Economics and International Studies from the University of Oregon, and has plans to attend Syracuse University for a MA in International Relations in Fall 2024. 
       </td></tr>
 

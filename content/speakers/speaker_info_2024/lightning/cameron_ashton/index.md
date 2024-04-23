@@ -24,7 +24,7 @@ Using this approach, we developed sharable code and readily applied our small nu
            src="../../../../img/speakers/speakers_2024/cameron_ashton.jpg" alt="Cameron Ashton"></td>
   <td>
       <h5>Pronouns: she/her</h5>
-      <h5>LOCATION HERE</h5>
+      <h5>Seattle, WA</h5>
       Cameron Ashton is an epidemiologist with Washington State Department of Health’s Center for Analytics, Informatics, and Modernization, where she and her team work as R coders to construct pipelines that process data for agency dashboards. Previously, Cameron developed water, sanitation, and hygiene capacity assessment tools as an ORISE fellow at the Centers for Disease Control and Prevention. Cameron received her MSPH in Epidemiology from Emory’s Rollins School of Public Health.
       </td></tr>
 

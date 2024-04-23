@@ -15,11 +15,11 @@ When the elves aren't around to help with the holiday festivities, Santa can alw
   <td>
       <h5>Pronouns: he/him</h5>
       <h5>San Jose, CA</h5>
-      "Ken Vu is an R enthusiast who first learned the programming language while completing his MS in Statistics at California State University - East Bay. Currently, he provides data insights, survey research, and online content curation services for non-profit and public organizations, especially in areas concerning education or environmental conservation. 
+      Ken Vu is an R enthusiast who first learned the programming language while completing his MS in Statistics at California State University - East Bay. Currently, he provides data insights, survey research, and online content curation services for non-profit and public organizations, especially in areas concerning education or environmental conservation. 
 
 Additionally, he co-faciliates the r4ds book club as a member of the r4ds Online Learning Community, providing inclusive and accessible ways for R users of all skill levels and backgrounds to learn data science techniques in R. In his spare time, he enjoys hiking, writing for his Quarto blog The R Files, and eating at new restaurants with friends and family. 
 
-You can find Ken Vu on Mastodon at @kenvu777."
+You can find Ken Vu on Mastodon at @kenvu777.
       </td></tr>
 
 </table>

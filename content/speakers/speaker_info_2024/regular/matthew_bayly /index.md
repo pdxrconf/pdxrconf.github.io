@@ -14,7 +14,7 @@ This presentation will showcase the development of the CEMPRA (Cumulative Effect
            src="../../../../img/speakers/speakers_2024/matthew_bayly.jpg" alt="Matthew Bayly"></td>
   <td>
       <h5>Pronouns: he/him</h5>
-      <h5>LOCATION HERE</h5>
+      <h5>Whistler, British Columbia</h5>
       Building R packages, R Shiny applications, APIs, and web systems with a background in aquatic science and web development & trying to help others along the way :) 
       </td></tr>
 

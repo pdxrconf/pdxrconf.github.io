@@ -15,11 +15,11 @@ In this talk, I present a pioneering system for portfolio analysis and managemen
   <td>
       <h5>Pronouns: he/him</h5>
       <h5>Seattle, WA</h5>
-      "Lovekumar is a senior consultant and developer at ProCogia, specializing in building end-to-end data science products. With an MS in Engineering Management focused on data science from Northeastern University, he brings over five years of experience in the consulting industry. 
+      Lovekumar is a senior consultant and developer at ProCogia, specializing in building end-to-end data science products. With an MS in Engineering Management focused on data science from Northeastern University, he brings over five years of experience in the consulting industry. 
 
 He excels in creating RESTful APIs, developing enterprise-ready data-intensive web applications, and crafting decision-making data reports. His expertise also includes statistical modeling, developing R packages, and harnessing R's capabilities across various domains. He holds an AWS Certified Solution Architect credential.
 
-At ProCogia, he works with various clients to develop and implement data-driven solutions, showcasing his proficiency in transforming concepts into production-ready solutions. His role includes leading teams in agile environments and handling client-facing responsibilities from requirement gathering to deployment. "
+At ProCogia, he works with various clients to develop and implement data-driven solutions, showcasing his proficiency in transforming concepts into production-ready solutions. His role includes leading teams in agile environments and handling client-facing responsibilities from requirement gathering to deployment. 
       </td></tr>
 
 </table>

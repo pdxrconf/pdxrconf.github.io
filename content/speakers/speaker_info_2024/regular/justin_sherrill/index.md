@@ -14,7 +14,7 @@ Over the past few years, the R-spatial community has leveraged the flexibility a
            src="../../../../img/speakers/speakers_2024/justin_sherrill.jpg" alt="Justin Sherrill"></td>
   <td>
       <h5>Pronouns: he/him</h5>
-      <h5>LOCATION HERE</h5>
+      <h5>Portland, OR</h5>
       Justin Sherrill is a lead technical analyst at regional economics and planning consultant ECOnorthwest. Building on a education and professional background in urban planning and GIS, Justin now uses R on a daily basis to model housing markets and land use impacts for client governments across the Western US. Outside of his work at ECOnorthwest, you can find published examples of Justin’s maps and data visualizations in Proceedings of the National Academy of Sciences, and in Upper Left Cities: A Cultural Atlas of San Francisco, Portland, and Seattle.
       </td></tr>
 

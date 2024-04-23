@@ -15,9 +15,9 @@ The Teal package(s) ecosystem is a recent framework for R/Shiny apps leveraging 
   <td>
       <h5>Pronouns: he/him</h5>
       <h5>Seattle, WA</h5>
-      "Dror Berel is a statistician with over 20 years of work experience in both academia and industry. He loves using R for (almost) everything. He works as an independent consultant, solving business problems and scale analytical tools for diverse data domains, leveraging both traditional Machine learning and Causal Inference along with modern approaches.
+      Dror Berel is a statistician with over 20 years of work experience in both academia and industry. He loves using R for (almost) everything. He works as an independent consultant, solving business problems and scale analytical tools for diverse data domains, leveraging both traditional Machine learning and Causal Inference along with modern approaches.
 Among the data domains he specialize in are: genomic biomarker discovery, clinical data reporting (CDISC, ADaM, TLGs).
-His services also include: Authoring Real World Evidence data analysis and documentation. Writing statistical plans, Power analysis, Design of experiments, and biomarker discovery. Developing R/Shiny apps, and REST APIs. Golem, Rhino, Teal and others."
+His services also include: Authoring Real World Evidence data analysis and documentation. Writing statistical plans, Power analysis, Design of experiments, and biomarker discovery. Developing R/Shiny apps, and REST APIs. Golem, Rhino, Teal and others.
       </td></tr>
 
 </table>
