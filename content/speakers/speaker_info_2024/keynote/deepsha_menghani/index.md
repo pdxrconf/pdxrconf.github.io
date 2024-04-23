@@ -10,7 +10,7 @@ In the rapidly evolving field of AI, it’s pivotal to stay at the forefront of 
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/speakers/speakers_2024/deepsha_menghani.jpeg" alt="Deepsha Menghani headshot"></td>
+           src="../../../../img/speakers/speakers_2024/deepsha_menghani.jpg" alt="Deepsha Menghani headshot"></td>
   <td>
       <h5>Pronouns: she/her</h5>
       <h5>Seattle, WA, USA</h5>
