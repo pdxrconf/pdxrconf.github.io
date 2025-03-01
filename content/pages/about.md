@@ -29,6 +29,8 @@ this year and hope to see you there!</h3>
 + Jeff Pannell
 + Katie Masiello
 + [Kim Dill-McFarland](https://kdillmcfarland.github.io/)
++ Mohamed Albirair
++ [Özüm Kafaee](https://www.linkedin.com/in/nazliozumkafaee/)
 + Peter Geissert
 + Sara Grusing
 + Scott Hancock
