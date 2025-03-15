@@ -37,19 +37,23 @@ border-color:black;
 <h2>Communication</h2>
   <h4>Join us on <a href="https://join.slack.com/t/cascadiarconf/shared_invite/zt-1lu53059t-GAxQtzrwQhmo7BXE7YfC8w" target="blank_">Slack</a></h4>
 
-## Friday, June 21, 2024
+## Friday, June 20, 2025
 
 #### Morning sessions, 9:00 AM - 12:00 PM
 
-* <a href="/2024/workshop/quarto1">Introduction to Quarto</a> by Charlotte Wickham
-* <a href="/2024/workshop/shiny">Intermediate Shiny: How to Draw the Owl</a> by Ted Laderas
+* <a href="/2025/workshop/github1">GitHub for RStudio Users</a> by Skyler Elmstrom
+* <a href="/2025/workshop/shiny">Intermediate Shiny</a> by Ted Laderas
 
 <br>
 
 #### Afternoon sessions, 1:30 PM - 4:30 PM
 
-* <a href="/2024/workshop/quarto2">Intermediate Quarto: Parameterized Reports</a> by Jadey Ryan
-* <a href="/2024/workshop/gis">Introduction to GIS and Mapping in R</a> by Brittany Barker and Roger Andre
+* <a href="/2025/workshop/github2">Advanced GitHub: Projects, API, and Command Line</a> by Skyler Elmstrom
+* <a href="/2025/workshop/positron">Introduction to Positron from R/RStudip Users</a> by Charlotte Wickham
 
+
+???? AM or PM
+* <a href="/2025/workshop/gis">Intro to Rust for R Developers</a> by Josiah Parry
+* <a href="/2025/workshop/rust">Introduction to GIS and Mapping in R</a> by Brittany Barker
 
 <br><br><br>
