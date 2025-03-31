@@ -1,5 +1,5 @@
 ---
-title: "Advanced GitHub: Projects, API, and Command Line Workshop"
+title: "Intermediate GitHub for R Users"
 url: "2025/workshop/github2"
 ---
 
@@ -8,15 +8,7 @@ url: "2025/workshop/github2"
 #### Karl Miller Center, 615 SW Harrison Street, Portland, OR  
 #### Room TBD
 
-
-
-**Knowledge Prerequisites**: TBD
-
-**Pre-Installations**: TBD
-
-```
-install.packages(c(""))
-```
+Learn intermediate GitHub skills including R code and package deployment, building a quarto website in GitHub for your project, and automating publishing workflow tasks with basic GitHub Actions.
 
 ## Instructor
 
