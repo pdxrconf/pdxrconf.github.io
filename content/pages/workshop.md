@@ -42,6 +42,7 @@ border-color:black;
 #### Morning sessions, 9:00 AM - 12:00 PM
 
 * <a href="/2025/workshop/github1">GitHub for RStudio Users</a> by Skyler Elmstrom
+* <a href="/2025/workshop/rust1">Intro to Rust for R Developers</a> by Josiah Parry
 * <a href="/2025/workshop/shiny">Intermediate Shiny</a> by Ted Laderas
 
 <br>
@@ -49,11 +50,11 @@ border-color:black;
 #### Afternoon sessions, 1:30 PM - 4:30 PM
 
 * <a href="/2025/workshop/github2">Advanced GitHub: Projects, API, and Command Line</a> by Skyler Elmstrom
+* <a href="/2025/workshop/rust2">Building Rust based R Packages</a> by Josiah Parry
 * <a href="/2025/workshop/positron">Introduction to Positron from R/RStudip Users</a> by Charlotte Wickham
 
 
 ???? AM or PM
-* <a href="/2025/workshop/gis">Intro to Rust for R Developers</a> by Josiah Parry
 * <a href="/2025/workshop/rust">Introduction to GIS and Mapping in R</a> by Brittany Barker
 
 <br><br><br>
