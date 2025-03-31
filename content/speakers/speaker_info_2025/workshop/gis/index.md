@@ -4,7 +4,7 @@ url: "2025/workshop/gis"
 ---
 
 #### Friday June 20, 2025 
-?#### 9:00 AM - 12:00 PM 1:30 - 4:30 PM 
+#### 1:30 - 4:30 PM 
 #### Karl Miller Center, 615 SW Harrison Street, Portland, OR  
 #### Room TBD
 
