@@ -23,7 +23,7 @@ In this workshop, participants will learn the foundations of the Rust programmin
 
 ## Instructor
 
-<img class="float" width="300px" src="../../../../img/speakers/speakers_2025/josiah_perry.jpeg" alt="Josiah Parry headshot">
+<img class="float" width="300px" src="../../../../img/speakers/speakers_2025/josiah_parry.jpeg" alt="Josiah Parry headshot">
     
 ### Josiah Parry
     

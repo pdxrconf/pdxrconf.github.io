@@ -14,8 +14,8 @@ This workshop will teach developers how to build a Rust based R package using th
 
 ## Instructor
 
-<img class="float" width="300px" src="../../../../img/speakers/speakers_2025/josiah_perry.jpeg" alt="Josiah Parry headshot">
-    
+<img class="float" width="300px" src="../../../../img/speakers/speakers_2025/josiah_parry.jpeg" alt="Josiah Parry headshot">
+
 ### Josiah Parry
     
 **Pronouns:** He/him/his

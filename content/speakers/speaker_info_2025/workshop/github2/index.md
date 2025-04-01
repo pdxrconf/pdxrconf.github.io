@@ -12,7 +12,7 @@ Learn intermediate GitHub skills including R code and package deployment, buildi
 
 ## Instructor
 
-<img class="float" width="300px" src="../../../../img/speakers/speakers_2025/skyler_elmstrom.jpeg" alt="Skyler Elmstrom headshot">
+<img class="float" width="300px" src="../../../../img/speakers/speakers_2025/skyler_elmstrom.jpg" alt="Skyler Elmstrom headshot">
 
 ### Skyler Elmstrom
       
