@@ -4,7 +4,7 @@ url: "2025/regular/speaker_name_here"
 ---
 
 ### TITLE HERE
-Regular talk, SESSION TIME HERE, SESSION ROOM HERE
+Regular talk, SESSION TIME HERE
 
 ABSTRACT HERE
 <br><br>

@@ -87,7 +87,7 @@ border-color:black;
 
 * [Samer Hijjazi](/2025/lightning/samer_hijjazi): Navigating the BLS API with R: A Step-by-Step Guide
 * [Cassio Felix](/2025/lightning/cassio_felix): The Power of APIs: From Integration to Shiny Apps
-* [Faycal ounacer](/2025/lightning/faycal_ounacer): Assessing the Impact of Coastal Upwelling on Fisheries: Insights from the California Current System
+* [Faycal Ounacer](/2025/lightning/faycal_ounacer): Assessing the Impact of Coastal Upwelling on Fisheries: Insights from the California Current System
 * [Mohsen Soltanifar](/2025/lightning/mohsen_soltanifar): CMHSU: An R Statistical Software Package to Detect Mental Health Status Substance Use Status and Their Concurrent Status in the North American Healthcare Administrative Databases   
 * [L. K. Borland](/2025/lightning/lk_borland): Decoding R needs: Bridging the gap with university library workshops  
 
