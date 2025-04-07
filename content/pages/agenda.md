@@ -56,9 +56,9 @@ border-color:black;
 
 #### 9:40-10:40 Building Smarter R Workflows
 
-* [](/2025/regular/): Leveraging Large Language Models in R: Practical Applications with {ellmer}
-* [](/2025/regular/): Simplified Data Analysis
-* [](/2025/regular/): Creating a better universe with dverse
+* [Yan Liu](/2025/regular/yan_liu): Leveraging Large Language Models in R: Practical Applications with {ellmer}
+* [David Gerbing](/2025/regular/david_gerbing): Simplified Data Analysis
+* [Mauro Lepore](/2025/regular/mauro_lepore): Creating a better universe with dverse
 
 #### 10:40-10:55 Break
 
