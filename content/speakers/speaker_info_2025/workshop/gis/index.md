@@ -6,7 +6,7 @@ url: "2025/workshop/gis"
 #### Friday June 20, 2025 
 #### 1:30 - 4:30 PM 
 #### Karl Miller Center, 615 SW Harrison Street, Portland, OR  
-#### Room TBD
+#### Room KMC 180
 
 The usage of R in GIS is growing because of its enhanced capabilities for statistics, data visualization, and spatial analytics. In this workshop, you will learn some basics of working with geospatial data and producing maps in R. Topics will include using `sf` and `terra` to work with vector and raster data, respectively. You will practice visualizing geospatial data using base plotting functions, `ggplot2`, and `leaflet`. 
 

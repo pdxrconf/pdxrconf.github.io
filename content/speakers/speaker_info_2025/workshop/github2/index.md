@@ -6,7 +6,7 @@ url: "2025/workshop/github2"
 #### Friday June 20, 2025 
 #### 1:30 - 4:30 PM  
 #### Karl Miller Center, 615 SW Harrison Street, Portland, OR  
-#### Room TBD
+#### Room KMC 460
 
 Learn intermediate GitHub skills including R code and package deployment, building a quarto website in GitHub for your project, and automating publishing workflow tasks with basic GitHub Actions.
 

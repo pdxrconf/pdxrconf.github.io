@@ -6,7 +6,7 @@ url: "2025/workshop/github1"
 #### Friday June 20, 2025 
 #### 9:00 AM - 12:00 PM  
 #### Karl Miller Center, 615 SW Harrison Street, Portland, OR  
-#### Room TBD
+#### Room KMC 460
 
 Learn the basics of using GitHub for improved R reproducibility, portability, defensibility, and more with a brief introduction to GitHub version control with the GitHub Flow, integrating GitHub with your R development environment and projects, and thoughtful individual and collaboration best practices. 
 

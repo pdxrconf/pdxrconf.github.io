@@ -6,7 +6,7 @@ url: "2025/workshop/rust1"
 #### Friday June 20, 2025 
 #### 9:00 AM - 12:00 PM
 #### Karl Miller Center, 615 SW Harrison Street, Portland, OR  
-#### Room TBD
+#### Room KMC 465
 
 In this workshop, participants will learn the foundations of the Rust programming language with a specific focus on building Rust-based R packages. The curriculum offers an opinionated selection of topics that allows R developers to draw parallels with their existing programming knowledge. We begin with fundamental concepts such as built-in types and variable mutability, then progress to more complex topics including collections, loops, and iterators. The workshop also covers creating custom types with structs, handling missingness with Option, and error handling with Results.
 

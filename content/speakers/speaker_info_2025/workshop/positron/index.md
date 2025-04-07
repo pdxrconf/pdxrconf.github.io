@@ -6,7 +6,7 @@ url: "2025/workshop/positron"
 #### Friday June 20, 2025  
 #### 1:30 - 4:30 PM  
 #### Karl Miller Center, 615 SW Harrison Street, Portland, OR  
-#### Room TBD
+#### Room KMC 185
 
 Come try Positron, the next-generation data science IDE from Posit. Explore its advanced features and get tips for transitioning your workflow from RStudio.
 

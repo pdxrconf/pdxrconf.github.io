@@ -6,7 +6,7 @@ url: "2025/workshop/shiny"
 #### Friday June 20, 2025 
 #### 9:00 AM - 12:00 PM  
 #### Karl Miller Center, 615 SW Harrison Street, Portland, OR  
-#### Room TBD
+#### Room KMC 180
 
 Build on your beginning shiny skills and learn more about the confusing parts of shiny, and the surrounding shiny ecosystem. By the end of this workshop, you will be able to:
 

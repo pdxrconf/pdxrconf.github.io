@@ -4,9 +4,9 @@ url: "2025/workshop/rust2"
 ---
 
 #### Friday June 20, 2025 
-#### 9:00 AM - 12:00 PM
+#### 1:30 - 4:30 PM 
 #### Karl Miller Center, 615 SW Harrison Street, Portland, OR  
-#### Room TBD
+#### Room KMC 465
 
 This workshop will teach developers how to build a Rust based R package using the `extendr` Rust library and `{rextendr}` R package. Participants will create a performant package from the ground up using Rust.
 
