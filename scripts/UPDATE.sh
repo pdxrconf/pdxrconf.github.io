@@ -11,12 +11,12 @@ YEAR="2025"
 logo="true"
 cfp="false"
 venue="false"
-agenda="false"
-speakers="false"
+agenda="true"
+speakers="true"
 register="true"
 alert="false"
 scholarship="false"
-workshop="false"
+workshop="true"
 
 ###### Logo paths ######
 if [ $logo == "true" ];

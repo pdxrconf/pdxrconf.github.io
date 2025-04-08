@@ -1,7 +1,7 @@
 ---
 title: "Agenda"
 layout: "agenda"
-url: "/years/2024/agenda"
+url: "agenda"
 ---
 
 
@@ -43,7 +43,7 @@ border-color:black;
   <h4>Join us on <a href="https://join.slack.com/t/cascadiarconf/shared_invite/zt-1lu53059t-GAxQtzrwQhmo7BXE7YfC8w" target="blank_">Slack</a></h4>
   <br>
 
-## June 22, 2024
+## June 21, 2025
 <br>
 
 #### 8:00-9:00 Registration and Breakfast
@@ -52,57 +52,55 @@ border-color:black;
 
 #### 9:10-9:40 Keynote 
 
-* [Deepsha Menghani](/2024/keynote/deepsha_menghani): Why is everybody talking about Generative AI?
+* [David Keyes](/2025/keynote/david_keyes): 25 Things You Didn't Know You Could with R
 
-#### 9:40-9:55 Break
+#### 9:40-10:40 Building Smarter R Workflows
 
-#### 9:55-10:55 R-evolution: Articifial intelligence & R
+* [Yan Liu](/2025/regular/yan_liu): Leveraging Large Language Models in R: Practical Applications with {ellmer}
+* [David Gerbing](/2025/regular/david_gerbing): Simplified Data Analysis
+* [Mauro Lepore](/2025/regular/mauro_lepore): Creating a better universe with dverse
 
-* [Nikhita Damaraju](/2024/regular/nikhita_damaraju): R-tificial intelligence: A guide to using R for ML  
-* [Emily Kraschel](/2024/regular/emily_kraschel): R Workflows in Azure Machine Learning for Athletic Data Analysis
-* [Simon Couch](/2024/regular/simon_couch): Fair machine learning
+#### 10:40-10:55 Break
 
-#### 10:55-11:10 Break
+#### 10:55-11:20 Lightning Talks! Automation Edition
 
-#### 11:10-12:10 Visual narRatives
+* [Megan Holtorf](/2025/lightning/megan_holtorf): Taking Action While You Sleep: Using GitHub Actions to Schedule Email Updates
+* [Zak Kindl](/2025/lightning/zak_kindl): Automating Sports Science Reporting with R
+* [Lindsay Dickey](/2025/lightning/lindsay_dickey): Simplify repetitive report creation
+* [Frank Aragona](/2025/lightning/frank_aragona): Language Translation at Scale: Automating Bulk Document Translation with R and Quarto
 
-* [David Keyes](/2024/regular/david_keyes): How to Make a Thousand Plots Look Good: Data Viz Tips for Parameterized Reporting
-* [Justin Sherrill](/2024/regular/justin_sherrill): Cartographic Tricks & Techniques in R
-* [Ken Vu](/2024/regular/ken_vu): Drawing a Christmas card with the ggplot2 package
+#### 11:20 - 12:20 Development in R: Evolution, Automation, and Adoption 
 
-#### 12:10-1:10 Lunch Break
+* [Jonathan McPherson](/2025/regular/jonathan_mcpherson): 10 Years of RStudio and What Happens Next 
+* [Ben Matheson](/2025/regular/ben_matheson): Supercharge your work with Github Actions for R  
+* [Dror Berel](/2025/regular/dror_berel): From Roadblocks to Breakthroughs: Navigating the Challenges of Adopting New Open Source Tools 
 
-#### 1:10-2:10 Shine on with R Shiny
+#### 12:20-1:30 Lunch Break
 
-* [Erica Bishop](/2024/regular/erica_bishop): Don’t repeat yourself: Templatize your R Shiny Apps with Modules
-* [Dror Berel](/2024/regular/dror_berel): High-level, module-based R/Shiny apps with ‘Teal’ framework, with applications beyond the pharma data domain
-* [Matthew Bayly](/2024/regular/matthew_bayly): CEMPRA: Building an R package, R Shiny application, and Quarto book for Cumulative Effect Assessments in BC
+#### 1:30-2:30 R in Action: Metadata, Integration, and (more) Workflows
 
-#### 2:10-2:25 Break
+* [Peter Geissert](/2025/regular/peter_geissert): Metadata Driven Data Science 
+* [Hanna Winter](/2025/regular/hanna_winter): Introduce R to your other friends (or using R as a component in workflows) 
+* [Evan Landman](/2025/regular/evan_landman): Developing reproducible transit analysis with R
 
-#### 2:25-2:55 Lightning Talks!
+#### 2:30-3:00 Lightning Talks!
 
-* [Bryan Shalloway](/2024/lightning/bryan_shalloway): Prediction Intervals in Tidymodels
-* [Joe Roberts](/2024/lightning/joe_roberts): Taking CRAN to the Next Level with Posit Public Package Manager
-* [Randi Bolt](/2024/lightning/randi_bolt): Code to Content
-* [Lovekumar Patel](/2024/lightning/lovekumar_patel): Empowering Decisions: Advanced Portfolio Analysis and Management through Shiny
-* [Cameron Ashton](/2024/lightning/cameron_ashton): Building R Packages to Deliver Generalized Functions: An Example from Small Number Suppression for Epidemiological Dashboarding
-* [Mohsen Soltanifar](/2024/lightning/mohsen_soltanifar): GenTwoArmsTrialSize: An R Statistical Software Package to estimate Generalized Two Arms Clinical Trial Sample Size
+* [Samer Hijjazi](/2025/lightning/samer_hijjazi): Navigating the BLS API with R: A Step-by-Step Guide
+* [Cassio Felix](/2025/lightning/cassio_felix): The Power of APIs: From Integration to Shiny Apps
+* [Faycal Ounacer](/2025/lightning/faycal_ounacer): Assessing the Impact of Coastal Upwelling on Fisheries: Insights from the California Current System
+* [Mohsen Soltanifar](/2025/lightning/mohsen_soltanifar): CMHSU: An R Statistical Software Package to Detect Mental Health Status Substance Use Status and Their Concurrent Status in the North American Healthcare Administrative Databases   
+* [L. K. Borland](/2025/lightning/lk_borland): Decoding R needs: Bridging the gap with university library workshops  
 
-#### 2:55-3:15 Break
+#### 3:00-3:15 Break
 
-#### 3:15-4:15 OuR journeys in community & collaboration
+#### 3:15-4:15 R in Public Health: From Dashboards to Healthcare Access
 
-* [Lydia Gibson](/2024/regular/lydia_gibson): Learning Together at the Data Science Learning Community
-* [Jacqueline Nolis](/2024/regular/jacqueline_nolis): Docker for R users: run your code in the cloud
-* [Russell Shean](/2024/regular/russell_shean): Just double click on this to automatically to setup an R environment: How to use batch scripts to make it easier for colleagues to start using your R projects 
+* [Ariane Erickson](/2025/regular/ariane_erickson): Top Features Every Public Health Dashboard Needs (and how to build them) 
+* [Arilene Novak & Andie Hendrick](/2025/regular/arilene_novak): Workshop to Workflow: Automizing Weekly Respiratory Reports with Quarto 
+* [Alec Kretchun](/2025/regular/alec_kretchun): Evaluating access to healthcare: a modern spatial data workflow in R/python
 
-#### 4:15-4:20 Closing Remarks
-
-#### 4:20-4:30 Break
+#### 4:15-4:30 Closing Remarks
 
 #### 4:30-6:00 Reception
-
-
 
 <br><br><br>

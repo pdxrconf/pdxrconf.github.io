@@ -4,7 +4,7 @@ url: "2025/lightning/speaker_name_here"
 ---
 
 ### TITLE HERE
-Lighting Talk, SESSION TIME HERE, SESSION ROOM HERE
+Lighting Talk, SESSION TIME HERE
 
 ABSTRACT HERE
 <br><br>
