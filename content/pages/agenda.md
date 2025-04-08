@@ -52,7 +52,7 @@ border-color:black;
 
 #### 9:10-9:40 Keynote 
 
-* [David Keyes](/2025/keynote/david_keyes): TBD
+* [David Keyes](/2025/keynote/david_keyes): 25 Things You Didn't Know You Could with R
 
 #### 9:40-10:40 Building Smarter R Workflows
 
