@@ -3,7 +3,7 @@ title: "David Keyes"
 url: "2025/keynote/david_keyes"
 ---
 
-### 25 Things You Didn't Know You Could with R
+### 25 Things You Didn't Know You Could Do with R
 Keynote, 9:10-9:40 
 
 <br><br>
