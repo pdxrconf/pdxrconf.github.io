@@ -36,6 +36,18 @@ remotes::install_github("ropensci/USAboundariesData")
       
 <a href="http://brittanysbarker.org">Brittany Barker</a> is an Assistant Professor (Senior Research) at the Oregon IPM Center at Oregon State University. She uses R to develop ecological models that can provide decision-support for managing and monitoring pests, their crop hosts, and their natural enemies. Over the past five years, she has transitioned from ArcGIS to R for nearly all GIS and mapping operations. She loves nature, running, native plants, wildlife, and sci-fi and horror books. 
 
+<br>
+
+<img class="float" width="300px" src="../../../../img/speakers/speakers_2025/carrie_preston.jpg" alt="Carrie Preston headshot">
+
+### Carrie Preston
+      
+**Pronouns:** She/her/they/them
+    
+**Location:** Corvallis, Oregon
+      
+<a href="https://agsci.oregonstate.edu/users/carrie-preston">Carrie Preston</a> is a Research Associate at the Oregon IPM Center at Oregon State University. She is using R to understand how climate and other factors influence the population dynamics of beneficial insects that attack invasive species. As an entomologist, Carrie enjoys capturing insects for her collection, and as a New York State native, the opportunity to collect specimens on the West Coast could not be beat! She also enjoys photography, dungeons and dragons, rearing praying mantises and jumping spiders, gardening, and walking her cats.
+
 <style>
 h1, .h1 {
     margin-top: 20px;
