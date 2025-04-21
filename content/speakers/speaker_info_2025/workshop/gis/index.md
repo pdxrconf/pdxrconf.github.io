@@ -36,7 +36,7 @@ remotes::install_github("ropensci/USAboundariesData")
       
 <a href="http://brittanysbarker.org">Brittany Barker</a> is an Assistant Professor (Senior Research) at the Oregon IPM Center at Oregon State University. She uses R to develop ecological models that can provide decision-support for managing and monitoring pests, their crop hosts, and their natural enemies. Over the past five years, she has transitioned from ArcGIS to R for nearly all GIS and mapping operations. She loves nature, running, native plants, wildlife, and sci-fi and horror books. 
 
-<br>
+<br style="clear:both">
 
 <img class="float" width="300px" src="../../../../img/speakers/speakers_2025/carrie_preston.jpg" alt="Carrie Preston headshot">
 
