@@ -83,15 +83,14 @@ border-color:black;
 * [Hanna Winter](/2025/regular/hanna_winter): Introduce R to your other friends (or using R as a component in workflows) 
 * [Evan Landman](/2025/regular/evan_landman): Developing reproducible transit analysis with R
 
-#### 2:30-3:00 Lightning Talks!
+#### 2:30-2:55 Lightning Talks!
 
 * [Samer Hijjazi](/2025/lightning/samer_hijjazi): Navigating the BLS API with R: A Step-by-Step Guide
-* [Cassio Felix](/2025/lightning/cassio_felix): The Power of APIs: From Integration to Shiny Apps
 * [Faycal Ounacer](/2025/lightning/faycal_ounacer): Assessing the Impact of Coastal Upwelling on Fisheries: Insights from the California Current System
 * [Mohsen Soltanifar](/2025/lightning/mohsen_soltanifar): CMHSU: An R Statistical Software Package to Detect Mental Health Status Substance Use Status and Their Concurrent Status in the North American Healthcare Administrative Databases   
 * [L. K. Borland](/2025/lightning/lk_borland): Decoding R needs: Bridging the gap with university library workshops  
 
-#### 3:00-3:15 Break
+#### 2:55-3:15 Break
 
 #### 3:15-4:15 R in Public Health: From Dashboards to Healthcare Access
 

@@ -52,6 +52,6 @@ border-color:black;
 * <a href="/2025/workshop/github2">Intermediate GitHub for R Users</a> by Skyler Elmstrom
 * <a href="/2025/workshop/rust2">Building Rust based R Packages</a> by Josiah Parry
 * <a href="/2025/workshop/positron">Introduction to Positron from R/RStudip Users</a> by Charlotte Wickham
-* <a href="/2025/workshop/gis">Introduction to GIS and Mapping in R</a> by Brittany Barker
+* <a href="/2025/workshop/gis">Introduction to GIS and Mapping in R</a> by Brittany Barker and Carrie Preston
 
 <br><br><br>
