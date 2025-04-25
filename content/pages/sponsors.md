@@ -21,8 +21,15 @@ url: "sponsors"
   
 <br>
 <br>
-<hr>
+<h3>Bronze</h3>
+<br>
+<div class="image" style="padding: 20px">
+  <a href="https://www.r-consortium.org/" target="_blank">
+  <img src="/img/sponsors/rconsortium.png" class="img-responsive" alt="R Consortium Logo" style="width:400px;"></a></div>
 
+<br>
+<hr>
+                                            
 <div class="row" style="margin-top: 50px">
                         <h2>Past Sponsors</h2>
                         <br>
