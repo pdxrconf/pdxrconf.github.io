@@ -10,9 +10,9 @@ The EBUSs are among the most biologically productive ocean ecosystems in the wor
 
 <br><br>
 
-<table>
+<<table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/speakers/speakers_2025/faycal_ounacer.jpg" alt="Faycal Ounacer headshot"></td>
+           src="../../../../img/speakers/speakers_2025/faycal_ounacer.jpg" alt="Frank Aragona headshot"></td>
   <td>
       <h5>Pronouns: </h5>
       <h5>Corvallis, OR, USA</h5>
