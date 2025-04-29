@@ -65,7 +65,6 @@ border-color:black;
 #### 10:55-11:20 Lightning Talks! Automation Edition
 
 * [Megan Holtorf](/2025/lightning/megan_holtorf): Taking Action While You Sleep: Using GitHub Actions to Schedule Email Updates
-* [Zak Kindl](/2025/lightning/zak_kindl): Automating Sports Science Reporting with R
 * [Lindsay Dickey](/2025/lightning/lindsay_dickey): Simplify repetitive report creation
 * [Frank Aragona](/2025/lightning/frank_aragona): Language Translation at Scale: Automating Bulk Document Translation with R and Quarto
 
