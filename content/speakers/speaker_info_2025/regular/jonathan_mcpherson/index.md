@@ -13,7 +13,7 @@ In an effort to make the talk at least marginally practical I'll also talk about
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2025/jonathan_mcpherson.jpg" alt="Jonathan McPherson"></td>
+           src="../../../../img/speakers/speakers_2025/jonathan_mcpherson.jpg" alt="Jonathan McPherson"></td>
   <td>
       <h5>Pronouns: PRONOUNS HERE</h5>
       <h5>LOCATION HERE</h5>
