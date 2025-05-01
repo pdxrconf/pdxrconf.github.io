@@ -18,9 +18,9 @@ This session is aimed at all levels of R users. You do not have to be an expert 
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/speakers/speakers_2025/samer_hijjazi.jpg" alt="Samer Hijjazi headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
-      <h5>Location</h5>
-      Bio coming soon!
+      <h5>Pronouns: he/him</h5>
+      <h5>Houston, TX, USA</h5>
+      Samer Hijjazi (pronounced as Sam-er He-jah-zee) currently works at MD Anderson Cancer Center in Texas as a Data Scientist in the Finance & Analytics department. His areas of expertise include data analysis and data collection, with an emphasis on web scraping. Samer has close to 5 years of experience working in Healthcare Administration, Higher Education, and Human Resource Analytics. In his spare time, Samer has his own YouTube channel (@SamerHijjazi) where he creates analytics content, primarily in R.
       </td></tr>
 
 </table>

@@ -35,6 +35,11 @@ to be held in Portland, Oregon on June 21, 2025.
 </h2></center>
 <br>
 
+<center><h2>
+Submission deadline extended to February 28!
+</h2></center>
+<br>
+
 <br>
 
 <h2>About the conference</h2>
@@ -70,7 +75,7 @@ To apply, fill out and submit the [Cascadia R Conference Application](https://do
 abstract limited to 500 words describing your presentation and how it aligns 
 with the goals of the conference, as well as email contact information. 
 
-**The Call for Presentations will close February 14, 2025 at 5 PM PT.** 
+**The Call for Presentations will close February 28, 2025 at 5 PM PT.** 
 Presenters will be notified by the end of March 2025. Upon notification, 
 presenters are expected to confirm acceptance, provide a high-quality headshot, 
 and a short biography that will be included on the Cascadia R Conference website. 

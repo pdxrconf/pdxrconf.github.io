@@ -10,13 +10,13 @@ The EBUSs are among the most biologically productive ocean ecosystems in the wor
 
 <br><br>
 
-<table>
+<<table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2025/faycal_ounacer.jpg" alt="Faycal Ounacer headshot"></td>
+           src="../../../../img/speakers/speakers_2025/faycal_ounacer.jpg" alt="Frank Aragona headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: he/him </h5>
       <h5>Corvallis, OR, USA</h5>
-      Bio coming soon!
+      Faycal Ounacer is a Fulbright scholar and PhD candidate jointly enrolled at Ibn Zohr University in Morocco and Oregon State University. He holds a master's degree in environmental management and sustainable development. His research focuses on coastal climatology and the impact of upwelling on fisheries along the Moroccan  coast. Faycal has represented Morocco in international dialogues, including the COP27 in Cairo, passionate about climate action, and science education as a peer educator for IRENA.
       </td></tr>
 
 </table>

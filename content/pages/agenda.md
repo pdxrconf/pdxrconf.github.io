@@ -46,23 +46,23 @@ border-color:black;
 ## June 21, 2025
 <br>
 
-#### 8:00-9:00 Registration and Breakfast
+#### 8:00 - 9:00 Registration and Breakfast
 
-#### 9:00-9:10 Introductions
+#### 9:00 - 9:10 Introductions
 
-#### 9:10-9:40 Keynote 
+#### 9:10 - 9:40 Keynote 
 
-* [David Keyes](/2025/keynote/david_keyes): 25 Things You Didn't Know You Could with R
+* [David Keyes](/2025/keynote/david_keyes): 25 Things You Didn't Know You Could Do with R
 
-#### 9:40-10:40 Building Smarter R Workflows
+#### 9:40 - 10:40 Building Smarter R Workflows
 
 * [Yan Liu](/2025/regular/yan_liu): Leveraging Large Language Models in R: Practical Applications with {ellmer}
 * [David Gerbing](/2025/regular/david_gerbing): Simplified Data Analysis
 * [Mauro Lepore](/2025/regular/mauro_lepore): Creating a better universe with dverse
 
-#### 10:40-10:55 Break
+#### 10:40 - 10:55 Break
 
-#### 10:55-11:20 Lightning Talks! Automation Edition
+#### 10:55 - 11:20 Lightning Talks! Automation Edition
 
 * [Megan Holtorf](/2025/lightning/megan_holtorf): Taking Action While You Sleep: Using GitHub Actions to Schedule Email Updates
 * [Lindsay Dickey](/2025/lightning/lindsay_dickey): Simplify repetitive report creation
@@ -74,31 +74,31 @@ border-color:black;
 * [Ben Matheson](/2025/regular/ben_matheson): Supercharge your work with Github Actions for R  
 * [Dror Berel](/2025/regular/dror_berel): From Roadblocks to Breakthroughs: Navigating the Challenges of Adopting New Open Source Tools 
 
-#### 12:20-1:30 Lunch Break
+#### 12:20 - 1:30 Lunch Break
 
-#### 1:30-2:30 R in Action: Metadata, Integration, and (more) Workflows
+#### 1:30 - 2:30 R in Action: Metadata, Integration, and (more) Workflows
 
 * [Peter Geissert](/2025/regular/peter_geissert): Metadata Driven Data Science 
 * [Hanna Winter](/2025/regular/hanna_winter): Introduce R to your other friends (or using R as a component in workflows) 
 * [Evan Landman](/2025/regular/evan_landman): Developing reproducible transit analysis with R
 
-#### 2:30-2:55 Lightning Talks!
+#### 2:30 - 2:55 Lightning Talks!
 
 * [Samer Hijjazi](/2025/lightning/samer_hijjazi): Navigating the BLS API with R: A Step-by-Step Guide
 * [Faycal Ounacer](/2025/lightning/faycal_ounacer): Assessing the Impact of Coastal Upwelling on Fisheries: Insights from the California Current System
 * [Mohsen Soltanifar](/2025/lightning/mohsen_soltanifar): CMHSU: An R Statistical Software Package to Detect Mental Health Status Substance Use Status and Their Concurrent Status in the North American Healthcare Administrative Databases   
 * [L. K. Borland](/2025/lightning/lk_borland): Decoding R needs: Bridging the gap with university library workshops  
 
-#### 2:55-3:15 Break
+#### 2:55 - 3:15 Break
 
-#### 3:15-4:15 R in Public Health: From Dashboards to Healthcare Access
+#### 3:15 - 4:15 R in Public Health: From Dashboards to Healthcare Access
 
 * [Ariane Erickson](/2025/regular/ariane_erickson): Top Features Every Public Health Dashboard Needs (and how to build them) 
 * [Arilene Novak & Andie Hendrick](/2025/regular/arilene_novak): Workshop to Workflow: Automizing Weekly Respiratory Reports with Quarto 
 * [Alec Kretchun](/2025/regular/alec_kretchun): Evaluating access to healthcare: a modern spatial data workflow in R/python
 
-#### 4:15-4:30 Closing Remarks
+#### 4:15 - 4:30 Closing Remarks
 
-#### 4:30-6:00 Reception
+#### 4:30 - 6:00 Reception
 
 <br><br><br>

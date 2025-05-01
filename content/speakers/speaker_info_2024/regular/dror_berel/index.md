@@ -21,5 +21,3 @@ His services also include: Authoring Real World Evidence data analysis and docum
       </td></tr>
 
 </table>
-
-

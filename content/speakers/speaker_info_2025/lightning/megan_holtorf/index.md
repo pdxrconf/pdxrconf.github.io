@@ -18,9 +18,9 @@ By the end of this talk, attendees will see how GitHub Actions can take repetiti
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/speakers/speakers_2025/megan_holtorf.jpg" alt="Megan Holtorf headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: she/her</h5>
       <h5>Renton, WA, USA</h5>
-      Bio coming soon!
+      Megan Holtorf is the Data & Analytics Manager at Providence's Center for Outcomes Research and Education (CORE), where she works closely with researchers and community partners to evaluate innovative healthcare programs and advance health services research. Megan has extensive experience analyzing large administrative data sets, surveys, and civic data. She has been the analytic and technical lead for a multi-year statewide evaluation of philanthropic investments in community health equity, evaluated alternative payment models and other health reform initiatives within Oregon's coordinated care system, and led development of statewide quality metric dashboards.
       </td></tr>
 
 </table>
