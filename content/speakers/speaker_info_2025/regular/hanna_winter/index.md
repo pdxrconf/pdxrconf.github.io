@@ -11,7 +11,7 @@ R scripts are great tools to use as steps in simple and complex workflows. Why t
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2025/hanna_winter.jpg" alt="Hanna Winter"></td>
+           src="../../../../img/speakers/speakers_2025/hanna_winter.jpg" alt="Hanna Winter"></td>
   <td>
       <h5>Pronouns: PRONOUNS HERE</h5>
       <h5>LOCATION HERE</h5>

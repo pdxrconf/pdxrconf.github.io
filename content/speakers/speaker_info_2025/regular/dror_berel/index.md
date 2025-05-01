@@ -19,7 +19,7 @@ Ultimately my goal is to provide attendees with actionable advice that they can 
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2025/logo_2025.png" alt="Dror Berel"></td>
+           src="../../../../img/speakers/speakers_2025/dror_berel.jpg" alt="Dror Berel"></td>
   <td>
       <h5>Pronouns: PRONOUNS HERE</h5>
       <h5>LOCATION HERE</h5>

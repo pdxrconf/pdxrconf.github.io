@@ -22,7 +22,7 @@ This presentation will serve both as an introduction into analyzing transit data
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2025/logo_2025.png" alt="Evan Landman"></td>
+           src="../../../../img/speakers/speakers_2025/evan_landman.jpg" alt="Evan Landman"></td>
   <td>
       <h5>Pronouns: PRONOUNS HERE</h5>
       <h5>LOCATION HERE</h5>
