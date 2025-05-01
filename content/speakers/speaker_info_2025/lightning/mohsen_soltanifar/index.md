@@ -14,9 +14,9 @@ The concept of concurrent mental health and substance use (MHSU) and its detecti
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/speakers/speakers_2025/mohsen_soltanifar.png" alt="Mohsen Soltanifar headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: he/him</h5>
       <h5>Vancouver, BC, Canada</h5>
-      Bio coming soon!
+      Dr. Mohsen Soltanifar is a mathematical statistician with over three years of experience in contract research organizations (CROs) and the pharmaceutical industry, more than five years in healthcare industry, and over four years of part-time teaching in North American academia. His primary research interests encompass clinical trials and real-world evidence, with a focus on leveraging R software for study design, data analysis, and results presentation. Dr. Soltanifar has published in several therapeutic areas, including psychiatry, psychology, pulmonology, and pediatrics. He earned his PhD in Biostatistics from the University of Toronto, Canada, in 2020 and is accredited as a Professional Statistician (P.Stat) by the Statistical Society of Canada, effective 2024.
       </td></tr>
 
 </table>

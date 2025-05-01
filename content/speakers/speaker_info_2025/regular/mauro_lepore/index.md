@@ -16,9 +16,9 @@ This way dverse connects multiple packages and their developers. In large and di
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/speakers/speakers_2025/mauro_lepore.jpeg" alt="Mauro Lepore headshot"></td>
   <td>
-      <h5>Pronouns: PRONOUNS HERE</h5>
-      <h5>LOCATION HERE</h5>
-      BIO HERE
+      <h5>Pronouns: he/him</h5>
+      <h5>Astoria, OR, USA</h5>
+      Mauro Lepore is a Research Software Engineer focused on building open source systems in and around R. I've developed several R packages on CRAN and Shiny apps that help make data more accessible. I contribute to the R community as an associate editor and mentor at rOpenSci, and as an instructor with The Carpentries. I'm especially interested in making research more reproducible, open, and collaborative. 
       </td></tr>
 
 </table>

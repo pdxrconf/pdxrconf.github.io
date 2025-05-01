@@ -13,9 +13,9 @@ R scripts are great tools to use as steps in simple and complex workflows. Why t
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/speakers/speakers_2025/hanna_winter.jpg" alt="Hanna Winter headshot"></td>
   <td>
-      <h5>Pronouns: PRONOUNS HERE</h5>
-      <h5>LOCATION HERE</h5>
-      BIO HERE
+      <h5>Pronouns: she/her</h5>
+      <h5>Bellingham, WA, USA</h5>
+      Hanna Winter is an Environmental Data Scientist at Geosyntec Consultants in Bellingham, WA, where she uses R for data wrangling, data visualization, and statistical analysis for water resources and environmental remediation projects. She enjoys speeding up the pipeline from data gathering to decision making using R and developing scripted solutions to repetitive tasks for data management.
       </td></tr>
 
 </table>

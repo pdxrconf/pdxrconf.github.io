@@ -16,9 +16,9 @@ We are excited to submit to the Cascadia R conference to highlight the ways in w
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/speakers/speakers_2025/alec_kretchun.jpg" alt="Alec Kretchun headshot"></td>
   <td>
-      <h5>Pronouns: PRONOUNS HERE</h5>
-      <h5>LOCATION HERE</h5>
-      BIO HERE
+      <h5>Pronouns: he/him</h5>
+      <h5>Location</h5>
+      Alec Kretchun is a data professional with Kaiser Permanente, focused on increasing access to healthcare. Alec spent 8 years working in environmental science academic research, focused on landscape modeling and geospatial data analysis. He then made the switch to the private sector, where he focuses on scalable open source solutions to meet regulatory and organizational needs.
       </td></tr>
 
 </table>

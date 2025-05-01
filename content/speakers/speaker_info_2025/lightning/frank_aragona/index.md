@@ -13,7 +13,7 @@ Methods:
 The translation script uses R packages to parse text from a markdown file, apply a user-selected language model for translation, and then Quarto to convert the document back into a readable form. I used the lightparser R package to parse the text out of the markdown file, and a Hugging Face Transformers Helsinki language model to translate it into Spanish. Note that a user could import their own language model(s). The lightparser package was then used again to convert the translated text back into markdown, allowing Quarto to render the new document.
 
 Results:  
-The script was tested using a Quarto markdown file containing code blocks and English text as the source.    The lightparser package successfully parsed the text from the document, distinguishing code blocks from the English text. The script then applied the Helsinki language model to the text, translating it into Spanish while leaving the code blocks in English.     This ensures that the code blocks remain executable, as they are not translated into a new language. Finally, Quarto successfully rendered the translated markdown file into HTML, PDF, and DOCX formats. The script can be adapted to ingest a source markdown file for translation and output it in multiple languages as specified by the user. Additionally, the entire process can be integrated into a job scheduler for fully automated processing.
+The script was tested using a Quarto markdown file containing code blocks and English text as the source. The lightparser package successfully parsed the text from the document, distinguishing code blocks from the English text. The script then applied the Helsinki language model to the text, translating it into Spanish while leaving the code blocks in English. This ensures that the code blocks remain executable, as they are not translated into a new language. Finally, Quarto successfully rendered the translated markdown file into HTML, PDF, and DOCX formats. The script can be adapted to ingest a source markdown file for translation and output it in multiple languages as specified by the user. Additionally, the entire process can be integrated into a job scheduler for fully automated processing.
 
 Conclusion:  
 This script offers an automated solution for translating the content of Quarto or RMarkdown documents. The workflow can be adapted for bulk document translation, allowing users to seamlessly translate reports into multiple languages, formats, and parameters. This could significantly expand outreach to non-English-speaking communities, providing them with better access to information in their native language.
@@ -26,7 +26,7 @@ This script offers an automated solution for translating the content of Quarto o
   <td>
       <h5>Pronouns: </h5>
       <h5>Portland, OR, USA</h5>
-      Bio coming soon!
+      Frank Aragona is an Epidemiologist, Data Engineer, and Nerd. I like making cool things like home servers, cli tools, and data visuals. And Quarto has made me enjoy writing documentation. I'm also into reading (I love horror, history, politics, and anything else that is good), movies, hiking, language learning (human languages), and soccer.
       </td></tr>
 
 </table>

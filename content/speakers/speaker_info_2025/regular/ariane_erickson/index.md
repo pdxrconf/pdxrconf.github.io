@@ -19,9 +19,9 @@ Finally don't overlook the importance of a robust iterative review process. From
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/logo/logo_2025/logo_2025.png" alt="Ariane Erickson headshot"></td>
   <td>
-      <h5>Pronouns: PRONOUNS HERE</h5>
-      <h5>LOCATION HERE</h5>
-      BIO HERE
+      <h5>Pronouns: she/her</h5>
+      <h5>Portland, OR, USA</h5>
+      Ariane Erickson is a public health data scientist who builds R-powered dashboards and analytic tools to support data-driven decision-making. She currently leads data projects for Oregon's prescription drug monitoring and injury prevention programs. Before transitioning to public health, she earned a PhD in materials engineering with a focus on cancer biomaterials and led R&D at a medical device startup. Her work bridges the gap between research and real-world impact.
       </td></tr>
 
 </table>

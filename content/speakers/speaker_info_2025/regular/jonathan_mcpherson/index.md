@@ -15,9 +15,9 @@ In an effort to make the talk at least marginally practical I'll also talk about
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/speakers/speakers_2025/jonathan_mcpherson.jpg" alt="Jonathan McPherson headshot"></td>
   <td>
-      <h5>Pronouns: PRONOUNS HERE</h5>
-      <h5>LOCATION HERE</h5>
-      BIO HERE
+      <h5>Pronouns: he/him </h5>
+      <h5>Kirkland, WA, USA</h5>
+      Jonathan McPherson is a software architect at Posit Software, PBC, working primarily on the Positron IDE. In the past, he's worked on the RStudio IDE at Posit, Office at Microsoft, and web applications at a nuclear site in the desert.
       </td></tr>
 
 </table>

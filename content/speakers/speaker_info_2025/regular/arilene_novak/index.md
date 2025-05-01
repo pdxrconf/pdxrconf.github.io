@@ -13,20 +13,9 @@ As influenza and respiratory syncytial virus (RSV) epidemiologists for the Orego
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/speakers/speakers_2025/arilene_novak.jpg" alt="Arilene Novak headshot"></td>
   <td>
-      <h5>Pronouns: PRONOUNS HERE</h5>
-      <h5>LOCATION HERE</h5>
-      BIO HERE
-      </td></tr>
-
-</table>
-
-<table>
-  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2025/logo_2025.png" alt="SPEAKER NAME HERE"></td>
-  <td>
-      <h5>Pronouns: PRONOUNS HERE</h5>
-      <h5>LOCATION HERE</h5>
-      BIO HERE
+      <h5>Pronouns: she/her; she/her</h5>
+      <h5>Albany, OR, USA; Portland, OR, USA</h5>
+      Arilene Novak and Andie Hendrick work together at the Oregon Health Authority (OHA) as RSV and influenza epidemiologists. They've been working together since 2022 with the focus of creating streamlined surveillance and reporting practices. Arilene lives in Albany with her husband, corgi, and 2 cats and enjoys gardening and Mexican food. Andie lives in Portland with her partner and spends her free time riding bikes, cheering for the Portland Thorns, and working on home improvement projects. 
       </td></tr>
 
 </table>
