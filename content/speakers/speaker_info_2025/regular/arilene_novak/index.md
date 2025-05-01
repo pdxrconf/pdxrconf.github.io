@@ -1,5 +1,5 @@
 ---
-title: "Arilene Novak"
+title: "Arilene Novak and Andie Hendrick"
 url: "2025/regular/arilene_novak"
 ---
 
@@ -20,4 +20,13 @@ As influenza and respiratory syncytial virus (RSV) epidemiologists for the Orego
 
 </table>
 
+<table>
+  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
+           src="../../../../img/logo/logo_2025/logo_2025.png" alt="SPEAKER NAME HERE"></td>
+  <td>
+      <h5>Pronouns: PRONOUNS HERE</h5>
+      <h5>LOCATION HERE</h5>
+      BIO HERE
+      </td></tr>
 
+</table>
