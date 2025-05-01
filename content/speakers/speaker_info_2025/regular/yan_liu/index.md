@@ -19,7 +19,7 @@ By the end of this session participants will be equipped with practical tools be
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2025/logo_2025.png" alt="Yan Liu headshot"></td>
+           src="../../../../img/speakers/speakers_2025/yan_liu.jpeg" alt="Yan Liu headshot"></td>
   <td>
       <h5>Pronouns: PRONOUNS HERE</h5>
       <h5>LOCATION HERE</h5>
