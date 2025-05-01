@@ -4,7 +4,7 @@ url: "2025/regular/dror_berel"
 ---
 
 ### From Roadblocks to Breakthroughs: Navigating the Challenges of Adopting New Open Source Tools
-Regular talk, 10:20-12:20
+Regular talk, 11:20 AM - 12:20 PM
 
 Adopting new open-source technology can be both exciting and challenging. While a tool may appear promising and seem like the perfect fit for a specific task early-stage technologies often come with their own set of hurdles. One of the biggest challenges is the lack of comprehensive resources—such as detailed documentation practical examples active discussion boards and community support—which can make it difficult to troubleshoot issues or fully understand the tool’s capabilities. This often requires additional effort experimentation and problem-solving to get things working as intended.
 
@@ -19,7 +19,7 @@ Ultimately my goal is to provide attendees with actionable advice that they can 
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/speakers/speakers_2025/dror_berel.jpg" alt="Dror Berel"></td>
+           src="../../../../img/speakers/speakers_2025/dror_berel.jpg" alt="Dror Berel headshot"></td>
   <td>
       <h5>Pronouns: PRONOUNS HERE</h5>
       <h5>LOCATION HERE</h5>

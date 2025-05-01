@@ -4,7 +4,7 @@ url: "2025/regular/evan_landman"
 ---
 
 ### Developing reproducible transit analysis with R
-Regular talk, 1:30-2:30
+Regular talk, 1:30 - 2:30 PM
 
 Jarrett Walker & Associates (JWA) is a planning consulting firm that has led bus network design projects that shape the map of transit networks in major cities throughout the US from Portland to Miami Cleveland to Houston and many more in between.
 
@@ -22,7 +22,7 @@ This presentation will serve both as an introduction into analyzing transit data
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/speakers/speakers_2025/evan_landman.jpg" alt="Evan Landman"></td>
+           src="../../../../img/speakers/speakers_2025/evan_landman.jpg" alt="Evan Landman headshot"></td>
   <td>
       <h5>Pronouns: PRONOUNS HERE</h5>
       <h5>LOCATION HERE</h5>

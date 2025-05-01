@@ -4,7 +4,7 @@ url: "2025/regular/yan_liu"
 ---
 
 ### Leveraging Large Language Models in R: Practical Applications with {ellmer}
-Regular talk, SESSION TIME HERE
+Regular talk, 9:40 - 10:40 AM
 
 As Large Language Models (LLMs) become more accessible they offer R developers new opportunities to automate and enhance text analysis and generation tasks. For mixed-methods researchers LLMs can improve efficiency in both deductive and inductive coding for content analysis making them a valuable tool for streamlining qualitative research workflows. 
 
@@ -93,7 +93,7 @@ Where to Learn More (Resources package documentation)
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2025/logo_2025.png" alt="Yan Liu"></td>
+           src="../../../../img/logo/logo_2025/logo_2025.png" alt="Yan Liu headshot"></td>
   <td>
       <h5>Pronouns: PRONOUNS HERE</h5>
       <h5>LOCATION HERE</h5>

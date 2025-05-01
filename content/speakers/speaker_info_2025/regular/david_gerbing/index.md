@@ -4,7 +4,7 @@ url: "2025/regular/david_gerbing"
 ---
 
 ### Simplified Data Analysis
-Regular talk, 9:40-10:40
+Regular talk, 9:40 - 10:40 AM
 
 My lessR R package is intended to reduce programming for data analysis to a small set of simple function calls. The user's choice of programming language becomes immaterial because programming skills in any language become immaterial. Moreover most modern development environments are multilingual. For example R of course can be run from the highly popular and highly functional RStudio environment or from the highly popular and highly functional Python environment offered by Jupyter notebooks.
 
@@ -31,7 +31,7 @@ Unlike standard R functions dates can be read from several formats and then auto
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/speakers/speakers_2025/david_gerbing.jpg" alt="David Gerbing"></td>
+           src="../../../../img/speakers/speakers_2025/david_gerbing.jpg" alt="David Gerbing headshot"></td>
   <td>
       <h5>Pronouns: PRONOUNS HERE</h5>
       <h5>LOCATION HERE</h5>

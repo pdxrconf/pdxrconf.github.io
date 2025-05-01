@@ -4,7 +4,7 @@ url: "2025/regular/ariane_erickson"
 ---
 
 ### Top Features Every Public Health Dashboard Needs (and how to build them)
-Regular talk, 3:15-4:15
+Regular talk, 3:15 - 4:15 PM
 
 Building a public-facing dashboard is a balancing act. While crafting a compelling story from your data it is easy for dashboard design principles to become muddled in the competing priorities: user needs internal partner requests and performance of the dashboard. Navigating these challenges requires a strategic approach and in this talk I will highlight key considerations for publishing effective public health dashboards using R Shiny. 
 
@@ -17,7 +17,7 @@ Finally don't overlook the importance of a robust iterative review process. From
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/logo/logo_2025/logo_2025.png" alt="Ariane Erickson"></td>
+           src="../../../../img/logo/logo_2025/logo_2025.png" alt="Ariane Erickson headshot"></td>
   <td>
       <h5>Pronouns: PRONOUNS HERE</h5>
       <h5>LOCATION HERE</h5>

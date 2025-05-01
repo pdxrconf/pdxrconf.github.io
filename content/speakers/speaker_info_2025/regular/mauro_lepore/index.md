@@ -4,7 +4,7 @@ url: "2025/regular/mauro_lepore"
 ---
 
 ### Creating a better universe with dverse
-Regular talk, 9:40-10:40
+Regular talk, 9:40 - 10:40 AM
 
 The Tidyverse popularized the idea of a “package universe.” A typical universe has a meta-package that centralizes access to functions and data across all its packages. For example by using library(tidyverse) the tidyverse meta-package centralizes access to functions and data from dplyr ggplot2 and several other packages within the Tidyverse universe.
 However meta-packages typically do not centralize documentation. For example the tidyverse website only displays the documentation for tidyverse but not for dplyr ggplot2 and other packages in the Tidyverse. A notable exception is tidymodels whose website allows users to search the documentation for all its packages at https://www.tidymodels.org/find/all though its implementation is ad hoc and complex.
@@ -14,7 +14,7 @@ This way dverse connects multiple packages and their developers. In large and di
 
 <table>
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/speakers/speakers_2025/mauro_lepore.jpeg" alt="Mauro Lepore"></td>
+           src="../../../../img/speakers/speakers_2025/mauro_lepore.jpeg" alt="Mauro Lepore headshot"></td>
   <td>
       <h5>Pronouns: PRONOUNS HERE</h5>
       <h5>LOCATION HERE</h5>
