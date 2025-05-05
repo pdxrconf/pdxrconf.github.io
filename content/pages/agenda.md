@@ -88,6 +88,7 @@ border-color:black;
 * [Faycal Ounacer](/2025/lightning/faycal_ounacer): Assessing the Impact of Coastal Upwelling on Fisheries: Insights from the California Current System
 * [Mohsen Soltanifar](/2025/lightning/mohsen_soltanifar): CMHSU: An R Statistical Software Package to Detect Mental Health Status Substance Use Status and Their Concurrent Status in the North American Healthcare Administrative Databases   
 * [L. K. Borland](/2025/lightning/lk_borland): Decoding R needs: Bridging the gap with university library workshops  
+* [R-Ladies+](rladies)(/2025/lightning/rladies): Returning to Portland this year!  
 
 #### 2:55 - 3:15 Break
 
