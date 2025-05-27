@@ -27,7 +27,9 @@ url: "venue"
 <div class="center" id="location" style="text-align: left">
   <h2>CONFERENCE</h2> 
   <h3>Address</h3> 
-  Portland State University and Oregon Health & Sciences University, Robertson Life Sciences Building (RLSB)
+  Portland State University and Oregon Health & Sciences University
+  <br>
+  Robertson Life Sciences Building (RLSB)
   <br>
   <a href="https://maps.app.goo.gl/YN4BTQ2YXzwmiqku5">
   2730 S Moody Ave, Portland, OR 97201</a>
@@ -35,7 +37,7 @@ url: "venue"
   <img src="/img/venue/RLSB_map.png" class="img-responsive" alt="Robertson Life Sciences Building (RLSB) map" style="height:600px;">
   <br>
   
-  * Enter the Robertson Life Sciences Building (RLSB) from **S Moody St** near the corner with S Porter St (see map above).
+  * Enter the Robertson Life Sciences Building (RLSB) from **S Moody Ave** near the corner with S Porter St (see map above).
   * All conference sessions will be held in the **second floor auditorium**. 
   * All buildings are **locked**. Please use only the main entrance indicated in the above map. We will have organizers there to let you in. If no organizer is present, please reach out on <a href="https://join.slack.com/t/cascadiarconf/shared_invite/zt-1lu53059t-GAxQtzrwQhmo7BXE7YfC8w" target="blank_">Slack</a>.
   
@@ -43,7 +45,7 @@ url: "venue"
   
   <h3>Parking</h3> 
 
-  Free parking is available during the conference in the Robertson Life Sciences Building Parking (RLSB) Garage. The garage entrance is located North of the building on S Meade St between S Moody St and S Bond Ave.
+  Free parking is available during the conference in the Robertson Life Sciences Building Parking (RLSB) Garage. The garage entrance is located North of the building on S Meade St between Moody and Bond Ave.
   
   <br>
 
@@ -84,7 +86,9 @@ url: "venue"
 <div class="center" id="location" style="text-align: left">
   <h2>WORKSHOPS</h2> 
   <h3>Address</h3> 
-  Portland State University, Karl Miller Center (KMC)
+  Portland State University
+  <br>
+  Karl Miller Center (KMC)
   <br>
   <a href="https://maps.app.goo.gl/TLnghmtgevbSiBwM9">
   615 SW Harrison St, Portland, OR 97201</a>
@@ -118,22 +122,22 @@ url: "venue"
   
   <h3>Lactation rooms</h3>
   
-  A private lactation room is available at Room 441 (4th floor near women’s restroom). Contact an organizer at during te workshops to obtain the access card when needed.
+  A private lactation room is available at Room 441 (4th floor near women’s restroom). Contact an organizer at during the workshops to obtain the access card when needed.
 
   <br>
   
   <h2>Getting there</h2>
   <h3>By transit</h3>
   
-  * The MAX Orange line an streetcar have stops within one block of KMC.
-  * Several bus lines also have stops at the building including 9 and 17. 
+  * The MAX Orange line and streetcar have stops within one block of KMC.
+  * Several bus lines also have stops near the building including 9 and 17. 
   * If you are staying at the University Place Hotel, the above bus lines work or it is a 9 minute (0.4 mile) walk.
   
   <br>
   
   <h3>By car</h3>
   
-  * You can find an [interactive campus map](https://map.pdx.edu/?center=45.510448416806256,-122.68480360507965&building=KMC)
+  * You can find an [interactive campus map](https://map.pdx.edu/?center=45.510448416806256,-122.68480360507965&building=KMC).
   
 </div>
 
