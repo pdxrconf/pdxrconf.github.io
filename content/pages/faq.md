@@ -33,7 +33,7 @@ For the conference, yes. You can register for a virtual only ticket and all in-p
 Yes! See the <a href="/venue">Venue</a> for more details.
 
 ### Is there a preferred hotel?
-Yes! [University Place Hotel](https://www.uplacehotel.com/) is offering a discounted rate for Cascadia R attendees. Guests can call the Hotel at 503-221-0140 and ask for the "Cascadia Conference" block.
+Yes! [University Place Hotel](https://www.uplacehotel.com/) is offering a discounted rate for Cascadia R attendees (\$111/night plus tax, breakfast included, \$13/day parking). Guests can call the Hotel at 503-221-0140 and ask for the "Cascadia Conference" block.
 
 ### Where do I park?
 For the conference, free parking is available at Robertson Life Sciences Building Parking (RLSB) Garage. The garage entrance is located North of the building on S Meade St between S Moody St and S Bond Ave. For the workshops, Parking Structure 1 and 2 are located next to the Karl Miller Center (KMC). All day parking is $14 and street parking is also available in the area. See the <a href="/venue">Venue</a> for maps and more details.
