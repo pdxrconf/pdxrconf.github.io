@@ -49,7 +49,7 @@ googleAnalytics = ""
 
 [[menu.main]]
     name = "Venue"
-    url = "/coming_soon/venue/"
+    url = "/venue/"
     weight = 4
 
 [[menu.main]]

@@ -25,78 +25,119 @@ url: "venue"
 
 
 <div class="center" id="location" style="text-align: left">
-  <!--
-  <h3>More info coming soon!</h3>
-  -->
-  
+  <h2>CONFERENCE</h2> 
   <h3>Address</h3> 
-  University of Washington, South Lake Union, Building C 
+  Portland State University and Oregon Health & Sciences University
   <br>
-  <a href="https://maps.app.goo.gl/Rf6MQ4vTBk4nPuN9A">
-  850 Republican Street Seattle, WA 98109</a>
+  Robertson Life Sciences Building (RLSB)
+  <br>
+  <a href="https://maps.app.goo.gl/YN4BTQ2YXzwmiqku5">
+  2730 S Moody Ave, Portland, OR 97201</a>
   
-  <img src="/img/venue/UW_SLU_map.png" class="img-responsive" alt="Fred Hutch map" style="height:600px;">
+  <img src="/img/venue/RLSB_map.png" class="img-responsive" alt="Robertson Life Sciences Building (RLSB) map" style="height:600px;">
   <br>
   
-  * All conference sessions will be held in the **Orin Smith Auditorium in the C building**. Enter C from the West main entrance. Reception is to your right. Orin Smith is directly in front of you.
-  * Lunch and the reception will be held in the C building atrium right outside the auditorium. There will be additional space in classrooms C123A/B.
-  * Workshops will be held in classrooms C123A/B. Once you enter building C, follow signs.
-  * All buildings are **locked**. Please use only the main entrance indicated in the above map. We will have organizers there to let you in. If no organizer is present, please contact the number on the posted Cascadia R flyer or ring the doorbell to call security.
+  * Enter the Robertson Life Sciences Building (RLSB) from **S Moody Ave** near the corner with S Porter St (see map above).
+  * All conference sessions will be held in the **second floor auditorium**. 
+  * All buildings are **locked**. Please use only the main entrance indicated in the above map. We will have organizers there to let you in. If no organizer is present, please reach out on <a href="https://join.slack.com/t/cascadiarconf/shared_invite/zt-1lu53059t-GAxQtzrwQhmo7BXE7YfC8w" target="blank_">Slack</a>.
   
   <br>
   
   <h3>Parking</h3> 
 
-  <h4>Friday workshops</h4> 
-  
-  There is paid parking for $21/day under building C as indicated in the above map. Additionally, there is paid street parking in the area with 10-hour areas on 8th Ave N.
-
-  <h4>Saturday conference</h4> 
-
-  **There is no parking at UW SLU on weekends.** Amazon offers free parking at its South Lake Union buildings on weekends including [Obidos/Rufus](https://maps.app.goo.gl/SUAwukzyMQ2hLuVJA) and [Ruby/Dawson](https://maps.app.goo.gl/ewJ8QM2GAVVWKGoS9). Both are a < 10-minute walk from the conference. Additionally, there is paid street parking in the area with 10-hour areas on 8th Ave N.
+  Free parking is available during the conference in the Robertson Life Sciences Building Parking (RLSB) Garage. The garage entrance is located North of the building on S Meade St between Moody and Bond Ave.
   
   <br>
 
+  <h3>Accessibility</h3>
+  
+  RLSB and the parking garage are fully accessible. There are accessible restrooms on all floors, and elevators are available throughout the building.
+
+  <br>
+  
   <h3>All gender restrooms</h3>
   
-  All gender / ungendered restrooms are available in Building S. Conference organizers will be available throughout the event to facilitate access to this building.
+  PSU/OHSU have an All-Gender Restroom Policy that allows all individuals to use restrooms aligned with their gender identity. In addition, there is a single-occupancy restroom on RLSB Floor 1, Room 1S013.
 
   <br>
   
   <h3>Lactation rooms</h3>
-  Private lactation rooms are available in the buildings next door. Please notify an organizer that you will need one of these rooms when you check-in. Lactation rooms are located in:
   
-  * S building, S411
-  * N building, N209a (M-F only)
+  A private lactation room is available at RLSB Floor 1, Room 1S011. Contact an organizer at the conference to obtain the access card when needed.
 
   <br>
   
   <h2>Getting there</h2>
   <h3>By transit</h3>
   
-  * Bus line E or 62 stop within a 5-minute walk of the venue.
-  * For those staying in South Lake Union, there is also the South Lake Union Streetcar (affectionately called the SLUT).
-  * Uber/Lyft drop-off is recommended in the 8th Ave N where there are load/unload areas.
+  * The MAX Orange line as well as light rail NS and B take you right to RLSB.
+  * Several bus lines also have stops at the building including 17, 19, and 35. 
+  * If you are staying at the University Place Hotel, the above bus lines work or it is a 15 minute (0.7 mile) walk.
   
   <br>
   
   <h3>By car</h3>
   
-  * **From I-5**: Take Exit 167 for Mercer St and continue straight. Turn left on 9th Ave N, then take the first right onto Republican St. The garage entrance is on your right. 
-  * **From 99-S (Aurora)**: Take the exit on the left toward Denny Way/Downtown. Keep left, take the first left onto Harrison St, and then the first left onto Dexter Ave N. Turn right onto Republican St and continue 1 block *past* the first UW garage for patients and employees. The visitor garage entrance is on your left on the next (850) block. 
-  * **From 99-N (Aurora)**: Take the exit toward I-5/Mercer St. Continue straight onto Republican St and continue 1 block *past* the first UW garage for patients and employees. The visitor garage entrance is on your left on the next (850) block.
+  * You can find detailed directions at <https://www.ohsu.edu/visit/robertson-life-sciences-building> and an [interactive campus map](https://map.pdx.edu/?center=45.510448416806256,-122.68480360507965&building=RLSB).
+  
+</div>
+
+<br><br><br>
+<div class="center" id="location" style="text-align: left">
+  <h2>WORKSHOPS</h2> 
+  <h3>Address</h3> 
+  Portland State University
+  <br>
+  Karl Miller Center (KMC)
+  <br>
+  <a href="https://maps.app.goo.gl/TLnghmtgevbSiBwM9">
+  615 SW Harrison St, Portland, OR 97201</a>
+  
+  <img src="/img/venue/KMC_map.png" class="img-responsive" alt="Karl Miller Center (KMC) map" style="height:600px;">
+  <br>
+  
+  * Enter the Karl Miller Center (KMC) from **Broadway**. Registration will be to the right as you enter.
+  * Workshops are being held in rooms 180 and 185 on the first floor as well as 460 and 465 on the fourth floor. You can find your room number under each <a href="/workshop">workshop's page</a> or at registration.
+  * All buildings are **locked**. Please use only the main entrance indicated in the above map. We will have organizers there to let you in. If no organizer is present, please reach out on <a href="https://join.slack.com/t/cascadiarconf/shared_invite/zt-1lu53059t-GAxQtzrwQhmo7BXE7YfC8w" target="blank_">Slack</a>.
+  
+  <br>
+  
+  <h3>Parking</h3> 
+
+  There is paid visitor parking for \$14/day (\$4/hour) in Parking Structure 1 & Parking Structure 2 adjacent to KMC as indicated in the above map. Additionally, there is paid street parking in the area. For additional parking info at PSU, see [this link](https://www.pdx.edu/transportation/hourly-visitor-parking).
+  
+  <br>
+
+  <h3>Accessibility</h3>
+  
+  KMC and the parking garages are fully accessible. There are accessible restrooms on all floors, and elevators are available throughout the building.
 
   <br>
-   
-  <h3>By air</h3>
   
-  * Seattle–Tacoma International Airport ([SeaTac](https://goo.gl/maps/DYNVnVFX1Zvv9Raj9)) is the closest airport.
-  * An Uber/Lyft from SeaTac to South Lake Union in ~$50. This takes at best 20 minutes and at worst 1.5 hrs depending on traffic.
-  * The light rail takes you straight downtown (University St Station) in about 40 minutes with trains every 8 - 15 minutes depending on time of day. There are then a number of public transit options to South Lake Union (bus line E or 62, the streetcar) or a much cheaper Uber/Lyft.
+  <h3>All gender restrooms</h3>
   
-  <!--
-  <h3>Tickets are officially available <a href="https://hopin.com/events/r-cascadia">here</a> </h3>
--->
+  PSU/OHSU have an All-Gender Restroom Policy that allows all individuals to use restrooms aligned with their gender identity. In addition, there is a multi-stall all-gender restroom at KMC Room 481.
+
+  <br>
+  
+  <h3>Lactation rooms</h3>
+  
+  A private lactation room is available at Room 441 (4th floor near women’s restroom). Contact an organizer at during the workshops to obtain the access card when needed.
+
+  <br>
+  
+  <h2>Getting there</h2>
+  <h3>By transit</h3>
+  
+  * The MAX Orange line and streetcar have stops within one block of KMC.
+  * Several bus lines also have stops near the building including 9 and 17. 
+  * If you are staying at the University Place Hotel, the above bus lines work or it is a 9 minute (0.4 mile) walk.
+  
+  <br>
+  
+  <h3>By car</h3>
+  
+  * You can find an [interactive campus map](https://map.pdx.edu/?center=45.510448416806256,-122.68480360507965&building=KMC).
   
 </div>
 
