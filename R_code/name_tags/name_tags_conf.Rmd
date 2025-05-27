@@ -22,7 +22,7 @@ br {
   background-color: white;
   border: 1px dashed grey;
   text-align: center;
-  background-image: "logo_2024.png";
+  background-image: "logo_2025.png";
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;

@@ -1,9 +1,9 @@
-setwd("~/Documents/GitHub/pdxrconf.github.io/R_code/ticket_codes/")
+setwd("~/Documents/GitHub/CascadiaR/pdxrconf.github.io/R_code/ticket_codes/")
 
 #### SPEAKER ####
-prefix <- "2023CRC_"
+prefix <- "2025CRC_"
 
-set.seed(42)
+set.seed(66)
 IDs <- sample(1000:9999, 22, replace=FALSE)
 
 paste0(prefix, IDs)

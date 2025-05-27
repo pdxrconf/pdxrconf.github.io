@@ -1,7 +1,7 @@
 ---
-logo: "logo_2024.png"
-paperwidth: 8.5in
-paperheight: 11in
+logo: "logo_2025.png"
+paperwidth: 8in
+paperheight: 9in
 cardwidth: 4in
 cardheight: 3in
 cols: 2
@@ -9,103 +9,100 @@ rows: 3
 mainfont: Helvetica
 output: pagedown::business_card
 ---
-
 ::: {.wrapper data-repeat='1'}
-[Tim<br>Anderson]{slot='name'}
-[he/him]{slot='title'}
+[Tim]{slot='name'}
+[Anderson]{slot='title'}
+[he/him]{slot='email'}
 [Organizer]{slot='url'}
 :::
 ::: {.wrapper data-repeat='1'}
-[Brittany<br>Barker]{slot='name'}
-[she/her]{slot='title'}
+[Brittany]{slot='name'}
+[Barker]{slot='title'}
+[she/her]{slot='email'}
 [Organizer]{slot='url'}
 :::
 ::: {.wrapper data-repeat='1'}
-[Kim<br>Dill-McFarland]{slot='name'}
-[she/her]{slot='title'}
+[Kim]{slot='name'}
+[Dill-McFarland]{slot='title'}
+[she/her]{slot='email'}
 [Organizer]{slot='url'}
 :::
 ::: {.wrapper data-repeat='1'}
-[Lydia<br>Gibson]{slot='name'}
-[she/her]{slot='title'}
+[Skyler]{slot='name'}
+[Elmstrom]{slot='title'}
+[he/him]{slot='email'}
 [Organizer]{slot='url'}
 :::
 ::: {.wrapper data-repeat='1'}
-[Dominik<br>Graetz]{slot='name'}
-[he/him]{slot='title'}
+[Ellis]{slot='name'}
+[Hughes]{slot='title'}
+[he/him]{slot='email'}
 [Organizer]{slot='url'}
 :::
 ::: {.wrapper data-repeat='1'}
-[Ellis<br>Hughes]{slot='name'}
-[he/him]{slot='title'}
+[Özüm]{slot='name'}
+[Kafaee]{slot='title'}
+[she/her]{slot='email'}
 [Organizer]{slot='url'}
 :::
 ::: {.wrapper data-repeat='1'}
-[Travis<br>Knoche]{slot='name'}
-[he/him]{slot='title'}
+[Travis]{slot='name'}
+[Knoche]{slot='title'}
+[he/him]{slot='email'}
 [Organizer]{slot='url'}
 :::
 ::: {.wrapper data-repeat='1'}
-[Melissa<br>Lee]{slot='name'}
-[she/her]{slot='title'}
-[Organizer]{slot='url'}
-:::
-::: {.wrapper data-repeat='1'}
-[Jacqueline<br>Nolis]{slot='name'}
-[she/her]{slot='title'}
-[Organizer]{slot='url'}
-:::
-::: {.wrapper data-repeat='1'}
-[Jadey<br>Ryan]{slot='name'}
-[she/her]{slot='title'}
-[Organizer]{slot='url'}
-:::
-::: {.wrapper data-repeat='1'}
-[Mohsen<br>Soltanifar]{slot='name'}
-[he/him]{slot='title'}
-[Organizer]{slot='url'}
-:::
-::: {.wrapper data-repeat='1'}
-[Ezgi<br>Yucel]{slot='name'}
-[she/her]{slot='title'}
+[Connor]{slot='name'}
+[Smith]{slot='title'}
+[he/him]{slot='email'}
 [Organizer]{slot='url'}
 :::
 
 ```{css}
-br {
-  content: "";
-  margin: 2em;
-  display: block;
-  font-size: 24%;
-}
 .wrapper {
   color: black;
   background-color: white;
-  border: 1px dashed grey;
+  /*border: 1px dashed grey; /*Only need if cutting out ourselves */
   text-align: center;
-  background-image: "logo_2024.png";
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  border-bottom: 50px solid #9bc6d3;
+  border-bottom: 50px solid #e59a91;
 }
 
-.name{
+[slot="name"] {
   font-weight: normal;
   font-size: 40px;
-  padding-top: 2em;
+  margin: 0 0 0 0;
+  position: relative;
+  top: 2em;
 }
 
-.title{
+[slot="title"] {
+  font-weight: normal;
+  font-size: 40px;
+  margin: 0 0 0 0;
+  position: relative;
+  top: 2.2em;
+}
+
+[slot="email"]  {
   font-weight: normal;
   font-size: 25px;
-  padding-top: 1em;
+  color: black;
+  margin: 0 0 0 0;
+  position: relative;
+  top: 3.2em;
 }
 
-.coordinates {
-  color: black;
+[slot="url"] {
+  font-weight: normal;
   font-size: 25px;
-  padding-top: 0.5em;
+  padding-top: 0em;
+  color: black;
+  margin: 0 0 0 0;
+  position: relative;
+  top: 5.5em;
 }
 
 .logo {
@@ -115,4 +112,11 @@ br {
   margin-top: -20px;
   position: absolute;
 }
+
+.page {
+  margin: 0in;
+}
+```
+```{r include=FALSE, eval=FALSE}
+pagedown::chrome_print("R_code/name_tags/name_tags_committee.html")
 ```
