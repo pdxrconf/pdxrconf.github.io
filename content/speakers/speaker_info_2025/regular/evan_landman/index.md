@@ -24,7 +24,7 @@ This presentation will serve both as an introduction into analyzing transit data
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/speakers/speakers_2025/evan_landman.jpg" alt="Evan Landman headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: he/him</h5>
       <h5>Portland, OR, USA</h5>
       Evan Landman is a Principal Associate and head of research and development with Jarrett Walker & Associates, a transit planning consulting firm based in Portland, OR. JWA is a leader in transit network planning, analysis, cartography and public involvement, and has led planning for major transit network changes implemented in Portland, Houston, Miami, Dallas, Cleveland, Dublin, IE, and many other cities. 
       </td></tr>

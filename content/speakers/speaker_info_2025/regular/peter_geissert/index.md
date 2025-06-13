@@ -15,9 +15,8 @@ The presentation is designed to be accessible to a general audience regardless o
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/speakers/speakers_2025/peter_geissert.jpg" alt="Peter Geissert headshot"></td>
   <td>
-      <h5>Pronouns: PRONOUNS HERE</h5>
-      <h5>LOCATION HERE</h5>
-      BIO HERE
+      <h5>Pronouns: he/him</h5>
+      <h5>Portland, OR, USA</h5>
       </td></tr>
 
 </table>

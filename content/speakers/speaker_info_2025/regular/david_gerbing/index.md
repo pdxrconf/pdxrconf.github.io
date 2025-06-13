@@ -33,7 +33,7 @@ Unlike standard R functions dates can be read from several formats and then auto
   <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/speakers/speakers_2025/david_gerbing.jpg" alt="David Gerbing headshot"></td>
   <td>
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: he/him</h5>
       <h5>Portland, OR, USA</h5>
       David Gerbing is a Professor in the School of Business, Portland State University, with primary teaching responsibility in the Applied Science Data Science for Business graduate degree program. David developer of the R package lessR that accomplishes more output with less R coding. Ph.D in 1979 from Michigan State University in what would now be called Data Science.
       </td></tr>
