@@ -70,9 +70,9 @@ url: "venue"
   <h2>Getting there</h2>
   <h3>By transit</h3>
   
-  * The MAX Orange line as well as light rail NS and B take you right to RLSB.
+  * The MAX Orange line, streetcar, and light rail NS and B take you right to RLSB.
   * Several bus lines also have stops at the building including 17, 19, and 35. 
-  * If you are staying at the University Place Hotel, the above bus lines work or it is a 15 minute (0.7 mile) walk.
+  * If you are staying at the University Place Hotel, the above streetcar or bus lines work. It is also a 15 minute (0.7 mile) walk.
   
   <br>
   
