@@ -50,6 +50,9 @@ border-color:black;
 
 #### 9:00 - 9:10 Introductions
 
+* Cameron Mulder & Tim Anderson, Cascadia R Conference
+* Dr. Qing Hu, Marilyn and Gerry Cameron Dean, Portland State University, School of Business
+
 #### 9:10 - 9:40 Keynote 
 
 * [David Keyes](/2025/keynote/david_keyes): 25 Things You Didn't Know You Could Do with R
