@@ -63,9 +63,9 @@ border-color:black;
 * [David Gerbing](/2025/regular/david_gerbing): Simplified Data Analysis
 * [Mauro Lepore](/2025/regular/mauro_lepore): Creating a better universe with dverse
 
-#### 10:40 - 10:55 Break
+#### 10:40 - 11:00 Break
 
-#### 10:55 - 11:20 Lightning Talks! Automation Edition
+#### 11:00 - 11:20 Lightning Talks! Automation Edition
 
 * [Megan Holtorf](/2025/lightning/megan_holtorf): Taking Action While You Sleep: Using GitHub Actions to Schedule Email Updates
 * [Lindsay Dickey](/2025/lightning/lindsay_dickey): Simplify repetitive report creation

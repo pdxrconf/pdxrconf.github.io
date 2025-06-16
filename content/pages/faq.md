@@ -25,6 +25,8 @@ At the conference, a light breakfast as well as a catered lunch are provided wit
 ### Will there be a virtual option?
 For the conference, yes. You can register for a virtual only ticket and all in-person registrants will also receive access information after registration. There is no virtual option for workshops.
 
+### What else can I do around Portland?
+Check out [this document](https://docs.google.com/document/d/18mCdC7LGbsloCevRmZWNIqM3dwh2khG-gON1TO8pOhA/edit?usp=sharing) for information about Portland!
 <br>
 
 # Facilities
