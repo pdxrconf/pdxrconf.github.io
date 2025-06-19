@@ -52,9 +52,33 @@ output: pagedown::business_card
 [Organizer]{slot='url'}
 :::
 ::: {.wrapper data-repeat='1'}
+[Cameron]{slot='name'}
+[Mulder]{slot='title'}
+[he/him]{slot='email'}
+[Organizer]{slot='url'}
+:::
+::: {.wrapper data-repeat='1'}
+[Jeff]{slot='name'}
+[Pannell]{slot='title'}
+[he/him]{slot='email'}
+[Organizer]{slot='url'}
+:::
+::: {.wrapper data-repeat='1'}
 [Connor]{slot='name'}
 [Smith]{slot='title'}
 [he/him]{slot='email'}
+[Organizer]{slot='url'}
+:::
+::: {.wrapper data-repeat='1'}
+[Jing]{slot='name'}
+[Zhao]{slot='title'}
+[she/her]{slot='email'}
+[Organizer]{slot='url'}
+:::
+::: {.wrapper data-repeat='1'}
+[&nbsp;]{slot='name'}
+[&nbsp;]{slot='title'}
+[&nbsp;]{slot='email'}
 [Organizer]{slot='url'}
 :::
 
@@ -63,11 +87,14 @@ output: pagedown::business_card
   color: black;
   background-color: white;
   /*border: 1px dashed grey; /*Only need if cutting out ourselves */
+  border: 5px  white;
   text-align: center;
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
   border-bottom: 50px solid #e59a91;
+  margin-bottom: 10px;
+  box-sizing: border-box;
 }
 
 [slot="name"] {
@@ -109,7 +136,7 @@ output: pagedown::business_card
   height: 10%;
   float: left;
   margin-left: 10px;
-  margin-top: -20px;
+  margin-top: -10px;
   position: absolute;
 }
 
@@ -117,6 +144,8 @@ output: pagedown::business_card
   margin: 0in;
 }
 ```
+
 ```{r include=FALSE, eval=FALSE}
-pagedown::chrome_print("R_code/name_tags/name_tags_committee.html")
+setwd("~/Documents/GitHub/CascadiaR/pdxrconf.github.io/R_code/name_tags")
+pagedown::chrome_print("name_tags_committee.Rmd")
 ```

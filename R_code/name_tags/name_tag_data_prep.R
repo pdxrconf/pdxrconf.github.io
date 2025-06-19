@@ -5,7 +5,17 @@ file <- list.files(path="R_code/name_tags/", pattern = "report-", full.names = T
 
 dat <- read_csv(file[length(file)]) %>% 
   janitor::clean_names() %>% 
-  select(first_name, last_name, ticket_type, preferred_pronouns) %>% 
+  #fill in name from purchaser if not provided for attendee
+  mutate(first_name = ifelse(first_name=="Info Requested", buyer_first_name,
+                             first_name),
+         last_name = ifelse(first_name=="Info Requested", buyer_last_name,
+                            last_name)) %>% 
+  #fill with blank if only 1 name is missing
+  mutate(first_name = ifelse(first_name=="Info Requested", "&nbsp;",
+                             first_name),
+         last_name = ifelse(last_name=="Info Requested", "&nbsp;",
+                             last_name)) %>% 
+  distinct(first_name, last_name, ticket_type, preferred_pronouns) %>% 
   #Harmonize pronoun format
   mutate(preferred_pronouns = tolower(preferred_pronouns),
          preferred_pronouns = gsub(" ","/", preferred_pronouns),
@@ -18,6 +28,7 @@ dat <- read_csv(file[length(file)]) %>%
          preferred_pronouns = gsub("his","him",preferred_pronouns),
          preferred_pronouns = gsub("hers","her",preferred_pronouns),
          preferred_pronouns = gsub("him/him","him",preferred_pronouns),
+         preferred_pronouns = gsub("her/her","her",preferred_pronouns),
          preferred_pronouns = ifelse(is.na(preferred_pronouns) | preferred_pronouns=="yes"," ",
                                      preferred_pronouns)) %>% 
   # Fix name formatting 
@@ -42,43 +53,87 @@ dat <- read_csv(file[length(file)]) %>%
          line6=":::") %>% 
   arrange(last_name,first_name) %>% 
   rownames_to_column() %>% 
-  mutate(ticket_group = case_when(grepl("workshop", ticket_type)~"workshop",
-                                  grepl("6/20", ticket_type)~"workshop",
-                                  grepl("Virtual|virtual",ticket_type)~"virtual",
-                                  grepl("Speaker",ticket_type)~"speaker",
-                                  grepl("Committee|Organizer", ticket_type)~"committee",
-                                  TRUE~"regular")) %>% 
-  distinct(ticket_group, ticket_type, line1, line2, line3, line4, line6)
+  #combo workshop and conf label
+  mutate(group = ifelse(grepl("6/20",ticket_type), "workshop","conf")) %>% 
+  group_by(line2,line3) %>% 
+  mutate(types = length(unique(group))) %>% 
+  ungroup() %>% 
+  #Rename ticket types
+  mutate(ticket_group = case_when(
+    grepl("Speaker",ticket_type)~"speaker",
+    grepl("Committee|Organizer", ticket_type)~"committee",
+    types>1~"combo",
+    grepl("6/20", ticket_type)~"workshop",
+    grepl("Virtual|virtual",ticket_type)~"virtual",
+    TRUE~"regular")) %>% 
+  distinct(ticket_group, line1, line2, line3, line4, line6) %>% 
+  #Fix committee errors
+  mutate(ticket_group = case_when(
+    line2=="[Cameron]{slot='name'}" & 
+      line3=="[Mulder]{slot='title'}"~"committee",
+    TRUE~ticket_group))
 # unique(dat$line2)
 
 ## Conference
 dat %>% 
   filter(ticket_group %in% c("regular","speaker")) %>% 
-  mutate(line5=ifelse(ticket_group=="speaker","[Speaker]{slot='url'}", "")) %>% 
-  select(line1:line4,line5,line6) %>% 
+  #Fix speaker errors
+  mutate(ticket_group= case_when(
+    line2=="[Ted]{slot='name'}" & line3=="[Laderas]{slot='title'}"~"speaker",
+    line2=="[Evan]{slot='name'}" & line3=="[Landman]{slot='title'}"~"speaker",
+    TRUE~ticket_group
+  )) %>% 
+  mutate(line5=case_when(ticket_group=="speaker"~"[Speaker]{slot='url'}", 
+                         ticket_group=="regular"~"[Conference]{slot='url'}",
+                         TRUE~"")) %>% 
+  select(ticket_group, line1:line4,line5,line6) %>% 
   rownames_to_column() %>%
-  pivot_longer(-rowname) %>% 
-  arrange(as.numeric(rowname), name) %>% 
-  select(-rowname)  %>% 
+  pivot_longer(-c(rowname,ticket_group)) %>% 
+  mutate(ticket_group=factor(ticket_group,levels=c("speaker","regular"))) %>% 
+  arrange(ticket_group, as.numeric(rowname), name) %>% 
+  select(-rowname, -ticket_group)  %>% 
   filter(value!="") %>%
   write_csv(file = "R_code/name_tags/data_conf.csv", col_names = FALSE)
 
 ## Workshop
 dat %>% 
   filter(ticket_group == "workshop") %>% 
-  select(line1:line5) %>% 
-  mutate(line4="[Workshop]{slot='url'}") %>% 
+  mutate(line5="[Workshop]{slot='url'}") %>% 
+  select(line1:line4,line5,line6) %>% 
   rownames_to_column() %>% 
   pivot_longer(-rowname) %>% 
   arrange(as.numeric(rowname), name) %>% 
   select(-rowname) %>% 
   write_csv(file = "R_code/name_tags/data_workshop.csv", col_names = FALSE)
 
+## Combo
+dat %>% 
+  filter(ticket_group == "combo") %>% 
+  mutate(ticket_group= case_when(
+    line2=="[Yan]{slot='name'}" & line3=="[Liu]{slot='title'}"~"speaker",
+    line2=="[Mauro]{slot='name'}" & line3=="[Lepore]{slot='title'}"~"speaker",
+    line2=="[Megan]{slot='name'}" & line3=="[Holtorf]{slot='title'}"~"speaker",
+    line2=="[Lindsay]{slot='name'}" & line3=="[Dickey]{slot='title'}"~"speaker",
+    line2=="[Hanna]{slot='name'}" & line3=="[Winter]{slot='title'}"~"speaker",
+    line2=="[Arilene]{slot='name'}" & line3=="[Novak]{slot='title'}"~"speaker",
+    line2=="[Andie]{slot='name'}" & line3=="[Hendrick]{slot='title'}"~"speaker",
+    TRUE~ticket_group
+  )) %>% 
+  mutate(line5=case_when(
+    ticket_group=="combo"~"[Workshop & Conference]{slot='url'}",
+    ticket_group=="speaker"~"[Speaker]{slot='url'}")) %>% 
+  select(line1:line4,line5,line6) %>% 
+  rownames_to_column() %>% 
+  pivot_longer(-rowname) %>% 
+  arrange(as.numeric(rowname), name) %>% 
+  select(-rowname) %>% 
+  write_csv(file = "R_code/name_tags/data_combo.csv", col_names = FALSE)
+
 ## Organizer
 dat %>% 
   filter(ticket_group == "committee") %>% 
-  select(line1:line6) %>% 
   mutate(line5="[Organizer]{slot='url'}") %>% 
+  select(line1:line4,line5,line6) %>% 
   rownames_to_column() %>% 
   pivot_longer(-rowname) %>% 
   arrange(as.numeric(rowname), name) %>% 
