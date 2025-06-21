@@ -43,7 +43,8 @@ dat <- read_csv(file[length(file)]) %>%
                                      preferred_pronouns %in% c(""," "),"&nbsp;",
                                    preferred_pronouns)) %>% 
   #Fix errors
-  mutate(ticket_type = ifelse(first_name=="Carrie" & last_name=="Preston", 
+  #for example. Change as needec each year
+  mutate(ticket_type = ifelse(first_name=="X" & last_name=="Y", 
                               "Speaker", ticket_type)) %>% 
   #create wrapper info
   mutate(line1 = "::: {.wrapper data-repeat='1'}",
@@ -54,6 +55,7 @@ dat <- read_csv(file[length(file)]) %>%
   arrange(last_name,first_name) %>% 
   rownames_to_column() %>% 
   #combo workshop and conf label
+## !!!! update date as needed !!!! ##
   mutate(group = ifelse(grepl("6/20",ticket_type), "workshop","conf")) %>% 
   group_by(line2,line3) %>% 
   mutate(types = length(unique(group))) %>% 
@@ -63,24 +65,20 @@ dat <- read_csv(file[length(file)]) %>%
     grepl("Speaker",ticket_type)~"speaker",
     grepl("Committee|Organizer", ticket_type)~"committee",
     types>1~"combo",
+## !!!! update date as needed !!!! ##
     grepl("6/20", ticket_type)~"workshop",
     grepl("Virtual|virtual",ticket_type)~"virtual",
     TRUE~"regular")) %>% 
-  distinct(ticket_group, line1, line2, line3, line4, line6) %>% 
-  #Fix committee errors
-  mutate(ticket_group = case_when(
-    line2=="[Cameron]{slot='name'}" & 
-      line3=="[Mulder]{slot='title'}"~"committee",
-    TRUE~ticket_group))
+  distinct(ticket_group, line1, line2, line3, line4, line6) 
 # unique(dat$line2)
 
 ## Conference
 dat %>% 
   filter(ticket_group %in% c("regular","speaker")) %>% 
   #Fix speaker errors
+  #Change as needed
   mutate(ticket_group= case_when(
-    line2=="[Ted]{slot='name'}" & line3=="[Laderas]{slot='title'}"~"speaker",
-    line2=="[Evan]{slot='name'}" & line3=="[Landman]{slot='title'}"~"speaker",
+    line2=="[X]{slot='name'}" & line3=="[Y]{slot='title'}"~"speaker",
     TRUE~ticket_group
   )) %>% 
   mutate(line5=case_when(ticket_group=="speaker"~"[Speaker]{slot='url'}", 
@@ -109,16 +107,6 @@ dat %>%
 ## Combo
 dat %>% 
   filter(ticket_group == "combo") %>% 
-  mutate(ticket_group= case_when(
-    line2=="[Yan]{slot='name'}" & line3=="[Liu]{slot='title'}"~"speaker",
-    line2=="[Mauro]{slot='name'}" & line3=="[Lepore]{slot='title'}"~"speaker",
-    line2=="[Megan]{slot='name'}" & line3=="[Holtorf]{slot='title'}"~"speaker",
-    line2=="[Lindsay]{slot='name'}" & line3=="[Dickey]{slot='title'}"~"speaker",
-    line2=="[Hanna]{slot='name'}" & line3=="[Winter]{slot='title'}"~"speaker",
-    line2=="[Arilene]{slot='name'}" & line3=="[Novak]{slot='title'}"~"speaker",
-    line2=="[Andie]{slot='name'}" & line3=="[Hendrick]{slot='title'}"~"speaker",
-    TRUE~ticket_group
-  )) %>% 
   mutate(line5=case_when(
     ticket_group=="combo"~"[Workshop & Conference]{slot='url'}",
     ticket_group=="speaker"~"[Speaker]{slot='url'}")) %>% 
