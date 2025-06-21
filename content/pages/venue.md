@@ -38,7 +38,7 @@ url: "venue"
   <br>
   
   * Enter the Robertson Life Sciences Building (RLSB) from **S Moody Ave** near the corner with S Porter St (see map above).
-  * All conference sessions will be held in the **second floor auditorium**. 
+  * All conference sessions will be held in the **third floor auditorium**. 
   * All buildings are **locked**. Please use only the main entrance indicated in the above map. We will have organizers there to let you in. If no organizer is present, please reach out on <a href="https://join.slack.com/t/cascadiarconf/shared_invite/zt-1lu53059t-GAxQtzrwQhmo7BXE7YfC8w" target="blank_">Slack</a>.
   
   <br>
