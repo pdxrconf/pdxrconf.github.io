@@ -1,7 +1,7 @@
 ---
-logo: "logo_2023.png"
-paperwidth: 8.5in
-paperheight: 11in
+logo: "logo_2025.png"
+paperwidth: 8in
+paperheight: 9in
 cardwidth: 4in
 cardheight: 3in
 cols: 2
@@ -10,60 +10,94 @@ mainfont: Helvetica
 output: pagedown::business_card
 ---
 
-# Paste the appropriate output from `name_tag_data_prep.R`
+```{r eval=FALSE, include=FALSE}
+# HOW TO
+# 1. Update the logo file in the header and make sure that file is in the same directory as this Rmd file
+# 2. Paste in the output from name_tag_data_prep.R below this code chunk. Remove the example below
+#     - All tickets in each Rmd get the same banner color so recommend separate files for organizer, conf, and workshops
+# 3. Proofread for repeats or errors that made it through the Rscript
+# 4. Add blanks at the end for day-of registrants and name tag errors
+#     - Blanks just have a space character code in all the [ ] aka &nbsp;
+# 5. Update the wd and file name at the end.
+# 6. Knit!
 
-Looks something like
+# OPTIONAL
+# 1. Change the log size with logo height: 10%; Make sure it doesn't overlap the longest first name you have
+# 2. Change the bottom banner color in the wrapper border-bottom: 50px solid #e59a91; Suggest using opposing color for a committee "highlight" such as red vs green, blue vs orange, etc
+
+```
 
 ::: {.wrapper data-repeat='1'}
-[Firstname<br>Lastname]{slot='name'}
-[Pronouns]{slot='title'}
-[Speaker or Organizer or blank]{slot='url'}
+[FIRST]{slot='name'}
+[LAST]{slot='title'}
+[PRONOUNS]{slot='email'}
+[TICKET TYPE]{slot='url'}
 :::
 
 ```{css}
-br {
-  content: "";
-  margin: 2em;
-  display: block;
-  font-size: 24%;
-}
 .wrapper {
   color: black;
   background-color: white;
-  border: 1px dashed grey;
+  /*border: 1px dashed grey; /*Only need if cutting out ourselves */
+  border: 5px  white;
   text-align: center;
-  background-image: "logo_2023.png";
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  border-bottom: 50px solid orange;  
+  border-bottom: 50px solid #e59a91;
+  margin-bottom: 10px;
+  box-sizing: border-box;
 }
 
-<!-- Change color of bottom bar with line 39-->
-
-.name{
+[slot="name"] {
   font-weight: normal;
   font-size: 40px;
-  padding-top: 2em;
+  margin: 0 0 0 0;
+  position: relative;
+  top: 2em;
 }
 
-.title{
+[slot="title"] {
+  font-weight: normal;
+  font-size: 40px;
+  margin: 0 0 0 0;
+  position: relative;
+  top: 2.2em;
+}
+
+[slot="email"]  {
   font-weight: normal;
   font-size: 25px;
-  padding-top: 1em;
+  color: black;
+  margin: 0 0 0 0;
+  position: relative;
+  top: 3.2em;
 }
 
-.coordinates {
-  color: black;
+[slot="url"] {
+  font-weight: normal;
   font-size: 25px;
-  padding-top: 0.5em;
+  padding-top: 0em;
+  color: black;
+  margin: 0 0 0 0;
+  position: relative;
+  top: 5.5em;
 }
 
 .logo {
-  height: 8%;
+  height: 10%;
   float: left;
   margin-left: 10px;
-  margin-top: -20px;
+  margin-top: -10px;
   position: absolute;
 }
+
+.page {
+  margin: 0in;
+}
+```
+
+```{r include=FALSE, eval=FALSE}
+setwd("YOUR_DIRECTORY")
+pagedown::chrome_print("name_tags_GROUP.Rmd")
 ```
