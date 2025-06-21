@@ -88,7 +88,6 @@ border-color:black;
 #### 2:30 - 2:55 Lightning Talks!
 
 * [Samer Hijjazi](/2025/lightning/samer_hijjazi): Navigating the BLS API with R: A Step-by-Step Guide
-* [Faycal Ounacer](/2025/lightning/faycal_ounacer): Assessing the Impact of Coastal Upwelling on Fisheries: Insights from the Canary Current System
 * [L. K. Borland](/2025/lightning/lk_borland): Decoding R needs: Bridging the gap with university library workshops  
 * [R-Ladies+](/2025/lightning/rladies): Returning to Portland this year!  
 
