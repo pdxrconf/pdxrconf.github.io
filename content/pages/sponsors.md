@@ -33,13 +33,18 @@ url: "sponsors"
 <div class="row" style="margin-top: 50px">
                         <h2>Past Sponsors</h2>
                         <br>
-                        <!-- Procogia and nanostring and jumping rivers -->
+                        <!-- Procogia, OHSU, nanostring and jumping rivers -->
                         <div class="column">
                                 <div class="col-md-3">
+                                <div class="row">
+                                    <div class="image" style="padding: 20px">
+                                        <a href="https://www.ohsu.edu/" target="_blank">
+  <img src="/img/sponsors/ohsu2.png" class="img-responsive" alt="Oregon Health and Science University Logo"></a>
+                                            </div></div>
                                   <div class="row">
                                     <div class="image" style="padding: 20px">
                                         <a href="https://procogia.com/" target="_blank">
-                                            <img src="/img/sponsors/procogia.png" class="img-responsive" alt="ProCogia Logo"></a>
+                                            <img src="/img/sponsors/procogia_wide.png" class="img-responsive" alt="ProCogia Logo"></a>
                                             </div></div>
                                             <br><br>
                                   <div class="row">
@@ -111,11 +116,6 @@ url: "sponsors"
                         <!-- OHSU, H2O.ai and PIE -->
                         <div class="column">
                                 <div class="col-md-2">
-                                  <div class="row">
-                                    <div class="image" style="padding: 20px">
-                                        <a href="https://www.ohsu.edu/" target="_blank">
-  <img src="/img/sponsors/ohsu2.png" class="img-responsive" alt="Oregon Health and Science University Logo"></a>
-                                            </div></div>
                                   <div class="row">
                                     <div class="image" style="padding: 20px">
                                         <a href="https://h2o.ai/" target="_blank">
