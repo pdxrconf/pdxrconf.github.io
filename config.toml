@@ -26,19 +26,19 @@ googleAnalytics = ""
 [[menu.main]]
     name = "Agenda"
     identifier = "agenda"
-    url = "/agenda/"
+    url = "/coming_soon/agenda/"
     weight = 3
 
 [[menu.main]]
    name = "Conference"
    parent = "agenda"
-   url = "/agenda/"
+   url = "/coming_soon/agenda/"
    weight = 3.1
 
 [[menu.main]]
    name = "Workshops"
    parent = "agenda"
-   url = "/workshop/"
+   url = "/coming_soon/workshop/"
    weight = 3.2
    
 [[menu.main]]
@@ -49,7 +49,7 @@ googleAnalytics = ""
 
 [[menu.main]]
     name = "Venue"
-    url = "/venue/"
+    url = "/coming_soon/venue/"
     weight = 4
 
 [[menu.main]]
