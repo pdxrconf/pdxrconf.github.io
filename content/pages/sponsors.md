@@ -31,26 +31,6 @@ url: "sponsors"
 <a href="mailtso:cascadiarcon@gmail.com">here</a> </h3>
 
 <br>
-<h3>Silver</h3>
-<br>
-<div class="image" style="padding: 20px">
-  <a href="https://www.ohsu.edu/" target="_blank">
-  <img src="/img/sponsors/ohsu2.png" class="img-responsive" alt="Oregon Health and Science University Logo" style="width:400px;"></a></div>
-  
-<br>
-<div class="image" style="padding: 20px">
-  <a href="https://www.pdx.edu/" target="_blank">
-  <img src="/img/sponsors/psu_business.png" class="img-responsive" alt="Portland State University Logo" style="width:400px;"></a></div>
-  
-<br>
-<br>
-<h3>Bronze</h3>
-<br>
-<div class="image" style="padding: 20px">
-  <a href="https://www.r-consortium.org/" target="_blank">
-  <img src="/img/sponsors/rconsortium.png" class="img-responsive" alt="R Consortium Logo" style="width:400px;"></a></div>
-
-<br>
 <hr>
 
 <div style="margin-top: 50px">
