@@ -13,32 +13,29 @@ this year and hope to see you there!</h3>
 
 ***
 
-### 2025 Organization Team
+### 2026 Organization Team
 
-+ Cameron Mulder
-+ Tim Anderson -
-
-<br>
-
-+ [Brittany Barker](http://brittanysbarker.org)
-+ Bryan Shalloway
-+ Connor Smith 
-+ Dror Beral 
-+ Ellis Hughes  
-+ Jeff Pannell 
-+ [Jing Zhao](https://www.pdx.edu/business/profile/jing-zhao) 
-+ Katie Masiello 
-+ [Kim Dill-McFarland](https://kdillmcfarland.github.io/) 
-+ Mohamed Albirair 
-+ [Özüm Kafaee](https://www.linkedin.com/in/nazliozumkafaee/) 
-+ Peter Geissert
-+ Sara Grusing
-+ Scott Hancock
-+ Skyler Elmstrom
-+ Travis Knoche 
+Coming soon!
 
 ***
 ### Past conferences
+#### 2025
+
++ Becky Basulto
++ [Brittany Barker](http://brittanysbarker.org)
++ Cameron Mulder
++ Connor Smith 
++ Dror Berel 
++ Ellis Hughes  
++ Jeff Pannell 
++ [Jing Zhao](https://www.pdx.edu/business/profile/jing-zhao) 
++ [Kim Dill-McFarland](https://kdillmcfarland.github.io/) 
++ Mohamed Albirair 
++ Peter Geissert
++ Skyler Elmstrom
++ Tim Anderson
++ Travis Knoche 
+
 #### 2024
 
 + Ellis Hughes
