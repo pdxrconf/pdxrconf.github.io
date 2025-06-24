@@ -97,7 +97,7 @@ url: "sponsors"
       <img src="/img/sponsors/h2o.png" alt="H2O.ai Logo">
     </a>
     <a href="https://pielab.uoregon.edu/" target="_blank">
-      <img src="/img/sponsors/PIElab-logo.png" alt="PIE lab Logo">
+      <img src="/img/sponsors/PIElab-logo-wide.png" alt="PIE lab Logo">
     </a>
   </div>
 </div>
