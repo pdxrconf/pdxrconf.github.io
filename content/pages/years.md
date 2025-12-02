@@ -7,7 +7,7 @@ url: "years"
 
 ### - [Agenda](../years/2025/agenda)
 ### - [Talk PDFs](https://github.com/pdxrconf/pdxrconf.github.io/tree/newsite/static/talks/talks_2025)
-### - Video (coming soon)
+### - [Video](https://youtube.com/playlist?list=PLzwtsyfF_Z4pnUROiwPnpwkTq_LIpe8v-&si=Myh67ARqBPulC5hR)
 ### - <a href="/workshop_past">Workshops</a>
 
 ## 2024: Seattle, WA
