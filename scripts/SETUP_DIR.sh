@@ -2,7 +2,7 @@
 
 ###### Set variables ######
 # Set the current year
-YEAR="2025"
+YEAR="2026"
 
 ###### Make directories ######
 mkdir -p static/img/logo/logo_"$YEAR"
