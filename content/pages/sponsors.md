@@ -36,7 +36,7 @@ url: "sponsors"
 <a href="https://www.pdx.edu/" target="_blank">
       <img src="/img/sponsors/psu_business.png" alt="Portland State University, School of Business Logo">
     </a>
-
+<br>
 <a href="https://www.ohsu.edu/" target="_blank">
       <img src="/img/sponsors/ohsu2.png" alt="Oregon Health and Sciences University Logo">
     </a>
