@@ -14,10 +14,10 @@ Yes! See the <a href="/policies">Policies</a> page.
 June 27, 2026 with workshops the day prior on June 26.
 
 ### Where is the conference?
-Robertson Life Sciences Building (RLSB) at Oregon Health & Sciences University. See the <a href="/venue"venue</a> for details.
+Robertson Life Sciences Building (RLSB) at Oregon Health & Sciences University. See the <a href="/venue">venue</a> for details.
 
 ### Where are the workshops?
-Karl Miller Center (KMC) at Portland State University. See the <a href="/venue"venue</a> for details.
+Karl Miller Center (KMC) at Portland State University. See the <a href="/venue">venue</a> for details.
 
 ### Will meals be provided?
 At the conference, a light breakfast as well as a catered lunch are provided with your registration. No meals are provided during workshops.
@@ -38,7 +38,7 @@ Lactation rooms are available at both the workshop and conference venues. Please
 PSU’s [University Place](https://www.uplacehotel.com/) is offering a discounted rate for conference attendees. Call the Hotel directly at 503-221-0140 and ask for the "Cascadia Conference" block. The discounted rate is available until May 25, 2026.
 
 ### Where do I park?
-For the Saturday conference, free parking is available at the RLSB Garage. For Friday workshops, there is paid visitor parking in Parking Structure 1 & Parking Structure 2 adjacent to KMC. See the <a href="/venue"venue</a> for details.
+For the Saturday conference, free parking is available at the RLSB Garage. For Friday workshops, there is paid visitor parking in Parking Structure 1 & Parking Structure 2 adjacent to KMC. See the <a href="/venue">venue</a> for details.
 
 <br>
 
