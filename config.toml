@@ -116,8 +116,8 @@ googleAnalytics = ""
     # Google Maps API key (if not set will default to not passing a key.)
     # #googleMapsApiKey = "AIzaSyCFhtWLJcE30xOAjcbSFi-0fnoVmQZPb1Y"
 
-    #Style options: default (light-blue), blue, green, marsala, pink, red, turquoise, violet
-    style = "turquoise"
+    #Style options: default (light-blue), blue, green, marsala, pink, red, turquoise, violet, brown
+    style = "brown"
 
     about_us = "<p>Cascadia R Conference is a regional R conference for the Pacific Northwest</p>"
 
