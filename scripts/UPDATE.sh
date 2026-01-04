@@ -4,16 +4,16 @@
 
 ###### Set variables ######
 # Set the  year of the conference
-YEAR="2025"
+YEAR="2026"
 
 # Set all that you have ready to post to "true"
 ## If not available, set to "false"
 logo="true"
-cfp="false"
-venue="false"
+cfp="true"
+venue="true"
 agenda="false"
 speakers="false"
-register="false"
+register="true"
 alert="false"
 scholarship="false"
 workshop="false"
