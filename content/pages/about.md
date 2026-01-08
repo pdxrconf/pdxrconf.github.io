@@ -15,7 +15,21 @@ this year and hope to see you there!</h3>
 
 ### 2026 Organization Team
 
-Coming soon!
++ Andie Hendrick
++ Arliene Novak
++ Becky Basulto
++ [Brittany Barker](http://brittanysbarker.org)
++ Cameron Mulder
++ Connor Smith
++ Ellis Hughes
++ Francisco J Guerrero
++ Jeff Pannell
++ Jing Zhao
++ [Kim Dill-McFarland](https://kdillmcfarland.github.io/) 
++ Mohamed Albirair
++ Moni Neradilek
++ Peter Geissert
++ Skyler Elmstrom
 
 ***
 ### Past conferences

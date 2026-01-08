@@ -19,8 +19,6 @@ If you have any questions, email `cascadiarcon@gmail.com`
 
 ## Illness precautions
 
-Per current CDC and Washington State guidelines, masks are not required at Cascadia R Conf.
-
 If you have tested positive for COVID-19 or are otherwise ill, please do not attend the conference in person. Virtual attendance is provided with all registration types.
 
 <br>

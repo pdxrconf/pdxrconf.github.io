@@ -196,7 +196,7 @@ Once the keynote speakers are added, update the `speakers` parameter in [Step 2.
 
 ### 2.6 Change the color theme
 
-Edit `config.toml` (main project directory) and input a color from the list provided in `style = "NAME"` (near line 120). Alternatively, you can make a custom theme and save it under `themes/hugo-universal-theme/static/css/style.NAME.css` and then use that NAME for the style parameter.
+Edit `config.toml` (main project directory) and input a color from the list provided in `style = "NAME"` (near line 120). Alternatively, you can make a custom theme and save it under `themes/hugo-universal-theme/static/css/style.NAME.css` and then use that NAME for the style parameter. For the custom theme, you will need to fork hugo-universal-theme and make changes in the fork.
 
 Also update the custom Register button colors at the bottom of `static/css/custom.css`
 
