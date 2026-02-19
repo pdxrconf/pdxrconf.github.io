@@ -71,7 +71,7 @@ abstract limited to 1500 characters (~250-300 words) describing your presentatio
 and how it aligns with the goals of the conference, as well as email 
 contact information. 
 
-**The Call for Presentations will close February 19, 2026 at 5PM PT.** 
+**The Call for Presentations will close March 1, 2026 at 5PM PT.** 
 Presenters will be notified by the end of March 2026. Upon notification, 
 presenters are expected to confirm acceptance, provide a high-quality headshot, 
 and a short biography that will be included on the Cascadia R Conference website. 
