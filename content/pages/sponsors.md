@@ -27,7 +27,7 @@ url: "sponsors"
 </head>
 
 
-<h3>We are currently looking for sponsors for Cascadia R Conf 2026! If you are interested in sponsoring, please see our <a href="https://drive.google.com/file/d/1tgUJov5zMtIauw23wB8xZKiSHjFfjf35/view?usp=sharing">sponsorship levels</a> and contact us 
+<h3>We are currently looking for sponsors for Cascadia R Conf 2026! If you are interested in sponsoring, please see our <a href="https://drive.google.com/file/d/1uyz7yKAOfRCwrJHxzujFs25u2sHzDx1F/view?usp=drive_link">sponsorship levels</a> and contact us 
 <a href="mailtso:cascadiarcon@gmail.com">here</a> </h3>
 
 <br>
