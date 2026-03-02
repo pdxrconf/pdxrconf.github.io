@@ -21,7 +21,7 @@ Advanced selected topics in R/Shiny web application. Shiny modules including:
 
 ## Instructor
 
-<img class=float width="300px" src="../../../../img/speakers/speakers_2026/dror_berel.png" alt="Dror Berel headshot">
+<img class=float width="300px" src="../../../../img/speakers/speakers_2026/dror_berel.jpg" alt="Dror Berel headshot">
 
 ### Dror Berel
       

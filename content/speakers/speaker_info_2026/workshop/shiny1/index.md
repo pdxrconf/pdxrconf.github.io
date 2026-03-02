@@ -23,7 +23,7 @@ Build on your beginning shiny skills and learn more about the confusing parts of
 
 ## Instructor
 
-<img class=float width="300px" src="../../../../img/speakers/speakers_2026/ted_laderas.jpeg" alt="Ted Laderas headshot">
+<img class=float width="300px" src="../../../../img/speakers/speakers_2026/ted_laderas.jpg" alt="Ted Laderas headshot">
 
 ### Ted Laderas
       
