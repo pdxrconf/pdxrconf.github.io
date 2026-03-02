@@ -173,6 +173,14 @@ _UNDER DEVELOPMENT_
     
 <a name="speaker"></a>
 
+#### 2.4.11 Additional annoucements
+
+This includes anything you want to add to the bottom of the homepage such as linked events. Optionally, also add a menu item under agenda.
+
+* File: `layouts/partials/addtl.html`
+* File: `config.toml`
+    - Add/remove menu items. Update weights as appropriate
+
 ### 2.5 Speaker and workshop pages
 
 To add:

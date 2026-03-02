@@ -17,6 +17,7 @@ register="true"
 alert="false"
 scholarship="false"
 workshop="true"
+additional="true"
 
 ###### Logo paths ######
 if [ $logo == "true" ];
@@ -69,6 +70,18 @@ then
 else
   # Add button
   sed -i '' "s/<\!--{{ partial \"cfp.html\" . }}-->/{{ partial \"cfp.html\" . }}/g" layouts/index.html
+fi
+
+###### Additional homepage info ######
+# Include on homepage when applicable
+
+if [ $additional == "false" ];
+then
+  # Remove button
+  sed -i '' "s/{{ partial \"addtl.html\" . }}$/<\!--{{ partial \"addtl.html\" . }}-->/g" layouts/index.html
+else
+  # Add button
+  sed -i '' "s/<\!--{{ partial \"addtl.html\" . }}-->/{{ partial \"addtl.html\" . }}/g" layouts/index.html
 fi
 
 ###### Coming soon pages ######
