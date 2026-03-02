@@ -98,8 +98,11 @@ And then after scheduling
 
 * File: `content/pages/cfp.md`
 * Recommended updates:
-    - Year and date of conference in intro
+    - Hero image
+    - Year and date of conference in header
+    - CFP closing date in description
     - Check that _Presentation format_ matches this year's formats
+    - When CFP closes, swap announcement header with closed header
 
 Note that this page only renders when `cfp="true"`. See [Step 2.8](#update) for details.
 
