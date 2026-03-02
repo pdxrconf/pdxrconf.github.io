@@ -40,12 +40,18 @@ googleAnalytics = ""
    parent = "agenda"
    url = "/workshop/"
    weight = 32
+
+[[menu.main]]
+   name = "R Dev Day"
+   parent = "agenda"
+   url  = "https://pretix.eu/r-contributors/r-dev-day-cascadiar-2026/"
+   weight = 33
    
 [[menu.main]]
    name = "Past"
    parent = "agenda"
    url  = "/years"
-   weight = 33
+   weight = 34
 
 [[menu.main]]
     name = "Venue"
