@@ -98,8 +98,11 @@ And then after scheduling
 
 * File: `content/pages/cfp.md`
 * Recommended updates:
-    - Year and date of conference in intro
+    - Hero image
+    - Year and date of conference in header
+    - CFP closing date in description
     - Check that _Presentation format_ matches this year's formats
+    - When CFP closes, swap announcement header with closed header
 
 Note that this page only renders when `cfp="true"`. See [Step 2.8](#update) for details.
 
@@ -169,6 +172,14 @@ _UNDER DEVELOPMENT_
     - Change due dates and update link to submission form
     
 <a name="speaker"></a>
+
+#### 2.4.11 Additional annoucements
+
+This includes anything you want to add to the bottom of the homepage such as linked events. Optionally, also add a menu item under agenda.
+
+* File: `layouts/partials/addtl.html`
+* File: `config.toml`
+    - Add/remove menu items. Update weights as appropriate
 
 ### 2.5 Speaker and workshop pages
 

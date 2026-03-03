@@ -27,12 +27,18 @@ url: "cfp"
 <img src="/img/logo/logo_2026/hero.png" class="img-responsive" alt="Cascadia R hero logo">
 
 <center><h2>
+The 2026 Call for Presentations closed March 1. 
+</h2></center>
+
+<!--
+<center><h2>
 It is with great pleasure that we announce the 
 <br>
 Call for Presentations for the 2026 Cascadia R Conference 
 <br>
 to be held in Portland, Oregon on June 27, 2026. 
 </h2></center>
+-->
 <br>
 
 <br>

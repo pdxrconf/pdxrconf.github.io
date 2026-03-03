@@ -16,7 +16,7 @@ We *strongly recommend* participants take both parts of this workshop.
 
 ## Instructor
 
-<img class="float" width="300px" src="../../../../img/speakers/speakers_2026/josiah_parry.jpeg" alt="Josiah Parry headshot">
+<img class="float" width="300px" src="../../../../img/speakers/speakers_2026/josiah_parry.jpg" alt="Josiah Parry headshot">
     
 ### Josiah Parry
     

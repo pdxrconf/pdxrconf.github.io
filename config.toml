@@ -33,19 +33,25 @@ googleAnalytics = ""
    name = "Conference"
    parent = "agenda"
    url = "/coming_soon/agenda/"
-   weight = 3.1
+   weight = 31
 
 [[menu.main]]
    name = "Workshops"
    parent = "agenda"
    url = "/workshop/"
-   weight = 3.2
+   weight = 32
+
+[[menu.main]]
+   name = "R Dev Day"
+   parent = "agenda"
+   url  = "https://pretix.eu/r-contributors/r-dev-day-cascadiar-2026/"
+   weight = 33
    
 [[menu.main]]
    name = "Past"
    parent = "agenda"
    url  = "/years"
-   weight = 3.3
+   weight = 34
 
 [[menu.main]]
     name = "Venue"
@@ -68,13 +74,13 @@ googleAnalytics = ""
    name = "Attendees"
    parent = "faq"
    url  = "/faq/"
-   weight = 6.1
+   weight = 61
    
 [[menu.main]]
    name = "Speakers"
    parent = "faq"
    url  = "/speaker_faq/"
-   weight = 6.2
+   weight = 62
 
 [[menu.main]]
     name = "Sponsors"
