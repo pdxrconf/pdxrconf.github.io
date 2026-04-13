@@ -12,8 +12,8 @@ I'll share real-world transformations, including how we replaced a costly closed
 
 Key Takeaways:
 
-* Why your "sophisticated" custom pipeline is probably a liability--
-* How to identify when existing tools solve your ""unique"" problem
+* Why your "sophisticated" custom pipeline is probably a liability
+* How to identify when existing tools solve your "unique" problem
 * Real examples of dramatic simplification wins
 * Practical approaches you can implement immediately
 
@@ -22,13 +22,12 @@ Perfect for data scientists, engineers, and team leads tired of maintaining frag
 <br><br>
 
 <table>
-  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/speakers/speakers_2026/dror_berel.jpg" alt="Dror Berel headshot"></td>
+  <tr><td><img width="600px" style="float: left; padding: 0px 20px 0px 0px;" 
+           src="../../../../img/speakers/speakers_2026/dror_berel.jpg" alt="Dror Berel"></td>
   <td>
       <h5>Pronouns: he/him</h5>
       <h5>Seattle, WA, USA</h5>
       Dror Berel is a statistical consultant with over 20 years of work experience in both academia and industry. He loves using R for (almost) everything. He works as an independent consultant, solving business problems and scale analytical tools for diverse data domains, leveraging both traditional Machine learning and Causal Inference along with modern approaches. Among the data domains he specialize in are: genomic biomarker discovery, clinical data reporting (CDISC, ADaM, TLGs). His services also include: Authoring Real World Evidence data analysis and documentation. Writing statistical plans, Power analysis, Design of experiments, and biomarker discovery. Developing R/Shiny apps, and REST APIs. Golem, Rhino, Teal and others.
-      
       </td></tr>
 
 </table>

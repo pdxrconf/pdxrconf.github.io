@@ -12,7 +12,7 @@ Millions of people around the world query large language models for information.
 
 <table>
   <tr><td><img width="600px" style="float: left; padding: 0px 20px 0px 0px;" 
-           src="../../../../img/speakers/speakers_2026/hannah_waight.jpg" alt="Hannah Waight headshot"></td>
+           src="../../../../img/speakers/speakers_2026/hannah_waight.jpg" alt="Hannah Waight"></td>
   <td>
       <h5>Pronouns: she/her</h5>
       <h5>Portland, OR, USA</h5>
