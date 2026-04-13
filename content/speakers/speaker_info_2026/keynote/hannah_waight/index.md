@@ -11,13 +11,12 @@ Millions of people around the world query large language models for information.
 <br><br>
 
 <table>
-  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
+  <tr><td><img width="600px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/speakers/speakers_2026/hannah_waight.jpg" alt="Hannah Waight headshot"></td>
   <td>
       <h5>Pronouns: she/her</h5>
       <h5>Portland, OR, USA</h5>
       Hannah Waight is an Assistant Professor of Sociology at the University of Oregon and a former Postdoctoral Research Associate at the Center for Social Media and Politics (CSMaP), New York University. She received her PhD in 2022 from the Department of Sociology at Princeton University. She previously received a B.A. and M.A. in East Asian Studies, both from Harvard University. Hannah studies the politics of media and information and their implications for social organization. She has studied how the Chinese state intervenes in media organizations and coordinates the news and how, due to the structure of the information environment, those same propaganda objects travel beyond their origins in state-controlled media to other news environments and even machine learning training data. She is also interested in how individuals perceive these interventions by the state into media and information environments as well as issues of social perception more generally. She's worked on popular perceptions of inequality and has an ongoing project on how people in authoritarian regimes "see the state." Methodologically she uses a range of approaches, including computational methods/natural language processing, experimental methods, and qualitative primary document analysis. Learn more at <https://hwaight.github.io/>
-      
       </td></tr>
 
 </table>

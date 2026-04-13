@@ -81,7 +81,7 @@ border-color:black;
 
 #### 1:30 - 2:00 Afternoon Keynote
 
-* [Dror Berel](/2026/regular/dror_berel): Stop Building, Start Assembling
+* [Dror Berel](/2026/keynote/dror_berel): Stop Building, Start Assembling
 
 #### 2:00 - 3:00 Advanced Statistical Modeling and Analytics
 
