@@ -15,10 +15,11 @@ While the examples focus on career mobility, the techniques are broadly applicab
 Attendees will leave with practical modeling patterns, evaluation heuristics, and a clearer mental model for designing trustworthy data products that influence real human decisions.
 <br><br>
 
-<table>
-  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
+<table class="speaker-table" style="width: 100%; table-layout: fixed;">
+  <tr><td style="width: 320px; vertical-align: top;">
+      <img style="width: 300px; padding-right: 20px;" 
            src="../../../../img/speakers/speakers_2026/logo_2026.png" alt=""></td>
-  <td>
+  <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: he/him</h5>
       <h5>Bellevue, WA, USA</h5>
       </td></tr>

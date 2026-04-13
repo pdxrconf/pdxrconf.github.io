@@ -16,10 +16,11 @@ Through a project example, this session demonstrates how reproducible R workflow
 
 <br><br>
 
-<table>
-  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
+<table class="speaker-table" style="width: 100%; table-layout: fixed;">
+  <tr><td style="width: 320px; vertical-align: top;">
+      <img style="width: 300px; padding-right: 20px;" 
            src="../../../../img/speakers/speakers_2026/alex_reed.png" alt="Alex Reed"></td>
-  <td>
+  <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: she/her</h5>
       <h5>Pasadena, CA, USA</h5>
       </td></tr>

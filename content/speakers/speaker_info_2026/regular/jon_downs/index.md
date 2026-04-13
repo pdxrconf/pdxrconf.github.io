@@ -15,10 +15,11 @@ We aim to showcase the package features, present benchmarking results in compari
 
 <br><br>
 
-<table>
-  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
+<table class="speaker-table" style="width: 100%; table-layout: fixed;">
+  <tr><td style="width: 320px; vertical-align: top;">
+      <img style="width: 300px; padding-right: 20px;" 
            src="../../../../img/speakers/speakers_2026/jon_downs.jpg" alt="Jon Downs"></td>
-  <td>
+  <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: he/him</h5>
       <h5>Spokane, WA, USA</h5>
       </td></tr>

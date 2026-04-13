@@ -16,10 +16,11 @@ The central message is practical: meaningful impact does not require complex inf
 
 <br><br>
 
-<table>
-  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
+<table class="speaker-table" style="width: 100%; table-layout: fixed;">
+  <tr><td style="width: 320px; vertical-align: top;">
+      <img style="width: 300px; padding-right: 20px;" 
            src="../../../../img/speakers/speakers_2026/eric_kiflawi.jpg" alt="Eric Kiflawi"></td>
-  <td>
+  <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: </h5>
       <h5>Seattle, WA, USA</h5>
       </td></tr>

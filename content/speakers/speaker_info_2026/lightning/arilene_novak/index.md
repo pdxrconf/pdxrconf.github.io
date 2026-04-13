@@ -18,10 +18,11 @@ By highlighting challenges such as credential management, error handling, and da
 
 <br><br>
 
-<table>
-  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
+<table class="speaker-table" style="width: 100%; table-layout: fixed;">
+  <tr><td style="width: 320px; vertical-align: top;">
+      <img style="width: 300px; padding-right: 20px;" 
            src="../../../../img/speakers/speakers_2026/arilene_novak.jpg" alt="Arilene Novak"></td>
-  <td>
+  <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: she/her</h5>
       <h5>Albany, OR, USA</h5>
       </td></tr>

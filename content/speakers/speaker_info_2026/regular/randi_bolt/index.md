@@ -14,10 +14,11 @@ The focus is not on building a perfect model, but on what it actually takes to g
 
 <br><br>
 
-<table>
-  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
+<table class="speaker-table" style="width: 100%; table-layout: fixed;">
+  <tr><td style="width: 320px; vertical-align: top;">
+      <img style="width: 300px; padding-right: 20px;" 
            src="../../../../img/speakers/speakers_2026/randi_bolt.png" alt="Muppet Randi Bolt"></td>
-  <td>
+  <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: she/her</h5>
       <h5>Portland, OR, USA</h5>
       </td></tr>

@@ -10,10 +10,11 @@ Ranking data arise in a variety of domains, such as ranked choice voting, psycho
 
 <br><br>
 
-<table>
-  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
+<table class="speaker-table" style="width: 100%; table-layout: fixed;">
+  <tr><td style="width: 320px; vertical-align: top;">
+      <img style="width: 300px; padding-right: 20px;" 
            src="../../../../img/speakers/speakers_2026/logo_2026.png" alt=""></td>
-  <td>
+  <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: they/them</h5>
       <h5>Portland, OR, USA</h5>
       </td></tr>

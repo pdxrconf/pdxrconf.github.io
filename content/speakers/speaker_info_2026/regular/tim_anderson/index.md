@@ -15,10 +15,11 @@ Early results show validation timelines compressing from months to weeks or pote
 
 <br><br>
 
-<table>
-  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
+<table class="speaker-table" style="width: 100%; table-layout: fixed;">
+  <tr><td style="width: 320px; vertical-align: top;">
+      <img style="width: 300px; padding-right: 20px;" 
            src="../../../../img/speakers/speakers_2026/tim_anderson.jpg" alt="Tim Anderson"></td>
-  <td>
+  <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: he/him</h5>
       <h5>Happy Valley, OR, USA</h5>
       </td></tr>
