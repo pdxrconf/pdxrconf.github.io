@@ -27,7 +27,7 @@ Perfect for data scientists, engineers, and team leads tired of maintaining frag
   <td>
       <h5>Pronouns: he/him</h5>
       <h5>Seattle, WA, USA</h5>
-      Dror 
+      Dror Berel is a statistical consultant with over 20 years of work experience in both academia and industry. He loves using R for (almost) everything. He works as an independent consultant, solving business problems and scale analytical tools for diverse data domains, leveraging both traditional Machine learning and Causal Inference along with modern approaches. Among the data domains he specialize in are: genomic biomarker discovery, clinical data reporting (CDISC, ADaM, TLGs). His services also include: Authoring Real World Evidence data analysis and documentation. Writing statistical plans, Power analysis, Design of experiments, and biomarker discovery. Developing R/Shiny apps, and REST APIs. Golem, Rhino, Teal and others.
       </td></tr>
 
 </table>
