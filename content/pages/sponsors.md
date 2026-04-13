@@ -34,15 +34,18 @@ url: "sponsors"
 <h2>2026 Sponsors</h2>
 
 <a href="https://www.pdx.edu/" target="_blank">
-      <img src="/img/sponsors/psu_business.png" alt="Portland State University, School of Business Logo">
+      <img src="/img/sponsors/psu_business.png" alt="Portland State University, School of Business Logo"
+      style="max-width: 500px; width: 100%; height: auto;">
     </a>
 <br>
 <a href="https://www.ohsu.edu/" target="_blank">
-      <img src="/img/sponsors/ohsu2.png" alt="Oregon Health and Sciences University Logo">
+      <img src="/img/sponsors/ohsu2.png" alt="Oregon Health and Sciences University Logo"
+      style="max-width: 500px; width: 100%; height: auto;">
     </a>
 <br>
 <a href="https://www.r-consortium.org/" target="_blank">
-      <img src="/img/sponsors/rconsortium.png" alt="R Consortium Logo">
+      <img src="/img/sponsors/rconsortium.png" alt="R Consortium Logo"
+      style="max-width: 500px; width: 100%; height: auto;">
     </a>
 <br>
 
