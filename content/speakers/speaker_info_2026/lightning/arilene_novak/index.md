@@ -24,6 +24,7 @@ By highlighting challenges such as credential management, error handling, and da
   <td>
       <h5>Pronouns: she/her</h5>
       <h5>Albany, OR, USA</h5>
+      test
       </td></tr>
 
 </table>
