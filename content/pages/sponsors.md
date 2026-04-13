@@ -40,8 +40,12 @@ url: "sponsors"
 <a href="https://www.ohsu.edu/" target="_blank">
       <img src="/img/sponsors/ohsu2.png" alt="Oregon Health and Sciences University Logo">
     </a>
-    
 <br>
+<a href="https://www.r-consortium.org/" target="_blank">
+      <img src="/img/sponsors/rconsortium.png" alt="R Consortium Logo">
+    </a>
+<br>
+
 <hr>
 
 <div style="margin-top: 50px">
