@@ -10,7 +10,7 @@ Point-of-care testing (POCT) produces large volumes of timestamped clinical data
 
 R provides a bridge between clinical operations and reproducible analytics. Its transparency allows stakeholders to inspect exactly how rules are defined and applied, supporting trust and auditability.
 
-This talk presents a concise overview of an R-based framework for semi-automated QA in POCT. Using **dplyr** for structured data transformation and **lubridate** for precise time handling, the system ingests RALS exports and applies explicit rule sets to flag results requiring follow-up. Core components include detection of repeat testing within defined time windows, identification of duplicate urinalysis and urine pregnancy tests, and delta calculations for analytes such as high-sensitivity troponin to highlight clinically significant changes.
+This talk presents a concise overview of an R-based framework for semi-automated QA in POCT. Using `dplyr` for structured data transformation and `lubridate` for precise time handling, the system ingests RALS exports and applies explicit rule sets to flag results requiring follow-up. Core components include detection of repeat testing within defined time windows, identification of duplicate urinalysis and urine pregnancy tests, and delta calculations for analytes such as high-sensitivity troponin to highlight clinically significant changes.
 
 The central message is practical: meaningful impact does not require complex infrastructure. A focused set of well-designed functions can standardize oversight, reduce manual effort, and create adaptable QA systems across diverse environments.
 

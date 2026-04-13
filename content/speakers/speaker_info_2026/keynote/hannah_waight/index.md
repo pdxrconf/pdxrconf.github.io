@@ -11,7 +11,7 @@ Millions of people around the world query large language models for information.
 <br><br>
 
 <table>
-  <tr><td><img width="600px" style="float: left; padding: 0px 20px 0px 0px;" 
+  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;"
            src="../../../../img/speakers/speakers_2026/hannah_waight.jpg" alt="Hannah Waight"></td>
   <td>
       <h5>Pronouns: she/her</h5>
@@ -20,5 +20,3 @@ Millions of people around the world query large language models for information.
       </td></tr>
 
 </table>
-
-

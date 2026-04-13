@@ -22,7 +22,7 @@ Perfect for data scientists, engineers, and team leads tired of maintaining frag
 <br><br>
 
 <table>
-  <tr><td><img width="600px" style="float: left; padding: 0px 20px 0px 0px;" 
+  <tr><td><img width="300px" style="float: left; padding: 0px 20px 0px 0px;" 
            src="../../../../img/speakers/speakers_2026/dror_berel.jpg" alt="Dror Berel"></td>
   <td>
       <h5>Pronouns: he/him</h5>
