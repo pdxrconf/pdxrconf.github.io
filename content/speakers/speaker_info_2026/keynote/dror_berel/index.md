@@ -21,7 +21,7 @@ Perfect for data scientists, engineers, and team leads tired of maintaining frag
 
 <br><br>
 
-<table style="width: 100%; table-layout: fixed;">
+<table class="speaker-table" style="width: 100%; table-layout: fixed;">
   <tr><td style="width: 320px; vertical-align: top;">
       <img style="width: 300px; padding-right: 20px; flex-shrink: 0;" 
            src="../../../../img/speakers/speakers_2026/dror_berel.jpg" alt="Dror Berel"></td>

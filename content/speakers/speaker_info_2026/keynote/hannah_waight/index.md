@@ -10,7 +10,7 @@ Millions of people around the world query large language models for information.
 
 <br><br>
 
-<table style="width: 100%; table-layout: fixed;">
+<table class="speaker-table" style="width: 100%; table-layout: fixed;">
   <tr><td style="width: 320px; vertical-align: top;">
       <img style="width: 300px; padding-right: 20px; flex-shrink: 0;"
            src="../../../../img/speakers/speakers_2026/hannah_waight.jpg" alt="Hannah Waight"></td>

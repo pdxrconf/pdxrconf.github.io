@@ -75,3 +75,26 @@
 
 #register-button {padding: 5px; margin-top: 16px;text-decoration: none; margin-left: 15px; color: white; border: 2px solid; background-color: #6e5a52; border: 2px solid #6e5a52;} 
 #register-button:hover {background-color: #2E2420; border: 2px solid #2E2420;}
+
+@media (max-width: 600px) {
+  table.speaker-table,
+  table.speaker-table tr,
+  table.speaker-table td {
+    display: block;
+    width: 100% !important;
+  }
+
+  table.speaker-table td {
+    padding: 0;
+  }
+
+  table.speaker-table td:first-child {
+    margin-bottom: 10px;
+  }
+
+  table.speaker-table img {
+    width: 100% !important;
+    max-width: 300px;
+    height: auto;
+  }
+}
