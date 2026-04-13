@@ -6,13 +6,8 @@ url: "2026/regular/shubham_anandani"
 ### Designing Trust Signals: Turning User Behavior into Measurable Drivers of Growth
 Regular talk, 9:40 - 10:40 AM
 
-Career paths are no longer linear, yet most workforce systems still model them as static sequences of roles and titles. In this talk, I'll walk through how data-driven skill signals can be used to model, predict, and recommend career transitions at scale.
+In product-led systems, not all user signals are equally valuable. Self-reported attributes and surface-level engagement metrics often introduce noise, while a smaller set of high-integrity, behavior-driven signals can more reliably predict activation and conversion. This talk explores how to design, evaluate, and scale trust signals using real-world examples from large-scale professional platforms. We introduce a three-part framework for signal quality—Authenticity (verifiability and resistance to manipulation), Relevance (predictive power for downstream outcomes), and Distinctiveness (incremental information beyond existing features). By reframing trust as a measurable property of data, we’ll examine how these signals can be constructed from user activity, validated through experimentation, and incorporated into ranking and recommendation systems. Attendees will leave with practical approaches to separating noise from signal and building data-driven features that meaningfully impact growth.
 
-Drawing on applied research and real-world system design experience, I'll show how probabilistic models, graph representations, and feature engineering techniques can transform noisy behavioral and profile data into actionable career insights. I'll also discuss where these models fail—bias, feedback loops, and overconfidence—and how thoughtful evaluation and human-in-the-loop design can improve outcomes.
-
-While the examples focus on career mobility, the techniques are broadly applicable to any domain where you’re modeling transitions over time: education pathways, skill evolution, or organizational growth. The goal is to help data practitioners think beyond static dashboards and toward systems that reason about change.
-
-Attendees will leave with practical modeling patterns, evaluation heuristics, and a clearer mental model for designing trustworthy data products that influence real human decisions.
 <br><br>
 
 <table class="speaker-table" style="width: 100%; table-layout: fixed;">
