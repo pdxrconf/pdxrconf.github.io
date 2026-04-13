@@ -22,7 +22,6 @@ Through a project example, this session demonstrates how reproducible R workflow
   <td>
       <h5>Pronouns: she/her</h5>
       <h5>Pasadena, CA, USA</h5>
-      
       </td></tr>
 
 </table>

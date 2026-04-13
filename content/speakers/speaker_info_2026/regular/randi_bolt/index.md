@@ -20,7 +20,6 @@ The focus is not on building a perfect model, but on what it actually takes to g
   <td>
       <h5>Pronouns: she/her</h5>
       <h5>Portland, OR, USA</h5>
-      
       </td></tr>
 
 </table>

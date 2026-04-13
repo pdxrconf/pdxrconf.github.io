@@ -21,7 +21,6 @@ We aim to showcase the package features, present benchmarking results in compari
   <td>
       <h5>Pronouns: he/him</h5>
       <h5>Spokane, WA, USA</h5>
-       
       </td></tr>
 
 </table>

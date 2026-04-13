@@ -22,7 +22,6 @@ Although the subject of Bigfoot is cryptozoological, this workflow is broadly ap
   <td>
       <h5>Pronouns: she/her</h5>
       <h5>Vancouver, BC, Canada</h5>
-       
       </td></tr>
 
 </table>

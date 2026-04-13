@@ -18,7 +18,6 @@ R enables reproducible, transparent, and scalable analytics that directly suppor
   <td>
       <h5>Pronouns: he/him</h5>
       <h5>Salem, OR, USA</h5>
-      
       </td></tr>
 
 </table>

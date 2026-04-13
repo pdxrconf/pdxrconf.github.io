@@ -16,7 +16,6 @@ This introduces a framework for value visualizations, displays where the placeme
   <td>
       <h5>Pronouns: he/him</h5>
       <h5>Portland, OR, USA</h5>
-      
       </td></tr>
 
 </table>

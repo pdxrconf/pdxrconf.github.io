@@ -21,7 +21,6 @@ Attendees will leave with practical modeling patterns, evaluation heuristics, an
   <td>
       <h5>Pronouns: he/him</h5>
       <h5>Bellevue, WA, USA</h5>
-      
       </td></tr>
 
 </table>

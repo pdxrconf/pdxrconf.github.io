@@ -16,7 +16,6 @@ The human brain contains thousands of cell types, each with its own shape, purpo
   <td>
       <h5>Pronouns: he/him</h5>
       <h5>Seattle, WA, USA</h5>
-       
       </td></tr>
 
 </table>

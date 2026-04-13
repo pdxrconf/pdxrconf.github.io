@@ -16,7 +16,6 @@ The concept of concurrent mental health and substance use (MHSU) status and its 
   <td>
       <h5>Pronouns: he/him</h5>
       <h5>Vancouver, BC, Canada</h5>
-      
       </td></tr>
 
 </table>

@@ -16,7 +16,6 @@ This will be a lightning-tour through some of the past, present, and future uses
   <td>
       <h5>Pronouns: he/him</h5>
       <h5>Portland, OR, USA</h5>
-       
       </td></tr>
 
 </table>

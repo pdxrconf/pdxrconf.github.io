@@ -16,7 +16,6 @@ Survival analysis is a powerful tool for clinical and population health research
   <td>
       <h5>Pronouns: she/her</h5>
       <h5>Eugene, OR, USA</h5>
-       
       </td></tr>
 
 </table>

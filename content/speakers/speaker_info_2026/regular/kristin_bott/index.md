@@ -16,7 +16,6 @@ Large language models (LLMs) are changing the way people write code and build so
   <td>
       <h5>Pronouns: she/her</h5>
       <h5>Portland, OR, USA</h5>
-      
       </td></tr>
 
 </table>

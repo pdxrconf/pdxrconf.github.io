@@ -29,7 +29,6 @@ References:
   <td>
       <h5>Pronouns: he/him</h5>
       <h5>Beaverton, OR, USA</h5>
-      
       </td></tr>
 
 </table>

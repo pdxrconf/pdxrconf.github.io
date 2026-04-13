@@ -16,7 +16,6 @@ Ranking data arise in a variety of domains, such as ranked choice voting, psycho
   <td>
       <h5>Pronouns: they/them</h5>
       <h5>Portland, OR, USA</h5>
-       
       </td></tr>
 
 </table>

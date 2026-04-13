@@ -22,7 +22,6 @@ The central message is practical: meaningful impact does not require complex inf
   <td>
       <h5>Pronouns: </h5>
       <h5>Seattle, WA, USA</h5>
-       
       </td></tr>
 
 </table>

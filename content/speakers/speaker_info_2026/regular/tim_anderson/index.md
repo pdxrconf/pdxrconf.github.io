@@ -21,7 +21,6 @@ Early results show validation timelines compressing from months to weeks or pote
   <td>
       <h5>Pronouns: he/him</h5>
       <h5>Happy Valley, OR, USA</h5>
-      
       </td></tr>
 
 </table>
