@@ -15,13 +15,15 @@ this year and hope to see you there!</h3>
 
 ### 2026 Organization Team
 
++ Aditya Gadkari
 + Andie Hendrick
 + Arliene Novak
 + Becky Basulto
 + [Brittany Barker](http://brittanysbarker.org)
-+ Cameron Mulder
++ Cameron Mulder [lead]
 + Connor Smith
 + Ellis Hughes
++ Erin Dahl
 + Francisco J Guerrero
 + Jeff Pannell
 + Jing Zhao
@@ -37,7 +39,7 @@ this year and hope to see you there!</h3>
 
 + Becky Basulto
 + [Brittany Barker](http://brittanysbarker.org)
-+ Cameron Mulder
++ Cameron Mulder [lead]
 + Connor Smith 
 + Dror Berel 
 + Ellis Hughes  
@@ -47,22 +49,22 @@ this year and hope to see you there!</h3>
 + Mohamed Albirair 
 + Peter Geissert
 + Skyler Elmstrom
-+ Tim Anderson
++ Tim Anderson [lead]
 + Travis Knoche 
 
 #### 2024
 
-+ Ellis Hughes
-+ [Jacqueline Nolis](https://jnolis.com/)
-+ [Kim Dill-McFarland](https://kdillmcfarland.github.io/)
 + [Brittany Barker](http://brittanysbarker.org)
 + Brittney Kroiss
 + Cameron Mulder
 + Cari Gostic
 + [Dominik Grätz](https://www.researchgate.net/profile/Dominik-Graetz-2)
++ Ellis Hughes [lead]
 + Ezgi Yucel
++ [Jacqueline Nolis](https://jnolis.com/) [lead]
 + [Jadey Ryan](https://jadeyryan.com)
 + Katie Masiello
++ [Kim Dill-McFarland](https://kdillmcfarland.github.io/) [lead]
 + [Lydia Gibson](https://lgibson7.quarto.pub/once-upon-a-time-series/about.html)
 + Miranda Fix
 + Mohsen Soltanifar
@@ -75,70 +77,69 @@ this year and hope to see you there!</h3>
 + [Brittany Barker](http://brittanysbarker.org)
 + Brittney Kroiss
 + [Dominik Grätz](https://www.researchgate.net/profile/Dominik-Graetz-2)
-+ Ellis Hughes
++ Ellis Hughes [lead]
 + Ezgi Yucel
-+ [Jacqueline Nolis](https://jnolis.com/)
++ [Jacqueline Nolis](https://jnolis.com/) [lead]
 + Katie Masiello
-+ [Kim Dill-McFarland](https://kdillmcfarland.github.io/)
++ [Kim Dill-McFarland](https://kdillmcfarland.github.io/) [lead]
 + Melissa Lee
 + Tim Anderson
 
 #### 2022
 
-+ Ellis Hughes
-+ [Lea Frank](https://lea-frank.netlify.app/)
-+ [Brittany Barker](http://brittanysbarker.org)
-+ Melissa Lee
-+ Laura O' Mahony
-+ [Ted Laderas](https://laderast.github.io )
 + Ben McCary
++ [Brittany Barker](http://brittanysbarker.org)
++ Ellis Hughes
++ Laura O' Mahony
++ [Lea Frank](https://lea-frank.netlify.app/)
++ Melissa Lee
++ [Ted Laderas](https://laderast.github.io )
 
 #### 2021
 
-+ [Ellis Hughes](http://twitter.com/thebioengineer)
-+ Martin Monkman
-+ [Kate Hertweck](http://katehertweck.com)
-+ [Daniel Anderson](https://www.datalorax.com/about/)
-+ [Lea E. Frank](https://github.com/lfrank14)
-+ [Ted Laderas](https://laderast.github.io)
-+ John David Smith
-+ [Dani Chu](https://danichusfu.github.io/)
-+ Marie Vendettuoli
-+ Brittany Barker
-+ Melissa Lee
 + [Ariel Muldoon](https://aosmith.rbind.io/)
++ Brittany Barker
++ [Dani Chu](https://danichusfu.github.io/)
++ [Daniel Anderson](https://www.datalorax.com/about/)
 + Daniella Mark
++ [Ellis Hughes](http://twitter.com/thebioengineer)
 + [Helen Miller](https://github.com/helenmiller16)
++ John David Smith
++ [Kate Hertweck](http://katehertweck.com)
++ [Lea E. Frank](https://github.com/lfrank14)
++ Marie Vendettuoli
++ Martin Monkman
++ Melissa Lee
 + Rodolfo Lourenzutti
++ [Ted Laderas](https://laderast.github.io)
 
 #### 2020
 
++ [Alison Hill](https://alison.rbind.io/)
++ [Brendan Cullen](https://bcullen.rbind.io/)
 + [Daniel Anderson](https://www.datalorax.com/about/)
 + [Patrick Kennedy](https://ctl.uoregon.edu/about/staff/patrick-kennedy)
 + [Raina Megert](https://education.uoregon.edu/people/faculty/rainam)
-+ [Alison Hill](https://alison.rbind.io/)
-+ [Brendan Cullen](https://bcullen.rbind.io/)
 
 #### 2019
 
-+ Terry Christiani
++ Daniella Mark
 + David Henderson
++ David Smith
 + Ellis Hughes
 + Lindsey Hughes
-+ Daniella Mark
 + Mehar Singh
-+ David Smith
-
++ Terry Christiani
 
 #### 2017/2018
 
 + Aaron Makubuya
-+ Jessica Minnier
-+ Lilly Winfree
 + Chester Ismay
++ Jessica Minnier
 + John Smith
-+ Ted Laderas
++ Lilly Winfree
 + Scott Chamberlain
++ Ted Laderas
 
 
 
