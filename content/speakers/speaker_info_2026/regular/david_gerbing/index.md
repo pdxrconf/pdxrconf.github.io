@@ -13,10 +13,11 @@ This introduces a framework for value visualizations, displays where the placeme
 <table class="speaker-table" style="width: 100%; table-layout: fixed;">
   <tr><td style="width: 320px; vertical-align: top;">
       <img style="width: 300px; padding-right: 20px;" 
-           src="../../../../img/speakers/speakers_2026/logo_2026.png" alt=""></td>
+           src="../../../../img/speakers/speakers_2026/david_gerbing.jpg" alt=""></td>
   <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: he/him</h5>
       <h5>Portland, OR, USA</h5>
+      Ph.D in what would now be called Data Science from Michigan State University in 1979. Currently, Professor in the Masters of Applied Data Science for Business (MSADSB) program at Portland State University, primarily responsible for the courses in machine learning, deep learning and neural networks, and data visualization. Have published a wide range of articles in the behavioral and data science journals.
       </td></tr>
 
 </table>

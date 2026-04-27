@@ -25,6 +25,7 @@ By highlighting challenges such as credential management, error handling, and da
   <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: she/her</h5>
       <h5>Albany, OR, USA</h5>
+      Arilene Novak is a respiratory viral epidemiologist at the Oregon Health Authority (OHA), where she focuses on improving and streamlining surveillance and reporting practices. Based in Albany, Arilene enjoys hiking, gardening, and reading in her free time, often alongside her husband, corgi, and two cats.
       </td></tr>
 
 </table>

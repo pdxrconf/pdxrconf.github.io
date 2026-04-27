@@ -30,6 +30,7 @@ References:
   <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: he/him</h5>
       <h5>Beaverton, OR, USA</h5>
+      M. Edward (Ed) Borasky is a retired scientific applications programmer who's been programming in R since Y2K. His uses of R include computer performance statistics, options pricing, women's basketball analytics, urban transit / census data and lately, analysis, composition and synthesis of xentonal computer music. 
       </td></tr>
 
 </table>

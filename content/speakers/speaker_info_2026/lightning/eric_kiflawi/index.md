@@ -21,8 +21,9 @@ The central message is practical: meaningful impact does not require complex inf
       <img style="width: 300px; padding-right: 20px;" 
            src="../../../../img/speakers/speakers_2026/eric_kiflawi.jpg" alt="Eric Kiflawi"></td>
   <td style="vertical-align: top; word-break: break-word;">
-      <h5>Pronouns: </h5>
+      <h5>Pronouns: he/him</h5>
       <h5>Seattle, WA, USA</h5>
+      Eric Kiflawi, MLS(ASCP)cm, is a Point of Care Coordinator with experience in clinical laboratory operations, quality assurance, and system validation across healthcare institutions in Puget Sound. He has led instrument implementation, middleware integration, and staff training while supporting platforms such as EPIC, RALS, and Telcor QML. His background combines hands-on laboratory expertise and a growing interest in utilizing data tools to streamline work flow and quality assurance. Eric brings a foundation in biotechnology and a multidisciplinary academic background spanning medical laboratory science, biology, and music.
       </td></tr>
 
 </table>

@@ -13,10 +13,11 @@ Large language models (LLMs) are changing the way people write code and build so
 <table class="speaker-table" style="width: 100%; table-layout: fixed;">
   <tr><td style="width: 320px; vertical-align: top;">
       <img style="width: 300px; padding-right: 20px;" 
-           src="../../../../img/speakers/speakers_2026/logo_2026.png" alt=""></td>
+           src="../../../../img/speakers/speakers_2026/kristin_bott.png" alt=""></td>
   <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: she/her</h5>
       <h5>Portland, OR, USA</h5>
+      Kristin Bott manages the Posit Academy education program, which is focused on building both coding and collaboration skills in working professionals. Kristin brings a background in natural science, organizing, teaching, and research, and spent 10 years in higher ed before joining Posit in 2021. She is passionate about making technical topics accessible through the power of learning communities, with the goal of empowering individuals to do great work.
       </td></tr>
 
 </table>

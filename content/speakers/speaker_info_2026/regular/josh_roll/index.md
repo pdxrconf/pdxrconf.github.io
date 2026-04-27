@@ -19,6 +19,7 @@ R enables reproducible, transparent, and scalable analytics that directly suppor
   <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: he/him</h5>
       <h5>Salem, OR, USA</h5>
+      Josh Roll, the Research Coordinator at Oregon's Department of Transportation, focuses on bicycle and pedestrian safety, decarbonization, and equity. He specializes in data analysis and modeling to evaluate travel costs and benefits, aiming to guide investment decisions that will improve traffic safety, reduce social inequity, lower emissions, and improve health outcomes.
       </td></tr>
 
 </table>

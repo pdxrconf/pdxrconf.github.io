@@ -21,6 +21,7 @@ The focus is not on building a perfect model, but on what it actually takes to g
   <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: she/her</h5>
       <h5>Portland, OR, USA</h5>
+      I work in the Data Analytics Program at the Oregon Employment Department, where I help improve services for Oregonians and Oregon businesses. My work focuses on helping turn data into clear, actionable information that supports better decision-making and improved outcomes for the people we serve.
       </td></tr>
 
 </table>

@@ -22,6 +22,7 @@ We aim to showcase the package features, present benchmarking results in compari
   <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: he/him</h5>
       <h5>Spokane, WA, USA</h5>
+      Jon Downs is a public health epidemiologist at the Center for Health Statistics within the Washington State Department of Health. He received his MPH in epidemiology from Emory University in 2015. Jon is passionate about performance-minded programming and bringing data science to public health.
       </td></tr>
 
 </table>

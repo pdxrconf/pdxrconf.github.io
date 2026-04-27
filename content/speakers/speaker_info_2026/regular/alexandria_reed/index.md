@@ -1,5 +1,5 @@
 ---
-title: "Alexandria Reed"
+title: "Alex Reed"
 url: "2026/regular/alexandria_reed"
 ---
 
@@ -23,6 +23,7 @@ Through a project example, this session demonstrates how reproducible R workflow
   <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: she/her</h5>
       <h5>Pasadena, CA, USA</h5>
+      Alexandria (Alex) Reed is an urban forester and data scientist who designs and leads data analyses for environmental planning and urban forestry projects. She builds reproducible R workflows spanning canopy assessment, heat vulnerability, tree inventory, and climate-related work, bridging GIS, science, and design teams. She is drawn to reproducible approaches because a well-built workflow can be adapted across projects rather than recreated from scratch each time.
       </td></tr>
 
 </table>

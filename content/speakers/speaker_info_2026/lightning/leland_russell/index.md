@@ -13,10 +13,11 @@ Ranking data arise in a variety of domains, such as ranked choice voting, psycho
 <table class="speaker-table" style="width: 100%; table-layout: fixed;">
   <tr><td style="width: 320px; vertical-align: top;">
       <img style="width: 300px; padding-right: 20px;" 
-           src="../../../../img/speakers/speakers_2026/logo_2026.png" alt=""></td>
+           src="../../../../img/speakers/speakers_2026/leland_russell.png" alt=""></td>
   <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: they/them</h5>
       <h5>Portland, OR, USA</h5>
+      Leland Russell grew up in Rhode Island and New Hampshire. They are a third year undergrad at Reed College. They are studying Mathematics, Statistics, and Computer Science. They are interested in Bayesian Statistics and Algorithm design.
       </td></tr>
 
 </table>

@@ -45,6 +45,7 @@ border-color:black;
 
 ## June 27, 2026
 <br>
+#### *Tentative*
 
 #### 8:00 - 9:00 Registration and Breakfast
 
@@ -95,13 +96,11 @@ border-color:black;
 
 * [Leland Russell](/2026/lightning/leland_russell): An R package for estimating mixtures of Benter models with ranked data
 * [Eric Kiflawi](/2026/lightning/eric_kiflawi): Quality Assurance in Point of Care Using R
-* [Kelsey MacKenzie](/2026/lightning/kelsey_macKenzi): Methods for Facilitating Multi-Institutional Data Collaboration Using Shiny
 
 #### 3:35 - 3:50 Break
 
 #### 3:50 - 4:50 Messy Data to Meaningful Insights with R
 
-* [Mohsen Soltanifar](/2026/regular/mohsen_soltanifar): CMHSU - An R Statistical Software to Detect MH/SU/MHSU Status in North American Healthcare Databases
 * [Randi Bolt](/2026/regular/randi_bolt): Making Sense of Messy Survey Responses with R
 * [David Gerbing](/2026/regular/david_gerbing): A framework for value visualizations
 

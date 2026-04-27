@@ -22,6 +22,7 @@ Early results show validation timelines compressing from months to weeks or pote
   <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: he/him</h5>
       <h5>Happy Valley, OR, USA</h5>
+      Tim Anderson is a Business Intelligence Strategist on the School Finance & Fiscal Transparency team at the Oregon Department of Education, where his team uses R to power data pipelines, federal reporting, and public-facing transparency products. A relative newcomer to the public sector, he brings decades of private-sector experience in product management and business analysis across global markets. Over the past eight years, Tim has relied on R less as a programming language and more as a thinking tool — a way to ask better questions, explore messy data, and turn fiscal complexity into clarity. He's here to share what happens when a business analyst falls in love with R and accidentally builds a government data infrastructure.
       </td></tr>
 
 </table>

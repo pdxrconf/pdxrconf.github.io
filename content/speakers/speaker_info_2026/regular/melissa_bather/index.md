@@ -23,6 +23,7 @@ Although the subject of Bigfoot is cryptozoological, this workflow is broadly ap
   <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: she/her</h5>
       <h5>Vancouver, BC, Canada</h5>
+      Melissa is a statistician from Aotearoa New Zealand living in Vancouver, British Columbia. She holds an MSc in Statistics with First Class Honours from the University of Auckland--- the birthplace of R! Her work has focused on ecological and health statistics, for which R has been an essential tool. 
       </td></tr>
 
 </table>

@@ -17,6 +17,7 @@ The human brain contains thousands of cell types, each with its own shape, purpo
   <td style="vertical-align: top; word-break: break-word;">
       <h5>Pronouns: he/him</h5>
       <h5>Seattle, WA, USA</h5>
+      Dr. Jeremy Miller is a Senior Scientist at the Allen Institute, where he has played a key role since 2011 in building large‑scale brain data resources used by scientists worldwide. He is a lead author on foundational studies mapping gene activity across the human and non‑human primate brain, including work on aging, dementia, and traumatic brain injury. His current research focuses on defining brain cell types, understanding how they are affected by disease, and developing tools and standards that make complex brain data easier to interpret and share across the scientific community.
       </td></tr>
 
 </table>
