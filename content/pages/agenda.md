@@ -67,34 +67,31 @@ border-color:black;
 
 #### 10:40 - 11:00 Break
 
-#### 11:00 - 11:20 Lightning Talks! 
-
-* [Jeremy Miller](/2026/lightning/jeremy_miller): Cell HierARchy Gene Explorer (CHARGE), an R Shiny app for exploring cell type data
-* [Arilene Novak](/2026/lightning/arilene_novak): API made simple, automating data access in R
-* [Ben Chaney](/2026/lightning/ben_chaney): R-Powered Transportation Planning and Analysis in Oregon
-
-#### 11:20 - 12:20 Connecting Data and Teams with R 
+#### 11:00 - 12:00 Connecting Data and Teams with R 
 
 * [Josh Roll](/2026/regular/josh_roll): Pedestrian Traffic Volume Data Fusion - Using R for Data Integration, Analysis and Presentation
 * [Tim Anderson](/2026/regular/tim_anderson): Automating Educational Finance Validation: R as the Orchestration Layer in a Government Workflow
 * [Alexandria Reed](/2026/regular/alexandria_reed): Reproducibility in Practice: Using R to Bridge Teams
 
-#### 12:20 - 1:30 Lunch Break
+#### 12:00 - 1:10 Lunch Break
 
-#### 1:30 - 2:00 Afternoon Keynote
+#### 1:10 - 1:40 Afternoon Keynote
 
 * [Dror Berel](/2026/keynote/dror_berel): Stop Building, Start Assembling
 
-#### 2:00 - 3:00 Advanced Statistical Modeling and Analytics
+#### 1:40 - 2:40 Advanced Statistical Modeling and Analytics
 
 * [Jon Downs](/2026/regular/jon_downs): Efficient Fuzzy Joins, Introducing FozzieJoin
 * [Melissa Bather](/2026/regular/melissa_bather): Sasquatch Statistics, Spatial Point Regression with R
 * [Simone Mendes](/2026/regular/simone_mendes): Simplifying Data Structuring for Complex Survival Analysis with pammtools
 
-#### 3:00 - 3:15 Break
+#### 2:40 - 3:00 Break
 
-#### 3:15 - 3:35 Lightning Talks!
+#### 3:00 - 3:35 Lightning Talks!
 
+* [Jeremy Miller](/2026/lightning/jeremy_miller): Cell HierARchy Gene Explorer (CHARGE), an R Shiny app for exploring cell type data
+* [Arilene Novak](/2026/lightning/arilene_novak): API made simple, automating data access in R
+* [Ben Chaney](/2026/lightning/ben_chaney): R-Powered Transportation Planning and Analysis in Oregon
 * [Leland Russell](/2026/lightning/leland_russell): An R package for estimating mixtures of Benter models with ranked data
 * [Eric Kiflawi](/2026/lightning/eric_kiflawi): Quality Assurance in Point of Care Using R
 

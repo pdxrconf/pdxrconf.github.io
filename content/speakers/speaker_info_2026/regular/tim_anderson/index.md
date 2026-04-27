@@ -4,7 +4,7 @@ url: "2026/regular/tim_anderson"
 ---
 
 ### Automating Educational Finance Validation: R as the Orchestration Layer in a Government Workflow
-Regular talk, 11:20 AM - 12:20 PM
+Regular talk, 11:00 AM - 12:00 PM
 
 Oregon's 216 school districts and educational service districts annually submit PDF audit documents alongside detailed revenue and expenditure data. Validating consistency between these sources traditionally required analysts to manually extract data from PDFs, ten-key values into Excel, and perform fund-level comparisons—a process consuming months of labor-intensive effort.
 

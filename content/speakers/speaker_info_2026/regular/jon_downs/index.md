@@ -4,7 +4,7 @@ url: "2026/regular/jon_downs"
 ---
 
 ### Efficient Fuzzy Joins: Introducing FozzieJoin
-Regular talk, 2:00 - 3:00 PM
+Regular talk, 1:40 - 2:40 PM
 
 Inexact matching, or fuzzy joins, play a crucial role in administrative record linkage and various data integration tasks. Currently, the most used tool for fuzzy matching in R is the `fuzzyjoin` package. However, it suffers from performance inefficiencies that can hinder runtime speed.
 
