@@ -4,7 +4,7 @@ url: "2026/lightning/eric_kiflawi"
 ---
 
 ### Quality Assurance in Point of Care Using R
-Lighting Talk, 3:00 - 3:35 PM
+Lighting Talk, 3:05 - 3:40 PM
 
 Point-of-care testing (POCT) produces large volumes of timestamped clinical data, yet QA review in many labs still depends on spreadsheets and static middleware views—tools that do not scale well, are inconsistently applied, and are difficult to audit. Established workflows and vendor systems make introducing an open-source analytics layer challenging. However, the time burden of manual review created an opportunity to rethink the process.
 

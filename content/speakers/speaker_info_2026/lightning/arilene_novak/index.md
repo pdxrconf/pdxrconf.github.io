@@ -4,7 +4,7 @@ url: "2026/lightning/arilene_novak"
 ---
 
 ### API made simple: automating data access in R
-Lighting Talk, 3:00 - 3:35 PM
+Lighting Talk, 3:05 - 3:40 PM
 
 APIs (Application Programming Interfaces) are useful tools for automating data retrieval and integrating external datasets into R workflows. This lightning talk will demonstrate how to use APIs to access data. 
 

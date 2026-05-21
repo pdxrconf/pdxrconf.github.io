@@ -4,7 +4,7 @@ url: "2026/lightning/jeremy_miller"
 ---
 
 ### Cell HierARchy Gene Explorer (CHARGE), an R Shiny app for exploring cell type data
-Lighting Talk, 3:00 - 3:35 PM
+Lighting Talk, 3:05 - 3:40 PM
 
 The human brain contains thousands of cell types, each with its own shape, purpose, and unique "instruction manual" of active genes. Using technologies that count these genes in millions of individual cells, researchers at the Allen Institute have established hierarchies of cell types across multiple brain regions and species. For instance, "Oligo L3-6 OPALIN ENPP6"" is one of four oligodendrocyte subtypes within the six broader “non-neuronal” classes in the human primary motor cortex. The specific cohort of active genes defines a cell type and dictates its biological function or dysfunction. However, these datasets are massive—often encompassing millions of cells and 30,000 genes per cell—making it difficult to find specific genes of interest. To address this, we developed Cell HierARchy Gene Explorer (CHARGE), an interactive tool for the rapid identification of biologically significant genes within cell hierarchies. CHARGE uses fast, cluster-centric algorithms to find global or local marker genes and genes following user-selected gradients. The platform provides intuitive visualizations and allows for the seamless export of analysis statistics. By prioritizing speed and ease of use, CHARGE offers an ideal starting point for researchers to turn massive datasets into meaningful biological discoveries. Access CHARGE at: <https://molgen-shiny.org/CHARGE/>
 

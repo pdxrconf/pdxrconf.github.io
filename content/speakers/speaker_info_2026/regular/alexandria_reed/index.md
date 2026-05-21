@@ -4,7 +4,7 @@ url: "2026/regular/alexandria_reed"
 ---
 
 ### Reproducibility in Practice: Using R to Bridge Teams
-Regular talk, 11:00 AM - 12:00 PM
+Regular talk, 11:00 - 12:00 PM
 
 Environmental projects often involve multiple teams: GIS specialists prepare spatial data, subject matter experts interpret results, and graphics professionals produce report-ready visuals. While effective, analysis can be difficult to reproduce or distributed across individuals, making updates and consistency challenging over time.
 
