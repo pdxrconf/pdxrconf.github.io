@@ -4,7 +4,7 @@ url: "2026/regular/kylie_bemis"
 ---
 
 ### Out-of-memory computing strategies for R and Bioconductor
-Regular talk, 11:00 AM - 12:00 PM
+Regular talk, 9:40 - 10:40 PM
 
 Computing on larger-than-memory datasets is a common challenge in analytical workflows in R, especially for bioinformatics applications. While R provides no built-in tools for out-of-memory computing, a rich ecosystem of packages has grown to address these issues on both CRAN and Bioconductor. Despite the existence of such packages, computing on larger-than-memory datasets still poses challenges that can be difficult to diagnose. Many larger-than-memory problems lend themselves well to parallelization, but parallelization introduces a new set of memory management challenges. In this talk, I will present some of the common pitfalls of parallel computing on larger-than-memory data in R, and possible strategies to solve them. Examples will focus on bioinformatics and the Bioconductor ecosystem, but the strategies and lessons are applicable to any R or Python program analyzing larger-than-memory datasets.
 

@@ -4,7 +4,7 @@ url: "2026/lightning/kelsey_mackenzi"
 ---
 
 ### Methods for Facilitating Multi-Institutional Data Collaboration Using Shiny
-Lighting Talk, 3:15 - 3:35 PM
+Lighting Talk, 3:05 - 3:40 PM
 
 Research Objective:  
 To develop a data visualization tool for complex policy data that is normally difficult to access and analyze, and facilitate collaboration across multi-institutional research teams.

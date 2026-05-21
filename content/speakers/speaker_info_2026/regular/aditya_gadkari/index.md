@@ -4,7 +4,7 @@ url: "2026/regular/aditya_gadkari"
 ---
 
 ### Power of Parquet: Improving efficiencies using the Apache Ecosystem
-Regular talk, 3:45 - 4:45 PM
+Regular talk, 3:40 – 4:40 PM
 
 This talk introduces the Apache data storage and access ecosystem and demonstrates the benefits of utilizing it in R workflows. The talk begins by an explanation of the Apache ecosystem's unique approach to data storage and the role each each component of the ecosystem in handling data storage. I then demonstrate how using these elements in combination can improve efficiency in data storage, read time and tabular and geospatial analysis resulting in faster, cleaner workflows. 
 

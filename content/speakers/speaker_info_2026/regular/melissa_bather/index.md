@@ -4,7 +4,7 @@ url: "2026/regular/melissa_bather"
 ---
 
 ### Sasquatch Statistics: Spatial Point Regression with R
-Regular talk, 2:00 - 3:00 PM
+Regular talk, 1:45 - 2:45 PM
 
 Can we use spatial statistics and R to explain why Bigfoot sightings cluster where they do? Are these clusters driven by landscape, people, or pure legend? Bigfoot sightings have been reported across the PNW for decades, but are they randomly scattered, or spatially predictable? This presentation will use a dataset of Bigfoot sightings to demonstrate a high-level spatial point regression workflow in R.
 

@@ -4,7 +4,7 @@ url: "2026/regular/randi_bolt"
 ---
 
 ### Making Sense of Messy Survey Responses with R
-Regular talk, 3:50 - 4:50 PM
+Regular talk, 3:40 – 4:40 PM
 
 The Governor's office requested that thousands of open-ended survey responses be analyzed and translated into actionable goals within a short timeframe. Faced with this challenge, we asked a practical question: could R help us analyze a large volume of survey text in a way that was reproducible, transparent, and driven by themes emerging from the data rather than pre-defined (and potentially biased) categories?
 
