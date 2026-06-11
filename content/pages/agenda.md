@@ -57,7 +57,7 @@ border-color:black;
 
 * [Hannah Waight](/2026/keynote/hannah_waight): State Media Control Influences Large Language Models
 
-#### 9:40 - 10:40 Session: LLMs and AI in R (1 hr)
+#### 9:40 - 10:40 Session: AI, LLMs, and Big Data in R (1 hr)
 15 min each speaker + 15 min Q&A 
 
 * [Kristin Bott](/2026/regular/kristin_bott): ellmer for all? Building context around LLMs
