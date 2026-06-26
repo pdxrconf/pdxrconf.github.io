@@ -97,8 +97,9 @@ url: "venue"
   <br>
   
   * Enter the Karl Miller Center (KMC) from **Broadway**. Registration will be to the right as you enter.
-  * Workshops are being held in rooms 180 and 185 on the first floor as well as 460 and 465 on the fourth floor. You can find your room number under each <a href="/workshop">workshop's page</a> or at registration.
+  * Workshops room assignments were sent in our informational email through EventBrite (please check spam!) and are available at registration.
   * All buildings are **locked**. Please use only the main entrance indicated in the above map. We will have organizers there to let you in. If no organizer is present, please reach out on <a href="https://join.slack.com/t/cascadiarconf/shared_invite/zt-1lu53059t-GAxQtzrwQhmo7BXE7YfC8w" target="blank_">Slack</a>.
+  * If you are attending **R Dev Day**, this is occurring in the Engineering Building, 1960 SW 4th St. This is about a 5 min walk from KMC and conference organizers can assist if you end up at KMC instead!
   
   <br>
   
