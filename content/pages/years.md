@@ -3,6 +3,13 @@ title: "Past conferences"
 url: "years"
 ---
 
+## 2026: Portland, OR
+
+### - [Agenda](../years/2026/agenda)
+### - [Talk PDFs]((https://github.com/pdxrconf/pdxrconf.github.io/tree/newsite/static/talks/talks_2026)
+### - [Video]() Coming soon!
+### - <a href="/workshop_past">Workshops</a>
+
 ## 2025: Portland, OR
 
 ### - [Agenda](../years/2025/agenda)

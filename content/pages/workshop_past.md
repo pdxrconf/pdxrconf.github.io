@@ -34,10 +34,22 @@ border-color:black;
 .descriptioncontainer {width:60%px;}
 </style>
 
+## 2026
+
+* R/RStudio for Beginners by L.K. Borland
+* <a href="https://github.com/cascadiarconf-gh-workshops">Intro and Intermediate GitHub for R Users</a> by Skyler Elmstrom
+* <a href="https://josiahparry.github.io/rust-for-r-devs/">Intro and R Package Rust for R Developers</a> by Josiah Parry
+* <a href="https://laderast.github.io/shinyowl">Intermediate Shiny</a> by Ted Laderas
+* <a href="https://charlotte.quarto.pub/dslc24/">Zero to Website with Quarto</a> by Charlotte Wickham
+* <a href="https://github.com/bbarker505/CascadiaR_2026_GIS_workshops">Introduction and Intermediate GIS and Mapping in R</a> by Brittany Barker
+* <a href="https://github.com/drorberel/shiny_workshop/tree/master">Advanced R Shiny: Use Cases and Applications</a> by Dror Berel
+
+<br>
+
 ## 2025
 
 * <a href="https://github.com/cascadiarconf-gh-workshops">Intro and Intermediate GitHub for R Users</a> by Skyler Elmstrom
-* <a href="https://josiahparry.github.io/2025-cascadia-rust-for-r-devs/intro-to-rust-for-r-devs/">Intro to Rust for R Developers</a> by Josiah Parry
+* <Intro to Rust for R Developers by Josiah Parry. See 2026 link for updated content
 * <a href="https://josiahparry.github.io/2025-cascadia-rust-for-r-devs/building-rust-based-r-pkgs/">Building Rust based R Packages</a> by Josiah Parry
 * <a href="https://laderast.github.io/shinyowl">Intermediate Shiny</a> by Ted Laderas
 * <a href="https://posit-dev.github.io/positron-workshop/caskdr.html">Introduction to Positron from R/RStudio Users</a> by Charlotte Wickham
