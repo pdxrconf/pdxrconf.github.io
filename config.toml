@@ -41,11 +41,11 @@ googleAnalytics = ""
    url = "/coming_soon/workshop/"
    weight = 32
 
-[[menu.main]]
-   name = "R Dev Day"
-   parent = "agenda"
-   url  = "https://pretix.eu/r-contributors/r-dev-day-cascadiar-2026/"
-   weight = 33
+#[[menu.main]]
+#   name = "R Dev Day"
+#   parent = "agenda"
+#   url  = "https://pretix.eu/r-contributors/r-dev-day-cascadiar-2026/"
+#   weight = 33
    
 [[menu.main]]
    name = "Past"
@@ -123,7 +123,7 @@ googleAnalytics = ""
     # #googleMapsApiKey = "AIzaSyCFhtWLJcE30xOAjcbSFi-0fnoVmQZPb1Y"
 
     #Style options: default (light-blue), blue, green, marsala, pink, red, turquoise, violet, brown
-    style = "marsala"
+    style = "sunrise"
 
     about_us = "<p>Cascadia R Conference is a regional R conference for the Pacific Northwest</p>"
 
