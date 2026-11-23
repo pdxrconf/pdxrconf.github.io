@@ -27,24 +27,14 @@ url: "sponsors"
 </head>
 
 
-<h3>We are currently looking for sponsors for Cascadia R Conf 2027! If you are interested in sponsoring, please see our <a href="https://drive.google.com/file/d/1uyz7yKAOfRCwrJHxzujFs25u2sHzDx1F/view?usp=drive_link">sponsorship levels</a> and contact us 
+<h3>We are currently looking for sponsors for Cascadia R Conf 2027! If you are interested in sponsoring, please see our <a href="https://drive.google.com/file/d/1Dt0XtAuzLLwpFjybAk0UxotQWZO3Hp-P/view?usp=sharing">sponsorship levels</a> and contact us 
 <a href="mailtso:cascadiarcon@gmail.com">here</a> </h3>
 
 <br>
-<h2>2026 Sponsors</h2>
+<h2>2027 Sponsors</h2>
 
-<a href="https://www.pdx.edu/" target="_blank">
-      <img src="/img/sponsors/psu_business.png" alt="Portland State University, School of Business Logo"
-      style="max-width: 500px; width: 100%; height: auto;">
-    </a>
-<br>
-<a href="https://www.ohsu.edu/" target="_blank">
-      <img src="/img/sponsors/ohsu2.png" alt="Oregon Health and Sciences University Logo"
-      style="max-width: 500px; width: 100%; height: auto;">
-    </a>
-<br>
-<a href="https://www.r-consortium.org/" target="_blank">
-      <img src="/img/sponsors/rconsortium.png" alt="R Consortium Logo"
+<a href="https://posit.co/" target="_blank">
+      <img src="/img/sponsors/Posit_logo.png" alt="Posit Logo"
       style="max-width: 500px; width: 100%; height: auto;">
     </a>
 <br>
