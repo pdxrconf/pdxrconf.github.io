@@ -13,7 +13,21 @@ this year and hope to see you there!</h3>
 
 ***
 
-### 2026 Organization Team
+### 2027 Organization Team
+
++ Moni Neradilek [lead]
++ [Kim Dill-McFarland](https://kdillmcfarland.github.io/) [lead]
++ Aditya Gadkari
++ Cameron Mulder
++ Dror Berel
++ Ellis Hughes
++ Jeff Pannell
++ Mohamed Albirair
++ Shuyi Ma
+
+***
+### Past conferences
+#### 2026 Organization Team
 
 + Aditya Gadkari
 + Andie Hendrick
@@ -33,8 +47,6 @@ this year and hope to see you there!</h3>
 + Peter Geissert
 + Skyler Elmstrom
 
-***
-### Past conferences
 #### 2025
 
 + Becky Basulto
