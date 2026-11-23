@@ -24,21 +24,22 @@ url: "cfp"
 
 <div class="center" id="cfp" style="text-align: left">
 
-<img src="/img/logo/logo_2026/hero.png" class="img-responsive" alt="Cascadia R hero logo">
+<img src="/img/logo/logo_2027/hero.png" class="img-responsive" alt="Cascadia R hero logo">
 
+<!--KEEP, does not show
 <center><h2>
-The 2026 Call for Presentations closed March 1. 
+The 2027 Call for Presentations closed January 29. 
 </h2></center>
+-->
 
-<!--
 <center><h2>
 It is with great pleasure that we announce the 
 <br>
-Call for Presentations for the 2026 Cascadia R Conference 
+Call for Presentations for the 2027 Cascadia R Conference 
 <br>
-to be held in Portland, Oregon on June 27, 2026. 
+to be held in Seattle, Washington on June 26, 2027. 
 </h2></center>
--->
+
 <br>
 
 <br>
@@ -66,19 +67,21 @@ Please also note that Cascadia
 R Conference is a regional conference that focuses on R users from the Cascadia 
 region (primarily Alaska, British Columbia, Washington, Oregon, Idaho, California). 
 Submissions are welcome from those outside of the region, but priority will be 
-given to submissions from Cascadia locations. Please note that we are unable to provide travel compensation for speakers.
+given to submissions from Cascadia locations. Please note that we are unable to 
+provide travel compensation for speakers.
 
 <br>
 
 <h2>How to apply</h2>
 
-To apply, fill out and submit the [Cascadia R Conference Application](https://forms.gle/eM8gGgU15rFGT1i69). Applicants must include an 
-abstract limited to 1500 characters (~250-300 words) describing your presentation 
-and how it aligns with the goals of the conference, as well as email 
-contact information. 
+To apply, fill out and submit the 
+[Cascadia R Conference Application](https://docs.google.com/forms/d/e/1FAIpQLSebFcJU2Dk6EMZshdFapTnLok44x7C-1j-_VzLPjt60b2aBEA/viewform?usp=header). 
+Applicants must include an abstract limited to 1500 characters (~250-300 words) 
+describing your presentation and how it aligns with the goals of the conference, 
+as well as email contact information. 
 
-**The Call for Presentations will close March 1, 2026 at 5PM PT.** 
-Presenters will be notified by the end of March 2026. Upon notification, 
+**The Call for Presentations will close January 29, 2027 at 5PM PT.** 
+Presenters will be notified by the end of February 2027. Upon notification, 
 presenters are expected to confirm acceptance, provide a high-quality headshot, 
 and a short biography that will be included on the Cascadia R Conference website. 
 Prior to the conference, copies of the final presentation are required to be 
