@@ -73,8 +73,14 @@
 	height: 90px;
 }
 
-#register-button {padding: 5px; margin-top: 16px;text-decoration: none; margin-left: 15px; color: white; border: 2px solid; background-color: #6e5a52; border: 2px solid #6e5a52;} 
-#register-button:hover {background-color: #2E2420; border: 2px solid #2E2420;}
+#register-button {
+  background-color: var(--primary-accent);
+  border: 2px solid var(--primary-accent);
+}
+#register-button:hover {
+  background-color: var(--navbar-border-top); /* maroon #690c1a */
+  border-color: var(--navbar-border-top);
+}
 
 @media (max-width: 600px) {
   table.speaker-table,
