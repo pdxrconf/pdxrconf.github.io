@@ -11,7 +11,7 @@ url: "faq"
 Yes! See the <a href="/policies">Policies</a> page.
 
 ### When is the conference?
-TBD 2027
+The main conference is Saturday, June 26, 2027 with workshops held the prior Friday, June 25.
 
 ### Where is the conference?
 Seattle, WA 2027!
