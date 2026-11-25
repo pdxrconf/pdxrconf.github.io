@@ -20,10 +20,15 @@ this year and hope to see you there!</h3>
 + Aditya Gadkari
 + Cameron Mulder
 + Dror Berel
++ Dwight Barry
 + Ellis Hughes
 + Jeff Pannell
++ Kevin Gillespie
 + Mohamed Albirair
++ Nate Parsons
++ Nidhi Kochar
 + Shuyi Ma
++ Vini Karumaru
 
 ***
 ### Past conferences
