@@ -29,8 +29,8 @@ part of the close-out of last year's conf.
 This now serves as the basic event page but should not be published until 
 conference tickets are updated. See next section.
 
-![](img/manage.png){width=20%} 
-![](img/copy.png){width=70%} 
+<img src="img/manage.png" width="20%"> 
+<img src="img/copy.png" width="70%"> 
 
 ### Add tickets: Admission (main conf)
 
@@ -39,27 +39,27 @@ tickets to separate in-person and virtual options. Update each ticket type under
 its vertical ellipsis as follows.
 
 1. Select edit  
-    ![](img/ticket_edit1.png){width=70%} 
+    <img src="img/ticket_edit1.png" width="70%"> 
 2. Verify the ticket cost
     - Make sure Free ticket types are marked Free at the top to avoid EventBrite fees
     - All Paid tickets are at a Fixed price  
-    ![](img/ticket_edit2.png){width=30%} 
+    <img src="img/ticket_edit2.png" width="30%"> 
 3. Verify the quantity limit (blank in example above). This applies to early bird, scholarship, and sponsor tickets that have a limited number
 4. Set the sales start and end
     - Set early bird dates based on the agreed upon schedule
     - Set the day of ticket to be available during the 2 weeks after all other tickets are closed plus during the first hour of the event
     - All other in-person tickets remain on sale until 2 weeks before the event. We need this window to confirm numbers with catering. See "EventBrite-related requests" for policies on late purchases  
         - Virtual tickets can remain on sale until the day of the event  
-    ![](img/ticket_edit3.png){width=30%} 
+    <img src="img/ticket_edit3.png" width="30%"> 
 5. Open the advanced settings. Update the description if needed. Note that many ticket types do not need any description  
-    ![](img/ticket_edit4.png){width=30%} 
+    <img src="img/ticket_edit4.png" width="30%"> 
 6. Allow up to 10 tickets per order. This facilities admin purchasing of multiple tickets at once. We tried without it one year and had complaints
 7. All sales are online only and eTicket
 8. Finally, set the visibility
     - Paid tickets should be Hidden outside the sales dates
     - Free tickets generally require a code and should be set to Hidden. The code then reveals the ticket to the purchaser  
     - Day of tickets are also Hidden  
-    ![](img/ticket_edit5.png){width=30%} 
+    <img src="img/ticket_edit5.png" width="30%"> 
 
 ### Add tickets: Add-ons (workshops)
 
@@ -73,14 +73,14 @@ sections here to separate morning and afternoon workshops.
 1. Create or update workshops as needed. 
     - We recommend starting each workshop title with the date to help remind people that workshops are a day before the conf. 
     - Make the title short which may require shortening what the instructor uses as their full title
-    ![](img/workshop_edit1.png){width=70%} 
+    <img src="img/workshop_edit1.png" width="70%"> 
 2. Update each workshop under its vertical ellipsis. 
     - Set the total quantity based on room size or instructor limitations.
     - Set the description with 1 - 2 sentences
     - Put the max quantity at 1. Until the main conf, we need each participant to register separately so that we get an email address to share prep materials
     - Similar to the conference, cut off sales 2 weeks before the event. See "EventBrite-related requests" for policies on late purchases  
-    ![](img/workshop_edit2.png){width=30%} 
-    ![](img/workshop_edit3.png){width=30%} 
+    <img src="img/workshop_edit2.png" width="30%"> 
+    <img src="img/workshop_edit3.png" width="30%"> 
 
 ### Order options
 #### Order form
@@ -91,8 +91,8 @@ to collect Each attendee as we need information for name badges.
 Review the questions and make edits as desired. Note some questions are set to only
 appear with some ticket types (for example, student confirmation with student ticket type).
 
-![](img/questions1.png){width=40%}
-![](img/questions2.png){width=40%} 
+<img src="img/questions1.png" width="40%">
+<img src="img/questions2.png" width="40%"> 
 
 #### Order confirmation
 
@@ -134,10 +134,10 @@ Currently, we issue all refunds even up to the day of the conf. There are two ma
 
 1. Receive an email directly from EventBrite with purchaser initiated refund request. Simply use the link in the email to go to the refund page. This method locks the "reason for refunding" and selected tickets to what the purchaser requested.
 2. Receive a separate email or message directly from the purchaser. In this case, go to Manage attendees -> Manage orders -> Search for their order # or name. Select Actions -> Refund this order (which gets you to the same page as #1)  
-    ![](img/refund1.png){width=30%} 
+    <img src="img/refund1.png" width="30%"> 
 3. Select the reason and ticket(s) to be refunded. 
     - Note that "duplicate order" is the only option that also refunds the EventBrite fees. Thus, please use this option whenever applicable, for example a speaker needing a refund because they purchased a ticket without using their free ticket code  
-    ![](img/refund2.png){width=30%} 
+    <img src="img/refund2.png" width="30%"> 
 
 ## Ticket sales closed
 
@@ -195,13 +195,13 @@ Use the event Dashboard to easily report total ticket sales and revenue
 ## Export attendee info
 
 1. Export the attendee info under Reporting -> Event reports -> Attendees -> Custom Questions Response.  
-  ![](img/report1.png){width=50%} 
+  <img src="img/report1.png" width="50%"> 
 
 2. Under Configure Columns, select the following:
     - Order info: Ticket type
     - Attendee info: Custom questions, email, first and last name
     - Ticket buyer info: Email, first and last name 
-    ![](img/report2.png){width=50%} 
+    <img src="img/report2.png" width="50%"> 
 3. Export to CSV
 
 ### For name badges
@@ -243,9 +243,9 @@ write.table(paste0(prefix, IDs), row.names = FALSE, col.names = FALSE, sep=",",
 ## Add codes to EventBrite
 
 1. Select Add tickets -> Promotions tab -> More options -> Upload a CSV file  
-    ![](img/add_codes.png){width=30%}
+    <img src="img/add_codes.png" width="30%">
 2. Select the CSV with codes, limit each code to 1 ticket, and set to reveal hidden tickets  
-    ![](img/code1.png){width=30%}
+    <img src="img/code1.png" width="30%">
 3. Apply code to Only certain hidden tickets and select the appropriate type. Only use 1 type per ticket batch
-    ![](img/code2.png){width=30%}
+    <img src="img/code2.png" width="30%">
 4. For non-unique codes such as a sponsor code to allow up to 5 tickets, you can input a single code under Add promotion -> Add an access or promo code. Use settings similar to batched codes but allow > 1 limit.
