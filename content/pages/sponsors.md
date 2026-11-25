@@ -33,6 +33,12 @@ url: "sponsors"
 <br>
 <h2>2027 Sponsors</h2>
 
+<a href="https://www.seattlechildrens.org/research/research-institute/" target="_blank">
+      <img src="/img/sponsors/sea_childrens.png" alt="Seattle Children's Research Institute Logo"
+      style="max-width: 500px; width: 100%; height: auto;">
+    </a>
+<br>
+
 <a href="https://posit.co/" target="_blank">
       <img src="/img/sponsors/Posit_logo.png" alt="Posit Logo"
       style="max-width: 500px; width: 100%; height: auto;">
